@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+
+	<session-factory>
+        
+       
+<!-- 	<property name="hibernate.connection.datasource">java:/comp/env/jdbc/JavaDataBase</property> -->
+        
+		<!-- Enable Hibernate's automatic session context management -->
+<!-- 		<property name="hibernate.current_session_context_class">thread</property> -->
+        
+		<!--SQL方言,以下使用SQLServer -->
+		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+
+		<!--是否要顯示實際操作資料庫時的SQL -->
+		<property name="hibernate.show_sql">true</property>
+
+        <!-- Disable the second-level cache -->
+        <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<!--交易管理類型, 以下使用JDBC Transaction -->
+		<property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+         
+		<!--Java物件與資料庫表格的映射檔 -->
+		<mapping resource="com/CRFitness/ActivityDetail/model/activityDetail.hbm.xml" />
+		<mapping resource="com/CRFitness/Activitys/model/activitys.hbm.xml" />
+		<mapping resource="com/CRFitness/Blockade/model/blockade.hbm.xml" />	
+		<mapping resource="com/CRFitness/Friendships/model/friendships.hbm.xml" />
+		<mapping resource="com/CRFitness/JournalCollect/model/journalCollect.hbm.xml" />
+		<mapping resource="com/CRFitness/Laudation/model/laudation.hbm.xml" />
+		<mapping resource="com/CRFitness/Member/model/member.hbm.xml" />
+		<mapping resource="com/CRFitness/MessageDetail/model/messageDetail.hbm.xml" />
+		<mapping resource="com/CRFitness/OrderDetails/model/orderDetails.hbm.xml" />
+		<mapping resource="com/CRFitness/Orders/model/orders.hbm.xml" />
+		<mapping resource="com/CRFitness/PersonalJournal/model/personalJournal.hbm.xml" />
+		<mapping resource="com/CRFitness/ProductDetail/model/productDetail.hbm.xml" />
+		<mapping resource="com/CRFitness/Products/model/products.hbm.xml" />
+		<mapping resource="com/CRFitness/Games/model/games.hbm.xml" />
+	</session-factory>
+	
+</hibernate-configuration>
