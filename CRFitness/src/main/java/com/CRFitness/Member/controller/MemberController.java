@@ -42,7 +42,10 @@ public class MemberController {
 			@RequestParam String nickname,
 			@RequestParam String e_mail,
 			@RequestParam String photoUrl) {
+<<<<<<< HEAD
 		
+=======
+>>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
 		request.getSession().setAttribute("LoginOK", memberService.SignCheck(nickname, e_mail, photoUrl));
 		return null;
 	}

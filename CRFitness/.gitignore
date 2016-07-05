@@ -1,4 +1,7 @@
-/target/
 /.settings/
+/target/
+/0629/
 /.classpath
 /.project
+/_JSP/
+/.gitignore

@@ -10,6 +10,7 @@
 ::-webkit-scrollbar {
 display:none;
 }
+<<<<<<< HEAD
 #list_mask {
     display: none;
 	background: #000; 
@@ -161,6 +162,162 @@ height:48px;
     left: 0;
     right: 0;
     z-index: 50;
+=======
+aside{
+	margin-top:55px;	
+}
+#list_mask {
+    display: none;
+	background: #000; 
+	position: fixed; 
+    right: 0; 
+    top: 0; 
+	z-index: 10;
+	width: 100%; height: 100%;
+	opacity: 0.7;
+	z-index: 999;
+    animation:bounce 0.7s;
+}
+@keyframes bounce {
+    from {width: 0%}   
+    to {width: 100%}
+}
+@keyframes bounce2 {
+    from {width: 100%}   
+    to {width: 0%}
+}
+#sidebar-wrapper {
+    z-index: 99999;
+    position: fixed;
+    left: 235px;
+    width: 0;
+    height: 100%;
+    margin-left: -235px;
+    overflow-y: auto;
+    background: #5599FF;
+    border-radius:0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0; /* Firefox */
+    -webkit-border-radius:0 3px 3px 0; /* Safari, Chrome */
+     /*�ʵe�ɶ���0.7s,all��#wrapper���css  �ʵe�ɶ�0.7s �ʵe����t�׬�ease*/
+    -webkit-transition: all 0.7s ease;/* Firefox */
+    -moz-transition: all 0.7s ease;/* Safari, Chrome */
+    -o-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+    box-shadow: 5px 0px 20px #999;/*�϶����v box-shadow:1.���k�������v 2.�W�U�������v 3.���v�ҽk 4.���v�C��*/
+	-moz-box-shadow: 5px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 5px 0px 20px #999; /* Safari, Chrome */
+}
+
+/*�����M��W�[�Ftoggled(class)�˦�*/
+#wrapper.toggled #sidebar-wrapper {
+    width: 235px;/*����e��*/
+}
+/* Sidebar Styles */
+/*�M�� css*/
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 235px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+/*�M��̨C�� li css*/
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+/*�M��̨C�� li�U����a css*/
+.sidebar-nav>li>a,.sidebar-nav>li>div>a {
+    display: block;
+    font-size:20px;
+    text-decoration: none;
+    color: white;
+    border-bottom:1px solid #00BBFF;
+     -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.sidebar-nav>li>div>ul>li a {
+    display: block;
+    font-size:16px;
+    text-decoration: none;
+    color: white;
+     -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+/*���M��� �U�Ԧ��p�M��css*/
+.wrapper_dropdown_ul {
+    overflow:hidden;
+    display:none;
+    text-decoration: none;
+     list-style: none;
+}
+.sidebar-nav>li .fa {
+    padding-right:25px
+}
+.caret {
+   position:absolute;
+   left:200px;
+   top:15px;
+}
+/*���M�椤���Ĥ@��li ��lli�U����a�Q�I�쪺�ĪG*/
+.sidebar-nav li:not(:first-child) a:hover {
+    text-decoration: none;
+    color: #0066FF;
+    background: rgba(255,255,255,0.7);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {   
+    height: 45px;
+    font-size: 18px;
+    line-height: 60px;
+    border-bottom:1px solid #00BBFF;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color:white; 
+}
+.sidebar-nav > .sidebar-brand a:hover { 
+    color: #0066FF;
+    background: none;
+    
+}
+/*�M�楪�W�����Фl�Q�I�쪺�ĪG*/
+.icon_home:hover{
+width:48px;
+height:48px;
+}
+/*���W���M��p�� css*/
+#header_list {
+     position: fixed;
+    top: 10px;
+    left: 10px;
+    color:#46A3FF;
+    opacity:0.5;
+}
+#header_list:hover {
+     opacity:1;
+}
+.header_css {
+  position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 15;
+>>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
    background:white;
     border-bottom:1px double #5599FF;
      border-width:5px;

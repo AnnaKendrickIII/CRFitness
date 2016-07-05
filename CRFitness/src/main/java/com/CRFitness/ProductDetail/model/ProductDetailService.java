@@ -18,6 +18,7 @@ public class ProductDetailService {
 
 	public ProductDetailService() {
 	}
+<<<<<<< HEAD
 
 	//找商品照片
 	public byte[] findProductsPhoto(String productDetail_Id){
@@ -79,6 +80,65 @@ public class ProductDetailService {
 	// }
 	// return result;
 	// }
+=======
+	
+	
+	//back-end
+	//找商品照片
+	public byte[] findProductsPhoto(String productDetail_Id){
+		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
+	}
+	
+	public ProductDetailVO insertProductDetail(ProductDetailVO productDetailVO) {
+		productDetailDAO.insert(productDetailVO);
+		return productDetailVO;
+	}
+
+
+	public void updateProductDetail(ProductDetailVO productDetailVO) {
+		productDetailDAO.update(productDetailVO);
+	}
+
+
+	public void deletProductDetail(String productDetail_Id) {
+		productDetailDAO.delete(productDetail_Id);
+	}
+
+
+	public ProductDetailVO findProductDetail(String productDetail_Id) {
+		return productDetailDAO.findByPrimaryKey(productDetail_Id);
+	}
+
+	public List<ProductDetailVO> getAll() {
+		return productDetailDAO.getAll();
+	}
+	
+	
+	//front-end
+	public List<ProductDetailVO> getAllDetail() {
+		return productDetailDAO.getAll();
+	}
+
+	public ProductDetailVO addProductDetial(ProductDetailVO productDetailVO) {
+		if (productDetailVO != null) {
+			productDetailDAO.insert(productDetailVO);
+			return productDetailVO;
+		} else {
+			return null;
+		}
+	}
+
+	public ProductDetailVO getProductDetailId(String product_Name, String size,
+			String color) {
+		if (product_Name != null && size != null && color != null) {
+			return productDetailDAO.getProductDetailId(product_Name, size,
+					color);
+		} else {
+			return null;
+		}
+	}
+
+>>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
 	
 
 //	public static void main(String[] args) {
