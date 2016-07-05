@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.CRFitness.Orders.model.OrdersVO" table="Orders" >
+        <id name="order_Id" column="Order_Id">
+            <generator class="generator.OrderGenerator"/>
+        </id>
+        <property name="member_Id" column="Member_Id" />      
+        <property name="order_Status" column="Order_Status" />
+        <property name="ship_Date" column="Ship_Date" />
+        <property name="total_Amount" column="Total_Amount" />
+        <property name="invoice_Number" column="Invoice_Number" />      
+        <property name="consignee_Name" column="Consignee_Name" />
+        <property name="consignee_Address" column="Consignee_Address" />
+        <property name="order_Time" column="Order_Time" />
+        <property name="payment_Method" column="Payment_Method" />
+        
+    </class>
+</hibernate-mapping>

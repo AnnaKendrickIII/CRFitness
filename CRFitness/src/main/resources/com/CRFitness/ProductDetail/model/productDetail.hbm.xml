@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.CRFitness.ProductDetail.model.ProductDetailVO"
+		table="ProductDetail">
+
+		<id name="productDetail_Id" column="ProductDetail_Id">
+			<generator class="generator.ProductDetailGenerator" />
+		</id>
+		<property name="product_Id" column="Product_Id" />
+		<property name="size" column="Size" />
+		<property name="color" column="Color" />
+		<property name="product_Name" column="Product_Name" />
+		<property name="stock" column="Stock" />
+		<property name="publishedDay" column="PublishedDay" />
+		<property name="photo1" type="binary">
+			<column name="photo1" />
+		</property>
+		<property name="photo2" type="binary">
+			<column name="photo2" />
+		</property>
+		<property name="photo3" type="binary">
+			<column name="photo3" />
+		</property>
+		
+
+	</class>
+</hibernate-mapping>
