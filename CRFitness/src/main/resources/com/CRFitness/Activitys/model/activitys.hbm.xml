@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.CRFitness.Activitys.model.ActivitysVO" table="Activitys">
+		<id name="activity_Id" column="activity_Id">
+			<generator class="generator.ActivityGenerator" />
+		</id>
+		<many-to-one name="memberVO" class="com.CRFitness.Member.model.MemberVO"
+			lazy="false">
+			<column name="member_Id" />
+		</many-to-one>
+		<property name="activity_Day" column="activity_Day"></property>
+		<property name="activity_Class" column="activity_Class"></property>
+		<property name="activity_Area" column="activity_Area"></property>
+		<property name="photo1" type="binary">
+			<column name="photo1" />
+		</property>
+		<property name="photo2" type="binary">
+			<column name="photo2" />
+		</property>
+		<property name="photo3" type="binary">
+			<column name="photo3" />
+		</property>
+		<property name="activity_Info" column="activity_Info"></property>
+		<property name="deadline" column="deadline"></property>
+		<property name="startDay" column="startDay"></property>
+		<property name="people" column="people"></property>
+	</class>
+</hibernate-mapping>

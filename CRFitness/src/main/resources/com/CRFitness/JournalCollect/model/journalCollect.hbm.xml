@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.CRFitness.JournalCollect.model.JournalCollectVO" table="JournalCollect" >
+        <composite-id>
+            <!-- key-property標籤表示哪一些屬性對應複合主鍵 -->
+            <key-property name="member_Id" column="Member_Id" />
+            <key-property name="favorited_Journal" column="Favorited_Journal" />
+        </composite-id>
+    </class>
+</hibernate-mapping>

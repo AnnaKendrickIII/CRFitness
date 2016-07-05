@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.CRFitness.MessageDetail.model.MessageDetailVO" table="MessageDetail">
+		<id name="message_Id" column="message_Id">
+			<generator class="identity"></generator>
+		</id>
+		<property name="journal_Id" column="journal_Id" />
+		<property name="member_Id" column="member_Id" />
+		<property name="content" column="content" />
+		<property name="messageTime" column="messageTime"></property>
+	</class>
+</hibernate-mapping>
