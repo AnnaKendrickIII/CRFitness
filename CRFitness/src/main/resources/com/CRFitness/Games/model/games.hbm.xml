@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.CRFitness.Games.model.GamesVO" table="Games">
+		<id name="gamesNumber" column="GamesNumber" />
+		<property name="gamesDate" column="GamesDate" />
+		<property name="gamesName" column="GamesName" />
+		<property name="gamesUrl" column="GamesUrl" />
+		<property name="counties" column="Counties" />
+		<property name="location" column="Location" />
+		<property name="registrationTime" column="RegistrationTime" />
+	</class>
+	
+	
+</hibernate-mapping>
