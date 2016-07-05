@@ -11,7 +11,7 @@
 display:none;
 }
 aside{
-	margin-top:50px;	
+	margin-top:55px;	
 }
 #list_mask {
     display: none;
@@ -163,7 +163,7 @@ height:48px;
   position: fixed;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 15;
    background:white;
     border-bottom:1px double #5599FF;
      border-width:5px;
