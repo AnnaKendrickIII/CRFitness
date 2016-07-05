@@ -12,13 +12,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.CRFitness.Member.model.MemberVO;
+
 
 @Repository("personalJournalDAO")
 @Transactional(transactionManager = "transactionManager")
 public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
-	private static final String GET_ALL_JOURNAL = "from PersonalJournalVO where member_Id=:member_Id";
+	private static final String GET_ALL_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO";
 	
 
 	@Autowired
@@ -74,8 +76,8 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	}
 	
 	@Override
-	public List<PersonalJournalVO> select_journal(String member_Id) {
-		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("member_Id", member_Id);
+	public List<PersonalJournalVO> select_journal(MemberVO memberVO) {
+		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("memberVO", memberVO);
 		
 		return (List<PersonalJournalVO>) query.list();
 		
