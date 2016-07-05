@@ -18,7 +18,9 @@ public class ProductDetailService {
 
 	public ProductDetailService() {
 	}
-
+	
+	
+	//back-end
 	//找商品照片
 	public byte[] findProductsPhoto(String productDetail_Id){
 		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
@@ -28,36 +30,17 @@ public class ProductDetailService {
 		productDetailDAO.insert(productDetailVO);
 		return productDetailVO;
 	}
-	// public ProductBean insert(ProductBean bean) {
-	// ProductBean result = null;
-	// if(bean!=null) {
-	// result = productDao.insert(bean);
-	// }
-	// return result;
-	// }
+
 
 	public void updateProductDetail(ProductDetailVO productDetailVO) {
 		productDetailDAO.update(productDetailVO);
 	}
-	// public ProductBean update(ProductBean bean) {
-	// ProductBean result = null;
-	// if(bean!=null) {
-	// result = productDao.update(bean.getName(), bean.getPrice(),
-	// bean.getMake(), bean.getExpire(), bean.getId());
-	// }
-	// return result;
-	// }
+
 
 	public void deletProductDetail(String productDetail_Id) {
 		productDetailDAO.delete(productDetail_Id);
 	}
-	// public boolean delete(ProductBean bean) {
-	// boolean result = false;
-	// if(bean!=null) {
-	// result = productDao.delete(bean.getId());
-	// }
-	// return result;
-	// }
+
 
 	public ProductDetailVO findProductDetail(String productDetail_Id) {
 		return productDetailDAO.findByPrimaryKey(productDetail_Id);
@@ -66,19 +49,32 @@ public class ProductDetailService {
 	public List<ProductDetailVO> getAll() {
 		return productDetailDAO.getAll();
 	}
-	// public List<ProductBean> select(ProductBean bean) {
-	// List<ProductBean> result = null;
-	// if(bean!=null && bean.getId()!=0) {
-	// ProductBean temp = productDao.select(bean.getId());
-	// if(temp!=null) {
-	// result = new ArrayList<ProductBean>();
-	// result.add(temp);
-	// }
-	// } else {
-	// result = productDao.select();
-	// }
-	// return result;
-	// }
+	
+	
+	//front-end
+	public List<ProductDetailVO> getAllDetail() {
+		return productDetailDAO.getAll();
+	}
+
+	public ProductDetailVO addProductDetial(ProductDetailVO productDetailVO) {
+		if (productDetailVO != null) {
+			productDetailDAO.insert(productDetailVO);
+			return productDetailVO;
+		} else {
+			return null;
+		}
+	}
+
+	public ProductDetailVO getProductDetailId(String product_Name, String size,
+			String color) {
+		if (product_Name != null && size != null && color != null) {
+			return productDetailDAO.getProductDetailId(product_Name, size,
+					color);
+		} else {
+			return null;
+		}
+	}
+
 	
 
 //	public static void main(String[] args) {

@@ -1,19 +1,20 @@
 package com.CRFitness.Orders.model;
-import java.sql.Timestamp;
-public class OrdersVO implements java.io.Serializable{						//訂單
 
+import java.sql.Timestamp;
+
+public class OrdersVO implements java.io.Serializable { // 訂單
 
 	private static final long serialVersionUID = 1L;
-	private String order_Id;				//訂單編號
-	private String member_Id;				//會員編號
-	private String order_Status;			//訂單狀態
-	private java.sql.Date ship_Date;		//出貨日期
-	private Double total_Amount;			//總金額
-	private String invoice_Number;			//發票號碼
-	private String consignee_Name;			//收件人姓名
-	private String consignee_Address;		//收件人地址
-	private Timestamp order_Time;			//下單時間
-	private Integer payment_Method;			//付款方式
+	private String order_Id; // 訂單編號
+	private String member_Id; // 會員編號
+	private String order_Status; // 訂單狀態
+	private java.sql.Date ship_Date; // 出貨日期
+	private Double total_Amount; // 總金額
+	private String invoice_Number; // 發票號碼
+	private String consignee_Name; // 收件人姓名
+	private String consignee_Address; // 收件人地址
+	private Timestamp order_Time; // 下單時間
+	private String payment_Method; // 付款方式
 
 	public String getOrder_Id() {
 		return order_Id;
@@ -87,11 +88,11 @@ public class OrdersVO implements java.io.Serializable{						//訂單
 		this.order_Time = order_Time;
 	}
 
-	public Integer getPayment_Method() {
+	public String getPayment_Method() {
 		return payment_Method;
 	}
 
-	public void setPayment_Method(Integer payment_Method) {
+	public void setPayment_Method(String payment_Method) {
 		this.payment_Method = payment_Method;
 	}
 
