@@ -29,17 +29,17 @@ body {
 	background-color: #46A3FF;
 }
 
-#games_talbe thead th:nth-child(1) {
-	border-radius: 20px 0px 0px 0px;
-	-moz-border-radius: 20px 0px 0px 0px; /* Firefox */
-	-webkit-border-radius: 20px 0px 0px 0px; /* Safari, Chrome */
-}
+/* #games_talbe thead th:nth-child(1) { */
+/* 	border-radius: 20px 0px 0px 0px; */
+/* 	-moz-border-radius: 20px 0px 0px 0px; /* Firefox */ */
+/* 	-webkit-border-radius: 20px 0px 0px 0px; /* Safari, Chrome */ */
+/* } */
 
-#games_talbe thead th:nth-child(5) {
-	border-radius: 0px 20px 0px 0px;
-	-moz-border-radius: 0px 20px 0px 0px; /* Firefox */
-	-webkit-border-radius: 0px 20px 0px 0px; /* Safari, Chrome */
-}
+/* #games_talbe thead th:nth-child(5) { */
+/* 	border-radius: 0px 20px 0px 0px; */
+/* 	-moz-border-radius: 0px 20px 0px 0px; /* Firefox */ */
+/* 	-webkit-border-radius: 0px 20px 0px 0px; /* Safari, Chrome */ */
+/* } */
 
 .lead{
 	color: #8E8E8E;
@@ -58,56 +58,85 @@ body {
 }
 
 .year_td {
-	background-color: #EA7500;
+	background-color: #FF5809;
 	text-align: center;
-	color: white;
+
 	padding: 0px;
 }
 
 .year_h3 {
-	margin: 0px auto;
 	color: white;
+}
+#games_div{
+background-color: white;
+padding: 0px;
+}
+#img_run{
+float:right;
+}
+#games_h1{
+float:right;
+color:blue
 }
 </style>
  
-<script src="js/search.custom.js"></script>
+<script src="${this_contextPath}/js/search.custom.js"></script>
 
 </head>
 <body>
 <aside>
-	<div class="row">
-		<div class="col-md-1 "></div>
-		<div class="col-md-10 col-xs-12 ">
-			<div class="">
-				<div id="sb-search" class="sb-search">
-					<form>
-						<input id="tablesearchinput" class="sb-search-input"
-							placeholder="請輸入關鍵字" type="text" value="" name="search"
-							id="search"> <input id='searchId'
-							class="sb-search-submit" type="submit" value=""> <span
-							class="sb-icon-search"></span>
-					</form>
+		<div class="row">
+			<div class="col-md-2 col-xs-1"></div>
+			<div id="games_div" class="col-md-8 col-xs-10 ">
+			
+				<img src="${this_contextPath}/images/run2.png"
+						class="img-responsive" alt="Responsive image">
+				<div class="row">
+					<div class="col-md-7 col-xs-7">
+						<h1 id="games_h1">熱門賽事</h1>
+					</div>
+					<div class="col-md-5 col-xs-5">
+						<div id="sb-search" class="sb-search ">
+							<form>
+								<input id="tablesearchinput" class="sb-search-input"
+									placeholder="請輸入關鍵字" type="text" value="" name="search"
+									id="search"> <input id='searchId'
+									class="sb-search-submit" type="submit" value=""> <span
+									class="sb-icon-search"></span>
+							</form>
+						</div>
+					</div>
 				</div>
+				<table id="games_talbe" class="table">
+
+					<thead>
+						<tr>
+							<th><h3 class="text-center">
+									<strong>日期</strong>
+								</h3></th>
+							<th><h3 class="text-center">
+									<strong>賽事名稱</strong>
+								</h3></th>
+							<th><h3 class="text-center">
+									<strong>縣市</strong>
+								</h3></th>
+							<th><h3 class="text-center">
+									<strong>地點</strong>
+								</h3></th>
+							<th><h3 class="text-center">
+									<strong>報名時間</strong>
+								</h3></th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
 			</div>
-			<table id="games_talbe" class="table">
-				<thead>
-					<tr>
-						<th><h3 class="text-center">日期</h3></th>
-						<th><h3 class="text-center">賽事名稱</h3></th>
-						<th><h3 class="text-center">縣市</h3></th>
-						<th><h3 class="text-center">地點</h3></th>
-						<th><h3 class="text-center">報名時間</h3></th>
-					</tr>
-				</thead>
-				<tbody>
-
-				</tbody>
-			</table>
+			<div class="col-md-2 col-xs-1"></div>
 		</div>
-		<div class="col-md-1"></div>
-	</div>
 
-	<script src="js/search.classie.js"></script>
+		<script src="js/search.classie.js"></script>
 		<script src="js/search.uisearch.js"></script>
 
 	<script>
