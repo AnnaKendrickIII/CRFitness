@@ -10,6 +10,11 @@
 ::-webkit-scrollbar {
 display:none;
 }
+aside{
+	margin-top:50px;
+	overflow-x:hidden;
+	overflow-y:auto
+}
 #list_mask {
     display: none;
 	background: #000; 
@@ -160,7 +165,7 @@ height:48px;
   position: fixed;
     left: 0;
     right: 0;
-    z-index: 50;
+    z-index: 9999;
    background:white;
     border-bottom:1px double #5599FF;
      border-width:5px;
