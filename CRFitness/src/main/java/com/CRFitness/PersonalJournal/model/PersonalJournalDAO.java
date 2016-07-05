@@ -12,72 +12,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
-
-@Repository("personalJournalDAO")
-@Transactional(transactionManager = "transactionManager")
-public class PersonalJournalDAO implements PersonalJournalDAO_interface {
-
-	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
-	private static final String GET_ALL_JOURNAL = "from PersonalJournalVO where member_Id=:member_Id";
-	
-
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	public PersonalJournalDAO() {
-
-	}
-
-	public Session getSession() {
-		return sessionFactory.getCurrentSession();
-	}
-
-	@Override
-	public boolean insert(PersonalJournalVO journal_Id) {
-		if (journal_Id != null) {
-			this.getSession().saveOrUpdate(journal_Id);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean update(PersonalJournalVO journal_Id) {
-		if (journal_Id != null) {
-			this.getSession().saveOrUpdate(journal_Id);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean delete(String journal_Id) {
-		PersonalJournalVO personalJournalVO = (PersonalJournalVO) this
-				.getSession().get(PersonalJournalVO.class, journal_Id);
-		if (personalJournalVO != null) {
-			this.getSession().delete(personalJournalVO);
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public PersonalJournalVO findByPrimaryKey(String journal_Id) {
-		return (PersonalJournalVO) this.getSession().get(
-				PersonalJournalVO.class, journal_Id);
-	}
-
-	@Override
-	public List<PersonalJournalVO> getAll() {
-		Query query = this.getSession().createQuery(GET_ALL_STMT);
-		return (List<PersonalJournalVO>) query.list();
-	}
-	
-	@Override
-	public List<PersonalJournalVO> select_journal(String member_Id) {
-		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("member_Id", member_Id);
-=======
 import com.CRFitness.Member.model.MemberVO;
 
 
@@ -143,9 +77,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	@Override
 	public List<PersonalJournalVO> select_journal(MemberVO memberVO) {
-		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("memberVO", memberVO);
->>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
-		
+		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("memberVO", memberVO);		
 		return (List<PersonalJournalVO>) query.list();
 		
 	}
