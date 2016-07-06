@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="${this_contextPath}/css/site.css">
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
+
 
 <style>
 .gallery {
@@ -138,9 +140,20 @@
                             <div id="addActivitys_form" class="modal-body">
                             <div id='fine-uploader-manual-trigger'></div>
                                 <p>活動時間&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
-                                <input required="required" type="text" name="addActivitys_day" autocomplete="off" class="form-control" placeholder="活動時間" />                                                
+                                <input required="required" type="text" id="datetimepicker" name="addActivitys_day" autocomplete="off" class="form-control" placeholder="活動時間" />                                                
                                 <p>活動類別&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.e_mail_error}</span></p>
-                                <input required="required" type="text" id="addActivitys_class" autocomplete="off" class="form-control" placeholder="活動類別" />
+<!--                                 <input required="required" type="text" id="addActivitys_class" autocomplete="off" class="form-control" placeholder="活動類別" /> -->
+                                <select id="addActivitys_class" name="test1" class="form-control" >
+								  <option value="1">跑步</option>
+								  <option value="2">登山</option>
+								  <option value="3">游泳</option>
+								  <option value="4">飛輪</option>
+								  <option value="5">自行車</option>
+								  <option value="6">有氧運動</option>
+								  <option value="7">球類運動</option>
+								  <option value="8">室內運動</option>
+								  <option value="9">其他類別</option>
+								</select>
                                 <p>活動地點&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.password_error}</span></p>
                                 <input required="required" type="text" id="addActivitys_place" class="form-control" autocomplete="off" placeholder="活動地點"/>
                                 <p>活動內容&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.checkpassword_error}</span></p>
@@ -157,11 +170,7 @@
                     </div>
                 </div>
                </form>
-                <!-- 輸入日期 開始-->
 
-                <!-- 輸入日期 結尾-->
-                
-                
                 <!-- 上傳圖片 開始-->
                 <script>
         $('#fine-uploader-manual-trigger').fineUploader({
@@ -189,7 +198,13 @@
 	<script src="${this_contextPath}/js/classie.js"></script>
 	<script src="${this_contextPath}/js/imagesloaded.js"></script>
 	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
-
+	
+	<!-- 輸入日期 開始-->
+	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script>
+	<script>
+		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00',step:10});
+	</script>
+	<!-- 輸入日期 結尾-->
 	<script>
 	Date.prototype.Format = function (fmt) {  
 	    var o = {

@@ -3,11 +3,17 @@ package com.CRFitness.ProductDetail.model;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
+import com.CRFitness.Products.model.ProductsVO;
+
+
 public class ProductDetailVO implements java.io.Serializable{				//商品明細
 	
 	private static final long serialVersionUID = 1L;
 	private String productDetail_Id;		//商品明細編號
-	private String product_Id;				//商品編號
+
+	// private String product_Id; //商品編號
+	private ProductsVO productsVO;
+
 	private String size;					//尺寸
 	private String color;					//顏色
 	private String product_Name;			//商品名稱
@@ -19,19 +25,30 @@ public class ProductDetailVO implements java.io.Serializable{				//商品明細
 	private String introduction;			//商品簡介
 	private String detailed_Description;	//商品詳細說明
 	
-	
+
 	public String getProductDetail_Id() {
 		return productDetail_Id;
 	}
 	public void setProductDetail_Id(String productDetail_Id) {
 		this.productDetail_Id = productDetail_Id;
 	}
-	public String getProduct_Id() {
-		return product_Id;
+
+//	public String getProduct_Id() {
+//		return product_Id;
+//	}
+
+//	public void setProduct_Id(String product_Id) {
+//		this.product_Id = product_Id;
+//	}
+
+	public ProductsVO getProductsVO() {
+		return productsVO;
 	}
-	public void setProduct_Id(String product_Id) {
-		this.product_Id = product_Id;
+	
+	public void setProductsVO(ProductsVO productsVO) {
+		this.productsVO = productsVO;
 	}
+	
 	public String getSize() {
 		return size;
 	}
@@ -83,6 +100,7 @@ public class ProductDetailVO implements java.io.Serializable{				//商品明細
 	public String getIntroduction() {
 		return introduction;
 	}
+	
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
@@ -92,5 +110,5 @@ public class ProductDetailVO implements java.io.Serializable{				//商品明細
 	public void setDetailed_Description(String detailed_Description) {
 		this.detailed_Description = detailed_Description;
 	}
-	
+
 }

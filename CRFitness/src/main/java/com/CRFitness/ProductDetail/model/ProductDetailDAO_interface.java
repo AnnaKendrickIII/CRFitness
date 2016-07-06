@@ -2,22 +2,19 @@ package com.CRFitness.ProductDetail.model;
 
 import java.util.List;
 
-import org.hibernate.Session;
 
 public interface ProductDetailDAO_interface {
 
-	Session getSession();
-
-	boolean insert(ProductDetailVO productDetailVO);
-
-	boolean update(ProductDetailVO productDetailVO);
-
-	boolean delete(String productDetail_Id);
-
-	ProductDetailVO findByPrimaryKey(String productDetail_Id);
-
-	List<ProductDetailVO> getAll();
-
+	
+	public boolean insert(ProductDetailVO productDetailVO);
+	public boolean update(ProductDetailVO productDetailVO);
+	public boolean delete(String productDetail_Id);       
+	public ProductDetailVO findByPrimaryKey(String productDetail_Id);
+	public List<ProductDetailVO> getAll();
+	public ProductDetailVO getProductDetailId(String product_Name, String size, String color);
+	public List<ProductDetailVO> getItemByCategory(String category);
+	
+	
 	// Back-end: MaintainEquipment.jsp
 	List<ProductDetailVO> getEquipment();
 
@@ -31,3 +28,5 @@ public interface ProductDetailDAO_interface {
 	List<ProductDetailVO> getShoes();
 
 }
+
+	

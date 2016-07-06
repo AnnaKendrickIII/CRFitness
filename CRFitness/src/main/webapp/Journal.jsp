@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -12,14 +13,18 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 
+<!-- 新增CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="${this_contextPath}/css/bootstrap-image-gallery.min.css">
+<!-- 新增CSS結束 -->
+
 </head>
 
 <body >
-	
-	
-	  <ul class="grid effect-7" id="grid"  >
-              
-	 </ul>
+
+	  <ul class="grid effect-7" id="grid"  ></ul>
+
 <%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 	<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
 	<script src="${this_contextPath}/js/classie.js"></script>
@@ -52,9 +57,16 @@
             	$.each(data,function(){		        
 	        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
 						var jdate_value = new Date(jdate_int); 
-	        		 $('#grid').append('<li ><a href=""><img src="data:image/png;base64,'+this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br />類別：'+this.contents+'<br />內容：'+this.contents+'<br />日期：'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
+	        		 $('#grid').append('<li><a href="data:image/png;base64,'
+	        		 +this.archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
+	        		 +this.archives+'" /></a>發起人：'+this.member_Id+'<br />類別：'
+	        		 +this.contents+'<br />內容：'+this.contents+'<br />日期：'
+	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
 	        		 
                 })
+                $.getScript('${this_contextPath}/js/bootstrap-image-gallery.min.js',function(){
+            		
+            	})
                 new AnimOnScroll(document.getElementById('grid'), {
                     minDuration: 0.4,
                     maxDuration: 0.6,
@@ -73,5 +85,51 @@
 	</script>
 
 	<!--  頁面部分 結束 -->
+	
+	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                <h4 class="modal-title" ></h4>
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 新增JS -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<!-- <script src="js/bootstrap-image-gallery.min.js"></script> -->
+
+<!-- 新增JS結束 -->
+
 </body>
 </html>

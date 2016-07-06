@@ -43,6 +43,6 @@ public class ActivitysController {
 			@RequestParam String photo1,
 			@RequestParam String date){	
 		System.out.println(photo1);
-		activitysService.addActivitys(member_Id, activity_Area, activity_Info, photo1, date);	
+		activitysService.addActivitys(member_Id, activity_Area, activity_Info, photo1, date,"","");	
 	}
 }
