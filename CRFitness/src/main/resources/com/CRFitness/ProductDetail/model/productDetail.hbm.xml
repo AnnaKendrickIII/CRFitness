@@ -17,7 +17,7 @@
 		<property name="color" column="Color" />
 		<property name="product_Name" column="Product_Name" />
 		<property name="stock" column="Stock" />
-		<property name="publishedDay" column="PublishedDay" />
+		<property name="published_Date" column="Published_Date" />
 		<property name="photo1" type="binary">
 			<column name="photo1" />
 		</property>
@@ -27,7 +27,8 @@
 		<property name="photo3" type="binary">
 			<column name="photo3" />
 		</property>
-		
+		<property name="introduction" column="Introduction" />
+		<property name="detailed_Description" column="Detailed_Description" />
 
 	</class>
 </hibernate-mapping>

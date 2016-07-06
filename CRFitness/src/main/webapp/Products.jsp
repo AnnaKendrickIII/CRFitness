@@ -8,9 +8,25 @@
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" href="${this_contextPath}/css/products2.css">
-<title>Products</title>
+<title>商品</title>
 
 <style type="text/css">
+.productsclass {
+	margin-top: 4%;
+	background-color: #DDDDDD;
+}
+#a{
+height:425px; 
+}
+#b{
+
+height:250px;
+}
+#a:hover{
+border:1px solid blue;
+
+}
+
 </style>
 
 </head>
@@ -28,80 +44,14 @@
                 class="glyphicon glyphicon-th"></span>Grid</a>
         </div>
     </div>
-    <div id="products" class="row list-group" >
-    
- 
-   	  
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        this.product_Name</h4>
-                    <p class="group inner list-group-item-text">
-            		  商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介
-                     	商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介
-	                                              商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                $+this.productsVO.price</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入購物車</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                      	                        商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介
-						                        商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介
-						                        商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入購物車</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-	                        商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介
-	                        商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介
-	                        商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介商品簡介</p>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-6">
-                            <p class="lead">
-                                $21.000</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="http://www.jquery2dotnet.com">加入購物車</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        
-    </div>
-</div>
+    <div class="row">
+    <div class="col-xs-1 col-lg-1"> </div>
+	    <div id="products" class="row list-group col-xs-10 col-lg-10" >
+	   
+	    </div>
+      <div class="col-xs-1 col-lg-1"> </div>
+     </div>
+	</div>
 
     
 <script type="text/javascript">
@@ -111,15 +61,15 @@ $.ajax({
 	data:{},
 	success:function(data){
 		$.each(data,function(){
-			$('#products').append('<div class="item  col-xs-4 col-lg-4"><div class="thumbnail"><img class="group list-group-image" src="http://placehold.it/400x250/000/fff" /><div class="caption"><h4 class="group inner list-group-item-heading">'
-				+this.product_Name+'</h4><p class="group inner list-group-item-text">商品簡介</p><div class="row"><div class="col-xs-12 col-md-6"><p class="lead">$'
-				+this.productsVO.price+'</p></div><div class="col-xs-12 col-md-6"><a class="btn btn-success" href="http://www.jquery2dotnet.com">加入購物車</a></div></div></div></div></div>'
+			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><img id="b"   class="group list-group-image"  src="data:image/png;base64,'+this.photo1+'" /><div class="caption"><h4 class="group inner list-group-item-heading">'
+				+this.product_Name+'</h4><p class="group inner list-group-item-text">'+this.introduction+'</p><div class="row"><div class="col-xs-12 col-md-6"><p class="lead">$'
+				+this.productsVO.price+'</p></div><div class="col-xs-12 col-md-6"><a class="btn btn-success" href="${this_contextPath}/index.jsp">商品介紹</a></div></div></div></div></div>'
 					)	
 		})
 	}
 });
 </script>
-<!-- src="data:image/png;base64,'+this.photo1+'" -->
+
 
 </aside>
 </body>

@@ -28,9 +28,9 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> list_productDetail(
 			HttpServletRequest request) {
-		request.getSession()
-				.setAttribute("list_products", productDetailService);
-		return productDetailService.getAllDetail();
+		request.getSession().setAttribute("list_productDetail",
+				productDetailService);
+		return productDetailService.getAllItem();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/getProductDetailId", produces = MediaType.APPLICATION_JSON)
@@ -40,18 +40,11 @@ public class ProductDetailController {
 
 		return null;
 	}
-
 	// back-end
-	@RequestMapping(method = RequestMethod.GET, value = "/photo/{productDetail_Id}", produces = {
-			"image/jpeg", "image/gif" })
-	public byte[] findProductsPhoto(@PathVariable String productDetail_Id) {
-		return productDetailService.findProductsPhoto(productDetail_Id);
-	}
-
-	// @RequestMapping(method = RequestMethod.GET, value ="/productDetail",
-	// produces = MediaType.APPLICATION_JSON)
-	// public @ResponseBody List<ProductDetailVO> showProductDetails(){
-	// return productDetailService.getAll();
-	// }
+	 @RequestMapping(method = RequestMethod.GET, value ="/productDetail",
+	 produces = MediaType.APPLICATION_JSON)
+	 public @ResponseBody List<ProductDetailVO> showProductDetails(){
+	 return productDetailService.getAll();
+	 }
 
 }

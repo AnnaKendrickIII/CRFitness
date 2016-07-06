@@ -4,28 +4,31 @@ import java.sql.Timestamp;
 
 import com.CRFitness.Products.model.ProductsVO;
 
-public class ProductDetailVO implements java.io.Serializable { // 商品明細
-
+public class ProductDetailVO implements java.io.Serializable{				//商品明細
+	
 	private static final long serialVersionUID = 1L;
-	private String productDetail_Id;
-	private String product_Id; // 商品編號
+	private String productDetail_Id;		//商品明細編號
+	// private String product_Id; //商品編號
 	private ProductsVO productsVO;
-	private String size; // 尺寸
-	private String color; // 顏色
-	private String product_Name; // 商品名稱
-	private Integer stock; // 庫存量
-	private Timestamp publishedDay; // 刊登日期
-	private byte[] photo1; // 圖片1
-	private byte[] photo2; // 圖片2
-	private byte[] photo3; // 圖片3
+	private String size;					//尺寸
+	private String color;					//顏色
+	private String product_Name;			//商品名稱
+	private Integer stock;					//庫存量
+	private Timestamp published_Date;		//刊登日期
+	private byte[] photo1;					//圖片1
+	private byte[] photo2;					//圖片2
+	private byte[] photo3;					//圖片3
+	private String introduction;			//商品簡介
+	private String detailed_Description;	//商品詳細說明
+	
 
 	public String getProductDetail_Id() {
 		return productDetail_Id;
 	}
-
 	public void setProductDetail_Id(String productDetail_Id) {
 		this.productDetail_Id = productDetail_Id;
 	}
+
 
 	public ProductsVO getProductsVO() {
 		return productsVO;
@@ -67,12 +70,11 @@ public class ProductDetailVO implements java.io.Serializable { // 商品明細
 		this.stock = stock;
 	}
 
-	public Timestamp getPublishedDay() {
-		return publishedDay;
+	public Timestamp getPublished_Date() {
+		return published_Date;
 	}
-
-	public void setPublishedDay(Timestamp publishedDay) {
-		this.publishedDay = publishedDay;
+	public void setPublished_Date(Timestamp published_Date) {
+		this.published_Date = published_Date;
 	}
 
 	public byte[] getPhoto1() {
@@ -98,13 +100,21 @@ public class ProductDetailVO implements java.io.Serializable { // 商品明細
 	public void setPhoto3(byte[] photo3) {
 		this.photo3 = photo3;
 	}
-
-	public String getProduct_Id() {
-		return product_Id;
+	public String getIntroduction() {
+		return introduction;
+	}
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	public String getDetailed_Description() {
+		return detailed_Description;
+	}
+	public void setDetailed_Description(String detailed_Description) {
+		this.detailed_Description = detailed_Description;
 	}
 
-	public void setProduct_Id(String product_Id) {
-		this.product_Id = product_Id;
-	}
-
+	
+	
+	
+	
 }
