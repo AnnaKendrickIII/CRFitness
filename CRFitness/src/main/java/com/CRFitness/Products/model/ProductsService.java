@@ -10,6 +10,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.CRFitness.ProductDetail.model.ProductDetailVO;
+
 @Service("productsService")
 public class ProductsService {
 
@@ -21,7 +23,7 @@ public class ProductsService {
 	}
 
 	// 如你所見,撈出商品資料
-	public List<ProductsVO> selectItem() {
+	public List<ProductsVO> selectAllItem() {
 		if (productsDAO.getAll() != null) {
 			return productsDAO.getAll();
 		} else {
@@ -47,6 +49,15 @@ public class ProductsService {
 		return productsVO;
 	}
 
+	public List<ProductsVO> getItemByCategory(String category) {
+		if (category != null) {
+			return productsDAO.getItemByCategory(category);
+		} else {
+			return null;
+		}
+
+	}
+
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"test.config.xml");
@@ -66,8 +77,10 @@ public class ProductsService {
 		// productsVO.setCategory("護具");
 		// service.addItem(productsVO);
 
-		ProductsVO productsVO = service.modifyItem("product4006", "充氣娃娃", 5000.0,"玩具");
-		System.out.println(productsVO.getProduct_Name());
+		for(ProductsVO vo:service.getItemByCategory("鞋類")){
+			System.out.println(vo.getProduct_Id());
+		}
+		
 
 		((ConfigurableApplicationContext) context).close();
 	}

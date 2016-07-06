@@ -28,9 +28,9 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> list_productDetail(
 			HttpServletRequest request) {
-		request.getSession()
-				.setAttribute("list_products", productDetailService);
-		return productDetailService.getAllDetail();
+		request.getSession().setAttribute("list_productDetail",
+				productDetailService);
+		return productDetailService.getAllItem();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/getProductDetailId", produces = MediaType.APPLICATION_JSON)
@@ -39,6 +39,14 @@ public class ProductDetailController {
 			@RequestParam String size, @RequestParam String color) {
 
 		return null;
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/getItemByPrimaryKey", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody ProductDetailVO getItemByPrimaryKey(
+			HttpServletRequest request, @RequestParam String productDetail_Id) {
+		request.getSession().setAttribute("getItemByPrimaryKey",
+				productDetailService);
+		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
 	// back-end
