@@ -10,7 +10,7 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 	private String member_Id;				//會員編號
 	private byte[] archives;				//影音圖檔
 	private String contents;				//日誌內容
-	private Timestamp publishTime;		//發表日誌時間
+	private Timestamp publishTime;			//發表日誌時間
 	private Integer publicStatus;			//是否公開(狀態)
 
 	public String getJournal_Id() {
