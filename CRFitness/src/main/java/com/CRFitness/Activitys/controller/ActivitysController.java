@@ -1,6 +1,5 @@
 package com.CRFitness.Activitys.controller;
 
-
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CRFitness.Activitys.model.ActivitysService;
@@ -35,4 +35,14 @@ public class ActivitysController {
 		return activitysService.getAll();	
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
+	public @ResponseBody void addActivitys(
+			@RequestParam String member_Id,
+			@RequestParam String activity_Area,
+			@RequestParam String activity_Info,
+			@RequestParam String photo1,
+			@RequestParam String date){	
+		System.out.println(photo1);
+		activitysService.addActivitys(member_Id, activity_Area, activity_Info, photo1, date,"","");	
+	}
 }

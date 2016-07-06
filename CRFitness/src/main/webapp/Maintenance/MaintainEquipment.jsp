@@ -175,7 +175,7 @@ body {
 				$
 						.ajax({
 							//       	url:"${this_contextPath}/CRFSERVICE/producController/product",
-							url : "${this_contextPath}/CRFSERVICE/productDetailController/productDetail",
+							url : "${this_contextPath}/CRFSERVICE/productDetailController/EquipmentDetails",
 							type : 'get', //get post put delete
 							data : {},
 							success : function(data) {

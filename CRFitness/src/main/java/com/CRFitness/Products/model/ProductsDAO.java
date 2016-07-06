@@ -12,12 +12,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.CRFitness.ProductDetail.model.ProductDetailVO;
+
 
 @Repository("productsDAO")
 @Transactional(transactionManager = "transactionManager")
 public class ProductsDAO implements ProductsDAO_interface {
 
 	private static final String GET_ALL_STMT = "from ProductsVO ";
+	private static final String GET_ITEM_BY_CATEGORY = "from ProductsVO where category=:category";
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -66,6 +70,13 @@ public class ProductsDAO implements ProductsDAO_interface {
 	@Override
 	public List<ProductsVO> getAll() {
 		Query query = this.getSession().createQuery(GET_ALL_STMT);
+		return (List<ProductsVO>) query.list();
+	}
+	
+	@Override
+	public List<ProductsVO> getItemByCategory(String category) {
+		Query query = this.getSession().createQuery(GET_ITEM_BY_CATEGORY);
+		query.setParameter("category", category);
 		return (List<ProductsVO>) query.list();
 	}
 

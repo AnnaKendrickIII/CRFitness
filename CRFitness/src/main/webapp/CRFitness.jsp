@@ -47,12 +47,12 @@
                 </li>
                 <li>
                     <div class="dropdown">
-                        <a href="${this_contextPath}/Maintenance/MaintainProducts.jsp"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
+                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="#">運動器材</a></li>
-                            <li><a href="#">服飾類</a></li>
-                            <li><a href="#">運動用品</a></li>
-                            <li><a href="#">鞋類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainEquipment.jsp">運動器材</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainClothing.jsp">服飾類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainAccessories.jsp">運動用品</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainShoes.jsp">鞋類</a></li>
                         </ul>
                     </div>
                 </li>
@@ -250,7 +250,7 @@
                         <div class="modal-content">
                             <div class="modal-header login_header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title">註冊</h3>
+                                <h3 class="login_h3 modal-title">註冊</h3>
                             </div>
                             <div class="modal-body">
                                 <p>請輸入暱稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
