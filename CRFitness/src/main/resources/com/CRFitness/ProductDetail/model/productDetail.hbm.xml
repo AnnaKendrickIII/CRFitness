@@ -29,7 +29,6 @@
 		</property>
 		<property name="introduction" column="Introduction" />
 		<property name="detailed_Description" column="Detailed_Description" />
-		
 
 	</class>
 </hibernate-mapping>

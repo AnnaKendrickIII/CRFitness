@@ -81,6 +81,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		return (List<ProductDetailVO>) query.list();
 	}
 
+	// front-end
 	@Override
 	public ProductDetailVO getProductDetailId(String product_Name, String size,
 			String color) {
@@ -99,6 +100,8 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		return null;
 	}
 
+	
+	
 	public static void main(String[] args) {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext(

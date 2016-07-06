@@ -117,7 +117,7 @@ body {
 		<div class="col-md-2 "></div>
 		<div class="col-md-8 col-xs-12 ">
 			<input type="text" id="tablesearchinput" required="required"
-				placeholder="請輸入關鍵字" />
+				placeholder="Please input key words" />
 			<table id="games_talbe" class="table">
 				<thead>
 					<tr>
@@ -183,7 +183,7 @@ body {
 										.each(
 												data,
 												function() {
-													var pdate_int = parseInt(this.publishedDay); //轉換成數字
+													var pdate_int = parseInt(this.published_Date); //轉換成數字
 													var pdate_value = new Date(
 															pdate_int);
 													//             	$('#products_tbody').append('<tr><td>'+ this.product_Id + '</td><td>'+ this.product_Name +'</td><td>' + this.price + '</td><td>' + this.category +'</td></tr>')  

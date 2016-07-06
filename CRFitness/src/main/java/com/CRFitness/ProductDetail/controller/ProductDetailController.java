@@ -40,26 +40,11 @@ public class ProductDetailController {
 
 		return null;
 	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/getItemByPrimaryKey", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody ProductDetailVO getItemByPrimaryKey(
-			HttpServletRequest request, @RequestParam String productDetail_Id) {
-		request.getSession().setAttribute("getItemByPrimaryKey",
-				productDetailService);
-		return productDetailService.getItemByPrimaryKey(productDetail_Id);
-	}
-
 	// back-end
-	@RequestMapping(method = RequestMethod.GET, value = "/photo/{productDetail_Id}", produces = {
-			"image/jpeg", "image/gif" })
-	public byte[] findProductsPhoto(@PathVariable String productDetail_Id) {
-		return productDetailService.findProductsPhoto(productDetail_Id);
-	}
-
-	// @RequestMapping(method = RequestMethod.GET, value ="/productDetail",
-	// produces = MediaType.APPLICATION_JSON)
-	// public @ResponseBody List<ProductDetailVO> showProductDetails(){
-	// return productDetailService.getAll();
-	// }
+	 @RequestMapping(method = RequestMethod.GET, value ="/productDetail",
+	 produces = MediaType.APPLICATION_JSON)
+	 public @ResponseBody List<ProductDetailVO> showProductDetails(){
+	 return productDetailService.getAll();
+	 }
 
 }
