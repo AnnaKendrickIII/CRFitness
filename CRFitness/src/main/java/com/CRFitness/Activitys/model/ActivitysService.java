@@ -50,9 +50,11 @@ public class ActivitysService {
 	
 	public void addActivitys(
 			String member_Id,
+			String activity_day,
+			String activity_class,
 			String activity_Area,
-			String activity_Info,
 			String photo1,
+			String activity_Info,
 			String deadline)
 	{
 		
@@ -61,8 +63,8 @@ public class ActivitysService {
 			memberVO.setMember_Id(member_Id);
 			ActivitysVO activitysVO=new ActivitysVO();
 			activitysVO.setMemberVO(memberVO);	
-			activitysVO.setActivity_Day(datetime);
-			activitysVO.setActivity_Class("幹你娘");
+//			activitysVO.setActivity_Day(activity_day);
+			activitysVO.setActivity_Class(activity_class);
 			activitysVO.setActivity_Area(activity_Area);
 			activitysVO.setPhoto1(Base64Utils.decodeFromString(photo1));
 			activitysVO.setActivity_Info(activity_Info);
