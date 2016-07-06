@@ -8,9 +8,10 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/site.css">
+<link rel="stylesheet" href="${this_contextPath}/css/site.css">
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
+
 <style>
 .gallery {
 	margin: 20px 0;
