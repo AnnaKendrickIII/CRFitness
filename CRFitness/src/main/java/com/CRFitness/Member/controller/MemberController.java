@@ -42,7 +42,7 @@ public class MemberController {
 			@RequestParam String nickname,
 			@RequestParam String e_mail,
 			@RequestParam String photoUrl) {
-	request.getSession().setAttribute("LoginOK", memberService.SignCheck(nickname, e_mail, photoUrl));
+		request.getSession().setAttribute("LoginOK", memberService.SignCheck(nickname, e_mail, photoUrl));
 		return null;
 	}
 

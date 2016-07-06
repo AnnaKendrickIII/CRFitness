@@ -52,11 +52,7 @@
             	$.each(data,function(){		        
 	        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
 						var jdate_value = new Date(jdate_int); 
-<<<<<<< HEAD
-	        		 $('#grid').append('<li ><a href=""><img src="data:image/png;base64,'+this.archives+'" /></a>發起人：'+this.member_Id+'<br />類別：'+this.contents+'<br />內容：'+this.contents+'<br />日期：'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
-=======
 	        		 $('#grid').append('<li ><a href=""><img src="data:image/png;base64,'+this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br />類別：'+this.contents+'<br />內容：'+this.contents+'<br />日期：'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
->>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
 	        		 
                 })
                 new AnimOnScroll(document.getElementById('grid'), {

@@ -77,7 +77,8 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	@Override
 	public List<PersonalJournalVO> select_journal(MemberVO memberVO) {
-		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("memberVO", memberVO);		
+		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("memberVO", memberVO);
+		
 		return (List<PersonalJournalVO>) query.list();
 		
 	}

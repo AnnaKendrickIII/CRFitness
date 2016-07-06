@@ -1,6 +1,7 @@
 package com.CRFitness.PersonalJournal.model;
 
 import java.sql.Timestamp;
+
 import com.CRFitness.Member.model.MemberVO;
 
 public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
@@ -27,7 +28,6 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 
 	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
-
 	}
 
 	public byte[] getArchives() {

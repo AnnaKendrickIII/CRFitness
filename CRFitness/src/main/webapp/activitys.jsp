@@ -8,11 +8,7 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<<<<<<< HEAD
-<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/css/site.css">
-=======
 <link rel="stylesheet" href="${this_contextPath}/css/site.css">
->>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
 <style>
 .gallery {
 	margin: 20px 0;

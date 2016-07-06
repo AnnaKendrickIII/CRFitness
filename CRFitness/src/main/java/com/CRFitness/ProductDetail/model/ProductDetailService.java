@@ -18,7 +18,6 @@ public class ProductDetailService {
 
 	public ProductDetailService() {
 	}
-
 	
 	
 	//back-end
@@ -75,6 +74,7 @@ public class ProductDetailService {
 			return null;
 		}
 	}
+
 	
 
 //	public static void main(String[] args) {

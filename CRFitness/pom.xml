@@ -133,7 +133,6 @@
 			<artifactId>struts2-core</artifactId>
 			<version>2.3.4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.sqlserver</groupId>
 			<artifactId>sqlserverdriver</artifactId>

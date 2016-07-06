@@ -1,6 +1,7 @@
 package com.CRFitness.PersonalJournal.model;
 
 import java.util.List;
+
 import com.CRFitness.Member.model.MemberVO;
 
 

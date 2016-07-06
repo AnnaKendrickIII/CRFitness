@@ -1,6 +1,7 @@
 package com.CRFitness.ProductDetail.model;
 
 import java.sql.Timestamp;
+
 import com.CRFitness.Products.model.ProductsVO;
 
 public class ProductDetailVO implements java.io.Serializable { // 商品明細

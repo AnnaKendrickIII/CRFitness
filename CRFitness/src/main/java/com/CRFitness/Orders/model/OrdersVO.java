@@ -2,7 +2,6 @@ package com.CRFitness.Orders.model;
 
 import java.sql.Timestamp;
 
-
 public class OrdersVO implements java.io.Serializable { // 訂單
 
 	private static final long serialVersionUID = 1L;
