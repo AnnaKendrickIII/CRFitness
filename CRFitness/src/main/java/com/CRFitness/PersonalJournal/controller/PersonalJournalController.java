@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.CRFitness.Member.model.MemberVO;
 import com.CRFitness.PersonalJournal.model.CommonJournalService;
 import com.CRFitness.PersonalJournal.model.PersonalJournalService;
 import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
@@ -29,7 +30,9 @@ public class PersonalJournalController {
 	@RequestMapping(method = RequestMethod.GET, value = "/showJournal", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id) {
 		if(member_Id != null && member_Id.trim().length() != 0){
-			return personalJournalService.showJournal(member_Id);
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMember_Id(member_Id);
+			return personalJournalService.showJournal(memberVO);
 		}else{
 			return null;
 		}
@@ -45,8 +48,11 @@ public class PersonalJournalController {
 			) {
 		
 		 try {
+			 
+			 MemberVO memberVO =new MemberVO(); 
+			 memberVO.setMember_Id(member_Id);
 			 PersonalJournalVO personalJournalVO = new PersonalJournalVO();
-			 personalJournalVO.setMember_Id(member_Id);
+			 personalJournalVO.setMemberVO(memberVO);
 			 personalJournalVO.setArchives(archives.getBytes());
 			 personalJournalVO.setContents(contents);
 			 personalJournalVO.setPublishTime(publishTime);

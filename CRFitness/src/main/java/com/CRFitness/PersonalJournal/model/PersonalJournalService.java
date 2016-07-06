@@ -11,6 +11,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.CRFitness.Member.model.MemberVO;
+
 // 健康日誌
 
 @Service("personalJournalService")
@@ -29,8 +31,8 @@ public class PersonalJournalService {
 	}
 	
 	// 取得自己個人日誌，好友個人日誌
-	public List<PersonalJournalVO> showJournal(String member_Id){
-		return personalJournalDAO.select_journal(member_Id);
+	public List<PersonalJournalVO> showJournal(MemberVO memberVO){
+		return personalJournalDAO.select_journal(memberVO);
 	}
 //---------------------------------------------------------------------	
 	// 抓取publicStatus狀態
