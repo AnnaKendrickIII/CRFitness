@@ -41,17 +41,12 @@ public class ProductDetailController {
 		return null;
 	}
 
-	// back-end
-	@RequestMapping(method = RequestMethod.GET, value = "/photo/{productDetail_Id}", produces = {
-			"image/jpeg", "image/gif" })
-	public byte[] findProductsPhoto(@PathVariable String productDetail_Id) {
-		return productDetailService.findProductsPhoto(productDetail_Id);
-	}
 
-	// @RequestMapping(method = RequestMethod.GET, value ="/productDetail",
-	// produces = MediaType.APPLICATION_JSON)
-	// public @ResponseBody List<ProductDetailVO> showProductDetails(){
-	// return productDetailService.getAll();
-	// }
+	// back-end
+	 @RequestMapping(method = RequestMethod.GET, value ="/productDetail",
+	 produces = MediaType.APPLICATION_JSON)
+	 public @ResponseBody List<ProductDetailVO> showProductDetails(){
+	 return productDetailService.getAll();
+	 }
 
 }
