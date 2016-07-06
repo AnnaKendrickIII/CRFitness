@@ -250,7 +250,7 @@
                         <div class="modal-content">
                             <div class="modal-header login_header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title">註冊</h3>
+                                <h3 class="login_h3 modal-title">註冊</h3>
                             </div>
                             <div class="modal-body">
                                 <p>請輸入暱稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
