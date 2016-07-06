@@ -59,7 +59,7 @@
 						var jdate_value = new Date(jdate_int); 
 	        		 $('#grid').append('<li><a href="data:image/png;base64,'
 	        		 +this.archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
-	        		 +this.archives+'" /></a>發起人：'+this.member_Id+'<br />類別：'
+	        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br />類別：'
 	        		 +this.contents+'<br />內容：'+this.contents+'<br />日期：'
 	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
 	        		 
