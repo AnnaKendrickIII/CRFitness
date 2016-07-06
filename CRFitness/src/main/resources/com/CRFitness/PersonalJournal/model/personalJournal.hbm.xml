@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.CRFitness.PersonalJournal.model.PersonalJournalVO" table="PersonalJournal" >
+        <id name="journal_Id" column="Journal_Id">
+            <generator class="generator.PersonalJournalGenerator"/>
+        </id>
+       <many-to-one name="memberVO" class="com.CRFitness.Member.model.MemberVO"
+			lazy="false">
+			<column name="Member_Id" />
+		</many-to-one>
+		<property name="archives" type="binary">
+            <column name="Archives"  />
+        </property>
+        <property name="contents" column="Contents"></property>
+        <property name="publishTime" column="PublishTime"></property>
+        <property name="publicStatus" column="PublicStatus"></property>
+    </class>
+</hibernate-mapping>

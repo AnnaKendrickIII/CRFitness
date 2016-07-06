@@ -1,0 +1,195 @@
+﻿/*右上角登入小圖css*/
+.user_css {
+position:fixed;
+    right:10px;
+    top: 5px;
+     width:36px;
+    height:36px;
+    opacity:0.3; 
+     -webkit-transition: all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+}
+.user_css:hover {
+    opacity:1;
+    width:48px;
+    height:48px;
+    /*transform:rotate(360deg);*/
+     z-index: 150;
+     -webkit-transition: all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    transition: all 0.7s ease;
+    }
+.user_login_css{
+	position:fixed;
+    right:5px;
+    top: 5px;
+     width:40px;
+    height:40px;
+}
+.user_login_div{
+	position:fixed;
+    right:120px;
+    top: 15px;
+    width:40px;
+    height:40px;
+}
+.user_login_down_div{
+	text-align:center;
+	color: white; 	
+}
+#mask {
+	display: none;
+	background: #000; 
+	position: fixed; 
+    left: 0; 
+    top: 0; 
+	z-index: 10;
+	width: 100%; height: 100%;
+	opacity: 0.7;
+	z-index: 999;
+}
+.container {width: 400px; margin: 0 auto; overflow: hidden;/*設定容器元件顯示方法 hidden超出區塊不顯示*/}
+.container a { text-decoration:none }
+.container_a_css:visited { text-decoration:none }
+
+/*登入方塊 css*/
+.login-popup{
+	display:none;
+	/*background:#5599FF;*/
+	/*padding: 10px;*/ 	
+	border: 2px solid #ddd;
+	float: left;
+	font-size: 16px;
+	position: fixed;/*固定位置不會因捲軸而改變位置*/
+	top: 15%; left: 50%;/*登入方塊的位置*/
+	z-index: 99999;/* 值越大越上層 */
+
+	box-shadow: 0px 0px 20px #999;/*區塊陰影 box-shadow:1.左右偏移陰影 2.上下偏移陰影 3.陰影模糊 4.陰影顏色*/
+	-moz-box-shadow: 0px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 0px 0px 20px #999; /* Safari, Chrome */
+    /*設定邊框4個角的角度*/
+	border-radius:7px;
+    -moz-border-radius: 7px; /* Firefox */
+    -webkit-border-radius:7px; /* Safari, Chrome */
+}
+.login-popup1{
+	display:display;
+	/*background:#5599FF;*/
+	/*padding: 10px;*/ 	
+	border: 2px solid #ddd;
+	float: left;
+	font-size: 16px;
+	position: fixed;/*固定位置不會因捲軸而改變位置*/
+	top: 15%; left: 50%;/*登入方塊的位置*/
+	z-index: 99999;/* 值越大越上層 */
+
+	box-shadow: 0px 0px 20px #999;/*區塊陰影 box-shadow:1.左右偏移陰影 2.上下偏移陰影 3.陰影模糊 4.陰影顏色*/
+	-moz-box-shadow: 0px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 0px 0px 20px #999; /* Safari, Chrome */
+    /*設定邊框4個角的角度*/
+	border-radius:7px;
+    -moz-border-radius: 7px; /* Firefox */
+    -webkit-border-radius:7px; /* Safari, Chrome */
+}
+
+
+/*LOGIN CONFIGURATION PAGE*/
+.form-login {
+	background: #fff;
+	border-radius: 5px;
+    -moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+}
+
+.form-login h2.form-login-heading {
+	margin: 0;
+	padding: 25px 20px;
+	text-align: center;
+	background: #68dff0;
+	border-radius: 5px 5px 0 0;
+    -moz-border-radius:5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+	color: #fff;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+.login-wrap {
+	padding: 20px;
+}
+.login-wrap .registration {
+	text-align: center;
+}
+.login-social-link {
+	display: block;
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+.btn-theme {
+  color: #fff;
+  background-color: #68dff0;
+  border-color: #48bcb4;
+}
+.btn-theme:hover,
+.btn-theme:focus,
+.btn-theme:active,
+.btn-theme.active,
+.open .dropdown-toggle.btn-theme {
+  color: #fff;
+  background-color: #48bcb4;
+  border-color: #48bcb4;
+}
+
+.btn-facebook {
+  width:90px;
+  color: #fff;
+  background-color: #5193ea;
+  border-color: #2775e2;
+}
+
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook:active,
+.btn-facebook.active,
+.open .dropdown-toggle.btn-facebook {
+  color: #fff;
+  background-color: #2775e2;
+  border-color: #2775e2;
+}
+
+.btn-google {
+  width:90px;
+  color: #fff;
+  background-color: #C93636;
+  border-color: #2bb4e8;
+}
+.btn-google:hover,
+.btn-google:focus,
+.btn-google:active,
+.btn-google.active,
+.open .dropdown-toggle.btn-google {
+  color: #fff;
+  background-color:#F20D0D;
+  border-color: #2bb4e8;
+}
+
+.login-social-link {
+	display: block;
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+.centered {
+	text-align: center;
+}
+.modal-header {
+    border-radius:5px 5px 0 0;
+}
+.login_header{
+	background: #68dff0;
+}
+.login_h3.modal-title {
+	color: white;
+}
