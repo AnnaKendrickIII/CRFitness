@@ -1,10 +1,86 @@
-﻿
+﻿@media  screen and (min-width:400px) {
 .container2{
 	margin: 4% auto;
-	width: 360px;
-	height: 140px;
+ 	width: 50%; 
+ 	height: 50%; 
 	position: relative; 
-	perspective: 550px;
+	perspective:500px;
+	}
+#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(160px);}
+#carousel figure:nth-child(2) { transform: rotateY(72deg) translateZ(160px);}
+#carousel figure:nth-child(3) { transform: rotateY(144deg) translateZ(160px);}
+#carousel figure:nth-child(4) { transform: rotateY(216deg) translateZ(160px);}
+#carousel figure:nth-child(5) { transform: rotateY(288deg) translateZ(160px);}	
+}
+@media  screen and (min-width:500px) {
+.container2{
+	margin: 4% auto;
+ 	width: 50%; 
+ 	height: 50%; 
+ 	position: relative; 
+	perspective:650px;
+	}
+#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(220px);}
+#carousel figure:nth-child(2) { transform: rotateY(72deg) translateZ(220px);}
+#carousel figure:nth-child(3) { transform: rotateY(144deg) translateZ(220px);}
+#carousel figure:nth-child(4) { transform: rotateY(216deg) translateZ(220px);}
+#carousel figure:nth-child(5) { transform: rotateY(288deg) translateZ(220px);}	
+}
+@media  screen and (min-width:700px) {
+.container2{
+	margin: 4% auto;
+ 	width: 40%; 
+ 	height: 40%; 
+ 	position: relative; 
+	perspective:700px;
+	}
+#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(280px);}
+#carousel figure:nth-child(2) { transform: rotateY(72deg) translateZ(280px);}
+#carousel figure:nth-child(3) { transform: rotateY(144deg) translateZ(280px);}
+#carousel figure:nth-child(4) { transform: rotateY(216deg) translateZ(280px);}
+#carousel figure:nth-child(5) { transform: rotateY(288deg) translateZ(280px);}	
+}
+@media  screen and (min-width:992px) {
+.container2{
+	margin: 4% auto;
+ 	width: 80%; 
+ 	height: 80%; 
+ 	position: relative; 
+	perspective:700px;
+	}
+#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(200px);}
+#carousel figure:nth-child(2) { transform: rotateY(72deg) translateZ(200px);}
+#carousel figure:nth-child(3) { transform: rotateY(144deg) translateZ(200px);}
+#carousel figure:nth-child(4) { transform: rotateY(216deg) translateZ(200px);}
+#carousel figure:nth-child(5) { transform: rotateY(288deg) translateZ(200px);}	
+}
+@media  screen and (min-width:1200px) {
+.container2{
+	margin: 4% auto;
+ 	width: 70%; 
+ 	height: 70%; 
+ 	position: relative; 
+	perspective:500px;
+	}
+#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(200px);}
+#carousel figure:nth-child(2) { transform: rotateY(72deg) translateZ(200px);}
+#carousel figure:nth-child(3) { transform: rotateY(144deg) translateZ(200px);}
+#carousel figure:nth-child(4) { transform: rotateY(216deg) translateZ(200px);}
+#carousel figure:nth-child(5) { transform: rotateY(288deg) translateZ(200px);}	
+}
+@media  screen and (min-width:1400px) {
+.container2{
+	margin: 4% auto;
+ 	width: 60%; 
+ 	height: 60%; 
+ 	position: relative; 
+	perspective:600px;
+	}
+#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(250px);}
+#carousel figure:nth-child(2) { transform: rotateY(72deg) translateZ(250px);}
+#carousel figure:nth-child(3) { transform: rotateY(144deg) translateZ(250px);}
+#carousel figure:nth-child(4) { transform: rotateY(216deg) translateZ(250px);}
+#carousel figure:nth-child(5) { transform: rotateY(288deg) translateZ(250px);}	
 }
 #carousel{
 	width: 100%;
@@ -27,15 +103,7 @@
 	overflow: hidden;
 	border: solid 5px black;
 }
-#carousel figure:nth-child(1){transform: rotateY(0deg) translateZ(280px);}
-#carousel figure:nth-child(2) { transform: rotateY(72deg) translateZ(280px);}
-#carousel figure:nth-child(3) { transform: rotateY(144deg) translateZ(280px);}
-#carousel figure:nth-child(4) { transform: rotateY(216deg) translateZ(280px);}
-#carousel figure:nth-child(5) { transform: rotateY(288deg) translateZ(280px);}
-/*#carousel figure:nth-child(6) { transform: rotateY(300deg) translateZ(200px);}*/
-/*#carousel figure:nth-child(7) { transform: rotateY(360deg) translateZ(288px);}*/
-/*#carousel figure:nth-child(8) { transform: rotateY(280deg) translateZ(288px);}
-#carousel figure:nth-child(9) { transform: rotateY(320deg) translateZ(288px);}*/
+
 
 #carousel img{
     width: 100%;
