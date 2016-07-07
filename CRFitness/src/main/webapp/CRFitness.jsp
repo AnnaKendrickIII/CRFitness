@@ -40,19 +40,19 @@
                         <a href="#"><i class="fa fa-book"></i>日誌<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
                             <li><a href="${this_contextPath}/Journal.jsp">健康日誌</a></li>
-                            <li><a href="#">個人日誌</a></li>
+                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">個人日誌</a></li>
                             <li><a href="#">累積紀錄</a></li>
                         </ul>
                     </div>
                 </li>
                 <li>
                     <div class="dropdown">
-                        <a href="${this_contextPath}/Maintenance/MaintainProducts.jsp"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
+                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="#">運動器材</a></li>
-                            <li><a href="#">服飾類</a></li>
-                            <li><a href="#">運動用品</a></li>
-                            <li><a href="#">鞋類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainEquipment.jsp">運動器材</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainClothing.jsp">服飾類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainAccessories.jsp">運動用品</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainShoes.jsp">鞋類</a></li>
                         </ul>
                     </div>
                 </li>
@@ -92,7 +92,7 @@
 
                         <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel">                          
-                            <li><a href="#">${LoginOK.nickname}&nbsp個人日誌</a></li>
+                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}&nbsp個人日誌</a></li>
                             <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li>   
                              <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
                         </ul>
@@ -148,7 +148,7 @@
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
-                                     $('#friend_tbody').append('<tr><td><img src="data:image/png;base64,'+this.photo+'" class="img-circle friend_photo" alt="Responsive image" /><td class="friend_Name">'+  this.nickname +'</td><td>'+  this.e_mail +'</td>')  
+                                     $('#friend_tbody').append('<tr><td><a href="${this_contextPath}/PersonalJournal.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this.photo+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="friend_Name">'+  this.nickname +'</td><td>'+  this.e_mail +'</td>')  
                                  })
                              }          	 
                          })

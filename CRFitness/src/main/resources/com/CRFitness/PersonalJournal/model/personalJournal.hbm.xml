@@ -5,7 +5,7 @@
 <hibernate-mapping>
     <class name="com.CRFitness.PersonalJournal.model.PersonalJournalVO" table="PersonalJournal" >
         <id name="journal_Id" column="Journal_Id">
-            <generator class="generator.MemberGenerator"/>
+            <generator class="generator.PersonalJournalGenerator"/>
         </id>
        <many-to-one name="memberVO" class="com.CRFitness.Member.model.MemberVO"
 			lazy="false">

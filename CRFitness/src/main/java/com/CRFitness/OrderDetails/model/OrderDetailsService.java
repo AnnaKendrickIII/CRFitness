@@ -20,10 +20,13 @@ public class OrderDetailsService {
 	
 	@Resource(name = "ordersDAO")
 	OrdersDAO_interface ordersDAO;
+	
+	//撈出所有訂單明細
 	public List<OrderDetailsVO> searchAllOrderDetails() {
 		return orderDetailsDAO.getAll();
 	}
 
+	//利用訂單編號查出該筆訂單所有明細
 	public List<OrderDetailsVO> searchOrderDetails(String order_Id) {
 		if (!(orderDetailsDAO.findByOrder_Id(order_Id).isEmpty())) {
 			return orderDetailsDAO.findByOrder_Id(order_Id);
@@ -31,7 +34,8 @@ public class OrderDetailsService {
 			return null;
 		}
 	}
-
+	
+	//修改訂單內容
 	public OrderDetailsVO modifyCart(String details_No, Integer quantity, String size, String color) {
 		OrderDetailsVO orderDetailsVO = null;
 		if (!(details_No.isEmpty())) {

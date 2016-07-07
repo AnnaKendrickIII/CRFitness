@@ -1,6 +1,9 @@
 package com.CRFitness.ProductDetail.model;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javassist.expr.NewArray;
 
 import javax.annotation.Resource;
 
@@ -46,11 +49,33 @@ public class ProductDetailService {
 		return productDetailDAO.getAll();
 	}
 
+	// Back-end: MaintainEquipment.jsp
+	public List<ProductDetailVO> getEquipment() {
+		return productDetailDAO.getEquipment();
+	}
+
+	// Back-end: MaintainClothing.jsp
+	public List<ProductDetailVO> getClothing() {
+		return productDetailDAO.getClothing();
+	}
+
+	// Back-end: MaintainAccessories.jsp
+	public List<ProductDetailVO> getAccessories() {
+		return productDetailDAO.getAccessories();
+	}
+
+	// Back-end: MaintainShoes.jsp
+	public List<ProductDetailVO> getShoes() {
+		return productDetailDAO.getShoes();
+	}
+
 	// front-end
+	//撈出所有商品資訊
 	public List<ProductDetailVO> getAllItem() {
 		return productDetailDAO.getAll();
 	}
-
+	
+	//新增商品至 ProductDetail Table
 	public ProductDetailVO addProductDetial(ProductDetailVO productDetailVO) {
 		if (productDetailVO != null) {
 			productDetailDAO.insert(productDetailVO);
@@ -59,7 +84,8 @@ public class ProductDetailService {
 			return null;
 		}
 	}
-
+	
+	//PK鍵搜尋商品
 	public ProductDetailVO getItemByPrimaryKey(String productDetail_Id) {
 		if (productDetail_Id != null) {
 			return productDetailDAO.findByPrimaryKey(productDetail_Id);
@@ -69,6 +95,7 @@ public class ProductDetailService {
 
 	}
 
+	//用 商品名稱 尺寸 顏色 找出 ProductDetail_Id
 	public ProductDetailVO getItemId(String product_Name, String size,
 			String color) {
 		if (product_Name != null && size != null && color != null) {
@@ -79,6 +106,22 @@ public class ProductDetailService {
 		}
 	}
 
+	//用商品分類檢索 找出該類商品
+	public List<ProductDetailVO> getItemByCategory(String category) {
+		if (category != null) {
+			return productDetailDAO.getItemByCategory(category);
+		} else {
+			return null;
+		}
+	}
+	
+	//加入購物車
+	public List<ProductDetailVO> addShoppingCart(ProductDetailVO productDetailVO) {
+		List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+		cart.add(productDetailVO);
+		return cart;
+	}
+
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定
 	// 打開：<property
@@ -86,7 +129,6 @@ public class ProductDetailService {
 	// 註解：<property name="hibernate.show_sql">true</property>
 	// 增加 ProductDetailVO 的toString();
 	// Run as >> Java Application
-
 	// List<ProductDetailVO> beans = null;
 	//
 	// ApplicationContext context = new
@@ -117,10 +159,20 @@ public class ProductDetailService {
 
 		ProductDetailService service = (ProductDetailService) context
 				.getBean("productDetailService");
-		
-		System.out.println(service.getItemByPrimaryKey("prodDetail5015").getProduct_Name());
 
-		((ConfigurableApplicationContext) context).close();
+		// System.out.println(service.getItemByPrimaryKey("prodDetail5015")
+		// .getProductsVO().getProduct_Name());
+		ProductDetailVO vo1 = service.findProductDetail("prodDetail5002");
+		ProductDetailVO vo2 = service.findProductDetail("prodDetail5003");
+		ProductDetailVO vo3 = service.findProductDetail("prodDetail5004");
+		
+		
+		service.addShoppingCart(vo1);
+		service.addShoppingCart(vo2);
+		service.addShoppingCart(vo3);
+
+
+			((ConfigurableApplicationContext) context).close();
 	}
 
 }

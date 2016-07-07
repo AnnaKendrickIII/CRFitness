@@ -30,14 +30,16 @@ public class ProductsService {
 			return null;
 		}
 	}
-
+	
+	//新增商品
 	public ProductsVO addItem(ProductsVO productsVO) {
 		if (productsVO != null) {
 			productsDAO.insert(productsVO);
 		}
 		return productsVO;
 	}
-
+	
+	//修改商品內容
 	public ProductsVO modifyItem(String product_Id, String product_Name,
 			Double price, String category) {
 
@@ -48,15 +50,8 @@ public class ProductsService {
 		productsDAO.update(productsVO);
 		return productsVO;
 	}
+	
 
-	public List<ProductsVO> getItemByCategory(String category) {
-		if (category != null) {
-			return productsDAO.getItemByCategory(category);
-		} else {
-			return null;
-		}
-
-	}
 
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
@@ -77,9 +72,6 @@ public class ProductsService {
 		// productsVO.setCategory("護具");
 		// service.addItem(productsVO);
 
-		for(ProductsVO vo:service.getItemByCategory("鞋類")){
-			System.out.println(vo.getProduct_Id());
-		}
 		
 
 		((ConfigurableApplicationContext) context).close();
