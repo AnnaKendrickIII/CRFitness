@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CRFitness.Activitys.model.ActivitysService;
 import com.CRFitness.Activitys.model.ActivitysVO;
-
-
-
 @Controller
 @RequestMapping("/activitysController")
 public class ActivitysController {
@@ -34,15 +31,23 @@ public class ActivitysController {
 	public @ResponseBody List<ActivitysVO> findActivitysID(){	
 		return activitysService.getAll();	
 	}
+	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembers", produces = {MediaType.APPLICATION_JSON})
+	public @ResponseBody List<ActivitysVO> findActivitysMembers(){	
+		return activitysService.findActivitysMembers();	
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
 	public @ResponseBody void addActivitys(
 			@RequestParam String member_Id,
+			@RequestParam String activity_Day,
+			@RequestParam String activity_Class,
 			@RequestParam String activity_Area,
-			@RequestParam String activity_Info,
 			@RequestParam String photo1,
-			@RequestParam String date){	
-		System.out.println(photo1);
-		activitysService.addActivitys(member_Id, activity_Area, activity_Info, photo1, date,"","");	
+			@RequestParam String activity_Info,
+			@RequestParam String deadline){	
+		System.out.println(activity_Day);
+		System.out.println(activity_Class);
+		System.out.println(deadline);
+		activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline);	
 	}
 }

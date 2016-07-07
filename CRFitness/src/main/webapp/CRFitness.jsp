@@ -15,7 +15,7 @@
     
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
-    <script src="${this_contextPath}/js/bootstrap.min.js"></script>
+
     <script src="${this_contextPath}/js/jquery-ui.min.js"></script>	
     
       <script src="${this_contextPath}/js/lrtk.js"></script>	
@@ -283,7 +283,8 @@
 	<div style="opacity:0;display:block;" class="level-2"></div>
 	<div class="level-3"></div>
 </div>
-  
+<!-- bootstrap.min.js  開始-->
+  <script src="${this_contextPath}/js/bootstrap.min.js"></script>
 <!--  判斷註冊是否成功  結束-->  
     <script type="text/javascript"> 
     //fb javascript 開始
@@ -419,4 +420,5 @@
             })
         });
 </script>
+    
 

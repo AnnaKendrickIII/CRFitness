@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>揪團</title>
-<jsp:include page="/CRFitness.jsp" />
+
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
+
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 <link rel="stylesheet" href="${this_contextPath}/css/site.css">
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
@@ -120,7 +123,7 @@
     </style>
 </head>
 <body >
-	
+<jsp:include page="/CRFitness.jsp" />	
 	<!-- 頁面部分 開始-->
 
     <ul class="grid effect-5 " id="grid">
@@ -129,7 +132,7 @@
                <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"></a>新增揪團</li>
 		</ul>
  	<!-- 新增活動 開始-->
-			<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.action" method="post" >
+<%-- 			<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.action" method="post" > --%>
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="new_activity" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -140,26 +143,25 @@
                             <div id="addActivitys_form" class="modal-body">
                             <div id='fine-uploader-manual-trigger'></div>
                                 <p>活動時間&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
-                                <input required="required" type="text" id="datetimepicker" name="addActivitys_day" autocomplete="off" class="form-control" placeholder="活動時間" />                                                
+                                <input required="required" type="text" id="datetimepicker" name="addActivitys_Day" autocomplete="off" class="form-control" placeholder="活動時間" />                                                
                                 <p>活動類別&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.e_mail_error}</span></p>
-<!--                                 <input required="required" type="text" id="addActivitys_class" autocomplete="off" class="form-control" placeholder="活動類別" /> -->
-                                <select id="addActivitys_class" name="test1" class="form-control" >
-								  <option value="1">跑步</option>
-								  <option value="2">登山</option>
-								  <option value="3">游泳</option>
-								  <option value="4">飛輪</option>
-								  <option value="5">自行車</option>
-								  <option value="6">有氧運動</option>
-								  <option value="7">球類運動</option>
-								  <option value="8">室內運動</option>
-								  <option value="9">其他類別</option>
+	                            <select id="addActivity_Class" name="test1" class="form-control" >
+								  <option value="跑步">跑步</option>
+								  <option value="登山">登山</option>
+								  <option value="游泳">游泳</option>
+								  <option value="飛輪">飛輪</option>
+								  <option value="自行車">自行車</option>
+								  <option value="有氧運動">有氧運動</option>
+								  <option value="球類運動">球類運動</option>
+								  <option value="室內運動">室內運動</option>
+								  <option value="其他類別">其他類別</option>
 								</select>
                                 <p>活動地點&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.password_error}</span></p>
-                                <input required="required" type="text" id="addActivitys_place" class="form-control" autocomplete="off" placeholder="活動地點"/>
+                                <input required="required" type="text" id="addActivitys_Area" class="form-control" autocomplete="off" placeholder="活動地點"/>
                                 <p>活動內容&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.checkpassword_error}</span></p>
-                                <input required="required" type="text" id="addActivitys_info"  class="form-control" autocomplete="off" placeholder="活動內容" />
+                                <input required="required" type="text" id="addActivitys_Info"  class="form-control" autocomplete="off" placeholder="活動內容" />
                                 <p>報名截止日&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.checkpassword_error}</span></p>
-                                <input required="required" type="text" id="addActivitys_end_day"  class="form-control" autocomplete="off" placeholder="報名截止日" />
+                                <input required="required" type="text" id="datetimepickerb" name="deadline" autocomplete="off" class="form-control" placeholder="報名截止日" />
                             </div>
                             <div class="modal-footer">
                              <h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4>
@@ -169,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-               </form>
+<!--                </form> -->
 
                 <!-- 上傳圖片 開始-->
                 <script>
@@ -202,7 +204,8 @@
 	<!-- 輸入日期 開始-->
 	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script>
 	<script>
-		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00',step:10});
+		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00:00',step:10});
+		$('#datetimepickerb').datetimepicker({value:'2016/08/12 10:00:00',step:10});
 	</script>
 	<!-- 輸入日期 結尾-->
 	<script>
@@ -227,9 +230,12 @@
                url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
                type:'post',  //get post put delete
                data:{ member_Id:'${LoginOK.member_Id}',
-       			 activity_Area:$('#location').val(),
-    			 activity_Info:  $('#addActivitys_info').val(),
-    			 photo1: $('.qq-thumbnail-selector').attr('src').substr(23),
+            	 activity_Day:$('#datetimepicker').val(),
+            	 activity_Class:$('#addActivity_Class').val(),
+       			 activity_Area:$('#addActivitys_Area').val(),
+       			 photo1: $('.qq-thumbnail-selector').attr('src').substr(23),
+    			 activity_Info:  $('#addActivitys_Info').val(),
+    			 deadline:$('#datetimepickerb').val(),
     			 date: $('#date').val()},
                success:function(data){
                   
@@ -242,8 +248,20 @@
 		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitys",
 		          type:'get',  //get post put delete
 		          data:{ },
-		          success:function(data){
-		        	  $.each(data,function(){		        
+		          success:function(data){      	  
+		        	  $.each(data,function(){
+		        		  var message;
+		        		  var activityID=this.activity_Id;
+		        		  $.ajax({
+			        		  url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers/"+activityID,
+					          type:'get',  //get post put delete
+					          data:{ },
+					          success:function(data1){
+					        	  message=data1;  
+					        	  console.log(message)
+					          }
+			        	  })
+		        		   
 		        		  var jdate_int = parseInt(this.activity_Day);                          //轉換成數字
 							var jdate_value = new Date(jdate_int); 
 							$('#grid').append('<li ><a href="data:image/png;base64,'
@@ -251,19 +269,26 @@
 							+this.memberVO.nickname+'<br />類別：'+this.activity_Class+'<br />地區：'
 									+this.activity_Area+'<br />內容：'
 									+this.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+this.people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
 									+this.photo1+'" /></a>發起人：'
 									+this.memberVO.nickname+'<br />類別：'
 									+this.activity_Class+'<br />地區：'
 									+this.activity_Area+'<br />內容：'
 									+this.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
- 
-	                  })
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+message+'、'+'">'
+									+this.people+'</button></li>')			  					
+	                 		 })
+							  $('.btn.btn-default').tooltip()																
 	                  $.getScript('${this_contextPath}/js/site.js',function(){
 	                	  
 	                  })
+// 	                  $.getScript('${this_contextPath}/js/overlibmws.js',function(){
+	                	  
+// 	                  })
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
@@ -276,6 +301,9 @@
     
 </script>
 <!-- 頁面部分 結束-->
+
+
+
 
 </body>
 </html>

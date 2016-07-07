@@ -2,6 +2,7 @@ package com.CRFitness.Activitys.model;
 
 import java.util.*;
 
+
 public interface ActivitysDAO_interface {
 
     public boolean insert(ActivitysVO activitysVO);
@@ -10,5 +11,5 @@ public interface ActivitysDAO_interface {
     public ActivitysVO findByPrimaryKey(String activity_Id);
 //    public List<ActivitysVO> getAll(String member_Id);
     public List<ActivitysVO> getAll();
-	
+    public List<ActivitysVO> select_ActivityMember();
 }
