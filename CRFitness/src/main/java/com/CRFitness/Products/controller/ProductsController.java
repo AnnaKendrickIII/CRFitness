@@ -29,13 +29,5 @@ public class ProductsController {
 		return productsService.selectAllItem();
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/getItemByCategory", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductsVO> list_productsVO(
-			HttpServletRequest request, @RequestParam String category) {
-		request.getSession().setAttribute("list_productsVO", productsService);
-		return productsService.getItemByCategory(category);
-	}
-	
-	
 
 }

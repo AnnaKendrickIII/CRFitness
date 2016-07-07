@@ -11,7 +11,7 @@
 <title>商品明細</title><base>
 <style type="text/css">
 .ProductDetail{
-	margin-top: 4%;
+	margin-top: 10%;
 }
 </style>
 </head>
@@ -20,22 +20,34 @@
 <script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
 
 <div class="ProductDetail">
-    <div class="row">
+
+    <div class="row ">
+	    <div class="col-md-2"></div>
+	    <div id="productDetailbody" class="col-md-8"></div>    
+	 	<div class="col-md-2"></div>	 	
+    </div>
     
-        <div class="col-md-8">
-            <div class="mag">
-                this.product_Name<br>
-                <img data-toggle="magnify" src="http://i.imgur.com/kzGVqbd.jpg" alt="">
-            </div>
-        </div ><!--/span-->
-        <div class="col-md-4"></div>
-        
- 
-    </div><!--/row-->
 </div>
 </aside>
+<script type="text/javascript">
+var queryString='${pageContext.request.queryString}';
+	queryString=queryString.substring(17);
 
-
+$.ajax({
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByPrimaryKey',
+	type:'get',
+ 	data:{productDetail_Id:queryString},
+	success:function(data){
+		$('#productDetailbody').append('<div class="col-md-7"><div class="mag">'
+							+data.product_Name+'<br><img data-toggle="magnify" src="data:image/png;base64,'
+							+data.photo1+'" /></div></div><div class="col-md-5">尺寸 : '
+							+data.size+'<br/>顏色 : '
+							+data.color+'<br/>商品介紹 : 未看先猜undefined 一> '
+							+data.Detailed_Description+'<br/>剩餘數量 : '
+							+data.stock+'</br><a class="btn btn-success" a href="${this_contextPath}">千萬不要按!</a></div>')
+	}
+});
 </script>
+
 </body>
 </html>

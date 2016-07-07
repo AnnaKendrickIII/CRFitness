@@ -21,7 +21,8 @@ public class OrdersService {
 	public OrdersService() {
 
 	}
-
+	
+	//利用 member_Id 搜尋會員訂單
 	public List<OrdersVO> searchOrdersByMember_Id(String member_Id) {
 		if (!(ordersDAO.findOrdersByMember_Id(member_Id).isEmpty())) {
 			return ordersDAO.findOrdersByMember_Id(member_Id);
@@ -30,6 +31,7 @@ public class OrdersService {
 		}
 	}
 
+	//取消訂單
 	public Boolean cancelOrder(String order_Id) {
 		OrdersVO ordersVO = ordersDAO.findByPrimaryKey(order_Id);
 		if (ordersVO != null && !"作廢".equals(ordersVO.getOrder_Status())) {
@@ -42,6 +44,7 @@ public class OrdersService {
 
 	}
 
+	//如你所見,撈出所有訂單
 	public List<OrdersVO> searchAllOrders() {
 		return ordersDAO.getAll();
 	}

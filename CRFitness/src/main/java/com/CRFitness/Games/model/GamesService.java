@@ -27,7 +27,7 @@ public class GamesService {
 		return gamesDAO.getAll();
 	}
 //	@PostConstruct
-	@Scheduled(fixedRate=600000)
+//	@Scheduled(fixedRate=600000)
 	public void addGames() {
 		Document doc;
 		GamesVO gamesVO=new GamesVO();
