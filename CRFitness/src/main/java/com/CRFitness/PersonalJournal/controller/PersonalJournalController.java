@@ -1,10 +1,12 @@
 package com.CRFitness.PersonalJournal.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.Resources;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Controller;
@@ -30,39 +32,39 @@ public class PersonalJournalController {
 	@RequestMapping(method = RequestMethod.GET, value = "/showJournal", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id) {
 		if(member_Id != null && member_Id.trim().length() != 0){
-			MemberVO memberVO = new MemberVO();
-			memberVO.setMember_Id(member_Id);
-			return personalJournalService.showJournal(memberVO);
+			return personalJournalService.showJournal(member_Id);
 		}else{
 			return null;
 		}
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/insertJournal", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody boolean insertJournal(
+	public @ResponseBody PersonalJournalVO insertPersonalJournal(
 			@RequestParam String member_Id,
 			@RequestParam MultipartFile archives,
 			@RequestParam String contents,
 			@RequestParam Timestamp publishTime,
 			@RequestParam Integer publicStatus
 			) {
-		
-		 try {
-			 
-			 MemberVO memberVO =new MemberVO(); 
-			 memberVO.setMember_Id(member_Id);
-			 PersonalJournalVO personalJournalVO = new PersonalJournalVO();
-			 personalJournalVO.setMemberVO(memberVO);
-			 personalJournalVO.setArchives(archives.getBytes());
-			 personalJournalVO.setContents(contents);
-			 personalJournalVO.setPublishTime(publishTime);
-			 personalJournalVO.setPublicStatus(publicStatus);
-			 return personalJournalService.insertJournal(personalJournalVO);	
-		 } catch (IOException e) {
-			 e.printStackTrace();
-		 }
-		 System.out.println(archives+","+member_Id);
-		 return false;
+		try {
+			//改編碼 iso-8859-1 -> utf-8
+			contents = new String(contents.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return personalJournalService.insertPersonalJournal(member_Id,archives,contents,publishTime,publicStatus);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/updateJournal", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody PersonalJournalVO updatePersonalJournal(
+			@RequestParam String journal_Id,
+			@RequestParam String member_Id,
+			@RequestParam String contents,
+			@RequestParam Integer publicStatus
+			){
+		
+		return personalJournalService.updatePersonalJournal(journal_Id, member_Id, contents, publicStatus);
+	}
+
 }
 
