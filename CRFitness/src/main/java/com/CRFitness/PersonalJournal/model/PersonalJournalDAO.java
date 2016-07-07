@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -18,9 +19,10 @@ import com.CRFitness.Member.model.MemberVO;
 @Repository("personalJournalDAO")
 @Transactional(transactionManager = "transactionManager")
 public class PersonalJournalDAO implements PersonalJournalDAO_interface {
-
+	// 所有的日誌
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
-	private static final String GET_ALL_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO";
+	// 個人所有日誌 從最近開始往後排序
+	private static final String GET_ALL_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO order by publishTime desc";
 	
 
 	@Autowired
@@ -35,12 +37,12 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	}
 
 	@Override
-	public boolean insert(PersonalJournalVO journal_Id) {
-		if (journal_Id != null) {
-			this.getSession().saveOrUpdate(journal_Id);
-			return true;
+	public PersonalJournalVO insert(PersonalJournalVO personalJournalVO) {
+		if (personalJournalVO != null) {			
+			this.getSession().saveOrUpdate(personalJournalVO);
+			return personalJournalVO;
 		}
-		return false;
+		return null;
 	}
 
 	@Override
