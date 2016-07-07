@@ -121,9 +121,10 @@
             width: 60%;
         }
     </style>
+    <jsp:include page="/CRFitness.jsp" />	
 </head>
 <body >
-<jsp:include page="/CRFitness.jsp" />	
+
 	<!-- 頁面部分 開始-->
 
     <ul class="grid effect-5 " id="grid">
@@ -277,7 +278,7 @@
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="目前報名: '
+									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="目前報名:&#13;'
 									+names+'">'
 									+this[0].people+'</button></li>')			  					
 	                 		 })
