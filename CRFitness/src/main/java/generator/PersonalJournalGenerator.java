@@ -20,7 +20,7 @@ public class PersonalJournalGenerator implements IdentifierGenerator {
 		Connection con = session.connection();
 		try {
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT NEXT VALUE FOR personalJournal_seq as nextval");
+			ResultSet rs = stmt.executeQuery("SELECT NEXT VALUE FOR journal_seq as nextval");
 			rs.next();
 			int nextval = rs.getInt("nextval");
 			member = prefix + nextval;

@@ -63,13 +63,13 @@
 	        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
 						var jdate_value = new Date(jdate_int); 
 	        		 $('#grid').append('<li><a href="data:image/png;base64,'
-	        		 +this.archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
+	        		 +this.archives+'" title="'+this.memberVO.nickname+'" data-gallery><img src="data:image/png;base64,'
 	        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br /><div class="divcssj">類別：'
 	        		 +this.contents+'</div><br /><div class="divcssj">內容：'+this.contents+'</div><br />日期：'
 	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
-	        		 
+	        		
                 })
-//                 $.getScript('${this_contextPath}/js/bootstrap-image-gallery.min.js',function(){
+//                 $.getScript('${this_contextPath}/js/jquery.blueimp-gallery.js',function(){
             		
 //             	})
                 new AnimOnScroll(document.getElementById('grid'), {
@@ -92,16 +92,21 @@
 	<!--  頁面部分 結束 -->
 	
 	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+<div id="blueimp-gallery" class="blueimp-gallery row" data-use-bootstrap-modal="false">
     <!-- The container for the modal slides -->
     <div class="slides"></div>
     <!-- Controls for the borderless lightbox -->
-  
+<!--     <div class="col-md-6 col-xs-6"> -->
+<!--  	</div> -->
+<!--  	 <div class="col-md-6 col-xs-6"> -->
+<!--  	 <div id="msg_div" class="msg_div">sadsadas</div> -->
+<!--  	 </div> -->
     <a class="prev">‹</a>
     <a class="next">›</a>
     <a class="close">×</a>
     <a class="play-pause"></a>
-    <h3 class="title"></h3>
+ 
+    <h1 class="title"> </h1>
     <ol class="indicator"></ol>
     <!-- The modal dialog, which will be used to wrap the lightbox content -->
 <!--     <div class="modal fade"> -->
@@ -132,7 +137,10 @@
 
 <!-- 新增JS -->
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-<script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="${this_contextPath}/js/blueimp-gallery.js"></script>
+<script src="${this_contextPath}/js/blueimp-helper.js"></script>
+<script src="${this_contextPath}/js/blueimp-gallery-indicator.js"></script>
+<script src="${this_contextPath}/js/jquery.blueimp-gallery.js"></script>
 <!-- <script src="js/bootstrap-image-gallery.min.js"></script> -->
 
 <!-- 新增JS結束 -->

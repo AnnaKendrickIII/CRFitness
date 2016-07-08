@@ -21,7 +21,8 @@
   -moz-backface-visibility: hidden;
 }
 .blueimp-gallery > .slides > .slide > .slide-content {
-  margin: auto;
+  margin-left: 20%;
+  margin-top: 10%;
   width: auto;
   height: auto;
   max-width: 100%;
@@ -54,11 +55,13 @@
   display: block;
   opacity: 1;
 }
+.blueimp-gallery >.msg_div,
 .blueimp-gallery > .slides {
   position: relative;
   height: 100%;
   overflow: hidden;
 }
+.blueimp-gallery >.msg_div,
 .blueimp-gallery-carousel > .slides {
   position: absolute;
 }
@@ -127,11 +130,22 @@
   left: auto;
   right: 15px;
 }
-.blueimp-gallery > .close,
-.blueimp-gallery > .title {
+.blueimp-gallery > .close {
   position: absolute;
   top: 15px;
   left: 15px;
+  margin: 0 40px 0 0;
+  font-size: 20px;
+  line-height: 30px;
+  color: #fff;
+  text-shadow: 0 0 2px #000;
+  opacity: 0.8;
+  display: none;
+}
+.blueimp-gallery > .title {
+  position: absolute;
+  top: 500px;
+  right: 20%;
   margin: 0 40px 0 0;
   font-size: 20px;
   line-height: 30px;
