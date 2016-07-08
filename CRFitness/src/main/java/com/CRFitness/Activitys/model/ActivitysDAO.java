@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.type.ByteType;
 import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -70,15 +71,17 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	@Override
 	public List<ActivitysVO> select_ActivityMember( ) {	
 		Query query = this.getSession().createSQLQuery(
-
-				"SELECT DISTINCT Activitys.*,(SELECT ','+Members.Nickname " 
+				"SELECT DISTINCT Activitys.*,Members.Nickname,Members.Photo,(SELECT ','+Members.Nickname " 
 				+"FROM ActivityDetail JOIN Members " 
 				+"ON ActivityDetail.Member_Id=Members.Member_Id	"
 				+"WHERE Activitys.Activity_Id =ActivityDetail.Activity_Id "							
 				+"FOR XML PATH('') ) as Nicknames "
-				+"FROM Activitys "
+				+"FROM Activitys JOIN Members "
+				+"ON Activitys.Member_Id=Members.Member_Id"
 				).addEntity("Activitys.*",ActivitysVO.class)
-				.addScalar("Nicknames",StringType.INSTANCE);//StringType.INSTANCE
+				.addScalar("Nicknames",StringType.INSTANCE)
+				.addScalar("Nickname",StringType.INSTANCE)
+				.addScalar("Photo",ByteType.INSTANCE);
 	return (List<ActivitysVO>) query.list();	
 }
 
