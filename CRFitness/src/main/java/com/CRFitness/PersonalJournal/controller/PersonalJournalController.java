@@ -56,14 +56,13 @@ public class PersonalJournalController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/updateJournal", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody PersonalJournalVO updatePersonalJournal(
+	public @ResponseBody boolean updatePersonalJournal(
 			@RequestParam String journal_Id,
-			@RequestParam String member_Id,
 			@RequestParam String contents,
 			@RequestParam Integer publicStatus
 			){
-		
-		return personalJournalService.updatePersonalJournal(journal_Id, member_Id, contents, publicStatus);
+//		System.out.println(journal_Id+","+contents+","+publicStatus);
+		return personalJournalService.updatePersonalJournal(journal_Id, contents, publicStatus);
 	}
 
 }

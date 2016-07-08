@@ -184,7 +184,7 @@
             },
             thumbnails: {
                 placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    waitingPath: '${this_contextPath}/images/loader-small.gif',
                     notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
                 }
             },
@@ -226,19 +226,36 @@
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}
-	  $(function () { 
-	  $('#addActivitys').click(function () {
+	  $(function () {
+		  var file
+		  var formData = new FormData();
+		  formData = new FormData();	
+		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {			
+		 file=event.target.files;			  	 
+		 formData.append('photo1', file[0]);
+		  })
+		 formData.append('member_Id',  '${LoginOK.member_Id}');
+		 formData.append('activity_Day', $('#datetimepicker').val());
+		 formData.append('activity_Class', $('#addActivity_Class').val());
+		 formData.append('activity_Area', $('#addActivitys_Area').val());
+		 formData.append('activity_Info', $('#addActivitys_Info').val());
+		 formData.append('deadline', $('#datetimepickerb').val());
+		 formData.append('date', $('#date').val());
+	  $('#addActivitys').click(function () {	  
 		   $.ajax({
                url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
                type:'post',  //get post put delete
-               data:{ member_Id:'${LoginOK.member_Id}',
-            	 activity_Day:$('#datetimepicker').val(),
-            	 activity_Class:$('#addActivity_Class').val(),
-       			 activity_Area:$('#addActivitys_Area').val(),
-       			 photo1: $('.qq-thumbnail-selector').attr('src').substr(23),
-    			 activity_Info:  $('#addActivitys_Info').val(),
-    			 deadline:$('#datetimepickerb').val(),
-    			 date: $('#date').val()},
+//                data:{ member_Id:'${LoginOK.member_Id}',
+//             	 activity_Day:$('#datetimepicker').val(),
+//             	 activity_Class:$('#addActivity_Class').val(),
+//        			 activity_Area:$('#addActivitys_Area').val(),
+//        			 photo1: $('.qq-thumbnail-selector').attr('src').substr(23),
+//     			 activity_Info:  $('#addActivitys_Info').val(),
+//     			 deadline:$('#datetimepickerb').val(),
+//     			 date: $('#date').val()},
+				data: formData,
+    		   processData: false,
+			   contentType: false,
                success:function(data){
                   
 //                        $('#friend_tbody').append('<tr><td><img src="data:image/png;base64,'+this.photo+'" class="img-circle friend_photo" alt="Responsive image" /><td class="friend_Name">'+  this.nickname +'</td><td>'+  this.e_mail +'</td>')  

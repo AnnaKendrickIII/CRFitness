@@ -1,5 +1,6 @@
 package com.CRFitness.Activitys.model;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.Member.model.MemberDAO_interface;
 import com.CRFitness.Member.model.MemberVO;
@@ -66,7 +68,7 @@ public class ActivitysService {
 			String activity_Day,
 			String activity_Class,
 			String activity_Area,
-			String photo1,
+			MultipartFile photo1,
 			String activity_Info,
 			String deadline)
 	{
@@ -85,7 +87,11 @@ public class ActivitysService {
 			activitysVO.setActivity_Day(ts);
 			activitysVO.setActivity_Class(activity_Class);
 			activitysVO.setActivity_Area(activity_Area);
-			activitysVO.setPhoto1(Base64Utils.decodeFromString(photo1));
+			try {
+				activitysVO.setPhoto1(photo1.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			activitysVO.setActivity_Info(activity_Info);
 			activitysVO.setDeadline(tsd);
 			activitysVO.setStartDay(datetime);
