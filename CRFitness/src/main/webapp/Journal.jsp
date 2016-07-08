@@ -9,19 +9,21 @@
 
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <title>健康日誌</title>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 <jsp:include page="/CRFitness.jsp" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/Journal_component.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 
 <!-- 新增CSS -->
-<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-image-gallery.min.css">
 <!-- 新增CSS結束 -->
 
 </head>
 
 <body >
+<aside>
 
 	  <ul class="grid effect-7" id="grid"  ></ul>
 
@@ -59,8 +61,8 @@
 						var jdate_value = new Date(jdate_int); 
 	        		 $('#grid').append('<li><a href="data:image/png;base64,'
 	        		 +this.archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
-	        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br />類別：'
-	        		 +this.contents+'<br />內容：'+this.contents+'<br />日期：'
+	        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br /><div class="divcssj">類別：'
+	        		 +this.contents+'</div><br /><div class="divcssj">內容：'+this.contents+'</div><br />日期：'
 	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
 	        		 
                 })
@@ -68,8 +70,8 @@
             		
             	})
                 new AnimOnScroll(document.getElementById('grid'), {
-                    minDuration: 0.4,
-                    maxDuration: 0.6,
+                    minDuration: 0.8,
+                    maxDuration: 0.1,
                     viewportFactor: 0.2
                 });
  	          }
@@ -83,7 +85,7 @@
         })
     })
 	</script>
-
+</aside>
 	<!--  頁面部分 結束 -->
 	
 	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
