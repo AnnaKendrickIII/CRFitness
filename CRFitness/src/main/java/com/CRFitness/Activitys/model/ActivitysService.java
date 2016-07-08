@@ -63,7 +63,7 @@ public class ActivitysService {
 		return list;
 	}
 	
-	public void addActivitys(
+	public ActivitysVO addActivitys(
 			String member_Id,
 			String activity_Day,
 			String activity_Class,
@@ -96,7 +96,7 @@ public class ActivitysService {
 			activitysVO.setDeadline(tsd);
 			activitysVO.setStartDay(datetime);
 			activitysVO.setPeople(0);
-			activitysDAO.insert(activitysVO);
+		return activitysDAO.insert(activitysVO);
 		
 	}
 

@@ -5,7 +5,7 @@ import java.util.*;
 
 public interface ActivitysDAO_interface {
 
-    public boolean insert(ActivitysVO activitysVO);
+    public ActivitysVO insert(ActivitysVO activitysVO);
     public boolean update(ActivitysVO activitysVO);
     public boolean delete(String activity_Id);       
     public ActivitysVO findByPrimaryKey(String activity_Id);

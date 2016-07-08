@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("activitysDAO")
 public class ActivitysDAO implements ActivitysDAO_interface {
 
-	private static final String GET_ALL_STMT = "from ActivitysVO order by activity_id desc";
+	private static final String GET_ALL_STMT = "from ActivitysVO order by activity_Day desc";
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -29,13 +29,10 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	}
 
 	@Override
-	public boolean insert(ActivitysVO activitysVO) {
-		if (activitysVO != null) {
+	public ActivitysVO insert(ActivitysVO activitysVO) {	
 			this.getSession().saveOrUpdate(activitysVO);
-			return true;
-		}
-		return false;
-	}
+		return activitysVO;
+	} 
 
 	@Override
 	public boolean update(ActivitysVO activitysVO) {
@@ -78,7 +75,8 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
 				+ "FOR XML PATH('') ) as Nicknames "
 				+ "FROM Activitys JOIN Members "
-				+ "ON Activitys.Member_Id = Members.Member_Id")
+				+ "ON Activitys.Member_Id = Members.Member_Id "
+				+"order by activity_Day desc")	
 				.addEntity("Activitys.*", ActivitysVO.class)
 				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
 				.addScalar("Nickname", StringType.INSTANCE);
@@ -94,7 +92,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 				+"WHERE Activitys.Activity_Id =ActivityDetail.Activity_Id "							
 				+"FOR XML PATH('') ) as Nicknames "
 				+"FROM Activitys "
-				+"WHERE Member_Id= '"+member_Id+"'")				
+				+"WHERE Member_Id= '"+member_Id+"'")					
 				.addEntity("Activitys.*",ActivitysVO.class);
 	return (List<ActivitysVO>) query.list();	
 }
