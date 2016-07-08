@@ -2,9 +2,12 @@ package com.CRFitness.ProductDetail.model;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.type.DoubleType;
+import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -59,8 +62,8 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	public boolean delete(String productDetail_Id) {
 		ProductDetailVO productDetailVO = new ProductDetailVO();
 		productDetailVO.setProductDetail_Id(productDetail_Id);
-		ProductDetailVO productDetailVOs = (ProductDetailVO) this.getSession()
-				.get(PersonalJournalVO.class, productDetailVO);
+		ProductDetailVO productDetailVOs = (ProductDetailVO) this.getSession().get(PersonalJournalVO.class,
+				productDetailVO);
 		if (productDetailVOs != null) {
 			this.getSession().delete(productDetailVOs);
 			return true;
@@ -70,46 +73,47 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	@Override
 	public ProductDetailVO findByPrimaryKey(String productDetail_Id) {
-		return (ProductDetailVO) this.getSession().get(ProductDetailVO.class,
-				productDetail_Id);
+		return (ProductDetailVO) this.getSession().get(ProductDetailVO.class, productDetail_Id);
 	}
 
 	@Override
 	public List<ProductDetailVO> getAll() {
-		Query query = this.getSession().createQuery(GET_ALL_STMT);
+		// Query query = this.getSession().createQuery(GET_ALL_STMT);
+		Query query = this.getSession()
+				.createSQLQuery("select ProductDetail.* ,Products.Price , Products.Category "
+						+ " from  ProductDetail join Products"
+						+ " on ProductDetail.Product_Id=Products.Product_Id ")
+				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
+				.addScalar("category", StringType.INSTANCE);
 		return (List<ProductDetailVO>) query.list();
 	}
 
 	@Override
 	public List<ProductDetailVO> getEquipment() {
-		Query query = this.getSession().createQuery(SELECT_CATEGORY)
-				.setParameter("product_Id", "product4001");
+		Query query = this.getSession().createQuery(SELECT_CATEGORY).setParameter("product_Id", "product4001");
 		return (List<ProductDetailVO>) query.list();
 	}
 
 	@Override
 	public List<ProductDetailVO> getClothing() {
-		Query query = this.getSession().createQuery(SELECT_CATEGORY)
-				.setParameter("product_Id", "product4002");
+		Query query = this.getSession().createQuery(SELECT_CATEGORY).setParameter("product_Id", "product4002");
 		return (List<ProductDetailVO>) query.list();
 	}
 
 	@Override
 	public List<ProductDetailVO> getAccessories() {
-		Query query = this.getSession().createQuery(SELECT_CATEGORY)
-				.setParameter("product_Id", "product4003");
+		Query query = this.getSession().createQuery(SELECT_CATEGORY).setParameter("product_Id", "product4003");
 		return (List<ProductDetailVO>) query.list();
 	}
 
 	@Override
 	public List<ProductDetailVO> getShoes() {
-		Query query = this.getSession().createQuery(SELECT_SHOES)
-				.setParameter("product_Id", "product4004");
+		Query query = this.getSession().createQuery(SELECT_SHOES).setParameter("product_Id", "product4004");
 		return (List<ProductDetailVO>) query.list();
 	}
 
-	public ProductDetailVO getProductDetailId(String product_Name, String size,
-			String color) {
+	@Override
+	public ProductDetailVO getProductDetailId(String product_Name, String size, String color) {
 		Query query = this.getSession().createQuery(GET_PRODUCTDETAIL_ID);
 		query.setParameter("product_Name", product_Name);
 		query.setParameter("size", size);
@@ -117,28 +121,35 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		return (ProductDetailVO) query.list().get(0);
 	}
 
+	// 依商品分類顯示
+	@Override
 	public List<ProductDetailVO> getItemByCategory(String category) {
-		Query query = this.getSession().createQuery(GET_ITEM_BY_CATEGORY);
-		query.setParameter("category", category);
+		// Query query = this.getSession().createQuery(GET_ITEM_BY_CATEGORY);
+		// query.setParameter("category", category);
+
+		Query query = this.getSession()
+				.createSQLQuery("select * " + "from  ProductDetail join Products "
+						+ "on ProductDetail.Product_Id=Products.Product_Id " + "where Products.Category='"
+						+ category+ "'")
+				.addEntity(ProductDetailVO.class);
+
 		return (List<ProductDetailVO>) query.list();
 	}
 
 	public static void main(String[] args) {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"test.config.xml");
-		ProductDetailDAO_interface dao = (ProductDetailDAO_interface) context
-				.getBean("productDetailDAO");
+		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
+		ProductDetailDAO_interface dao = (ProductDetailDAO_interface) context.getBean("productDetailDAO");
 
 		// ProductDetailVO result =
 		// productDetailDAO.getProductDetailId("男超寬楦慢跑鞋",
 		// "US9", "黃");
 		// System.out.println(result.getProductDetail_Id());
-		
-		for(ProductDetailVO vo:dao.getItemByCategory("運動用品")){
-			System.out.println(vo.getProduct_Name());
-		}
-				
+
+		// for (ProductDetailVO vo : dao.getItemByCategory("運動用品")) {
+		// System.out.println(vo.getProduct_Name());
+		// }
+
 		((ConfigurableApplicationContext) context).close();
 
 	}
