@@ -13,6 +13,7 @@ public interface PersonalJournalDAO_interface {
      public List<PersonalJournalVO> select_journal(MemberVO memberVO);
      public List<PersonalJournalVO> getAll();
      public List<PersonalJournalVO> select_publicStatus();
+
      
      
 }

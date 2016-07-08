@@ -81,6 +81,7 @@ public class PersonalJournalService {
 //---------------------------------------------------------------------	
 	
 	// 抓取publicStatus狀態
+
 //	public List<PersonalJournalVO> ShowAllJournal() {
 //		List<PersonalJournalVO> List = personalJournalDAO.getAll();
 //		List<PersonalJournalVO> openJournal = new ArrayList<PersonalJournalVO>();
@@ -106,4 +107,5 @@ public class PersonalJournalService {
 //	 }
 //	 ((ConfigurableApplicationContext) context).close();
 //	 }
+
 }

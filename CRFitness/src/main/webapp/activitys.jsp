@@ -121,6 +121,7 @@
             width: 60%;
         }
     </style>
+
     <jsp:include page="/CRFitness.jsp" />	
 </head>
 <body >

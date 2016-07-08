@@ -91,9 +91,6 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		Query query = this.getSession().createQuery(GET_COMMON_JOURNAL);
 		return (List<PersonalJournalVO>) query.list();
 	}
-	
-
-	
 
 //	public static void main(String[] args) {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
