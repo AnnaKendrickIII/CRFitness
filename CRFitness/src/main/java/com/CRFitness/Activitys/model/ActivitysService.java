@@ -48,10 +48,15 @@ public class ActivitysService {
 		return list;
 	}
 	
+	public  List<ActivitysVO> findActivitysMem(String member_Id){
+		List<ActivitysVO> list = activitysDAO.select_Activitys(member_Id);
+		return list;	
+	} 
+	
 	public List<ActivitysVO> getAll(){
 		List<ActivitysVO> list = activitysDAO.getAll();
 		for(ActivitysVO activitysVO:list){
-			activitysVO.getMemberVO().setPassword(null);
+			activitysVO.getMember_Id();
 		}
 		return list;
 	}
@@ -73,10 +78,10 @@ public class ActivitysService {
 			activity_Day =sdf.format(new Date(activity_Day));
 			Timestamp ts = Timestamp.valueOf(activity_Day);
 			SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-			deadline =sdft.format(new Date());
+			deadline =sdft.format(new Date(deadline));
 			Timestamp tsd = Timestamp.valueOf(deadline);
 			ActivitysVO activitysVO=new ActivitysVO();
-			activitysVO.setMemberVO(memberVO);	
+			activitysVO.setMember_Id(member_Id);	
 			activitysVO.setActivity_Day(ts);
 			activitysVO.setActivity_Class(activity_Class);
 			activitysVO.setActivity_Area(activity_Area);
