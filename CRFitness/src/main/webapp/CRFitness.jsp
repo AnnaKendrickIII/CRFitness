@@ -93,8 +93,9 @@
                         <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel">                          
                             <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}&nbsp個人日誌</a></li>
-                            <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li>   
-                             <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
+                            <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
+                            <li><a data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>  
+                            <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
                         </ul>
                 </div>
                 </c:when>
@@ -210,7 +211,7 @@
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
-                                     $('#myactivity_create_tbody').append('<tr><td><a href="${this_contextPath}/activitys.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this.photo+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="myactivity_class">'+  this.myactivity_class +'</td><td>'+  this.myactivity_area +'</td>')  
+                                     $('#myactivity_create_tbody').append('<tr><td><a href="${this_contextPath}/activitys.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this.photo1+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="myactivity_class">'+  this.activity_Class +'</td><td>'+  this.activity_Area +'</td>')  
                                  })
                              }          	 
                          })
