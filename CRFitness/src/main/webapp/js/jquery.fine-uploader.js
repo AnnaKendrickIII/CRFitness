@@ -17,7 +17,7 @@
 /*globals window, navigator, document, FormData, File, HTMLInputElement, XMLHttpRequest, Blob, Storage, ActiveXObject */
 /* jshint -W079 */
 var qq = function(element) {
-    "use strict";
+    "use strict";////使用strict mode(嚴格模式)
 
     return {
         hide: function() {
