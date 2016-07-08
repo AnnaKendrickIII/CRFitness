@@ -70,6 +70,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	@Override
 	public List<ActivitysVO> select_ActivityMember( ) {	
 		Query query = this.getSession().createSQLQuery(
+
 				"SELECT DISTINCT Activitys.*,(SELECT ','+Members.Nickname " 
 				+"FROM ActivityDetail JOIN Members " 
 				+"ON ActivityDetail.Member_Id=Members.Member_Id	"

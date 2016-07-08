@@ -1,14 +1,11 @@
 package com.CRFitness.PersonalJournal.model;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.SessionFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import org.springframework.stereotype.Service;
 
 //健康日誌
@@ -25,12 +22,7 @@ public class CommonJournalService {
 
 	// 抓取publicStatus狀態
 	public List<PersonalJournalVO> ShowAllJournal() {
-		List<PersonalJournalVO> List = personalJournalDAO.select_publicStatus(1);
-		List<PersonalJournalVO> openJournal = new ArrayList<PersonalJournalVO>();
-		for (PersonalJournalVO data : List) {			
-				openJournal.add(data);		
-		}
-		return openJournal;
+		return  personalJournalDAO.select_publicStatus();
 	}
 
 //	 public static void main(String[] args) {
