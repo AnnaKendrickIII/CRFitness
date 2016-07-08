@@ -24,7 +24,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	// 個人所有日誌 從最近開始往後排序
 	private static final String GET_ALL_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO order by publishTime desc";
 	//挑選publicStatus狀態為1的日誌
-	private static final String GET_COMMON_JOURNAL = "from PersonalJournalVO where 1=:publicStatus";
+	private static final String GET_COMMON_JOURNAL = "from PersonalJournalVO where publicStatus='1'";
 	
 
 	@Autowired
@@ -87,8 +87,8 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	}
 	
 	@Override
-	public List<PersonalJournalVO> select_publicStatus(Integer publicStatus){
-		Query query = this.getSession().createQuery(GET_COMMON_JOURNAL).setParameter("publicStatus", publicStatus);
+	public List<PersonalJournalVO> select_publicStatus( ){
+		Query query = this.getSession().createQuery(GET_COMMON_JOURNAL);
 		return (List<PersonalJournalVO>) query.list();
 	}
 	
