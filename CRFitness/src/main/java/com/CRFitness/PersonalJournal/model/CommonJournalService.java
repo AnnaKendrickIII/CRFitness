@@ -25,28 +25,26 @@ public class CommonJournalService {
 
 	// 抓取publicStatus狀態
 	public List<PersonalJournalVO> ShowAllJournal() {
-		List<PersonalJournalVO> List = personalJournalDAO.getAll();
+		List<PersonalJournalVO> List = personalJournalDAO.select_publicStatus(1);
 		List<PersonalJournalVO> openJournal = new ArrayList<PersonalJournalVO>();
-		for (PersonalJournalVO data : List) {
-			if (data.getPublicStatus() == 1) {
-				openJournal.add(data);
-			}
+		for (PersonalJournalVO data : List) {			
+				openJournal.add(data);		
 		}
 		return openJournal;
 	}
 
-	 public static void main(String[] args) {
-	 ApplicationContext context = new
-	 ClassPathXmlApplicationContext("test.config.xml");
-	
-	 CommonJournalService service = (CommonJournalService)
-	 context.getBean("commonJournalService");
-	
-	 List<PersonalJournalVO> testdata = service.ShowAllJournal();
-	
-	 for(PersonalJournalVO go:testdata){
-	 System.out.println(go.getJournal_Id()+" "+go.getContents());
-	 }
-	 ((ConfigurableApplicationContext) context).close();
-	 }
+//	 public static void main(String[] args) {
+//	 ApplicationContext context = new
+//	 ClassPathXmlApplicationContext("test.config.xml");
+//	
+//	 CommonJournalService service = (CommonJournalService)
+//	 context.getBean("commonJournalService");
+//	
+//	 List<PersonalJournalVO> testdata = service.ShowAllJournal();
+//	
+//	 for(PersonalJournalVO go:testdata){
+//	 System.out.println(go.getJournal_Id()+" "+go.getContents());
+//	 }
+//	 ((ConfigurableApplicationContext) context).close();
+//	 }
 }
