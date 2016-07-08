@@ -7,10 +7,7 @@
 		<id name="activity_Id" column="activity_Id">
 			<generator class="generator.ActivityGenerator" />
 		</id>
-		<many-to-one name="memberVO" class="com.CRFitness.Member.model.MemberVO"
-			lazy="false">
-			<column name="member_Id" />
-		</many-to-one>
+		<property name="member_Id" column="member_Id"></property>
 		<property name="activity_Day" column="activity_Day"></property>
 		<property name="activity_Class" column="activity_Class"></property>
 		<property name="activity_Area" column="activity_Area"></property>

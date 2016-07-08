@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>揪團</title>
-
+<jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
@@ -122,7 +122,7 @@
         }
     </style>
 
-    <jsp:include page="/CRFitness.jsp" />	
+
 </head>
 <body >
 
@@ -267,19 +267,19 @@
 		        		 }
 							$('#grid').append('<li ><a href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
-							+this[0].memberVO.nickname+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+this[0].people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></a>發起人：'
-									+this[0].memberVO.nickname+'<br />類別：'
+									+this[2]+'<br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="目前報名:&#13;'
+									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')			  					
 	                 		 })
