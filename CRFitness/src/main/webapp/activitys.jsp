@@ -121,9 +121,11 @@
             width: 60%;
         }
     </style>
+
+    <jsp:include page="/CRFitness.jsp" />	
 </head>
 <body >
-<jsp:include page="/CRFitness.jsp" />	
+
 	<!-- 頁面部分 開始-->
 
     <ul class="grid effect-5 " id="grid">
@@ -245,42 +247,41 @@
            })
 	})	    
 	    $.ajax({
-		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitys",
+		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
 		          type:'get',  //get post put delete
 		          data:{ },
 		          success:function(data){      	  
-		        	  $.each(data,function(){
+		        	  $.each(data,function(){        		  
 		        		  var message;
-		        		  var activityID=this.activity_Id;
-		        		  $.ajax({
-			        		  url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers/"+activityID,
-					          type:'get',  //get post put delete
-					          data:{ },
-					          success:function(data1){
-					        	  message=data1;  
-					        	  console.log(message)
-					          }
-			        	  })
-		        		   
-		        		  var jdate_int = parseInt(this.activity_Day);                          //轉換成數字
-							var jdate_value = new Date(jdate_int); 
+		        		  var activityID=this[0].activity_Id;     		   
+		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
+						  var jdate_value = new Date(jdate_int);
+						  var names=' ';
+		        		  if(this[1]!=null){
+						  var nameData=this[1].split(",")						  
+						  $.each(nameData,function(){
+							if(this!=""){
+								names+=this+'\n'
+							}				  
+						  })	
+		        		 }
 							$('#grid').append('<li ><a href="data:image/png;base64,'
-							+this.photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
-							+this.memberVO.nickname+'<br />類別：'+this.activity_Class+'<br />地區：'
-									+this.activity_Area+'<br />內容：'
-									+this.activity_Info+'<br />日期：'
+							+this[0].photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+							+this[0].memberVO.nickname+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+									+this[0].activity_Area+'<br />內容：'
+									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this.people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+this[0].people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
-									+this.photo1+'" /></a>發起人：'
-									+this.memberVO.nickname+'<br />類別：'
-									+this.activity_Class+'<br />地區：'
-									+this.activity_Area+'<br />內容：'
-									+this.activity_Info+'<br />日期：'
+									+this[0].photo1+'" /></a>發起人：'
+									+this[0].memberVO.nickname+'<br />類別：'
+									+this[0].activity_Class+'<br />地區：'
+									+this[0].activity_Area+'<br />內容：'
+									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
-									+message+'、'+'">'
-									+this.people+'</button></li>')			  					
+									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="目前報名:&#13;'
+									+names+'">'
+									+this[0].people+'</button></li>')			  					
 	                 		 })
 							  $('.btn.btn-default').tooltip()																
 	                  $.getScript('${this_contextPath}/js/site.js',function(){

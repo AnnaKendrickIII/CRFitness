@@ -12,6 +12,8 @@ public interface PersonalJournalDAO_interface {
      public PersonalJournalVO findByPrimaryKey(String journal_Id);
      public List<PersonalJournalVO> select_journal(MemberVO memberVO);
      public List<PersonalJournalVO> getAll();
+     public List<PersonalJournalVO> select_publicStatus(Integer publicStatus);
+
      
      
 }

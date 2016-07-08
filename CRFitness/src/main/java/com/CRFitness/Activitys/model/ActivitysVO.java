@@ -1,6 +1,8 @@
 package com.CRFitness.Activitys.model;
 import java.sql.Timestamp;
 
+import org.hibernate.type.ArrayType;
+
 import com.CRFitness.Member.model.MemberVO;
 public class ActivitysVO implements java.io.Serializable{				//揪團專區
 	
@@ -18,7 +20,6 @@ public class ActivitysVO implements java.io.Serializable{				//揪團專區
 	private Timestamp deadline;		//報名截止日
 	private Timestamp startDay;		//發起日期
 	private Integer people;				//活動人數
-
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}

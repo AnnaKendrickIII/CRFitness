@@ -70,12 +70,15 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	@Override
 	public List<ActivitysVO> select_ActivityMember( ) {	
 		Query query = this.getSession().createSQLQuery(
-				"SELECT Members.Nickname ,Activitys.* "
-				+"FROM Activitys JOIN ActivityDetail "
-				+"ON Activitys.Activity_Id=ActivityDetail.Activity_Id "
-				+"JOIN Members ON ActivityDetail.Member_Id=Members.Member_Id "		
+
+				"SELECT DISTINCT Activitys.*,(SELECT ','+Members.Nickname " 
+				+"FROM ActivityDetail JOIN Members " 
+				+"ON ActivityDetail.Member_Id=Members.Member_Id	"
+				+"WHERE Activitys.Activity_Id =ActivityDetail.Activity_Id "							
+				+"FOR XML PATH('') ) as Nicknames "
+				+"FROM Activitys "
 				).addEntity("Activitys.*",ActivitysVO.class)
-				.addScalar("Nickname",StringType.INSTANCE);
+				.addScalar("Nicknames",StringType.INSTANCE);//StringType.INSTANCE
 	return (List<ActivitysVO>) query.list();	
 }
 
