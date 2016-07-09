@@ -116,6 +116,7 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 			(memberVO = memberService.login(memberVO.getE_mail(),
 					memberVO.getPassword())).setPassword(null);
 			session.setAttribute("LoginOK", memberVO);
+			request.getServletContext().removeAttribute("GoUrl");
 			return SUCCESS;
 		} else {
 			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");

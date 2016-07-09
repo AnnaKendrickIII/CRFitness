@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -39,6 +40,62 @@
 	</script>
 <!-- 上傳圖片 結尾-->
 
+<script type="text/template" id="qq-template-manual-trigger">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+            <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="50" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+            </div>
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span class="qq-upload-drop-area-text-selector"></span>
+            </div>
+            <div class="buttons">
+                <div class="qq-upload-button-selector qq-upload-button">
+                    <div>Select files</div>
+                </div>
+            </div>
+            <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>
+                    <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>
+                    <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+
+            <dialog class="qq-alert-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Close</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-confirm-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">No</button>
+                    <button type="button" class="qq-ok-button-selector">Yes</button>
+                </div>
+            </dialog>
+
+            <dialog class="qq-prompt-dialog-selector">
+                <div class="qq-dialog-message-selector"></div>
+                <input type="text">
+                <div class="qq-dialog-buttons">
+                    <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                    <button type="button" class="qq-ok-button-selector">Ok</button>
+                </div>
+            </dialog>
+        </div>
+	</script>
+    
 <style>
 body {
 	background-color: #E0E0E0;
@@ -67,11 +124,6 @@ body {
 	color: black;
 }
 
-#tablesearchinput {
-	margin-top: 55px;
-}
-
-
 #trigger-upload {
 	color: white;
     background-color: #00ABC7;
@@ -91,8 +143,35 @@ body {
 #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
    	width: 60%;
 }
+
+.gallery {
+	margin: 20px 0;
+	overflow: hidden;
+}
+
+.lightbox_image {
+	display: block;
+	float: left;
+	margin: 0 2% 10px 0;
+	width: 100%;/*網頁圖片大小*/
+	max-width: 150px;/**/
+}
+
+.lightbox_image img {
+	display: block;
+	width: 100%;
+}
+.qq-edit-filename-icon {
+    display: none;
+    background: url("${this_contextPath}/images/edit.gif");
+    width: 15px;
+    height: 15px;
+    vertical-align: text-bottom;
+    margin-right: 16px;
+}
+
 #createProduct{
-margin-top:55px;
+	margin-top:55px;
 }
 </style>
 </head>
@@ -107,54 +186,56 @@ margin-top:55px;
   		新增產品
   		</button>
 	
-<!-- 新增活動 開始-->
-<%-- 		<form  name="member" class="form-login" action="${this_contextPath}/CRF/member.action" method="post" > --%>
-<!--         	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="products_tbody" class="modal fade"> -->
-<!--             	<div class="modal-dialog"> -->
-<!--                 	<div class="modal-content"> -->
-<!--                     <div class="modal-header login_header"> -->
-<!--                     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-<!--                         <h3 class="modal-title">新增產品</h3> -->
-<!--                     </div> -->
+<!-- 新增產品彈出視窗 開始-->
+        	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="products_tbody" class="modal fade">
+            	<div class="modal-dialog">
+                	<div class="modal-content">
+                	
+                    <div class="modal-header login_header">
+                    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">新增產品</h3>
+                    </div>
                             
-<!--                     <div id="addActivitys_form" class="modal-body"> -->
-<!--                     <div id='fine-uploader-manual-trigger'></div> -->
-<%--             	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p> --%>
-<!--                         <input required="required" type="text" id="insert_Name" autocomplete="off" class="form-control" placeholder="產品名稱" />                                                 -->
-<!--                         <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
-<!--                    		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="產品顏色" /> -->
-<!--                         <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p> -->
-<!--                         <select id="insert_size" name="test1" class="form-control" > -->
-<!-- 							<option value="1">XS</option> -->
-<!-- 							<option value="2">S</option> -->
-<!-- 							<option value="3">M</option> -->
-<!-- 							<option value="4">L</option> -->
-<!-- 							<option value="5">XL</option> -->
-<!-- 							<option value="6">2XL</option> -->
-<!-- 							<option value="7">3XL</option> -->
-<!-- 							<option value="8">U</option> -->
-<!-- 						</select> -->
-<!--                         <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">}</span></p> -->
-<!--                         <input required="required" type="text" id="insert_stock" class="form-control" autocomplete="off" placeholder="產品數量"/> -->
-<!--                         <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
-<!--                         <input required="required" type="text" id="insert_price" class="form-control" autocomplete="off" placeholder="產品價格" /> -->
-<!--                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
-<!--                         <input required="required" type="text" id="insert_category" class="form-control" autocomplete="off" placeholder="產品分類" /> -->
-<!--                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
-<!--                         <input required="required" type="text" id="insert_introduction" class="form-control" autocomplete="off" placeholder="產品簡介" /> -->
+                    <div id="addActivitys_form" class="modal-body">
+                    <div id='fine-uploader-manual-trigger'></div>
+            	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
+                        <input required="required" type="text" id="insert_Name" autocomplete="off" class="form-control" placeholder="輸入名稱" />                                                
+                        <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                   		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />
+                        <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p>
+                        <select id="insert_size" name="test1" class="form-control" >
+							<option value="1">XS</option>
+							<option value="2">S</option>
+							<option value="3">M</option>
+							<option value="4">L</option>
+							<option value="5">XL</option>
+							<option value="6">2XL</option>
+							<option value="7">3XL</option>
+							<option value="8">U</option>
+						</select>
+                        <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="insert_stock" class="form-control" autocomplete="off" placeholder="輸入數量"/>
+                        <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="insert_price" class="form-control" autocomplete="off" placeholder="輸入價格" />
+                        <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="insert_category" class="form-control" autocomplete="off" placeholder="輸入分類" />
+                        <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="insert_introduction" class="form-control" autocomplete="off" placeholder="輸入簡介" />
                             
-<!--                      </div> end of id="addActivitys_form" class="modal-body" -->
-<!--                      <div class="modal-footer"> -->
-<%-- <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%> --%>
-<!--                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button> -->
-<!--                         <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_MEMBER">送出</button>                        -->
-<!--                      </div> -->
-<!--                      </div> -->
-<!--                   </div> -->
-<!--             </div> -->
-<!-- 		</form> -->
-<!-- 新增活動 結束-->		
-				
+                     </div> <!-- end of id="addActivitys_form" class="modal-body" -->
+                     
+                     <div class="modal-footer">
+<%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
+                        <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                        <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_PRODUCT">送出</button>                       
+                     </div>
+                     
+                     </div>
+                  </div>
+            </div>
+<!-- 新增產品彈出視窗 結束 -->
+			
+<!-- 資料表格 開始 -->
 		<table id="games_talbe" class="table">
 			<thead>
 				<tr>
@@ -172,18 +253,16 @@ margin-top:55px;
 					<th><h3>Suspended</h3></th>
 				</tr>
 			</thead>
-		<tbody id="products_tbody"></tbody>
+			<tbody id="products_tbody"></tbody>
 		</table>
-		</div><!-- end of class="col-md-8 col-xs-12" -->
-		<div class="col-md-2"></div>
-
+<!-- 資料表格 結束 -->
 		<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>
 		<script src="${this_contextPath}/js/classie.js"></script>
 		<script src="${this_contextPath}/js/imagesloaded.js"></script>
 		<script src="${this_contextPath}/js/AnimOnScroll.js"></script>
 
-		<script>
-			// type="text/javascript"
+<script>
+// 轉換日期的小程式 開始
 			Date.prototype.Format = function(fmt) {
 				var o = {
 					"M+" : this.getMonth() + 1, //月份 
@@ -192,8 +271,7 @@ margin-top:55px;
 					"m+" : this.getMinutes(), //分 
 					"s+" : this.getSeconds(), //秒 
 					"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
-					"S" : this.getMilliseconds()
-				//毫秒 
+					"S" : this.getMilliseconds()	//毫秒 
 				};
 				if (/(y+)/.test(fmt))
 					fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
@@ -206,7 +284,116 @@ margin-top:55px;
 												.substr(("" + o[k]).length)));
 				return fmt;
 			}
+// 轉換日期的小程式 結束
 
+// 新增產品的程式 開始
+ jQuery(function ($) {	  
+	var file
+	var formData = new FormData();
+	    formData = new FormData();
+	$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
+		file=event.target.files;			  	 
+		formData.append('photo1', file[0]);
+	 })
+	
+	$('#addActivitys').click(function () {
+			 formData.append('member_Id',  '${LoginOK.member_Id}');
+			 formData.append('activity_Day', $('#datetimepicker').val());
+			 formData.append('activity_Class', $('#addActivity_Class').val());
+			 formData.append('activity_Area', $('#addActivitys_Area').val());
+			 formData.append('activity_Info', $('#addActivitys_Info').val());
+			 formData.append('deadline', $('#datetimepickerb').val());
+			 formData.append('date', $('#date').val());
+		   $.ajax({
+               url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
+               type:'post',  //get post put delete
+				data: formData,
+    		   processData: false,
+			   contentType: false,
+               success:function(data){
+            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
+					var jdate_value = new Date(jdate_int);
+            	   $('#new_activity').modal('hide');	
+            	   $('#grid>li:nth-child(1)').after('<li ><a href="data:image/png;base64,'
+							+data.photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+							+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
+									+data.activity_Area+'<br />內容：'
+									+data.activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+data.people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+'"><img src="data:image/png;base64,'
+									+data.photo1+'" /></a>發起人：'
+									+data.member_Id+'<br />類別：'
+									+data.activity_Class+'<br />地區：'
+									+data.activity_Area+'<br />內容：'
+									+data.activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+									+data.people+'</button></li>')	
+									
+									new AnimOnScroll(document.getElementById('grid'), {
+					                      minDuration: 0.4,
+					                      maxDuration: 0.6,
+					                      viewportFactor: 0.2
+					                  }); 
+               						}	 
+           })
+	}) // end of $('#addActivitys').click(function ()
+	
+	
+	$.ajax({
+         url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
+         type:'get',  //get post put delete
+         data:{ },
+         success:function(data){      	  
+       	  $.each(data,function(){        		  
+       		  var message;
+       		  var activityID=this[0].activity_Id;     		   
+       		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
+				  var jdate_value = new Date(jdate_int);
+				  var names=' ';
+       		  if(this[1]!=null){
+				  var nameData=this[1].split(",")						  
+				  $.each(nameData,function(){
+					if(this!=""){
+						names+=this+'\n'
+					}				  
+				  })	
+       		 }
+					$('#grid').append('<li ><a href="data:image/png;base64,'
+					+this[0].photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+					+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+							+this[0].activity_Area+'<br />內容：'
+							+this[0].activity_Info+'<br />日期：'
+							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+							+this[0].people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+							+'"><img src="data:image/png;base64,'
+							+this[0].photo1+'" /></a>發起人：'
+							+this[2]+'<br />類別：'
+							+this[0].activity_Class+'<br />地區：'
+							+this[0].activity_Area+'<br />內容：'
+							+this[0].activity_Info+'<br />日期：'
+							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+							+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+							+names+'">'
+							+this[0].people+'</button></li>')			  					
+            		 })
+					  $('.btn.btn-default').tooltip()																
+             $.getScript('${this_contextPath}/js/site.js',function(){
+           	  
+             })
+             new AnimOnScroll(document.getElementById('grid'), {
+                 minDuration: 0.4,
+                 maxDuration: 0.6,
+                 viewportFactor: 0.2
+             });
+         }          	 
+     })
+
+}) // end of jQuery(function ($)
+// 新增產品的程式 結束
+
+// 產出table的程式 開始
 			$(function() {
 				$.ajax({
 	//       	url:"${this_contextPath}/CRFSERVICE/producController/product",
@@ -245,9 +432,17 @@ margin-top:55px;
 									})
 							}
 						})
-			})
-		</script>
+			}) 
+// 產出table的程式 結束			
+</script>
 
+		</div> <!-- end of class="col-md-8 col-xs-12" -->
+		<div class="col-md-2"></div>
+
+	</div>
+	<!--  頁面部分 結束 -->
+</body>
+</html>
 		<!--                <script type="text/javascript"> -->
 		<!--                      $(function () { -->
 		<!--                          $.ajax({ -->
@@ -262,8 +457,3 @@ margin-top:55px;
 		<!--                          }) -->
 		<!--                      }) -->
 		<!--                  </script >  -->
-
-	</div>
-	<!--  頁面部分 結束 -->
-</body>
-</html>

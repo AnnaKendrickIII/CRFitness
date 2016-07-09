@@ -63,7 +63,7 @@
                     <a href="${this_contextPath}/Games.jsp"><i class="fa fa-flag-checkered"></i>賽事</a>
                 </li>
                  <li>
-                    <a href="#"><i class="fa fa-road" ></i>路線規劃</a>
+                    <a href="${this_contextPath}/Maintenance/MaintainProducts.jsp"><i class="fa fa-road" ></i>路線規劃</a>
                 </li>                    
             </ul>
         </div>
