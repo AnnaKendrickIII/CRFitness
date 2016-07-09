@@ -51,8 +51,8 @@
 		          success:function(data){      	  
 		        	  $.each(data,function(){        		  
 		        		  var message;
-		        		  var activityID=this.activity_Id;     		   
-		        		  var jdate_int = parseInt(this.activity_Day);                          //轉換成數字
+		        		  var activityID=this[0].activity_Id;     		   
+		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
 						  var jdate_value = new Date(jdate_int);
 						  var names=' ';
 		        		  if(this[1]!=null){
@@ -63,21 +63,20 @@
 							}				  
 						  })	
 		        		 }
-							$('#grid').append('<li ><a href="data:image/png;base64,'
+							$('#grid').append('<li ><a name="abc" href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-									+'"><img src="data:image/png;base64,'
+									+this[0].people+'"><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></a>發起人：'
-									+this[2]+'<button type="button" style="float:right" class="glyphicon glyphicon-pencil">修改</button><br />類別：'
+									+this[2]+'<br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')			  					
 	                 		 })
@@ -93,7 +92,6 @@
 		          }          	 
 		      })
 	</script>
-	
 
 </c:if>
 	<!--  頁面部分 結束 -->

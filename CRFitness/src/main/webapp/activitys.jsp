@@ -259,7 +259,7 @@
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+data.people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
 									+data.photo1+'" /></a>發起人：'
 									+data.member_Id+'<br />類別：'
@@ -305,7 +305,7 @@
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></a>發起人：'
 									+this[2]+'<br />類別：'
@@ -313,7 +313,7 @@
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')			  					
 	                 		 })
