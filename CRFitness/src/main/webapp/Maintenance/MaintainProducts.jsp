@@ -8,8 +8,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-signin-client_id"
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
+<jsp:include page="/AdminFrame.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
+<script src="${this_contextPath}/js/modernizr.custom.js"></script>
+<link rel="stylesheet" href="${this_contextPath}/css/site.css">
+<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
+<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
+
 <title>MaintainProducts</title>
+<!-- 上傳圖片 開始-->
+	<script>
+        $('#fine-uploader-manual-trigger').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/server/uploads'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        });
+
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+        });
+	</script>
+<!-- 上傳圖片 結尾-->
+
 <style>
 body {
 	background-color: #E0E0E0;
@@ -41,104 +70,111 @@ body {
 #tablesearchinput {
 	margin-top: 55px;
 }
-/* .test { */
-/* 	margin-top: 235px; */
-/* 	margin-left: 250px; */
-/* } */
 
-/* th { */
-/* 	border: 1px solid black; */
-/* 	padding: 10px; */
-/* 	text-align: center; */
-/* 	vertical-align: bottom; */
-/* } */
 
-/* td { */
-/* 	border: 1px solid black; */
-/* 	padding: 5px; */
-/* 	text-align: center; */
-/* 	vertical-align: bottom; */
-/* } */
+#trigger-upload {
+	color: white;
+    background-color: #00ABC7;
+    font-size: 14px;
+    padding: 7px 20px;
+    background-image: none;
+}
 
-/* tbody tr:nth-child(2n) { */
-/* 	background-color: gray */
-/* } */
+#fine-uploader-manual-trigger .qq-upload-button {
+	margin-right: 15px;
+}
 
-/* tbody tr:nth-child(2n+1) { */
-/* 	background-color: silver */
-/* } */
+#fine-uploader-manual-trigger .buttons {
+    width: 50%;
+}
 
-/* tbody tr:hover { */
-/* 	background-color: yellow */
-/* } */
-
-/* table { */
-/* 	border: 1px solid black; */
-/* 	border-collapse: collapse; */
-/* 	margin: 0 auto; */
-/* 	border-radius: 20px; */
-/* } */
+#fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
+   	width: 60%;
+}
+#createProduct{
+margin-top:55px;
+}
 </style>
 </head>
 <body>
-	<jsp:include page="/CRFitness.jsp" />
-	<!-- 頁面部分 開始-->
 
-<!-- 	<div class="row"> -->
-<!-- 		<div class="col-md-2 "></div> -->
-<!-- 		<div class="col-md-8 col-xs-12 "> -->
-<!-- 			<input type="text" id="tablesearchinput" required="required" -->
-<!-- 				placeholder="請輸入關鍵字" /> -->
-<!-- 			<table id="games_talbe" class="table"> -->
-<!-- 				<thead> -->
-<!-- 					<tr> -->
-<!-- 						<th><h3>Photo</h3></th> -->
-<!-- 						<th><h3>ID</h3></th> -->
-<!-- 						<th><h3>Name</h3></th> -->
-<!-- 						<th><h3>Size</h3></th> -->
-<!-- 						<th><h3>Color</h3></th> -->
-<!-- 						<th><h3>Stock</h3></th> -->
-<!-- 						<th><h3>Published Date</h3></th> -->
-<!-- 					</tr> -->
-<!-- 				</thead> -->
-<!-- 				<tbody> -->
-
-<!-- 				</tbody> -->
-<!-- 			</table> -->
-<!-- 		</div> -->
-<!-- 		<!-- end of class="col-md-8 col-xs-12" --> -->
-<!-- 		<div class="col-md-2"></div> -->
-<!-- 	</div> -->
-
-
-
-	<!-- 	<div class="test"> -->
+<!-- 頁面部分 開始-->
 	<div class="row">
 		<div class="col-md-2 "></div>
 		<div class="col-md-8 col-xs-12 ">
-			<input type="text" id="tablesearchinput" required="required"
-				placeholder="Please input key words" />
-			<table id="games_talbe" class="table">
-				<thead>
-					<tr>
-						<!-- 		<th>ID</th> -->
-						<!-- 		<th>Name</th> -->
-						<!-- 		<th>Price</th> -->
-						<!-- 		<th>Category</th> -->
-						<th><h3>Photo</h3></th>
-						<th><h3>ID</h3></th>
-						<th><h3>Name</h3></th>
-						<th><h3>Size</h3></th>
-						<th><h3>Color</h3></th>
-						<th><h3>Stock</h3></th>
-						<th><h3>Published Date</h3></th>
-					</tr>
-				</thead>
-				<tbody id="products_tbody">
-				</tbody>
-			</table>
-		</div>
-		<!-- end of class="col-md-8 col-xs-12" -->
+		
+		<button type="button" id="createProduct" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#products_tbody">
+  		新增產品
+  		</button>
+	
+<!-- 新增活動 開始-->
+<%-- 		<form  name="member" class="form-login" action="${this_contextPath}/CRF/member.action" method="post" > --%>
+<!--         	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="products_tbody" class="modal fade"> -->
+<!--             	<div class="modal-dialog"> -->
+<!--                 	<div class="modal-content"> -->
+<!--                     <div class="modal-header login_header"> -->
+<!--                     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+<!--                         <h3 class="modal-title">新增產品</h3> -->
+<!--                     </div> -->
+                            
+<!--                     <div id="addActivitys_form" class="modal-body"> -->
+<!--                     <div id='fine-uploader-manual-trigger'></div> -->
+<%--             	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p> --%>
+<!--                         <input required="required" type="text" id="insert_Name" autocomplete="off" class="form-control" placeholder="產品名稱" />                                                 -->
+<!--                         <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
+<!--                    		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="產品顏色" /> -->
+<!--                         <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p> -->
+<!--                         <select id="insert_size" name="test1" class="form-control" > -->
+<!-- 							<option value="1">XS</option> -->
+<!-- 							<option value="2">S</option> -->
+<!-- 							<option value="3">M</option> -->
+<!-- 							<option value="4">L</option> -->
+<!-- 							<option value="5">XL</option> -->
+<!-- 							<option value="6">2XL</option> -->
+<!-- 							<option value="7">3XL</option> -->
+<!-- 							<option value="8">U</option> -->
+<!-- 						</select> -->
+<!--                         <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">}</span></p> -->
+<!--                         <input required="required" type="text" id="insert_stock" class="form-control" autocomplete="off" placeholder="產品數量"/> -->
+<!--                         <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
+<!--                         <input required="required" type="text" id="insert_price" class="form-control" autocomplete="off" placeholder="產品價格" /> -->
+<!--                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
+<!--                         <input required="required" type="text" id="insert_category" class="form-control" autocomplete="off" placeholder="產品分類" /> -->
+<!--                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p> -->
+<!--                         <input required="required" type="text" id="insert_introduction" class="form-control" autocomplete="off" placeholder="產品簡介" /> -->
+                            
+<!--                      </div> end of id="addActivitys_form" class="modal-body" -->
+<!--                      <div class="modal-footer"> -->
+<%-- <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%> --%>
+<!--                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button> -->
+<!--                         <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_MEMBER">送出</button>                        -->
+<!--                      </div> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--             </div> -->
+<!-- 		</form> -->
+<!-- 新增活動 結束-->		
+				
+		<table id="games_talbe" class="table">
+			<thead>
+				<tr>
+					<th><h3>Photo</h3></th>
+					<th><h3>ID</h3></th>
+					<th><h3>Detailed ID</h3></th>
+					<th><h3>Name</h3></th>
+					<th><h3>Size</h3></th>
+					<th><h3>Color</h3></th>
+					<th><h3>Stock</h3></th>
+					<th><h3>Price</h3></th>
+					<th><h3>Category</h3></th>
+					<th><h3>Published Date</h3></th>
+					<th><h3>Modify</h3></th>
+					<th><h3>Suspended</h3></th>
+				</tr>
+			</thead>
+		<tbody id="products_tbody"></tbody>
+		</table>
+		</div><!-- end of class="col-md-8 col-xs-12" -->
 		<div class="col-md-2"></div>
 
 		<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>
@@ -172,38 +208,41 @@ body {
 			}
 
 			$(function() {
-				$
-						.ajax({
-							//       	url:"${this_contextPath}/CRFSERVICE/producController/product",
-							url : "${this_contextPath}/CRFSERVICE/productDetailController/productDetail",
-							type : 'get', //get post put delete
-							data : {},
-							success : function(data) {
-								$
-										.each(
-												data,
-												function() {
-													var pdate_int = parseInt(this.published_Date); //轉換成數字
-													var pdate_value = new Date(
-															pdate_int);
-													//             	$('#products_tbody').append('<tr><td>'+ this.product_Id + '</td><td>'+ this.product_Name +'</td><td>' + this.price + '</td><td>' + this.category +'</td></tr>')  
-													$('#products_tbody')
-															.append(
-																	'<tr><td><img src="data:image/png;base64,' + this.photo1 + '" class="img-circle friend_photo" /></td><td>'
-																			+ this.productDetail_Id
-																			+ '</td><td>'
-																			+ this.product_Name
-																			+ '</td><td>'
-																			+ this.size
-																			+ '</td><td>'
-																			+ this.color
-																			+ '</td><td>'
-																			+ this.stock
-																			+ '</td><td>'
-																			+ pdate_value
-																					.Format("yyyy-MM-dd hh:mm:ss")
-																			+ '</td></tr>')
-												})
+				$.ajax({
+	//       	url:"${this_contextPath}/CRFSERVICE/producController/product",
+					url : "${this_contextPath}/CRFSERVICE/productDetailController/productDetail",
+					type : 'get', //get post put delete
+					data : {},
+					success : function(data) {
+						$.each(
+							data,
+							function() {
+								var pdate_int = parseInt(this.published_Date); //轉換成數字
+								var pdate_value = new Date(
+									pdate_int);
+					//             	$('#products_tbody').append('<tr><td>'+ this.product_Id + '</td><td>'+ this.product_Name +'</td><td>' + this.price + '</td><td>' + this.category +'</td></tr>')  
+									$('#products_tbody').append('<tr><td><img src="data:image/png;base64,' + this.photo1 + '" class="img-thumbnail" /></td><td>'
+														+ this.product_Id
+														+ '</td><td>'
+														+ this.productDetail_Id
+														+ '</td><td>'
+														+ this.product_Name
+														+ '</td><td>'
+														+ this.size
+														+ '</td><td>'
+														+ this.color
+														+ '</td><td>'
+														+ this.stock
+														+ '</td><td>'
+//  														+ this.productsVO.price
+														+ '</td><td>'
+//  														+ this.productsVO.category
+ 														+ '</td><td>'
+														+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+														+ '</td><td><img class="glyphicon glyphicon-wrench">'
+														+ '</td><td><img class="glyphicon glyphicon-trash">'
+														+ '</td></tr>') // end of append
+									})
 							}
 						})
 			})

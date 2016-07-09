@@ -18,7 +18,7 @@
 	       <interceptor-ref name="TargetpreURL"></interceptor-ref>  
    		   <interceptor-ref name="defaultStack"></interceptor-ref>  
 	        <result name="success" type="redirect">${preURL}</result>
-            <result name="input" >/index.jsp</result>
+            <result name="input" >${preURL}</result>
 		</action>
 		
 		

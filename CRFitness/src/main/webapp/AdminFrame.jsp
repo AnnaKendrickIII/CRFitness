@@ -12,13 +12,12 @@
     <link href="${this_contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
     
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
-     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
+    
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
 
     <script src="${this_contextPath}/js/jquery-ui.min.js"></script>	
-    <script src="${this_contextPath}/js/custombox.js"></script>	
-    <script src="${this_contextPath}/js/legacy.js"></script>	
+    
       <script src="${this_contextPath}/js/lrtk.js"></script>	
       <!-- GoogleLogin-->   
     <script src="https://apis.google.com/js/platform.js"></script>	
@@ -31,34 +30,34 @@
             <ul class="sidebar-nav">           
                 <li class="sidebar-brand">
                      <span>
-                    <a href="${this_contextPath}/index.jsp" >                               
+                    <a href="${this_contextPath}/Admin.jsp" >                               
                         <i class="fa fa-home fa-2x "></i>                                
                     </a>
                    </span>
                 </li>            
                 <li>
                     <div class="dropdown">    
-                        <a href="#"><i class="fa fa-book"></i>日誌<span class="caret"></span></a>
+                        <a href="#"><i class="fa fa-book"></i>維護日誌<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="${this_contextPath}/Journal.jsp">健康日誌</a></li>
-                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">個人日誌</a></li>
+                            <li><a href="${this_contextPath}/Journal.jsp">維護健康日誌</a></li>
+                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">維護個人日誌</a></li>
                             <li><a href="#">累積紀錄</a></li>
                         </ul>
                     </div>
                 </li>
                 <li>
                     <div class="dropdown">
-                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
+                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>維護商品<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="${this_contextPath}/Maintenance/MaintainEquipment.jsp">運動器材</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainClothing.jsp">服飾類</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainAccessories.jsp">運動用品</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainShoes.jsp">鞋類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainEquipment.jsp">維護運動器材</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainClothing.jsp">維護服飾類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainAccessories.jsp">維護運動用品</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainShoes.jsp">維護鞋類</a></li>
                         </ul>
                     </div>
                 </li>
                 <li>  
-                 <a href="${this_contextPath}/activitys.jsp"><i class="fa fa-users" ></i>揪團專區</a>
+                 <a href="${this_contextPath}/activitys.jsp"><i class="fa fa-users" ></i>維護揪團專區</a>
                 </li>             
                 <li>
                     <a href="${this_contextPath}/Games.jsp"><i class="fa fa-flag-checkered"></i>賽事</a>
@@ -82,7 +81,7 @@
                 </div>
             </div>
             <div class="col-xs-3">
-                <img  class="img-responsive logo_css" src="${this_contextPath}/images/logo.png">
+                 <h2>Administration</h2> <!-- <img class="img-responsive logo_css" src="${this_contextPath}/images/logo.png"> -->
             </div>
             
             <div class="col-xs-4">
@@ -101,7 +100,7 @@
                 </div>
                 </c:when>
                 <c:otherwise>
-                 <a id="login_go" href="#login-box" class="login-window">
+                 <a href="#login-box" class="login-window">
               <img id="Img1" src="${this_contextPath}/icon/user.ico" class="img-responsive user_css " />
               	</a>
                 </c:otherwise>
@@ -222,76 +221,67 @@
         <!-- 揪團區塊 結束-->
         
         <!-- 登入對話方塊 開始-->
-        <div  class="container"> 
+        <div class="container"> 
          <c:if test="${!empty LoginErrorMessage}">
             <script type="text/javascript"> 	 
                 $(function () {
-                  
-                        Custombox.open({
-                            target: '#login-box',
-                            effect: 'door'
+                    var loginBox = $('#login-box');
+                    loginBox.css({//設定登入對話方塊位置
+                        'margin-left': '-120px',
+                        'display': 'block'
+                    });
+                    $('#create_account').click(function () {
+                        $('#login_div').slideUp(300);
+                        $('#mask').fadeOut(300, function () {//黑屏會慢慢淡出
+                        	$(this).remove();//黑屏移除
                         });
-                        $('#create_account').click(function () {	
-                        	  Custombox.close('#login-box') 
-                        })      
-                    
-                   
+                    })
+                    // Add the mask to body
+                    $('body').append('<div id="mask"></div>');//產成id=mask的div元素加在整塊body中
+                    $('#mask').show()//黑屏淡入
+                    .bind('click', function () {//點擊黑屏部分
+                        $('#login-box').hide('scale', 300);//登入方塊會由下向上隱藏
+                        $(this).fadeOut(300, function () {//黑屏會慢慢淡出
+                        	$(this).remove();//黑屏移除
+                        });
+                        return false;
+                    });
                 });
        </script>
      </c:if >
-     </div>
-     <div class="row">
-     <div class="col-lg-5 col-md-4  col-sm-6 col-xs-3"></div>
-<div id="login-box" class="col-lg-2 col-md-4 col-sm-4 col-xs-6 login-popup ">
-		<form  name="member" class="form-login"
-			action="${this_contextPath}/CRF/member!login.do" method="post">
-			<div id="login_div">
-				<h2 class="form-login-heading">登入</h2>
-				<div class="login-wrap">
-					<input required="required" type="email" name="memberVO.e_mail"
-						class="form-control" placeholder="E-Mail" autofocus="autofocus"
-						value="${param['memberVO.e_mail']}" /> <br /> <input
-						required="required" type="password" name="memberVO.password"
-						class="form-control" placeholder="Password"
-						value="${param['memberVO.password']}" /> <label class="checkbox">
-						<span class="pull-right"> <a data-toggle="modal"
-							class="container_a_css" href="#myModal">需要協助?</a>
-					</span>
-					</label>
-					<button name="member_action" class="btn btn-theme btn-block"
-						type="submit" value="SIGN_IN">
-						<i class="fa fa-lock"></i>SIGN IN
-					</button>
-					<div class="error_div">${LoginErrorMessage}</div>
-					<hr />
-					<div class="login-social-link centered">
-						<div>
-							<small>你也可以使用以下的社群網站登入</small>
-						</div>
-						<a id='fblogina' href='javascript: void(0);' title='login'
-							onclick='javascript:fblogin();return false;'>
-							<button class="btn btn-facebook">
-								<i class="fa fa-facebook"></i>Facebook
-							</button>
-						</a> <span id="googleSignIna"><button id="googleSignIn"
-								class="btn btn-google">
-								<i class="fa fa-google-plus-square"></i>Google
-							</button></span>
-					</div>
-					<div class="registration">
-						Don't have an account yet?<br /> <a id="create_account"
-							data-toggle="modal" class="container_a_css" href="#my_create">Create
-							an account </a>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div class="col-lg-5 col-md-4 col-sm-2 col-xs-3"></div>
-</div>
-<!-- 登入對話方塊 結束-->
-     	<!-- 忘記密碼需要協助方塊 開始-->
-                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+    <div id="login-box" class="login-popup" >
+            <form name="member" class="form-login" action="${this_contextPath}/CRF/member!login.do" method="post" >
+                <div id="login_div">
+                <h2 class="form-login-heading">登入</h2>
+                <div class="login-wrap">
+                    <input  required="required" type="email"  name="memberVO.e_mail" class="form-control" placeholder="E-Mail" autofocus="autofocus" value="${param['memberVO.e_mail']}"/>
+                    <br />
+                    <input  required="required"  type="password" name="memberVO.password" class="form-control" placeholder="Password"  value="${param['memberVO.password']}" />
+                    <label class="checkbox">
+                        <span class="pull-right">
+                            <a data-toggle="modal" class="container_a_css" href="#myModal">需要協助?</a>
+                        </span>
+                    </label>
+                    <button name="member_action" class="btn btn-theme btn-block" type="submit" value="SIGN_IN"><i class="fa fa-lock"></i>SIGN IN</button>
+                    <div class="error_div">${LoginErrorMessage}</div>
+                    <hr />
+                    <div class="login-social-link centered">
+                        <div>
+                            <small>你也可以使用以下的社群網站登入</small>
+                        </div>
+                        <a id='fblogina'  href='javascript: void(0);'title='login'onclick='javascript:fblogin();return false;'>                                      
+                        <button  class="btn btn-facebook"><i class="fa fa-facebook"></i>Facebook</button></a>
+                        <span id="googleSignIna"><button  id="googleSignIn" class="btn btn-google" ><i class="fa fa-google-plus-square"></i>Google</button></span>
+                    </div>
+                    <div class="registration">
+                        Don't have an account yet?<br />
+                        <a id="create_account" data-toggle="modal" class="container_a_css" href="#my_create">Create an account
+                        </a>
+                    </div>
+                </div>
+               </div>
+                <!-- 忘記密碼需要協助方塊 開始-->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header login_header">
@@ -308,8 +298,14 @@
                             </div>
                         </div>
                     </div>
-                </div>              
-                <!-- 忘記密碼需要協助方塊 結尾-->         
+                </div>
+                <!-- 忘記密碼需要協助方塊 結尾-->
+
+               
+            </form>
+        </div>
+    </div>
+    <!-- 登入對話方塊 結束-->
 <!-- 註冊帳號 開始-->
 		<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.action" method="post" >
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="my_create" class="modal fade">
@@ -440,22 +436,35 @@
                 });
             });
             //登入顯示
-            
-            
-//             $('a.login-window').click(function () {//點擊右上角人頭小圖示
-//                 var loginBox = $(this).attr('href');//讀取$('a.login-window')屬性href的值存入loginBox變數裡
-                
-                $('a.login-window').on('click', function (e) {
-                    Custombox.open({
-                        target: '#login-box',
-                        effect: 'fall'
-                    });
-                    $('#create_account').click(function () {	
-                    	  Custombox.close('#login-box') 
-                    })      
-                    e.preventDefault();
+            $('a.login-window').click(function () {//點擊右上角人頭小圖示
+                var loginBox = $(this).attr('href');//讀取$('a.login-window')屬性href的值存入loginBox變數裡
+                $(loginBox).show('scale', 300)//登入對話方塊由上至下浮現          
+                .css({//設定登入對話方塊位置
+                    'margin-left': '-120px'
                 });
+                $('#login_div').slideDown(300);
+                
+                // Add the mask to body
+                $('body').append('<div id="mask"></div>');//產成id=mask的div元素加在整塊body中
+                $('#mask').fadeIn(300);//黑屏淡入
 
+                $('#create_account').click(function () {
+
+                    $('#login_div').slideUp(300);
+                    $('#mask').fadeOut(300, function () {//黑屏會慢慢淡出
+                    	$(this).remove();//黑屏移除
+                    });
+                })
+                //登入隱藏
+                $('#mask').bind('click', function () {//點擊黑屏部分
+                    $('.login-popup').hide('scale', 300);//登入方塊會由下向上隱藏
+                    $(this).fadeOut(300, function () {//黑屏會慢慢淡出
+                    	$(this).remove();//黑屏移除
+                    });
+                    return false;
+                });
+                return false;
+            });
             //------------------------------------------------------------
             //左側清單下拉功能
             $('.sidebar-nav>li').click(function () {

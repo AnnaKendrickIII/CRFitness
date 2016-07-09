@@ -22,13 +22,18 @@ public class TargetURLInterceptor extends AbstractInterceptor {
             HttpServletRequest request = ServletActionContext.getRequest();  
   
             String contextPath = request.getContextPath();  
-            String preURL = request.getHeader("referer");//由哪個網頁連結到這 ps.推薦者  
+            String  preURL= request.getHeader("referer");//由哪個網頁連結到這 ps.推薦者     
             if (preURL == null)  
                 ((TargetURLAware) obj).setPreURL(null);  
             else {  
                 int begin = preURL.indexOf(contextPath);  
-                preURL = preURL.substring(begin + contextPath.length());  
-                ((TargetURLAware) obj).setPreURL(preURL);  
+                preURL = preURL.substring(begin + contextPath.length());           
+                if(preURL.endsWith("jsp")){
+                ((TargetURLAware) obj).setPreURL(preURL);    
+                }  else{
+                	((TargetURLAware) obj).setPreURL("/index.jsp");   	
+                }
+               
             }  
         }  
         return invocation.invoke();  

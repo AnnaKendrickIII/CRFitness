@@ -235,6 +235,7 @@
 		 formData.append('photo1', file[0]);
 		  })
 	  $('#addActivitys').click(function () {
+// 		  $("script[src='${this_contextPath}/js/site.js']").remove()
 			 formData.append('member_Id',  '${LoginOK.member_Id}');
 			 formData.append('activity_Day', $('#datetimepicker').val());
 			 formData.append('activity_Class', $('#addActivity_Class').val());
@@ -267,8 +268,10 @@
 									+data.activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
-									+data.people+'</button></li>')	
+									+data.people+'</button></li>')
+									  $('.btn.btn-default').tooltip()	
 									
+// 									$.getScript('${this_contextPath}/js/site.js')
 									new AnimOnScroll(document.getElementById('grid'), {
 					                      minDuration: 0.4,
 					                      maxDuration: 0.6,
@@ -329,6 +332,7 @@
 	  })
     
 </script>
+<%-- <script src="${this_contextPath}/js/site.js" defer="defer" async="async" ></script> --%>
 <!-- 頁面部分 結束-->
 </body>
 </html>
