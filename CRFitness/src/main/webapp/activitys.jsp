@@ -304,9 +304,6 @@
 	                  $.getScript('${this_contextPath}/js/site.js',function(){
 	                	  
 	                  })
-// 	                  $.getScript('${this_contextPath}/js/overlibmws.js',function(){
-	                	  
-// 	                  })
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,

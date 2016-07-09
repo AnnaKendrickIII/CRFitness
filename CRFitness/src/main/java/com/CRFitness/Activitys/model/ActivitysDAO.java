@@ -88,14 +88,17 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	
 	public List<ActivitysVO> select_Activitys(String member_Id) {	
 		Query query = this.getSession().createSQLQuery(
-				"SELECT DISTINCT Activitys.*,(SELECT ','+Members.Nickname " 
-				+"FROM ActivityDetail JOIN Members " 
-				+"ON ActivityDetail.Member_Id=Members.Member_Id	"
-				+"WHERE Activitys.Activity_Id =ActivityDetail.Activity_Id "							
-				+"FOR XML PATH('') ) as Nicknames "
-				+"FROM Activitys "
-				+"WHERE Member_Id= '"+member_Id+"'")				
-				.addEntity("Activitys.*",ActivitysVO.class);
+				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+				+ "FROM ActivityDetail JOIN Members "
+				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+				+ "FOR XML PATH('') ) as Nicknames "
+				+ "FROM Activitys JOIN Members "
+				+ "ON Activitys.Member_Id = Members.Member_Id "
+				+ "WHERE Activitys.Member_Id= '"+member_Id+"'")
+				.addEntity("Activitys.*",ActivitysVO.class)
+				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+				.addScalar("Nickname", StringType.INSTANCE);
 	return (List<ActivitysVO>) query.list();	
 }
 
