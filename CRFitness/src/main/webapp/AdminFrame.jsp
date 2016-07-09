@@ -30,34 +30,34 @@
             <ul class="sidebar-nav">           
                 <li class="sidebar-brand">
                      <span>
-                    <a href="${this_contextPath}/index.jsp" >                               
+                    <a href="${this_contextPath}/Admin.jsp" >                               
                         <i class="fa fa-home fa-2x "></i>                                
                     </a>
                    </span>
                 </li>            
                 <li>
                     <div class="dropdown">    
-                        <a href="#"><i class="fa fa-book"></i>日誌<span class="caret"></span></a>
+                        <a href="#"><i class="fa fa-book"></i>維護日誌<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="${this_contextPath}/Journal.jsp">健康日誌</a></li>
-                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">個人日誌</a></li>
+                            <li><a href="${this_contextPath}/Journal.jsp">維護健康日誌</a></li>
+                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">維護個人日誌</a></li>
                             <li><a href="#">累積紀錄</a></li>
                         </ul>
                     </div>
                 </li>
                 <li>
                     <div class="dropdown">
-                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
+                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>維護商品<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="${this_contextPath}/Maintenance/MaintainEquipment.jsp">運動器材</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainClothing.jsp">服飾類</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainAccessories.jsp">運動用品</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainShoes.jsp">鞋類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainEquipment.jsp">維護運動器材</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainClothing.jsp">維護服飾類</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainAccessories.jsp">維護運動用品</a></li>
+                            <li><a href="${this_contextPath}/Maintenance/MaintainShoes.jsp">維護鞋類</a></li>
                         </ul>
                     </div>
                 </li>
                 <li>  
-                 <a href="${this_contextPath}/activitys.jsp"><i class="fa fa-users" ></i>揪團專區</a>
+                 <a href="${this_contextPath}/activitys.jsp"><i class="fa fa-users" ></i>維護揪團專區</a>
                 </li>             
                 <li>
                     <a href="${this_contextPath}/Games.jsp"><i class="fa fa-flag-checkered"></i>賽事</a>
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="col-xs-3">
-                <img  class="img-responsive logo_css" src="${this_contextPath}/images/logo.png">
+                 <h2>Administration</h2> <!-- <img class="img-responsive logo_css" src="${this_contextPath}/images/logo.png"> -->
             </div>
             
             <div class="col-xs-4">

@@ -138,6 +138,12 @@
 			<artifactId>sqljdbc42</artifactId>
 			<version>4.1</version>
 		</dependency>	
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.sqlserver</groupId> -->
+<!-- 			<artifactId>sqlserverdriver</artifactId> -->
+<!-- 			<version>4.2</version> -->
+<!-- 		</dependency>	 -->
+
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>

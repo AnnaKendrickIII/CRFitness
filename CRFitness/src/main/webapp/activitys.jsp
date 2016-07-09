@@ -130,9 +130,10 @@
 
     <ul class="grid effect-5 " id="grid">
                <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"> </a>新增揪團</li>
+				
 		</ul>
  	<!-- 新增活動 開始-->
-<%-- 			<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.action" method="post" > --%>
+
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="new_activity" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -166,12 +167,12 @@
                             <div class="modal-footer">
                              <h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4>
                                 <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                                <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_MEMBER">送出</button>                       
+                                <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_MEMBER">送出</button>                                      
                             </div>
                         </div>
                     </div>
                 </div>
-<!--                </form> -->
+
 
                 <!-- 上傳圖片 開始-->
                 <script>
@@ -225,18 +226,15 @@
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}
-	  $(function () {
+	  jQuery(function ($) {	  
 		  var file
 		  var formData = new FormData();
 		  formData = new FormData();
-		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {
-			  $.getScript('${this_contextPath}/js/bootstrap.min.js')
+		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 
 		 formData.append('photo1', file[0]);
 		  })
 	  $('#addActivitys').click(function () {
-// 		  $("script[src='${this_contextPath}/js/site.js']").remove()
-		   $.getScript('${this_contextPath}/js/bootstrap.min.js')
 			 formData.append('member_Id',  '${LoginOK.member_Id}');
 			 formData.append('activity_Day', $('#datetimepicker').val());
 			 formData.append('activity_Class', $('#addActivity_Class').val());
@@ -251,7 +249,7 @@
     		   processData: false,
 			   contentType: false,
                success:function(data){
-            	   var jdate_int = parseInt(this.activity_Day);                          //轉換成數字
+            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
 					var jdate_value = new Date(jdate_int);
             	   $('#new_activity').modal('hide');	
             	   $('#grid>li:nth-child(1)').after('<li ><a href="data:image/png;base64,'
@@ -276,16 +274,7 @@
 					                      maxDuration: 0.6,
 					                      viewportFactor: 0.2
 					                  }); 
-            	   
-            	   				$.getScript('${this_contextPath}/js/site.js')
-               						},beforeSend:function(){
-//           			 			    $("script[src='${this_contextPath}/js/site.js']").remove()
-// 		 			  				 $.getScript('${this_contextPath}/js/bootstrap.min.js')
-								},
-				               complete:function(){
-// 				           		$("script[src='${this_contextPath}/js/bootstrap.min.js']").remove()
-// 				 			  	 $.getScript('${this_contextPath}/js/site.js')
-				               }            	 
+               						}	 
            })
 	})	    
 	    $.ajax({
@@ -326,12 +315,9 @@
 									+this[0].people+'</button></li>')			  					
 	                 		 })
 							  $('.btn.btn-default').tooltip()																
-// 	                  $.getScript('${this_contextPath}/js/site.js',function(){
+	                  $.getScript('${this_contextPath}/js/site.js',function(){
 	                	  
-// 	                  })
-// 	                  $.getScript('${this_contextPath}/js/overlibmws.js',function(){
-	                	  
-// 	                  })
+	                  })
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
@@ -344,6 +330,5 @@
     
 </script>
 <!-- 頁面部分 結束-->
-
 </body>
 </html>
