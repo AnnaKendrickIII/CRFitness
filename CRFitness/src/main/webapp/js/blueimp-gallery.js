@@ -1102,6 +1102,7 @@
         this.positions.length = this.num
         this.elements = {}
         this.imagePrototype = document.createElement('img')
+   
         this.elementPrototype = document.createElement('div')
         this.slidePrototype = document.createElement('div')
         $(this.slidePrototype).addClass(this.options.slideClass)

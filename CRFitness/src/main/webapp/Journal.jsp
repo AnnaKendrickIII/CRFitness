@@ -63,7 +63,7 @@
 	        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
 						var jdate_value = new Date(jdate_int); 
 	        		 $('#grid').append('<li><a href="data:image/png;base64,'
-	        		 +this.archives+'" title="'+this.memberVO.nickname+'" data-gallery><img src="data:image/png;base64,'
+	        		 +this.archives+'" title="<div>'+this.memberVO.nickname+'</div>" data-gallery><img src="data:image/png;base64,'
 	        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br /><div class="divcssj">類別：'
 	        		 +this.contents+'</div><br /><div class="divcssj">內容：'+this.contents+'</div><br />日期：'
 	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
@@ -92,7 +92,7 @@
 	<!--  頁面部分 結束 -->
 	
 	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery row" data-use-bootstrap-modal="false">
+<div id="blueimp-gallery" class="blueimp-gallery " data-use-bootstrap-modal="false">
     <!-- The container for the modal slides -->
     <div class="slides"></div>
     <!-- Controls for the borderless lightbox -->

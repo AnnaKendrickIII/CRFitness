@@ -129,9 +129,7 @@
 	<!-- 頁面部分 開始-->
 
     <ul class="grid effect-5 " id="grid">
-               <li>
-              
-               <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"></a>新增揪團</li>
+               <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"> </a>新增揪團</li>
 		</ul>
  	<!-- 新增活動 開始-->
 <%-- 			<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.action" method="post" > --%>
@@ -184,7 +182,7 @@
             },
             thumbnails: {
                 placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    waitingPath: '${this_contextPath}/images/loader-small.gif',
                     notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
                 }
             },
@@ -196,7 +194,7 @@
         });
     </script>
                 <!-- 上傳圖片 結尾-->
-                
+               
                    <!-- 新增活動 結尾-->
     <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
 	<script src="${this_contextPath}/js/classie.js"></script>
@@ -205,6 +203,7 @@
 	
 	<!-- 輸入日期 開始-->
 	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script>
+	
 	<script>
 		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00:00',step:10});
 		$('#datetimepickerb').datetimepicker({value:'2016/08/12 10:00:00',step:10});
@@ -226,24 +225,67 @@
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}
-	  $(function () { 
+	  $(function () {
+		  var file
+		  var formData = new FormData();
+		  formData = new FormData();
+		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {
+			  $.getScript('${this_contextPath}/js/bootstrap.min.js')
+		 file=event.target.files;			  	 
+		 formData.append('photo1', file[0]);
+		  })
 	  $('#addActivitys').click(function () {
+// 		  $("script[src='${this_contextPath}/js/site.js']").remove()
+		   $.getScript('${this_contextPath}/js/bootstrap.min.js')
+			 formData.append('member_Id',  '${LoginOK.member_Id}');
+			 formData.append('activity_Day', $('#datetimepicker').val());
+			 formData.append('activity_Class', $('#addActivity_Class').val());
+			 formData.append('activity_Area', $('#addActivitys_Area').val());
+			 formData.append('activity_Info', $('#addActivitys_Info').val());
+			 formData.append('deadline', $('#datetimepickerb').val());
+			 formData.append('date', $('#date').val());
 		   $.ajax({
                url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
                type:'post',  //get post put delete
-               data:{ member_Id:'${LoginOK.member_Id}',
-            	 activity_Day:$('#datetimepicker').val(),
-            	 activity_Class:$('#addActivity_Class').val(),
-       			 activity_Area:$('#addActivitys_Area').val(),
-       			 photo1: $('.qq-thumbnail-selector').attr('src').substr(23),
-    			 activity_Info:  $('#addActivitys_Info').val(),
-    			 deadline:$('#datetimepickerb').val(),
-    			 date: $('#date').val()},
+				data: formData,
+    		   processData: false,
+			   contentType: false,
                success:function(data){
-                  
-//                        $('#friend_tbody').append('<tr><td><img src="data:image/png;base64,'+this.photo+'" class="img-circle friend_photo" alt="Responsive image" /><td class="friend_Name">'+  this.nickname +'</td><td>'+  this.e_mail +'</td>')  
-                  
-               }          	 
+            	   var jdate_int = parseInt(this.activity_Day);                          //轉換成數字
+					var jdate_value = new Date(jdate_int);
+            	   $('#new_activity').modal('hide');	
+            	   $('#grid>li:nth-child(1)').after('<li ><a href="data:image/png;base64,'
+							+data.photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+							+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
+									+data.activity_Area+'<br />內容：'
+									+data.activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+data.people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+'"><img src="data:image/png;base64,'
+									+data.photo1+'" /></a>發起人：'
+									+data.member_Id+'<br />類別：'
+									+data.activity_Class+'<br />地區：'
+									+data.activity_Area+'<br />內容：'
+									+data.activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+									+data.people+'</button></li>')	
+									
+									new AnimOnScroll(document.getElementById('grid'), {
+					                      minDuration: 0.4,
+					                      maxDuration: 0.6,
+					                      viewportFactor: 0.2
+					                  }); 
+            	   
+            	   				$.getScript('${this_contextPath}/js/site.js')
+               						},beforeSend:function(){
+//           			 			    $("script[src='${this_contextPath}/js/site.js']").remove()
+// 		 			  				 $.getScript('${this_contextPath}/js/bootstrap.min.js')
+								},
+				               complete:function(){
+// 				           		$("script[src='${this_contextPath}/js/bootstrap.min.js']").remove()
+// 				 			  	 $.getScript('${this_contextPath}/js/site.js')
+				               }            	 
            })
 	})	    
 	    $.ajax({
@@ -284,9 +326,9 @@
 									+this[0].people+'</button></li>')			  					
 	                 		 })
 							  $('.btn.btn-default').tooltip()																
-	                  $.getScript('${this_contextPath}/js/site.js',function(){
+// 	                  $.getScript('${this_contextPath}/js/site.js',function(){
 	                	  
-	                  })
+// 	                  })
 // 	                  $.getScript('${this_contextPath}/js/overlibmws.js',function(){
 	                	  
 // 	                  })
@@ -302,9 +344,6 @@
     
 </script>
 <!-- 頁面部分 結束-->
-
-
-
 
 </body>
 </html>
