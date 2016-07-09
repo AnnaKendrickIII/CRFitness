@@ -240,7 +240,7 @@
        </script>
      </c:if >
      </div>
-     <div class="row">
+   
 <!--      <div class="col-lg-8 col-md-4  col-sm-6 col-xs-3"></div> -->
 <div id="login-box" class="login-popup ">
 		<form  name="member" class="form-login"
@@ -288,7 +288,7 @@
 		</form>
 	</div>
 <!-- 	<div class=" col-md-4 col-sm-2 col-xs-3"></div> -->
-</div>
+
 <!-- 登入對話方塊 結束-->
      	<!-- 忘記密碼需要協助方塊 開始-->
                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
