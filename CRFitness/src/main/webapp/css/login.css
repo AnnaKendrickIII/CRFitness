@@ -75,18 +75,12 @@ position:fixed;
     -moz-border-radius: 7px; /* Firefox */
     -webkit-border-radius:7px; /* Safari, Chrome */
 }
+@media  screen and (min-width:100px) {
 .login-popup{
 	display:none;
-	/*background:#5599FF;*/
-	/*padding: 10px;*/ 	
 	border: 2px solid #ddd;
-/* 	width:100%; */
-/* 	height:100%; */
-/* 	float: left; */
 	font-size: 16px;
-/* 	position: fixed;固定位置不會因捲軸而改變位置 */
-/* 	top: 15%; left: 50%;登入方塊的位置 */
-/* 	z-index: 99999;值越大越上層 */
+	width:75%;
 	padding:0px;
 	box-shadow: 0px 0px 20px #999;/*區塊陰影 box-shadow:1.左右偏移陰影 2.上下偏移陰影 3.陰影模糊 4.陰影顏色*/
 	-moz-box-shadow: 0px 0px 20px #999; /* Firefox */
@@ -95,8 +89,72 @@ position:fixed;
 	border-radius:7px;
     -moz-border-radius: 7px; /* Firefox */
     -webkit-border-radius:7px; /* Safari, Chrome */
+	}
 }
-
+@media  screen and (min-width:450px) {
+.login-popup{
+	display:none;
+	border: 2px solid #ddd;
+	font-size: 16px;
+	width:50%;
+	padding:0px;
+	box-shadow: 0px 0px 20px #999;/*區塊陰影 box-shadow:1.左右偏移陰影 2.上下偏移陰影 3.陰影模糊 4.陰影顏色*/
+	-moz-box-shadow: 0px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 0px 0px 20px #999; /* Safari, Chrome */
+    /*設定邊框4個角的角度*/
+	border-radius:7px;
+    -moz-border-radius: 7px; /* Firefox */
+    -webkit-border-radius:7px; /* Safari, Chrome */
+	}
+}
+@media  screen and (min-width:750px) {
+.login-popup{
+	display:none;
+	border: 2px solid #ddd;
+	font-size: 16px;
+	width:35%;
+	padding:0px;
+	box-shadow: 0px 0px 20px #999;/*區塊陰影 box-shadow:1.左右偏移陰影 2.上下偏移陰影 3.陰影模糊 4.陰影顏色*/
+	-moz-box-shadow: 0px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 0px 0px 20px #999; /* Safari, Chrome */
+    /*設定邊框4個角的角度*/
+	border-radius:7px;
+    -moz-border-radius: 7px; /* Firefox */
+    -webkit-border-radius:7px; /* Safari, Chrome */
+	}
+}
+@media  screen and (min-width:1170px) {
+.login-popup{
+	display:none;
+	border: 2px solid #ddd;
+	font-size: 16px;
+	width:20%;
+	padding:0px;
+	box-shadow: 0px 0px 20px #999;/*區塊陰影 box-shadow:1.左右偏移陰影 2.上下偏移陰影 3.陰影模糊 4.陰影顏色*/
+	-moz-box-shadow: 0px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 0px 0px 20px #999; /* Safari, Chrome */
+    /*設定邊框4個角的角度*/
+	border-radius:7px;
+    -moz-border-radius: 7px; /* Firefox */
+    -webkit-border-radius:7px; /* Safari, Chrome */
+	}
+}
+@media  screen and (min-width:1600px) {
+.login-popup{
+	display:none;
+	border: 2px solid #ddd;
+	font-size: 16px;
+	width:15%;
+	padding:0px;
+	box-shadow: 0px 0px 20px #999;/*區塊陰影 box-shadow:1.左右偏移陰影 2.上下偏移陰影 3.陰影模糊 4.陰影顏色*/
+	-moz-box-shadow: 0px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 0px 0px 20px #999; /* Safari, Chrome */
+    /*設定邊框4個角的角度*/
+	border-radius:7px;
+    -moz-border-radius: 7px; /* Firefox */
+    -webkit-border-radius:7px; /* Safari, Chrome */
+	}
+}
 
 /*LOGIN CONFIGURATION PAGE*/
 .form-login {
@@ -146,13 +204,19 @@ position:fixed;
   background-color: #48bcb4;
   border-color: #48bcb4;
 }
+	.btn-facebook {
+		width: 90px;
+		color: #fff;
+		background-color: #5193ea;
+		border-color: #2775e2;
+	}
+	.btn-google {
+		width: 90px;
+		color: #fff;
+		background-color: #C93636;
+		border-color: #2bb4e8;
+	}
 
-.btn-facebook {
-  width:90px;
-  color: #fff;
-  background-color: #5193ea;
-  border-color: #2775e2;
-}
 
 .btn-facebook:hover,
 .btn-facebook:focus,
@@ -164,12 +228,6 @@ position:fixed;
   border-color: #2775e2;
 }
 
-.btn-google {
-  width:90px;
-  color: #fff;
-  background-color: #C93636;
-  border-color: #2bb4e8;
-}
 .btn-google:hover,
 .btn-google:focus,
 .btn-google:active,
@@ -184,6 +242,7 @@ position:fixed;
 	display: block;
 	margin-top: 20px;
 	margin-bottom: 15px;
+	padding:0px; 
 }
 .centered {
 	text-align: center;

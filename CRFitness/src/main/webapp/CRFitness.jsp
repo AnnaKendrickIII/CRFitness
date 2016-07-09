@@ -241,8 +241,8 @@
      </c:if >
      </div>
      <div class="row">
-     <div class="col-lg-5 col-md-4  col-sm-6 col-xs-3"></div>
-<div id="login-box" class="col-lg-2 col-md-4 col-sm-4 col-xs-6 login-popup ">
+<!--      <div class="col-lg-8 col-md-4  col-sm-6 col-xs-3"></div> -->
+<div id="login-box" class="login-popup ">
 		<form  name="member" class="form-login"
 			action="${this_contextPath}/CRF/member!login.do" method="post">
 			<div id="login_div">
@@ -287,7 +287,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-lg-5 col-md-4 col-sm-2 col-xs-3"></div>
+<!-- 	<div class=" col-md-4 col-sm-2 col-xs-3"></div> -->
 </div>
 <!-- 登入對話方塊 結束-->
      	<!-- 忘記密碼需要協助方塊 開始-->
