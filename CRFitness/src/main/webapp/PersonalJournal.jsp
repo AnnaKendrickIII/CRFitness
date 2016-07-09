@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <c:set var="title" value="" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
-<title>xx個人日誌</title>
+<title>${LoginOK.nickname}個人日誌</title>
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>

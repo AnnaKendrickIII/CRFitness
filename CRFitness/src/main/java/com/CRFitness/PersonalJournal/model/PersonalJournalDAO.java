@@ -103,8 +103,8 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("memberVO", memberVO);
 		
 		return (List<PersonalJournalVO>) query.list();
-		
 	}	
+	
 	@Override
 	public List<PersonalJournalVO> select_publicStatus( ){
 		Query query = this.getSession().createQuery(GET_COMMON_JOURNAL);
