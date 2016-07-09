@@ -45,14 +45,14 @@ public class ActivitysController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
-	public @ResponseBody void addActivitys(
+	public @ResponseBody ActivitysVO addActivitys(
 			@RequestParam String member_Id,
 			@RequestParam String activity_Day,
 			@RequestParam String activity_Class,
 			@RequestParam String activity_Area,
 			@RequestParam MultipartFile photo1,
 			@RequestParam String activity_Info,
-			@RequestParam String deadline){			
+			@RequestParam String deadline){
 		try {
 			member_Id = new String(member_Id.getBytes("iso-8859-1"), "utf-8");
 			activity_Class = new String(activity_Class.getBytes("iso-8859-1"), "utf-8");
@@ -61,9 +61,6 @@ public class ActivitysController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		System.out.println(activity_Day);
-		System.out.println(activity_Class);
-		System.out.println(deadline);
-		activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline);	
+		return activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline);	
 	}
 }

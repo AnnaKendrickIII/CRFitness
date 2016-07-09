@@ -420,7 +420,7 @@
     		 e.preventDefault(); 
     	 })  	   	
       	//google 結束
-        $(function () {       	        
+      jQuery(function ($) {	      	        
             $("#menu-toggle").click(function () {//點擊左上角小圖 
                 $("#wrapper").addClass("toggled");//讓清單加入class toggled 使其寬度由0增加到235px 呈現由左到右效果 
                 $('body').append('<div id="list_mask"></div>');//產成id=list_mask的div元素加在整塊body中
