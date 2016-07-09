@@ -318,7 +318,9 @@
 									+this[0].people+'</button></li>')			  					
 	                 		 })
 							  $('.btn.btn-default').tooltip()																
-	                	  $.getScript('${this_contextPath}/js/site.js')
+	                  $.getScript('${this_contextPath}/js/site.js',function(){
+	                	  
+	                  })
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
