@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/products2.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lightbox.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
-<title>商品</title>
+<title>鞋類</title>
 
 <style type="text/css">
 .productsclass {
@@ -44,7 +44,7 @@ border:1px solid #0000FF;
     <div class="well well-sm">
         <strong> Commodity Category </strong>
         <div class="btn-group">
-            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            <a href="changeCategory()" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
             </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
                 class="glyphicon glyphicon-th"></span>Grid</a>
         </div>
@@ -59,9 +59,9 @@ border:1px solid #0000FF;
 
 <script type="text/javascript">
 $.ajax({
-	url:'${this_contextPath}/CRFSERVICE/productDetailController/getAllDetail',
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByCategory',
 	type:'get',
-	data:{},
+	data:{category:"鞋類"},
 	success:function(data){
 		$.each(data,function(){
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><a href="data:image/png;base64,'
@@ -77,8 +77,6 @@ $.ajax({
 	}
 });
 </script>
-
-
 
 
 </aside>

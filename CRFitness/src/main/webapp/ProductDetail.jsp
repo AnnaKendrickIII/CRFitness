@@ -9,6 +9,7 @@
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" href="${this_contextPath}/css/products.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lightbox.css">
+<link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 
 <title>商品明細</title><base>
 <style type="text/css">
@@ -21,6 +22,8 @@
 <aside>
 <script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
+<script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
+
 
 <div class="ProductDetail">
 
@@ -29,7 +32,7 @@
 	    <div id="productDetailbody" class="col-md-8"></div>    
 	 	<div class="col-md-2"></div>	 	
     </div>
-    
+
 </div>
 </aside>
 <script type="text/javascript">
@@ -47,9 +50,7 @@ $.ajax({
 							+data.size+'<br/>顏色 : '
 							+data.color+'<br/>商品介紹 : 未看先猜undefined 一> '
 							+data.Detailed_Description+'<br/>剩餘數量 : '
-							+data.stock+'</br><a class="btn btn-success" href="data:image/png;base64,'
-							+data.photo1+'" data-lightbox="image-1" data-title="'
-							+data.product_Name+'">千萬不要按!</a></div>')
+							+data.stock+'</br></br></br><a class="btn btn-success" href="https://youtu.be/AUChk0lxF44" data-lity>千萬不要按!</a></div>')
 	}
 });
 </script>

@@ -23,11 +23,15 @@ public class ProductsController {
 	private ProductsService productsService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/selectAllItem", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductsVO> list_productsVO(
-			HttpServletRequest request) {
+	public @ResponseBody List<ProductsVO> list_productsVO(HttpServletRequest request) {
 		request.getSession().setAttribute("list_productsVO", productsService);
 		return productsService.selectAllItem();
 	}
-	
+
+//	@RequestMapping(method = RequestMethod.GET, value = "/searchAllItem", produces = MediaType.APPLICATION_JSON)
+//	public @ResponseBody List<ProductsVO> searchAllItem(HttpServletRequest request) {
+//		request.getSession().setAttribute("searchAllItem", productsService);
+//		return productsService.searchAllItem();
+//	}
 
 }
