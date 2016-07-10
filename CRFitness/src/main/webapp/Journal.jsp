@@ -63,14 +63,12 @@
 	        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
 						var jdate_value = new Date(jdate_int); 
 	        		 $('#grid').append('<li ><a href="data:image/png;base64,'
-	        		 +this.archives+'" title="<div>'+this.memberVO.nickname+'</div>" data-gallery  ><img src="data:image/png;base64,'
-	        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br /><div class="divcssj">類別：'
+	        		 +this.archives+'" title="'+this.memberVO.nickname+'" data-gallery  ><span title=""><img src="data:image/png;base64,'
+	        		 +this.archives+'" /></span></a>發起人：'+this.memberVO.nickname+'<br /><div class="divcssj">類別：'
 	        		 +this.contents+'</div><br /><div class="divcssj">內容：'+this.contents+'</div><br />日期：'
 	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
 	        		
-                })
-               
-                
+                })         
 //                 $.getScript('${this_contextPath}/js/jquery.blueimp-gallery.js',function(){
             		
 //             	})
