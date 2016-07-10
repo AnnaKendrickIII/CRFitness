@@ -81,8 +81,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		// Query query = this.getSession().createQuery(GET_ALL_STMT);
 		Query query = this.getSession()
 				.createSQLQuery("select ProductDetail.* ,Products.Price , Products.Category "
-						+ " from  ProductDetail join Products"
-						+ " on ProductDetail.Product_Id=Products.Product_Id ")
+						+ " from  ProductDetail join Products" + " on ProductDetail.Product_Id=Products.Product_Id ")
 				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 		return (List<ProductDetailVO>) query.list();
@@ -126,12 +125,12 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	public List<ProductDetailVO> getItemByCategory(String category) {
 		// Query query = this.getSession().createQuery(GET_ITEM_BY_CATEGORY);
 		// query.setParameter("category", category);
-
 		Query query = this.getSession()
 				.createSQLQuery("select * " + "from  ProductDetail join Products "
-						+ "on ProductDetail.Product_Id=Products.Product_Id " + "where Products.Category='"
-						+ category+ "'")
-				.addEntity(ProductDetailVO.class);
+						+ "on ProductDetail.Product_Id=Products.Product_Id " + "where Products.Category='" 
+						+ category + "'")
+				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
+				.addScalar("category", StringType.INSTANCE);
 
 		return (List<ProductDetailVO>) query.list();
 	}
