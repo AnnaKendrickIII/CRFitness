@@ -318,7 +318,9 @@
 									  					
 	                 		 })
 							  $('.btn.btn-default').tooltip()
-								$(".boxer").boxer();																	
+								$(".boxer").boxer({
+    top: 50
+});																	
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
