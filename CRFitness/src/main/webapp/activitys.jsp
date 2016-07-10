@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<link rel="stylesheet" href="${this_contextPath}/css/site.css">
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
@@ -227,15 +227,13 @@
 	    return fmt;
 	}
 	  jQuery(function ($) {	  
-		  var file
-		  var formData = new FormData();
-		  formData = new FormData();
+		  var file;	
 		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
-		 file=event.target.files;			  	 
-		 formData.append('photo1', file[0]);
+		 file=event.target.files;			  	 	 
 		  })
 	  $('#addActivitys').click(function () {
-// 		  $("script[src='${this_contextPath}/js/site.js']").remove()
+		  	var formData = new FormData();
+		  	formData.append('photo1', file[0]);
 			 formData.append('member_Id',  '${LoginOK.member_Id}');
 			 formData.append('activity_Day', $('#datetimepicker').val());
 			 formData.append('activity_Class', $('#addActivity_Class').val());
@@ -253,8 +251,8 @@
             	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
 					var jdate_value = new Date(jdate_int);
             	   $('#new_activity').modal('hide');	
-            	   $('#grid>li:nth-child(1)').after('<li ><a href="data:image/png;base64,'
-							+data.photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
+							+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />日期：'
@@ -268,15 +266,16 @@
 									+data.activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
-									+data.people+'</button></li>')
-									  $('.btn.btn-default').tooltip()	
-									
-// 									$.getScript('${this_contextPath}/js/site.js')
-									new AnimOnScroll(document.getElementById('grid'), {
-					                      minDuration: 0.4,
-					                      maxDuration: 0.6,
-					                      viewportFactor: 0.2
-					                  }); 
+									+data.people+'</button></li>')								
+										 $('.btn.btn-default').tooltip()	
+										  $(".boxer").boxer();	
+										new AnimOnScroll(document.getElementById('grid'), {
+						                      minDuration: 0.4,
+						                      maxDuration: 0.6,
+						                      viewportFactor: 0.2
+						                  }); 		
+								
+									 
                						}	 
            })
 	})	    
@@ -300,7 +299,7 @@
 						  })	
 		        		 }
 							$('#grid').append('<li ><a href="data:image/png;base64,'
-							+this[0].photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
@@ -315,12 +314,11 @@
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
-									+this[0].people+'</button></li>')			  					
+									+this[0].people+'</button></li>')
+									  					
 	                 		 })
-							  $('.btn.btn-default').tooltip()																
-	                  $.getScript('${this_contextPath}/js/site.js',function(){
-	                	  
-	                  })
+							  $('.btn.btn-default').tooltip()
+								$(".boxer").boxer();																	
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
@@ -332,7 +330,7 @@
 	  })
     
 </script>
-<%-- <script src="${this_contextPath}/js/site.js" defer="defer" async="async" ></script> --%>
+<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
 <!-- 頁面部分 結束-->
 </body>
 </html>
