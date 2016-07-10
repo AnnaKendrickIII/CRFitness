@@ -62,13 +62,15 @@
             	$.each(data,function(){		        
 	        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
 						var jdate_value = new Date(jdate_int); 
-	        		 $('#grid').append('<li><a href="data:image/png;base64,'
-	        		 +this.archives+'" title="<div>'+this.memberVO.nickname+'</div>" data-gallery><img src="data:image/png;base64,'
+	        		 $('#grid').append('<li ><a href="data:image/png;base64,'
+	        		 +this.archives+'" title="<div>'+this.memberVO.nickname+'</div>" data-gallery  ><img src="data:image/png;base64,'
 	        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br /><div class="divcssj">類別：'
 	        		 +this.contents+'</div><br /><div class="divcssj">內容：'+this.contents+'</div><br />日期：'
 	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
 	        		
                 })
+               
+                
 //                 $.getScript('${this_contextPath}/js/jquery.blueimp-gallery.js',function(){
             		
 //             	})
@@ -94,13 +96,8 @@
 	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery " data-use-bootstrap-modal="false">
     <!-- The container for the modal slides -->
-    <div class="slides"></div>
-    <!-- Controls for the borderless lightbox -->
-<!--     <div class="col-md-6 col-xs-6"> -->
-<!--  	</div> -->
-<!--  	 <div class="col-md-6 col-xs-6"> -->
-<!--  	 <div id="msg_div" class="msg_div">sadsadas</div> -->
-<!--  	 </div> -->
+    <div class="slides"><div class="slide-content">asa</div></div>
+
     <a class="prev">‹</a>
     <a class="next">›</a>
     <a class="close">×</a>
@@ -108,39 +105,17 @@
  
     <h1 class="title"> </h1>
     <ol class="indicator"></ol>
-    <!-- The modal dialog, which will be used to wrap the lightbox content -->
-<!--     <div class="modal fade"> -->
-<!--         <div class="modal-dialog modal-lg"> -->
-<!--             <div class="modal-content"> -->
-<!--                 <div class="modal-header"> -->
-<!--                     <button type="button" class="close" aria-hidden="true">&times;</button>                -->
-<!--                 </div> -->
-<!--                 <div class="modal-body next"> </div> -->
-<!--                 <div class="modal-footer"> -->
-<!--                  <h4 class="modal-title" >1234567</h4> -->
-                
-<!--                     <button type="button" class="btn btn-default pull-left prev"> -->
-<!--                         <i class="glyphicon glyphicon-chevron-left"></i> -->
-<!--                         Previous -->
-<!--                     </button> -->
-<!--                     <button type="button" class="btn btn-primary next"> -->
-<!--                         Next -->
-<!--                         <i class="glyphicon glyphicon-chevron-right"></i> -->
-<!--                     </button> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
 </div>
 
 
 
 <!-- 新增JS -->
-<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+
 <script src="${this_contextPath}/js/blueimp-gallery.js"></script>
 <script src="${this_contextPath}/js/blueimp-helper.js"></script>
 <script src="${this_contextPath}/js/blueimp-gallery-indicator.js"></script>
 <script src="${this_contextPath}/js/jquery.blueimp-gallery.js"></script>
+
 <!-- <script src="js/bootstrap-image-gallery.min.js"></script> -->
 
 <!-- 新增JS結束 -->
