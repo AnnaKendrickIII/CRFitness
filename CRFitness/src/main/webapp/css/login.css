@@ -1,18 +1,29 @@
 ﻿﻿/*右上角登入小圖css*/
 .user_css {
 position:fixed;
-    right:25px;
+	top: 5px;
+    right:30px;
     top: 5px;
      width:36px;
-    height:36px;
-    opacity:0.3; 
+    height:36px; 
      -webkit-transition: all 0.7s ease;
     -moz-transition: all 0.7s ease;
     -o-transition: all 0.7s ease;
     transition: all 0.7s ease;
 }
-.user_css:hover {
-    opacity:1;
+.login-window{
+	position:fixed;
+    right:30px;
+    top: 7px; 
+    opacity:0.3; 
+}
+.login-window:hover {
+	position:fixed;
+    right:30px;
+    top: 7px; 
+    opacity:1; 
+}
+.user_css:hover {   
     width:48px;
     height:48px;
     /*transform:rotate(360deg);*/
