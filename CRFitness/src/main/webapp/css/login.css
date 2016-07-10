@@ -1,7 +1,7 @@
 ﻿/*右上角登入小圖css*/
 .user_css {
 position:fixed;
-    right:10px;
+    right:25px;
     top: 5px;
      width:36px;
     height:36px;
@@ -24,7 +24,7 @@ position:fixed;
     }
 .user_login_css{
 	position:fixed;
-    right:5px;
+    right:25px;
     top: 5px;
      width:40px;
     height:40px;
@@ -170,7 +170,7 @@ position:fixed;
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #68dff0;
+	background: #5599FF;
 	border-radius: 5px 5px 0 0;
     -moz-border-radius:5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
@@ -192,8 +192,8 @@ position:fixed;
 }
 .btn-theme {
   color: #fff;
-  background-color: #68dff0;
-  border-color: #48bcb4;
+  background-color: #5599FF;
+  border-color: #5599FF;
 }
 .btn-theme:hover,
 .btn-theme:focus,
@@ -201,8 +201,8 @@ position:fixed;
 .btn-theme.active,
 .open .dropdown-toggle.btn-theme {
   color: #fff;
-  background-color: #48bcb4;
-  border-color: #48bcb4;
+  background-color: #5599FF;
+  border-color: #5599FF;
 }
 	.btn-facebook {
 		width: 90px;
@@ -214,7 +214,7 @@ position:fixed;
 		width: 90px;
 		color: #fff;
 		background-color: #C93636;
-		border-color: #2bb4e8;
+		border-color: #5599FF;
 	}
 
 
@@ -235,7 +235,7 @@ position:fixed;
 .open .dropdown-toggle.btn-google {
   color: #fff;
   background-color:#F20D0D;
-  border-color: #2bb4e8;
+  border-color: #5599FF;
 }
 
 .login-social-link {
@@ -251,7 +251,7 @@ position:fixed;
     border-radius:5px 5px 0 0;
 }
 .login_header{
-	background: #68dff0;
+	background: #5599FF;
 }
 .login_h3.modal-title {
 	color: white;

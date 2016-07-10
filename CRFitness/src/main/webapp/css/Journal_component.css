@@ -6,7 +6,7 @@
 }
 
 .grid li {
-    border: 1px dotted #4F4F4F;
+    border: 3px inset  #4F4F4F;
 	display: block;
 	float: left;
 	padding: 10px;
@@ -17,7 +17,6 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-
 .grid li.shown,
 .no-js .grid li,
 .no-cssanimations .grid li {

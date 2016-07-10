@@ -18,31 +18,31 @@
 
 
 <style>
-.gallery {
-	margin: 20px 0;
-	overflow: hidden;
-}
+/* .gallery { */
+/* 	margin: 20px 0; */
+/* 	overflow: hidden; */
+/* } */
 
-.lightbox_image {
-	display: block;
-	float: left;
-	margin: 0 2% 10px 0;
-	width: 100%;/*網頁圖片大小*/
-	max-width: 150px;/**/
-}
+/* .lightbox_image { */
+/* 	display: block; */
+/* 	float: left; */
+/* 	margin: 0 2% 10px 0; */
+/* 	width: 100%;/*網頁圖片大小*/ */
+/* 	max-width: 150px;/**/ */
+/* } */
 
-.lightbox_image img {
-	display: block;
-	width: 100%;
-}
-.qq-edit-filename-icon {
-    display: none;
-    background: url("${this_contextPath}/images/edit.gif");
-    width: 15px;
-    height: 15px;
-    vertical-align: text-bottom;
-    margin-right: 16px;
-}
+/* .lightbox_image img { */
+/* 	display: block; */
+/* 	width: 100%; */
+/* } */
+/* .qq-edit-filename-icon { */
+/*     display: none; */
+/*     background: url("${this_contextPath}/images/edit.gif"); */
+/*     width: 15px; */
+/*     height: 15px; */
+/*     vertical-align: text-bottom; */
+/*     margin-right: 16px; */
+/* } */
 </style>
 <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -252,7 +252,7 @@
 					var jdate_value = new Date(jdate_int);
             	   $('#new_activity').modal('hide');	
             	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
-							+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+							+data.photo1+'" class="lightbox_image boxer "  rel="gallery" title="發起人：'
 							+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />日期：'
@@ -267,14 +267,13 @@
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
 									+data.people+'</button></li>')								
-										 $('.btn.btn-default').tooltip()	
-										  $(".boxer").boxer();	
+										 $('.btn.btn-default').tooltip()				
 										new AnimOnScroll(document.getElementById('grid'), {
 						                      minDuration: 0.4,
 						                      maxDuration: 0.6,
 						                      viewportFactor: 0.2
 						                  }); 		
-								
+            	   					$(".boxer").boxer({ fixed: true});
 									 
                						}	 
            })
@@ -299,7 +298,7 @@
 						  })	
 		        		 }
 							$('#grid').append('<li ><a href="data:image/png;base64,'
-							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+							+this[0].photo1+'" class="boxer"  rel="gallery" title="發起人：'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
@@ -317,13 +316,13 @@
 									+this[0].people+'</button></li>')
 									  					
 	                 		 })
-							  $('.btn.btn-default').tooltip()
-								$(".boxer").boxer();																	
+							  $('.btn.btn-default').tooltip()																								
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
 	                      viewportFactor: 0.2
 	                  });
+		        	  $(".boxer").boxer({ fixed: true});
 		          }          	 
 		      })
 	 
