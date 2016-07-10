@@ -231,6 +231,24 @@
 		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 
 		  })
+			jQuery.event.props.push('dataTransfer');
+			//加入dragover和drop
+		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('dragover', function(event){
+    		//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//複製拖移的物件
+    		event.dataTransfer.dropEffect = 'copy';
+			});
+		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('drop', function(event){
+   			//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//透過dataTransfer取得FileList object.
+    		file = event.dataTransfer.files;
+    		
+		})	  
+	
 	  $('#addActivitys').click(function () {
 		  	var formData = new FormData();
 		  	formData.append('photo1', file[0]);
@@ -268,7 +286,10 @@
 									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
 									+data.people+'</button></li>')								
 										 $('.btn.btn-default').tooltip()	
-										  $(".boxer").boxer();	
+										  $(".boxer").boxer({ 
+											  top: 50,
+											  fixed:true
+										  });	
 										new AnimOnScroll(document.getElementById('grid'), {
 						                      minDuration: 0.4,
 						                      maxDuration: 0.6,
@@ -318,7 +339,10 @@
 									  					
 	                 		 })
 							  $('.btn.btn-default').tooltip()
-								$(".boxer").boxer();																	
+								$(".boxer").boxer({
+    top: 50,
+    fixed:true
+});																	
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
