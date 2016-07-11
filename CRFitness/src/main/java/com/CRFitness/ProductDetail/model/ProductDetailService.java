@@ -1,29 +1,36 @@
 package com.CRFitness.ProductDetail.model;
 
+import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javassist.expr.NewArray;
-
 import javax.annotation.Resource;
 
-import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.CRFitness.Products.model.ProductsDAO_interface;
+import com.CRFitness.Products.model.ProductsVO;
 
 @Service("productDetailService")
 public class ProductDetailService {
 
 	@Resource(name = "productDetailDAO")
 	private ProductDetailDAO_interface productDetailDAO;
+	@Resource(name = "productsDAO")
+	private ProductsDAO_interface productsDAO;
+	
+
+	List<ProductDetailVO> cart = null;
 
 	public ProductDetailService() {
 	}
 
-	// back-end
-	// 找商品照片
+	// back-end: 找商品照片
 	public byte[] findProductsPhoto(String productDetail_Id) {
 		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
 	}
@@ -49,33 +56,14 @@ public class ProductDetailService {
 		return productDetailDAO.getAll();
 	}
 
-	// Back-end: MaintainEquipment.jsp
-	public List<ProductDetailVO> getEquipment() {
-		return productDetailDAO.getEquipment();
-	}
-
-	// Back-end: MaintainClothing.jsp
-	public List<ProductDetailVO> getClothing() {
-		return productDetailDAO.getClothing();
-	}
-
-	// Back-end: MaintainAccessories.jsp
-	public List<ProductDetailVO> getAccessories() {
-		return productDetailDAO.getAccessories();
-	}
-
-	// Back-end: MaintainShoes.jsp
-	public List<ProductDetailVO> getShoes() {
-		return productDetailDAO.getShoes();
-	}
 
 	// front-end
-	//撈出所有商品資訊
+	// 撈出所有商品資訊
 	public List<ProductDetailVO> getAllItem() {
 		return productDetailDAO.getAll();
 	}
-	
-	//新增商品至 ProductDetail Table
+
+	// 新增商品至 ProductDetail Table
 	public ProductDetailVO addProductDetial(ProductDetailVO productDetailVO) {
 		if (productDetailVO != null) {
 			productDetailDAO.insert(productDetailVO);
@@ -84,8 +72,8 @@ public class ProductDetailService {
 			return null;
 		}
 	}
-	
-	//PK鍵搜尋商品
+
+	// PK鍵搜尋商品
 	public ProductDetailVO getItemByPrimaryKey(String productDetail_Id) {
 		if (productDetail_Id != null) {
 			return productDetailDAO.findByPrimaryKey(productDetail_Id);
@@ -95,7 +83,7 @@ public class ProductDetailService {
 
 	}
 
-	//用 商品名稱 尺寸 顏色 找出 ProductDetail_Id
+	// 用 商品名稱 尺寸 顏色 找出 ProductDetail_Id
 	public ProductDetailVO getItemId(String product_Name, String size,
 			String color) {
 		if (product_Name != null && size != null && color != null) {
@@ -106,7 +94,7 @@ public class ProductDetailService {
 		}
 	}
 
-	//用商品分類檢索 找出該類商品
+	// 用商品分類檢索 找出該類商品
 	public List<ProductDetailVO> getItemByCategory(String category) {
 		if (category != null) {
 			return productDetailDAO.getItemByCategory(category);
@@ -114,13 +102,57 @@ public class ProductDetailService {
 			return null;
 		}
 	}
-	
-	//加入購物車
-	public List<ProductDetailVO> addShoppingCart(ProductDetailVO productDetailVO) {
-		List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+
+	// 加入購物車
+	public List<ProductDetailVO> addShoppingCart(String productDetail_Id) {
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
 		cart.add(productDetailVO);
 		return cart;
 	}
+	
+	// back-end 新增商品至 ProductDetail & Product Table
+	public List<Object> addProductDetail(
+			String product_Name,
+			Double price,
+			String category,
+			String size, // 尺寸
+			String color, // 顏色
+			Integer stock, // 庫存量
+//			Timestamp published_Date, // 刊登日期
+			MultipartFile photo1, // 圖片1
+//			byte[] photo2, // 圖片2
+//			byte[] photo3, // 圖片3
+//			String detailed_Description, // 商品簡介
+			String introduction) {
+		List<Object> list = new ArrayList<Object>();
+		
+		ProductsVO productsVO = new ProductsVO();
+		productsVO.setProduct_Name(product_Name);
+		productsVO.setPrice(price);
+		productsVO.setCategory(category);
+		productsVO = productsDAO.insert(productsVO);	
+		
+		ProductDetailVO productDetailVO = new ProductDetailVO();
+		productDetailVO.setProduct_Id(productsVO.getProduct_Id());	
+		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
+		productDetailVO.setSize(size);
+		productDetailVO.setColor(color);
+		productDetailVO.setStock(stock);
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		productDetailVO.setPublished_Date(ts);
+		try {
+			productDetailVO.setPhoto1(photo1.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		productDetailVO.setIntroduction(introduction);
+		productDetailVO = productDetailDAO.insert(productDetailVO);
+		
+		list.add(0, productsVO);
+		list.add(1, productDetailVO);
+		return list;
+	}
+
 
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定
@@ -162,17 +194,18 @@ public class ProductDetailService {
 
 		// System.out.println(service.getItemByPrimaryKey("prodDetail5015")
 		// .getProductsVO().getProduct_Name());
-		ProductDetailVO vo1 = service.findProductDetail("prodDetail5002");
-		ProductDetailVO vo2 = service.findProductDetail("prodDetail5003");
-		ProductDetailVO vo3 = service.findProductDetail("prodDetail5004");
-		
-		
-		service.addShoppingCart(vo1);
-		service.addShoppingCart(vo2);
-		service.addShoppingCart(vo3);
 
+		List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
 
-			((ConfigurableApplicationContext) context).close();
+		service.addShoppingCart("prodDetail5011");
+		service.addShoppingCart("prodDetail5013");
+		service.addShoppingCart("prodDetail5015");
+
+		for (ProductDetailVO vo : cart) {
+			System.out.println(vo.getProduct_Name());
+		}
+
+		((ConfigurableApplicationContext) context).close();
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.CRFitness.ProductDetail.controller;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.Activitys.model.ActivitysVO;
 import com.CRFitness.ProductDetail.model.ProductDetailService;
@@ -24,7 +26,6 @@ public class ProductDetailControllerBE {
 
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
-
 	
 	// Back-end: 
 	@RequestMapping(method = RequestMethod.GET, value ="/productDetail", produces = MediaType.APPLICATION_JSON)
@@ -32,25 +33,31 @@ public class ProductDetailControllerBE {
 		return productDetailService.getAll();	
 	}
 	
-	// Back-end: MaintainEquipment.jsp
-	@RequestMapping(method = RequestMethod.GET, value ="/EquipmentDetails", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> MaintainEquipmnet(){	
-		return productDetailService.getEquipment();	
-	}
-	// Back-end: MaintainClothing.jsp
-	@RequestMapping(method = RequestMethod.GET, value ="/ClothingDetails", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> MaintainClothing(){	
-		return productDetailService.getClothing();	
-	}
-	// Back-end: MaintainAccessories.jsp
-	@RequestMapping(method = RequestMethod.GET, value ="/AccessoriesDetails", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> MaintainAccessories(){	
-		return productDetailService.getAccessories();	
-	}
-	// Back-end: MaintainShoes.jsp
-	@RequestMapping(method = RequestMethod.GET, value ="/ShoesDetails", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> MaintainShoes(){	
-		return productDetailService.getShoes();	
+	
+	@RequestMapping(method = RequestMethod.POST, value ="/addProducts")
+	public @ResponseBody List<Object> list(
+			@RequestParam String product_Name,
+			@RequestParam Double price,
+			@RequestParam String category,
+			@RequestParam String size,
+			@RequestParam String color,
+			@RequestParam Integer stock,
+//			@RequestParam String published_Date,
+			@RequestParam MultipartFile photo1,
+			@RequestParam String introduction){
+		try {
+			product_Name = new String(product_Name.getBytes("iso-8859-1"), "utf-8");
+//			price = price.valueOf(price);
+			category = new String(category.getBytes("iso-8859-1"), "utf-8");
+			size = new String(size.getBytes("iso-8859-1"), "utf-8");
+			color = new String(color.getBytes("iso-8859-1"), "utf-8");
+//			stock = new String(stock.getBytes("iso-8859-1"), "utf-8");
+//			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
+			introduction = new String(introduction.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return productDetailService.addProductDetail(product_Name, price, category, size, color, stock, photo1, introduction);	
 	}
 
 
