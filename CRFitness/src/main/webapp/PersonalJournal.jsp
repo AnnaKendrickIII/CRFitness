@@ -3,38 +3,50 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <c:set var="title" value="" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 
+<jsp:include page="/CRFitness.jsp" />
 <title>${LoginOK.nickname}的個人日誌</title>
 
-<jsp:include page="/CRFitness.jsp" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
-<script src="${this_contextPath}/js/modernizr.custom.js"></script>
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
+
 
 </head>
 
 <body >
 
 <!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
-	<c:if test="${! empty LoginOK}">
-	
-	  <ul class="grid effect-7" id="grid"  >
-              
-	 </ul>
-<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
-	<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
-	<script src="${this_contextPath}/js/classie.js"></script>
-	<script src="${this_contextPath}/js/imagesloaded.js"></script>
-	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
+<!-- 將顯示內容放置到aside -->
+<aside> 
+<c:if test="${! empty LoginOK}">
+<div class="row">
+			<div class="col-md-2 col-xs-1"></div>
+		<div class="col-md-6 col-xs-10">
+			<div class="page-header text-center">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button>
+				<button onclick="showJournal()">編輯</button>
+			</div>
+			<ul class="timeline" id="grid">
+
+			</ul>
+		</div>
+		<div class="col-md-4 col-xs-2">
+		<h3>揪團放置位置</h3>
+		</div>
+	<div class="col-md-4 col-xs-1"></div>	
+	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
+</div>
 	<!-- 頁面部分 開始-->
 	
 	<!-- 	新增個人日誌開始       -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button>
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button> -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -78,9 +90,10 @@
     </div>
   </div>
 </div>
-<!-- <button onclick="showJournal()" >編輯</button> -->
+
 <!-- -------------------------------- -->
-	</c:if>
+</c:if>
+</aside>
 <!-- 	新增個人日誌結束 -->
 	<script type="text/javascript">
 	function updateJournal(var1){console.log('updateJournal '+var1)};
@@ -102,7 +115,7 @@
 	    return fmt;
 	}
 
-	$(function () {
+	jQuery(function ($) {
     	var theMemberId = "${LoginOK.member_Id}";
         var friendId = "${pageContext.request.queryString}";
         var titleNickName;
@@ -127,6 +140,7 @@
             		}
 				})
 				
+
 				// 日誌titleNickName
 				$('#titleNickName').text(titleNickName+'的日誌');
 				// 查詢日誌開始-------------------------
@@ -138,20 +152,46 @@
 // 					var x=0;
 // 					console.log(data);
 					
-					$.each(data,function() {
+					$.each(data,function(index) {
 						var jdate_int = parseInt(this.publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
+				    	var  invert; 
+				    	var li_direction;
+
+				    	if(index%2==0){
+				    		li_direction='<li value="'+ this.journal_Id +'">';
+				    		invert='<i class="glyphicon glyphicon-record " '
+				    	}else{
+				    		li_direction='<li value="'+ this.journal_Id +'" class="timeline-inverted" >';
+				    		invert='<i class="glyphicon glyphicon-record invert" '	
+				    	}
+						
+
+							//顯示查詢日誌
 						$('#grid').append(
-						'<li value="'+ this.journal_Id +'"><a href=""><img src="data:image/png;base64,'
-						+this.archives+'" /></a>'
-						+'id:'+this.memberVO.member_Id  // 上線前要拿掉或改暱稱
-						+ '<br />公開狀態：'
-						+ this.publicStatus
-						+ '<br />內容：'
-						+ this.contents
-						+ '<br />日期：'
-						+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-						+ '</li>')
+					    	li_direction
+					    	+ '<div class="timeline-badge primary"><a>'
+					    	+ invert 	
+		// 			    	↓title塞入時間日期
+					    	+ 'rel="tooltip" title="" id="I5"></i></a></div><div class="timeline-panel">'
+					    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
+					    	+ this.archives+'" /></a></div>'
+					    	+ '<div class="timeline-body">'
+					    	+ 'id:'+this.memberVO.member_Id  // 上線前要拿掉或改暱稱
+					    	+ '<br />類別：'
+				   			+ this.contents
+				   			+ '<br />內容：'
+				   			+ this.contents
+				   			+ '<br />日期：'
+				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+				   			+ '</div>'
+				   			+ '<div class="timeline-footer">塞留言的地方</div>'
+				   			+ '</div>'
+				   			+ '</li>')
+// 	    			})
+	    			
+//     			}
+
 						
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
 						if(mySelf){
@@ -173,7 +213,7 @@
 									$('<option />',{value:i,text:publicStatus[i]}).appendTo(eleS);
 								}
 							}
-    						$('#grid>li:last').append(eleS);
+    						$('#grid>li div[class="timeline-body"]:last').append(eleS);
 // 							var y=x;
 // 							$('#datass'+x).click(function(){   									
 // 								console.log(data[y])
@@ -182,8 +222,8 @@
  						}
 						
 						// 留言功能-------------------------------------------------------
-						if(this.messageDetailVOs.length != 0){
-							var eleMessageA = $('<a></a>',{text:'查看更多留言',href:'#'}).bind('click',this, function(){
+// 						if(this.messageDetailVOs.length != 0){
+							var eleMessageA = $('<a></a>',{text:'查看更多留言'}).bind('click',this, function(){
 								console.log(arguments[0].data)
 								
 								var thisData = arguments[0].data;
@@ -191,23 +231,22 @@
 								// 顯示留言
 								$.each(thisData.messageDetailVOs, function(index,ele){
 				        			 $('#grid>li[value="'+thisData.journal_Id+'"]').append(
-				        					 '<hr/>#'+(index+1)
+				        					 '<div class="col-md-6"><hr/>#'+(index+1)
 				        					 +'<br>留言人:'+this.member_Id
 				        					 +'<br>留言內容:'+this.content
-				        					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')		 
+				        					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')	
+				        					 +'</div>'
 				        			 );
 								})
 							})
-							$('#grid>li:last').append(eleMessageA);
+							$('#grid>li div[class="timeline-footer"]:last').append(eleMessageA);
 							
-						}
+// 						}
   					})
-						new AnimOnScroll(document.getElementById('grid'), {
-							minDuration : 0.4,
-							maxDuration : 0.6,
-							viewportFactor : 0.2
-						});
+
 	    						}
+
+
 	    					//	                       ,beforeSend:function(){
 	    					//	                             $('#imgloading').show();
 	    					//	                           },
@@ -219,6 +258,7 @@
 						}
 					})
 					
+
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
@@ -234,6 +274,7 @@
 						formData.append('publishTime', publishTime);
 						formData.append('publicStatus', publicStatus);
 						
+
 						if(file === undefined){
 							alert('請選擇一個檔案');
 						}else{
@@ -246,6 +287,7 @@
 								success: function(data){
 									
 									$('#exampleModal').modal('toggle');
+
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
 			    						var jdate_value = new Date(jdate_int);
 			    						var myNickName = "${LoginOK.nickname}";
@@ -262,6 +304,7 @@
 // 		   								+ '<br/><button>編輯</button>'
 		   								+ '</li>')
 		   								
+
 		   								// 新增的日誌公開狀態change功能
 		   								var eleS = $('<br/><select />').bind('change',data,function(){
 // 		   									console.log(arguments[0].data)
@@ -288,18 +331,14 @@
 // 		   									console.log(arguments.length);
 // 		   									console.log(arguments[0].data);
 // 		   								});	
-			    						
-		    						new AnimOnScroll(document.getElementById('grid'), {
-	    								minDuration : 0.4,
-	    								maxDuration : 0.6,
-	    								viewportFactor : 0.2
-	    							});								
+							
 
 								}
 								
 							})
 	
 						}
+
 						
 					});
         			/*
@@ -320,6 +359,8 @@
 
 </c:if>
 	<!--  頁面部分 結束 -->
+	
+	<script src="${this_contextPath}/js/personal_journal.js"></script>	
 	
 </body>
 </html>

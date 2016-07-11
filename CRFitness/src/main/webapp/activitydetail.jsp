@@ -11,7 +11,12 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<link rel="stylesheet" href="${this_contextPath}/css/site.css">
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
+<link rel="stylesheet" href="${this_contextPath}/css/jquerysctipttop.css">
+<link rel="stylesheet" href="${this_contextPath}/css/optionsGoogle.css">
+<link rel="stylesheet" href="${this_contextPath}/css/themify-icons.css">
+<script src="${this_contextPath}/js/optionsGoogle.js"></script>
+
 </head>
 
 <body >
@@ -43,9 +48,9 @@
 	    for (var k in o)
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
-	}	    
+	}      
 	    $.ajax({
-		          url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
+	    	url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
 		          type:'get',  //get post put delete
 		          data:{ },
 		          success:function(data){      	  
@@ -63,14 +68,15 @@
 							}				  
 						  })	
 		        		 }
-							$('#grid').append('<li ><a name="abc" href="data:image/png;base64,'
-							+this[0].photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+							$('#grid').append('<li ><a href="data:image/png;base64,'
+							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+'"><img src="data:image/png;base64,'
-									+this[0].photo1+'" /></a>發起人：'
+									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+'"><span title=""><img src="data:image/png;base64,'
+									+this[0].photo1+'" /></span></a>發起人：'
 									+this[2]+'<br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
@@ -78,12 +84,24 @@
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
-									+this[0].people+'</button></li>')			  					
+									+this[0].people+'</button></li>')
+									  					
 	                 		 })
-							  $('.btn.btn-default').tooltip()																
-	                  $.getScript('${this_contextPath}/js/site.js',function(){
-	                	  
-	                  })
+							  $('.btn.btn-default').tooltip()
+								$(".boxer").boxer({
+    							top: 50,
+    							fixed:true
+								});	
+				        	  $('.lightbox_image').optionsGoogle({
+				      			options:[{
+				      				class:'ti-pencil', 
+				      				callable:edit, 
+				      				text:'Edit'
+				      			}], 
+				      			margin:25
+				      		});
+				        	  function edit(){
+				      		}
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
@@ -95,6 +113,6 @@
 
 </c:if>
 	<!--  頁面部分 結束 -->
-	
+<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
 </body>
 </html>
