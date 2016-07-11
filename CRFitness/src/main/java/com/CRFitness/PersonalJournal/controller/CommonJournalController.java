@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.CRFitness.MessageDetail.model.MessageDetailVO;
 import com.CRFitness.PersonalJournal.model.CommonJournalService;
 import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 

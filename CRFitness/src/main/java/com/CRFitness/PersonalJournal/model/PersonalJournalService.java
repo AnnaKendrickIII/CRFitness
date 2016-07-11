@@ -69,14 +69,19 @@ public class PersonalJournalService {
 	}
 	
 	
-	// 取得自己個人日誌，好友個人日誌
-	public List<PersonalJournalVO> showJournal(String member_Id) {
-				MemberVO memberVO =new MemberVO();
-				memberVO.setMember_Id(member_Id);
-				return personalJournalDAO.select_journal(memberVO);
+	// 取得自己個人日誌
+	public List<PersonalJournalVO> showMySelfJournal(String member_Id) {
+		MemberVO memberVO =new MemberVO();
+		memberVO.setMember_Id(member_Id);
+		return personalJournalDAO.select_myJournal(memberVO);
 	}
-//---------------------------------------------------------------------	
 	
+	// 取得好友日誌
+	public List<PersonalJournalVO> showFriendJournal(String member_Id){
+		MemberVO memberVO =new MemberVO();
+		memberVO.setMember_Id(member_Id);
+		return personalJournalDAO.select_friendJournal(memberVO);
+	}
 
 
 //	 public static void main(String[] args) {
