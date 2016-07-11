@@ -101,41 +101,41 @@ public class ActivitysService {
 		
 	}
 	
-	public ActivitysVO modifyActivitys(
-			String member_Id,
-			String activity_Day,
-			String activity_Class,
-			String activity_Area,
-			MultipartFile photo1,
-			String activity_Info,
-			String deadline)
-	{
-			Timestamp datetime = new Timestamp(System.currentTimeMillis());
-			MemberVO memberVO=new MemberVO();
-			memberVO.setMember_Id(member_Id);
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-			activity_Day =sdf.format(new Date(activity_Day));
-			Timestamp ts = Timestamp.valueOf(activity_Day);
-			SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-			deadline =sdft.format(new Date(deadline));
-			Timestamp tsd = Timestamp.valueOf(deadline);
-			ActivitysVO activitysVO=new ActivitysVO();
-			activitysVO.setMember_Id(member_Id);	
-			activitysVO.setActivity_Day(ts);
-			activitysVO.setActivity_Class(activity_Class);
-			activitysVO.setActivity_Area(activity_Area);
-			try {
-				activitysVO.setPhoto1(photo1.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			activitysVO.setActivity_Info(activity_Info);
-			activitysVO.setDeadline(tsd);
-			activitysVO.setStartDay(datetime);
-			activitysVO.setPeople(0);
-			
-		return activitysDAO.update(activitysVO);
-		
-	}
+//	public ActivitysVO modifyActivitys(
+//			String member_Id,
+//			String activity_Day,
+//			String activity_Class,
+//			String activity_Area,
+//			MultipartFile photo1,
+//			String activity_Info,
+//			String deadline)
+//	{
+//			Timestamp datetime = new Timestamp(System.currentTimeMillis());
+//			MemberVO memberVO=new MemberVO();
+//			memberVO.setMember_Id(member_Id);
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//			activity_Day =sdf.format(new Date(activity_Day));
+//			Timestamp ts = Timestamp.valueOf(activity_Day);
+//			SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+//			deadline =sdft.format(new Date(deadline));
+//			Timestamp tsd = Timestamp.valueOf(deadline);
+//			ActivitysVO activitysVO=new ActivitysVO();
+//			activitysVO.setMember_Id(member_Id);	
+//			activitysVO.setActivity_Day(ts);
+//			activitysVO.setActivity_Class(activity_Class);
+//			activitysVO.setActivity_Area(activity_Area);
+//			try {
+//				activitysVO.setPhoto1(photo1.getBytes());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			activitysVO.setActivity_Info(activity_Info);
+//			activitysVO.setDeadline(tsd);
+//			activitysVO.setStartDay(datetime);
+//			activitysVO.setPeople(0);
+//			
+//		return activitysDAO.update(activitysVO);
+//		
+//	}
 
 }

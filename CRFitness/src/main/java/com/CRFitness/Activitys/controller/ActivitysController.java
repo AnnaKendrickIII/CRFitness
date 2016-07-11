@@ -64,26 +64,27 @@ public class ActivitysController {
 		return activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline);	
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value ="/modifyActivitys")
-	public @ResponseBody ActivitysVO modifyActivitys(
-			@RequestParam String member_Id,
-			@RequestParam String activity_Day,
-			@RequestParam String activity_Class,
-			@RequestParam String activity_Area,
-			@RequestParam MultipartFile photo1,
-			@RequestParam String activity_Info,
-			@RequestParam String deadline){
-		
-		try {
-			member_Id = new String(member_Id.getBytes("iso-8859-1"), "utf-8");
-			activity_Class = new String(activity_Class.getBytes("iso-8859-1"), "utf-8");
-			activity_Area = new String(activity_Area.getBytes("iso-8859-1"), "utf-8");
-			activity_Info = new String(activity_Info.getBytes("iso-8859-1"), "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		System.out.println("1122355");
-		return activitysService.modifyActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline);	
-	}
+//	@RequestMapping(method = RequestMethod.POST, value = "/modifyActivitys")
+//	public @ResponseBody ActivitysVO modifyActivitys(
+//			@RequestParam String member_Id, @RequestParam String activity_Day,
+//			@RequestParam String activity_Class,
+//			@RequestParam String activity_Area,
+//			@RequestParam MultipartFile photo1,
+//			@RequestParam String activity_Info, @RequestParam String deadline) {
+//
+//		try {
+//			member_Id = new String(member_Id.getBytes("iso-8859-1"), "utf-8");
+//			activity_Class = new String(activity_Class.getBytes("iso-8859-1"),
+//					"utf-8");
+//			activity_Area = new String(activity_Area.getBytes("iso-8859-1"),
+//					"utf-8");
+//			activity_Info = new String(activity_Info.getBytes("iso-8859-1"),
+//					"utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		return activitysService.modifyActivitys(member_Id, activity_Day,
+//				activity_Class, activity_Area, photo1, activity_Info, deadline);
+//	}
 	
 }
