@@ -253,14 +253,14 @@
 	
 	  $('#addActivitys').click(function () {
 		  	var formData = new FormData();
+		  	var datetimepicker = $('#datetimepicker');
 		  	formData.append('photo1', file[0]);
 			 formData.append('member_Id',  '${LoginOK.member_Id}');
-			 formData.append('activity_Day', $('#datetimepicker').val());
+			 formData.append('activity_Day', datetimepicker.val());
 			 formData.append('activity_Class', $('#addActivity_Class').val());
 			 formData.append('activity_Area', $('#addActivitys_Area').val());
 			 formData.append('activity_Info', $('#addActivitys_Info').val());
 			 formData.append('deadline', $('#datetimepickerb').val());
-			 formData.append('date', $('#date').val());
 		   $.ajax({
                url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
                type:'post',  //get post put delete
@@ -273,14 +273,14 @@
             	   $('#new_activity').modal('hide');	
             	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
 							+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-							+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
+							+'${LoginOK.nickname}'+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />日期：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
 									+data.photo1+'" /></a>發起人：'
-									+data.member_Id+'<br />類別：'
+									+'${LoginOK.nickname}'+'<br />類別：'
 									+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />日期：'
@@ -297,8 +297,11 @@
 						                      maxDuration: 0.6,
 						                      viewportFactor: 0.2
 						                  }); 		
-								
-									 
+							$('input').val('')	
+							$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00:00',step:10});
+							$('#datetimepickerb').datetimepicker({value:'2016/08/12 10:00:00',step:10});
+							$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty()
+							file=null
                						}	 
            })
 	})	    

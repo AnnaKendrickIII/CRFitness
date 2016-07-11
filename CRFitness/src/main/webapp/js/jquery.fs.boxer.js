@@ -259,12 +259,12 @@
 				if (data.gallery.active) {
 					html += '<div class="boxer-control previous">' + data.labels.previous + '</div>';
 					html += '<div class="boxer-control next">' + data.labels.next + '</div>';
-					html += '<p class="boxer-position"';
-					if (data.gallery.total < 1) {
-						html += ' style="display: none;"';
-					}
-					html += '>';
-					html += '<span class="current">' + (data.gallery.index + 1) + '</span> ' + data.labels.count + ' <span class="total">' + (data.gallery.total + 1) + '</span>';
+					//html += '<p class="boxer-position"';
+					//if (data.gallery.total < 1) {
+					//	html += ' style="display: none;"';
+					//}
+					//html += '>';
+					//html += '<span class="current">' + (data.gallery.index + 1) + '</span> ' + data.labels.count + ' <span class="total">' + (data.gallery.total + 1) + '</span>';
 					html += '</p>';
 					html += '<div class="boxer-caption gallery">';
 				} else {
@@ -285,7 +285,7 @@
 			data.$container = data.$boxer.find(".boxer-container");
 			data.$content = data.$boxer.find(".boxer-content");
 			data.$meta = data.$boxer.find(".boxer-meta");
-			data.$position = data.$boxer.find(".boxer-position");
+			//data.$position = data.$boxer.find(".boxer-position");
 			data.$caption = data.$boxer.find(".boxer-caption");
 			data.$controls = data.$boxer.find(".boxer-control");
 
