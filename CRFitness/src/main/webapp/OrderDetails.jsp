@@ -8,14 +8,15 @@
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" href="css/classic.css">
-<title>OrderDetails</title>
+<title>訂單明細</title>
 
 <style type="text/css">
+
 .orders_class {
 	margin-top: 4%;
 }
 .orderDetailsbody{
-background-color: #DDDDDD;
+
 }
 </style>
 </head>
@@ -24,15 +25,17 @@ background-color: #DDDDDD;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/jquery.columns.min.js"></script>
 <aside>
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div id="orderDetialscolumns" class="orders_class col-md-10 col-xs-12"></div>
-		<div class="col-md-1"></div>
+
+	<div class="row orders_class">
+		<div class="col-md-2"></div>
+		<div id="orderDetialscolumns" class="col-md-8 col-xs-12"></div>
+		<div class="col-md-2"></div>
 	</div>
 	
 	<script type="text/javascript">
 	var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substr(9);
+	
 	$.ajax({
 		  url:'${this_contextPath}/CRFSERVICE/orderDetailsController/search',
 	      type:'get', 

@@ -1,13 +1,15 @@
 package com.CRFitness.Activitys.model;
 import java.sql.Timestamp;
 
+import org.hibernate.type.ArrayType;
+
 import com.CRFitness.Member.model.MemberVO;
 public class ActivitysVO implements java.io.Serializable{				//揪團專區
 	
 
 	private static final long serialVersionUID = 1L;
 	private String activity_Id;			//揪團專案編號		
-	private MemberVO memberVO;			//會員編號
+	private String member_Id;			//會員編號
 	private Timestamp activity_Day;		//活動日
 	private String activity_Class;		//揪團類別
 	private String activity_Area;		//活動地區
@@ -19,13 +21,14 @@ public class ActivitysVO implements java.io.Serializable{				//揪團專區
 	private Timestamp startDay;		//發起日期
 	private Integer people;				//活動人數
 
-	public MemberVO getMemberVO() {
-		return memberVO;
+	public String getMember_Id() {
+		return member_Id;
+	}
+
+	public void setMember_Id(String member_Id) {
+		this.member_Id = member_Id;
 	}
 	
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
-	}
 	public String getActivity_Id() {
 		return activity_Id;
 	}

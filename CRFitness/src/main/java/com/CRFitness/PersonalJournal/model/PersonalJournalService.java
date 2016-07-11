@@ -52,23 +52,20 @@ public class PersonalJournalService {
 		return personalJournalDAO.insert(personalJournalVO);
 	}
 	
-	// 修改個人日誌公開狀態
-	public PersonalJournalVO updatePersonalJournal(
+	// 編輯個人日誌公開狀態
+	public boolean updatePersonalJournal(
 			String journal_Id,
-			String member_Id,
 			String contents,
 			Integer publicStatus) {
 		
-		MemberVO mbmberVO = new MemberVO();
-		mbmberVO.setMember_Id(member_Id);
-		PersonalJournalVO personalJournalVO = new PersonalJournalVO();
-		personalJournalVO.setJournal_Id(journal_Id);
-		personalJournalVO.setMemberVO(mbmberVO);
-		personalJournalVO.setContents(contents);
-		personalJournalVO.setPublicStatus(publicStatus);
-		
-		
-		return null;
+//		MemberVO mbmberVO = new MemberVO();
+//		mbmberVO.setMember_Id(member_Id);
+//		PersonalJournalVO personalJournalVO = new PersonalJournalVO();
+//		personalJournalVO.setJournal_Id(journal_Id);
+//		personalJournalVO.setMemberVO(mbmberVO);
+//		personalJournalVO.setContents(contents);
+//		personalJournalVO.setPublicStatus(publicStatus);
+		return personalJournalDAO.update(journal_Id,contents,publicStatus);
 	}
 	
 	
@@ -80,30 +77,20 @@ public class PersonalJournalService {
 	}
 //---------------------------------------------------------------------	
 	
-	// 抓取publicStatus狀態
-	public List<PersonalJournalVO> ShowAllJournal() {
-		List<PersonalJournalVO> List = personalJournalDAO.getAll();
-		List<PersonalJournalVO> openJournal = new ArrayList<PersonalJournalVO>();
-		for (PersonalJournalVO data : List) {
-			if (data.getPublicStatus() == 1) {
-				openJournal.add(data);
-			}
-		}
-		return openJournal;
-	}
 
-	 public static void main(String[] args) {
-	 ApplicationContext context = new
-	 ClassPathXmlApplicationContext("test.config.xml");
-	
-	 PersonalJournalService service = (PersonalJournalService)
-	 context.getBean("commonJournalService");
-	
-	 List<PersonalJournalVO> testdata = service.ShowAllJournal();
-	
-	 for(PersonalJournalVO go:testdata){
-	 System.out.println(go.getJournal_Id()+" "+go.getContents());
-	 }
-	 ((ConfigurableApplicationContext) context).close();
-	 }
+
+//	 public static void main(String[] args) {
+//	 ApplicationContext context = new
+//	 ClassPathXmlApplicationContext("test.config.xml");
+//	
+//	 PersonalJournalService service = (PersonalJournalService)
+//	 context.getBean("commonJournalService");
+//	
+//	 List<PersonalJournalVO> testdata = service.ShowAllJournal();
+//	
+//	 for(PersonalJournalVO go:testdata){
+//	 System.out.println(go.getJournal_Id()+" "+go.getContents());
+//	 }
+//	 ((ConfigurableApplicationContext) context).close();
+//	 }
 }
