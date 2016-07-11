@@ -68,7 +68,7 @@ $.ajax({
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
 						+this[0].product_Name+'"><img id="b"   class="group list-group-image"  src="data:image/png;base64,'
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#0000FF">'
-						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#777777">'
+						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#666666">'
 						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-6"><p class="lead" style="color:#E63F00">$'
 						+this[1]+'</p></div><div class="col-xs-12 col-md-6"><a class="btn btn-success" a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
 						+this[0].productDetail_Id+'">商品介紹</a></div></div></div></a></div></div>'

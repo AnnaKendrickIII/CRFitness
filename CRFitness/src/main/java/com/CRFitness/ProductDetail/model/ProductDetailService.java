@@ -19,7 +19,7 @@ public class ProductDetailService {
 	@Resource(name = "productDetailDAO")
 	private ProductDetailDAO_interface productDetailDAO;
 
-	List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+	List<ProductDetailVO> cart = null;
 
 	public ProductDetailService() {
 	}
@@ -165,13 +165,14 @@ public class ProductDetailService {
 		// System.out.println(service.getItemByPrimaryKey("prodDetail5015")
 		// .getProductsVO().getProduct_Name());
 
-		List<ProductDetailVO> cart = null;
+		List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+
 		service.addShoppingCart("prodDetail5011");
 		service.addShoppingCart("prodDetail5013");
 		service.addShoppingCart("prodDetail5015");
 
 		for (ProductDetailVO vo : cart) {
-			System.out.println();
+			System.out.println(vo.getProduct_Name());
 		}
 
 		((ConfigurableApplicationContext) context).close();
