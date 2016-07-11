@@ -82,7 +82,7 @@ $.ajax({
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff">'
 						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-6"><p class="lead" style="color:#E63F00">$'
-						+this[1]+'</p></div><div class="col-xs-12 col-md-6"><a class="btn btn-success" a href="${this_contextPath}/ProductDetail.jsp'
+						+this[1]+'</p></div><div class="col-xs-12 col-md-6"><a class="btn btn-success" a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
 						+this[0].productDetail_Id+'">商品介紹</a></div></div></div></a></div></div>'
 					)	
 		})		
