@@ -35,12 +35,9 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	} 
 
 	@Override
-	public boolean update(ActivitysVO activitysVO) {
-		if (activitysVO != null) {
+	public ActivitysVO update(ActivitysVO activitysVO) {
 			this.getSession().saveOrUpdate(activitysVO);
-			return true;
-		}
-		return false;
+			return activitysVO;
 	}
 
 	@Override

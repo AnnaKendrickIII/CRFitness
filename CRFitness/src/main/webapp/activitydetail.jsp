@@ -13,10 +13,6 @@
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquerysctipttop.css">
-<link rel="stylesheet" href="${this_contextPath}/css/optionsGoogle.css">
-<link rel="stylesheet" href="${this_contextPath}/css/themify-icons.css">
-<script src="${this_contextPath}/js/optionsGoogle.js"></script>
-
 </head>
 
 <body >
@@ -59,6 +55,8 @@
 		        		  var activityID=this[0].activity_Id;     		   
 		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
 						  var jdate_value = new Date(jdate_int);
+						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
+						  var jdate_value_deadline = new Date(jdate_int2);
 						  var names=' ';
 		        		  if(this[1]!=null){
 						  var nameData=this[1].split(",")						  
@@ -71,17 +69,18 @@
 							$('#grid').append('<li ><a href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
-									+this[0].activity_Area+'<br />內容：'
-									+this[0].activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-									+'"><span title=""><img src="data:image/png;base64,'
+							+this[0].activity_Area+'<br />內容：'
+							+this[0].activity_Info+'<br />日期：'
+							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+							+this[0].people 
+							+'"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
 									+this[2]+'<br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
-									+this[0].activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+this[0].activity_Info+'<br />活動時間：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />活動截止日：'
+									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')
@@ -92,16 +91,6 @@
     							top: 50,
     							fixed:true
 								});	
-				        	  $('.lightbox_image').optionsGoogle({
-				      			options:[{
-				      				class:'ti-pencil', 
-				      				callable:edit, 
-				      				text:'Edit'
-				      			}], 
-				      			margin:25
-				      		});
-				        	  function edit(){
-				      		}
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,

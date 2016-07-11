@@ -873,7 +873,7 @@
 					data.$target = data.gallery.$items.eq(data.gallery.index);
 
 					data.$caption.html(data.formatter.apply(data.$body, [data.$target]));
-					data.$position.find(".current").html(data.gallery.index + 1);
+					//data.$position.find(".current").html(data.gallery.index + 1);
 
 					var source = data.$target.attr("href"),
 						isVideo = ( source.indexOf("youtube.com/embed") > -1 || source.indexOf("player.vimeo.com/video") > -1 );
