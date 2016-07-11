@@ -223,11 +223,9 @@
 						
 						// 留言功能-------------------------------------------------------
 // 						if(this.messageDetailVOs.length != 0){
-							var eleMessageA = $('<a></a>',{text:'查看更多留言'}).bind('click',this, function(){
-								console.log(arguments[0].data)
-								
+							var eleMessageA = $('<a></a>',{text:'查看更多留言'}).bind('click',this, function(){	
 								var thisData = arguments[0].data;
-								console.log(thisData.journal_Id)
+							
 								// 顯示留言
 								$.each(thisData.messageDetailVOs, function(index,ele){
 				        			 $('#grid>li[value="'+thisData.journal_Id+'"]').append(
