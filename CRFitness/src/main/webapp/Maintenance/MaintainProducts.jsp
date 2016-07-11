@@ -182,7 +182,7 @@ body {
 		<div class="col-md-2 "></div>
 		<div class="col-md-8 col-xs-12 ">
 		
-		<button type="button" id="createProduct" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#products_tbody">
+		<button type="button" id="products_tbody" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#products_tbody">
   		新增產品
   		</button>
 	
@@ -323,45 +323,38 @@ body {
 				 formData.append('category', $('#insert_category').val());
 				 formData.append('introduction', $('#insert_introduction').val());
 			   $.ajax({
-	               url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
+	               url:"${this_contextPath}/CRFSERVICE/productDetailController/addProducts",
 	               type:'post',  //get post put delete
 					data: formData,
 	    		   processData: false,
 				   contentType: false,
 	               success:function(data){
-	            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
-						var jdate_value = new Date(jdate_int);
-	            	   $('#new_activity').modal('hide');	
+// 	            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
+// 						var jdate_value = new Date(jdate_int);
+	            	   $('#products_tbody').modal('hide');	
 	            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
 								+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 								+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
-										+data.activity_Area+'<br />內容：'
-										+data.activity_Info+'<br />日期：'
-										+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-										+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-										+'"><img src="data:image/png;base64,'
-										+data.photo1+'" /></a>發起人：'
-										+data.member_Id+'<br />類別：'
-										+data.activity_Class+'<br />地區：'
-										+data.activity_Area+'<br />內容：'
-										+data.activity_Info+'<br />日期：'
-										+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-										+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
-										+data.people+'</button></li>')								
-											 $('.btn.btn-default').tooltip()	
-											  $(".boxer").boxer({ 
-												  top: 50,
-												  fixed:true
-											  });	
-											new AnimOnScroll(document.getElementById('grid'), {
-							                      minDuration: 0.4,
-							                      maxDuration: 0.6,
-							                      viewportFactor: 0.2
-							                  }); 		
-									
-										 
-	               						}	 
-	           })
+								+data.activity_Area+'<br />內容：'
+								+data.activity_Info+'<br />日期：'
+								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+								+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+								+'"><img src="data:image/png;base64,'
+								+data.photo1+'" /></a>發起人：'
+								+data.member_Id+'<br />類別：'
+								+data.activity_Class+'<br />地區：'
+								+data.activity_Area+'<br />內容：'
+								+data.activity_Info+'<br />日期：'
+								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+								+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+								+data.people+'</button></li>')								
+						 $('.btn.btn-default').tooltip()	
+						  $(".boxer").boxer({ 
+									  top: 50,
+									  fixed:true
+						  });	 				 
+	               	} // end of success:function(data)	 
+	           }) // end of  $.ajax({
 	}) // end of $('#addActivitys').click(function ()
 	
 	
@@ -419,7 +412,7 @@ body {
 }) // end of jQuery(function ($)
 // 新增產品的程式 結束
 
-// 產出table的程式 開始
+// 顯示table的程式 開始
 			$(function() {
 				$.ajax({
 	//       	url:"${this_contextPath}/CRFSERVICE/producController/product",
