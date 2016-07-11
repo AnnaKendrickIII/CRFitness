@@ -8,7 +8,7 @@
 <jsp:include page="/CRFitness.jsp" />
 
 <!-- 按鈕 -->
-<link rel="stylesheet" type="text/css" href="css/component1.css" />
+<link rel="stylesheet" type="text/css" href="css/games.css" />
 
 <script src="${this_contextPath}/js/jquery.searcher.js"></script>
 
