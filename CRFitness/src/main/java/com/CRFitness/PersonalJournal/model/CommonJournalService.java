@@ -38,5 +38,8 @@ public class CommonJournalService {
 //	 System.out.println(go.getJournal_Id()+" "+go.getContents());
 //	 }
 //	 ((ConfigurableApplicationContext) context).close();
+
 //	 }
+	
+
 }
