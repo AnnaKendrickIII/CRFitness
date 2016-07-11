@@ -2,16 +2,13 @@ package com.CRFitness.ActivityDetail.model;
 
 import java.util.List;
 
-
-
-
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 
 @Transactional(transactionManager="transactionManager")
 @Repository("activityDetailDAO")
@@ -76,5 +73,5 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 		return (List<ActivityDetailVO>) query.list();
 	}
 	
-	
+
 }

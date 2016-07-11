@@ -8,14 +8,14 @@
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" href="${this_contextPath}/css/classic.css">
-<title>Orders</title>
+<title>訂單</title>
 
 <style type="text/css">
 .orders_class {
 	margin-top: 4%;
 }
 .ordersbody{
- background-color: #DDDDDD;
+
 }
 </style>
 </head>

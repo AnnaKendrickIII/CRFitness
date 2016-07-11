@@ -23,8 +23,11 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
 	// 個人所有日誌 從最近開始往後排序
 	private static final String GET_ALL_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO order by publishTime desc";
+	//挑選publicStatus狀態為1的日誌
+	private static final String GET_COMMON_JOURNAL = "from PersonalJournalVO where publicStatus='1' order by publishTime desc ";
 	
-
+	private static final String UPDATE_JOURNAL = 
+			"update PersonalJournalVO set contents=:contents , publicStatus=:publicStatus where journal_Id=:journal_Id";
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -46,13 +49,31 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	}
 
 	@Override
-	public boolean update(PersonalJournalVO journal_Id) {
-		if (journal_Id != null) {
-			this.getSession().saveOrUpdate(journal_Id);
-			return true;
+	public PersonalJournalVO update(PersonalJournalVO personalJournalVO) {
+		if (personalJournalVO != null) {
+			this.getSession().saveOrUpdate(personalJournalVO);
+			return personalJournalVO;
+		}
+		return null;
+	}
+	
+	@Override
+	public boolean update(
+			String journal_Id,
+			String contents,
+			Integer publicStatus) {
+		if (journal_Id != null || contents != null || publicStatus != null) {
+			Query query = this.getSession().createQuery(UPDATE_JOURNAL);
+			query.setParameter("journal_Id", journal_Id);
+			query.setParameter("contents", contents);
+			query.setParameter("publicStatus", publicStatus);
+			if(query.executeUpdate()==1){
+				return true;
+			}
 		}
 		return false;
 	}
+
 
 	@Override
 	public boolean delete(String journal_Id) {
@@ -82,9 +103,13 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		Query query =  this.getSession().createQuery(GET_ALL_JOURNAL).setParameter("memberVO", memberVO);
 		
 		return (List<PersonalJournalVO>) query.list();
-		
+	}	
+	
+	@Override
+	public List<PersonalJournalVO> select_publicStatus( ){
+		Query query = this.getSession().createQuery(GET_COMMON_JOURNAL);
+		return (List<PersonalJournalVO>) query.list();
 	}
-
 
 //	public static void main(String[] args) {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");

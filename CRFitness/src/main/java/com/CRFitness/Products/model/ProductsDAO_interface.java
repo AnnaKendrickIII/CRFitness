@@ -11,6 +11,7 @@ public interface ProductsDAO_interface {
      public ProductsVO findByPrimaryKey(String product_Id);
      public List<ProductsVO> getAll();
      public List<ProductsVO> getItemByCategory(String category);
+//     public List<ProductsVO> searchAllItem();
 	
 
 }

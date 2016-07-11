@@ -52,23 +52,20 @@ public class PersonalJournalService {
 		return personalJournalDAO.insert(personalJournalVO);
 	}
 	
-	// 修改個人日誌公開狀態
-	public PersonalJournalVO updatePersonalJournal(
+	// 編輯個人日誌公開狀態
+	public boolean updatePersonalJournal(
 			String journal_Id,
-			String member_Id,
 			String contents,
 			Integer publicStatus) {
 		
-		MemberVO mbmberVO = new MemberVO();
-		mbmberVO.setMember_Id(member_Id);
-		PersonalJournalVO personalJournalVO = new PersonalJournalVO();
-		personalJournalVO.setJournal_Id(journal_Id);
-		personalJournalVO.setMemberVO(mbmberVO);
-		personalJournalVO.setContents(contents);
-		personalJournalVO.setPublicStatus(publicStatus);
-		
-		
-		return null;
+//		MemberVO mbmberVO = new MemberVO();
+//		mbmberVO.setMember_Id(member_Id);
+//		PersonalJournalVO personalJournalVO = new PersonalJournalVO();
+//		personalJournalVO.setJournal_Id(journal_Id);
+//		personalJournalVO.setMemberVO(mbmberVO);
+//		personalJournalVO.setContents(contents);
+//		personalJournalVO.setPublicStatus(publicStatus);
+		return personalJournalDAO.update(journal_Id,contents,publicStatus);
 	}
 	
 	

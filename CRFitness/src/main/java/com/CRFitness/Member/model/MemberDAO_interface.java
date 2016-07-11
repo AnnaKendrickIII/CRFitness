@@ -2,6 +2,8 @@ package com.CRFitness.Member.model;
 
 import java.util.*;
 
+import com.CRFitness.ActivityDetail.model.ActivityDetailVO;
+
 public interface MemberDAO_interface {
           public boolean insert(MemberVO memberVO);
           public boolean update(MemberVO memberVO);

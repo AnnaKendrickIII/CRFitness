@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,14 +9,17 @@
 <title>揪團</title>
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
+
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<link rel="stylesheet" href="${this_contextPath}/css/site.css">
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
 
 
 <style>
+
+
 .gallery {
 	margin: 20px 0;
 	overflow: hidden;
@@ -118,18 +123,19 @@
             width: 60%;
         }
     </style>
+
+
 </head>
 <body >
-	
+
 	<!-- 頁面部分 開始-->
 
     <ul class="grid effect-5 " id="grid">
-               <li>
-              
-               <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"></a>新增揪團</li>
+               <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"> </a>新增揪團</li>
+				
 		</ul>
  	<!-- 新增活動 開始-->
-			<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.action" method="post" >
+
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="new_activity" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -140,36 +146,35 @@
                             <div id="addActivitys_form" class="modal-body">
                             <div id='fine-uploader-manual-trigger'></div>
                                 <p>活動時間&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
-                                <input required="required" type="text" id="datetimepicker" name="addActivitys_day" autocomplete="off" class="form-control" placeholder="活動時間" />                                                
+                                <input required="required" type="text" id="datetimepicker" name="addActivitys_Day" autocomplete="off" class="form-control" placeholder="活動時間" />                                                
                                 <p>活動類別&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.e_mail_error}</span></p>
-<!--                                 <input required="required" type="text" id="addActivitys_class" autocomplete="off" class="form-control" placeholder="活動類別" /> -->
-                                <select id="addActivitys_class" name="test1" class="form-control" >
-								  <option value="1">跑步</option>
-								  <option value="2">登山</option>
-								  <option value="3">游泳</option>
-								  <option value="4">飛輪</option>
-								  <option value="5">自行車</option>
-								  <option value="6">有氧運動</option>
-								  <option value="7">球類運動</option>
-								  <option value="8">室內運動</option>
-								  <option value="9">其他類別</option>
+	                            <select id="addActivity_Class" name="test1" class="form-control" >
+								  <option value="跑步">跑步</option>
+								  <option value="登山">登山</option>
+								  <option value="游泳">游泳</option>
+								  <option value="飛輪">飛輪</option>
+								  <option value="自行車">自行車</option>
+								  <option value="有氧運動">有氧運動</option>
+								  <option value="球類運動">球類運動</option>
+								  <option value="室內運動">室內運動</option>
+								  <option value="其他類別">其他類別</option>
 								</select>
                                 <p>活動地點&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.password_error}</span></p>
-                                <input required="required" type="text" id="addActivitys_place" class="form-control" autocomplete="off" placeholder="活動地點"/>
+                                <input required="required" type="text" id="addActivitys_Area" class="form-control" autocomplete="off" placeholder="活動地點"/>
                                 <p>活動內容&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.checkpassword_error}</span></p>
-                                <input required="required" type="text" id="addActivitys_info"  class="form-control" autocomplete="off" placeholder="活動內容" />
+                                <input required="required" type="text" id="addActivitys_Info"  class="form-control" autocomplete="off" placeholder="活動內容" />
                                 <p>報名截止日&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.checkpassword_error}</span></p>
-                                <input required="required" type="text" id="addActivitys_end_day"  class="form-control" autocomplete="off" placeholder="報名截止日" />
+                                <input required="required" type="text" id="datetimepickerb" name="deadline" autocomplete="off" class="form-control" placeholder="報名截止日" />
                             </div>
                             <div class="modal-footer">
                              <h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4>
                                 <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                                <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_MEMBER">送出</button>                       
+                                <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_MEMBER">送出</button>                                      
                             </div>
                         </div>
                     </div>
                 </div>
-               </form>
+
 
                 <!-- 上傳圖片 開始-->
                 <script>
@@ -180,7 +185,7 @@
             },
             thumbnails: {
                 placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    waitingPath: '${this_contextPath}/images/loader-small.gif',
                     notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
                 }
             },
@@ -192,7 +197,7 @@
         });
     </script>
                 <!-- 上傳圖片 結尾-->
-                
+               
                    <!-- 新增活動 結尾-->
     <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
 	<script src="${this_contextPath}/js/classie.js"></script>
@@ -201,8 +206,10 @@
 	
 	<!-- 輸入日期 開始-->
 	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script>
+	
 	<script>
-		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00',step:10});
+		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00:00',step:10});
+		$('#datetimepickerb').datetimepicker({value:'2016/08/12 10:00:00',step:10});
 	</script>
 	<!-- 輸入日期 結尾-->
 	<script>
@@ -221,49 +228,123 @@
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}
-	  $(function () { 
+	  jQuery(function ($) {	  
+		  var file;	
+		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
+		 file=event.target.files;			  	 	 
+		  })
+			jQuery.event.props.push('dataTransfer');
+			//加入dragover和drop
+		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('dragover', function(event){
+    		//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//複製拖移的物件
+    		event.dataTransfer.dropEffect = 'copy';
+			});
+		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('drop', function(event){
+   			//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//透過dataTransfer取得FileList object.
+    		file = event.dataTransfer.files;
+    		
+		})	  
+	
 	  $('#addActivitys').click(function () {
+		  	var formData = new FormData();
+		  	formData.append('photo1', file[0]);
+			 formData.append('member_Id',  '${LoginOK.member_Id}');
+			 formData.append('activity_Day', $('#datetimepicker').val());
+			 formData.append('activity_Class', $('#addActivity_Class').val());
+			 formData.append('activity_Area', $('#addActivitys_Area').val());
+			 formData.append('activity_Info', $('#addActivitys_Info').val());
+			 formData.append('deadline', $('#datetimepickerb').val());
+			 formData.append('date', $('#date').val());
 		   $.ajax({
                url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
                type:'post',  //get post put delete
-               data:{ member_Id:'${LoginOK.member_Id}',
-       			 activity_Area:$('#location').val(),
-    			 activity_Info:  $('#addActivitys_info').val(),
-    			 photo1: $('.qq-thumbnail-selector').attr('src').substr(23),
-    			 date: $('#date').val()},
+				data: formData,
+    		   processData: false,
+			   contentType: false,
                success:function(data){
-                  
-//                        $('#friend_tbody').append('<tr><td><img src="data:image/png;base64,'+this.photo+'" class="img-circle friend_photo" alt="Responsive image" /><td class="friend_Name">'+  this.nickname +'</td><td>'+  this.e_mail +'</td>')  
-                  
-               }          	 
+            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
+					var jdate_value = new Date(jdate_int);
+            	   $('#new_activity').modal('hide');	
+            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
+							+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+							+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
+									+data.activity_Area+'<br />內容：'
+									+data.activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+'"><img src="data:image/png;base64,'
+									+data.photo1+'" /></a>發起人：'
+									+data.member_Id+'<br />類別：'
+									+data.activity_Class+'<br />地區：'
+									+data.activity_Area+'<br />內容：'
+									+data.activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+									+data.people+'</button></li>')								
+										 $('.btn.btn-default').tooltip()	
+										  $(".boxer").boxer({ 
+											  top: 50,
+											  fixed:true
+										  });	
+										new AnimOnScroll(document.getElementById('grid'), {
+						                      minDuration: 0.4,
+						                      maxDuration: 0.6,
+						                      viewportFactor: 0.2
+						                  }); 		
+								
+									 
+               						}	 
            })
 	})	    
 	    $.ajax({
-		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitys",
+		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
 		          type:'get',  //get post put delete
 		          data:{ },
-		          success:function(data){
-		        	  $.each(data,function(){		        
-		        		  var jdate_int = parseInt(this.activity_Day);                          //轉換成數字
-							var jdate_value = new Date(jdate_int); 
+		          success:function(data){      	  
+		        	  $.each(data,function(){        		  
+		        		  var message;
+		        		  var activityID=this[0].activity_Id;     		   
+		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
+						  var jdate_value = new Date(jdate_int);
+						  var names=' ';
+		        		  if(this[1]!=null){
+						  var nameData=this[1].split(",")						  
+						  $.each(nameData,function(){
+							if(this!=""){
+								names+=this+'\n'
+							}				  
+						  })	
+		        		 }
 							$('#grid').append('<li ><a href="data:image/png;base64,'
-							+this.photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
-							+this.memberVO.nickname+'<br />類別：'+this.activity_Class+'<br />地區：'
-									+this.activity_Area+'<br />內容：'
-									+this.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-									+'"><img src="data:image/png;base64,'
-									+this.photo1+'" /></a>發起人：'
-									+this.memberVO.nickname+'<br />類別：'
-									+this.activity_Class+'<br />地區：'
-									+this.activity_Area+'<br />內容：'
-									+this.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
- 
-	                  })
-	                  $.getScript('${this_contextPath}/js/site.js',function(){
-	                	  
-	                  })
+							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+									+this[0].activity_Area+'<br />內容：'
+									+this[0].activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+'"><span title=""><img src="data:image/png;base64,'
+									+this[0].photo1+'" /></span></a>發起人：'
+									+this[2]+'<br />類別：'
+									+this[0].activity_Class+'<br />地區：'
+									+this[0].activity_Area+'<br />內容：'
+									+this[0].activity_Info+'<br />日期：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+names+'">'
+									+this[0].people+'</button></li>')
+									  					
+	                 		 })
+							  $('.btn.btn-default').tooltip()
+								$(".boxer").boxer({
+    							top: 50,
+    							fixed:true
+								});																	
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
@@ -275,7 +356,7 @@
 	  })
     
 </script>
+<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
 <!-- 頁面部分 結束-->
-
 </body>
 </html>

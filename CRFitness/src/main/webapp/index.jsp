@@ -12,17 +12,22 @@
 <body >
 	<!-- 頁面部分 開始-->
 	<aside>
-	
-	<div class="container2">
+
+	<div class="row">
+  <div class="col-md-4 "></div>
+  <div class="col-md-4  ">
+	<div class="container2 ">
     	<div id="carousel">
-			<figure><img src="${this_contextPath}/images/AD1.jpg" alt=""></figure>
-			<figure><img src="${this_contextPath}/images/AD2.jpg" alt=""></figure>
-			<figure><img src="${this_contextPath}/images/AD3.jpg" alt=""></figure>
-			<figure><img src="${this_contextPath}/images/AD7.jpg" alt=""></figure>
-			<figure><img src="${this_contextPath}/images/AD9.jpg" alt=""></figure>
+			<figure><img  src="${this_contextPath}/images/AD1.jpg" alt=""></figure>
+			<figure><img   src="${this_contextPath}/images/AD2.jpg" alt=""></figure>
+			<figure><img   src="${this_contextPath}/images/AD3.jpg" alt=""></figure>
+			<figure><img  src="${this_contextPath}/images/AD7.jpg" alt=""></figure>
+			<figure><img  src="${this_contextPath}/images/AD9.jpg" alt=""></figure>
 		</div>
 	</div>
-	
+	</div>
+	  <div class="col-md-4 "></div>
+	</div>
 	
 	
 <!-- 		<div id="carousel-example-generic" class="carousel slide" -->
