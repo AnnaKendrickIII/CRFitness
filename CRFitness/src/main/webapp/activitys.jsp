@@ -254,13 +254,14 @@
 	  $('#addActivitys').click(function () {
 		  	var formData = new FormData();
 		  	var datetimepicker = $('#datetimepicker');
+		  	var datetimepickerb = $('#datetimepickerb');
 		  	formData.append('photo1', file[0]);
 			 formData.append('member_Id',  '${LoginOK.member_Id}');
 			 formData.append('activity_Day', datetimepicker.val());
 			 formData.append('activity_Class', $('#addActivity_Class').val());
 			 formData.append('activity_Area', $('#addActivitys_Area').val());
 			 formData.append('activity_Info', $('#addActivitys_Info').val());
-			 formData.append('deadline', $('#datetimepickerb').val());
+			 formData.append('deadline', datetimepickerb.val());
 		   $.ajax({
                url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
                type:'post',  //get post put delete
@@ -269,23 +270,27 @@
 			   contentType: false,
                success:function(data){
             	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
-					var jdate_value = new Date(jdate_int);
+				   var jdate_value = new Date(jdate_int);
+				   var jdate_intb = parseInt(this[0].deadline);                        //轉換成數字
+				   var jdate_value_deadline = new Date(jdate_intb);
             	   $('#new_activity').modal('hide');	
             	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
 							+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+'${LoginOK.nickname}'+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
-									+data.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+data.activity_Info+'<br />活動時間：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
 									+data.photo1+'" /></a>發起人：'
 									+'${LoginOK.nickname}'+'<br />類別：'
 									+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
-									+data.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+									+data.activity_Info+'<br />活動時間：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
 									+data.people+'</button></li>')								
 										 $('.btn.btn-default').tooltip()	
 										  $(".boxer").boxer({ 
@@ -315,6 +320,8 @@
 		        		  var activityID=this[0].activity_Id;     		   
 		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
 						  var jdate_value = new Date(jdate_int);
+						  var jdate_intb = parseInt(this[0].deadline);                        //轉換成數字
+						  var jdate_value_deadline = new Date(jdate_intb);
 						  var names=' ';
 		        		  if(this[1]!=null){
 						  var nameData=this[1].split(",")						  
@@ -328,16 +335,18 @@
 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
-									+this[0].activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+this[0].activity_Info+'<br />活動時間：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
 									+this[2]+'<br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
-									+this[0].activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+this[0].activity_Info+'<br />活動時間：'
+									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')
