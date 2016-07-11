@@ -22,13 +22,10 @@ import com.CRFitness.Products.model.ProductsVO;
 @Transactional(transactionManager = "transactionManager")
 public class ProductDetailDAO implements ProductDetailDAO_interface {
 
-	private static final String GET_ALL_STMT = "from ProductDetailVO";
 	private static final String SELECT_CATEGORY = "from ProductDetailVO where product_Id=:product_Id";
 	private static final String SELECT_SHOES = "from ProductDetailVO where product_Id>=:product_Id";
-
 	private static final String GET_PRODUCTDETAIL_ID = "from ProductDetailVO where product_Name=:product_Name and size=:size and color=:color";
-	private static final String GET_ITEM_BY_CATEGORY = "from ProductDetailVO where productsVO.category=:category";
-
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -78,7 +75,6 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	@Override
 	public List<ProductDetailVO> getAll() {
-		// Query query = this.getSession().createQuery(GET_ALL_STMT);
 		Query query = this.getSession()
 				.createSQLQuery("select ProductDetail.* ,Products.Price , Products.Category "
 						+ " from  ProductDetail join Products" + " on ProductDetail.Product_Id=Products.Product_Id ")
@@ -123,17 +119,17 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	// 依商品分類顯示
 	@Override
 	public List<ProductDetailVO> getItemByCategory(String category) {
-		// Query query = this.getSession().createQuery(GET_ITEM_BY_CATEGORY);
-		// query.setParameter("category", category);
 		Query query = this.getSession()
 				.createSQLQuery("select * " + "from  ProductDetail join Products "
-						+ "on ProductDetail.Product_Id=Products.Product_Id " + "where Products.Category='" 
-						+ category + "'")
+						+ "on ProductDetail.Product_Id=Products.Product_Id " 
+						+ "where Products.Category='" + category + "'")
 				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 
 		return (List<ProductDetailVO>) query.list();
 	}
+	
+	
 
 	public static void main(String[] args) {
 
