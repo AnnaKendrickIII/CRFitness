@@ -227,7 +227,7 @@ body {
                      <div class="modal-footer">
 <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="addActivitys" class="btn btn-theme" type="button" value="INSERT_PRODUCT">送出</button>                       
+                        <button id="addbtn" class="btn btn-theme" type="button" value="INSERT_PRODUCT">送出</button>                       
                      </div>
                      
                      </div>
@@ -286,109 +286,135 @@ body {
 			}
 // 轉換日期的小程式 結束
 
+// 新增圖片的程式 開始
+	  jQuery(function ($) {	  
+		  var file;	
+		$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
+		 file=event.target.files;			  	 	 
+		})
+			jQuery.event.props.push('dataTransfer');
+			//加入dragover和drop
+		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('dragover', function(event){
+    		//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//複製拖移的物件
+    		event.dataTransfer.dropEffect = 'copy';
+		});
+		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('drop', function(event){
+   			//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//透過dataTransfer取得FileList object.
+    		file = event.dataTransfer.files;
+		})
+// 新增圖片的小程式 結束
+
 // 新增產品的程式 開始
- jQuery(function ($) {	  
-	var file
-	var formData = new FormData();
-	    formData = new FormData();
-	$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
-		file=event.target.files;			  	 
-		formData.append('photo1', file[0]);
-	 })
-	
-	$('#addActivitys').click(function () {
-			 formData.append('member_Id',  '${LoginOK.member_Id}');
-			 formData.append('activity_Day', $('#datetimepicker').val());
-			 formData.append('activity_Class', $('#addActivity_Class').val());
-			 formData.append('activity_Area', $('#addActivitys_Area').val());
-			 formData.append('activity_Info', $('#addActivitys_Info').val());
-			 formData.append('deadline', $('#datetimepickerb').val());
-			 formData.append('date', $('#date').val());
-		   $.ajax({
-               url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
-               type:'post',  //get post put delete
-				data: formData,
-    		   processData: false,
-			   contentType: false,
-               success:function(data){
-            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
-					var jdate_value = new Date(jdate_int);
-            	   $('#new_activity').modal('hide');	
-            	   $('#grid>li:nth-child(1)').after('<li ><a href="data:image/png;base64,'
-							+data.photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
-							+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
-									+data.activity_Area+'<br />內容：'
-									+data.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+data.people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-									+'"><img src="data:image/png;base64,'
-									+data.photo1+'" /></a>發起人：'
-									+data.member_Id+'<br />類別：'
-									+data.activity_Class+'<br />地區：'
-									+data.activity_Area+'<br />內容：'
-									+data.activity_Info+'<br />日期：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
-									+data.people+'</button></li>')	
+		  $('#addbtn').click(function () {
+			  	var formData = new FormData();
+			  	formData.append('photo1', file[0]);
+// 				 formData.append('member_Id',  '${LoginOK.member_Id}');
+				 formData.append('product_Name', $('#insert_Name').val());
+				 formData.append('color', $('#insert_color').val());
+				 formData.append('size', $('#insert_size').val());
+				 formData.append('stock', $('#insert_stock').val());
+				 formData.append('price', $('#insert_price').val());
+				 formData.append('category', $('#insert_category').val());
+				 formData.append('introduction', $('#insert_introduction').val());
+			   $.ajax({
+	               url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
+	               type:'post',  //get post put delete
+					data: formData,
+	    		   processData: false,
+				   contentType: false,
+	               success:function(data){
+	            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
+						var jdate_value = new Date(jdate_int);
+	            	   $('#new_activity').modal('hide');	
+	            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
+								+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+								+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
+										+data.activity_Area+'<br />內容：'
+										+data.activity_Info+'<br />日期：'
+										+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+										+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+										+'"><img src="data:image/png;base64,'
+										+data.photo1+'" /></a>發起人：'
+										+data.member_Id+'<br />類別：'
+										+data.activity_Class+'<br />地區：'
+										+data.activity_Area+'<br />內容：'
+										+data.activity_Info+'<br />日期：'
+										+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+										+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+										+data.people+'</button></li>')								
+											 $('.btn.btn-default').tooltip()	
+											  $(".boxer").boxer({ 
+												  top: 50,
+												  fixed:true
+											  });	
+											new AnimOnScroll(document.getElementById('grid'), {
+							                      minDuration: 0.4,
+							                      maxDuration: 0.6,
+							                      viewportFactor: 0.2
+							                  }); 		
 									
-									new AnimOnScroll(document.getElementById('grid'), {
-					                      minDuration: 0.4,
-					                      maxDuration: 0.6,
-					                      viewportFactor: 0.2
-					                  }); 
-               						}	 
-           })
+										 
+	               						}	 
+	           })
 	}) // end of $('#addActivitys').click(function ()
 	
 	
 	$.ajax({
-         url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
-         type:'get',  //get post put delete
-         data:{ },
-         success:function(data){      	  
-       	  $.each(data,function(){        		  
-       		  var message;
-       		  var activityID=this[0].activity_Id;     		   
-       		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
+        url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
+        type:'get',  //get post put delete
+        data:{ },
+        success:function(data){      	  
+      	  $.each(data,function(){        		  
+      		  var message;
+      		  var activityID=this[0].activity_Id;     		   
+      		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
 				  var jdate_value = new Date(jdate_int);
 				  var names=' ';
-       		  if(this[1]!=null){
+      		  if(this[1]!=null){
 				  var nameData=this[1].split(",")						  
 				  $.each(nameData,function(){
 					if(this!=""){
 						names+=this+'\n'
 					}				  
 				  })	
-       		 }
+      		 }
 					$('#grid').append('<li ><a href="data:image/png;base64,'
-					+this[0].photo1+'" class="lightbox_image js-lightbox" data-lightbox-gallery="image_gallery" title="發起人：'
+					+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 					+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
 							+this[0].activity_Info+'<br />日期：'
 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-							+this[0].people+"<br /><button class='btn btn-theme' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-							+'"><img src="data:image/png;base64,'
-							+this[0].photo1+'" /></a>發起人：'
+							+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+							+'"><span title=""><img src="data:image/png;base64,'
+							+this[0].photo1+'" /></span></a>發起人：'
 							+this[2]+'<br />類別：'
 							+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
 							+this[0].activity_Info+'<br />日期：'
 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-							+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+							+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 							+names+'">'
-							+this[0].people+'</button></li>')			  					
-            		 })
-					  $('.btn.btn-default').tooltip()																
-             $.getScript('${this_contextPath}/js/site.js',function(){
-           	  
-             })
-             new AnimOnScroll(document.getElementById('grid'), {
-                 minDuration: 0.4,
-                 maxDuration: 0.6,
-                 viewportFactor: 0.2
-             });
-         }          	 
-     })
+							+this[0].people+'</button></li>')
+							  					
+           		 })
+					  $('.btn.btn-default').tooltip()
+						$(".boxer").boxer({
+						top: 50,
+						fixed:true
+						});																	
+            new AnimOnScroll(document.getElementById('grid'), {
+                minDuration: 0.4,
+                maxDuration: 0.6,
+                viewportFactor: 0.2
+            });
+        }          	 
+    }) // end of $.ajax({
 
 }) // end of jQuery(function ($)
 // 新增產品的程式 結束

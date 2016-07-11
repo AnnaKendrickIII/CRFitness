@@ -36,12 +36,10 @@ public class ProductsDAO implements ProductsDAO_interface {
 	}
 
 	@Override
-	public boolean insert(ProductsVO product_Id) {
-		if (product_Id != null) {
-			this.getSession().saveOrUpdate(product_Id);
-			return true;
-		}
-		return false;
+	public ProductsVO insert(ProductsVO productsVO) {
+			this.getSession().saveOrUpdate(productsVO);		
+			return productsVO;
+		
 	}
 
 	@Override
