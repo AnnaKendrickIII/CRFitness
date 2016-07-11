@@ -35,18 +35,19 @@ public class CommonJournalService {
 		return openJournal;
 	}
 
-	 public static void main(String[] args) {
-	 ApplicationContext context = new
-	 ClassPathXmlApplicationContext("test.config.xml");
+//	 public static void main(String[] args) {
+//	 ApplicationContext context = new
+//	 ClassPathXmlApplicationContext("test.config.xml");
+//	
+//	 CommonJournalService service = (CommonJournalService)
+//	 context.getBean("commonJournalService");
+//	
+//	 List<PersonalJournalVO> testdata = service.ShowAllJournal();
+//	
+//	 for(PersonalJournalVO go:testdata){
+//	 System.out.println(go.getJournal_Id()+" "+go.getContents());
+//	 }
+//	 ((ConfigurableApplicationContext) context).close();
+//	 }
 	
-	 CommonJournalService service = (CommonJournalService)
-	 context.getBean("commonJournalService");
-	
-	 List<PersonalJournalVO> testdata = service.ShowAllJournal();
-	
-	 for(PersonalJournalVO go:testdata){
-	 System.out.println(go.getJournal_Id()+" "+go.getContents());
-	 }
-	 ((ConfigurableApplicationContext) context).close();
-	 }
 }
