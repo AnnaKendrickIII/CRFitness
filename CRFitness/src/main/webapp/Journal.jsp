@@ -36,6 +36,33 @@
 	<script src="${this_contextPath}/js/imagesloaded.js"></script>
 	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
 	<!-- 頁面部分 開始-->
+	<!-- 	新增留言開始       -->
+<c:if test="${!empty LoginOK.member_Id}">
+<div class="modal fade" id="insertMessageDetailDiv"  tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="insertMessageModalLabel">新增留言</h4>
+      </div>
+      <div class="modal-body">
+		<form role="form" action="" method="post" >
+		  <div class="form-group">
+		    <label for="content">留言內容</label>
+		    <textarea class="form-control" id="insertMessageDetail" placeholder="留言內容輸入在此"></textarea>
+		  </div>
+		<div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button id="sendEditBtn" type="button" class="btn btn-primary">送出留言</button>
+	    </div>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</c:if>
+<!-- 	新增留言結束 -->
 	<script type="text/javascript">
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
@@ -53,40 +80,135 @@
 	    return fmt;
 	}
 	
-    $(function () {
-        $.ajax({
-            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournal",
-            type:'get',  //get post put delete
-            data:{},
-            success:function(data){
-            	$.each(data,function(){		        
-	        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
-						var jdate_value = new Date(jdate_int); 
-	        		 $('#grid').append('<li ><a href="data:image/png;base64,'
-	        		 +this.archives+'" title="'+this.memberVO.nickname+'" data-gallery  ><span title=""><img src="data:image/png;base64,'
-	        		 +this.archives+'" /></span></a>發起人：'+this.memberVO.nickname+'<br /><div class="divcssj">類別：'
-	        		 +this.contents+'</div><br /><div class="divcssj">內容：'+this.contents+'</div><br />日期：'
-	        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</li>')
-	        		
-                })         
-//                 $.getScript('${this_contextPath}/js/jquery.blueimp-gallery.js',function(){
-            		
-//             	})
-                new AnimOnScroll(document.getElementById('grid'), {
-                    minDuration: 0.8,
-                    maxDuration: 0.1,
-                    viewportFactor: 0.2
-                });
- 	          }
-//           ,beforeSend:function(){
-//                 $('#imgloading').show();
-//               },
-//               complete:function(){
-//             	 $('#imgloading').hide();
-//               }        	
-                  	 
-        })
-    })
+	jQuery(function ($) {
+		var theMessageDetailObj;
+		
+	        $.ajax({
+	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournal",
+	            type:'get',  //get post put delete
+	            data:{},
+	            success:function(data){
+//	             		console.log(data);
+	            	$.each(data,function(){
+		        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
+							var jdate_value = new Date(jdate_int); 
+		        		 $('#grid').append('<li value="'+this.journal_Id+'"><a href="data:image/png;base64,'
+		        		 +this.archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
+		        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br />類別：'
+		        		 +this.contents+'<br />內容：'+this.contents+'<br />日期：'
+		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+		        		 +'</li>')
+		        		 
+	             		//新增留言按鈕
+	             		if("${LoginOK}"!=""){
+							var eleBtn = $('<button />',{'text':'留言'}).bind('click',this,function(){
+//	 							console.log(arguments[0].data);
+								$('#insertMessageDetailDiv').modal('toggle');
+								theMessageDetailObj = arguments[0].data;
+							});
+		        		 $('#grid>li:last').append(eleBtn);
+	             		}
+		        		 
+		        		 //  顯示留言
+		        		 var count = 1;
+		        		 $.each(this.messageDetailVOs, function(){
+		        			 $('#grid>li:last').append(
+		        					 '<hr/>#'+count
+		        					 +'<br>留言人:'+this.member_Id
+		        					 +'<br>留言內容:'+this.content
+		        					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')		 
+		        			 );
+		        			 count++;
+		        		 })
+	                })
+	                // each end
+	                //	 新增留言送出的click事件==================================
+							$('#sendEditBtn').on('click', function(){
+								$('#insertMessageDetailDiv').modal('toggle');
+								var formData = new FormData();
+//					 			var category = $('#category').val();  // 類別是??
+								console.log(theMessageDetailObj);
+								var member_Id = "${LoginOK.member_Id}";
+								var journal_Id = theMessageDetailObj.journal_Id;
+								var content = $('#insertMessageDetail').val();
+//	 							var publishTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
+								formData.append('journal_Id', journal_Id);
+								formData.append('member_Id', member_Id);
+								formData.append('content', content);
+								
+								if(content === undefined || content.trim().length == 0){
+									alert('請輸入留言內容');
+								}else{
+									$.ajax({
+										url: "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
+										type: 'post',
+										data: formData,
+										processData: false,
+										contentType: false,
+										success: function(data){
+//	 										console.log(data);
+											if(data){
+												// 重新載入??
+//	 											console.log($('#grid>li[value='+journal_Id+']').attr('value'));
+//	 											$('#grid>li[value='+journal_Id+']').remove();
+												$('#insertMessageDetailDiv').modal('toggle');
+												$('#insertMessageDetail').val('');
+												
+											}else{
+												alert('留言失敗，請重新嘗試或電洽客服');
+											}
+											/*
+											$('#exampleModal').modal('toggle');									
+					    						var jdate_int = parseInt(data.publishTime); //轉換成數字
+					    						var jdate_value = new Date(jdate_int);
+					    						
+					    						$('#grid>li:nth-child(1)').before(
+					    						'<li ><a href=""><img src="data:image/png;base64,'
+					    						+data.archives+'" /></a>'
+						    						+'id:'+data.memberVO.member_Id  // 上線前要拿掉或改暱稱
+					    						+ '<br />類別：'
+				   								+ data.contents
+				   								+ '<br />內容：'
+				   								+ data.contents
+				   								+ '<br />日期：'
+				   								+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+				   								+ '<br/><button>編輯</button>'
+				   								+ '</li>')
+				   								
+				    							$('#grid>li:nth-child(1)').on('click',' :button',data,function(){
+				   									console.log(arguments.length);
+				   									console.log(arguments[0].data);
+				   								});	
+					    						*/							
+
+										}
+										
+									})
+			
+								}
+							
+								
+							});
+
+	                $.getScript('${this_contextPath}/js/bootstrap-image-gallery.min.js',function(){
+	            		
+	            	})
+	                new AnimOnScroll(document.getElementById('grid'), {
+	                    minDuration: 0.4,
+	                    maxDuration: 0.6,
+	                    viewportFactor: 0.2
+	                });
+	 	          }
+//	           ,beforeSend:function(){
+//	                 $('#imgloading').show();
+//	               },
+//	               complete:function(){
+//	             	 $('#imgloading').hide();
+//	               }        	
+	                  	 
+	        })
+
+	    })
 	</script>
 </aside>
 	<!--  頁面部分 結束 -->

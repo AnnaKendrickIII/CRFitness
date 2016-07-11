@@ -48,9 +48,9 @@ $.ajax({
 							+data.product_Name+'<br><img data-toggle="magnify" src="data:image/png;base64,'
 							+data.photo1+'" /></div></div><div class="col-md-5">尺寸 : '
 							+data.size+'<br/>顏色 : '
-							+data.color+'<br/>商品介紹 : 未看先猜undefined 一> '
-							+data.Detailed_Description+'<br/>剩餘數量 : '
-							+data.stock+'</br></br></br><a class="btn btn-success" href="https://youtu.be/AUChk0lxF44" data-lity>千萬不要按!</a></div>')
+							+data.color+'<br/>剩餘數量 : '
+							+data.stock+'</br>商品介紹 : 未看先猜undefined 一> '
+							+data.Detailed_Description+'<br/></br></br><a class="btn btn-danger" href="https://youtu.be/AUChk0lxF44" data-lity>千萬不要按!</a></div>')
 	}
 });
 </script>

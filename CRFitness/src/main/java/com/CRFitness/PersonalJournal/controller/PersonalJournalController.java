@@ -7,8 +7,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.annotation.Resources;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.Member.model.MemberVO;
+import com.CRFitness.MessageDetail.model.MessageDetailVO;
 import com.CRFitness.PersonalJournal.model.CommonJournalService;
 import com.CRFitness.PersonalJournal.model.PersonalJournalService;
 import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
@@ -30,9 +33,25 @@ public class PersonalJournalController {
 	private PersonalJournalService personalJournalService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/showJournal", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id) {
+	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,HttpSession session) {
 		if(member_Id != null && member_Id.trim().length() != 0){
-			return personalJournalService.showJournal(member_Id);
+//			System.out.println(member_Id);
+//			List<PersonalJournalVO> aaa = personalJournalService.showJournal(member_Id);
+//			for(PersonalJournalVO aa: aaa){
+//				for(MessageDetailVO a: aa.getMessageDetailVOs()){
+//					System.out.println(a.getPersonalJournalVO().getJournal_Id()+a.getMember_Id()+a.getContent());
+//				}
+//			}
+			MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
+			System.out.println(mySelf.getMember_Id()+":"+member_Id);
+			if(mySelf.getMember_Id().equals(member_Id)){
+				System.out.println("showMySelfJournal");
+				return personalJournalService.showMySelfJournal(member_Id);
+			}
+			else{
+				System.out.println("showFriendJournal");
+				return personalJournalService.showFriendJournal(member_Id);
+			}
 		}else{
 			return null;
 		}

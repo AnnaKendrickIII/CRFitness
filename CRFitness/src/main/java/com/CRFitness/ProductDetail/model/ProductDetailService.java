@@ -24,6 +24,9 @@ public class ProductDetailService {
 	@Resource(name = "productsDAO")
 	private ProductsDAO_interface productsDAO;
 	
+
+	List<ProductDetailVO> cart = null;
+
 	public ProductDetailService() {
 	}
 
@@ -55,13 +58,22 @@ public class ProductDetailService {
 
 
 	// front-end
-	//撈出所有商品資訊
+	// 撈出所有商品資訊
 	public List<ProductDetailVO> getAllItem() {
 		return productDetailDAO.getAll();
 	}
-	
-	
-	//PK鍵搜尋商品
+
+	// 新增商品至 ProductDetail Table
+	public ProductDetailVO addProductDetial(ProductDetailVO productDetailVO) {
+		if (productDetailVO != null) {
+			productDetailDAO.insert(productDetailVO);
+			return productDetailVO;
+		} else {
+			return null;
+		}
+	}
+
+	// PK鍵搜尋商品
 	public ProductDetailVO getItemByPrimaryKey(String productDetail_Id) {
 		if (productDetail_Id != null) {
 			return productDetailDAO.findByPrimaryKey(productDetail_Id);
@@ -71,7 +83,7 @@ public class ProductDetailService {
 
 	}
 
-	//用 商品名稱 尺寸 顏色 找出 ProductDetail_Id
+	// 用 商品名稱 尺寸 顏色 找出 ProductDetail_Id
 	public ProductDetailVO getItemId(String product_Name, String size,
 			String color) {
 		if (product_Name != null && size != null && color != null) {
@@ -82,7 +94,7 @@ public class ProductDetailService {
 		}
 	}
 
-	//用商品分類檢索 找出該類商品
+	// 用商品分類檢索 找出該類商品
 	public List<ProductDetailVO> getItemByCategory(String category) {
 		if (category != null) {
 			return productDetailDAO.getItemByCategory(category);
@@ -90,10 +102,10 @@ public class ProductDetailService {
 			return null;
 		}
 	}
-	
-	//加入購物車
-	public List<ProductDetailVO> addShoppingCart(ProductDetailVO productDetailVO) {
-		List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+
+	// 加入購物車
+	public List<ProductDetailVO> addShoppingCart(String productDetail_Id) {
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
 		cart.add(productDetailVO);
 		return cart;
 	}
@@ -182,17 +194,18 @@ public class ProductDetailService {
 
 		// System.out.println(service.getItemByPrimaryKey("prodDetail5015")
 		// .getProductsVO().getProduct_Name());
-		ProductDetailVO vo1 = service.findProductDetail("prodDetail5002");
-		ProductDetailVO vo2 = service.findProductDetail("prodDetail5003");
-		ProductDetailVO vo3 = service.findProductDetail("prodDetail5004");
-		
-		
-		service.addShoppingCart(vo1);
-		service.addShoppingCart(vo2);
-		service.addShoppingCart(vo3);
 
+		List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
 
-			((ConfigurableApplicationContext) context).close();
+		service.addShoppingCart("prodDetail5011");
+		service.addShoppingCart("prodDetail5013");
+		service.addShoppingCart("prodDetail5015");
+
+		for (ProductDetailVO vo : cart) {
+			System.out.println(vo.getProduct_Name());
+		}
+
+		((ConfigurableApplicationContext) context).close();
 	}
 
 }

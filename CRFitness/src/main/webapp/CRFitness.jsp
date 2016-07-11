@@ -50,10 +50,10 @@
                     <div class="dropdown">
                         <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="${this_contextPath}/Maintenance/MaintainEquipment.jsp">運動器材</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainClothing.jsp">服飾類</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainAccessories.jsp">運動用品</a></li>
-                            <li><a href="${this_contextPath}/Maintenance/MaintainShoes.jsp">鞋類</a></li>
+                            <li><a href="${this_contextPath}/ProductsPage/EquipmentPage.jsp">運動器材</a></li>
+                            <li><a href="${this_contextPath}/ProductsPage/ClothesPage.jsp">服飾類</a></li>
+                            <li><a href="${this_contextPath}/ProductsPage/TiyuyongpinPage.jsp">運動用品</a></li>
+                            <li><a href="${this_contextPath}/ProductsPage/ShoesPage.jsp">鞋類</a></li>
                         </ul>
                     </div>
                 </li>
@@ -211,7 +211,7 @@
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
-                                     $('#myactivity_create_tbody').append('<tr><td><a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this.photo1+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="myactivity_class">'+  this.activity_Class +'</td><td>'+  this.activity_Area +'</td>')  
+                                     $('#myactivity_create_tbody').append('<tr><td><a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this[0].photo1+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="myactivity_class">'+  this[0].activity_Class +'</td><td>'+  this[0].activity_Area +'</td>')  
                                  })
                              }          	 
                          })
