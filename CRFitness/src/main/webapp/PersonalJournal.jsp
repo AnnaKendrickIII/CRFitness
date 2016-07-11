@@ -81,7 +81,8 @@
 	</c:if>
 <!-- 	新增個人日誌結束 -->
 	<script type="text/javascript">
-	
+	function updateJournal(var1){console.log('updateJournal '+var1)};
+	var member_Id = "${LoginOK.member_Id}";
 	
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
@@ -184,7 +185,7 @@
 // 					新增好友 click==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
-						var member_Id = "${LoginOK.member_Id}";
+
 						
 						var file = $('#uploadfile').prop("files")[0];
 //			 			var category = $('#category').val();  // 類別是??
@@ -218,7 +219,7 @@
 		   								+ data.contents
 		   								+ '<br />日期：'
 		   								+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-		   								+ '<button onclick="updateJournal()">編輯</button>'
+		   								+ '<br/><button onclick=updateJournal('+data.contents+') >編輯</button>'
 		   								+ '</li>')
 		    						
 		    						new AnimOnScroll(document.getElementById('grid'), {
@@ -226,8 +227,11 @@
 	    								maxDuration : 0.6,
 	    								viewportFactor : 0.2
 	    							});								
+			    						
 							}
+							
 						})
+						
 					});
 					/*
 					 * 	private String journal_Id;				//日誌編號
