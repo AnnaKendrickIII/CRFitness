@@ -1,55 +1,62 @@
 /* 
- * Boxer v3.3.0 - 2014-10-22 
+ * Boxer v1.10.3 - 2014-01-03 
  * A jQuery plugin for displaying images, videos or content in a modal overlay. Part of the Formstone Library. 
- * http://formstone.it/boxer/ 
+ * http://www.benplum.com/formstone/boxer/ 
  * 
  * Copyright 2014 Ben Plum; MIT Licensed 
- */
+ */ 
+
+/** 
+ * @plugin 
+ * @name Boxer 
+ * @description A jQuery plugin for displaying images, videos or content in a modal overlay. Part of the Formstone Library. 
+ * @version 1.10.3 
+ */ 
 
 ;(function ($, window) {
 	"use strict";
-
-	var $body = null,
-		data = {},
-		trueMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test((window.navigator.userAgent||window.navigator.vendor||window.opera)),
-		transitionEvent,
-		transitionSupported;
-
+	
+	var data = {},
+		trueMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test((window.navigator.userAgent||window.navigator.vendor||window.opera));
+	
 	/**
 	 * @options
 	 * @param callback [function] <$.noop> "Funciton called after opening instance"
 	 * @param customClass [string] <''> "Class applied to instance"
-	 * @param extensions [array] <"jpg", "sjpg", "jpeg", "png", "gif"> "Image type extensions"
+	 * @param duration [int] <250> "Animation duration"
 	 * @param fixed [boolean] <false> "Flag for fixed positioning"
 	 * @param formatter [function] <$.noop> "Caption format function"
+	 * @param height [int] <100> "Initial height (while loading)"
 	 * @param labels.close [string] <'Close'> "Close button text"
 	 * @param labels.count [string] <'of'> "Gallery count separator text"
 	 * @param labels.next [string] <'Next'> "Gallery control text"
 	 * @param labels.previous [string] <'Previous'> "Gallery control text"
-	 * @param margin [int] <50> "Margin used when sizing (single side)"
+	 * @param margin [int] <100> "Margin subtracted when sizing"
 	 * @param minHeight [int] <100> "Minimum height of modal"
 	 * @param minWidth [int] <100> "Minimum width of modal"
 	 * @param mobile [boolean] <false> "Flag to force 'mobile' rendering"
 	 * @param opacity [number] <0.75> "Overlay target opacity"
 	 * @param retina [boolean] <false> "Use 'retina' sizing (half's natural sizes)"
 	 * @param requestKey [string] <'boxer'> "GET variable for ajax / iframe requests"
-	 * @param top [int] <0> "Target top position; over-rides centering"
+	 * @param top [int] <0> "Opacity of overlay"
 	 * @param videoRadio [number] <0.5625> "Video height / width ratio (9 / 16 = 0.5625)"
 	 * @param videoWidth [int] <600> "Video target width"
-	 */
+	 * @param width [int] <100> "Initial height (while loading)"
+	 */ 
 	var options = {
 		callback: $.noop,
 		customClass: "",
-		extensions: [ "jpg", "sjpg", "jpeg", "png", "gif" ],
+		duration: 250,
 		fixed: false,
 		formatter: $.noop,
+		height: 100,
 		labels: {
 			close: "Close",
 			count: "of",
 			next: "Next",
 			previous: "Previous"
 		},
-		margin: 50,
+		margin: 100,
 		minHeight: 100,
 		minWidth: 100,
 		mobile: false,
@@ -58,138 +65,93 @@
 		requestKey: "boxer",
 		top: 0,
 		videoRatio: 0.5625,
-		videoWidth: 600
+		videoWidth: 600,
+		width: 100
 	};
-
-	/**
-	 * @events
-	 * @event open.boxer "Modal opened; triggered on window"
-	 * @event close.boxer "Modal closed; triggered on window"
-	 */
-
+	
 	var pub = {
-
+		
 		/**
-		 * @method
-		 * @name close
-		 * @description Closes active instance of plugin
-		 * @example $.boxer("close");
-		 */
-		close: function() {
-			if (typeof data.$boxer !== "undefined") {
-				data.$boxer.off(".boxer");
-				data.$overlay.trigger("click");
-			}
-		},
-
-		/**
-		 * @method
+		 * @method 
 		 * @name defaults
 		 * @description Sets default plugin options
 		 * @param opts [object] <{}> "Options object"
-		 * @example $.boxer("defaults", opts);
 		 */
 		defaults: function(opts) {
 			options = $.extend(options, opts || {});
 			return $(this);
 		},
-
+		
 		/**
-		 * @method
+		 * @method 
 		 * @name destroy
-		 * @description Removes plugin bindings
-		 * @example $(".target").boxer("destroy");
+		 * @description Removes instance of plugin
 		 */
 		destroy: function() {
+			_onClose();
 			return $(this).off(".boxer");
 		},
-
+		
 		/**
-		 * @method
+		 * @method 
 		 * @name resize
 		 * @description Triggers resize of instance
-		 * @example $.boxer("resize");
-		 * @param height [int | false] "Target height or false to auto size"
-		 * @param width [int | false] "Target width or false to auto size"
 		 */
-		resize: function(e) {
+		resize: function(e /* , height, width */) { 
+			// removing custom size support - will return later
 			if (typeof data.$boxer !== "undefined") {
-				if (typeof e !== "object") {
-					data.targetHeight = arguments[0];
-					data.targetWidth  = arguments[1];
-				}
-
 				if (data.type === "element") {
-					sizeContent(data.$content.find(">:first-child"));
+					_sizeContent(data.$content.find(">:first-child"));
 				} else if (data.type === "image") {
-					sizeImage();
+					_sizeImage(0);
 				} else if (data.type === "video") {
-					sizeVideo();
+					_sizeVideo();
 				}
-				size();
+				_size();
 			}
-
+			
 			return $(this);
 		}
 	};
-
+	
 	/**
 	 * @method private
-	 * @name init
+	 * @name _init
 	 * @description Initializes plugin
 	 * @param opts [object] "Initialization options"
 	 */
-	function init(opts) {
-		options.formatter = formatCaption;
-
-		$body = $("body");
-		transitionEvent = getTransitionEvent();
-		transitionSupported = (transitionEvent !== false);
-
-		// no transitions :(
-		if (!transitionSupported) {
-			transitionEvent = "transitionend.boxer";
-		}
-
-		return $(this).on("click.boxer", $.extend({}, options, opts || {}), build);
+	function _init(opts) {
+		options.formatter = _formatCaption;
+		return $(this).on("click.boxer", $.extend({}, options, opts || {}), _build);
 	}
-
+	
 	/**
 	 * @method private
-	 * @name build
+	 * @name _build
 	 * @description Builds target instance
 	 * @param e [object] "Event data"
 	 */
-	function build(e) {
-		if (typeof data.$boxer === "undefined") {
-			// Check target type
-			var $target = $(this),
-				$object = e.data.$object,
-				source = ($target[0].href) ? $target[0].href || "" : "",
-				hash = ($target[0].hash) ? $target[0].hash || "" : "",
-				sourceParts = source.toLowerCase().split(".").pop().split(/\#|\?/),
-				extension = sourceParts[0],
-				type = $target.data("boxer-type") || "",
-				isImage	= ( (type === "image") || ($.inArray(extension, e.data.extensions) > -1 || source.substr(0, 10) === "data:image") ),
-				isVideo	= ( source.indexOf("youtube.com/embed") > -1 || source.indexOf("player.vimeo.com/video") > -1 ),
-				isUrl	  = ( (type === "url") || (!isImage && !isVideo && source.substr(0, 4) === "http" && !hash) ),
-				isElement  = ( (type === "element") || (!isImage && !isVideo && !isUrl && (hash.substr(0, 1) === "#")) ),
-				isObject   = ( (typeof $object !== "undefined") );
-
-			if (isElement) {
-				source = hash;
-			}
-
-			// Check if boxer is already active, retain default click
-			if ($("#boxer").length > 1 || !(isImage || isVideo || isUrl || isElement || isObject)) {
-				return;
-			}
-
-			// Kill event
-			killEvent(e);
-
+	function _build(e) {
+		_killEvent(e);
+		
+		// Check target type
+		var $target = $(this),
+			$object = e.data.$object,
+			source = ($target[0].attributes) ? $target.attr("href") || "" : "",
+			checkExt = source.toLowerCase().split("."),
+			extension = checkExt[ checkExt.length - 1 ],
+			type = $target.data("type") || "";
+		
+		var isImage    = ( (type === "image") || (extension === "jpeg" || extension === "jpg" || extension === "gif" || extension === "png" || source.substr(0, 10) === "data:image") ),
+			isVideo    = ( source.indexOf("youtube.com/embed") > -1 || source.indexOf("player.vimeo.com/video") > -1 ),
+			isUrl      = ( (type === "url") || (!isImage && !isVideo && source.substr(0, 4) === "http") ),
+			isElement  = ( (type === "element") || (!isImage && !isVideo && !isUrl && source.substr(0, 1) === "#") ),
+			isObject   = ( (typeof $object !== "undefined") );
+		
+		// Check if one already exists
+		if ($("#boxer").length < 1 && (isImage || isVideo || isUrl || isElement || isObject)) {
 			// Cache internal data
-			data = $.extend({}, {
+			data = {
 				$window: $(window),
 				$body: $("body"),
 				$target: $target,
@@ -200,15 +162,10 @@
 				gallery: {
 					active: false
 				},
-				isMobile: (trueMobile || e.data.mobile),
-				isAnimating: true,
-				oldContentHeight: 0,
-				oldContentWidth: 0
-			}, e.data);
-
-			// Double the margin
-			data.margin *= 2;
-
+				options: e.data,
+				isMobile: ((trueMobile || e.data.mobile) /* && !isUrl */ && !isElement /* && !isObject */)
+			};
+			
 			if (isImage) {
 				data.type = "image";
 			} else if (isVideo) {
@@ -216,29 +173,25 @@
 			} else {
 				data.type = "element";
 			}
-
+			
 			if (isImage || isVideo) {
 				// Check for gallery
-				var id = data.$target.data("gallery") || data.$target.attr("rel"); // backwards compatibility
-
-				if (typeof id !== "undefined" && id !== false) {
+				var rel = data.$target.attr("rel");
+				if (typeof rel !== "undefined" && rel !== false) {
 					data.gallery.active = true;
-					data.gallery.id = id;
-					data.gallery.$items = $("a[data-gallery= " + data.gallery.id + "], a[rel= " + data.gallery.id + "]"); // backwards compatibility
+					data.gallery.rel = rel;
+					data.gallery.$items = $("a[rel= " + data.gallery.rel + "]");
 					data.gallery.index = data.gallery.$items.index(data.$target);
 					data.gallery.total = data.gallery.$items.length - 1;
 				}
 			}
-
+			
 			// Assemble HTML
 			var html = '';
 			if (!data.isMobile) {
-				html += '<div id="boxer-overlay" class="' + data.customClass + '"></div>';
+				html += '<div id="boxer-overlay" class="' + data.options.customClass + '" style="opacity: 0"></div>';
 			}
-			html += '<div id="boxer" class="loading animating ' + data.customClass;
-			if (data.fixed) {
-				html += ' fixed';
-			}
+			html += '<div id="boxer" class="loading ' + data.options.customClass;
 			if (data.isMobile) {
 				html += ' mobile';
 			}
@@ -248,457 +201,421 @@
 			if (isElement || isObject) {
 				html += ' inline';
 			}
+			html += '" style="opacity: 0;';
+			if (data.options.fixed === true) {
+				html += ' position: fixed;';
+			}
 			html += '">';
-			html += '<span class="boxer-close">' + data.labels.close + '</span>';
-			html += '<span class="boxer-loading"></span>';
-			html += '<div class="boxer-container">';
-			html += '<div class="boxer-content">';
+			html += '<span class="boxer-close">' + data.options.labels.close + '</span>';
+			html += '<div class="boxer-container" style="';
+			if (data.isMobile) {
+				html += 'height: 100%; width: 100%';
+			} else {
+				html += 'height: ' + data.options.height + 'px; width: ' + data.options.width + 'px';
+			}
+			html += '">';
+			html += '<div class="boxer-content" style="opacity: 0;">';
 			if (isImage || isVideo) {
 				html += '<div class="boxer-meta">';
-
+				
 				if (data.gallery.active) {
-					html += '<div class="boxer-control previous">' + data.labels.previous + '</div>';
-					html += '<div class="boxer-control next">' + data.labels.next + '</div>';
-					//html += '<p class="boxer-position"';
-					//if (data.gallery.total < 1) {
-					//	html += ' style="display: none;"';
-					//}
-					//html += '>';
-					//html += '<span class="current">' + (data.gallery.index + 1) + '</span> ' + data.labels.count + ' <span class="total">' + (data.gallery.total + 1) + '</span>';
+					html += '<div class="boxer-arrow previous">' + data.options.labels.previous + '</div>';
+					html += '<div class="boxer-arrow next">' + data.options.labels.next + '</div>';
+					html += '<p class="boxer-position"';
+					if (data.gallery.total < 1) { 
+						html += ' style="display: none;"'; 
+					}
+					html += '>';
+					html += '<span class="current">' + (data.gallery.index + 1) + '</span> ' + data.options.labels.count + ' <span class="total">' + (data.gallery.total + 1) + '</span>';
 					html += '</p>';
 					html += '<div class="boxer-caption gallery">';
 				} else {
 					html += '<div class="boxer-caption">';
 				}
-
-				html += data.formatter.apply(data.$body, [data.$target]);
+				
+				html += data.options.formatter.apply(data.$body, [data.$target]);
 				html += '</div></div>'; // caption, meta
 			}
 			html += '</div></div></div>'; //container, content, boxer
-
+			
 			// Modify Dom
 			data.$body.append(html);
-
+			
 			// Cache jquery objects
 			data.$overlay = $("#boxer-overlay");
 			data.$boxer = $("#boxer");
 			data.$container = data.$boxer.find(".boxer-container");
 			data.$content = data.$boxer.find(".boxer-content");
 			data.$meta = data.$boxer.find(".boxer-meta");
-			//data.$position = data.$boxer.find(".boxer-position");
+			data.$position = data.$boxer.find(".boxer-position");
 			data.$caption = data.$boxer.find(".boxer-caption");
-			data.$controls = data.$boxer.find(".boxer-control");
-
-			data.paddingVertical = (!data.isMobile) ? (parseInt(data.$boxer.css("paddingTop"), 10) + parseInt(data.$boxer.css("paddingBottom"), 10)) : (data.$boxer.find(".boxer-close").outerHeight() / 2);
-			data.paddingHorizontal = (!data.isMobile) ? (parseInt(data.$boxer.css("paddingLeft"), 10) + parseInt(data.$boxer.css("paddingRight"), 10)) : 0;
-			data.contentHeight = data.$boxer.outerHeight() - data.paddingVertical;
-			data.contentWidth = data.$boxer.outerWidth()   - data.paddingHorizontal;
-			data.controlHeight = data.$controls.outerHeight();
-
-			// Center
-			center();
-
-			// Update gallery
+			data.$arrows = data.$boxer.find(".boxer-arrow");
+			data.$animatables = $("#boxer-overlay, #boxer, .boxer-container");
+			data.paddingVertical = parseInt(data.$boxer.css("paddingTop"), 10) + parseInt(data.$boxer.css("paddingBottom"), 10);
+			data.paddingHorizontal = parseInt(data.$boxer.css("paddingLeft"), 10) + parseInt(data.$boxer.css("paddingRight"), 10);
+			
+			// Center / update gallery
+			_center();
 			if (data.gallery.active) {
-				updateControls();
+				_updateControls();
 			}
-
+			
 			// Bind events
 			data.$window.on("resize.boxer", pub.resize)
-						.on("keydown.boxer", onKeypress);
-
-			data.$body.on("touchstart.boxer click.boxer", "#boxer-overlay, #boxer .boxer-close", onClose)
-					  .on("touchmove.boxer", killEvent);
-
+						.on("keydown.boxer", _onKeypress);
+			data.$body.on("touchstart.boxer click.boxer", "#boxer-overlay, #boxer .boxer-close", _onClose)
+					  .on("touchmove.boxer", _killEvent);
+			
 			if (data.gallery.active) {
-				data.$boxer.on("touchstart.boxer click.boxer", ".boxer-control", advanceGallery);
+				data.$boxer.on("touchstart.boxer click.boxer", ".boxer-arrow", _advanceGallery);
 			}
-
-			data.$boxer.on(transitionEvent, function(e) {
-				killEvent(e);
-
-				if ($(e.target).is(data.$boxer)) {
-					data.$boxer.off(transitionEvent);
-
-					if (isImage) {
-						loadImage(source);
-					} else if (isVideo) {
-						loadVideo(source);
-					} else if (isUrl) {
-						loadURL(source);
-					} else if (isElement) {
-						cloneElement(source);
-					} else if (isObject) {
-						appendObject(data.$object);
-					} else {
-						$.error("BOXER: '" +  source + "' is not valid.");
-					}
+			
+			data.$overlay.stop().animate({ opacity: data.options.opacity }, data.options.duration);
+			data.$boxer.stop().animate({ opacity: 1 }, data.options.duration, function() { 
+				if (isImage) {
+					_loadImage(source);
+				} else if (isVideo) {
+					_loadVideo(source);
+				} else if (isUrl) {
+					_loadURL(source);
+				} else if (isElement) {
+					_cloneElement(source);
+				} else if (isObject) {
+					_appendObject(data.$object);
+				} else {
+					$.error("BOXER: '" +  source + "' is not valid.");
 				}
 			});
-
-			$body.addClass("boxer-open");
-
-			if (!transitionSupported) {
-				data.$boxer.trigger(transitionEvent);
+		}
+		if (isObject) {
+			return data.$boxer;
+		}
+	}
+	
+	/**
+	 * @method private
+	 * @name _open
+	 * @description Opens active instance
+	 */
+	function _open() {
+		var newLeft = 0,
+			newTop = 0,
+			arrowHeight = 0,
+			durration = data.isMobile ? 0 : data.options.duration;
+			
+		if (!data.isMobile) {
+			newLeft = (data.$window.width() - data.contentWidth - data.paddingHorizontal) / 2;
+			newTop = (data.options.top <= 0) ? ((data.$window.height() - data.contentHeight - data.paddingVertical) / 2) : data.options.top;
+			arrowHeight = data.$arrows.outerHeight();
+			
+			if (data.options.fixed !== true) {
+				newTop += data.$window.scrollTop();
 			}
-
-			if (isObject) {
-				return data.$boxer;
+			
+			data.$arrows.css({ 
+				marginTop: ((data.contentHeight - data.metaHeight - arrowHeight) / 2) 
+			});
+		}
+		
+		// 
+		if (!data.visible && data.isMobile && data.gallery.active) {
+			data.$content.on("touchstart.boxer", ".boxer-image", _onTouchStart);
+		}
+		
+		if (data.isMobile || data.options.fixed) {
+			data.$body.addClass("boxer-open");
+		}
+		
+		data.$boxer.stop().animate({ left: newLeft, top: newTop }, durration);
+		data.$container.show().stop().animate({ height: data.containerHeight, width: data.containerWidth }, durration, function(e) {
+			data.$content.stop().animate({ opacity: 1 }, data.options.duration);
+			data.$boxer.removeClass("loading")
+					   .find(".boxer-close").stop().animate({ opacity: 1 }, data.options.duration);
+			
+			data.visible = true;
+			
+			// Fire callback + event
+			data.options.callback.apply(data.$boxer);
+			data.$window.trigger("boxer.open");
+			
+			// Start preloading
+			if (data.gallery.active) {
+				_preloadGallery();
+			}
+		});
+	}
+	
+	/**
+	 * @method private
+	 * @name _size
+	 * @description Sizes active instance
+	 * @param animate [boolean] <false> "Flag to animate sizing"
+	 */
+	function _size(animate) {
+		animate = animate || false;
+		
+		if (data.visible) {
+			var newLeft = 0,
+				newTop = 0,
+				arrowHeight = 0;
+			
+			if (!data.isMobile) {
+				newLeft = (data.$window.width() - data.contentWidth - data.paddingHorizontal) / 2;
+				newTop = (data.options.top <= 0) ? ((data.$window.height() - data.contentHeight - data.paddingVertical) / 2) : data.options.top;
+				arrowHeight = data.$arrows.outerHeight();
+				
+				if (data.options.fixed !== true) {
+					newTop += data.$window.scrollTop();
+				}
+				
+				data.$arrows.css({ 
+					marginTop: ((data.contentHeight - data.metaHeight - arrowHeight) / 2) 
+				});
+			}
+			
+			if (animate) {
+				data.$boxer.stop().animate({ left: newLeft, top: newTop }, data.options.duration);
+				data.$container.show().stop().animate({ height: data.containerHeight, width: data.containerWidth });
+			} else {
+				data.$boxer.css({ left: newLeft, top: newTop });
+				data.$container.css({ height: data.containerHeight, width: data.containerWidth });
 			}
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name onClose
+	 * @name _onClose
 	 * @description Closes active instance
 	 * @param e [object] "Event data"
 	 */
-	function onClose(e) {
-		killEvent(e);
-
-		if (typeof data.$boxer !== "undefined") {
-			data.$boxer.on(transitionEvent, function(e) {
-				killEvent(e);
-
-				if ($(e.target).is(data.$boxer)) {
-					data.$boxer.off(transitionEvent);
-
-					data.$overlay.remove();
-					data.$boxer.remove();
-
-					// reset data
-					data = {};
-				}
-			}).addClass("animating");
-
-			$body.removeClass("boxer-open");
-
-			if (!transitionSupported) {
-				data.$boxer.trigger(transitionEvent);
-			}
-
-			clearTimer(data.resizeTimer);
-
+	function _onClose(e) {
+		_killEvent(e);
+		
+		if (typeof data.$animatables !== "undefined") {
+			data.$animatables.stop().animate({ opacity: 0 }, data.options.duration, function() {
+				$(this).remove();
+			});
+			
+			_clearTimer(data.resizeTimer);
+			
 			// Clean up
-			data.$window.off("resize.boxer")
-						.off("keydown.boxer");
-
+			data.$window.off(".boxer");
 			data.$body.off(".boxer")
 					  .removeClass("boxer-open");
-
+			
 			if (data.gallery.active) {
 				data.$boxer.off(".boxer");
 			}
-
+			
 			if (data.isMobile) {
 				if (data.type === "image" && data.gallery.active) {
 					data.$container.off(".boxer");
 				}
 			}
-
-			data.$window.trigger("close.boxer");
+			
+			data.$window.trigger("boxer.close");
+			
+			data = {};
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name open
-	 * @description Opens active instance
-	 */
-	function open() {
-		var position = calculatePosition(),
-			durration = data.isMobile ? 0 : data.duration;
-
-		if (!data.isMobile) {
-			data.$controls.css({
-				marginTop: ((data.contentHeight - data.controlHeight - data.metaHeight) / 2)
-			});
-		}
-
-		if (!data.visible && data.isMobile && data.gallery.active) {
-			data.$content.on("touchstart.boxer", ".boxer-image", onTouchStart);
-		}
-
-		if (data.isMobile || data.fixed) {
-			data.$body.addClass("boxer-open");
-		}
-
-		data.$boxer.on(transitionEvent, function(e) {
-			killEvent(e);
-
-			if ($(e.target).is(data.$boxer)) {
-				data.$boxer.off(transitionEvent);
-
-				data.$container.on(transitionEvent, function(e) {
-					killEvent(e);
-
-					if ($(e.target).is(data.$container)) {
-						data.$container.off(transitionEvent);
-
-						data.$boxer.removeClass("animating");
-
-						data.isAnimating = false;
-					}
-				});
-
-				data.$boxer.removeClass("loading");
-
-				if (!transitionSupported) {
-					data.$content.trigger(transitionEvent);
-				}
-
-				data.visible = true;
-
-				// Fire callback + event
-				data.callback.apply(data.$boxer);
-				data.$window.trigger("open.boxer");
-
-				// Start preloading
-				if (data.gallery.active) {
-					preloadGallery();
-				}
-			}
-		});
-
-		if (!data.isMobile) {
-			data.$boxer.css({
-				height: data.contentHeight + data.paddingVertical,
-				width:  data.contentWidth  + data.paddingHorizontal,
-				top:    (!data.fixed) ? position.top : 0
-			});
-		}
-
-		// Trigger event in case the content size hasn't changed
-		var contentHasChanged = (data.oldContentHeight !== data.contentHeight || data.oldContentWidth !== data.contentWidth);
-
-		if (data.isMobile || !transitionSupported || !contentHasChanged) {
-			data.$boxer.trigger(transitionEvent);
-		}
-
-		// Track content size changes
-		data.oldContentHeight = data.contentHeight;
-		data.oldContentWidth  = data.contentWidth;
-	}
-
-	/**
-	 * @method private
-	 * @name size
-	 * @description Sizes active instance
-	 */
-	function size() {
-		if (data.visible && !data.isMobile) {
-			var position = calculatePosition();
-
-			data.$controls.css({
-				marginTop: ((data.contentHeight - data.controlHeight - data.metaHeight) / 2)
-			});
-
-			data.$boxer.css({
-				height: data.contentHeight + data.paddingVertical,
-				width:  data.contentWidth  + data.paddingHorizontal,
-				top:    (!data.fixed) ? position.top : 0
-			});
-		}
-	}
-
-	/**
-	 * @method private
-	 * @name center
+	 * @name _center
 	 * @description Centers instance
 	 */
-	function center() {
-		var position = calculatePosition();
-
-		data.$boxer.css({
-			top: (!data.fixed) ? position.top : 0
+	function _center() {
+		var newLeft = 0,
+			newTop  = 0;
+		
+		if (!data.isMobile) {
+			newLeft = (data.$window.width() - data.$boxer.width() - data.paddingHorizontal) / 2;
+			newTop  = (data.options.top <= 0) ? ((data.$window.height() - data.$boxer.height() - data.paddingVertical) / 2) : data.options.top;
+			
+			if (data.options.fixed !== true) {
+				newTop += data.$window.scrollTop();
+			}
+		}
+		
+		data.$boxer.css({ 
+			left: newLeft, 
+			top:  newTop 
 		});
 	}
-
+	
 	/**
 	 * @method private
-	 * @name calculatePosition
-	 * @description Calculates positions
-	 * @return [object] "Object containing top and left positions"
-	 */
-	function calculatePosition() {
-		if (data.isMobile) {
-			return {
-				left: 0,
-				top: 0
-			};
-		}
-
-		var pos = {
-			left: (data.$window.width() - data.contentWidth - data.paddingHorizontal) / 2,
-			top: (data.top <= 0) ? ((data.$window.height() - data.contentHeight - data.paddingVertical) / 2) : data.top
-		};
-
-		if (data.fixed !== true) {
-			pos.top += data.$window.scrollTop();
-		}
-
-		return pos;
-	}
-
-	/**
-	 * @method private
-	 * @name formatCaption
-	 * @description Formats caption
-	 * @param $target [jQuery object] "Target element"
-	 */
-	function formatCaption($target) {
-		var title = $target.attr("title");
-		return (title !== undefined && title.trim() !== "") ? '<p class="caption">' + title.trim() + '</p>' : "";
-	}
-
-	/**
-	 * @method private
-	 * @name loadImage
+	 * @name _loadImage
 	 * @description Loads source image
 	 * @param source [string] "Source image URL"
 	 */
-	function loadImage(source) {
+	function _loadImage(source) {
 		// Cache current image
 		data.$image = $("<img />");
-
-		data.$image.load(function() {
-			data.$image.off("load, error");
-
-			var naturalSize = calculateNaturalSize(data.$image);
-
+		
+		data.$image.one("load.boxer", function() {
+			var naturalSize = _naturalSize(data.$image);
+			
 			data.naturalHeight = naturalSize.naturalHeight;
 			data.naturalWidth  = naturalSize.naturalWidth;
-
-			if (data.retina) {
+			
+			if (data.options.retina) {
 				data.naturalHeight /= 2;
 				data.naturalWidth  /= 2;
 			}
-
+			
 			data.$content.prepend(data.$image);
-
-			if (data.$caption.html() === "") {
-				data.$caption.hide();
-			} else {
-				data.$caption.show();
+			if (data.$caption.html() === "") { 
+				data.$caption.hide(); 
+			} else { 
+				data.$caption.show(); 
 			}
-
+			
 			// Size content to be sure it fits the viewport
-			sizeImage();
-			open();
-		}).error(loadError)
-		  .attr("src", source)
+			if (_sizeImage(0)) {
+				_open();
+			}
+		}).attr("src", source)
 		  .addClass("boxer-image");
-
+		
 		// If image has already loaded into cache, trigger load event
 		if (data.$image[0].complete || data.$image[0].readyState === 4) {
 			data.$image.trigger("load");
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name sizeImage
+	 * @name _loadVideo
+	 * @description Loads source video
+	 * @param source [string] "Source video URL"
+	 */
+	function _loadVideo(source) {
+		data.$videoWrapper = $('<div class="boxer-video-wrapper" />');
+		data.$video = $('<iframe class="boxer-video" />');
+		
+		data.$video.attr("src", source)
+				   .addClass("boxer-video")
+				   .prependTo(data.$videoWrapper);
+		
+		data.$content.prepend(data.$videoWrapper);
+		
+		_sizeVideo();
+		
+		_open();
+	}
+	
+	/**
+	 * @method private
+	 * @name _formatCaption
+	 * @description Formats caption
+	 * @param $target [jQuery object] "Target element"
+	 */
+	function _formatCaption($target) {
+		var title = $target.attr("title");
+		return (title !== "" && title !== undefined) ? '<p class="caption">' + title + '</p>' : "";
+	}
+	
+	/**
+	 * @method private
+	 * @name _sizeImage
 	 * @description Sizes image to fit in viewport
 	 * @param count [int] "Number of resize attempts"
+	 * @return [boolean] "True once sized"
 	 */
-	function sizeImage() {
-		var count = 0;
-
-		data.windowHeight = data.viewportHeight = data.$window.height() - data.paddingVertical;
-		data.windowWidth  = data.viewportWidth  = data.$window.width()  - data.paddingHorizontal;
-
-		data.contentHeight = Infinity;
-		data.contentWidth = Infinity;
-
-		data.imageMarginTop  = 0;
-		data.imageMarginLeft = 0;
-
-		while (data.contentHeight > data.viewportHeight && count < 2) {
-			data.imageHeight = (count === 0) ? data.naturalHeight : data.$image.outerHeight();
-			data.imageWidth  = (count === 0) ? data.naturalWidth  : data.$image.outerWidth();
-			data.metaHeight  = (count === 0) ? 0 : data.metaHeight;
-
-			if (count === 0) {
-				data.ratioHorizontal = data.imageHeight / data.imageWidth;
-				data.ratioVertical   = data.imageWidth  / data.imageHeight;
-
-				data.isWide = (data.imageWidth > data.imageHeight);
-			}
-
-			// Double check min and max
-			if (data.imageHeight < data.minHeight) {
-				data.minHeight = data.imageHeight;
-			}
-			if (data.imageWidth < data.minWidth) {
-				data.minWidth = data.imageWidth;
-			}
-
-			if (data.isMobile) {
-				// Get meta height before sizing
-				data.$meta.css({
-					width: data.windowWidth
-				});
-				data.metaHeight = data.$meta.outerHeight(true);
-
-				// Content match viewport
-				data.contentHeight = data.viewportHeight - data.paddingVertical;
-				data.contentWidth  = data.viewportWidth  - data.paddingHorizontal;
-
-				fitImage();
-
-				data.imageMarginTop  = (data.contentHeight - data.targetImageHeight - data.metaHeight) / 2;
-				data.imageMarginLeft = (data.contentWidth  - data.targetImageWidth) / 2;
-			} else {
-				// Viewport should match window, less margin, padding and meta
-				if (count === 0) {
-					data.viewportHeight -= (data.margin + data.paddingVertical);
-					data.viewportWidth  -= (data.margin + data.paddingHorizontal);
-				}
-				data.viewportHeight -= data.metaHeight;
-
-				fitImage();
-
-				data.contentHeight = data.targetImageHeight;
-				data.contentWidth  = data.targetImageWidth;
-			}
-
-			// Modify DOM
-
-			data.$meta.css({
-				width: data.contentWidth
-			});
-
-			data.$image.css({
-				height: data.targetImageHeight,
-				width:  data.targetImageWidth,
-				marginTop:  data.imageMarginTop,
-				marginLeft: data.imageMarginLeft
-			});
-
-			if (!data.isMobile) {
-				data.metaHeight = data.$meta.outerHeight(true);
-				data.contentHeight += data.metaHeight;
-			}
-
-			count ++;
+	function _sizeImage(count) {
+		data.windowHeight = data.viewportHeight = (count === 0) ? data.$window.height() : data.windowHeight;
+		data.windowWidth  = data.viewportWidth  = (count === 0) ? data.$window.width()  : data.windowWidth;
+		
+		data.imageHeight  = (count === 0) ? data.naturalHeight : data.$image.outerHeight();
+		data.imageWidth   = (count === 0) ? data.naturalWidth  : data.$image.outerWidth();
+		data.metaHeight   = (count === 0) ? 0 : data.metaHeight;
+		
+		if (count === 0) {
+			data.ratioHorizontal = data.imageHeight / data.imageWidth;
+			data.ratioVertical   = data.imageWidth  / data.imageHeight;
+			
+			data.isWide = (data.imageWidth > data.imageHeight);
 		}
+		
+		// Double check min and max
+		if (data.imageHeight < data.options.minHeight) {
+			data.options.minHeight = data.imageHeight;
+		}
+		if (data.imageWidth < data.options.minWidth) {
+			data.options.minWidth = data.imageWidth;
+		}
+		
+		if (data.isMobile) {
+			data.containerHeight = data.viewportHeight - data.paddingVertical;
+			data.containerWidth  = data.viewportWidth  - data.paddingHorizontal;
+			
+			data.contentHeight = data.containerHeight - data.metaHeight;
+			data.contentWidth  = data.containerWidth;
+			
+			//data = _fitImage(data); 
+			_fitImage(data); 
+			
+			data.imageMarginTop  = (data.contentHeight - data.targetImageHeight) / 2;
+			data.imageMarginLeft = (data.contentWidth  - data.targetImageWidth) / 2;
+		} else {
+			data.viewportHeight -= data.options.margin + data.paddingVertical + data.metaHeight;
+			data.viewportWidth  -= data.options.margin + data.paddingHorizontal;
+			
+			//data = _fitImage(data);
+			_fitImage(data); 
+			
+			data.containerHeight = data.contentHeight = data.targetImageHeight;
+			data.containerWidth  = data.contentWidth  = data.targetImageWidth;
+			
+			data.imageMarginTop = 0;
+			data.imageMarginLeft = 0;
+		}
+		
+		// Modify DOM
+		data.$content.css({ 
+			height: (data.isMobile) ? data.contentHeight : "auto",
+			width: data.contentWidth 
+		});
+		data.$meta.css({ 
+			width: data.contentWidth 
+		});
+		data.$image.css({ 
+			height: data.targetImageHeight, 
+			width: data.targetImageWidth,
+			marginTop:  data.imageMarginTop,
+			marginLeft: data.imageMarginLeft
+		});
+		
+		data.metaHeight = data.$meta.outerHeight(true);
+		data.contentHeight += data.metaHeight;
+		
+		if (!data.isMobile) {
+			data.containerHeight += data.metaHeight;
+		}
+		
+		if (data.contentHeight > data.viewportHeight && count < 2) {
+			return _sizeImage(count+1);
+		}
+		
+		return true;
 	}
-
+	
 	/**
 	 * @method private
-	 * @name fitImage
+	 * @name _fitImage
 	 * @description Calculates target image size
 	 */
-	function fitImage() {
-		var height = (!data.isMobile) ? data.viewportHeight : data.contentHeight - data.metaHeight,
-			width  = (!data.isMobile) ? data.viewportWidth  : data.contentWidth;
-
+	function _fitImage() {
+		var height = (data.isMobile) ? data.contentHeight - data.options.margin : data.viewportHeight,
+			width  = (data.isMobile) ? data.contentWidth - data.options.margin  : data.viewportWidth;
+		
 		if (data.isWide) {
 			//WIDE
 			data.targetImageWidth  = width;
 			data.targetImageHeight = data.targetImageWidth * data.ratioHorizontal;
-
+			
 			if (data.targetImageHeight > height) {
 				data.targetImageHeight = height;
 				data.targetImageWidth  = data.targetImageHeight * data.ratioVertical;
@@ -706,123 +623,105 @@
 		} else {
 			//TALL
 			data.targetImageHeight = height;
-			data.targetImageWidth  = data.targetImageHeight * data.ratioVertical;
-
+			data.targetImageWidth = data.targetImageHeight * data.ratioVertical;
+			
 			if (data.targetImageWidth > width) {
-				data.targetImageWidth  = width;
+				data.targetImageWidth = width;
 				data.targetImageHeight = data.targetImageWidth * data.ratioHorizontal;
 			}
 		}
-
+		
 		// MAX
 		if (data.targetImageWidth > data.imageWidth || data.targetImageHeight > data.imageHeight) {
+			data.targetImageWidth = data.imageWidth;
 			data.targetImageHeight = data.imageHeight;
-			data.targetImageWidth  = data.imageWidth;
 		}
-
+		
 		// MIN
-		if (data.targetImageWidth < data.minWidth || data.targetImageHeight < data.minHeight) {
-			if (data.targetImageWidth < data.minWidth) {
-				data.targetImageWidth  = data.minWidth;
+		if (data.targetImageWidth < data.options.minWidth || data.targetImageHeight < data.options.minHeight) {
+			if (data.targetImageWidth < data.options.minWidth) {
+				data.targetImageWidth = data.options.minWidth;
 				data.targetImageHeight = data.targetImageWidth * data.ratioHorizontal;
 			} else {
-				data.targetImageHeight = data.minHeight;
-				data.targetImageWidth  = data.targetImageHeight * data.ratioVertical;
+				data.targetImageHeight = data.options.minHeight;
+				data.targetImageWidth = data.targetImageHeight * data.ratioVertical;
 			}
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name loadVideo
-	 * @description Loads source video
-	 * @param source [string] "Source video URL"
-	 */
-	function loadVideo(source) {
-		data.$videoWrapper = $('<div class="boxer-video-wrapper" />');
-		data.$video = $('<iframe class="boxer-video" seamless="seamless" />');
-
-		data.$video.attr("src", source)
-				   .addClass("boxer-video")
-				   .prependTo(data.$videoWrapper);
-
-		data.$content.prepend(data.$videoWrapper);
-
-		sizeVideo();
-		open();
-	}
-
-	/**
-	 * @method private
-	 * @name sizeVideo
+	 * @name _sizeVideo
 	 * @description Sizes video to fit in viewport
 	 */
-	function sizeVideo() {
-		// Set initial vars
-		data.windowHeight = data.viewportHeight = data.contentHeight = data.$window.height() - data.paddingVertical;
-		data.windowWidth  = data.viewportWidth  = data.contentWidth  = data.$window.width()  - data.paddingHorizontal;
+	function _sizeVideo() {
+		data.windowHeight = data.$window.height() - data.paddingVertical;
+		data.windowWidth  = data.$window.width()  - data.paddingHorizontal;
 		data.videoMarginTop = 0;
 		data.videoMarginLeft = 0;
-
+		
 		if (data.isMobile) {
-			data.$meta.css({
+			data.$meta.css({ 
 				width: data.windowWidth
 			});
 			data.metaHeight = data.$meta.outerHeight(true);
-			data.viewportHeight -= data.metaHeight;
-
-			data.targetVideoWidth  = data.viewportWidth;
-			data.targetVideoHeight = data.targetVideoWidth * data.videoRatio;
-
-			if (data.targetVideoHeight > data.viewportHeight) {
-				data.targetVideoHeight = data.viewportHeight;
-				data.targetVideoWidth  = data.targetVideoHeight / data.videoRatio;
+			
+			data.contentHeight = data.windowHeight;
+			data.contentWidth  = data.windowWidth;
+			
+			data.videoWidth  = data.windowWidth;
+			data.videoHeight = data.videoWidth * data.options.videoRatio;
+			
+			if (data.videoHeight > data.windowHeight - data.metaHeight) {
+				data.videoHeight = data.windowHeight - data.metaHeight;
+				data.videoWidth  = data.videoHeight * data.options.videoRatio;
 			}
-
-			data.videoMarginTop = (data.viewportHeight - data.targetVideoHeight) / 2;
-			data.videoMarginLeft = (data.viewportWidth - data.targetVideoWidth) / 2;
+			
+			data.videoMarginTop = (data.contentHeight - data.videoHeight) / 2;
+			data.videoMarginLeft = (data.contentWidth - data.videoWidth) / 2;
 		} else {
-			data.viewportHeight = data.windowHeight - data.margin;
-			data.viewportWidth  = data.windowWidth - data.margin;
-
-			data.targetVideoWidth  = (data.videoWidth > data.viewportWidth) ? data.viewportWidth : data.videoWidth;
-			if (data.targetVideoWidth < data.minWidth) {
-				data.targetVideoWidth = data.minWidth;
-			}
-			data.targetVideoHeight = data.targetVideoWidth * data.videoRatio;
-
-			data.contentHeight = data.targetVideoHeight;
-			data.contentWidth  = data.targetVideoWidth;
+			data.windowHeight -= data.options.margin;
+			data.windowWidth  -= data.options.margin;
+			
+			data.videoWidth  = (data.options.videoWidth > data.windowWidth) ? data.windowWidth : data.options.videoWidth;
+			data.videoHeight = data.videoWidth * data.options.videoRatio;
+			
+			data.contentHeight = data.videoHeight;
+			data.contentWidth  = data.videoWidth;
 		}
-
-		// Update dom
-
-		data.$meta.css({
-			width: data.contentWidth
+		
+		data.$content.css({ 
+			height: (data.isMobile) ? data.contentHeight : "auto",
+			width: data.contentWidth 
 		});
-
-		data.$videoWrapper.css({
-			height: data.targetVideoHeight,
-			width: data.targetVideoWidth,
+		data.$meta.css({ 
+			width: data.contentWidth 
+		});
+		data.$videoWrapper.css({ 
+			height: data.videoHeight, 
+			width: data.videoWidth,
 			marginTop: data.videoMarginTop,
 			marginLeft: data.videoMarginLeft
 		});
-
+		
 		if (!data.isMobile) {
 			data.metaHeight = data.$meta.outerHeight(true);
-			data.contentHeight = data.targetVideoHeight + data.metaHeight;
+			data.contentHeight = data.videoHeight + data.metaHeight;
 		}
+		
+		data.containerHeight = data.contentHeight;
+		data.containerWidth = data.contentWidth = data.videoWidth;
 	}
-
+	
 	/**
 	 * @method private
-	 * @name preloadGallery
+	 * @name _preloadGallery
 	 * @description Preloads previous and next images in gallery for faster rendering
 	 * @param e [object] "Event Data"
 	 */
-	function preloadGallery(e) {
+	function _preloadGallery(e) {
 		var source = '';
-
+		
 		if (data.gallery.index > 0) {
 			source = data.gallery.$items.eq(data.gallery.index - 1).attr("href");
 			if (source.indexOf("youtube.com/embed") < 0 && source.indexOf("player.vimeo.com/video") < 0) {
@@ -836,233 +735,210 @@
 			}
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name advanceGallery
+	 * @name _advanceGallery
 	 * @description Advances gallery base on direction
 	 * @param e [object] "Event Data"
 	 */
-	function advanceGallery(e) {
-		killEvent(e);
-
-		var $control = $(this);
-		if (!data.isAnimating && !$control.hasClass("disabled")) {
-			data.isAnimating = true;
-
-			data.gallery.index += ($control.hasClass("next")) ? 1 : -1;
+	function _advanceGallery(e) {
+		_killEvent(e);
+		
+		// Click target
+		var $arrow = $(this);
+		
+		if (!$arrow.hasClass("disabled")) {
+			data.$boxer.addClass("loading");
+			
+			data.gallery.index += ($arrow.hasClass("next")) ? 1 : -1;
 			if (data.gallery.index > data.gallery.total) {
 				data.gallery.index = data.gallery.total;
 			}
 			if (data.gallery.index < 0) {
 				data.gallery.index = 0;
 			}
-
-			data.$container.on(transitionEvent, function(e) {
-				killEvent(e);
-
-				if ($(e.target).is(data.$container)) {
-					data.$container.off(transitionEvent);
-
-					if (typeof data.$image !== 'undefined') {
-						data.$image.remove();
-					}
-					if (typeof data.$videoWrapper !== 'undefined') {
-						data.$videoWrapper.remove();
-					}
-					data.$target = data.gallery.$items.eq(data.gallery.index);
-
-					data.$caption.html(data.formatter.apply(data.$body, [data.$target]));
-					data.$position.find(".current").html(data.gallery.index + 1);
-
-					var source = data.$target.attr("href"),
-						isVideo = ( source.indexOf("youtube.com/embed") > -1 || source.indexOf("player.vimeo.com/video") > -1 );
-
-					if (isVideo) {
-						loadVideo(source);
-					} else {
-						loadImage(source);
-					}
-					updateControls();
+			
+			data.$content.stop().animate({ opacity: 0 }, data.options.duration, function() {
+				if (typeof data.$image !== 'undefined') {
+					data.$image.remove();
 				}
+				if (typeof data.$videoWrapper !== 'undefined') {
+					data.$videoWrapper.remove();
+				}
+				data.$target = data.gallery.$items.eq(data.gallery.index);
+				
+				data.$caption.html(data.options.formatter.apply(data.$body, [data.$target]));
+				data.$position.find(".current").html(data.gallery.index + 1);
+				
+				var source = data.$target.attr("href"),
+					isVideo = ( source.indexOf("youtube.com/embed") > -1 || source.indexOf("player.vimeo.com/video") > -1 );
+				
+				if (isVideo) {
+					_loadVideo(source);
+				} else {
+					_loadImage(source);
+				}
+				_updateControls();
 			});
-
-			data.$boxer.addClass("loading animating");
-
-			if (!transitionSupported) {
-				data.$content.trigger(transitionEvent);
-			}
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name updateControls
+	 * @name _updateControls
 	 * @description Updates gallery control states
 	 */
-	function updateControls() {
-		data.$controls.removeClass("disabled");
-		if (data.gallery.index === 0) {
-			data.$controls.filter(".previous").addClass("disabled");
+	function _updateControls() {
+		data.$arrows.removeClass("disabled");
+		if (data.gallery.index === 0) { 
+			data.$arrows.filter(".previous").addClass("disabled");
 		}
 		if (data.gallery.index === data.gallery.total) {
-			data.$controls.filter(".next").addClass("disabled");
+			data.$arrows.filter(".next").addClass("disabled");
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name onKeypress
+	 * @name _onKeypress
 	 * @description Handles keypress in gallery
 	 * @param e [object] "Event data"
 	 */
-	function onKeypress(e) {
+	function _onKeypress(e) {
 		if (data.gallery.active && (e.keyCode === 37 || e.keyCode === 39)) {
-			killEvent(e);
-
-			data.$controls.filter((e.keyCode === 37) ? ".previous" : ".next").trigger("click");
+			_killEvent(e);
+			
+			data.$arrows.filter((e.keyCode === 37) ? ".previous" : ".next").trigger("click");
 		} else if (e.keyCode === 27) {
 			data.$boxer.find(".boxer-close").trigger("click");
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name cloneElement
+	 * @name _cloneElement
 	 * @description Clones target inline element
 	 * @param id [string] "Target element id"
 	 */
-	function cloneElement(id) {
+	function _cloneElement(id) {
 		var $clone = $(id).find(">:first-child").clone();
-		appendObject($clone);
+		_appendObject($clone);
 	}
-
+	
 	/**
 	 * @method private
-	 * @name loadURL
+	 * @name _loadURL
 	 * @description Load URL into iframe
 	 * @param source [string] "Target URL"
 	 */
-	function loadURL(source) {
+	function _loadURL(source) {
 		source = source + ((source.indexOf("?") > -1) ? "&"+options.requestKey+"=true" : "?"+options.requestKey+"=true");
 		var $iframe = $('<iframe class="boxer-iframe" src="' + source + '" />');
-		appendObject($iframe);
+		_appendObject($iframe);
 	}
-
+	
 	/**
 	 * @method private
-	 * @name appendObject
+	 * @name _appendObject
 	 * @description Appends and sizes object
 	 * @param $object [jQuery Object] "Object to append"
 	 */
-	function appendObject($object) {
+	function _appendObject($object) {
 		data.$content.append($object);
-		sizeContent($object);
-		open();
+		_sizeContent($object);
+		_open();
 	}
-
+	
 	/**
 	 * @method private
-	 * @name sizeContent
+	 * @name _sizeContent
 	 * @description Sizes jQuery object to fir in viewport
 	 * @param $object [jQuery Object] "Object to size"
 	 */
-	function sizeContent($object) {
-		data.windowHeight	  = data.$window.height() - data.paddingVertical;
-		data.windowWidth	  = data.$window.width() - data.paddingHorizontal;
-		data.objectHeight	  = $object.outerHeight(true);
-		data.objectWidth	  = $object.outerWidth(true);
-		data.targetHeight	  = data.targetHeight || data.$target.data("boxer-height");
-		data.targetWidth	  = data.targetWidth  || data.$target.data("boxer-width");
-		data.maxHeight		  = (data.windowHeight < 0) ? options.minHeight : data.windowHeight;
-		data.isIframe		  = $object.is("iframe");
+	function _sizeContent($object) {
+		data.objectHeight     = $object.outerHeight(true);
+		data.objectWidth      = $object.outerWidth(true);
+		data.windowHeight     = data.$window.height() - data.paddingVertical;
+		data.windowWidth      = data.$window.width() - data.paddingHorizontal;
+		data.dataHeight       = data.$target.data("height");
+		data.dataWidth        = data.$target.data("width");
+		data.maxHeight        = (data.windowHeight < 0) ? options.minHeight : data.windowHeight;
+		data.isIframe         = $object.is("iframe");
 		data.objectMarginTop  = 0;
 		data.objectMarginLeft = 0;
-
+			
 		if (!data.isMobile) {
-			data.windowHeight -= data.margin;
-			data.windowWidth  -= data.margin;
+			data.windowHeight -= data.options.margin;
+			data.windowWidth  -= data.options.margin;
 		}
-
-		data.contentHeight = (data.targetHeight !== undefined) ? data.targetHeight : (data.isIframe || data.isMobile) ? data.windowHeight : data.objectHeight;
-		data.contentWidth  = (data.targetWidth !== undefined)  ? data.targetWidth  : (data.isIframe || data.isMobile) ? data.windowWidth  : data.objectWidth;
-
-		if ((data.isIframe || data.isObject) && data.isMobile) {
+		
+		data.contentHeight = (data.dataHeight !== undefined) ? data.dataHeight : (data.isIframe) ? data.windowHeight : data.objectHeight;
+		data.contentWidth  = (data.dataWidth !== undefined)  ? data.dataWidth  : (data.isIframe) ? data.windowWidth  : data.objectWidth;
+		
+		if (data.isIframe && data.isMobile) {
 			data.contentHeight = data.windowHeight;
 			data.contentWidth  = data.windowWidth;
-		} else if (data.isObject) {
-			data.contentHeight = (data.contentHeight > data.windowHeight) ? data.windowHeight : data.contentHeight;
-			data.contentWidth  = (data.contentWidth > data.windowWidth)   ? data.windowWidth  : data.contentWidth;
 		}
+		
+		data.containerHeight = data.contentHeight;
+		data.containerWidth  = data.contentWidth;
+		
+		data.$content.css({ 
+			height: data.contentHeight, 
+			width:  data.contentWidth
+		});
 	}
-
+	
 	/**
 	 * @method private
-	 * @name loadError
-	 * @description Error when resource fails to load
-	 * @param e [object] "Event data"
-	 */
-	function loadError(e) {
-		var $error = $('<div class="boxer-error"><p>Error Loading Resource</p></div>');
-
-		// Clean up
-		data.type = "element";
-		data.$meta.remove();
-
-		data.$image.off("load, error");
-
-		appendObject($error);
-	}
-
-	/**
-	 * @method private
-	 * @name onTouchStart
+	 * @name _onTouchStart
 	 * @description Handle touch start event
 	 * @param e [object] "Event data"
 	 */
-	function onTouchStart(e) {
-		killEvent(e);
-		clearTimer(data.touchTimer);
-
+	function _onTouchStart(e) {
+		_killEvent(e);
+		_clearTimer(data.touchTimer);
+		
 		if (!data.isAnimating) {
 			var touch = (typeof e.originalEvent.targetTouches !== "undefined") ? e.originalEvent.targetTouches[0] : null;
 			data.xStart = (touch) ? touch.pageX : e.clientX;
 			data.leftPosition = 0;
-
+			
 			data.touchMax = Infinity;
 			data.touchMin = -Infinity;
 			data.edge = data.contentWidth * 0.25;
-
+			
 			if (data.gallery.index === 0) {
 				data.touchMax = 0;
 			}
 			if (data.gallery.index === data.gallery.total) {
 				data.touchMin = 0;
 			}
-
-			data.$boxer.on("touchmove.boxer", onTouchMove)
-					   .one("touchend.boxer", onTouchEnd);
+			
+			data.$boxer.on("touchmove.boxer", _onTouchMove)
+					   .one("touchend.boxer", _onTouchEnd);
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name onTouchMove
+	 * @name _onTouchMove
 	 * @description Handles touchmove event
 	 * @param e [object] "Event data"
 	 */
-	function onTouchMove(e) {
+	function _onTouchMove(e) {
 		var touch = (typeof e.originalEvent.targetTouches !== "undefined") ? e.originalEvent.targetTouches[0] : null;
-
+		
 		data.delta = data.xStart - ((touch) ? touch.pageX : e.clientX);
-
+		
 		// Only prevent event if trying to swipe
 		if (data.delta > 20) {
-			killEvent(e);
+			_killEvent(e);
 		}
-
+		
 		data.canSwipe = true;
-
+		
 		var newLeft = -data.delta;
 		if (newLeft < data.touchMin) {
 			newLeft = data.touchMin;
@@ -1072,28 +948,29 @@
 			newLeft = data.touchMax;
 			data.canSwipe = false;
 		}
-
+		
 		data.$image.css({ transform: "translate3D("+newLeft+"px,0,0)" });
-
-		data.touchTimer = startTimer(data.touchTimer, 300, function() { onTouchEnd(e); });
+		
+		data.touchTimer = _startTimer(data.touchTimer, 300, function() { _onTouchEnd(e); });
 	}
-
+	
 	/**
 	 * @method private
-	 * @name onTouchEnd
+	 * @name _onTouchEnd
 	 * @description Handles touchend event
 	 * @param e [object] "Event data"
 	 */
-	function onTouchEnd(e) {
-		killEvent(e);
-		clearTimer(data.touchTimer);
-
+	function _onTouchEnd(e) {
+		_killEvent(e);
+		
+		_clearTimer(data.touchTimer);
+			
 		data.$boxer.off("touchmove.boxer touchend.boxer");
-
+		
 		if (data.delta) {
 			data.$boxer.addClass("animated");
 			data.swipe = false;
-
+			
 			if (data.canSwipe && (data.delta > data.edge || data.delta < -data.edge)) {
 				data.swipe = true;
 				if (data.delta <= data.leftPosition) {
@@ -1104,27 +981,53 @@
 			} else {
 				data.$image.css({ transform: "translate3D(0,0,0)" });
 			}
-
+			
 			if (data.swipe) {
-				data.$controls.filter( (data.delta <= data.leftPosition) ? ".previous" : ".next" ).trigger("click");
+				data.$arrows.filter( (data.delta <= data.leftPosition) ? ".previous" : ".next" ).trigger("click");
 			}
-			startTimer(data.resetTimer, data.duration, function() {
+			_startTimer(data.resetTimer, data.options.duration, function() { 
 				data.$boxer.removeClass("animated");
 			});
 		}
 	}
-
+	
 	/**
 	 * @method private
-	 * @name calculateNaturalSize
+	 * @name _startTimer
+	 * @description Starts an internal timer
+	 * @param timer [int] "Timer ID"
+	 * @param time [int] "Time until execution"
+	 * @param callback [int] "Function to execute"
+	 */
+	function _startTimer(timer, time, callback) {
+		_clearTimer(timer);
+		return setTimeout(callback, time);
+	}
+	
+	/**
+	 * @method private
+	 * @name _clearTimer
+	 * @description Clears an internal timer
+	 * @param timer [int] "Timer ID"
+	 */
+	function _clearTimer(timer) {
+		if (timer) {
+			clearTimeout(timer);
+			timer = null;
+		}
+	}
+	
+	/**
+	 * @method private
+	 * @name _naturalSize
 	 * @description Determines natural size of target image
 	 * @param $img [jQuery object] "Source image object"
 	 * @return [object | boolean] "Object containing natural height and width values or false"
 	 */
-	function calculateNaturalSize($img) {
+	function _naturalSize($img) {
 		var node = $img[0],
 			img = new Image();
-
+		
 		if (typeof node.naturalHeight !== "undefined") {
 			return {
 				naturalHeight: node.naturalHeight,
@@ -1139,93 +1042,38 @@
 				};
 			}
 		}
-
 		return false;
 	}
-
+	
 	/**
 	 * @method private
-	 * @name killEvent
+	 * @name _killEvent
 	 * @description Prevents default and stops propagation on event
 	 * @param e [object] "Event data"
 	 */
-	function killEvent(e) {
+	function _killEvent(e) {
 		if (e.preventDefault) {
 			e.stopPropagation();
 			e.preventDefault();
 		}
 	}
-
-	/**
-	 * @method private
-	 * @name startTimer
-	 * @description Starts an internal timer
-	 * @param timer [int] "Timer ID"
-	 * @param time [int] "Time until execution"
-	 * @param callback [int] "Function to execute"
-	 */
-	function startTimer(timer, time, callback) {
-		clearTimer(timer);
-		return setTimeout(callback, time);
-	}
-
-	/**
-	 * @method private
-	 * @name clearTimer
-	 * @description Clears an internal timer
-	 * @param timer [int] "Timer ID"
-	 */
-	function clearTimer(timer) {
-		if (timer) {
-			clearTimeout(timer);
-			timer = null;
-		}
-	}
-
-	/**
-	 * @method private
-	 * @name getTransitionEvent
-	 * @description Retuns a properly prefixed transitionend event
-	 * @return [string] "Properly prefixed event"
-	 */
-	function getTransitionEvent() {
-		var transitions = {
-				'WebkitTransition': 'webkitTransitionEnd',
-				'MozTransition':    'transitionend',
-				/* 'MSTransitionEnd':  'msTransition', */
-				/* 'msTransition':     'MSTransitionEnd' */
-				'OTransition':      'oTransitionEnd',
-				'transition':       'transitionend'
-			},
-			test = document.createElement('div');
-
-		for (var type in transitions) {
-			if (transitions.hasOwnProperty(type) && type in test.style) {
-				return transitions[type];
-			}
-		}
-
-		return false;
-	}
-
+	
 	$.fn.boxer = function(method) {
 		if (pub[method]) {
 			return pub[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if (typeof method === 'object' || !method) {
-			return init.apply(this, arguments);
+			return _init.apply(this, arguments);
 		}
-		return this;
+		return this;	
 	};
-
+	
 	$.boxer = function($target, opts) {
 		if (pub[$target]) {
 			return pub[$target].apply(window, Array.prototype.slice.call(arguments, 1));
 		} else {
-			if ($target instanceof $) {
-				return build.apply(window, [{ data: $.extend({
-					$object: $target
-				}, options, opts || {}) }]);
-			}
+			return _build.apply(window, [ $.Event("click", { data: $.extend({
+				$object: $target
+			}, options, opts || {}) })] );
 		}
 	};
 })(jQuery, window);

@@ -38,12 +38,10 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	}
 
 	@Override
-	public boolean insert(ProductDetailVO productDetailVO) {
-		if (productDetailVO != null) {
+	public ProductDetailVO insert(ProductDetailVO productDetailVO) {
 			this.getSession().saveOrUpdate(productDetailVO);
-			return true;
-		}
-		return false;
+			return productDetailVO;
+		
 	}
 
 	@Override
@@ -80,30 +78,6 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 						+ " from  ProductDetail join Products" + " on ProductDetail.Product_Id=Products.Product_Id ")
 				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
-		return (List<ProductDetailVO>) query.list();
-	}
-
-	@Override
-	public List<ProductDetailVO> getEquipment() {
-		Query query = this.getSession().createQuery(SELECT_CATEGORY).setParameter("product_Id", "product4001");
-		return (List<ProductDetailVO>) query.list();
-	}
-
-	@Override
-	public List<ProductDetailVO> getClothing() {
-		Query query = this.getSession().createQuery(SELECT_CATEGORY).setParameter("product_Id", "product4002");
-		return (List<ProductDetailVO>) query.list();
-	}
-
-	@Override
-	public List<ProductDetailVO> getAccessories() {
-		Query query = this.getSession().createQuery(SELECT_CATEGORY).setParameter("product_Id", "product4003");
-		return (List<ProductDetailVO>) query.list();
-	}
-
-	@Override
-	public List<ProductDetailVO> getShoes() {
-		Query query = this.getSession().createQuery(SELECT_SHOES).setParameter("product_Id", "product4004");
 		return (List<ProductDetailVO>) query.list();
 	}
 

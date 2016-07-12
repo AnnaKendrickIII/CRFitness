@@ -41,7 +41,7 @@ var queryString='${pageContext.request.queryString}';
 
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByPrimaryKey',
-	type:'get',
+	type:'post',
  	data:{productDetail_Id:queryString},
 	success:function(data){
 		$('#productDetailbody').append('<div class="col-md-7"><div class="mag">'
@@ -49,11 +49,14 @@ $.ajax({
 							+data.photo1+'" /></div></div><div class="col-md-5">尺寸 : '
 							+data.size+'<br/>顏色 : '
 							+data.color+'<br/>剩餘數量 : '
-							+data.stock+'</br>商品介紹 : 未看先猜undefined 一> '
-							+data.Detailed_Description+'<br/></br></br><a class="btn btn-danger" href="https://youtu.be/AUChk0lxF44" data-lity>千萬不要按!</a></div>')
+							+data.stock+'</br></br>商品介紹 : 未看先猜undefined&nbsp&nbsp一>&nbsp '
+							+data.Detailed_Description+
+							'<br/></br></br><a class="btn btn-danger" href="https://youtu.be/-aWcy0TAaWk" data-lity>千萬不要按!</a></div>')
 	}
 });
 </script>
-
+<!-- https://youtu.be/AUChk0lxF44  victorious -->
+<!-- https://youtu.be/-aWcy0TAaWk -->
+<!-- https://youtu.be/2Vhlzdj6Csw -->
 </body>
 </html>
