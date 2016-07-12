@@ -221,12 +221,12 @@
 				if (data.gallery.active) {
 					html += '<div class="boxer-arrow previous">' + data.options.labels.previous + '</div>';
 					html += '<div class="boxer-arrow next">' + data.options.labels.next + '</div>';
-					html += '<p class="boxer-position"';
-					if (data.gallery.total < 1) { 
-						html += ' style="display: none;"'; 
-					}
-					html += '>';
-					html += '<span class="current">' + (data.gallery.index + 1) + '</span> ' + data.options.labels.count + ' <span class="total">' + (data.gallery.total + 1) + '</span>';
+					//html += '<p class="boxer-position"';
+					//if (data.gallery.total < 1) { 
+					//	html += ' style="display: none;"'; 
+					//}
+					//html += '>';
+					//html += '<span class="current">' + (data.gallery.index + 1) + '</span> ' + data.options.labels.count + ' <span class="total">' + (data.gallery.total + 1) + '</span>';
 					html += '</p>';
 					html += '<div class="boxer-caption gallery">';
 				} else {
@@ -769,7 +769,7 @@
 				data.$target = data.gallery.$items.eq(data.gallery.index);
 				
 				data.$caption.html(data.options.formatter.apply(data.$body, [data.$target]));
-				data.$position.find(".current").html(data.gallery.index + 1);
+				//data.$position.find(".current").html(data.gallery.index + 1);
 				
 				var source = data.$target.attr("href"),
 					isVideo = ( source.indexOf("youtube.com/embed") > -1 || source.indexOf("player.vimeo.com/video") > -1 );

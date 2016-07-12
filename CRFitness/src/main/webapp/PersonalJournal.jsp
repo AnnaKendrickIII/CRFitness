@@ -198,7 +198,7 @@
 					    	+ '<div class="timeline-badge primary"><a>'
 					    	+ invert 	
 		// 			    	↓title塞入時間日期
-					    	+ 'rel="tooltip" title="" id="I5"></i></a></div><div class="timeline-panel">'
+					    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
 					    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
 					    	+ this.archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
@@ -273,7 +273,6 @@
 						if(this.messageDetailVOs.length != 0){
 							var eleMessageA = $('<a></a>',{text:'查看更多留言'}).one('click',this, function(){	
 								var thisData = arguments[0].data;
-							
 								// 顯示留言
 								$.each(thisData.messageDetailVOs, function(index,ele){
 									console.log(diffTime(this.messageTime));
