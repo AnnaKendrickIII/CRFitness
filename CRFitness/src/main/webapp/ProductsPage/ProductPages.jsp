@@ -23,12 +23,31 @@
 height:425px; 
 }
 #b{
-
 height:250px;
 }
 #a:hover{
 border:1px solid #3333ff;
 
+}
+.shopping_car{
+position:fixed;
+right:2%;
+top:35%;
+ opacity:0.6;
+}
+.shopping_car:hover{
+position:fixed;
+right:2%;
+top:35%;
+ opacity:1;
+}
+.shop{
+background-color: red;
+color: white
+}
+.shop:LINK,.shop:FOCUS,.shop:hover,.shop:ACTIVE{
+background-color: #AE0000;
+color: white
 }
 
 </style>
@@ -65,15 +84,27 @@ border:1px solid #3333ff;
 <div class="row">
    	  <div class="col-xs-2 col-lg-2"> </div>
 	    <div id="products" class="row list-group col-xs-8 col-lg-8" ></div>
-      <div class="col-xs-2 col-lg-2"> </div>
+      <div class="col-xs-2 col-lg-2 shopping_car"> </div>
     </div>
 </div>
-
+<img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png">
 <script type="text/javascript">
+jQuery(function($){
+var Type='${pageContext.request.queryString}';
+Type=Type.substr(9)
+if(Type=='Sports_Equipment'){
+	Type='運動器材'
+}else if(Type=='Apparel'){
+	Type='服飾類'
+}else if(Type=='Sporting_Goods'){
+	Type='運動用品'
+}else if(Type=='Shoes'){
+	Type='鞋類'
+}
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByCategory',
 	type:'post',
-	data:{category:"鞋類"},
+	data:{category:Type},
 	success:function(data){
 		$.each(data,function(){
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><a href="data:image/png;base64,'
@@ -81,13 +112,14 @@ $.ajax({
 						+this[0].product_Name+'"><img id="b"   class="group list-group-image"  src="data:image/png;base64,'
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff">'
 						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#555555">'
-						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-6"><p class="lead" style="color:#E63F00">$'
-						+this[1]+'</p></div><div class="col-xs-12 col-md-6"><a class="btn btn-success" a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
-						+this[0].productDetail_Id+'">商品介紹</a></div></div></div></a></div></div>'
+						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
+						+this[1]+'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
+						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4"><a class="btn shop" >購買</a></div></div></div></a></div></div>'
 					)	
 		})		
 	}
 });
+})
 </script>
 
 

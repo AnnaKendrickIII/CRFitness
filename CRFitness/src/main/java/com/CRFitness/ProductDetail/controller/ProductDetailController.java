@@ -29,8 +29,6 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> getAllDetail(
 			HttpServletRequest request) {
-		request.getSession().setAttribute("getAllDetail", productDetailService);
-
 		return productDetailService.getAllItem();
 	}
 
@@ -44,8 +42,7 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.POST, value = "/searchByPrimaryKey", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody ProductDetailVO searchByPrimaryKey(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
-		request.getSession().setAttribute("searchByPrimaryKey",
-				productDetailService);
+
 
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
@@ -53,8 +50,7 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.POST, value = "/searchByCategory", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> searchByCategory(
 			HttpServletRequest request, @RequestParam String category) {
-		request.getSession().setAttribute("searchByCategory",
-				productDetailService);
+
 
 		return productDetailService.getItemByCategory(category);
 
@@ -63,8 +59,7 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/searchAllItem", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> searchAllItem(
 			HttpServletRequest request, String products_Id) {
-		request.getSession()
-				.setAttribute("searchAllItem", productDetailService);
+
 
 		return productDetailService.getAllItem();
 	}
