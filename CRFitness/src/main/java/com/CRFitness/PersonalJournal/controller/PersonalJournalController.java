@@ -43,13 +43,10 @@ public class PersonalJournalController {
 //				}
 //			}
 			MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
-			System.out.println(mySelf.getMember_Id()+":"+member_Id);
 			if(mySelf.getMember_Id().equals(member_Id)){
-				System.out.println("showMySelfJournal");
 				return personalJournalService.showMySelfJournal(member_Id);
 			}
 			else{
-				System.out.println("showFriendJournal");
 				return personalJournalService.showFriendJournal(member_Id);
 			}
 		}else{
