@@ -21,64 +21,45 @@ import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 
 @Controller
-@RequestMapping("/productDetailController")
+@RequestMapping("/productDetailControllerBE")
 public class ProductDetailControllerBE {	
 
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
 	
-	// Back-end: 
-	@RequestMapping(method = RequestMethod.GET, value ="/productDetail", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> AllProductDetails(){	
-		return productDetailService.getAll();	
-	}
-	
-	
+	// 新增products
 	@RequestMapping(method = RequestMethod.POST, value ="/addProducts")
 	public @ResponseBody List<Object> list(
 			@RequestParam String product_Name,
-			@RequestParam Double price,
+			@RequestParam String price,
 			@RequestParam String category,
 			@RequestParam String size,
 			@RequestParam String color,
-			@RequestParam Integer stock,
+			@RequestParam String stock,
 //			@RequestParam String published_Date,
-			@RequestParam MultipartFile photo1,
+			@RequestParam byte[] photo1,
 			@RequestParam String introduction){
+		Double price2 = Double.parseDouble(price);
+		Integer stock2 = Integer.parseInt(stock);
 		try {
 			product_Name = new String(product_Name.getBytes("iso-8859-1"), "utf-8");
-//			price = price.valueOf(price);
 			category = new String(category.getBytes("iso-8859-1"), "utf-8");
 			size = new String(size.getBytes("iso-8859-1"), "utf-8");
 			color = new String(color.getBytes("iso-8859-1"), "utf-8");
-//			stock = new String(stock.getBytes("iso-8859-1"), "utf-8");
 //			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
 			introduction = new String(introduction.getBytes("iso-8859-1"), "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.addProductDetail(product_Name, price, category, size, color, stock, photo1, introduction);	
+		return productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, introduction);	
 	}
-
-
-	// helpless?
-//	@RequestMapping(method = RequestMethod.GET, value = "/photo/{productDetail_Id}", produces={
-//			"image/jpeg", "image/gif" })
-//	public byte[] findProductsPhoto(@PathVariable String productDetail_Id){
-//			return productDetailService.findProductsPhoto(productDetail_Id);
+	
+	// Back-end: 
+//	@RequestMapping(method = RequestMethod.GET, value ="/productDetail", produces = MediaType.APPLICATION_JSON)
+//	public @ResponseBody List<ProductDetailVO> AllProductDetails(){	
+//		return productDetailService.getAll();	
 //	}
 	
-	
-//	@RequestMapping(method = RequestMethod.GET, value = "/photo/{member_Id}", produces = { "image/jpeg", "image/gif" })
-//	public @ResponseBody byte[] findMemberPhoto(HttpServletRequest request, @PathVariable String member_Id) {
-//		if(memberService.findMemberPhoto(member_Id)==null){	
-//			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/NoImage.jpg"));
-//		}else{
-//			return memberService.findMemberPhoto(member_Id);
-//		}
-//	}
-//	
-//	
 //	@RequestMapping(method = RequestMethod.POST, value ="/Login", produces = MediaType.APPLICATION_JSON)
 //	public @ResponseBody MemberVO Third_party_Sign(
 //			HttpServletRequest request,
