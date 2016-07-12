@@ -24,7 +24,6 @@
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 
-
 <div class="ProductDetail">
 
     <div class="row">
@@ -51,7 +50,7 @@ $.ajax({
 							+data.color+'<br/>剩餘數量 : '
 							+data.stock+'</br></br>商品介紹 : 未看先猜undefined&nbsp&nbsp一>&nbsp '
 							+data.Detailed_Description+
-							'<br/></br></br><a class="btn btn-danger" href="https://youtu.be/-aWcy0TAaWk" data-lity>千萬不要按!</a></div>')
+							'<br/></br></br><a class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw" data-lity>千萬不要按&nbsp!</a></div>')
 	}
 });
 </script>

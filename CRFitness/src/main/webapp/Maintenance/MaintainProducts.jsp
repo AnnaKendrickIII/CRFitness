@@ -11,9 +11,8 @@
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
 <jsp:include page="/AdminFrame.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
-<script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<link rel="stylesheet" href="${this_contextPath}/css/site.css">
+<script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
+
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 
@@ -170,24 +169,20 @@ body {
     margin-right: 16px;
 }
 
-#createProduct{
+#creProdBtn{
+	margin-top:55px;
+}
+
+#grid{
 	margin-top:55px;
 }
 </style>
 </head>
 <body>
 
-<!-- 頁面部分 開始-->
-	<div class="row">
-		<div class="col-md-2 "></div>
-		<div class="col-md-8 col-xs-12 ">
-		
-		<button type="button" id="products_tbody" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#products_tbody">
-  		新增產品
-  		</button>
-	
+
 <!-- 新增產品彈出視窗 開始-->
-        	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="products_tbody" class="modal fade">
+        	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="new_products" class="modal fade">
             	<div class="modal-dialog">
                 	<div class="modal-content">
                 	
@@ -234,7 +229,18 @@ body {
                   </div>
             </div>
 <!-- 新增產品彈出視窗 結束 -->
-			
+
+<!-- 頁面部分 開始-->
+	<div class="row">
+		<div class="col-md-2 "></div>
+		<div class="col-md-8 col-xs-12 ">
+		
+		<button type="button" id="creProdBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#products_tbody">  
+  		新增產品 
+  		</button>
+<!--     <ul class="grid effect-5 " id="grid"> -->
+<!--                <li> <a data-toggle="modal" href="#new_products"></a>新增揪團</li> -->
+<!-- 	</ul> -->
 <!-- 資料表格 開始 -->
 		<table id="games_talbe" class="table">
 			<thead>
@@ -255,11 +261,11 @@ body {
 			</thead>
 			<tbody id="products_tbody"></tbody>
 		</table>
+		
+		</div> <!-- end of class="col-md-8 col-xs-12" -->
+		<div class="col-md-2"></div>
 <!-- 資料表格 結束 -->
-		<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>
-		<script src="${this_contextPath}/js/classie.js"></script>
-		<script src="${this_contextPath}/js/imagesloaded.js"></script>
-		<script src="${this_contextPath}/js/AnimOnScroll.js"></script>
+
 
 <script>
 // 轉換日期的小程式 開始
@@ -287,7 +293,7 @@ body {
 // 轉換日期的小程式 結束
 
 // 新增圖片的程式 開始
-	  jQuery(function ($) {	  
+	jQuery(function ($) {	  
 		  var file;	
 		$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 
@@ -323,7 +329,7 @@ body {
 				 formData.append('category', $('#insert_category').val());
 				 formData.append('introduction', $('#insert_introduction').val());
 			   $.ajax({
-	               url:"${this_contextPath}/CRFSERVICE/productDetailController/addProducts",
+	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
 	               type:'post',  //get post put delete
 					data: formData,
 	    		   processData: false,
@@ -331,132 +337,142 @@ body {
 	               success:function(data){
 // 	            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
 // 						var jdate_value = new Date(jdate_int);
-	            	   $('#products_tbody').modal('hide');	
-	            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
-								+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-								+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
-								+data.activity_Area+'<br />內容：'
-								+data.activity_Info+'<br />日期：'
-								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-								+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-								+'"><img src="data:image/png;base64,'
-								+data.photo1+'" /></a>發起人：'
-								+data.member_Id+'<br />類別：'
-								+data.activity_Class+'<br />地區：'
-								+data.activity_Area+'<br />內容：'
-								+data.activity_Info+'<br />日期：'
-								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-								+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
-								+data.people+'</button></li>')								
-						 $('.btn.btn-default').tooltip()	
-						  $(".boxer").boxer({ 
-									  top: 50,
-									  fixed:true
-						  });	 				 
+	            	   $('#new_products').modal('hide');	
+	   					$('#creProdBtn>td:nth-child(1)').after('<tr><td><img src="data:image/png;base64,' + this[0].photo1 + '" class="img-thumbnail" /></td><td>'
+									+ this[0].product_Id
+									+ '</td><td>'
+									+ this[0].productDetail_Id
+									+ '</td><td>'
+									+ this[0].product_Name
+									+ '</td><td>'
+									+ this[0].size
+									+ '</td><td>'
+									+ this[0].color
+									+ '</td><td>'
+									+ this[0].stock
+									+ '</td><td>'
+									+ this[1]
+									+ '</td><td>'
+									+ this[2]
+									+ '</td><td>'
+									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+									+ '</td><td><span class="glyphicon glyphicon-wrench">'
+									+ '</td><td><i class="fa fa-code-fork" aria-hidden="true"></i>'
+									+ '</td></tr>') // end of append	            	   
+	            	   
+// 					           $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'	            	   
+// 								+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+// 								+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
+// 								+data.activity_Area+'<br />內容：'
+// 								+data.activity_Info+'<br />日期：'
+// 								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+// 								+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_PRODUCT'>參加活動</button>" 
+// 								+'"><img src="data:image/png;base64,'
+// 								+data.photo1+'" /></a>發起人：'
+// 								+data.member_Id+'<br />類別：'
+// 								+data.activity_Class+'<br />地區：'
+// 								+data.activity_Area+'<br />內容：'
+// 								+data.activity_Info+'<br />日期：'
+// 								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+// 								+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+// 								+data.people+'</button></li>')			
+// 						 $('.btn.btn-default').tooltip()	
+// 						  $(".boxer").boxer({ 
+// 									  top: 50,
+// 									  fixed:true});	 				 
 	               	} // end of success:function(data)	 
 	           }) // end of  $.ajax({
-	}) // end of $('#addActivitys').click(function ()
+	}) // end of $('#addbtn').click(function ()
+//新增產品的程式 結束
 	
-	
-	$.ajax({
-        url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
-        type:'get',  //get post put delete
-        data:{ },
-        success:function(data){      	  
-      	  $.each(data,function(){        		  
-      		  var message;
-      		  var activityID=this[0].activity_Id;     		   
-      		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
-				  var jdate_value = new Date(jdate_int);
-				  var names=' ';
-      		  if(this[1]!=null){
-				  var nameData=this[1].split(",")						  
-				  $.each(nameData,function(){
-					if(this!=""){
-						names+=this+'\n'
-					}				  
-				  })	
-      		 }
-					$('#grid').append('<li ><a href="data:image/png;base64,'
-					+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-					+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
-							+this[0].activity_Area+'<br />內容：'
-							+this[0].activity_Info+'<br />日期：'
-							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-							+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-							+'"><span title=""><img src="data:image/png;base64,'
-							+this[0].photo1+'" /></span></a>發起人：'
-							+this[2]+'<br />類別：'
-							+this[0].activity_Class+'<br />地區：'
-							+this[0].activity_Area+'<br />內容：'
-							+this[0].activity_Info+'<br />日期：'
-							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-							+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
-							+names+'">'
-							+this[0].people+'</button></li>')
+// 	$.ajax({
+//         url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
+//         type:'get',  //get post put delete
+//         data:{ },
+//         success:function(data){      	  
+//       	  $.each(data,function(){        		  
+//       		  var message;
+//       		  var activityID=this[0].activity_Id;     		   
+//       		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
+// 				  var jdate_value = new Date(jdate_int);
+// 				  var names=' ';
+//       		  if(this[1]!=null){
+// 				  var nameData=this[1].split(",")						  
+// 				  $.each(nameData,function(){
+// 					if(this!=""){
+// 						names+=this+'\n'
+// 					}				  
+// 				  }) 	
+//       		 }
+// 			$('#grid').append('<li ><a href="data:image/png;base64,'
+// 					+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+// 					+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+// 					+this[0].activity_Area+'<br />內容：'
+// 					+this[0].activity_Info+'<br />日期：'
+// 					+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+// 					+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_PRODUCT'>參加活動</button>" 
+// 					+'"><span title=""><img src="data:image/png;base64,'
+// 					+this[0].photo1+'" /></span></a>發起人：'
+// 					+this[2]+'<br />類別：'
+// 					+this[0].activity_Class+'<br />地區：'
+// 					+this[0].activity_Area+'<br />內容：'
+// 					+this[0].activity_Info+'<br />日期：'
+// 					+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+// 					+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+// 					+names+'">'
+// 					+this[0].people+'</button></li>') // end of $('#grid').append
 							  					
-           		 })
-					  $('.btn.btn-default').tooltip()
-						$(".boxer").boxer({
-						top: 50,
-						fixed:true
-						});																	
-            new AnimOnScroll(document.getElementById('grid'), {
-                minDuration: 0.4,
-                maxDuration: 0.6,
-                viewportFactor: 0.2
-            });
-        }          	 
-    }) // end of $.ajax({
-
-}) // end of jQuery(function ($)
-// 新增產品的程式 結束
-
+//            }) // end of $.each(data,function()
+// // 				$('.btn.btn-default').tooltip()
+// // 					$(".boxer").boxer({
+// // 								top: 50,
+// // 								fixed:true});																	
+// //             new AnimOnScroll(document.getElementById('grid'), {
+// //                 minDuration: 0.4,
+// //                 maxDuration: 0.6,
+// //                 viewportFactor: 0.2});
+//         }//end of success:function(data)
+//     }) // end of $.ajax({
+    	
 // 顯示table的程式 開始
-			$(function() {
-				$.ajax({
-	//       	url:"${this_contextPath}/CRFSERVICE/producController/product",
-					url : "${this_contextPath}/CRFSERVICE/productDetailController/productDetail",
-					type : 'get', //get post put delete
-					data : {},
-					success : function(data) {
-						$.each(
-							data,
-							function() {
-								var pdate_int = parseInt(this.published_Date); //轉換成數字
-								var pdate_value = new Date(
-									pdate_int);
-					//             	$('#products_tbody').append('<tr><td>'+ this.product_Id + '</td><td>'+ this.product_Name +'</td><td>' + this.price + '</td><td>' + this.category +'</td></tr>')  
-									$('#products_tbody').append('<tr><td><img src="data:image/png;base64,' + this.photo1 + '" class="img-thumbnail" /></td><td>'
-														+ this.product_Id
-														+ '</td><td>'
-														+ this.productDetail_Id
-														+ '</td><td>'
-														+ this.product_Name
-														+ '</td><td>'
-														+ this.size
-														+ '</td><td>'
-														+ this.color
-														+ '</td><td>'
-														+ this.stock
-														+ '</td><td>'
-//  														+ this.productsVO.price
-														+ '</td><td>'
-//  														+ this.productsVO.category
- 														+ '</td><td>'
-														+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-														+ '</td><td><img class="glyphicon glyphicon-wrench">'
-														+ '</td><td><img class="glyphicon glyphicon-trash">'
-														+ '</td></tr>') // end of append
-									})
-							}
-						})
-			}) 
-// 產出table的程式 結束			
-</script>
+	$.ajax({
+	// url:"${this_contextPath}/CRFSERVICE/producController/product",
+		url : "${this_contextPath}/CRFSERVICE/productDetailController/getAllDetail",
+		type : 'get', //get post put delete
+		data : {},
+		success : function(data) {
+			$.each( data,
+				function() {
+					var pdate_int = parseInt(this[0].published_Date); //轉換成數字
+					var pdate_value = new Date(pdate_int);  
+						$('#products_tbody').append('<tr><td><img src="data:image/png;base64,' + this[0].photo1 + '" class="img-thumbnail" /></td><td>'
+													+ this[0].product_Id
+													+ '</td><td>'
+													+ this[0].productDetail_Id
+													+ '</td><td>'
+													+ this[0].product_Name
+													+ '</td><td>'
+													+ this[0].size
+													+ '</td><td>'
+													+ this[0].color
+													+ '</td><td>'
+													+ this[0].stock
+													+ '</td><td>'
+ 													+ this[1]
+													+ '</td><td>'
+ 													+ this[2]
+ 													+ '</td><td>'
+													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+													+ '</td><td><span class="glyphicon glyphicon-wrench">'
+													+ '</td><td><i class="fa fa-code-fork" aria-hidden="true"></i>'
+													+ '</td></tr>') // end of append
+			}) // end of $.each(
+		} // end of success : function(data) 
+	}) // end of $.ajax({
+// 顯示table的程式 結束			
 
-		</div> <!-- end of class="col-md-8 col-xs-12" -->
-		<div class="col-md-2"></div>
+	}) // end of jQuery(function ($)
+</script>
 
 	</div>
 	<!--  頁面部分 結束 -->
@@ -476,3 +492,4 @@ body {
 		<!--                          }) -->
 		<!--                      }) -->
 		<!--                  </script >  -->
+<!-- 		<span class="glyphicon glyphicon-trash"> -->
