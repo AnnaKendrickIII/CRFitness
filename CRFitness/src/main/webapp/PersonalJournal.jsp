@@ -32,12 +32,39 @@
 				<button onclick="showJournal()">編輯</button>
 			</div>
 			<ul class="timeline" id="grid">
-
+			
 			</ul>
 		</div>
 		<div class="col-md-4 col-xs-2">
-		<h3>揪團放置位置</h3>
+		<h3>揪團要塞這邊</h3>
+		<div id="myactivity_create_tbody"></div>
 		</div>
+		
+		<!-- 抓取使用者建立的揪團  開始-->
+                 <script type="text/javascript">
+                     $(function () {
+                         $.ajax({
+                             url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
+                             type:'get',  //get post put delete
+                             data:{},
+                             success:function(data){
+                                 $.each(data,function(){
+                                     $('#myactivity_create_tbody').append(
+                                    	'<tr><td><a href="${this_contextPath}/activitydetail.jsp?'
+                                    	+this.member_Id+'" >'
+                                    	+'<img src="data:image/png;base64,'
+                                    	+this[0].photo1+'" class="" alt="Responsive image" /></a>'
+                                    	+'<td class="">'
+                                    	+this[0].activity_Class +'</td><td>'
+                                    	+this[0].activity_Area +'</td>')  
+                                 })
+                             }          	 
+                         })
+                     })
+                 </script > 
+		<!-- 抓取使用者建立的揪團  結束-->
+                             
+		
 	<div class="col-md-4 col-xs-1"></div>	
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 </div>
@@ -119,17 +146,17 @@
     	var theMemberId = "${LoginOK.member_Id}";
         var friendId = "${pageContext.request.queryString}";
         var titleNickName;
-        //標記本頁日誌是否會員自己
+        //	標記本頁日誌是否會員自己
         var mySelf = true;
-        // 先查詢自己所有好友名單
+        // 	先查詢自己所有好友名單
     	$.ajax({
             url:"${this_contextPath}/CRFSERVICE/friendships/${LoginOK.member_Id}",
             type:'get',  //get post put delete
             data:{},
             success:function(data){
-				// 判斷是否好友-------------------------
+				//------------------------- 判斷是否好友-------------------------
             	$.each(data,function(){
-//             		console.log(data);
+						// console.log(data);
             		if(this.member_Id === friendId){
             			theMemberId = this.member_Id;
             			titleNickName = this.nickname;
@@ -187,10 +214,12 @@
 				   			+ '</div>'
 				   			+ '<div class="timeline-footer">塞留言的地方</div>'
 				   			+ '</div>'
-				   			+ '</li>')
-// 	    			})
+				   			+ '</li>'
+// 						 	+ '<li class="clearfix" style="float: none;">'
+				   			)
+
 	    			
-//     			}
+
 
 						
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
@@ -241,7 +270,8 @@
 							
 // 						}
   					})
-
+  					
+  					$('#grid').append('<li class="clearfix" style="float: none;">');
 	    						}
 
 
