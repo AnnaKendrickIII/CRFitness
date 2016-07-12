@@ -13,6 +13,7 @@ import java.util.*;
 public class MessageDetailDAO implements MessageDetailDAO_interface{
 
 	private static final String GET_ALL_STMT = "from MessageDetailVO ";
+	private static final String GET_JOURNAL_STMT = "from MessageDetailVO WHERE journal_Id=:journal_Id";
 	@Autowired
 	private SessionFactory sessionFactory ;
 
@@ -62,7 +63,12 @@ public class MessageDetailDAO implements MessageDetailDAO_interface{
 		return (MessageDetailVO) this.getSession().get(MessageDetailVO.class, message_Id);
 	}
 
-	
+	@Override
+	public List<MessageDetailVO> select_Journal(String journal_Id) {
+		Query query = this.getSession().createQuery(GET_JOURNAL_STMT);
+		query.setParameter("journal_Id", journal_Id);
+		return (List<MessageDetailVO>) query.list();
+	}
 	
 	@Override
 	public List<MessageDetailVO> getAll() {

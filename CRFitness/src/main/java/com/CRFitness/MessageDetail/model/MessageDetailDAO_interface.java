@@ -14,4 +14,6 @@ public interface MessageDetailDAO_interface {
 
 	public List<MessageDetailVO> getAll();
 
+	public List<MessageDetailVO> select_Journal(String journal_Id);
+
 }
