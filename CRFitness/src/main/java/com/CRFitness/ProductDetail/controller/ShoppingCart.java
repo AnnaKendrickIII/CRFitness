@@ -2,6 +2,7 @@ package com.CRFitness.ProductDetail.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,6 +23,8 @@ public class ShoppingCart extends ActionSupport {
 	private ProductDetailVO productDetailVO;
 	private HttpServletRequest request;
 	private HttpSession session;
+	@Resource(name = "productDetailService")
+	private ProductDetailService productDetailService;
 
 	public ShoppingCart() {
 		request = ServletActionContext.getRequest();
@@ -28,4 +32,7 @@ public class ShoppingCart extends ActionSupport {
 		cart.add(productDetailVO);
 		request.setAttribute("cart", cart);
 	}
+	
+	
+	
 }

@@ -50,10 +50,10 @@
                     <div class="dropdown">
                         <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="${this_contextPath}/ProductsPage/ProductPages.jsp?category=Sports_Equipment">運動器材</a></li>
-                            <li><a href="${this_contextPath}/ProductsPage/ProductPages.jsp?category=Apparel">服飾類</a></li>
-                            <li><a href="${this_contextPath}/ProductsPage/ProductPages.jsp?category=Sporting_Goods">運動用品</a></li>
-                            <li><a href="${this_contextPath}/ProductsPage/ProductPages.jsp?category=Shoes">鞋類</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=Sports_Equipment">運動器材</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=Apparel">服飾類</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=Sporting_Goods">運動用品</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=Shoes">鞋類</a></li>
                         </ul>
                     </div>
                 </li>
