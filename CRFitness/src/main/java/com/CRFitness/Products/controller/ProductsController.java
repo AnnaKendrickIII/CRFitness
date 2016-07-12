@@ -24,7 +24,7 @@ public class ProductsController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/selectAllItem", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductsVO> list_productsVO(HttpServletRequest request) {
-		request.getSession().setAttribute("list_productsVO", productsService);
+		
 		return productsService.selectAllItem();
 	}
 
