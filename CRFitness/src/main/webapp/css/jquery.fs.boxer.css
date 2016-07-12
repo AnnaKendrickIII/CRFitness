@@ -41,7 +41,7 @@
 }
 
 #boxer .boxer-close {
-	background: #fff url(jquery.fs.boxer-icons.png) no-repeat -70px 10px;
+	background: #fff url(../images/jquery.fs.boxer-icons.png) no-repeat -70px 10px;
 	border-radius: 100%;
 	cursor: pointer;
 	display: block;
