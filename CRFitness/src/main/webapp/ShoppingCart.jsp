@@ -11,7 +11,7 @@
 
 <style type="text/css">
 .cart {
-	margin-top: 6%;
+	margin-top: 4%;
 	background-color: #f5f5f5;
 }
 
@@ -20,6 +20,7 @@
 <body>
 	<aside>
 		<div class="cart">
+		<legend class="well well-sm" style="text-align: center">確認購物車</legend>
 			<div class="col-xs-2"></div>
 			<div class="row col-xs-8">
 				<div class="panel panel-info">
@@ -95,7 +96,7 @@
 							</div>
 							<div class="col-xs-3">
 								<button type="button" class="btn btn-success btn-block">
-									確認訂單</button>
+									填寫訂單</button>
 							</div>
 						</div>
 					</div>

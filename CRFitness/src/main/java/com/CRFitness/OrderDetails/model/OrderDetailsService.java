@@ -17,16 +17,16 @@ public class OrderDetailsService {
 
 	@Resource(name = "orderDetailsDAO")
 	OrderDetailsDAO_interface orderDetailsDAO;
-	
+
 	@Resource(name = "ordersDAO")
 	OrdersDAO_interface ordersDAO;
-	
-	//撈出所有訂單明細
+
+	// 撈出所有訂單明細
 	public List<OrderDetailsVO> searchAllOrderDetails() {
 		return orderDetailsDAO.getAll();
 	}
 
-	//利用訂單編號查出該筆訂單所有明細
+	// 利用訂單編號查出該筆訂單所有明細
 	public List<OrderDetailsVO> searchOrderDetails(String order_Id) {
 		if (!(orderDetailsDAO.findByOrder_Id(order_Id).isEmpty())) {
 			return orderDetailsDAO.findByOrder_Id(order_Id);
@@ -34,9 +34,10 @@ public class OrderDetailsService {
 			return null;
 		}
 	}
-	
-	//修改訂單內容
-	public OrderDetailsVO modifyCart(String details_No, Integer quantity, String size, String color) {
+
+	// 修改訂單內容
+	public OrderDetailsVO modifyCart(String details_No, Integer quantity,
+			String size, String color) {
 		OrderDetailsVO orderDetailsVO = null;
 		if (!(details_No.isEmpty())) {
 			orderDetailsVO = orderDetailsDAO.findByPrimaryKey(details_No);
@@ -56,20 +57,24 @@ public class OrderDetailsService {
 		return orderDetailsVO;
 	}
 
+
+
 	public static void main(String[] args) {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
-		OrderDetailsService dao = (OrderDetailsService) context.getBean("orderDetailsService");
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"test.config.xml");
+		OrderDetailsService dao = (OrderDetailsService) context
+				.getBean("orderDetailsService");
 
 		// dao.modifyCart(details_No, quantity, size, color)
-		
-//		for(OrderDetailsVO vo:dao.searchOrderDetails("order6002"))
-//		 System.out.println(vo.getDetails_No());
-		
-		//System.out.println(dao.modifyCart("orderDetails6008", 6, "F", "白色"));
-//		for(OrderDetailsVO vo:dao.searchAllOrderDetails())
-//		System.out.println(dao.searchAllOrderDetails());
-		
+
+		// for(OrderDetailsVO vo:dao.searchOrderDetails("order6002"))
+		// System.out.println(vo.getDetails_No());
+
+		// System.out.println(dao.modifyCart("orderDetails6008", 6, "F", "白色"));
+		// for(OrderDetailsVO vo:dao.searchAllOrderDetails())
+		// System.out.println(dao.searchAllOrderDetails());
+
 		((ConfigurableApplicationContext) context).close();
 	}
 }

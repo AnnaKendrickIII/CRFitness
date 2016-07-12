@@ -12,7 +12,7 @@ public class ProductDetailGenerator implements IdentifierGenerator {
 	public Serializable generate(SessionImplementor session, Object object)
 			throws HibernateException {
 
-		String prefix = "productDetail";
+		String prefix = "prodDetail";
 		String member = null;
 		Connection con = session.connection();
 		try {

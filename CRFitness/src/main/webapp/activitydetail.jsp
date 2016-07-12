@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
-<link rel="stylesheet" href="${this_contextPath}/css/jquerysctipttop.css">
+<link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css">
 </head>
 
 <body >
@@ -66,6 +66,7 @@
 							}				  
 						  })	
 		        		 }
+		        		  //內
 							$('#grid').append('<li ><a href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
@@ -73,14 +74,15 @@
 							+this[0].activity_Info+'<br />日期：'
 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 							+this[0].people 
+							//外
 							+'"><span title=""><img src="data:image/png;base64,'
-									+this[0].photo1+'" /></span></a>發起人：'
+									+this[0].photo1+'" /></span></a><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
 									+this[2]+'<br />類別：'
-									+this[0].activity_Class+'<br />地區：'
-									+this[0].activity_Area+'<br />內容：'
-									+this[0].activity_Info+'<br />活動時間：'
-									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />活動截止日：'
-									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+									+"<a href='#' class='select'>"+this[0].activity_Class+"</a>"+'<br />地區：'
+									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Area'>"+this[0].activity_Area+"</a>"+'<br />內容：'
+									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Info'>"+this[0].activity_Info+"</a>"+'<br />活動時間：'
+									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY-MM-DD HH:mm' data-viewformat='YYYY-MM-DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value.Format('yyyy-MM-dd hh:mm:ss')+"</a>"+'<br />活動截止日：'
+									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY-MM-DD HH:mm' data-viewformat='YYYY-MM-DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm:ss')+"</a>"+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')
@@ -91,6 +93,32 @@
     							top: 50,
     							fixed:true
 								});	
+		        	  $.fn.editable.defaults.mode = 'inline';     
+		        	    $('.select').editable({
+		        	        type: 'select',
+		        	        title: 'Select status',
+		        	        placement: 'right',
+		        	        value: 2,
+		        	        source: [
+		        	            {value: 1, text: '跑步'},
+		        	            {value: 2, text: '登山'},
+		        	            {value: 3, text: '游泳'},
+		        	            {value: 4, text: '飛輪'},
+		        	            {value: 5, text: '自行車'},
+		        	            {value: 6, text: '有氧運動'},
+		        	            {value: 7, text: '球類運動'},
+		        	            {value: 8, text: '室內運動'},
+		        	            {value: 9, text: '其他類別'}
+
+		        	        ]
+		        	    });
+		        	    $('.username').editable();
+		        	    $('.event').editable({
+		        	        placement: 'right',
+		        	        combodate: {
+		        	            firstItem: 'name'
+		        	        }
+		        	    });
 	                  new AnimOnScroll(document.getElementById('grid'), {
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
@@ -103,5 +131,7 @@
 </c:if>
 	<!--  頁面部分 結束 -->
 <script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
+<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
+<script src="${this_contextPath}/js/moment.min.js"  ></script>
 </body>
 </html>

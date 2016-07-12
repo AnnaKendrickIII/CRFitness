@@ -10,8 +10,7 @@
 <meta name="google-signin-client_id"
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
 <jsp:include page="/AdminFrame.jsp" />
-<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
-<script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
+<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 
@@ -183,6 +182,7 @@ body {
 					<th><h3>Price</h3></th>
 					<th><h3>Category</h3></th>
 					<th><h3>Published Date</h3></th>
+					<th><h3>Info</h3></th>
 					<th><h3>Modify</h3></th>
 					<th><h3>Suspended</h3></th>
 				</tr>
@@ -212,14 +212,14 @@ body {
                    		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />
                         <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p>
                         <select id="insert_size" name="test1" class="form-control" >
-							<option value="1">XS</option>
-							<option value="2">S</option>
-							<option value="3">M</option>
-							<option value="4">L</option>
-							<option value="5">XL</option>
-							<option value="6">2XL</option>
-							<option value="7">3XL</option>
-							<option value="8">U</option>
+							<option value="XS">XS</option>
+							<option value="S">S</option>
+							<option value="M">M</option>
+							<option value="L">L</option>
+							<option value="XL">XL</option>
+							<option value="2XL">2XL</option>
+							<option value="3XL">3XL</option>
+							<option value="U">U</option>
 						</select>
                         <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="insert_stock" class="form-control" autocomplete="off" placeholder="輸入數量"/>
@@ -257,7 +257,6 @@ body {
             },
             autoUpload: false
         });
-
         $('#trigger-upload').click(function() {
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
         });
@@ -332,31 +331,34 @@ body {
 	    		   processData: false,
 				   contentType: false,
 	               success:function(data){
-// 						var pdate_int = parseInt(this[0].published_Date); //轉換成數字
-// 						var pdate_value = new Date(pdate_int);  
+						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
+						var pdate_value = new Date(pdate_int);  
 	            	   $('#new_products').modal('hide');	
-	   					$('#products_tbody>td:nth-child(1)').after('<tr><td><img src="data:image/png;base64,' + this[0].photo1 + '" class="img-thumbnail" /></td><td>'
-									+ this[0].product_Id
+	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' + data[1].photo1 + '" class="img-thumbnail" /></td><td>'
+									+ data[0].product_Id
 									+ '</td><td>'
-									+ this[0].productDetail_Id
+									+ data[1].productDetail_Id
 									+ '</td><td>'
-									+ this[0].product_Name
+									+ data[0].product_Name
 									+ '</td><td>'
-									+ this[0].size
+									+ data[1].size
 									+ '</td><td>'
-									+ this[0].color
+									+ data[1].color
 									+ '</td><td>'
-									+ this[0].stock
+									+ data[1].stock
 									+ '</td><td>'
-									+ this[1]
+									+ data[0].price
 									+ '</td><td>'
-									+ this[2]
+									+ data[0].category
 									+ '</td><td>'
-// 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+									+ '</td><td>'
+									+ data[1].introduction
 									+ '</td><td><span class="glyphicon glyphicon-wrench">'
 									+ '</td><td><i class="fa fa-code-fork" aria-hidden="true"></i>'
 									+ '</td></tr>') // end of after	            	   
-	            	   
+							$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty();
+							file = null;
 // 					           $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'	            	   
 // 								+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 // 								+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
@@ -460,6 +462,8 @@ body {
  													+ this[2]
  													+ '</td><td>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+													+ '</td><td>'
+									                + this[0].introduction.substring(0,10)
 													+ '</td><td><span class="glyphicon glyphicon-wrench">'
 													+ '</td><td><i class="fa fa-minus-square" aria-hidden="true"></i>'
 													+ '</td></tr>') // end of append

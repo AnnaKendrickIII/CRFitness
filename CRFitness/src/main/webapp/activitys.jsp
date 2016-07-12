@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>揪團</title>
 <jsp:include page="/CRFitness.jsp" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component_activity.css" />
 
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
