@@ -271,7 +271,7 @@
                success:function(data){
             	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
 				   var jdate_value = new Date(jdate_int);
-				   var jdate_intb = parseInt(this[0].deadline);                        //轉換成數字
+				   var jdate_intb = parseInt(data.deadline);                        //轉換成數字
 				   var jdate_value_deadline = new Date(jdate_intb);
             	   $('#new_activity').modal('hide');	
             	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
