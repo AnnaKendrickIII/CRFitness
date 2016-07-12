@@ -12,32 +12,10 @@
 <jsp:include page="/AdminFrame.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
-
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 
 <title>MaintainProducts</title>
-<!-- 上傳圖片 開始-->
-	<script>
-        $('#fine-uploader-manual-trigger').fineUploader({
-            template: 'qq-template-manual-trigger',
-            request: {
-                endpoint: '/server/uploads'
-            },
-            thumbnails: {
-                placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
-                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
-                }
-            },
-            autoUpload: false
-        });
-
-        $('#trigger-upload').click(function() {
-            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
-        });
-	</script>
-<!-- 上傳圖片 結尾-->
 
 <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -93,8 +71,8 @@
                 </div>
             </dialog>
         </div>
-	</script>
-    
+</script>
+
 <style>
 body {
 	background-color: #E0E0E0;
@@ -123,25 +101,27 @@ body {
 	color: black;
 }
 
-#trigger-upload {
-	color: white;
-    background-color: #00ABC7;
-    font-size: 14px;
-    padding: 7px 20px;
-    background-image: none;
-}
 
-#fine-uploader-manual-trigger .qq-upload-button {
-	margin-right: 15px;
-}
+        #trigger-upload {
+            color: white;
+            background-color: #00ABC7;
+            font-size: 14px;
+            padding: 7px 20px;
+            background-image: none;
+        }
 
-#fine-uploader-manual-trigger .buttons {
-    width: 50%;
-}
+        #fine-uploader-manual-trigger .qq-upload-button {
+            margin-right: 15px;
+        }
 
-#fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
-   	width: 60%;
-}
+        #fine-uploader-manual-trigger .buttons {
+            width: 50%;
+        }
+
+        #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
+            width: 60%;
+        }
+
 
 .gallery {
 	margin: 20px 0;
@@ -180,6 +160,39 @@ body {
 </head>
 <body>
 
+<!-- 頁面部分 開始-->
+	<div class="row">
+		<div class="col-md-2 "></div>
+		<div class="col-md-8 col-xs-12 ">
+		
+		<button type="button" id="creProdBtn" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#new_products">  
+  		新增產品 
+  		</button>
+
+<!-- 資料表格 開始 -->
+		<table id="games_talbe" class="table">
+			<thead>
+				<tr>
+					<th><h3>Photo</h3></th>
+					<th><h3>ID</h3></th>
+					<th><h3>Detailed ID</h3></th>
+					<th><h3>Name</h3></th>
+					<th><h3>Size</h3></th>
+					<th><h3>Color</h3></th>
+					<th><h3>Stock</h3></th>
+					<th><h3>Price</h3></th>
+					<th><h3>Category</h3></th>
+					<th><h3>Published Date</h3></th>
+					<th><h3>Modify</h3></th>
+					<th><h3>Suspended</h3></th>
+				</tr>
+			</thead>
+			<tbody id="products_tbody"></tbody>
+		</table>
+		
+		</div> <!-- end of class="col-md-8 col-xs-12" -->
+		<div class="col-md-2"></div>
+<!-- 資料表格 結束 -->
 
 <!-- 新增產品彈出視窗 開始-->
         	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="new_products" class="modal fade">
@@ -193,7 +206,7 @@ body {
                             
                     <div id="addActivitys_form" class="modal-body">
                     <div id='fine-uploader-manual-trigger'></div>
-            	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
+            	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="insert_Name" autocomplete="off" class="form-control" placeholder="輸入名稱" />                                                
                         <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                    		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />
@@ -229,43 +242,27 @@ body {
                   </div>
             </div>
 <!-- 新增產品彈出視窗 結束 -->
+<!-- 上傳圖片 開始-->
+<script>
+        $('#fine-uploader-manual-trigger').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/server/uploads'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        });
 
-<!-- 頁面部分 開始-->
-	<div class="row">
-		<div class="col-md-2 "></div>
-		<div class="col-md-8 col-xs-12 ">
-		
-		<button type="button" id="creProdBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#products_tbody">  
-  		新增產品 
-  		</button>
-<!--     <ul class="grid effect-5 " id="grid"> -->
-<!--                <li> <a data-toggle="modal" href="#new_products"></a>新增揪團</li> -->
-<!-- 	</ul> -->
-<!-- 資料表格 開始 -->
-		<table id="games_talbe" class="table">
-			<thead>
-				<tr>
-					<th><h3>Photo</h3></th>
-					<th><h3>ID</h3></th>
-					<th><h3>Detailed ID</h3></th>
-					<th><h3>Name</h3></th>
-					<th><h3>Size</h3></th>
-					<th><h3>Color</h3></th>
-					<th><h3>Stock</h3></th>
-					<th><h3>Price</h3></th>
-					<th><h3>Category</h3></th>
-					<th><h3>Published Date</h3></th>
-					<th><h3>Modify</h3></th>
-					<th><h3>Suspended</h3></th>
-				</tr>
-			</thead>
-			<tbody id="products_tbody"></tbody>
-		</table>
-		
-		</div> <!-- end of class="col-md-8 col-xs-12" -->
-		<div class="col-md-2"></div>
-<!-- 資料表格 結束 -->
-
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+        });
+</script>
+<!-- 上傳圖片 結尾-->
 
 <script>
 // 轉換日期的小程式 開始
@@ -335,10 +332,10 @@ body {
 	    		   processData: false,
 				   contentType: false,
 	               success:function(data){
-// 	            	   var jdate_int = parseInt(data.activity_Day);                          //轉換成數字
-// 						var jdate_value = new Date(jdate_int);
+// 						var pdate_int = parseInt(this[0].published_Date); //轉換成數字
+// 						var pdate_value = new Date(pdate_int);  
 	            	   $('#new_products').modal('hide');	
-	   					$('#creProdBtn>td:nth-child(1)').after('<tr><td><img src="data:image/png;base64,' + this[0].photo1 + '" class="img-thumbnail" /></td><td>'
+	   					$('#products_tbody>td:nth-child(1)').after('<tr><td><img src="data:image/png;base64,' + this[0].photo1 + '" class="img-thumbnail" /></td><td>'
 									+ this[0].product_Id
 									+ '</td><td>'
 									+ this[0].productDetail_Id
@@ -355,10 +352,10 @@ body {
 									+ '</td><td>'
 									+ this[2]
 									+ '</td><td>'
-									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+// 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td><span class="glyphicon glyphicon-wrench">'
 									+ '</td><td><i class="fa fa-code-fork" aria-hidden="true"></i>'
-									+ '</td></tr>') // end of append	            	   
+									+ '</td></tr>') // end of after	            	   
 	            	   
 // 					           $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'	            	   
 // 								+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
@@ -464,7 +461,7 @@ body {
  													+ '</td><td>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td><span class="glyphicon glyphicon-wrench">'
-													+ '</td><td><i class="fa fa-code-fork" aria-hidden="true"></i>'
+													+ '</td><td><i class="fa fa-minus-square" aria-hidden="true"></i>'
 													+ '</td></tr>') // end of append
 			}) // end of $.each(
 		} // end of success : function(data) 
