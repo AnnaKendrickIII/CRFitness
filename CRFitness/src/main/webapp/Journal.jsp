@@ -84,7 +84,7 @@
 		var theMessageDetailObj;
 		
 	        $.ajax({
-	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournal",
+	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
 	            type:'get',  //get post put delete
 	            data:{},
 	            success:function(data){
@@ -97,117 +97,129 @@
 		        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br />類別：'
 		        		 +this.contents+'<br />內容：'+this.contents+'<br />日期：'
 		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-		        		 +'</li>')
-		        		 
-	             		//新增留言按鈕
-	             		if("${LoginOK}"!=""){
-							var eleBtn = $('<button />',{'text':'留言'}).bind('click',this,function(){
-//	 							console.log(arguments[0].data);
-								$('#insertMessageDetailDiv').modal('toggle');
-								theMessageDetailObj = arguments[0].data;
-							});
-		        		 $('#grid>li:last').append(eleBtn);
-	             		}
-		        		 
-		        		 //  顯示留言
-		        		 var count = 1;
-		        		 $.each(this.messageDetailVOs, function(){
-		        			 $('#grid>li:last').append(
-		        					 '<hr/>#'+count
-		        					 +'<br>留言人:'+this.member_Id
-		        					 +'<br>留言內容:'+this.content
-		        					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')		 
-		        			 );
-		        			 count++;
-		        		 })
+		        		 +'</li>')	     
 	                })
 	                // each end
-	                //	 新增留言送出的click事件==================================
-							$('#sendEditBtn').on('click', function(){
-								$('#insertMessageDetailDiv').modal('toggle');
-								var formData = new FormData();
-//					 			var category = $('#category').val();  // 類別是??
-								console.log(theMessageDetailObj);
-								var member_Id = "${LoginOK.member_Id}";
-								var journal_Id = theMessageDetailObj.journal_Id;
-								var content = $('#insertMessageDetail').val();
-//	 							var publishTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
-								formData.append('journal_Id', journal_Id);
-								formData.append('member_Id', member_Id);
-								formData.append('content', content);
-								
-								if(content === undefined || content.trim().length == 0){
-									alert('請輸入留言內容');
-								}else{
-									$.ajax({
-										url: "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
-										type: 'post',
-										data: formData,
-										processData: false,
-										contentType: false,
-										success: function(data){
-//	 										console.log(data);
-											if(data){
-												// 重新載入??
-//	 											console.log($('#grid>li[value='+journal_Id+']').attr('value'));
-//	 											$('#grid>li[value='+journal_Id+']').remove();
-												$('#insertMessageDetailDiv').modal('toggle');
-												$('#insertMessageDetail').val('');
-												
-											}else{
-												alert('留言失敗，請重新嘗試或電洽客服');
-											}
-											/*
-											$('#exampleModal').modal('toggle');									
-					    						var jdate_int = parseInt(data.publishTime); //轉換成數字
-					    						var jdate_value = new Date(jdate_int);
-					    						
-					    						$('#grid>li:nth-child(1)').before(
-					    						'<li ><a href=""><img src="data:image/png;base64,'
-					    						+data.archives+'" /></a>'
-						    						+'id:'+data.memberVO.member_Id  // 上線前要拿掉或改暱稱
-					    						+ '<br />類別：'
-				   								+ data.contents
-				   								+ '<br />內容：'
-				   								+ data.contents
-				   								+ '<br />日期：'
-				   								+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-				   								+ '<br/><button>編輯</button>'
-				   								+ '</li>')
-				   								
-				    							$('#grid>li:nth-child(1)').on('click',' :button',data,function(){
-				   									console.log(arguments.length);
-				   									console.log(arguments[0].data);
-				   								});	
-					    						*/							
-
-										}
-										
-									})
-			
-								}
-							
-								
-							});
-
-	                $.getScript('${this_contextPath}/js/bootstrap-image-gallery.min.js',function(){
-	            		
-	            	})
 	                new AnimOnScroll(document.getElementById('grid'), {
 	                    minDuration: 0.4,
 	                    maxDuration: 0.6,
 	                    viewportFactor: 0.2
 	                });
+	            	
+	            	$.ajax({
+	    	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalTwo",
+	    	            type:'get',  //get post put delete
+	    	            data:{},
+	    	            success:function(data){
+//	    	             		console.log(data);
+	    	            	$.each(data,function(){
+	    		        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
+	    							var jdate_value = new Date(jdate_int); 
+	    		        		 $('#grid').append('<li value="'+this.journal_Id+'"><a href="data:image/png;base64,'
+	    		        		 +this.archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
+	    		        		 +this.archives+'" /></a>發起人：'+this.memberVO.nickname+'<br />類別：'
+	    		        		 +this.contents+'<br />內容：'+this.contents+'<br />日期：'
+	    		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+	    		        		 +'</li>')	        
+	    	                })
+	    	                // each end
+	    	                new AnimOnScroll(document.getElementById('grid'), {
+	    	                    minDuration: 0.4,
+	    	                    maxDuration: 0.6,
+	    	                    viewportFactor: 0.2
+	    	                });
+    	
+	    	 	          }
+         	 
+	    	        })
 	 	          }
-//	           ,beforeSend:function(){
-//	                 $('#imgloading').show();
-//	               },
-//	               complete:function(){
-//	             	 $('#imgloading').hide();
-//	               }        	
+   	
 	                  	 
 	        })
-
+	        
+	      //新增留言按鈕
+     		if("${LoginOK}"!=""){
+				var eleBtn = $('<button />',{'text':'留言'}).on('click',this,function(){
+//						console.log(arguments[0].data);
+					$('#insertMessageDetailDiv').modal('toggle');
+					theMessageDetailObj = arguments[0].data;
+				});
+    		 $('#grid>li:last').append(eleBtn);
+     		}		 
+    		 //  顯示留言
+    		 $.each(this.messageDetailVOs, function(index){
+    					 $('#grid>li:last').append(
+    					 '<hr/>#'+(index+1)
+    					 +'<br>留言人:'+this.member_Id
+    					 +'<br>留言內容:'+this.content
+    					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')		 
+    						 );
+    			
+    					 })
+    		
+	        
+//	   	 新增留言送出的click事件==================================
+			$('#sendEditBtn').on('click', function(){
+				$('#insertMessageDetailDiv').modal('toggle');
+				var formData = new FormData();
+//	 			var category = $('#category').val();  // 類別是??
+				console.log(theMessageDetailObj);
+				var member_Id = "${LoginOK.member_Id}";
+				var journal_Id = theMessageDetailObj.journal_Id;
+				var content = $('#insertMessageDetail').val();
+//					var publishTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
+				formData.append('journal_Id', journal_Id);
+				formData.append('member_Id', member_Id);
+				formData.append('content', content);
+				
+				if(content === undefined || content.trim().length == 0){
+					alert('請輸入留言內容');
+				}else{
+					$.ajax({
+						url: "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
+						type: 'post',
+						data: formData,
+						processData: false,
+						contentType: false,
+						success: function(data){
+//								console.log(data);
+							if(data){
+								// 重新載入??
+//									console.log($('#grid>li[value='+journal_Id+']').attr('value'));
+//									$('#grid>li[value='+journal_Id+']').remove();
+								$('#insertMessageDetailDiv').modal('toggle');
+								$('#insertMessageDetail').val('');
+								
+							}else{
+								alert('留言失敗，請重新嘗試或電洽客服');
+							}
+							/*
+							$('#exampleModal').modal('toggle');									
+	    						var jdate_int = parseInt(data.publishTime); //轉換成數字
+	    						var jdate_value = new Date(jdate_int);
+	    						
+	    						$('#grid>li:nth-child(1)').before(
+	    						'<li ><a href=""><img src="data:image/png;base64,'
+	    						+data.archives+'" /></a>'
+		    						+'id:'+data.memberVO.member_Id  // 上線前要拿掉或改暱稱
+	    						+ '<br />類別：'
+   								+ data.contents
+   								+ '<br />內容：'
+   								+ data.contents
+   								+ '<br />日期：'
+   								+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+   								+ '<br/><button>編輯</button>'
+   								+ '</li>')
+   								
+    							$('#grid>li:nth-child(1)').on('click',' :button',data,function(){
+   									console.log(arguments.length);
+   									console.log(arguments[0].data);
+   								});	
+	    						*/							
+						}						
+					})
+				}		
+			});
 	    })
 	</script>
 </aside>

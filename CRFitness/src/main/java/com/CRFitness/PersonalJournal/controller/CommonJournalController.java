@@ -20,8 +20,12 @@ public class CommonJournalController {
 	@Resource(name="commonJournalService")
 	private CommonJournalService  commonJournalService;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/commonJournal", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<PersonalJournalVO> getAll() {
-		return commonJournalService.ShowAllJournal();
+	@RequestMapping(method = RequestMethod.GET, value = "/commonJournalOne", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<PersonalJournalVO> getAll_One() {
+		return commonJournalService.ShowAllJournal_One();
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/commonJournalTwo", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<PersonalJournalVO> getAll_Two() {
+		return commonJournalService.ShowAllJournal_Two();
 	}
 }

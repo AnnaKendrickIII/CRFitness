@@ -74,7 +74,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 				+ "FROM Activitys JOIN Members "
 				+ "ON Activitys.Member_Id = Members.Member_Id "
 				+"order by activity_Day desc"	
-				+" OFFSET 0 ROWS FETCH NEXT 12 ROWS ONLY")
+				+" OFFSET 0 ROWS FETCH NEXT 8 ROWS ONLY")
 				.addEntity("Activitys.*", ActivitysVO.class)
 				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
 				.addScalar("Nickname", StringType.INSTANCE);			
@@ -92,7 +92,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 				+ "FROM Activitys JOIN Members "
 				+ "ON Activitys.Member_Id = Members.Member_Id "
 				+"order by activity_Day desc"	
-				+" OFFSET 12 ROWS ")
+				+" OFFSET 8 ROWS ")
 				.addEntity("Activitys.*", ActivitysVO.class)
 				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
 				.addScalar("Nickname", StringType.INSTANCE);			

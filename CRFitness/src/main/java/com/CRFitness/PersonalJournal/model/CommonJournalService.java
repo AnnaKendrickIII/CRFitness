@@ -21,8 +21,11 @@ public class CommonJournalService {
 	}
 
 	// 抓取publicStatus狀態
-	public List<PersonalJournalVO> ShowAllJournal() {
-		return  personalJournalDAO.select_publicStatus();
+	public List<PersonalJournalVO> ShowAllJournal_One() {
+		return  personalJournalDAO.select_publicStatus_One();
+	}
+	public List<PersonalJournalVO> ShowAllJournal_Two() {
+		return  personalJournalDAO.select_publicStatus_Two();
 	}
 
 //	 public static void main(String[] args) {
