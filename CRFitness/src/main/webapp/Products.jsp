@@ -15,8 +15,10 @@
 <title>鞋類</title>
 
 <style type="text/css">
+aside{
+background-color: #f5f5f5;
+}
 .productsclass {
-	margin-top: 4%;
 	background-color: #f5f5f5;
 }
 #a{
@@ -55,7 +57,7 @@ color: white
 </head>
 
 <body class="productsbody">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
@@ -87,7 +89,7 @@ color: white
       <div class="col-xs-2 col-lg-2 shopping_car"> </div>
     </div>
 </div>
-<img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png">
+<a href="${this_contextPath}/ShoppingCart.jsp"><img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png"></a>
 <script type="text/javascript">
 jQuery(function($){
 var Type='${pageContext.request.queryString}';
@@ -103,7 +105,7 @@ if(Type=='Sports_Equipment'){
 }
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByCategory',
-	type:'post',
+	type:'get',
 	data:{category:Type},
 	success:function(data){
 		$.each(data,function(){
@@ -114,7 +116,7 @@ $.ajax({
 						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
 						+this[1]+'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
-						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4"><a class="btn shop" >購買</a></div></div></div></a></div></div>'
+						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4"><a class="btn shop" >加入購物車</a></div></div></div></a></div></div>'
 					)	
 		})		
 	}

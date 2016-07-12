@@ -39,7 +39,7 @@ public class ProductDetailController {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/searchByPrimaryKey", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/searchByPrimaryKey", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody ProductDetailVO searchByPrimaryKey(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 
@@ -47,11 +47,9 @@ public class ProductDetailController {
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/searchByCategory", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/searchByCategory", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> searchByCategory(
 			HttpServletRequest request, @RequestParam String category) {
-
-
 		return productDetailService.getItemByCategory(category);
 
 	}

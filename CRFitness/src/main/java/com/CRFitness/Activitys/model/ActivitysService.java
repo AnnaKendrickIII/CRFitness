@@ -45,11 +45,14 @@ public class ActivitysService {
 		return activitysDAO.findByPrimaryKey(activity_Id);
 	}
 	
-	public List<ActivitysVO> findActivitysMembers( ){
-		List<ActivitysVO> list = activitysDAO.select_ActivityMember();
+	public List<ActivitysVO> findActivitysMembers_One( ){
+		List<ActivitysVO> list = activitysDAO.select_ActivityMember_One();
 		return list;
 	}
-	
+	public List<ActivitysVO> findActivitysMembers_Two( ){
+		List<ActivitysVO> list = activitysDAO.select_ActivityMember_Two();
+		return list;
+	}
 	public  List<ActivitysVO> findActivitysMem(String member_Id){
 		List<ActivitysVO> list = activitysDAO.select_Activitys(member_Id);
 		return list;	

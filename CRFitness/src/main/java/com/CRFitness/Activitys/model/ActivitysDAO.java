@@ -64,7 +64,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	}
 
 	@Override
-	public List<ActivitysVO> select_ActivityMember() {
+	public List<ActivitysVO>  select_ActivityMember_One() {
 		Query query = this.getSession().createSQLQuery(
 				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
 				+ "FROM ActivityDetail JOIN Members "
@@ -73,11 +73,29 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 				+ "FOR XML PATH('') ) as Nicknames "
 				+ "FROM Activitys JOIN Members "
 				+ "ON Activitys.Member_Id = Members.Member_Id "
-				+"order by activity_Day desc")	
+				+"order by activity_Day desc"	
+				+" OFFSET 0 ROWS FETCH NEXT 12 ROWS ONLY")
 				.addEntity("Activitys.*", ActivitysVO.class)
 				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
-				.addScalar("Nickname", StringType.INSTANCE);
-				
+				.addScalar("Nickname", StringType.INSTANCE);			
+		return (List<ActivitysVO>) query.list();
+	}
+	
+	@Override
+	public List<ActivitysVO> select_ActivityMember_Two() {
+		Query query = this.getSession().createSQLQuery(
+				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+				+ "FROM ActivityDetail JOIN Members "
+				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+				+ "FOR XML PATH('') ) as Nicknames "
+				+ "FROM Activitys JOIN Members "
+				+ "ON Activitys.Member_Id = Members.Member_Id "
+				+"order by activity_Day desc"	
+				+" OFFSET 12 ROWS ")
+				.addEntity("Activitys.*", ActivitysVO.class)
+				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+				.addScalar("Nickname", StringType.INSTANCE);			
 		return (List<ActivitysVO>) query.list();
 	}
 	
