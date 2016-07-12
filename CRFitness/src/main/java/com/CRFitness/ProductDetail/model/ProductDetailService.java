@@ -1,5 +1,6 @@
 package com.CRFitness.ProductDetail.model;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.Products.model.ProductsDAO_interface;
 import com.CRFitness.Products.model.ProductsVO;
@@ -112,11 +114,11 @@ public class ProductDetailService {
 			String category, String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
-			// Timestamp published_Date, // 刊登日期
-			byte[] photo1, // 圖片1
-			// byte[] photo2, // 圖片2
-			// byte[] photo3, // 圖片3
-			// String detailed_Description, // 商品簡介
+//			Timestamp published_Date, // 刊登日期
+			MultipartFile photo1, // 圖片1
+//			byte[] photo2, // 圖片2
+//			byte[] photo3, // 圖片3
+//			String detailed_Description, // 商品簡介
 			String introduction) {
 		List<Object> list = new ArrayList<Object>();
 
@@ -134,11 +136,12 @@ public class ProductDetailService {
 		productDetailVO.setStock(stock);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
-		// try {
-		productDetailVO.setPhoto1(photo1);
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
+
+		try {
+			productDetailVO.setPhoto1(photo1.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		productDetailVO.setIntroduction(introduction);
 		productDetailVO = productDetailDAO.insert(productDetailVO);
 
