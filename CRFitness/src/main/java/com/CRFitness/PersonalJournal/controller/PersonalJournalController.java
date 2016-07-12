@@ -71,7 +71,7 @@ public class PersonalJournalController {
 		return personalJournalService.insertPersonalJournal(member_Id,archives,contents,publishTime,publicStatus);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/updateJournal", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.PUT, value = "/updateJournal", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody boolean updatePersonalJournal(
 			@RequestParam String journal_Id,
 			@RequestParam String contents,
