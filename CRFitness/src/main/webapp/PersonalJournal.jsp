@@ -20,7 +20,7 @@
 .timeline-footer {
 	background-color: #F5F5F5;
 }
-.timeline-footer textarea{
+textarea{
 	resize: none;
 }
 .message_div {
@@ -174,6 +174,8 @@
 		
 	};
 	var member_Id = "${LoginOK.member_Id}";
+	var myNickName = "${LoginOK.nickname}";
+	
 	
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
@@ -226,7 +228,7 @@
 				type : 'get', //get post put delete
 				data : {member_Id : theMemberId},
 				success : function(data) {
-					console.log(data);
+// 					console.log(data);
 					
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
@@ -264,7 +266,7 @@
 				   			+'</div>'
 				   			+ '<div  class="col-md-12"></div>'
 				   			+ '<div class="message_div form-group">'
-				   			+ '<textarea class="form-control" placeholder="留言....."></textarea>'
+				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
 				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
 				   			+'</div>'
 				   			+ '</div>'
@@ -390,8 +392,34 @@
 console.log(data);
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
 			    						var jdate_value = new Date(jdate_int);
-			    						var myNickName = "${LoginOK.nickname}";
 			    						
+			    						
+			    						var invert; 
+			    				    	var li_direction;
+			    				    	
+			    						/*
+			    				    	var  invert; 
+			    				    	var li_direction;
+
+			    				    	if(index%2==0){
+			    				    		li_direction='<li id="'+ this[0].journal_Id +'">';
+			    				    		invert='<i class="glyphicon glyphicon-record " '
+			    				    	}else{
+			    				    		li_direction='<li id="'+ this[0].journal_Id +'" class="timeline-inverted" >';
+			    				    		invert='<i class="glyphicon glyphicon-record invert" '
+			    				    	}
+
+			    						*/
+			    						
+			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record')){
+			    							li_direction='<li id="'+ data.journal_Id +'">';
+			    				    		invert='<i class="glyphicon glyphicon-record " '
+			    						}else{
+			    							li_direction='<li id="'+ data.journal_Id +'" class="timeline-inverted" >';
+			    				    		invert='<i class="glyphicon glyphicon-record invert" '
+			    						}
+			    						
+			    						// 顯示新增
 			    						$('#grid>li:nth-child(1)').before(
 			    								li_direction
 			    						    	+ '<div class="timeline-badge primary"><a>'
@@ -399,11 +427,11 @@ console.log(data);
 			    			// 			    	↓title塞入時間日期
 			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
 			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
-			    						    	+ this[0].archives+'" /></a></div>'
+			    						    	+ data.archives+'" /></a></div>'
 			    						    	+ '<div class="timeline-body">'
-			    						    	+ 'id:'+ myNickName  // 上線前要拿掉或改暱稱
+			    						    	+ 'id:'+ myNickName  // 上線前要拿掉或改暱稱mySelfNickName
 			    					   			+ '<br />內容：'
-			    					   			+ this[0].contents
+			    					   			+ data.contents
 			    					   			+ '<br />日期：'
 			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 			    					   			+ '</div>'			    					   			
@@ -439,8 +467,8 @@ console.log(data);
 		   										$('<option />',{value:i,text:publicStatusArray[i]}).appendTo(eleS);
 		   									}
 		   								}
-		   	    						$('#grid>li:nth-child(1)').append(eleS);
-		   	    						
+		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);
+		   	    						// #grid>li div[class="timeline-body"]:last
 // 		    							$('#grid>li:nth-child(1)').on('click',' :button',data,function(){
 // 		   									console.log(arguments.length);
 // 		   									console.log(arguments[0].data);
