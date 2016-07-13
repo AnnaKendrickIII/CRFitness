@@ -13,14 +13,14 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 	
 	private static final long serialVersionUID = 1L;
 	private String journal_Id;				//日誌編號
-	private MemberVO memberVO;				//會員編號
+	private String member_Id;				//會員編號
 	private byte[] archives;				//影音圖檔
 	private String contents;				//日誌內容
 	private Timestamp publishTime;			//發表日誌時間
 	private Integer publicStatus;			//是否公開(狀態)
 	//聯合映射帶出 留言訊息
-	@JsonSerialize
-	private Set<MessageDetailVO> messageDetailVOs = new HashSet<>();
+//	@JsonSerialize
+//	private Set<MessageDetailVO> messageDetailVOs = new HashSet<>();
 
 	public String getJournal_Id() {
 		return journal_Id;
@@ -29,12 +29,12 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 	public void setJournal_Id(String journal_Id) {
 		this.journal_Id = journal_Id;
 	}
-	public MemberVO getMemberVO() {
-		return memberVO;
+	public String getMember_Id() {
+		return member_Id;
 	}
 
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
+	public void setMember_Id(String member_Id) {
+		this.member_Id = member_Id;
 	}
 
 	public byte[] getArchives() {
@@ -69,12 +69,12 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 		this.publicStatus = publicStatus;
 	}
 
-	public Set<MessageDetailVO> getMessageDetailVOs() {
-		return messageDetailVOs;
-	}
-
-	public void setMessageDetailVOs(Set<MessageDetailVO> messageDetailVOs) {
-		this.messageDetailVOs = messageDetailVOs;
-	}
+//	public Set<MessageDetailVO> getMessageDetailVOs() {
+//		return messageDetailVOs;
+//	}
+//
+//	public void setMessageDetailVOs(Set<MessageDetailVO> messageDetailVOs) {
+//		this.messageDetailVOs = messageDetailVOs;
+//	}
 
 }

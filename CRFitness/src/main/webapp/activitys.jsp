@@ -10,10 +10,10 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component_activity.css" />
 
-<script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 動畫效果 -->
-<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"> <!-- 彈跳視窗 -->
-<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- 檔案上傳 -->
-<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- 檔案上傳 -->
+<script src="${this_contextPath}/js/modernizr.custom.js"></script>
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
+<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
+<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
 
 
@@ -46,8 +46,6 @@
     margin-right: 16px;
 }
 </style>
-
-<!-- 檔案上傳 -->
 <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
@@ -201,10 +199,10 @@
                 <!-- 上傳圖片 結尾-->
                
                    <!-- 新增活動 結尾-->
-    <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    <!-- 瀑布流 -->
-	<script src="${this_contextPath}/js/classie.js"></script> <!-- 瀑布流 -->  
-	<script src="${this_contextPath}/js/imagesloaded.js"></script> <!-- 瀑布流 -->
-	<script src="${this_contextPath}/js/AnimOnScroll.js"></script> <!-- 瀑布流 -->	
+    <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
+	<script src="${this_contextPath}/js/classie.js"></script>
+	<script src="${this_contextPath}/js/imagesloaded.js"></script>
+	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
 	
 	<!-- 輸入日期 開始-->
 	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script>

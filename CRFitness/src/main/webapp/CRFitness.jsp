@@ -211,7 +211,7 @@
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
-                                     $('#myactivity_create_tbody').append('<tr><td><a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this[0].photo1+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="myactivity_class">'+  this[0].activity_Class +'</td><td>'+  this[0].activity_Area +'</td>')  
+                                     $('#myactivity_create_tbody').append('<tr><td><a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this[0].photo1+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="myactivity_class">'+  this[0].activity_Class +'</td><td>'+  this[0].activity_Area +'</td></tr>')  
                                  })
                              }          	 
                          })

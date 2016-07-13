@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
+import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -13,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.CRFitness.Activitys.model.ActivitysVO;
 import com.CRFitness.Member.model.MemberVO;
 
 
@@ -22,15 +24,17 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	// 所有的日誌
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
 	// 個人所有日誌 從最近開始往後排序
-	private static final String GET_MYSELF_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO order by publishTime desc ";
+	private static final String GET_MYSELF_JOURNAL = 
+			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as JournalNickname from PersonalJournal where Member_Id=:member_Id order by publishTime desc";
 	//挑選publicStatus狀態為1的日誌  先取六筆
 	private static final String GET_COMMON_JOURNAL6 
-	= "Select * from PersonalJournal where publicStatus='1' order by publishTime desc  OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY ";
+	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname  from PersonalJournal where publicStatus='1' order by publishTime desc  OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY";
 	//挑選publicStatus狀態為1的日誌  再全取來
 	private static final String GET_COMMON_JOURNAL
-	= "Select * from PersonalJournal where publicStatus='1' order by publishTime desc OFFSET 6 ROWS ";
-	// 查朋友日誌
-	private static final String GET_FRIEND_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO and publicStatus != '0' order by publishTime desc ";
+	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname from PersonalJournal where publicStatus='1' order by publishTime desc OFFSET 6 ROWS ";
+	// 查朋友日誌										
+	private static final String GET_FRIEND_JOURNAL = 
+			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '0' order by publishTime desc";
 	
 	private static final String UPDATE_JOURNAL = 
 			"update PersonalJournalVO set contents=:contents , publicStatus=:publicStatus where journal_Id=:journal_Id";
@@ -105,31 +109,78 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	}
 	
 	@Override
-	public List<PersonalJournalVO> select_myJournal(MemberVO memberVO) {
-		Query query =  this.getSession().createQuery(GET_MYSELF_JOURNAL).setParameter("memberVO", memberVO);
-		
+	public List<PersonalJournalVO> select_myJournal(String member_Id) {
+//		Query query =  this.getSession().createQuery(GET_MYSELF_JOURNAL).setParameter("memberVO", memberVO);
+//		return (List<PersonalJournalVO>) query.list();
+		Query query = this.getSession().createSQLQuery(GET_MYSELF_JOURNAL)
+				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
+				.addScalar("JournalNickname", StringType.INSTANCE) 
+				.setParameter("member_Id", member_Id);
+				
 		return (List<PersonalJournalVO>) query.list();
 	}	
 	
 	@Override
-	public List<PersonalJournalVO> select_friendJournal(MemberVO memberVO) {
-		Query query =  this.getSession().createQuery(GET_FRIEND_JOURNAL).setParameter("memberVO", memberVO);
+	public List<PersonalJournalVO> select_friendJournal(String member_Id) {
+		System.out.println(member_Id);
+		Query query =  this.getSession().createSQLQuery(GET_FRIEND_JOURNAL)
+				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
+				.addScalar("friendJournalNickname", StringType.INSTANCE) // StringType.INSTANCE
+				.setParameter("member_Id", member_Id);
 		
 		return (List<PersonalJournalVO>) query.list();
 	}
 	
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_One( ){
-		Query query = this.getSession().createSQLQuery(GET_COMMON_JOURNAL6).addEntity(PersonalJournalVO.class);
+		Query query = this.getSession().createSQLQuery(
+				GET_COMMON_JOURNAL6).addEntity(PersonalJournalVO.class)
+				.addScalar("nickname", StringType.INSTANCE);
 		return (List<PersonalJournalVO>) query.list();
 	}
 	
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_Two( ){
-		Query query = this.getSession().createSQLQuery(GET_COMMON_JOURNAL).addEntity(PersonalJournalVO.class);
+		Query query = this.getSession().createSQLQuery(
+				GET_COMMON_JOURNAL).addEntity(PersonalJournalVO.class)
+				.addScalar("nickname", StringType.INSTANCE);
 		return (List<PersonalJournalVO>) query.list();
 	}
 
+//	@Override
+//	public List<ActivitysVO>  select_ActivityMember_One() {
+//		Query query = this.getSession().createSQLQuery(
+//				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+//				+ "FROM ActivityDetail JOIN Members "
+//				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+//				+ "FOR XML PATH('') ) as Nicknames "
+//				+ "FROM Activitys JOIN Members "
+//				+ "ON Activitys.Member_Id = Members.Member_Id "
+//				+"order by activity_Day desc"	
+//				+" OFFSET 0 ROWS FETCH NEXT 8 ROWS ONLY")
+//				.addEntity("Activitys.*", ActivitysVO.class)
+//				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+//				.addScalar("Nickname", StringType.INSTANCE);			
+//		return (List<ActivitysVO>) query.list();
+//	}
+	
+//	public List<ActivitysVO> select_Activitys(String member_Id) {	
+//		Query query = this.getSession().createSQLQuery(
+//				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+//				+ "FROM ActivityDetail JOIN Members "
+//				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+//				+ "FOR XML PATH('') ) as Nicknames "
+//				+ "FROM Activitys JOIN Members "
+//				+ "ON Activitys.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Member_Id = '"+member_Id+"'")
+//				.addEntity("Activitys.*",ActivitysVO.class)
+//				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+//				.addScalar("Nickname", StringType.INSTANCE);
+//		return (List<ActivitysVO>) query.list();	
+//	}
+	
 //	public static void main(String[] args) {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
 //

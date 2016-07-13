@@ -7,17 +7,14 @@
         <id name="journal_Id" column="Journal_Id">
             <generator class="generator.PersonalJournalGenerator"/>
         </id>
-       <many-to-one name="memberVO" class="com.CRFitness.Member.model.MemberVO"
-			lazy="false">
-			<column name="Member_Id" />
-		</many-to-one>
+		<property name="member_Id" column="Member_Id"></property>
 		<property name="archives" type="binary">
             <column name="Archives"  />
         </property>
         <property name="contents" column="Contents"></property>
         <property name="publishTime" column="PublishTime"></property>
         <property name="publicStatus" column="PublicStatus"></property>
-<!--         <set name="messageDetailVOs" table="MessageDetail"  order-by="MessageTime desc" lazy="true" > -->
+<!--         <set name="messageDetailVOs" table="MessageDetail"  order-by="MessageTime desc" lazy="false" > -->
 <!--         	<key><column name="Journal_Id"></column></key> -->
 <!--         	<one-to-many class="com.CRFitness.MessageDetail.model.MessageDetailVO"/> -->
 <!--         </set> -->
