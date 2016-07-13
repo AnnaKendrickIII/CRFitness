@@ -194,7 +194,7 @@
             type:'get',  //get post put delete
             data:{},
             success:function(data){
-				
+				console.log(data)
             	//------------------------- 判斷是否好友-------------------------
             	$.each(data,function(){
 						// console.log(data);
@@ -217,7 +217,7 @@
 				type : 'get', //get post put delete
 				data : {member_Id : theMemberId},
 				success : function(data) {
-// 					console.log(data);
+					console.log(data);
 					
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this.publishTime); //轉換成數字
@@ -230,7 +230,7 @@
 				    		invert='<i class="glyphicon glyphicon-record " '
 				    	}else{
 				    		li_direction='<li id="'+ this.journal_Id +'" class="timeline-inverted" >';
-				    		invert='<i class="glyphicon glyphicon-record invert" '	
+				    		invert='<i class="glyphicon glyphicon-record invert" '
 				    	}
 
 							//顯示查詢日誌
@@ -244,8 +244,6 @@
 					    	+ this.archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
 					    	+ 'id:'+this.memberVO.member_Id  // 上線前要拿掉或改暱稱
-					    	+ '<br />類別：'
-				   			+ this.contents
 				   			+ '<br />內容：'
 				   			+ this.contents
 				   			+ '<br />日期：'
@@ -254,7 +252,8 @@
 				   			
 // 				   			+ '<div  class="well">'
 				   			+ '<div class="timeline-footer">'
-				   			
+				   			+'</div>'
+				   			+ '<div  class="col-md-12"></div>'
 				   			+ '<div class="message_div form-group">'
 				   			+ '<textarea class="form-control" placeholder="留言....."></textarea>'
 				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
@@ -309,25 +308,39 @@
     						$('#grid>li div[class="timeline-body"]:last').append(eleS);
  						}
 						
-						// 留言功能-------------------------------------------------------
-						if(this.messageDetailVOs.length != 0){
-							var eleMessageA = $('<a></a>',{text:'查看更多留言'}).one('click',this, function(){	
+						// 查看留言功能-------------------------------------------------------
+// 						if(this.messageDetailVOs.length != 0){
+							var eleMessageA2 = $('<a></a>',{text:'隱藏留言'}).on('click',this, function(){
+								var thisData = arguments[0].data;
+								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]').slideUp();
+							})
+							
+							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
 								// 顯示留言
-								$.each(thisData.messageDetailVOs, function(index,ele){
-									console.log(diffTime(this.messageTime));
-// 									diffTime(this.messageTime);
-				        			 $('#grid>li[id="'+thisData.journal_Id+'"]').append(
-			        					 '<div class="col-md-6"><hr/>#'+(index+1)
-			        					 +'<br>留言人:'+this.member_Id
-			        					 +'<br>留言內容:'+this.content
-			        					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')	
-			        					 +'</div>'
-				        			 );
+								
+								$.ajax({
+									url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
+									type: 'GET',
+									data: {'journal_Id':thisData.journal_Id},
+									success: function(data){
+										$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]');
+// 										console.log(data.length+','+maxMessageSize);
+										
+										// 顯示留言
+										if(maxMessageSize != data.length){
+											$.each(data, function(index,ele){
+			// 									console.log(diffTime(this.messageTime));
+												writeMessageDetail(this.journal_Id, this.member_Id, this.content, this.messageTime);
+											});
+										}
+									}
 								})
 							})
-							$('#grid>li div[class="timeline-footer"]:last').append(eleMessageA);
-						}
+							
+							// 綁定顯示和隱藏留言的按鈕
+							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA1);
+							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA2);
   					})
   					
   					$('#grid').append('<li class="clearfix" style="float: none;">');
@@ -369,17 +382,32 @@
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
 			    						var jdate_value = new Date(jdate_int);
 			    						var myNickName = "${LoginOK.nickname}";
+			    						
 			    						$('#grid>li:nth-child(1)').before(
-			    						'<li value="'+ this.journal_Id +'"><a href=""><img src="data:image/png;base64,'
-			    						+data.archives+'" /></a>'
-				    						+'id:'+ myNickName // 上線前要拿掉或改暱稱
-			    						+ '<br />類別：'
-		   								+ data.contents
-		   								+ '<br />內容：'
-		   								+ data.contents
-		   								+ '<br />日期：'
-		   								+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-// 		   								+ '<br/><button>編輯</button>'
+			    								li_direction
+			    						    	+ '<div class="timeline-badge primary"><a>'
+			    						    	+ invert 	
+			    			// 			    	↓title塞入時間日期
+			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
+			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
+			    						    	+ this.archives+'" /></a></div>'
+			    						    	+ '<div class="timeline-body">'
+			    						    	+ 'id:'+ myNickName  // 上線前要拿掉或改暱稱
+			    					   			+ '<br />內容：'
+			    					   			+ this.contents
+			    					   			+ '<br />日期：'
+			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+			    					   			+ '</div>'
+			    					   			
+//			    	 				   			+ '<div  class="well">'
+			    					   			// 加入留言
+			    					   			+ '<div class="timeline-footer">'
+			    					   			+'</div>'
+			    					   			+ '<div  class="col-md-12"></div>'
+			    					   			+ '<div class="message_div form-group">'
+			    					   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
+			    					   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+			    					   			+ '</div>'
 		   								+ '</li>')
 		   								
 
@@ -419,15 +447,20 @@
 
 						
 					})
-        			/*
-					 * 	private String journal_Id;				//日誌編號
 					 
-						private String member_Id;				//會員編號
-						private byte[] archives;				//影音圖檔
-						private String contents;				//日誌內容
-						private Timestamp publishTime;		//發表日誌時間
-						private Integer publicStatus;			//是否公開(狀態)
-					 */
+					 
+    	// 寫入留言牆
+    	function writeMessageDetail(theJournal_Id, theMember_Id, theContent, theMessageTime){
+    		var theBeforeTime = diffTime(theMessageTime)	
+    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
+    				 '<div class="col-md-12"><hr/>'
+    				 +theMember_Id
+    				 +': ' + theContent
+//     				 +'<br>時間: '+ theBeforeTime
+    				 +'<br>時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
+    				 +'</div>'
+    			);
+    	}
     	
     	});
 	</script>

@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
+import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -13,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.CRFitness.Activitys.model.ActivitysVO;
 import com.CRFitness.Member.model.MemberVO;
 
 
@@ -106,8 +108,14 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	@Override
 	public List<PersonalJournalVO> select_myJournal(MemberVO memberVO) {
-		Query query =  this.getSession().createQuery(GET_MYSELF_JOURNAL).setParameter("memberVO", memberVO);
-		
+//		Query query =  this.getSession().createQuery(GET_MYSELF_JOURNAL).setParameter("memberVO", memberVO);
+//		return (List<PersonalJournalVO>) query.list();
+		Query query = this.getSession().createSQLQuery(
+				"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as JournalNickname from PersonalJournal where Member_Id=:memberId")
+				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
+				.addScalar("JournalNickname", StringType.INSTANCE); // StringType.INSTANCE
+				query.setParameter("memberId", memberVO.getMember_Id());
+				
 		return (List<PersonalJournalVO>) query.list();
 	}	
 	
@@ -130,6 +138,40 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		return (List<PersonalJournalVO>) query.list();
 	}
 
+//	@Override
+//	public List<ActivitysVO>  select_ActivityMember_One() {
+//		Query query = this.getSession().createSQLQuery(
+//				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+//				+ "FROM ActivityDetail JOIN Members "
+//				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+//				+ "FOR XML PATH('') ) as Nicknames "
+//				+ "FROM Activitys JOIN Members "
+//				+ "ON Activitys.Member_Id = Members.Member_Id "
+//				+"order by activity_Day desc"	
+//				+" OFFSET 0 ROWS FETCH NEXT 8 ROWS ONLY")
+//				.addEntity("Activitys.*", ActivitysVO.class)
+//				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+//				.addScalar("Nickname", StringType.INSTANCE);			
+//		return (List<ActivitysVO>) query.list();
+//	}
+	
+//	public List<ActivitysVO> select_Activitys(String member_Id) {	
+//		Query query = this.getSession().createSQLQuery(
+//				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+//				+ "FROM ActivityDetail JOIN Members "
+//				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+//				+ "FOR XML PATH('') ) as Nicknames "
+//				+ "FROM Activitys JOIN Members "
+//				+ "ON Activitys.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Member_Id = '"+member_Id+"'")
+//				.addEntity("Activitys.*",ActivitysVO.class)
+//				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+//				.addScalar("Nickname", StringType.INSTANCE);
+//		return (List<ActivitysVO>) query.list();	
+//	}
+	
 //	public static void main(String[] args) {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
 //

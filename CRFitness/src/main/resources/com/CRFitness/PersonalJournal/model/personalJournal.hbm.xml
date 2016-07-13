@@ -17,7 +17,7 @@
         <property name="contents" column="Contents"></property>
         <property name="publishTime" column="PublishTime"></property>
         <property name="publicStatus" column="PublicStatus"></property>
-<!--         <set name="messageDetailVOs" table="MessageDetail"  order-by="MessageTime desc" lazy="true" > -->
+<!--         <set name="messageDetailVOs" table="MessageDetail"  order-by="MessageTime desc" lazy="false" > -->
 <!--         	<key><column name="Journal_Id"></column></key> -->
 <!--         	<one-to-many class="com.CRFitness.MessageDetail.model.MessageDetailVO"/> -->
 <!--         </set> -->
