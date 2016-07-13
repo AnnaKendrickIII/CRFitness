@@ -22,7 +22,7 @@
 </head>
 <body>
 	<aside>
-		<div class="checkorder">
+		<div class="checkorder" style="background-color: #f5f5f5">
 
 			<form class="form-horizontal">
 				<fieldset>

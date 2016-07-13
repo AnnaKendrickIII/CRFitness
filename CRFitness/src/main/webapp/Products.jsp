@@ -62,7 +62,7 @@ color: white
 
 <aside>
 <div class="productsclass">
-<div class="row well ">
+<div class="row well">
     <div class="col-md-8 col-xs-8">
         <strong> Commodity Category </strong>
         <div class="btn-group">
