@@ -24,15 +24,17 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	// 所有的日誌
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
 	// 個人所有日誌 從最近開始往後排序
-	private static final String GET_MYSELF_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO order by publishTime desc ";
+	private static final String GET_MYSELF_JOURNAL = 
+			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as JournalNickname from PersonalJournal where Member_Id=:member_Id order by publishTime desc";
 	//挑選publicStatus狀態為1的日誌  先取六筆
 	private static final String GET_COMMON_JOURNAL6 
 	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname  from PersonalJournal where publicStatus='1' order by publishTime desc  OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY";
 	//挑選publicStatus狀態為1的日誌  再全取來
 	private static final String GET_COMMON_JOURNAL
 	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname from PersonalJournal where publicStatus='1' order by publishTime desc OFFSET 6 ROWS ";
-	// 查朋友日誌
-	private static final String GET_FRIEND_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO and publicStatus != '0' order by publishTime desc ";
+	// 查朋友日誌										
+	private static final String GET_FRIEND_JOURNAL = 
+			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '0' order by publishTime desc";
 	
 	private static final String UPDATE_JOURNAL = 
 			"update PersonalJournalVO set contents=:contents , publicStatus=:publicStatus where journal_Id=:journal_Id";
@@ -110,18 +112,21 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	public List<PersonalJournalVO> select_myJournal(String member_Id) {
 //		Query query =  this.getSession().createQuery(GET_MYSELF_JOURNAL).setParameter("memberVO", memberVO);
 //		return (List<PersonalJournalVO>) query.list();
-		Query query = this.getSession().createSQLQuery(
-				"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as JournalNickname from PersonalJournal where Member_Id=:memberId")
+		Query query = this.getSession().createSQLQuery(GET_MYSELF_JOURNAL)
 				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
-				.addScalar("JournalNickname", StringType.INSTANCE); // StringType.INSTANCE
-				query.setParameter("memberId", member_Id);
+				.addScalar("JournalNickname", StringType.INSTANCE) 
+				.setParameter("member_Id", member_Id);
 				
 		return (List<PersonalJournalVO>) query.list();
 	}	
 	
 	@Override
 	public List<PersonalJournalVO> select_friendJournal(String member_Id) {
-		Query query =  this.getSession().createQuery(GET_FRIEND_JOURNAL).setParameter("member_Id", member_Id);
+		System.out.println(member_Id);
+		Query query =  this.getSession().createSQLQuery(GET_FRIEND_JOURNAL)
+				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
+				.addScalar("friendJournalNickname", StringType.INSTANCE) // StringType.INSTANCE
+				.setParameter("member_Id", member_Id);
 		
 		return (List<PersonalJournalVO>) query.list();
 	}
