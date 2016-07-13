@@ -12,15 +12,13 @@
 <style type="text/css">
 .cart {
 	margin-top: 4%;
-	background-color: #f5f5f5;
 }
-
 </style>
 </head>
 <body>
 	<aside>
 		<div class="cart">
-		<legend class="well well-sm" style="text-align: center">確認購物車</legend>
+			<legend class="well well-sm" style="text-align: center">確認購物車</legend>
 			<div class="col-xs-2"></div>
 			<div class="row col-xs-8">
 				<div class="panel panel-info">
@@ -44,6 +42,37 @@
 					</div>
 					<div class="panel-body">
 						<!-- 商品資料  開始 -->
+						<div class="row">
+							<div class="col-xs-2">
+								<img class="img-responsive" src="http://placehold.it/100x70">
+							</div>
+							<div class="col-xs-4">
+								<h4 class="product-name">
+									<strong>Product name</strong>
+								</h4>
+								<h4>
+									<small>Product description</small>
+								</h4>
+							</div>
+							<div class="col-xs-6">
+								<div class="col-xs-6 text-right">
+									<h6>
+										<strong>25.00 <span class="text-muted">x</span></strong>
+									</h6>
+								</div>
+								<div class="col-xs-4">
+									<input type="text" class="form-control input-sm" value="1">
+								</div>
+								<div class="col-xs-2">
+									<button type="button" class="btn btn-link btn-xs" title="移除此商品">
+										<span class="glyphicon glyphicon-trash" title="移除此商品">
+										</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<hr>
+						
 						<div class="row">
 							<div class="col-xs-2">
 								<img class="img-responsive" src="http://placehold.it/100x70">
@@ -105,6 +134,9 @@
 			<div class="col-xs-2"></div>
 		</div>
 	</aside>
+	<script type="text/javascript">
+		
+	</script>
 	<script type="text/javascript">
 		
 	</script>
