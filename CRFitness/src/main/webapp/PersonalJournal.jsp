@@ -14,14 +14,14 @@
 <title>${LoginOK.nickname}的個人日誌</title>
 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
+<%-- <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> --%>
 
 <style>
 .timeline-footer {
-	background-color: #FCFCFC;
+	background-color: #F5F5F5;
 }
-textarea{
+.timeline-footer textarea{
 	resize: none;
-	
 }
 .message_div {
 	margin-top: 3px;
@@ -37,22 +37,28 @@ textarea{
 <c:if test="${! empty LoginOK}">
 <aside> 
 <div class="row">
-	<div class="col-md-2 col-xs-1"></div>
-		<div class="col-md-6 col-xs-10">
-			<div class="page-header text-center">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button>
-			</div>
-			<ul class="timeline" id="grid">
-			
-			</ul>
-		</div>
-		<div class="col-md-4 col-xs-2">
-		<h3>揪團要塞這邊</h3>
-		<div id="myactivity_create_tbody"></div>
-		</div>
+			<div class="col-md-2 col-xs-1"></div>
+				<div class="col-md-8 col-xs-10" >
+					<div class="col-md-8 col-xs-10">
+						<div class="page-header text-center">
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#exampleModal">新增個人日誌</button>
+						</div>
+						<ul class="timeline" id="grid">
+
+						</ul>
+					</div>
+					<div class="col-md-4 col-xs-2">
+						<h3>揪團要塞這邊</h3>
+						<ul class="event-list" id="myactivity_personal">
+
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-2 col-xs-1"></div>
 		
 		<!-- 抓取使用者建立的揪團  開始-->
-                 <script type="text/javascript">
+         <!--     <script type="text/javascript">
                      $(function () {
                          $.ajax({
                              url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
@@ -60,23 +66,29 @@ textarea{
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
-                                     $('#myactivity_create_tbody').append(
-                                    	'<tr><td><a href="${this_contextPath}/activitydetail.jsp?'
+                                     $('#myactivity_personal').append(
+                                    	 '<li>'	 
+                                    	+'<td><a href="${this_contextPath}/activitydetail.jsp?'
                                     	+this.member_Id+'" >'
                                     	+'<img src="data:image/png;base64,'
-                                    	+this[0].photo1+'" class="" alt="Responsive image" /></a>'
+                                    	+this[0].photo1+'" class="" alt="Independence Day" /></a>'
                                     	+'<td class="">'
-                                    	+this[0].activity_Class +'</td><td>'
-                                    	+this[0].activity_Area +'</td>')  
+                                    	+this[0].activity_Class
+                                    	+'</td>'
+                                    	+'<td>'
+                                    	+this[0].activity_Area 
+                                    	+'</td>'
+                                    	+'</li>')  
                                  })
                              }          	 
                          })
                      })
                  </script > 
+                  -->
 		<!-- 抓取使用者建立的揪團  結束-->
                              
 		
-	<div class="col-md-4 col-xs-1"></div>	
+		
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 </div>
 	<!-- 頁面部分 開始-->
@@ -134,7 +146,6 @@ textarea{
 </aside>
 <!-- 	新增個人日誌結束 -->
 	<script type="text/javascript">
-	// 
 	function diffTime(beforeTime){
 		var nowTime = new Date();
 		var diffTime1 = nowTime.getTime() - beforeTime;
@@ -143,18 +154,18 @@ textarea{
 		var h = 60*m;
 		var day = 24*h;
 		var theday = Math.floor(diffTime1/day)
+		
 		var theH = Math.floor(diffTime1%day/h)
 		diffTime1 %= h;
 		var theM = Math.floor(diffTime1/m)
-		var theS = diffTime1%60;
-// 		console.log(theM+','+theS+','+diffTime1)
-// 		console.log(theday>0 ? theday+'天' :(theH > 0 ? theH+'小時'+(theM > 0 ? theM+'分':''):(theM > 0 ? theM+'分':'')))
-		return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+' 分前':''):(theM > 0 ? theM+' 分前':(theS > 0 ? theS+' 秒前':'')))
+		var theS = diffTime1%s;
+		console.log(theH)
+		console.log(theday>0 ? theday+'天' :(theH > 0 ? theH+'小時'+(theM > 0 ? theM+'分':''):(theM > 0 ? theM+'分':'')))
+// 		return (theday>0 ? theday+'天' :(theH > 0 ? theH+'小時'+(theM > 0? theM+'分'+(theS > 0? theS+'秒':''):''):''));
+		
 	};
-	
-	
 	var member_Id = "${LoginOK.member_Id}";
-	var myNickname = "${LoginOK.nickname}"
+	
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
 	        "M+": this.getMonth() + 1, //月份 
@@ -242,13 +253,12 @@ textarea{
 				   			+ '</div>'
 				   			
 // 				   			+ '<div  class="well">'
-				   			// 加入留言
 				   			+ '<div class="timeline-footer">'
-				   			+ '<div  class="form-group"></div>'
-				   			+'</div>'
+				   			
 				   			+ '<div class="message_div form-group">'
-				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
+				   			+ '<textarea class="form-control" placeholder="留言....."></textarea>'
 				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+				   			+'</div>'
 				   			+ '</div>'
 				   			+ '</li>')
 
@@ -257,40 +267,31 @@ textarea{
 				// 留言牆功能-------------------------------------
 				$('#'+this.journal_Id+' textarea').on('keydown', this, function (event) {
                     if (event.keyCode == 13 && !event.shiftKey) {
-                    	var theData = arguments[0].data;
-//                     	console.log(theData);
+                    	console.log(arguments[0].data);
                         var val= $(this).val()
-                        
-                        if(val.trim().length != 0){
-// 	                        $('#'+theData.journal_Id+' textarea[class=form-control]').val('')
-	                        val = val.replace(/\r?\n/g, '</br> ')
-	                        addMessageDetail(theData.journal_Id, member_Id, val)
-	                        writeMessageDetail(theData.journal_Id, myNickname, val, new Date().getTime());
-	                        $(this).val('')
-                        }
-                        return false; 
+                        val = val.replace(/\r?\n/g, '</br> ')
+                        console.log();
+//                         $('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]').append('<div>' + val + '</div>')
+                        $(this).val('')
+//                         return false; 
                     }
                 })
               //--------------------------------------------------------
               
                 $('#'+this.journal_Id+' .btn.btn-primary.pull-right').on('click', this, function () {
-//                 	console.log(arguments[0].data);
-                	var theData = arguments[0].data;
-                    var val = $('#'+theData.journal_Id+' textarea[class=form-control]').val()
-                    if(val.trim().length != 0){
-	                    val = val.replace(/\r?\n/g, '</br> ')
-	                    addMessageDetail(theData.journal_Id, member_Id, val)
-	                    writeMessageDetail(theData.journal_Id, myNickname, val, new Date().getTime());
-	                    $('#'+theData.journal_Id+' textarea[class=form-control]').val('')
-                    }
+                	console.log(arguments[0].data);
+                    var val = $('.form-control').val()
+                    val = val.replace(/\r?\n/g, '</br> ');
+//                     $('#grid>li[id="'+thisData.journal_Id+'"]').append('<div>' + val + '</div>')
+                    $('.form-control').val('')
                 })
                 //------------------------------------------------------
-						// 個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
+						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
 						if(mySelf){
 							var eleS = $('<br/><select />').bind('change',this,function(){
 								$.ajax({
 									url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
-									type: 'PUT',
+									type: 'POST',
 									data: {'journal_Id':arguments[0].data.journal_Id,'member_Id':theMemberId,'contents':arguments[0].data.contents,'publicStatus':$(this).val()},
 									success: function(data){
 										console.log(data);
@@ -308,33 +309,25 @@ textarea{
     						$('#grid>li div[class="timeline-body"]:last').append(eleS);
  						}
 						
-						// 查看留言功能-------------------------------------------------------
-// 						if(this.messageDetailVOs.length != 0){
-							var eleMessageA2 = $('<a></a>',{text:'隱藏留言'}).on('click',this, function(){
-								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="form-group"]').slideUp();
-							})
-							
-							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){	
+						// 留言功能-------------------------------------------------------
+						if(this.messageDetailVOs.length != 0){
+							var eleMessageA = $('<a></a>',{text:'查看更多留言'}).one('click',this, function(){	
 								var thisData = arguments[0].data;
-								
-								$.ajax({
-									url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
-									type: 'GET',
-									data: {'journal_Id':thisData.journal_Id},
-									success: function(data){
-										console.log(data)
-										// 顯示留言
-										$.each(data, function(index,ele){
-		// 									console.log(diffTime(this.messageTime));
-											writeMessageDetail(this.journal_Id, this.member_Id, this.content, this.messageTime)
-										})
-										// 
-										
-									}
+								// 顯示留言
+								$.each(thisData.messageDetailVOs, function(index,ele){
+									console.log(diffTime(this.messageTime));
+// 									diffTime(this.messageTime);
+				        			 $('#grid>li[id="'+thisData.journal_Id+'"]').append(
+			        					 '<div class="col-md-6"><hr/>#'+(index+1)
+			        					 +'<br>留言人:'+this.member_Id
+			        					 +'<br>留言內容:'+this.content
+			        					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')	
+			        					 +'</div>'
+				        			 );
 								})
 							})
-							$('#grid>li div[class="timeline-footer"]:last').append(eleMessageA1);
-							$('#grid>li div[class="timeline-footer"]:last').append(eleMessageA2);
+							$('#grid>li div[class="timeline-footer"]:last').append(eleMessageA);
+						}
   					})
   					
   					$('#grid').append('<li class="clearfix" style="float: none;">');
@@ -425,38 +418,19 @@ textarea{
 						}
 
 						
-					});
+					})
+        			/*
+					 * 	private String journal_Id;				//日誌編號
 					 
-					 
-    	// 寫入留言牆
-    	function writeMessageDetail(theJournal_Id, theMember_Id, theContent, theMessageTime){
-    		var theBeforeTime = diffTime(theMessageTime)	
-    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]>div:first').prepend(
-    				 '<div class="col-md-12"><hr/>'
-    				 +theMember_Id
-    				 +': ' + theContent
-//     				 +'<br>時間: '+ theBeforeTime
-    				 +'<br>時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
-    				 +'</div>'
-    			);
-    	}
+						private String member_Id;				//會員編號
+						private byte[] archives;				//影音圖檔
+						private String contents;				//日誌內容
+						private Timestamp publishTime;		//發表日誌時間
+						private Integer publicStatus;			//是否公開(狀態)
+					 */
     	
-    	// addMessageDetail ajax -> server 
-    	function addMessageDetail(theJournal_Id, theMember_Id, theVal){
-            $.ajax({
-            	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
-				type : 'post', //get post put delete
-				data : {'journal_Id':theJournal_Id,
-						'member_Id':theMember_Id,
-						'content':theVal},
-				success : function(data) {
-					console.log(data)
-				}
-            })
-    	}
-	})
+    	});
 	</script>
-	
 </c:if>
 	<!--  頁面部分 結束 -->
 	
