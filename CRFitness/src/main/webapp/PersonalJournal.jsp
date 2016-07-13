@@ -219,7 +219,7 @@ textarea{
 				    		invert='<i class="glyphicon glyphicon-record " '
 				    	}else{
 				    		li_direction='<li id="'+ this.journal_Id +'" class="timeline-inverted" >';
-				    		invert='<i class="glyphicon glyphicon-record invert" '	
+				    		invert='<i class="glyphicon glyphicon-record invert" '
 				    	}
 
 							//顯示查詢日誌
@@ -233,8 +233,6 @@ textarea{
 					    	+ this.archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
 					    	+ 'id:'+this.memberVO.member_Id  // 上線前要拿掉或改暱稱
-					    	+ '<br />類別：'
-				   			+ this.contents
 				   			+ '<br />內容：'
 				   			+ this.contents
 				   			+ '<br />日期：'
@@ -244,8 +242,8 @@ textarea{
 // 				   			+ '<div  class="well">'
 				   			// 加入留言
 				   			+ '<div class="timeline-footer">'
-				   			+ '<div  class="form-group"></div>'
 				   			+'</div>'
+				   			+ '<div  class="col-md-12"></div>'
 				   			+ '<div class="message_div form-group">'
 				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
 				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
@@ -311,10 +309,11 @@ textarea{
 						// 查看留言功能-------------------------------------------------------
 // 						if(this.messageDetailVOs.length != 0){
 							var eleMessageA2 = $('<a></a>',{text:'隱藏留言'}).on('click',this, function(){
-								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="form-group"]').slideUp();
+								var thisData = arguments[0].data;
+								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]').slideUp();
 							})
 							
-							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){	
+							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
 								
 								$.ajax({
@@ -322,19 +321,23 @@ textarea{
 									type: 'GET',
 									data: {'journal_Id':thisData.journal_Id},
 									success: function(data){
-										console.log(data)
-										// 顯示留言
-										$.each(data, function(index,ele){
-		// 									console.log(diffTime(this.messageTime));
-											writeMessageDetail(this.journal_Id, this.member_Id, this.content, this.messageTime)
-										})
-										// 
+										$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]');
+// 										console.log(data.length+','+maxMessageSize);
 										
+										// 顯示留言
+										if(maxMessageSize != data.length){
+											$.each(data, function(index,ele){
+			// 									console.log(diffTime(this.messageTime));
+												writeMessageDetail(this.journal_Id, this.member_Id, this.content, this.messageTime);
+											});
+										}
 									}
 								})
 							})
-							$('#grid>li div[class="timeline-footer"]:last').append(eleMessageA1);
-							$('#grid>li div[class="timeline-footer"]:last').append(eleMessageA2);
+							
+							// 綁定顯示和隱藏留言的按鈕
+							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA1);
+							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA2);
   					})
   					
   					$('#grid').append('<li class="clearfix" style="float: none;">');
@@ -376,17 +379,32 @@ textarea{
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
 			    						var jdate_value = new Date(jdate_int);
 			    						var myNickName = "${LoginOK.nickname}";
+			    						
 			    						$('#grid>li:nth-child(1)').before(
-			    						'<li value="'+ this.journal_Id +'"><a href=""><img src="data:image/png;base64,'
-			    						+data.archives+'" /></a>'
-				    						+'id:'+ myNickName // 上線前要拿掉或改暱稱
-			    						+ '<br />類別：'
-		   								+ data.contents
-		   								+ '<br />內容：'
-		   								+ data.contents
-		   								+ '<br />日期：'
-		   								+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-// 		   								+ '<br/><button>編輯</button>'
+			    								li_direction
+			    						    	+ '<div class="timeline-badge primary"><a>'
+			    						    	+ invert 	
+			    			// 			    	↓title塞入時間日期
+			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
+			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
+			    						    	+ this.archives+'" /></a></div>'
+			    						    	+ '<div class="timeline-body">'
+			    						    	+ 'id:'+ myNickName  // 上線前要拿掉或改暱稱
+			    					   			+ '<br />內容：'
+			    					   			+ this.contents
+			    					   			+ '<br />日期：'
+			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+			    					   			+ '</div>'
+			    					   			
+//			    	 				   			+ '<div  class="well">'
+			    					   			// 加入留言
+			    					   			+ '<div class="timeline-footer">'
+			    					   			+'</div>'
+			    					   			+ '<div  class="col-md-12"></div>'
+			    					   			+ '<div class="message_div form-group">'
+			    					   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
+			    					   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+			    					   			+ '</div>'
 		   								+ '</li>')
 		   								
 
@@ -431,7 +449,7 @@ textarea{
     	// 寫入留言牆
     	function writeMessageDetail(theJournal_Id, theMember_Id, theContent, theMessageTime){
     		var theBeforeTime = diffTime(theMessageTime)	
-    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]>div:first').prepend(
+    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
     				 '<div class="col-md-12"><hr/>'
     				 +theMember_Id
     				 +': ' + theContent

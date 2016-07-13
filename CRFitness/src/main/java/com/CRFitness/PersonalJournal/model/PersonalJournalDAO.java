@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
+import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -13,6 +14,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.CRFitness.Activitys.model.ActivitysVO;
 import com.CRFitness.Member.model.MemberVO;
 
 
@@ -120,6 +122,23 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		return (List<PersonalJournalVO>) query.list();
 	}
 
+	
+//	public List<ActivitysVO> select_Activitys(String member_Id) {	
+//		Query query = this.getSession().createSQLQuery(
+//				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+//				+ "FROM ActivityDetail JOIN Members "
+//				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+//				+ "FOR XML PATH('') ) as Nicknames "
+//				+ "FROM Activitys JOIN Members "
+//				+ "ON Activitys.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Member_Id = '"+member_Id+"'")
+//				.addEntity("Activitys.*",ActivitysVO.class)
+//				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+//				.addScalar("Nickname", StringType.INSTANCE);
+//		return (List<ActivitysVO>) query.list();	
+//	}
+	
 //	public static void main(String[] args) {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
 //
