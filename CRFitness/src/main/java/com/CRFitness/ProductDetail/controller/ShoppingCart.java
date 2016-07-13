@@ -1,6 +1,7 @@
 package com.CRFitness.ProductDetail.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class ShoppingCart extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
-	private List<ProductDetailVO> cart;
+	private Map<String, ProductDetailVO> cart;
 	private ProductDetailVO productDetailVO;
 	private HttpServletRequest request;
 	private HttpSession session;
@@ -29,10 +30,8 @@ public class ShoppingCart extends ActionSupport {
 	public ShoppingCart() {
 		request = ServletActionContext.getRequest();
 		session = request.getSession();
-		cart.add(productDetailVO);
+		cart.put("item", productDetailVO);
 		request.setAttribute("cart", cart);
 	}
-	
-	
-	
+
 }
