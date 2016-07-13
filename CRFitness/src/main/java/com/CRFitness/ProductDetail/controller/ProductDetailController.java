@@ -1,6 +1,7 @@
 package com.CRFitness.ProductDetail.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +44,6 @@ public class ProductDetailController {
 	public @ResponseBody ProductDetailVO searchByPrimaryKey(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 
-
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
@@ -58,7 +58,13 @@ public class ProductDetailController {
 	public @ResponseBody List<ProductDetailVO> searchAllItem(
 			HttpServletRequest request, String products_Id) {
 
-
 		return productDetailService.getAllItem();
 	}
+
+//	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = MediaType.APPLICATION_JSON)
+//	public @ResponseBody Map<String, ProductDetailVO> addShoppingCart(
+//			HttpServletRequest request, String productDetail_Id) {
+//
+//		return productDetailService.addShoppingCart(productDetail_Id);
+//	}
 }
