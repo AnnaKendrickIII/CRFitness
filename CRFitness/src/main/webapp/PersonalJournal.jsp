@@ -279,8 +279,9 @@ textarea{
                 })
               //--------------------------------------------------------
               
-                $('#'+this.journal_Id+' .btn.btn-primary.pull-right').on('click', this, function () {
+                $('#grid').on('click','#'+this.journal_Id, this, function () {
                 	console.log(arguments[0].data);
+                	console.log('btn')
                     var val = $('.form-control').val()
                     val = val.replace(/\r?\n/g, '</br> ');
 //                     $('#grid>li[id="'+thisData.journal_Id+'"]').append('<div>' + val + '</div>')
@@ -290,10 +291,12 @@ textarea{
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
 						if(mySelf){
 							var eleS = $('<br/><select />').bind('change',this,function(){
+// 								console.log(arguments[0].data)
+						
 								$.ajax({
 									url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
 									type: 'POST',
-									data: {'journal_Id':arguments[0].data.journal_Id,'member_Id':theMemberId,'contents':arguments[0].data.contents,'publicStatus':$(this).val()},
+									data: {'journal_Id':arguments[0].data[0].journal_Id,'member_Id':theMemberId,'contents':arguments[0].data[0].contents,'publicStatus':$(this).val()},
 									success: function(data){
 										console.log(data);
 									}
