@@ -52,10 +52,11 @@ public class OrdersService {
 		return ordersDAO.getAll();
 	}
 
-	// 新增訂單
-	public OrdersVO addOrder(String consignee_Name, String consignee_Address,
-			String payment_Method, Double total_Amount) {
+	// 新增訂單 及 明細
+	public OrdersVO addOrder(String member_Id, String consignee_Name,
+			String consignee_Address, String payment_Method, Double total_Amount) {
 		OrdersVO ordersVO = new OrdersVO();
+		ordersVO.setMember_Id(member_Id);
 		ordersVO.setConsignee_Name(consignee_Name);
 		ordersVO.setConsignee_Address(consignee_Address);
 		ordersVO.setPayment_Method(payment_Method);
@@ -63,11 +64,8 @@ public class OrdersService {
 		ordersVO.setOrder_Time(new Timestamp(System.currentTimeMillis()));
 		ordersVO.setShip_Date(null);
 		ordersVO.setTotal_Amount(total_Amount);
-		if (ordersDAO.insert(ordersVO)) {
-			return ordersVO;
-		} else {
-			return null;
-		}
+		ordersVO.setInvoice_Number("GD123456");
+		return ordersVO;
 	}
 
 	public static void main(String[] args) {
@@ -84,9 +82,12 @@ public class OrdersService {
 
 		// System.out.println(service.cancelOrder("order5007"));
 		// System.out.println(service.searchOrdersByMember_Id("member3000"));
-		List<OrdersVO> list = service.searchAllOrders();
-		for (OrdersVO vo : list)
-			System.out.println(vo.getOrder_Id());
+		// List<OrdersVO> list = service.searchAllOrders();
+		// for (OrdersVO vo : list)
+		// System.out.println(vo.getOrder_Id());
+		OrdersVO vo = service.addOrder("member1001", "林明禎", "林靖凱家", "用身體付",
+				99999.99);
+		System.out.println(vo.getOrder_Id());
 		((ConfigurableApplicationContext) context).close();
 	}
 }

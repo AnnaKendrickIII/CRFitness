@@ -36,8 +36,9 @@ public class PersonalJournalController {
 	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,HttpSession session) {
 		if(member_Id != null && member_Id.trim().length() != 0){
 //			System.out.println(member_Id);
-//			List<PersonalJournalVO> aaa = personalJournalService.showJournal(member_Id);
+//			List<PersonalJournalVO> aaa = personalJournalService.showMySelfJournal(member_Id);
 //			for(PersonalJournalVO aa: aaa){
+//				System.out.println(aa.getPublishTime());
 //				for(MessageDetailVO a: aa.getMessageDetailVOs()){
 //					System.out.println(a.getPersonalJournalVO().getJournal_Id()+a.getMember_Id()+a.getContent());
 //				}
@@ -47,6 +48,7 @@ public class PersonalJournalController {
 				return personalJournalService.showMySelfJournal(member_Id);
 			}
 			else{
+				
 				return personalJournalService.showFriendJournal(member_Id);
 			}
 		}else{

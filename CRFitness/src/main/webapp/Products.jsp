@@ -90,6 +90,7 @@ color: white
     </div>
 </div>
 <a href="${this_contextPath}/ShoppingCart.jsp"><img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png"></a>
+
 <script type="text/javascript">
 jQuery(function($){
 var Type='${pageContext.request.queryString}';

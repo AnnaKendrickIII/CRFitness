@@ -16,13 +16,14 @@
 
 #radioBtn .notActive {
 	color: #3276b1;
-	background-color: #fff;
+	background-color: #ffffff;
 }
 </style>
+
 </head>
 <body>
 	<aside>
-		<div class="checkorder" style="background-color: #f5f5f5">
+		<div class="checkorder">
 
 			<form class="form-horizontal">
 				<fieldset>
@@ -32,38 +33,35 @@
 
 					<!-- Text input-->
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="textinputname">收件人姓名</label>
+						<label class="col-md-4 control-label" for="name">收件人姓名</label>
 						<div class="col-md-4">
-							<input id="textinputname" name="textinputname" type="text"
-								placeholder="收件人姓名" class="form-control input-md"
-								autocomplete="off" required="">
+							<input id="name" name="name" type="text" placeholder="收件人姓名"
+								class="form-control input-lg" autocomplete="off" required="">
+						</div>
+					</div>
+					</br>
+					<!-- Text input-->
+					<div class="form-group">
+						<label class="col-md-4 control-label" for="address">收件地址</label>
+						<div class="col-md-4">
+							<input id="address" name="address" type="text" placeholder="收件地址"
+								class="form-control input-lg" autocomplete="off">
 						</div>
 					</div>
 
 					<!-- Text input-->
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="textinputmobile">收件地址</label>
+						<label class="col-md-4 control-label" for="e-mail">E-mail</label>
 						<div class="col-md-4">
-							<input id="textinputmobile" name="textinputmobile" type="text"
-								placeholder="收件地址" class="form-control input-md"
+							<input id="e-mailt" name="e-mail" type="text"
+								placeholder="E-mail" class="form-control input-lg"
 								autocomplete="off">
 						</div>
 					</div>
-
-					<!-- Text input-->
-					<div class="form-group">
-						<label class="col-md-4 control-label" for="textinputmobilealt">E-mail</label>
-						<div class="col-md-4">
-							<input id="textinputmobilealt" name="textinputmobilealt"
-								type="text" placeholder="E-mail" class="form-control input-md"
-								autocomplete="off">
-						</div>
-					</div>
-
+					</br>
 					<!-- 付款方式 -->
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="textinputmobilealt">
-							付款方式</label>
+						<label class="col-md-4 control-label" for="payment"> 付款方式</label>
 						<div class="col-md-4">
 							<div class="input-group">
 								<div id="radioBtn" class="btn-group">
@@ -76,25 +74,22 @@
 										class="btn btn-primary btn-sm notActive" data-toggle="happy"
 										data-title="A">用身體付</a>
 								</div>
-								<input type="hidden" name="happy" id="happy">
+								<input type="hidden" name="payment" id="payment">
 							</div>
 						</div>
 					</div>
-
-					<!-- Button -->
 					</br>
+					<!-- Button -->
 					<div class="form-group">
-						<label class="col-md-4 control-label" for="singlebuttonsubmit"></label>
+						<label class="col-md-4 control-label" for="check"></label>
 						<div class="col-md-4">
-							<button id="singlebuttonsubmit" name="singlebuttonsubmit"
-								class="btn btn-success">送出訂單</button>
+							<a href="${pageContext.request.requestURI}" id="check" class="btn btn-success" name="check">送出訂單</a>
 						</div>
 					</div>
-
 				</fieldset>
 			</form>
 		</div>
-
+	
 	</aside>
 	<script type="text/javascript">
 		$('#radioBtn a').on(
