@@ -37,7 +37,7 @@ public class ProductDetailControllerBE {
 			@RequestParam String color,
 			@RequestParam String stock,
 //			@RequestParam String published_Date,
-			@RequestParam byte[] photo1,
+			@RequestParam MultipartFile photo1,
 			@RequestParam String introduction){
 		Double price2 = Double.parseDouble(price);
 		Integer stock2 = Integer.parseInt(stock);

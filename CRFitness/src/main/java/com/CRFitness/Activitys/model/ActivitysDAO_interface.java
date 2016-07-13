@@ -11,6 +11,7 @@ public interface ActivitysDAO_interface {
     public ActivitysVO findByPrimaryKey(String activity_Id);
 //    public List<ActivitysVO> getAll(String member_Id);
     public List<ActivitysVO> getAll();
-    public List<ActivitysVO> select_ActivityMember();
+    public List<ActivitysVO> select_ActivityMember_One();
+    public List<ActivitysVO> select_ActivityMember_Two();
 	public List<ActivitysVO> select_Activitys(String member_Id);
 }

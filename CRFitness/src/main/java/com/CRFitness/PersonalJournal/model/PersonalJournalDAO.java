@@ -24,9 +24,13 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	// 所有的日誌
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
 	// 個人所有日誌 從最近開始往後排序
-	private static final String GET_MYSELF_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO order by publishTime desc";
-	//挑選publicStatus狀態為1的日誌
-	private static final String GET_COMMON_JOURNAL = "from PersonalJournalVO where publicStatus='1' order by publishTime desc ";
+	private static final String GET_MYSELF_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO order by publishTime desc ";
+	//挑選publicStatus狀態為1的日誌  先取六筆
+	private static final String GET_COMMON_JOURNAL6 
+	= "Select * from PersonalJournal where publicStatus='1' order by publishTime desc  OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY ";
+	//挑選publicStatus狀態為1的日誌  再全取來
+	private static final String GET_COMMON_JOURNAL
+	= "Select * from PersonalJournal where publicStatus='1' order by publishTime desc OFFSET 6 ROWS ";
 	// 查朋友日誌
 	private static final String GET_FRIEND_JOURNAL = "from PersonalJournalVO where memberVO=:memberVO and publicStatus != '0' order by publishTime desc ";
 	
@@ -117,8 +121,14 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	}
 	
 	@Override
-	public List<PersonalJournalVO> select_publicStatus( ){
-		Query query = this.getSession().createQuery(GET_COMMON_JOURNAL);
+	public List<PersonalJournalVO> select_publicStatus_One( ){
+		Query query = this.getSession().createSQLQuery(GET_COMMON_JOURNAL6).addEntity(PersonalJournalVO.class);
+		return (List<PersonalJournalVO>) query.list();
+	}
+	
+	@Override
+	public List<PersonalJournalVO> select_publicStatus_Two( ){
+		Query query = this.getSession().createSQLQuery(GET_COMMON_JOURNAL).addEntity(PersonalJournalVO.class);
 		return (List<PersonalJournalVO>) query.list();
 	}
 
