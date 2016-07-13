@@ -92,7 +92,7 @@
 									+names+'">'
 									+this[0].people+'</button></li>')
 									  					
-	                 		 })
+	                 		 })//each
 							  $('.btn.btn-default').tooltip()
 								$(".boxer").boxer({
     							top: 50,
@@ -156,11 +156,8 @@
 	                	  })
 	                	 
 	                  })
-		          }          	 
-		      })
-		     
-		     
-		      
+		          }//外層success          	 
+		      })//外層ajax
 		      
 	})
 	</script>
