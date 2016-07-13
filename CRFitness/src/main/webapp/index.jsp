@@ -67,6 +67,15 @@
 <!-- 			</a> -->
 <!-- 		</div> -->
 	</aside>
+	<script type="text/javascript">
+	var Islogin='${pageContext.request.queryString}'
+		if(Islogin=='NoLogin'){
+			Custombox.open({
+                target: '#login-box',
+                effect: 'rotate'
+            });
+		}
+	</script>
 	<!--  頁面部分 結束 -->
 </body>
 </html>

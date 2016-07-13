@@ -2,6 +2,9 @@
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+<c:if test="${ empty LoginOK}">
+<c:redirect url="/index.jsp?NoLogin"></c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
