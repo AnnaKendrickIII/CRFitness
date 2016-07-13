@@ -10,10 +10,10 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component_activity.css" />
 
-<script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 動畫效果 -->
-<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"> <!-- 彈跳視窗 -->
-<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- 檔案上傳 -->
-<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- 檔案上傳 -->
+<script src="${this_contextPath}/js/modernizr.custom.js"></script>
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
+<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
+<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
 
 
@@ -46,8 +46,6 @@
     margin-right: 16px;
 }
 </style>
-
-<!-- 檔案上傳 -->
 <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
@@ -201,10 +199,10 @@
                 <!-- 上傳圖片 結尾-->
                
                    <!-- 新增活動 結尾-->
-    <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    <!-- 瀑布流 -->
-	<script src="${this_contextPath}/js/classie.js"></script> <!-- 瀑布流 -->  
-	<script src="${this_contextPath}/js/imagesloaded.js"></script> <!-- 瀑布流 -->
-	<script src="${this_contextPath}/js/AnimOnScroll.js"></script> <!-- 瀑布流 -->	
+    <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
+	<script src="${this_contextPath}/js/classie.js"></script>
+	<script src="${this_contextPath}/js/imagesloaded.js"></script>
+	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
 	
 	<!-- 輸入日期 開始-->
 	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script>
@@ -340,8 +338,9 @@
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-									+'"><span title=""><img src="data:image/png;base64,'
+									+this[0].people+"<button class='btn btn-theme submit_x' style='float:right'  type='button'  value='INSERT_MEMBER'>參加活動</button>" 
+									+"<div hidden='hidden'>"+this[0].activity_Id
+									+'</div>"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
 									+this[2]+'<br />類別：'
 									+this[0].activity_Class+'<br />地區：'
@@ -363,7 +362,7 @@
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
 	                      viewportFactor: 0.2
-	                  });
+	                  });              
 	                  $.ajax({
 	    		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembersTwo",
 	    		          type:'get',  //get post put delete
@@ -392,8 +391,9 @@
 	    									+this[0].activity_Info+'<br />活動時間：'
 	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-	    									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-	    									+'"><span title=""><img src="data:image/png;base64,'
+	    									+this[0].people+"<button class='btn btn-theme submit_x' style='float:right' type='button' value='INSERT_MEMBER'>參加活動</button>" 
+	    									+"<div hidden='hidden'>"+this[0].activity_Id
+	    									+'</div>"><span title=""><img src="data:image/png;base64,'
 	    									+this[0].photo1+'" /></span></a>發起人：'
 	    									+this[2]+'<br />類別：'
 	    									+this[0].activity_Class+'<br />地區：'
@@ -417,10 +417,26 @@
 	    	                      viewportFactor: 0.2
 	    	                  });  
 	    		          }	 
-	    		      })      
+	    		      })      	       		
 		          }	 
 		      })
-	 
+		       $("body").on("click", '.submit_x', function(){
+// 		    	   console.log($('.boxer-caption').find('div').text())
+// 		    	   console.log('${LoginOK.member_Id}')
+		    	   $.ajax({
+		    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/addActivityDetail",
+		    		   type:'post',
+		    		   data:{
+		    			   activity_Id:$('.boxer-caption').find('div').text(),
+		    			   member_Id:'${LoginOK.member_Id}'
+		    		   },
+		    		   success:function(data){
+		    			   console.log(data)
+		    		   }
+		    	   })
+  				});
+		    	
+		      
 	  })
     
 </script>
