@@ -14,7 +14,7 @@
 <title>${LoginOK.nickname}的個人日誌</title>
 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
-<%-- <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> --%>
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
 .timeline-footer {
@@ -48,8 +48,8 @@
 
 						</ul>
 					</div>
-					<div class="col-md-4 col-xs-2">
-						<h3>揪團要塞這邊</h3>
+					<div class="col-md-4 col-xs-2" id="testcss">
+						<h3>---揪團要塞這邊---</h3>
 						<ul class="event-list" id="myactivity_personal">
 
 						</ul>
@@ -58,7 +58,8 @@
 				<div class="col-md-2 col-xs-1"></div>
 		
 		<!-- 抓取使用者建立的揪團  開始-->
-         <!--     <script type="text/javascript">
+		
+             <script type="text/javascript">
                      $(function () {
                          $.ajax({
                              url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
@@ -66,25 +67,33 @@
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
+             						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
+            						var jdate_value = new Date(jdate_int);
+             						
                                      $('#myactivity_personal').append(
                                     	 '<li>'	 
-                                    	+'<td><a href="${this_contextPath}/activitydetail.jsp?'
+                                    	+'<time datetime="2014-07-20">'
+            							+'<span class="month">'+jdate_value.Format("MM")+'</span>'
+             							+'<span class="day">'+jdate_value.Format("dd")+'</span>'
+            							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
+            							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+            							+'</time>'
+                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'
                                     	+this.member_Id+'" >'
                                     	+'<img src="data:image/png;base64,'
                                     	+this[0].photo1+'" class="" alt="Independence Day" /></a>'
-                                    	+'<td class="">'
+                                    	+'<div>'
                                     	+this[0].activity_Class
-                                    	+'</td>'
-                                    	+'<td>'
+                                    	+''
+                                    	+''
                                     	+this[0].activity_Area 
-                                    	+'</td>'
+                                    	+'</div>'
                                     	+'</li>')  
                                  })
                              }          	 
                          })
                      })
                  </script > 
-                  -->
 		<!-- 抓取使用者建立的揪團  結束-->
                              
 		
@@ -222,7 +231,7 @@
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
-				    	var  invert; 
+				    	var invert; 
 				    	var li_direction;
 
 				    	if(index%2==0){
@@ -378,7 +387,7 @@
 								contentType: false,
 								success: function(data){
 									$('#exampleModal').modal('toggle');
-
+console.log(data);
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
 			    						var jdate_value = new Date(jdate_int);
 			    						var myNickName = "${LoginOK.nickname}";
