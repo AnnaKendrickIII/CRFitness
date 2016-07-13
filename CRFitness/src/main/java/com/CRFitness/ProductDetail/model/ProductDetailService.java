@@ -51,8 +51,9 @@ public class ProductDetailService {
 		return productDetailDAO.findByPrimaryKey(productDetail_Id);
 	}
 
-	public List<ProductDetailVO> getAll() {
-		return productDetailDAO.getAll();
+	// back-end
+	public List<ProductDetailVO> getAllByDesc() {
+		return productDetailDAO.getAllByDesc();
 	}
 
 	// front-end
@@ -150,6 +151,47 @@ public class ProductDetailService {
 		return list;
 	}
 
+	// back-end 修改商品至 ProductDetail & Product Table
+	public List<Object> updateProductDetail(String product_Name, Double price,
+			String category, String size, // 尺寸
+			String color, // 顏色
+			Integer stock, // 庫存量
+//			Timestamp published_Date, // 刊登日期
+			MultipartFile photo1, // 圖片1
+//			byte[] photo2, // 圖片2
+//			byte[] photo3, // 圖片3
+//			String detailed_Description, // 商品簡介
+			String introduction) {
+		List<Object> list = new ArrayList<Object>();
+		
+		ProductsVO productsVO = new ProductsVO();
+		productsVO.setProduct_Name(product_Name);
+		productsVO.setPrice(price);
+		productsVO.setCategory(category);
+		productsVO = productsDAO.update(productsVO);
+		
+		ProductDetailVO productDetailVO = new ProductDetailVO();
+		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
+		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
+		productDetailVO.setSize(size);
+		productDetailVO.setColor(color);
+		productDetailVO.setStock(stock);
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		productDetailVO.setPublished_Date(ts);
+		
+		try {
+			productDetailVO.setPhoto1(photo1.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		productDetailVO.setIntroduction(introduction);
+		productDetailVO = productDetailDAO.update(productDetailVO);
+		
+		list.add(0, productsVO);
+		list.add(1, productDetailVO);
+		return list;
+	}
+	
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定
 	// 打開：<property

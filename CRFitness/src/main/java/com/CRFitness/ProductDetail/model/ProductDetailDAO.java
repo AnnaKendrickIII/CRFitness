@@ -22,8 +22,6 @@ import com.CRFitness.Products.model.ProductsVO;
 @Transactional(transactionManager = "transactionManager")
 public class ProductDetailDAO implements ProductDetailDAO_interface {
 
-	private static final String SELECT_CATEGORY = "from ProductDetailVO where product_Id=:product_Id";
-	private static final String SELECT_SHOES = "from ProductDetailVO where product_Id>=:product_Id";
 	private static final String GET_PRODUCTDETAIL_ID = "from ProductDetailVO where product_Name=:product_Name and size=:size and color=:color";
 	
 	@Autowired
@@ -45,12 +43,9 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	}
 
 	@Override
-	public boolean update(ProductDetailVO productDetailVO) {
-		if (productDetailVO != null) {
+	public ProductDetailVO update(ProductDetailVO productDetailVO) {
 			this.getSession().saveOrUpdate(productDetailVO);
-			return true;
-		}
-		return false;
+			return productDetailVO;
 	}
 
 	@Override
@@ -81,6 +76,18 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		return (List<ProductDetailVO>) query.list();
 	}
 
+	// back-end
+	@Override
+	public List<ProductDetailVO> getAllByDesc() {
+		Query query = this.getSession()
+				.createSQLQuery("Select ProductDetail.* ,Products.Price , Products.Category "
+						+ " from  ProductDetail join Products" + " on ProductDetail.Product_Id=Products.Product_Id "
+						+ " Order by Product_Id desc")
+				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
+				.addScalar("category", StringType.INSTANCE);
+		return (List<ProductDetailVO>) query.list();
+	}
+	
 	@Override
 	public ProductDetailVO getProductDetailId(String product_Name, String size, String color) {
 		Query query = this.getSession().createQuery(GET_PRODUCTDETAIL_ID);
