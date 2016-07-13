@@ -13,7 +13,8 @@ public interface PersonalJournalDAO_interface {
 //     public List<PersonalJournalVO> select_journal(MemberVO memberVO);
      public List<PersonalJournalVO> getAll();
 	 public boolean update(String journal_Id, String contents, Integer publicStatus);
-     public List<PersonalJournalVO> select_publicStatus();
+     public List<PersonalJournalVO> select_publicStatus_One();
+     public List<PersonalJournalVO> select_publicStatus_Two();
      public List<PersonalJournalVO> select_myJournal(MemberVO memberVO);
      public List<PersonalJournalVO> select_friendJournal(MemberVO memberVO);
      
