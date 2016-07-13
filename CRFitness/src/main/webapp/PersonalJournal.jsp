@@ -220,16 +220,16 @@
 					console.log(data);
 					
 					$.each(data,function(index) {
-						var jdate_int = parseInt(this.publishTime); //轉換成數字
+						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
 				    	var  invert; 
 				    	var li_direction;
 
 				    	if(index%2==0){
-				    		li_direction='<li id="'+ this.journal_Id +'">';
+				    		li_direction='<li id="'+ this[0].journal_Id +'">';
 				    		invert='<i class="glyphicon glyphicon-record " '
 				    	}else{
-				    		li_direction='<li id="'+ this.journal_Id +'" class="timeline-inverted" >';
+				    		li_direction='<li id="'+ this[0].journal_Id +'" class="timeline-inverted" >';
 				    		invert='<i class="glyphicon glyphicon-record invert" '
 				    	}
 
@@ -299,7 +299,7 @@
 							});
 							var publicStatus = ['限本人','公開','朋友'];
 							for(var i =0;i<3;i++){
-								if(parseInt(this.publicStatus) === i){
+								if(parseInt(this[0].publicStatus) === i){
 									$('<option />',{value:i,text:publicStatus[i],selected:true}).appendTo(eleS);
 								}else{
 									$('<option />',{value:i,text:publicStatus[i]}).appendTo(eleS);
@@ -397,8 +397,7 @@
 			    					   			+ this[0].contents
 			    					   			+ '<br />日期：'
 			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-			    					   			+ '</div>'
-			    					   			
+			    					   			+ '</div>'			    					   			
 //			    	 				   			+ '<div  class="well">'
 			    					   			// 加入留言
 			    					   			+ '<div class="timeline-footer">'

@@ -88,9 +88,9 @@
 	            type:'get',  //get post put delete
 	            data:{},
 	            success:function(data){
-	             		console.log(data);
+// 	             		console.log(data);
 	            	$.each(data,function(){
-		        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
+		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
 							var jdate_value = new Date(jdate_int); 
 		        		 $('#grid').append('<li value="'+this[0].journal_Id+'"><a href="data:image/png;base64,'
 		        		 +this[0].archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
@@ -113,7 +113,7 @@
 	    	            success:function(data){
     	             		console.log(data);
 	    	            	$.each(data,function(){
-	    		        		  var jdate_int = parseInt(this.publishTime);                          //轉換成數字
+	    		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
 	    							var jdate_value = new Date(jdate_int); 
 	    		        		 $('#grid').append('<li value="'+this[0].journal_Id+'"><a href="data:image/png;base64,'
 	    		        		 +this[0].archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
