@@ -9,10 +9,10 @@
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <title>揪團紀錄</title>
 <jsp:include page="/CRFitness.jsp" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" />
-<script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
-<link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css">
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component.css" /> <!-- 動畫效果 -->
+<script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 彈跳視窗 -->
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"> <!-- 檔案上傳 -->
+<link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 </head>
 
 <body >
@@ -22,10 +22,10 @@
 	<ul class="grid effect-7" id="grid"  >
               
 	 </ul>
-	<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
-	<script src="${this_contextPath}/js/classie.js"></script>
-	<script src="${this_contextPath}/js/imagesloaded.js"></script>
-	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
+	<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script> <!-- 瀑布流 -->   
+	<script src="${this_contextPath}/js/classie.js"></script> <!-- 瀑布流 -->  
+	<script src="${this_contextPath}/js/imagesloaded.js"></script> <!-- 瀑布流 --> 
+	<script src="${this_contextPath}/js/AnimOnScroll.js"></script> <!-- 瀑布流 -->	
 	
 	<!-- 頁面部分 開始-->
 	
@@ -45,6 +45,9 @@
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}      
+	
+	
+	jQuery(function($){
 	    $.ajax({
 	    	url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
 		          type:'get',  //get post put delete
@@ -65,7 +68,9 @@
 								names+=this+'\n'
 							}				  
 						  })	
-		        		 }
+		        		 }//到第一個ajax
+		        		  
+		      
 		        		  //內
 							$('#grid').append('<li ><a href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
@@ -81,8 +86,8 @@
 									+"<a href='#' class='select'>"+this[0].activity_Class+"</a>"+'<br />地區：'
 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Area'>"+this[0].activity_Area+"</a>"+'<br />內容：'
 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Info'>"+this[0].activity_Info+"</a>"+'<br />活動時間：'
-									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY-MM-DD HH:mm' data-viewformat='YYYY-MM-DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value.Format('yyyy-MM-dd hh:mm:ss')+"</a>"+'<br />活動截止日：'
-									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY-MM-DD HH:mm' data-viewformat='YYYY-MM-DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm:ss')+"</a>"+'<br />目前參加人數：'
+									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />活動截止日：'
+									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')
@@ -123,9 +128,41 @@
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
 	                      viewportFactor: 0.2
-	                  });
+	                  });				
+	                 $('li a:not(:first-child)').click(function(){
+	                	 var li_notfirst =$(this)
+	                	  $('form').submit(function(){
+	                		    console.log(li_notfirst.siblings("p").text())
+	                		    console.log(li_notfirst.parent().find("a:eq(4)").text())	
+	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
+	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
+	                			console.log(li_notfirst.parent().find("a:eq(3)").text())
+	                			console.log(li_notfirst.parent().find("a:eq(5)").text())
+		                	   $.ajax({
+	    						url:"${this_contextPath}/CRFSERVICE/activitysController/modifyActivitys",
+		          				type:'post',  //get post put delete
+		          				data:{activity_Id:li_notfirst.siblings("p").text(),
+		          					  activity_Class:li_notfirst.parent().find("a:eq(1)").text(),
+		          					  activity_Area:li_notfirst.parent().find("a:eq(2)").text(),
+		          					  activity_Info:li_notfirst.parent().find("a:eq(3)").text(),
+		          					  activity_Day:li_notfirst.parent().find("a:eq(4)").text(),
+		          					  deadline:li_notfirst.parent().find("a:eq(5)").text()
+		          					},
+		          				success:function(data){    
+		          					console.log(data)
+		          				}
+		                	   })
+	                		 
+	                	  })
+	                	 
+	                  })
 		          }          	 
 		      })
+		     
+		     
+		      
+		      
+	})
 	</script>
 
 </c:if>

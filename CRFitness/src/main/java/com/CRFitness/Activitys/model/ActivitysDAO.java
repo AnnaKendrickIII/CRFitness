@@ -63,6 +63,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 		return (List<ActivitysVO>) query.list();
 	}
 
+	//揪團 載入時顯示抓八筆
 	@Override
 	public List<ActivitysVO>  select_ActivityMember_One() {
 		Query query = this.getSession().createSQLQuery(
@@ -81,6 +82,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 		return (List<ActivitysVO>) query.list();
 	}
 	
+	//揪團 上列方法跑完繼續執行以下方法 (分批進行抓 加速頁面載入)
 	@Override
 	public List<ActivitysVO> select_ActivityMember_Two() {
 		Query query = this.getSession().createSQLQuery(
