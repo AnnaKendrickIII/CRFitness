@@ -19,8 +19,8 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 	private Timestamp publishTime;			//發表日誌時間
 	private Integer publicStatus;			//是否公開(狀態)
 	//聯合映射帶出 留言訊息
-	@JsonSerialize
-	private Set<MessageDetailVO> messageDetailVOs = new HashSet<>();
+//	@JsonSerialize
+//	private Set<MessageDetailVO> messageDetailVOs = new HashSet<>();
 
 	public String getJournal_Id() {
 		return journal_Id;
@@ -69,12 +69,12 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 		this.publicStatus = publicStatus;
 	}
 
-	public Set<MessageDetailVO> getMessageDetailVOs() {
-		return messageDetailVOs;
-	}
-
-	public void setMessageDetailVOs(Set<MessageDetailVO> messageDetailVOs) {
-		this.messageDetailVOs = messageDetailVOs;
-	}
+//	public Set<MessageDetailVO> getMessageDetailVOs() {
+//		return messageDetailVOs;
+//	}
+//
+//	public void setMessageDetailVOs(Set<MessageDetailVO> messageDetailVOs) {
+//		this.messageDetailVOs = messageDetailVOs;
+//	}
 
 }

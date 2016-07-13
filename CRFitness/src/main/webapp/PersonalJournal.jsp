@@ -183,7 +183,7 @@ textarea{
             type:'get',  //get post put delete
             data:{},
             success:function(data){
-				
+				console.log(data)
             	//------------------------- 判斷是否好友-------------------------
             	$.each(data,function(){
 						// console.log(data);
@@ -206,7 +206,7 @@ textarea{
 				type : 'get', //get post put delete
 				data : {member_Id : theMemberId},
 				success : function(data) {
-// 					console.log(data);
+					console.log(data);
 					
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this.publishTime); //轉換成數字
