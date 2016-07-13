@@ -40,7 +40,7 @@ public class PersonalJournalService {
 		MemberVO memberVO =new MemberVO();
 		memberVO.setMember_Id(member_Id);
 		PersonalJournalVO personalJournalVO = new PersonalJournalVO();
-		personalJournalVO.setMemberVO(memberVO);
+		personalJournalVO.setMember_Id(member_Id);
 		try {
 			personalJournalVO.setArchives(archives.getBytes());
 		} catch (IOException e) {
@@ -71,16 +71,14 @@ public class PersonalJournalService {
 	
 	// 取得自己個人日誌
 	public List<PersonalJournalVO> showMySelfJournal(String member_Id) {
-		MemberVO memberVO =new MemberVO();
-		memberVO.setMember_Id(member_Id);
-		return personalJournalDAO.select_myJournal(memberVO);
+
+		return personalJournalDAO.select_myJournal(member_Id);
 	}
 	
 	// 取得好友日誌
 	public List<PersonalJournalVO> showFriendJournal(String member_Id){
-		MemberVO memberVO =new MemberVO();
-		memberVO.setMember_Id(member_Id);
-		return personalJournalDAO.select_friendJournal(memberVO);
+
+		return personalJournalDAO.select_friendJournal(member_Id);
 	}
 
 

@@ -15,7 +15,7 @@ public interface PersonalJournalDAO_interface {
 	 public boolean update(String journal_Id, String contents, Integer publicStatus);
      public List<PersonalJournalVO> select_publicStatus_One();
      public List<PersonalJournalVO> select_publicStatus_Two();
-     public List<PersonalJournalVO> select_myJournal(MemberVO memberVO);
-     public List<PersonalJournalVO> select_friendJournal(MemberVO memberVO);
+     public List<PersonalJournalVO> select_myJournal(String member_Id);
+     public List<PersonalJournalVO> select_friendJournal(String member_Id);
      
 }

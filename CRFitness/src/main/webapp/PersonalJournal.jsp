@@ -186,18 +186,18 @@
     	var theMemberId = "${LoginOK.member_Id}";
         var friendId = "${pageContext.request.queryString}";
         var titleNickName;
-        //	標記本頁日誌是否會員自己
+//         	標記本頁日誌是否會員自己
         var mySelf = true;
-        // 	先查詢自己所有好友名單
+//         	先查詢自己所有好友名單
     	$.ajax({
             url:"${this_contextPath}/CRFSERVICE/friendships/${LoginOK.member_Id}",
             type:'get',  //get post put delete
             data:{},
             success:function(data){
-				console.log(data)
-            	//------------------------- 判斷是否好友-------------------------
+// 				console.log(data)
+//             	------------------------- 判斷是否好友-------------------------
             	$.each(data,function(){
-						// console.log(data);
+// 						console.log(data);
             		if(this.member_Id === friendId){
             			theMemberId = this.member_Id;
             			titleNickName = this.nickname;
@@ -241,11 +241,11 @@
 		// 			    	↓title塞入時間日期
 					    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
 					    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
-					    	+ this.archives+'" /></a></div>'
+					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
-					    	+ 'id:'+this.memberVO.member_Id  // 上線前要拿掉或改暱稱
+					    	+ 'id:'+this[1]  // 上線前要拿掉或改暱稱
 				   			+ '<br />內容：'
-				   			+ this.contents
+				   			+ this[0].contents
 				   			+ '<br />日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 				   			+ '</div>'
@@ -390,11 +390,11 @@
 			    			// 			    	↓title塞入時間日期
 			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
 			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
-			    						    	+ this.archives+'" /></a></div>'
+			    						    	+ this[0].archives+'" /></a></div>'
 			    						    	+ '<div class="timeline-body">'
 			    						    	+ 'id:'+ myNickName  // 上線前要拿掉或改暱稱
 			    					   			+ '<br />內容：'
-			    					   			+ this.contents
+			    					   			+ this[0].contents
 			    					   			+ '<br />日期：'
 			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 			    					   			+ '</div>'
