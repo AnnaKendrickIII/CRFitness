@@ -392,13 +392,10 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 									$('#exampleModal').modal('toggle');
 console.log(data);
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
-			    						var jdate_value = new Date(jdate_int);
-			    						
+			    						var jdate_value = new Date(jdate_int);	    						
 			    						
 			    						var invert; 
 			    				    	var li_direction;
-			    				    	
-			    
 			    						
 			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
@@ -455,16 +452,10 @@ console.log(data);
 		   										$('<option />',{value:i,text:publicStatusArray[i]}).appendTo(eleS);
 		   									}
 		   								}
-		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);
-							
-
+		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
 								}
-								
-							})
-	
-						}
-
-						
+							})	
+						}						
 					})
 					 
 					 
@@ -491,10 +482,9 @@ console.log(data);
 					console.log(data);
 				}
             })
-    	}
-    	
-					
-    	});
+
+		}
+		});
 	</script>
 </c:if>
 	<!--  頁面部分 結束 -->
