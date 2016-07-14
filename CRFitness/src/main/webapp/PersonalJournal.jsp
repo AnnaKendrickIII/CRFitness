@@ -200,6 +200,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     	var theMemberId = "${LoginOK.member_Id}";
         var friendId = "${pageContext.request.queryString}";
         var titleNickName;
+        var divGrid = $('#grid');
        
 //         	標記本頁日誌是否會員自己
         var mySelf = true;
@@ -477,6 +478,9 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     			)
     	}
     	
+    	//'<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+    	console.log($(divGrid))
+    	
 		// addMessageDetail ajax -> server 
     	function addMessageDetail(theJournal_Id, theMember_Id, theVal, theMessageTime){
             $.ajax({
@@ -491,7 +495,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 					}
 				}
             })
-
 		}
 		});
 	</script>
