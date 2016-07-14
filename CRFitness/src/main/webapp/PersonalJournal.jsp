@@ -20,10 +20,10 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
-/* .timeline-footer { */
-/* 	background-color: #F5F5F5; */
+{ 
+ 	background-color: #F5F5F5;
 	
-/* } */
+} 
 textarea{
 	resize: none;
 }
