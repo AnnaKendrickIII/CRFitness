@@ -14,12 +14,13 @@ public class ActivitysVO implements java.io.Serializable{				//揪團專區
 	private String activity_Class;		//揪團類別
 	private String activity_Area;		//活動地區
 	private byte[] photo1;				//照片1
-	private byte[] photo2;				//照片2
-	private byte[] photo3;				//照片3
 	private String activity_Info;		//活動內容
 	private Timestamp deadline;		//報名截止日
 	private Timestamp startDay;		//發起日期
 	private Integer people;				//活動人數
+	private Integer people_Max;				//人數上限
+	private Integer activity_Status;				//揪團狀態
+
 
 	public String getMember_Id() {
 		return member_Id;
@@ -70,22 +71,6 @@ public class ActivitysVO implements java.io.Serializable{				//揪團專區
 		this.photo1 = photo1;
 	}
 
-	public byte[] getPhoto2() {
-		return photo2;
-	}
-
-	public void setPhoto2(byte[] photo2) {
-		this.photo2 = photo2;
-	}
-
-	public byte[] getPhoto3() {
-		return photo3;
-	}
-
-	public void setPhoto3(byte[] photo3) {
-		this.photo3 = photo3;
-	}
-
 	public String getActivity_Info() {
 		return activity_Info;
 	}
@@ -116,6 +101,22 @@ public class ActivitysVO implements java.io.Serializable{				//揪團專區
 
 	public void setPeople(Integer people) {
 		this.people = people;
+	}
+	
+	public Integer getPeople_Max() {
+		return people_Max;
+	}
+
+	public void setPeople_Max(Integer people_Max) {
+		this.people_Max = people_Max;
+	}
+
+	public Integer getActivity_Status() {
+		return activity_Status;
+	}
+
+	public void setActivity_Status(Integer activity_Status) {
+		this.activity_Status = activity_Status;
 	}
 
 }
