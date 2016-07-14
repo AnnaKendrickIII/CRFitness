@@ -159,7 +159,11 @@ public class ProductDetailService {
 	}
 
 	// back-end 修改商品至 ProductDetail & Product Table
-	public List<Object> updateProductDetail(String product_Name, Double price,
+	public List<Object> updateProductDetail(
+			String product_Id,
+			String productDetail_Id,
+			String product_Name, 
+			Double price,
 			String category, String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
@@ -170,14 +174,18 @@ public class ProductDetailService {
 			// String detailed_Description, // 商品簡介
 			String introduction) {
 		List<Object> list = new ArrayList<Object>();
-
-		ProductsVO productsVO = new ProductsVO();
+		
+//		ProductsVO productsVO = new ProductsVO();
+		ProductsVO productsVO = productsDAO.findByPrimaryKey(product_Id);	
 		productsVO.setProduct_Name(product_Name);
 		productsVO.setPrice(price);
 		productsVO.setCategory(category);
 		productsVO = productsDAO.update(productsVO);
 
-		ProductDetailVO productDetailVO = new ProductDetailVO();
+		
+//		ProductDetailVO productDetailVO = new ProductDetailVO();
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);	
+
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
 		productDetailVO.setSize(size);
@@ -185,7 +193,7 @@ public class ProductDetailService {
 		productDetailVO.setStock(stock);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
-
+		// System.out.println(productDetailVO.getPublished_Date());
 		try {
 			productDetailVO.setPhoto1(photo1.getBytes());
 		} catch (IOException e) {

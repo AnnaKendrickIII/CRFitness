@@ -20,9 +20,10 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
-.timeline-footer {
-	background-color: #F5F5F5;
-}
+/* .timeline-footer { */
+/* 	background-color: #F5F5F5; */
+	
+/* } */
 textarea{
 	resize: none;
 }
@@ -40,28 +41,26 @@ textarea{
 <c:if test="${! empty LoginOK}">
 <aside> 
 <div class="row">
-			<div class="col-md-2 col-xs-1"></div>
-				<div class="col-md-8 col-xs-10" >
-					<div class="col-md-8 col-xs-10">
-						<div class="page-header text-center">
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModal">新增個人日誌</button>
+			<div class="col-md-2 "></div>
+				<div class="col-md-8 col-xs-12" >
+					<div class="col-md-8 col-xs-8">
+						<div class="page-header text-center" id="insterjournal">
+<!-- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button> -->
 						</div>
 						<ul class="timeline" id="grid">
 
 						</ul>
 					</div>
-					<div class="col-md-4 col-xs-2" id="testcss">
+					<div class="col-md-4 col-xs-4" id="testcss">
 						<h3>---揪團要塞這邊---</h3>
 						<ul class="event-list" id="myactivity_personal">
 
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-2 col-xs-1"></div>
+				<div class="col-md-2"></div>
 		
-		<!-- 抓取使用者建立的揪團  開始-->
-		
+		<!-- 抓取使用者建立的揪團  開始-->		
              <script type="text/javascript">
                      $(function () {
                          $.ajax({
@@ -81,20 +80,15 @@ textarea{
             							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
             							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
             							+'</time>'
-                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'
-                                    	+this.member_Id+'" >'
+                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="data:image/png;base64,'
-                                    	+this[0].photo1+'" class="" alt="Independence Day" /></a>'
-                                    	+'<div>'
-                                    	+this[0].activity_Class
-                                    	+''
-                                    	+''
-                                    	+this[0].activity_Area 
+                                    	+this[0].photo1+'" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')  
-                                 })
+                                 }) //each
                              }          	 
-                         })
+                         }) //ajax
                      })
                  </script > 
 		<!-- 抓取使用者建立的揪團  結束-->
@@ -109,7 +103,13 @@ textarea{
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button> -->
-
+<script type="text/javascript">
+ 					$('#insterjournal').append(
+							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'
+ 							+"新增個人日誌"
+ 							+'</button>'
+ 							);
+</script>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -200,6 +200,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     	var theMemberId = "${LoginOK.member_Id}";
         var friendId = "${pageContext.request.queryString}";
         var titleNickName;
+        var divGrid = $('#grid');
        
 //         	標記本頁日誌是否會員自己
         var mySelf = true;
@@ -220,7 +221,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
             			titleNickName = "${LoginOK.nickname}";
             		}
 				})
-				//----------------------------------------------
+// 				----------------------------------------------
 										
 				// 日誌titleNickName
 				$('#titleNickName').text(titleNickName+'的日誌');
@@ -230,7 +231,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				type : 'get', //get post put delete
 				data : {member_Id : theMemberId},
 				success : function(data) {
-
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
@@ -244,15 +244,16 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				    		li_direction='<li id="'+ this[0].journal_Id +'" class="timeline-inverted" >';
 				    		invert='<i class="glyphicon glyphicon-record invert" '
 				    	}
-
 							//顯示查詢日誌
 						$('#grid').append(
 					    	li_direction
 					    	+ '<div class="timeline-badge primary"><a>'
 					    	+ invert 	
-		// 			    	↓title塞入時間日期
 					    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
-					    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
+					    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+// 					    	+ '<button type="button" title="收藏此篇日誌" aria-label="Close"><span class="fa fa-tag fa-lg" aria-hidden="true"></span></button>'
+// 					    	+ '<i class="fa fa-tag fa-lg" title="收藏此篇日誌" aria-hidden="true"></i>'
+					    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
 					    	+ 'id:'+this[1]  // 上線前要拿掉或改暱稱
@@ -261,13 +262,14 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '<br />日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 				   			+ '</div>'
-				   			+ '<div class="timeline-footer">'
-				   			+'</div>'
-				   			+ '<div  class="col-md-12"></div>'
+				   			+ '<div hidden="hidden" class="timeline-footer">'
+				   			+ '</div>'
+
+				   			+ '<div  class="col-md-12 viewmessages"></div>'
 				   			+ '<div class="message_div form-group">'
 				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
 				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
-				   			+'</div>'
+				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
                 
@@ -278,8 +280,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
                         var val= $(this).val()
                         if(val.trim().length != 0){
 	                        val = val.replace(/\r?\n/g, '</br> ')
-	                        addMessageDetail(theData[0].journal_Id, member_Id, val)
-	                        writeMessageDetail(theData[0].journal_Id, myNickname, val, new Date().getTime());
+	                        addMessageDetail(theData[0].journal_Id, member_Id, val, new Date().getTime());
 	                        $(this).val('')
                         }
                         return false; 
@@ -293,8 +294,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
                     var val = $('#'+theData[0].journal_Id+' textarea[class=form-control]').val()
                     if(val.trim().length != 0){
 	                    val = val.replace(/\r?\n/g, '</br> ')
-	                    addMessageDetail(theData[0].journal_Id, member_Id, val)
-	                    writeMessageDetail(theData[0].journal_Id, myNickname, val, new Date().getTime());
+	                    addMessageDetail(theData[0].journal_Id, member_Id, val, new Date().getTime())
 	                    $('#'+theData[0].journal_Id+' textarea[class=form-control]').val('')
                     }
                 })
@@ -302,7 +302,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
               
 
                 //------------------------------------------------------
-						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
+						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if(mySelf){
 							var eleS = $('<br/><select />').bind('change',this,function(){
 								$.ajax({
@@ -328,37 +328,43 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 						// 查看留言功能-------------------------------------------------------
 							var eleMessageA2 = $('<a></a>',{text:'隱藏留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
-								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]').slideUp();
+								$('#grid>li[id="'+thisData[0].journal_Id+'"] div[class="timeline-footer"]').slideUp();
 							})
 							
+							var maxMessageSize = 0;
+							var nowMessage_Id = 0;
 							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
+								$('#grid>li[id="'+thisData[0].journal_Id+'"] div[class="timeline-footer"]').slideDown()
 								// 顯示留言
 								$.ajax({
 									url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
 									type: 'GET',
-									data: {'journal_Id':thisData.journal_Id},
+									data: {'journal_Id':thisData[0].journal_Id},
 									success: function(data){
-										$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]');
 										// 顯示留言
 										if(maxMessageSize != data.length){
-											$.each(data, function(index,ele){
-												writeMessageDetail(this.journal_Id, this.member_Id, this.content, this.messageTime);
-											});
+											$.each(data, function(){
+												if(this[0].message_Id < nowMessage_Id || nowMessage_Id == 0){
+													writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
+													nowMessage_Id = this[0].message_Id;
+												}
+											})
+											maxMessageSize = data.length;
 										}
 									}
-								})
+								}) // ajax 顯示留言
 							})
 							
 							// 綁定顯示和隱藏留言的按鈕
-							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA1);
-							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA2);
-  					})
+							$('#grid>li:last .viewmessages').append(eleMessageA1);
+							$('#grid>li:last div[class="timeline-footer"]').append(eleMessageA2);
+  					}) //each
   					
   					$('#grid').append('<li class="clearfix" style="float: none;">');
 	    			}
 
-	    					})
+	    					}) //ajax 查詢日誌開始
 						}
 					})
 					
@@ -390,19 +396,17 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 								contentType: false,
 								success: function(data){
 									$('#exampleModal').modal('toggle');
-console.log(data);
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
-			    						var jdate_value = new Date(jdate_int);
-			    						
+			    						var jdate_value = new Date(jdate_int);	    						
 			    						
 			    						var invert; 
 			    				    	var li_direction;
-			    				    	
-			    
-			    						
-			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record')){
+
+
+			    						if($('#grid>li:nth-child(1) div>a>i').hasClass('glyphicon glyphicon-record invert')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
 			    				    		invert='<i class="glyphicon glyphicon-record " '
+
 			    						}else{
 			    				    		invert='<i class="glyphicon glyphicon-record invert" '
 			    							li_direction='<li id="'+ data.journal_Id +'" class="timeline-inverted" >';
@@ -414,18 +418,19 @@ console.log(data);
 			    						    	+ '<div class="timeline-badge primary"><a>'
 			    						    	+ invert 	
 			    			// 			    	↓title塞入時間日期
-			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
-			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
+			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div hidden="hidden" class="timeline-panel">'
+			    						    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 			    						    	+ data.archives+'" /></a></div>'
 			    						    	+ '<div class="timeline-body">'
-			    						    	+ 'id:'+ myNickName  // 上線前要拿掉或改暱稱mySelfNickName
+			    						    	+ 'id:'+ "${LoginOK.nickname}"  // 上線前要拿掉或改暱稱mySelfNickName
 			    					   			+ '<br />內容：'
 			    					   			+ data.contents
 			    					   			+ '<br />日期：'
 			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 			    					   			+ '</div>'			    					   			
 			    					   			// 加入留言
-			    					   			+ '<div class="timeline-footer">'
+			    					   			+ '<div hidden="hidden" class="timeline-footer">'
 			    					   			+'</div>'
 			    					   			+ '<div  class="col-md-12"></div>'
 			    					   			+ '<div class="message_div form-group">'
@@ -434,7 +439,10 @@ console.log(data);
 			    					   			+ '</div>'
 		   								+ '</li>')
 		   								
-
+										$('.timeline-panel').fadeIn(2200);
+			    						$('#exampleModal textarea').val('')
+										$('#uploadfile').val('')
+										
 		   								// 新增的日誌公開狀態change功能
 		   								var eleS = $('<br/><select />').bind('change',data,function(){
 // 		   									console.log(arguments[0].data)
@@ -455,32 +463,28 @@ console.log(data);
 		   										$('<option />',{value:i,text:publicStatusArray[i]}).appendTo(eleS);
 		   									}
 		   								}
-		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);
-							
-
+		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
 								}
-								
-							})
-	
-						}
-
-						
+							})	
+						}						
 					})
 					 
 					 
     	// 寫入留言牆
     	function writeMessageDetail(theJournal_Id, theNickname, theContent, theMessageTime){
     		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
-    				 
     				 theNickname
     				 +': ' + theContent
     				 +'<br>時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
-    				 +'<hr/>'
+    				 +'<hr style="margin:2px 0 5px 0"/>'
     			)
     	}
     	
+    	//'<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+    	console.log($(divGrid))
+    	
 		// addMessageDetail ajax -> server 
-    	function addMessageDetail(theJournal_Id, theMember_Id, theVal){
+    	function addMessageDetail(theJournal_Id, theMember_Id, theVal, theMessageTime){
             $.ajax({
             	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
 				type : 'post', //get post put delete
@@ -488,13 +492,13 @@ console.log(data);
 						'member_Id':theMember_Id,
 						'content':theVal},
 				success : function(data) {
-					console.log(data);
+					if(data){
+						writeMessageDetail(theJournal_Id, "${LoginOK.nickname}", theVal, theMessageTime)
+					}
 				}
             })
-    	}
-    	
-					
-    	});
+		}
+		});
 	</script>
 </c:if>
 	<!--  頁面部分 結束 -->

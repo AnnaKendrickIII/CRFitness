@@ -34,7 +34,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname from PersonalJournal where publicStatus='1' order by publishTime desc OFFSET 6 ROWS ";
 	// 查朋友日誌										
 	private static final String GET_FRIEND_JOURNAL = 
-			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '0' order by publishTime desc";
+			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '0' and publicStatus != '4' order by publishTime desc";
 	
 	private static final String UPDATE_JOURNAL = 
 			"update PersonalJournalVO set contents=:contents , publicStatus=:publicStatus where journal_Id=:journal_Id";
@@ -110,8 +110,6 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	@Override
 	public List<PersonalJournalVO> select_myJournal(String member_Id) {
-//		Query query =  this.getSession().createQuery(GET_MYSELF_JOURNAL).setParameter("memberVO", memberVO);
-//		return (List<PersonalJournalVO>) query.list();
 		Query query = this.getSession().createSQLQuery(GET_MYSELF_JOURNAL)
 				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
 				.addScalar("JournalNickname", StringType.INSTANCE) 
@@ -122,7 +120,6 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	@Override
 	public List<PersonalJournalVO> select_friendJournal(String member_Id) {
-		System.out.println(member_Id);
 		Query query =  this.getSession().createSQLQuery(GET_FRIEND_JOURNAL)
 				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
 				.addScalar("friendJournalNickname", StringType.INSTANCE) // StringType.INSTANCE

@@ -30,9 +30,12 @@ public class MessageDetailController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/getMessageDetail", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<MessageDetailVO> insertMessageDetail(@RequestParam String journal_Id) {
-//		System.out.println("getMessageDetail");
-		return messageDetailService.get_Journal(journal_Id);
-
+	public @ResponseBody List<MessageDetailVO> getMessageDetail(@RequestParam String journal_Id) {
+		return messageDetailService.get_JournalMessage(journal_Id);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/getMessageDetailAll", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<MessageDetailVO> getMessageDetailAll(@RequestParam String journal_Id) {
+		return messageDetailService.get_JournalMessageAll(journal_Id);
 	}
 }

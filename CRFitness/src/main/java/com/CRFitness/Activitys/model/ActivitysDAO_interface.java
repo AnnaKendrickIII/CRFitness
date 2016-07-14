@@ -14,4 +14,5 @@ public interface ActivitysDAO_interface {
     public List<ActivitysVO> select_ActivityMember_One();
     public List<ActivitysVO> select_ActivityMember_Two();
 	public List<ActivitysVO> select_Activitys(String member_Id);
+	public List<ActivitysVO> select_MyActivitys(String member_Id);
 }

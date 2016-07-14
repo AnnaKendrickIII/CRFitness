@@ -11,7 +11,6 @@ public class ProductDetailVO implements java.io.Serializable { // 商品明細
 
 	private String product_Id; //商品編號
 	//private ProductsVO productsVO;
-
 	private String size; // 尺寸
 	private String color; // 顏色
 	private String product_Name; // 商品名稱

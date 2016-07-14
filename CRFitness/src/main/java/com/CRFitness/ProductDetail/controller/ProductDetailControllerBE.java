@@ -57,6 +57,8 @@ public class ProductDetailControllerBE {
 	// 修改 products
 	@RequestMapping(method = RequestMethod.POST, value ="/updateProducts")
 	public @ResponseBody List<Object> updateProducts(
+			@RequestParam String product_Id,
+			@RequestParam String productDetail_Id,
 			@RequestParam String product_Name,
 			@RequestParam String price,
 			@RequestParam String category,
@@ -78,8 +80,11 @@ public class ProductDetailControllerBE {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.updateProductDetail(product_Name, price2, category, size, color, stock2, photo1, introduction);	
+		return productDetailService.updateProductDetail(product_Id, productDetail_Id, product_Name, price2, category, size, color, stock2, photo1, introduction);	
 	}
+	
+	
+	// 新增的列顯示在最上面
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> getAllDetail() {
 		return productDetailService.getAllByDesc();

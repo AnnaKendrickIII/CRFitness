@@ -35,14 +35,6 @@ public class PersonalJournalController {
 	@RequestMapping(method = RequestMethod.GET, value = "/showJournal", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,HttpSession session) {
 		if(member_Id != null && member_Id.trim().length() != 0){
-//			System.out.println(member_Id);
-//			List<PersonalJournalVO> aaa = personalJournalService.showMySelfJournal(member_Id);
-//			for(PersonalJournalVO aa: aaa){
-//				System.out.println(aa.getPublishTime());
-//				for(MessageDetailVO a: aa.getMessageDetailVOs()){
-//					System.out.println(a.getPersonalJournalVO().getJournal_Id()+a.getMember_Id()+a.getContent());
-//				}
-//			}
 			MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
 			if(mySelf.getMember_Id().equals(member_Id)){
 				return personalJournalService.showMySelfJournal(member_Id);
@@ -79,7 +71,6 @@ public class PersonalJournalController {
 			@RequestParam String contents,
 			@RequestParam Integer publicStatus
 			){
-//		System.out.println(journal_Id+","+contents+","+publicStatus);
 		return personalJournalService.updatePersonalJournal(journal_Id, contents, publicStatus);
 	}
 
