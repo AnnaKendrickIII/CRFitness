@@ -58,6 +58,11 @@ public class ActivitysService {
 		return list;	
 	} 
 	
+	public List<ActivitysVO> findMyActivitys(String member_Id) {
+		List<ActivitysVO> list = activitysDAO.select_MyActivitys(member_Id);
+		return list;
+	}
+	
 	public List<ActivitysVO> getAll(){
 		List<ActivitysVO> list = activitysDAO.getAll();
 		for(ActivitysVO activitysVO:list){
@@ -133,5 +138,4 @@ public class ActivitysService {
 		
 	}
 
-	
 }
