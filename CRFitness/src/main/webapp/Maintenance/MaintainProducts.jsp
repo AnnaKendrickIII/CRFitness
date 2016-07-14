@@ -165,7 +165,7 @@ textarea{
 		<div class="col-md-8 col-xs-12 ">
 		
 		<button type="button" id="creProdBtn" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#new_products">  
-  		新增產品 
+  		<i class="fa fa-plus" aria-hidden="true"></i> <!-- 新增產品 --> 
   		</button>
 
 <!-- 資料表格 開始 -->
@@ -206,35 +206,62 @@ textarea{
                     <div id="addProducts_form" class="modal-body">
                     <div id='fine-uploader-manual-trigger'></div>
             	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="insert_Name" autocomplete="off" class="form-control" placeholder="輸入名稱" />                                                
-                        <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                   		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />
+                        <input required="required" type="text" id="insert_name" autocomplete="off" class="form-control" placeholder="輸入名稱" />                                                
                         <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p>
-                        <select id="insert_size" name="test1" class="form-control" >
-							<option value="XS">XS</option>
-							<option value="S">S</option>
-							<option value="M">M</option>
-							<option value="L">L</option>
-							<option value="XL">XL</option>
-							<option value="2XL">2XL</option>
-							<option value="3XL">3XL</option>
-							<option value="U">U</option>
-						</select>
+                   		<input required="required" type="text" id="insert_size" autocomplete="off" class="form-control" placeholder="輸入大小" />
+<!--                    <select id="insert_size" name="test1" class="form-control" > -->
+<!-- 						<option value="U">U</option> -->
+<!-- 						<option value="XS">XS</option> -->
+<!-- 						<option value="S">S</option> -->
+<!-- 						<option value="M">M</option> -->
+<!-- 						<option value="L">L</option> -->
+<!-- 						<option value="XL">XL</option> -->
+<!-- 						<option value="2XL">2XL</option> -->
+<!-- 						<option value="3XL">3XL</option> -->
+<!-- 					</select> -->
+<!--                    <select id="insert_size" name="test1" class="form-control" > -->
+<!-- 						<option value="U">U</option> -->
+<!-- 						<option value="US4">US4</option> -->
+<!-- 						<option value="US4.5">US4.5</option> -->
+<!-- 						<option value="US5">US5</option> -->
+<!-- 						<option value="US5.5">US5.5</option> -->
+<!-- 						<option value="US6">US6</option> -->
+<!-- 						<option value="US6.5">US6.5</option> -->
+<!-- 						<option value="US7">US7</option> -->
+<!-- 						<option value="US7.5">US7.5</option> -->
+<!-- 						<option value="US8">US8</option> -->
+<!-- 						<option value="US8.5">US8.5</option> -->
+<!-- 						<option value="US9">US9</option> -->
+<!-- 						<option value="US9.5">US9.5</option> -->
+<!-- 						<option value="US10">US10</option> -->
+<!-- 						<option value="US10.5">US10.5</option> -->
+<!-- 						<option value="US11">US11</option> -->
+<!-- 						<option value="US11.5">US11.5</option> -->
+<!-- 						<option value="US12">US12</option> -->
+<!-- 						<option value="US12.5">US12.5</option> -->
+<!-- 						<option value="US13">US13</option> -->
+<!-- 					</select> -->
+                        <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                   		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />                        
                         <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="insert_stock" class="form-control" autocomplete="off" placeholder="輸入數量"/>
+                        <input required="required" type="text" id="insert_stock" autocomplete="off" class="form-control" placeholder="輸入數量"/>
                         <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="insert_price" class="form-control" autocomplete="off" placeholder="輸入價格" />
+                        <input required="required" type="text" id="insert_price" autocomplete="off" class="form-control" placeholder="輸入價格" />
                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="insert_category" class="form-control" autocomplete="off" placeholder="輸入分類" />
+                        <select id="insert_category" name="test1" class="form-control" >
+							<option value="運動器材">運動器材</option>
+							<option value="服飾類">服飾類</option>
+							<option value="運動用品">運動用品</option>
+							<option value="鞋類">鞋類</option>
+						</select>
                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="insert_introduction" class="form-control" autocomplete="off" placeholder="輸入簡介" />
-                            
+                        <textarea required="required" id="insert_info" class="form-control" ></textarea>    
                      </div> <!-- end of id="addProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer">
 <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="addbtn" class="btn btn-theme" type="button" value="INSERT_PRODUCT">送出</button>                       
+                        <button id="addbtn" class="btn btn-primary" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -280,7 +307,7 @@ textarea{
                         <p>產品明細ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="update_prodDetId" autocomplete="off" class="form-control" />                                                
                         <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="update_Name" autocomplete="off" class="form-control" />                                                
+                        <input required="required" type="text" id="update_name" autocomplete="off" class="form-control" />                                                
                         <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                    		<input required="required" type="text" id="update_size" autocomplete="off" class="form-control" />
                         <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p>
@@ -290,21 +317,20 @@ textarea{
                         <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="update_price" autocomplete="off" class="form-control" />
                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <select id="update_category" name="test1" class="form-control" >
+                        <select id="update_category" name="test2" class="form-control" >
 							<option value="運動器材">運動器材</option>
 							<option value="服飾類">服飾類</option>
 							<option value="運動用品">運動用品</option>
 							<option value="鞋類">鞋類</option>
 						</select>
                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <textarea required="required"  id="update_info"  class="form-control" >
-                         </textarea>
+                        <textarea required="required" id="update_info" class="form-control" ></textarea>
                      </div> <!-- end of id="updateProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer">
 <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="updatebtn" class="btn btn-theme" type="button" value="UPDATE_PRODUCT">送出</button>                       
+                        <button id="updatebtn" class="btn btn-primary" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -358,7 +384,7 @@ textarea{
 			}
 // 轉換日期的小程式 結束
 
-
+// 所有功能的程式開始
 	jQuery(function ($) {	  
 		  var file;	
 // 新增上傳圖片的小程式 開始
@@ -410,13 +436,13 @@ textarea{
 			  	var formData = new FormData();
 			  	formData.append('photo1', file[0]);
 // 				formData.append('member_Id',  '${LoginOK.member_Id}');
-				formData.append('product_Name', $('#insert_Name').val());
-				formData.append('color', $('#insert_color').val());
+				formData.append('product_Name', $('#insert_name').val());
 				formData.append('size', $('#insert_size').val());
+				formData.append('color', $('#insert_color').val());
 				formData.append('stock', $('#insert_stock').val());
 				formData.append('price', $('#insert_price').val());
 				formData.append('category', $('#insert_category').val());
-				formData.append('introduction', $('#insert_introduction').val());
+				formData.append('introduction', $('#insert_info').val());
 			   $.ajax({
 	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
 	               type:'post',  //get post put delete
@@ -449,29 +475,29 @@ textarea{
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
 									+ data[1].introduction
-									+ '</td><td><span class="glyphicon glyphicon-wrench">'
-									+ '</td><td><span class="glyphicon glyphicon-wrench">'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
 									+ '</td></tr>') // end of after	            	   
 							$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty();
 							file = null;				 
 	               	} // end of success:function(data)	 
 	           }) // end of  $.ajax({
 	}) // end of $('#addbtn').click(function ()
-//新增產品的程式 結束
+// 新增產品的程式 結束
 	
 // 修改產品的程式 開始
 		  $('#updatebtn').click(function () {
 			  	var formData = new FormData();
 			  	formData.append('photo1', file[0]);
-				formData.append('product_Name', $('#insert_Name').val());
-				formData.append('color', $('#insert_color').val());
-				formData.append('size', $('#insert_size').val());
-				formData.append('stock', $('#insert_stock').val());
-				formData.append('price', $('#insert_price').val());
-				formData.append('category', $('#insert_category').val());
-				formData.append('introduction', $('#insert_introduction').val());
+				formData.append('product_Name', $('#update_name').val());
+				formData.append('size', $('#update_size').val());
+				formData.append('color', $('#update_color').val());
+				formData.append('stock', $('#update_stock').val());
+				formData.append('price', $('#update_price').val());
+				formData.append('category', $('#update_category').val());
+				formData.append('introduction', $('#update_info').val());
 			   $.ajax({
-	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
+	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/updateProducts",
 	               type:'post',  //get post put delete
 					data: formData,
 	    		   processData: false,
@@ -479,8 +505,9 @@ textarea{
 	               success:function(data){
 						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
 						var pdate_value = new Date(pdate_int);  
-	            	   $('#new_products').modal('hide');	
-	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' 
+	            	   $('#update_products').modal('hide');
+	            	   $(this).closest('tr').remove();
+	   					$('#products_tbody').append('<tr><td><img src="data:image/png;base64,' 
 	   								+ data[1].photo1 
 	   								+ '" class="img-thumbnail" /></td><td>'
 									+ data[0].product_Id
@@ -502,15 +529,38 @@ textarea{
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
 									+ data[1].introduction
-									+ '</td><td><span class="glyphicon glyphicon-wrench">'
-									+ '</td><td><span class="glyphicon glyphicon-wrench">'
-									+ '</td></tr>') // end of after	            	   
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
+									+ '</td></tr>') // end of xxx
+									// 修改產品的小程式		
+									$('.2g').click(function(){	
+									var updProducts = $('#update_products') // 寫成這樣才有效能
+// 									var eq1 = $(this).parent().siblings(":eq(1)")
+// 									updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
+// 									var eq2 = $(this).parent().siblings(":eq(2)")
+// 									updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
+									// 以下2行為chaining寫法
+										updProducts.find('input:eq(2)').prop("readonly",true).val($(this).parent().siblings(":eq(1)").text())
+										updProducts.find('input:eq(3)').prop("readonly",true).val($(this).parent().siblings(":eq(2)").text())
+									// 以下2行為沒有readonly寫法
+//										updProducts.find('input:eq(2)').val($(this).parent().siblings(":eq(1)").text()) // 沒有readonly寫法
+//										updProducts.find('input:eq(3)').val($(this).parent().siblings(":eq(2)").text()) // 沒有readonly寫法
+									updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
+									updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
+									updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
+									updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
+									updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
+									updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
+									updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
+									})	// end of $('.2g').click(function(){				
+									
 							$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
 							file = null;				 
 	               	} // end of success:function(data)	 
 	           }) // end of  $.ajax({
 	}) // end of $('#updatebtn').click(function ()
-//新增產品的程式 結束
+// 修改產品的程式 結束
+
 // 	$.ajax({
 //         url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
 //         type:'get',  //get post put delete
@@ -555,8 +605,8 @@ textarea{
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td hidden="hidden">'
 									                + this[0].introduction
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><span class="glyphicon glyphicon-wrench">'
-													+ '</td><td><span class="glyphicon glyphicon-wrench">'
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 												// 修改產品的小程式		
@@ -575,13 +625,17 @@ textarea{
 												console.log($(this).parent().siblings(":eq(8)").text())
 												console.log($(this).parent().siblings(":eq(9)").text())
 												console.log($(this).parent().siblings(":eq(10)").text())
-												var updProducts = $('#update_products')
-// 												updProducts.find('img:eq(0)').val($(this).parent().siblings(":eq(0)").html())
-												var eq1 = $(this).parent().siblings(":eq(1)").prop("readonly",true)
+												var updProducts = $('#update_products')  // 寫成這樣才有效能
+												var eq1 = $(this).parent().siblings(":eq(1)")
 												updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
-												updProducts.find('input:eq(3)').prop("readonly",true).val($(this).parent().siblings(":eq(2)").text())
-// 												updProducts.find('input:eq(2)').val($(this).parent().siblings(":eq(1)").text())
-// 												updProducts.find('input:eq(3)').val($(this).parent().siblings(":eq(2)").text())
+												var eq2 = $(this).parent().siblings(":eq(2)")
+												updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
+												// 以下2行為chaining寫法
+// 												updProducts.find('input:eq(2)').prop("readonly",true).val($(this).parent().siblings(":eq(1)").text())
+// 												updProducts.find('input:eq(3)').prop("readonly",true).val($(this).parent().siblings(":eq(2)").text())
+												// 以下2行為沒有readonly寫法
+// 												updProducts.find('input:eq(2)').val($(this).parent().siblings(":eq(1)").text()) // 沒有readonly寫法
+// 												updProducts.find('input:eq(3)').val($(this).parent().siblings(":eq(2)").text()) // 沒有readonly寫法
 												updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
 												updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
 												updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
@@ -589,7 +643,7 @@ textarea{
 												updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
 												updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
 												updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
-												})	
+												})	// end of $('.2g').click(function(){
 		
 		} // end of success : function(data) 
 	}) // end of $.ajax({
@@ -603,4 +657,4 @@ textarea{
 </body>
 </html>
 
-<!-- <input type="text" value ="' + this[0].product_Name + '" /></td><td> -->
+<!-- <span class="glyphicon glyphicon-wrench"> -->
