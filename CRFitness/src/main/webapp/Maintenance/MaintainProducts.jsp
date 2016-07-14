@@ -164,9 +164,6 @@ textarea{
 		<div class="col-md-2 "></div>
 		<div class="col-md-8 col-xs-12 ">
 		
-		<div class="full_row main_container" >
-    	    <div class = "full_row">
-				<div class="tm_editable_container input-group theme1" id="text_demo" data-iplaceholder="Type Something..">
 		<button type="button" id="creProdBtn" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#new_products">  
   		新增產品 
   		</button>
@@ -191,8 +188,7 @@ textarea{
 				</tr>
 			</thead>
 			<tbody id="products_tbody"></tbody>
-		</table>
-</div></div></div>		
+		</table>	
 		</div> <!-- end of class="col-md-8 col-xs-12" -->
 		<div class="col-md-2"></div>
 <!-- 資料表格 結束 -->
@@ -308,7 +304,7 @@ textarea{
                      <div class="modal-footer">
 <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="addbtn" class="btn btn-theme" type="button" value="UPDATE_PRODUCT">送出</button>                       
+                        <button id="updatebtn" class="btn btn-theme" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -451,8 +447,8 @@ textarea{
 									+ data[0].category
 									+ '</td><td>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-									+ '</td><td>'
-									+ data[1].introduction.substring(0,10)
+									+ '</td><td hidden="hidden">'
+									+ data[1].introduction
 									+ '</td><td><span class="glyphicon glyphicon-wrench">'
 									+ '</td><td><span class="glyphicon glyphicon-wrench">'
 									+ '</td></tr>') // end of after	            	   
@@ -463,6 +459,58 @@ textarea{
 	}) // end of $('#addbtn').click(function ()
 //新增產品的程式 結束
 	
+// 修改產品的程式 開始
+		  $('#updatebtn').click(function () {
+			  	var formData = new FormData();
+			  	formData.append('photo1', file[0]);
+				formData.append('product_Name', $('#insert_Name').val());
+				formData.append('color', $('#insert_color').val());
+				formData.append('size', $('#insert_size').val());
+				formData.append('stock', $('#insert_stock').val());
+				formData.append('price', $('#insert_price').val());
+				formData.append('category', $('#insert_category').val());
+				formData.append('introduction', $('#insert_introduction').val());
+			   $.ajax({
+	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
+	               type:'post',  //get post put delete
+					data: formData,
+	    		   processData: false,
+				   contentType: false,
+	               success:function(data){
+						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
+						var pdate_value = new Date(pdate_int);  
+	            	   $('#new_products').modal('hide');	
+	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' 
+	   								+ data[1].photo1 
+	   								+ '" class="img-thumbnail" /></td><td>'
+									+ data[0].product_Id
+									+ '</td><td>'
+									+ data[1].productDetail_Id
+									+ '</td><td>'
+									+ data[0].product_Name
+									+ '</td><td>'
+									+ data[1].size
+									+ '</td><td>'
+									+ data[1].color
+									+ '</td><td>'
+									+ data[1].stock
+									+ '</td><td>'
+									+ data[0].price
+									+ '</td><td>'
+									+ data[0].category
+									+ '</td><td>'
+									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+									+ '</td><td hidden="hidden">'
+									+ data[1].introduction
+									+ '</td><td><span class="glyphicon glyphicon-wrench">'
+									+ '</td><td><span class="glyphicon glyphicon-wrench">'
+									+ '</td></tr>') // end of after	            	   
+							$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
+							file = null;				 
+	               	} // end of success:function(data)	 
+	           }) // end of  $.ajax({
+	}) // end of $('#updatebtn').click(function ()
+//新增產品的程式 結束
 // 	$.ajax({
 //         url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
 //         type:'get',  //get post put delete
