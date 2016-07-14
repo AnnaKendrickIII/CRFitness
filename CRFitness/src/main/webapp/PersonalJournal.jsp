@@ -343,7 +343,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 										// 顯示留言
 										if(maxMessageSize != data.length){
 											$.each(data, function(index,ele){
-												if(this.message_Id > nowMessage_Id){
+												if(this.message_Id > this.message_Id){
+										console.log(nowMessage_Id +','+ data.length)
 													writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
 													nowMessage_Id = this.message_Id;
 												}
@@ -401,9 +402,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    						var invert; 
 			    				    	var li_direction;
 			    				    	
-			    
-			    						
-			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record')){
+			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record invert')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
 			    				    		invert='<i class="glyphicon glyphicon-record " '
 			    						}else{
