@@ -85,10 +85,8 @@ textarea{
                                     	+this.member_Id+'" >'
                                     	+'<img src="data:image/png;base64,'
                                     	+this[0].photo1+'" class="" alt="Independence Day" /></a>'
-                                    	+'<div>'
+                                    	+'<div style="text-align : center">'
                                     	+this[0].activity_Class
-                                    	+''
-                                    	+''
                                     	+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')  
@@ -415,19 +413,7 @@ console.log(data);
 			    						var invert; 
 			    				    	var li_direction;
 			    				    	
-			    						/*
-			    				    	var  invert; 
-			    				    	var li_direction;
 
-			    				    	if(index%2==0){
-			    				    		li_direction='<li id="'+ this[0].journal_Id +'">';
-			    				    		invert='<i class="glyphicon glyphicon-record " '
-			    				    	}else{
-			    				    		li_direction='<li id="'+ this[0].journal_Id +'" class="timeline-inverted" >';
-			    				    		invert='<i class="glyphicon glyphicon-record invert" '
-			    				    	}
-
-			    						*/
 			    						
 			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
@@ -463,7 +449,9 @@ console.log(data);
 			    					   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
 			    					   			+ '</div>'
 		   								+ '</li>')
-		   								
+		   								$('.timeline-panel').fadeIn(1200);
+			    						$('#exampleModal textarea').val('')
+										$('#uploadfile').val('')
 
 		   								// 新增的日誌公開狀態change功能
 		   								var eleS = $('<br/><select />').bind('change',data,function(){
