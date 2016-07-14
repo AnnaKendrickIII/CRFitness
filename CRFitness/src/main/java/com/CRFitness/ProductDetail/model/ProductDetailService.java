@@ -96,9 +96,9 @@ public class ProductDetailService {
 	}
 
 	// 用商品分類檢索 找出該類商品
-	public List<ProductDetailVO> getItemByCategory(String category) {
+	public List<ProductDetailVO> getItemByCategory(String category, Integer page) {
 		if (category != null) {
-			return productDetailDAO.getItemByCategory(category);
+			return productDetailDAO.getItemByCategory(category, page);
 		} else {
 			return null;
 		}
@@ -108,8 +108,13 @@ public class ProductDetailService {
 	public List<ProductDetailVO> addShoppingCart(String productDetail_Id) {
 		ProductDetailVO productDetailVO = productDetailDAO
 				.findByPrimaryKeySQLQuery(productDetail_Id).get(0);
-		cart.add(productDetailVO);
-		return cart;
+
+		if (cart.add(productDetailVO)) {
+			return cart;
+		} else {
+			return null;
+		}
+
 	}
 
 	// back-end 新增商品至 ProductDetail & Product Table

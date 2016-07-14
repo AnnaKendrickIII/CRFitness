@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/searchform.css">
 
-<title>購物商城</title>
+<title>商品</title>
 
 <style type="text/css">
 aside{
@@ -87,13 +87,25 @@ color: white
    	  <div class="col-xs-2 col-lg-2"> </div>
 	    <div id="products" class="row list-group col-xs-8 col-lg-8" ></div>
       <div class="col-xs-2 col-lg-2 shopping_car"> </div>
-    </div>
+</div>
+<div class="container">
+<ul class="pagination">
+              <li class="disabled"><a href="#">«</a></li>
+              <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+              <li><a >2</a></li>
+              <li><a >3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">»</a></li>
+            </ul>
+</div>
 </div>
 <a href="${this_contextPath}/ShoppingCart.jsp"><img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png"></a>
 
 <script type="text/javascript">
 jQuery(function($){
 var Type='${pageContext.request.queryString}';
+console.log(Type)
 Type=Type.substr(9)
 if(Type=='Sports_Equipment'){
 	Type='運動器材'
@@ -104,15 +116,20 @@ if(Type=='Sports_Equipment'){
 }else if(Type=='Shoes'){
 	Type='鞋類'
 }
+
+$('a').on('click',function(){
+var Page = $(this).text()
+console.log(Type)
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByCategory',
 	type:'get',
-	data:{category:Type},
+	data:{category:Type, page:Page},
 	success:function(data){
 		$.each(data,function(){
+			$('#products>div').remove();
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
-						+this[0].product_Name+'"><img id="b"   class="group list-group-image img-responsive"  src="data:image/png;base64,'
+						+this[0].product_Name+'"><img id="b"   class="group list-group-image"  src="data:image/png;base64,'
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff">'
 						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
@@ -122,6 +139,7 @@ $.ajax({
 		})		
 	}
 });
+})
 })
 </script>
 

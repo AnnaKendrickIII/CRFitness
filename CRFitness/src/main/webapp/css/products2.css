@@ -54,3 +54,52 @@
 .list-group-item-text {
 	margin: 0 0 11px;
 }
+
+.pagination>li>a, .pagination>li>span {
+	border-radius: 50% !important;
+	margin: 0 5px;
+}
+
+aside {
+	background-color: #f5f5f5;
+}
+
+.productsclass {
+	background-color: #f5f5f5;
+}
+
+#a {
+	height: 425px;
+}
+
+#b {
+	height: 250px;
+}
+
+#a:hover {
+	border: 1px solid #3333ff;
+}
+
+.shopping_car {
+	position: fixed;
+	right: 2%;
+	top: 35%;
+	opacity: 0.6;
+}
+
+.shopping_car:hover {
+	position: fixed;
+	right: 2%;
+	top: 35%;
+	opacity: 1;
+}
+
+.shop {
+	background-color: red;
+	color: white
+}
+
+.shop:LINK, .shop:FOCUS, .shop:hover, .shop:ACTIVE {
+	background-color: #AE0000;
+	color: white
+}

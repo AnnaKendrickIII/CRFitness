@@ -90,22 +90,17 @@ padding:10px 5px 2px 5px;
 <!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 	<c:if test="${! empty LoginOK}">
 	
-	
-	
-<!-- 	<ul class="grid effect-7" id="grid"  > -->
-              
-<!-- 	</ul> -->
-	 
-<!-- 	<ul style="display: none" class="grid effect-8" id="grid2"  > -->
-              
-<!-- 	 </ul> -->
 
 <div class="container-fluid">
 		<div class="row">
 			<div class="col-md-1 col-xs-1"></div>
 			<div class="col-md-10 col-xs-10 ">
-				<div id="activitys_div" class="row ">
-
+				<div id="activitys_div" class="row2">
+建立的活動
+				</div>
+				
+				<div  style="display: none" id="activitys_div2" class="row2">
+參加的活動
 				</div>
 			</div>
 			<div class="col-md-1 col-xs-1"></div>
@@ -113,12 +108,12 @@ padding:10px 5px 2px 5px;
 </div>
 		<!-- 頁面部分 開始-->
 	
-<!-- 	<script> -->
-<!-- // 		$( "button" ).click(function() { -->
-<!-- // 		  $( "#activitys_div" ).toggle();			 -->
-<!-- // 		}); -->
+	<script>
+ 		$( "button" ).click(function() { 
+ 		  $( ".row2" ).toggle();			
+ 		}); 
 
-<!-- 	</script> -->
+	</script>
 	
 	<script type="text/javascript">
 	Date.prototype.Format = function (fmt) {  
@@ -163,7 +158,7 @@ padding:10px 5px 2px 5px;
 						  })	
 		        		 }//到第一個ajax
 		        		 if(index%3 == 0){
-		        			 $('#activitys_div').append("<div id='div_"+count+"' class='row clearfix'></div>")      			 
+		        			 $('#activitys_div').append("<div id='div_"+count+"' class='row'></div>")      			 
 		        		 }	 
 							$('#div_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
@@ -222,24 +217,24 @@ padding:10px 5px 2px 5px;
 		        	        }
 		        	    });
 			
-	                 $('li a:not(:first-child)').click(function(){
+	                 $('div a:not(:first-child)').click(function(){
 	                	 var li_notfirst =$(this)
 	                	  $('form').submit(function(){
 	                		    console.log(li_notfirst.siblings("p").text())
-	                		    console.log(li_notfirst.parent().find("a:eq(4)").text())	
+	                			console.log(li_notfirst.parent().find("a:eq(0)").text())
 	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
 	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
 	                			console.log(li_notfirst.parent().find("a:eq(3)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(5)").text())
+	                			console.log(li_notfirst.parent().find("a:eq(4)").text())
 		                	   $.ajax({
 	    						url:"${this_contextPath}/CRFSERVICE/activitysController/modifyActivitys",
 		          				type:'post',  //get post put delete
 		          				data:{activity_Id:li_notfirst.siblings("p").text(),
-		          					  activity_Class:li_notfirst.parent().find("a:eq(1)").text(),
-		          					  activity_Area:li_notfirst.parent().find("a:eq(2)").text(),
-		          					  activity_Info:li_notfirst.parent().find("a:eq(3)").text(),
-		          					  activity_Day:li_notfirst.parent().find("a:eq(4)").text(),
-		          					  deadline:li_notfirst.parent().find("a:eq(5)").text()
+		          					  activity_Class:li_notfirst.parent().find("a:eq(0)").text(),
+		          					  activity_Area:li_notfirst.parent().find("a:eq(1)").text(),
+		          					  activity_Info:li_notfirst.parent().find("a:eq(2)").text(),
+		          					  activity_Day:li_notfirst.parent().find("a:eq(3)").text(),
+		          					  deadline:li_notfirst.parent().find("a:eq(4)").text()
 		          					},
 		          				success:function(data){    
 		          					console.log(data)
@@ -257,101 +252,64 @@ padding:10px 5px 2px 5px;
 		      
 // 		      //個人參加的揪團
 		      
-// 		      $.ajax({
-// 	    	url:"${this_contextPath}/CRFSERVICE/activitysController/myActivitys/${LoginOK.member_Id}",
-// 		          type:'get',  //get post put delete
-// 		          data:{ },
-// 		          success:function(data){      	  
-// 		        	  $.each(data,function(){        		  
-// 		        		  var message;
-// 		        		  var activityID=this[0].activity_Id;     		   
-// 		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
-// 						  var jdate_value = new Date(jdate_int);
-// 						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
-// 						  var jdate_value_deadline = new Date(jdate_int2);
-
-		      
-// 		        		  //內
-// 							$('#activitys_div').append('<li ><a href="data:image/png;base64,'
-// 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-// 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
-// 							+this[0].activity_Area+'<br />內容：'
-// 							+this[0].activity_Info+'<br />日期：'
-// 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-// 							+this[0].people 
-// 							//外
-// 							+'"><span title=""><img src="data:image/png;base64,'
-// 									+this[0].photo1+'" /></span></a><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
-// 									+this[2]+'<br />類別：'
-// 									+"<a href='#' class='select'>"+this[0].activity_Class+"</a>"+'<br />地區：'
-// 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Area'>"+this[0].activity_Area+"</a>"+'<br />內容：'
-// 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Info'>"+this[0].activity_Info+"</a>"+'<br />活動時間：'
-// 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />活動截止日：'
-// 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />目前參加人數：'
-// 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
-// 									+this[0].people+'</button></li>')
+	    $.ajax({
+	    	url:"${this_contextPath}/CRFSERVICE/activitysController/myActivitys/${LoginOK.member_Id}",
+		          type:'get',  //get post put delete
+		          data:{ },
+		          success:function(data){      	  
+		        	 var count=1;
+		        	  $.each(data,function(index){        
+		        		  var message;
+		        		  var activityID=this[0].activity_Id;     		   
+		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
+						  var jdate_value = new Date(jdate_int);
+						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
+						  var jdate_value_deadline = new Date(jdate_int2);
+						  var names=' ';
+		        		  if(this[2]!=null){
+						  var nameData=this[2].split(",")						  
+						  $.each(nameData,function(){
+							if(this!=""){
+								names+=this+'\n'
+							}				  
+						  })	
+		        		 }//到第一個ajax
+		        		 if(index%3 == 0){
+		        			 $('#activitys_div2').append("<div id='div2_"+count+"' class='row'></div>")      			 
+		        		 }	 
+							$('#div2_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="data:image/png;base64,'
+							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
+							+this[3]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+							+this[0].activity_Area+'<br />內容：'
+							+this[0].activity_Info+'<br />日期：'
+							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
+							+this[0].people 
+							//外
+							+'"><span title=""><img src="data:image/png;base64,'
+									+this[0].photo1+'" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
+									+this[3]+'<br />類別：'
+									+this[0].activity_Class+"</a>"+'<br />地區：'
+									+this[0].activity_Area+"</a>"+'<br />內容：'
+									+this[0].activity_Info+"</a>"+'<br />活動時間：'
+									+jdate_value.Format('yyyy-MM-dd hh:mm')+'<br />活動截止日：'
+									+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+'<br />目前參加人數：'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+names+'">'
+									+this[0].people+'</button></div></div>')
+									
+							if(index%3 == 2){
+								count++;
+							}
 									  					
-// 	                 		 })//each
-// 							  $('.btn.btn-default').tooltip()
-// 								$(".boxer").boxer({
-//     							top: 50,
-//     							fixed:true
-// 								});	
-// 		        	  $.fn.editable.defaults.mode = 'inline';     
-// 		        	    $('.select').editable({
-// 		        	        type: 'select',
-// 		        	        title: 'Select status',
-// 		        	        placement: 'right',
-// 		        	        value: 2,
-// 		        	        source: [
-// 		        	            {value: 1, text: '跑步'},
-// 		        	            {value: 2, text: '登山'},
-// 		        	            {value: 3, text: '游泳'},
-// 		        	            {value: 4, text: '飛輪'},
-// 		        	            {value: 5, text: '自行車'},
-// 		        	            {value: 6, text: '有氧運動'},
-// 		        	            {value: 7, text: '球類運動'},
-// 		        	            {value: 8, text: '室內運動'},
-// 		        	            {value: 9, text: '其他類別'}
+	                 		 })//each
+							  $('.btn.btn-default').tooltip()
+								$(".boxer").boxer({
+    							top: 50,
+    							fixed:true
+								});	
 
-// 		        	        ]
-// 		        	    });
-// 		        	    $('.username').editable();
-// 		        	    $('.event').editable({
-// 		        	        placement: 'right',
-// 		        	        combodate: {
-// 		        	            firstItem: 'name'
-// 		        	        }
-// 		        	    });				
-// 	                 $('li a:not(:first-child)').click(function(){
-// 	                	 var li_notfirst =$(this)
-// 	                	  $('form').submit(function(){
-// 	                		    console.log(li_notfirst.siblings("p").text())
-// 	                		    console.log(li_notfirst.parent().find("a:eq(4)").text())	
-// 	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
-// 	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
-// 	                			console.log(li_notfirst.parent().find("a:eq(3)").text())
-// 	                			console.log(li_notfirst.parent().find("a:eq(5)").text())
-// 		                	   $.ajax({
-// 	    						url:"${this_contextPath}/CRFSERVICE/activitysController/modifyActivitys",
-// 		          				type:'post',  //get post put delete
-// 		          				data:{activity_Id:li_notfirst.siblings("p").text(),
-// 		          					  activity_Class:li_notfirst.parent().find("a:eq(1)").text(),
-// 		          					  activity_Area:li_notfirst.parent().find("a:eq(2)").text(),
-// 		          					  activity_Info:li_notfirst.parent().find("a:eq(3)").text(),
-// 		          					  activity_Day:li_notfirst.parent().find("a:eq(4)").text(),
-// 		          					  deadline:li_notfirst.parent().find("a:eq(5)").text()
-// 		          					},
-// 		          				success:function(data){    
-// 		          					console.log(data)
-// 		          				}
-// 		                	   })
-	                		 
-// 	                	  })
-	                	 
-// 	                  })
-// 		          }//外層success          	 
-// 		      })//外層ajax
+		          }//外層success          	 
+		      })
 		      
 // 		      //個人參加的揪團
 		      
