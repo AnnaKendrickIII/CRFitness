@@ -228,7 +228,7 @@
                   
                         Custombox.open({
                             target: '#login-box',
-                            effect: 'door'
+                            effect: 'rotatedown'
                         });
                         $('#create_account').click(function () {	
                         	  Custombox.close('#login-box') 

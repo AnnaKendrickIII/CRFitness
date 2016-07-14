@@ -138,7 +138,6 @@
 <!-- 			<artifactId>sqlserverdriver</artifactId> -->
 <!-- 			<version>4.2</version> -->
 <!-- 		</dependency>	 -->
-
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>

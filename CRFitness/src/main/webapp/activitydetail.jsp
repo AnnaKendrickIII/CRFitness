@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:if test="${ empty LoginOK}">
+<c:redirect url="/index.jsp?NoLogin"></c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -92,7 +95,7 @@
 									+names+'">'
 									+this[0].people+'</button></li>')
 									  					
-	                 		 })
+	                 		 })//each
 							  $('.btn.btn-default').tooltip()
 								$(".boxer").boxer({
     							top: 50,
@@ -156,11 +159,8 @@
 	                	  })
 	                	 
 	                  })
-		          }          	 
-		      })
-		     
-		     
-		      
+		          }//外層success          	 
+		      })//外層ajax
 		      
 	})
 	</script>

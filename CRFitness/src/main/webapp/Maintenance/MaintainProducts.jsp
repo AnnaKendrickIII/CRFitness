@@ -101,25 +101,25 @@ body {
 }
 
 
-        #trigger-upload {
-            color: white;
-            background-color: #00ABC7;
-            font-size: 14px;
-            padding: 7px 20px;
-            background-image: none;
-        }
+#trigger-upload {
+	color: white;
+    background-color: #00ABC7;
+    font-size: 14px;
+    padding: 7px 20px;
+    background-image: none;
+}
 
-        #fine-uploader-manual-trigger .qq-upload-button {
-            margin-right: 15px;
-        }
+#fine-uploader-manual-trigger .qq-upload-button, #fine-uploader-manual-trigger2 .qq-upload-button {
+	margin-right: 15px;
+}
 
-        #fine-uploader-manual-trigger .buttons {
-            width: 50%;
-        }
+#fine-uploader-manual-trigger .buttons, #fine-uploader-manual-trigger2 .buttons {
+	width: 50%;
+}
 
-        #fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container {
-            width: 60%;
-        }
+#fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container, #fine-uploader-manual-trigger2 .qq-uploader .qq-total-progress-bar-container {
+    width: 60%;
+}
 
 
 .gallery {
@@ -148,12 +148,12 @@ body {
     margin-right: 16px;
 }
 
-#creProdBtn{
-	margin-top:55px;
+#creProdBtn, #modProdBtn{
+	margin-top: 55px;
 }
 
-#grid{
-	margin-top:55px;
+textarea{
+	resize:none;
 }
 </style>
 </head>
@@ -169,6 +169,7 @@ body {
   		</button>
 
 <!-- 資料表格 開始 -->
+	
 		<table id="games_talbe" class="table">
 			<thead>
 				<tr>
@@ -182,14 +183,12 @@ body {
 					<th><h3>Price</h3></th>
 					<th><h3>Category</h3></th>
 					<th><h3>Published Date</h3></th>
-					<th><h3>Info</h3></th>
 					<th><h3>Modify</h3></th>
-					<th><h3>Suspended</h3></th>
+					<th><h3>Status</h3></th>
 				</tr>
 			</thead>
 			<tbody id="products_tbody"></tbody>
-		</table>
-		
+		</table>	
 		</div> <!-- end of class="col-md-8 col-xs-12" -->
 		<div class="col-md-2"></div>
 <!-- 資料表格 結束 -->
@@ -204,7 +203,7 @@ body {
                         <h3 class="modal-title">新增產品</h3>
                     </div>
                             
-                    <div id="addActivitys_form" class="modal-body">
+                    <div id="addProducts_form" class="modal-body">
                     <div id='fine-uploader-manual-trigger'></div>
             	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="insert_Name" autocomplete="off" class="form-control" placeholder="輸入名稱" />                                                
@@ -230,7 +229,7 @@ body {
                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="insert_introduction" class="form-control" autocomplete="off" placeholder="輸入簡介" />
                             
-                     </div> <!-- end of id="addActivitys_form" class="modal-body" -->
+                     </div> <!-- end of id="addProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer">
 <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
@@ -238,11 +237,12 @@ body {
                         <button id="addbtn" class="btn btn-theme" type="button" value="INSERT_PRODUCT">送出</button>                       
                      </div>
                      
-                     </div>
-                  </div>
-            </div>
+                     </div> <!-- <div class="modal-content"> -->
+            	</div> <!-- <div class="modal-dialog"> -->
+            </div> <!-- end of <div aria-hidden="true" -->
 <!-- 新增產品彈出視窗 結束 -->
-<!-- 上傳圖片 開始-->
+
+<!-- 新增上傳圖片 開始 以下這段一定要放這，不然就是ready or onload-->
 <script>
         $('#fine-uploader-manual-trigger').fineUploader({
             template: 'qq-template-manual-trigger',
@@ -259,6 +259,76 @@ body {
         });
         $('#trigger-upload').click(function() {
             $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+        });
+</script>
+<!-- 上傳圖片 結尾-->
+
+<!-- 修改產品彈出視窗 開始-->
+        	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="update_products" class="modal fade">
+            	<div class="modal-dialog">
+                	<div class="modal-content">
+                	
+                    <div class="modal-header login_header">
+                    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title">修改產品</h3>
+                    </div>
+                            
+                    <div id="updateProducts_form" class="modal-body">
+                    <div id='fine-uploader-manual-trigger2'></div>
+            	        <p>產品ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="update_prodId" autocomplete="off" class="form-control" />                                                
+                        <p>產品明細ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="update_prodDetId" autocomplete="off" class="form-control" />                                                
+                        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="update_Name" autocomplete="off" class="form-control" />                                                
+                        <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                   		<input required="required" type="text" id="update_size" autocomplete="off" class="form-control" />
+                        <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p>
+                        <input required="required" type="text" id="update_color" autocomplete="off" class="form-control" />
+                        <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="update_stock" autocomplete="off" class="form-control" />
+                        <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <input required="required" type="text" id="update_price" autocomplete="off" class="form-control" />
+                        <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <select id="update_category" name="test1" class="form-control" >
+							<option value="運動器材">運動器材</option>
+							<option value="服飾類">服飾類</option>
+							<option value="運動用品">運動用品</option>
+							<option value="鞋類">鞋類</option>
+						</select>
+                        <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <textarea required="required"  id="update_info"  class="form-control" >
+                         </textarea>
+                     </div> <!-- end of id="updateProducts_form" class="modal-body" -->
+                     
+                     <div class="modal-footer">
+<%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
+                        <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+                        <button id="updatebtn" class="btn btn-theme" type="button" value="UPDATE_PRODUCT">送出</button>                       
+                     </div>
+                     
+                     </div> <!-- <div class="modal-content"> -->
+            	</div> <!-- <div class="modal-dialog"> -->
+            </div> <!-- end of <div aria-hidden="true" -->
+<!-- 修改產品彈出視窗 結束 -->
+
+<!-- 修改圖片 開始 以下這段一定要放這，不然就是ready or onload-->
+<script>
+        $('#fine-uploader-manual-trigger2').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/server/uploads'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        })
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger2').fineUploader('uploadStoredFiles');
         });
 </script>
 <!-- 上傳圖片 結尾-->
@@ -288,9 +358,10 @@ body {
 			}
 // 轉換日期的小程式 結束
 
-// 新增圖片的程式 開始
+
 	jQuery(function ($) {	  
 		  var file;	
+// 新增上傳圖片的小程式 開始
 		$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 
 		})
@@ -310,20 +381,42 @@ body {
     		//透過dataTransfer取得FileList object.
     		file = event.dataTransfer.files;
 		})
-// 新增圖片的小程式 結束
+// 新增上傳圖片的小程式 結束
+
+// 修改上傳圖片的小程式 開始
+		$('#fine-uploader-manual-trigger2 .qq-uploader-selector').change(function (event) {		 
+		 file=event.target.files;			  	 	 
+		})
+			jQuery.event.props.push('dataTransfer');
+			//加入dragover和drop
+		$('#fine-uploader-manual-trigger2 .qq-uploader-selector .qq-upload-drop-area-selector').on('dragover', function(event){
+    		//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//複製拖移的物件
+    		event.dataTransfer.dropEffect = 'copy';
+		});
+		$('#fine-uploader-manual-trigger2 .qq-uploader-selector .qq-upload-drop-area-selector').on('drop', function(event){
+   			//停止開啟檔案及其他動作
+    		event.stopPropagation();
+    		event.preventDefault();
+    		//透過dataTransfer取得FileList object.
+    		file = event.dataTransfer.files;
+		})
+// 修改上傳圖片的小程式 結束
 
 // 新增產品的程式 開始
 		  $('#addbtn').click(function () {
 			  	var formData = new FormData();
 			  	formData.append('photo1', file[0]);
-// 				 formData.append('member_Id',  '${LoginOK.member_Id}');
-				 formData.append('product_Name', $('#insert_Name').val());
-				 formData.append('color', $('#insert_color').val());
-				 formData.append('size', $('#insert_size').val());
-				 formData.append('stock', $('#insert_stock').val());
-				 formData.append('price', $('#insert_price').val());
-				 formData.append('category', $('#insert_category').val());
-				 formData.append('introduction', $('#insert_introduction').val());
+// 				formData.append('member_Id',  '${LoginOK.member_Id}');
+				formData.append('product_Name', $('#insert_Name').val());
+				formData.append('color', $('#insert_color').val());
+				formData.append('size', $('#insert_size').val());
+				formData.append('stock', $('#insert_stock').val());
+				formData.append('price', $('#insert_price').val());
+				formData.append('category', $('#insert_category').val());
+				formData.append('introduction', $('#insert_introduction').val());
 			   $.ajax({
 	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
 	               type:'post',  //get post put delete
@@ -334,7 +427,9 @@ body {
 						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
 						var pdate_value = new Date(pdate_int);  
 	            	   $('#new_products').modal('hide');	
-	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' + data[1].photo1 + '" class="img-thumbnail" /></td><td>'
+	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' 
+	   								+ data[1].photo1 
+	   								+ '" class="img-thumbnail" /></td><td>'
 									+ data[0].product_Id
 									+ '</td><td>'
 									+ data[1].productDetail_Id
@@ -352,91 +447,85 @@ body {
 									+ data[0].category
 									+ '</td><td>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-									+ '</td><td>'
+									+ '</td><td hidden="hidden">'
 									+ data[1].introduction
 									+ '</td><td><span class="glyphicon glyphicon-wrench">'
-									+ '</td><td><i class="fa fa-code-fork" aria-hidden="true"></i>'
+									+ '</td><td><span class="glyphicon glyphicon-wrench">'
 									+ '</td></tr>') // end of after	            	   
 							$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty();
-							file = null;
-// 					           $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'	            	   
-// 								+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-// 								+data.member_Id+'<br />類別：'+data.activity_Class+'<br />地區：'
-// 								+data.activity_Area+'<br />內容：'
-// 								+data.activity_Info+'<br />日期：'
-// 								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-// 								+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_PRODUCT'>參加活動</button>" 
-// 								+'"><img src="data:image/png;base64,'
-// 								+data.photo1+'" /></a>發起人：'
-// 								+data.member_Id+'<br />類別：'
-// 								+data.activity_Class+'<br />地區：'
-// 								+data.activity_Area+'<br />內容：'
-// 								+data.activity_Info+'<br />日期：'
-// 								+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-// 								+'<button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
-// 								+data.people+'</button></li>')			
-// 						 $('.btn.btn-default').tooltip()	
-// 						  $(".boxer").boxer({ 
-// 									  top: 50,
-// 									  fixed:true});	 				 
+							file = null;				 
 	               	} // end of success:function(data)	 
 	           }) // end of  $.ajax({
 	}) // end of $('#addbtn').click(function ()
 //新增產品的程式 結束
 	
+// 修改產品的程式 開始
+		  $('#updatebtn').click(function () {
+			  	var formData = new FormData();
+			  	formData.append('photo1', file[0]);
+				formData.append('product_Name', $('#insert_Name').val());
+				formData.append('color', $('#insert_color').val());
+				formData.append('size', $('#insert_size').val());
+				formData.append('stock', $('#insert_stock').val());
+				formData.append('price', $('#insert_price').val());
+				formData.append('category', $('#insert_category').val());
+				formData.append('introduction', $('#insert_introduction').val());
+			   $.ajax({
+	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
+	               type:'post',  //get post put delete
+					data: formData,
+	    		   processData: false,
+				   contentType: false,
+	               success:function(data){
+						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
+						var pdate_value = new Date(pdate_int);  
+	            	   $('#new_products').modal('hide');	
+	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' 
+	   								+ data[1].photo1 
+	   								+ '" class="img-thumbnail" /></td><td>'
+									+ data[0].product_Id
+									+ '</td><td>'
+									+ data[1].productDetail_Id
+									+ '</td><td>'
+									+ data[0].product_Name
+									+ '</td><td>'
+									+ data[1].size
+									+ '</td><td>'
+									+ data[1].color
+									+ '</td><td>'
+									+ data[1].stock
+									+ '</td><td>'
+									+ data[0].price
+									+ '</td><td>'
+									+ data[0].category
+									+ '</td><td>'
+									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+									+ '</td><td hidden="hidden">'
+									+ data[1].introduction
+									+ '</td><td><span class="glyphicon glyphicon-wrench">'
+									+ '</td><td><span class="glyphicon glyphicon-wrench">'
+									+ '</td></tr>') // end of after	            	   
+							$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
+							file = null;				 
+	               	} // end of success:function(data)	 
+	           }) // end of  $.ajax({
+	}) // end of $('#updatebtn').click(function ()
+//新增產品的程式 結束
 // 	$.ajax({
 //         url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
 //         type:'get',  //get post put delete
 //         data:{ },
 //         success:function(data){      	  
 //       	  $.each(data,function(){        		  
-//       		  var message;
-//       		  var activityID=this[0].activity_Id;     		   
-//       		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
-// 				  var jdate_value = new Date(jdate_int);
-// 				  var names=' ';
-//       		  if(this[1]!=null){
-// 				  var nameData=this[1].split(",")						  
-// 				  $.each(nameData,function(){
-// 					if(this!=""){
-// 						names+=this+'\n'
-// 					}				  
-// 				  }) 	
-//       		 }
-// 			$('#grid').append('<li ><a href="data:image/png;base64,'
-// 					+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-// 					+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
-// 					+this[0].activity_Area+'<br />內容：'
-// 					+this[0].activity_Info+'<br />日期：'
-// 					+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-// 					+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_PRODUCT'>參加活動</button>" 
-// 					+'"><span title=""><img src="data:image/png;base64,'
-// 					+this[0].photo1+'" /></span></a>發起人：'
-// 					+this[2]+'<br />類別：'
-// 					+this[0].activity_Class+'<br />地區：'
-// 					+this[0].activity_Area+'<br />內容：'
-// 					+this[0].activity_Info+'<br />日期：'
-// 					+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-// 					+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
-// 					+names+'">'
-// 					+this[0].people+'</button></li>') // end of $('#grid').append
-							  					
+
 //            }) // end of $.each(data,function()
-// // 				$('.btn.btn-default').tooltip()
-// // 					$(".boxer").boxer({
-// // 								top: 50,
-// // 								fixed:true});																	
-// //             new AnimOnScroll(document.getElementById('grid'), {
-// //                 minDuration: 0.4,
-// //                 maxDuration: 0.6,
-// //                 viewportFactor: 0.2});
+
 //         }//end of success:function(data)
 //     }) // end of $.ajax({
     	
 // 顯示table的程式 開始
 	$.ajax({
-	// url:"${this_contextPath}/CRFSERVICE/producController/product",
-		url : "${this_contextPath}/CRFSERVICE/productDetailController/getAllDetail",
+		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
@@ -444,7 +533,9 @@ body {
 				function() {
 					var pdate_int = parseInt(this[0].published_Date); //轉換成數字
 					var pdate_value = new Date(pdate_int);  
-						$('#products_tbody').append('<tr><td><img src="data:image/png;base64,' + this[0].photo1 + '" class="img-thumbnail" /></td><td>'
+						$('#products_tbody').append('<tr><td><img src="data:image/png;base64,' 
+													+ this[0].photo1 
+													+ '" class="img-thumbnail" /></td><td>'
 													+ this[0].product_Id
 													+ '</td><td>'
 													+ this[0].productDetail_Id
@@ -462,12 +553,44 @@ body {
  													+ this[2]
  													+ '</td><td>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-													+ '</td><td>'
-									                + this[0].introduction.substring(0,10)
+													+ '</td><td hidden="hidden">'
+									                + this[0].introduction
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><span class="glyphicon glyphicon-wrench">'
 													+ '</td><td><span class="glyphicon glyphicon-wrench">'
-													+ '</td><td><i class="fa fa-minus-square" aria-hidden="true"></i>'
 													+ '</td></tr>') // end of append
-			}) // end of $.each(
+												}) // end of $.each(
+												// 修改產品的小程式		
+												$('.2g').click(function(){	
+// 												console.log($('.img-thumbnail:eq(0)').attr('src'))
+// 												console.log($(this).parent().parent().find("img").attr('src'))
+// 												console.log($(this).parent().parent().find("img").attr('src').substr(22))
+												$('#uploadfile').prop("files",$(this).parent().parent().find("img").attr('src').substr(22));
+												console.log($(this).parent().siblings(":eq(1)").text())
+												console.log($(this).parent().siblings(":eq(2)").text())
+												console.log($(this).parent().siblings(":eq(3)").text())
+												console.log($(this).parent().siblings(":eq(4)").text())
+												console.log($(this).parent().siblings(":eq(5)").text())
+												console.log($(this).parent().siblings(":eq(6)").text())
+												console.log($(this).parent().siblings(":eq(7)").text())
+												console.log($(this).parent().siblings(":eq(8)").text())
+												console.log($(this).parent().siblings(":eq(9)").text())
+												console.log($(this).parent().siblings(":eq(10)").text())
+												var updProducts = $('#update_products')
+// 												updProducts.find('img:eq(0)').val($(this).parent().siblings(":eq(0)").html())
+												var eq1 = $(this).parent().siblings(":eq(1)").prop("readonly",true)
+												updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
+												updProducts.find('input:eq(3)').prop("readonly",true).val($(this).parent().siblings(":eq(2)").text())
+// 												updProducts.find('input:eq(2)').val($(this).parent().siblings(":eq(1)").text())
+// 												updProducts.find('input:eq(3)').val($(this).parent().siblings(":eq(2)").text())
+												updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
+												updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
+												updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
+												updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
+												updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
+												updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
+												updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
+												})	
+		
 		} // end of success : function(data) 
 	}) // end of $.ajax({
 // 顯示table的程式 結束			
@@ -475,22 +598,9 @@ body {
 	}) // end of jQuery(function ($)
 </script>
 
-	</div>
+</div> <!-- end of <div class="row"> -->
 	<!--  頁面部分 結束 -->
 </body>
 </html>
-		<!--                <script type="text/javascript"> -->
-		<!--                      $(function () { -->
-		<!--                          $.ajax({ -->
-		<%--                              url:"${this_contextPath}/CRFSERVICE/friendships/${LoginOK.member_Id}", --%>
-		<!--                              type:'get',  //get post put delete -->
-		<!--                              data:{}, -->
-		<!--                              success:function(data){ -->
-		<!--                                  $.each(data,function(){ -->
-		<%--                                      $('#friend_tbody').append('<tr><td><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class="img-circle friend_photo" alt="Responsive image" /><td class="friend_Name">'+  this.nickname +'</td><td>'+  this.e_mail +'</td>')   --%>
-		<!--                                  }) -->
-		<!--                              }          	  -->
-		<!--                          }) -->
-		<!--                      }) -->
-		<!--                  </script >  -->
-<!-- 		<span class="glyphicon glyphicon-trash"> -->
+
+<!-- <input type="text" value ="' + this[0].product_Name + '" /></td><td> -->

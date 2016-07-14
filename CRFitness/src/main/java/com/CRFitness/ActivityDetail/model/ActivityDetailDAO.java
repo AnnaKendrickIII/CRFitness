@@ -28,12 +28,9 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 	}
 	
     @Override
-	public boolean insert(ActivityDetailVO activityDetailVO) {
-		if (activityDetailVO != null) {
+	public ActivityDetailVO insert(ActivityDetailVO activityDetailVO) {
 			this.getSession().saveOrUpdate(activityDetailVO);
-			return true;
-		}
-		return false;	
+			return activityDetailVO;
 	}
 	@Override
 	public boolean update(ActivityDetailVO activityDetailVO) {

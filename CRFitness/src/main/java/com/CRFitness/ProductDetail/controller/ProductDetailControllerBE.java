@@ -54,20 +54,35 @@ public class ProductDetailControllerBE {
 		return productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, introduction);	
 	}
 	
-	// Back-end: 
-//	@RequestMapping(method = RequestMethod.GET, value ="/productDetail", produces = MediaType.APPLICATION_JSON)
-//	public @ResponseBody List<ProductDetailVO> AllProductDetails(){	
-//		return productDetailService.getAll();	
-//	}
-	
-//	@RequestMapping(method = RequestMethod.POST, value ="/Login", produces = MediaType.APPLICATION_JSON)
-//	public @ResponseBody MemberVO Third_party_Sign(
-//			HttpServletRequest request,
-//			@RequestParam String nickname,
-//			@RequestParam String e_mail,
-//			@RequestParam String photoUrl) {		
-//		request.getSession().setAttribute("LoginOK", memberService.SignCheck(nickname, e_mail, photoUrl));
-//		return null;
-//	}
+	// 修改 products
+	@RequestMapping(method = RequestMethod.POST, value ="/updateProducts")
+	public @ResponseBody List<Object> updateProducts(
+			@RequestParam String product_Name,
+			@RequestParam String price,
+			@RequestParam String category,
+			@RequestParam String size,
+			@RequestParam String color,
+			@RequestParam String stock,
+//			@RequestParam String published_Date,
+			@RequestParam MultipartFile photo1,
+			@RequestParam String introduction){
+		Double price2 = Double.parseDouble(price);
+		Integer stock2 = Integer.parseInt(stock);
+		try {
+			product_Name = new String(product_Name.getBytes("iso-8859-1"), "utf-8");
+			category = new String(category.getBytes("iso-8859-1"), "utf-8");
+			size = new String(size.getBytes("iso-8859-1"), "utf-8");
+			color = new String(color.getBytes("iso-8859-1"), "utf-8");
+//			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
+			introduction = new String(introduction.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return productDetailService.updateProductDetail(product_Name, price2, category, size, color, stock2, photo1, introduction);	
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<ProductDetailVO> getAllDetail() {
+		return productDetailService.getAllByDesc();
+	}
 
 }

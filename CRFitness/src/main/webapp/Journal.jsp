@@ -80,7 +80,7 @@
 	    return fmt;
 	}
 	
-	jQuery(function ($) {
+	jQuery(function ($) {	
 		var theMessageDetailObj;
 		
 	        $.ajax({
@@ -128,10 +128,12 @@
 	    	                    maxDuration: 0.6,
 	    	                    viewportFactor: 0.2
 	    	                });
-    	
+	    	            	
 	    	 	          }
          	 
 	    	        })
+	    	        	
+	    	      
 	 	          }
    	
 	                  	 
