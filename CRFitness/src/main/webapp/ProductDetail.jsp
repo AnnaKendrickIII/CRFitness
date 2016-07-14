@@ -37,7 +37,7 @@
 <script type="text/javascript">
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
-	console.log(queryString);
+	
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
 	type:'get',
