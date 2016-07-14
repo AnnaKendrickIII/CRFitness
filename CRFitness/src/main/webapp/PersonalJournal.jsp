@@ -263,10 +263,11 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '</div>'
 				   			+ '<div hidden="hidden" class="timeline-footer">'
 				   			+ '</div>'
-				   			+ '<div  class="col-md-12"></div>'
-				   			+ '<div class="message_div form-group ">'
-				   			+ '<textarea class="form-control " rows="1" placeholder="留言....."></textarea>'
-				   			+ '<button class="btn btn-primary pull-right " type="button">送出 </button>'
+
+				   			+ '<div  class="col-md-12 viewmessages"></div>'
+				   			+ '<div class="message_div form-group">'
+				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
+				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
@@ -300,7 +301,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
               
 
                 //------------------------------------------------------
-						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
+						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if(mySelf){
 							var eleS = $('<br/><select />').bind('change',this,function(){
 								$.ajax({
@@ -355,8 +356,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 							})
 							
 							// 綁定顯示和隱藏留言的按鈕
-							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA1);
-							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA2);
+							$('#grid>li:last .viewmessages').append(eleMessageA1);
+							$('#grid>li:last div[class="timeline-footer"]').append(eleMessageA2);
   					}) //each
   					
   					$('#grid').append('<li class="clearfix" style="float: none;">');
@@ -428,7 +429,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 			    					   			+ '</div>'			    					   			
 			    					   			// 加入留言
-			    					   			+ '<div class="timeline-footer">'
+			    					   			+ '<div hidden="hidden" class="timeline-footer">'
 			    					   			+'</div>'
 			    					   			+ '<div  class="col-md-12"></div>'
 			    					   			+ '<div class="message_div form-group">'
@@ -474,7 +475,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     				 theNickname
     				 +': ' + theContent
     				 +'<br>時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
-    				 +'<hr/>'
+    				 +'<hr style="margin:2px 0 5px 0"/>'
     			)
     	}
     	
