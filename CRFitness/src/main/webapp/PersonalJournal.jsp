@@ -278,8 +278,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
                         var val= $(this).val()
                         if(val.trim().length != 0){
 	                        val = val.replace(/\r?\n/g, '</br> ')
-	                        addMessageDetail(theData[0].journal_Id, member_Id, val)
-	                        writeMessageDetail(theData[0].journal_Id, myNickname, val, new Date().getTime());
+	                        addMessageDetail(theData[0].journal_Id, member_Id, val, new Date().getTime());
 	                        $(this).val('')
                         }
                         return false; 
@@ -293,8 +292,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
                     var val = $('#'+theData[0].journal_Id+' textarea[class=form-control]').val()
                     if(val.trim().length != 0){
 	                    val = val.replace(/\r?\n/g, '</br> ')
-	                    addMessageDetail(theData[0].journal_Id, member_Id, val)
-	                    writeMessageDetail(theData[0].journal_Id, myNickname, val, new Date().getTime());
+	                    addMessageDetail(theData[0].journal_Id, member_Id, val, new Date().getTime())
 	                    $('#'+theData[0].journal_Id+' textarea[class=form-control]').val('')
                     }
                 })
@@ -331,20 +329,26 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]').slideUp();
 							})
 							
+							var maxMessageSize = 0;
+							var nowMessage_Id = 0;
 							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
 								// 顯示留言
 								$.ajax({
 									url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
 									type: 'GET',
-									data: {'journal_Id':thisData.journal_Id},
+									data: {'journal_Id':thisData[0].journal_Id},
 									success: function(data){
-										$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]');
+										console.log(data)
 										// 顯示留言
 										if(maxMessageSize != data.length){
 											$.each(data, function(index,ele){
-												writeMessageDetail(this.journal_Id, this.member_Id, this.content, this.messageTime);
-											});
+												if(this.message_Id > nowMessage_Id){
+													writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
+													nowMessage_Id = this.message_Id;
+												}
+											})
+											maxMessageSize = data.length;
 										}
 									}
 								})
@@ -390,7 +394,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 								contentType: false,
 								success: function(data){
 									$('#exampleModal').modal('toggle');
-console.log(data);
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
 			    						var jdate_value = new Date(jdate_int);
 			    						
@@ -418,7 +421,7 @@ console.log(data);
 			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
 			    						    	+ data.archives+'" /></a></div>'
 			    						    	+ '<div class="timeline-body">'
-			    						    	+ 'id:'+ myNickName  // 上線前要拿掉或改暱稱mySelfNickName
+			    						    	+ 'id:'+ "${LoginOK.nickname}"  // 上線前要拿掉或改暱稱mySelfNickName
 			    					   			+ '<br />內容：'
 			    					   			+ data.contents
 			    					   			+ '<br />日期：'
@@ -433,8 +436,10 @@ console.log(data);
 			    					   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
 			    					   			+ '</div>'
 		   								+ '</li>')
-		   								
-
+										$('.timeline-panel').fadeIn(1200);
+			    						$('#exampleModal textarea').val('')
+										$('#uploadfile').val('')
+										
 		   								// 新增的日誌公開狀態change功能
 		   								var eleS = $('<br/><select />').bind('change',data,function(){
 // 		   									console.log(arguments[0].data)
@@ -471,7 +476,6 @@ console.log(data);
     	// 寫入留言牆
     	function writeMessageDetail(theJournal_Id, theNickname, theContent, theMessageTime){
     		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
-    				 
     				 theNickname
     				 +': ' + theContent
     				 +'<br>時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
@@ -480,7 +484,7 @@ console.log(data);
     	}
     	
 		// addMessageDetail ajax -> server 
-    	function addMessageDetail(theJournal_Id, theMember_Id, theVal){
+    	function addMessageDetail(theJournal_Id, theMember_Id, theVal, theMessageTime){
             $.ajax({
             	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
 				type : 'post', //get post put delete
@@ -488,7 +492,9 @@ console.log(data);
 						'member_Id':theMember_Id,
 						'content':theVal},
 				success : function(data) {
-					console.log(data);
+					if(data){
+						writeMessageDetail(theJournal_Id, "${LoginOK.nickname}", theVal, theMessageTime)
+					}
 				}
             })
     	}
