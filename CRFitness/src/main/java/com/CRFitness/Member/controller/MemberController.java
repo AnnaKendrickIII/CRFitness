@@ -27,7 +27,7 @@ public class MemberController {
 	public @ResponseBody byte[] findMemberPhoto(
 			HttpServletRequest request,
 			@PathVariable String member_Id) {
-		if(memberService.findMemberPhoto(member_Id)==null){	
+		if(memberService.findMemberPhoto(member_Id)==null){				
 			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/NoImage.jpg"));
 		}else{
 			return memberService.findMemberPhoto(member_Id);
