@@ -14,15 +14,11 @@
 		<property name="photo1" type="binary">
 			<column name="photo1" />
 		</property>
-		<property name="photo2" type="binary">
-			<column name="photo2" />
-		</property>
-		<property name="photo3" type="binary">
-			<column name="photo3" />
-		</property>
 		<property name="activity_Info" column="activity_Info"></property>
 		<property name="deadline" column="deadline"></property>
 		<property name="startDay" column="startDay"></property>
 		<property name="people" column="people"></property>
+		<property name="people_Max" column="people_Max"></property>
+		<property name="activity_Status" column="activity_Status"></property>
 	</class>
 </hibernate-mapping>

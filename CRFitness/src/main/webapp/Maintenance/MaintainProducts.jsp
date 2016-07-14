@@ -461,7 +461,7 @@ textarea{
 									+ '</td><td>'
 									+ data[1].productDetail_Id
 									+ '</td><td>'
-									+ data[0].product_Name
+									+ data[1].product_Name
 									+ '</td><td>'
 									+ data[1].size
 									+ '</td><td>'
@@ -489,7 +489,7 @@ textarea{
 
 // 修改產品的程式 開始 
 	$('table').on('click',".2g",(function(){	
-		var btn=$(this)
+		var btn=$(this);
 		  $('#updatebtn').click(function () {
 			  	var formData = new FormData();
 			  	formData.append('photo1', file[0]);
@@ -510,10 +510,10 @@ textarea{
 						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
 						var pdate_value = new Date(pdate_int);  
 	            	   $('#update_products').modal('hide');
-	            	   var beforeSiblingTr=btn.parent().parent().prev()
+	            	   var beforeSiblingTr = btn.parent().parent().prev();
 	            	  	btn.parent().parent().fadeOut(800,function(){
 	            	  		$(this).remove();
-	            	  		})
+	            	  	})
 	            	   beforeSiblingTr.after('<tr hidden="hidden"><td><img src="data:image/png;base64,' 
 	   								+ data[1].photo1 
 	   								+ '" class="img-thumbnail" /></td><td>'
@@ -521,7 +521,7 @@ textarea{
 									+ '</td><td>'
 									+ data[1].productDetail_Id
 									+ '</td><td>'
-									+ data[0].product_Name
+									+ data[1].product_Name
 									+ '</td><td>'
 									+ data[1].size
 									+ '</td><td>'
@@ -568,7 +568,7 @@ textarea{
 													+ '</td><td>'
 													+ this[0].productDetail_Id
 													+ '</td><td>'
-													+ this[0].product_Name
+													+ this[1] // product_Name
 													+ '</td><td>'
 													+ this[0].size
 													+ '</td><td>'
@@ -576,9 +576,9 @@ textarea{
 													+ '</td><td>'
 													+ this[0].stock
 													+ '</td><td>'
- 													+ this[1]
+ 													+ this[2] // price
 													+ '</td><td>'
- 													+ this[2]
+ 													+ this[3] // category
  													+ '</td><td>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td hidden="hidden">'

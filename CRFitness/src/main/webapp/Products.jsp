@@ -105,7 +105,6 @@ color: white
 <script type="text/javascript">
 jQuery(function($){
 var Type='${pageContext.request.queryString}';
-console.log(Type)
 Type=Type.substr(9)
 if(Type=='Sports_Equipment'){
 	Type='運動器材'
