@@ -326,27 +326,26 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 						// 查看留言功能-------------------------------------------------------
 							var eleMessageA2 = $('<a></a>',{text:'隱藏留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
-								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]').slideUp();
+								$('#grid>li[id="'+thisData[0].journal_Id+'"] div[class="timeline-footer"]').slideUp();
 							})
 							
 							var maxMessageSize = 0;
 							var nowMessage_Id = 0;
 							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
+								$('#grid>li[id="'+thisData[0].journal_Id+'"] div[class="timeline-footer"]').slideDown()
 								// 顯示留言
 								$.ajax({
 									url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
 									type: 'GET',
 									data: {'journal_Id':thisData[0].journal_Id},
 									success: function(data){
-										console.log(data)
 										// 顯示留言
 										if(maxMessageSize != data.length){
-											$.each(data, function(index,ele){
-												if(this.message_Id > this.message_Id){
-										console.log(nowMessage_Id +','+ data.length)
+											$.each(data, function(){
+												if(this[0].message_Id < nowMessage_Id || nowMessage_Id == 0){
 													writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
-													nowMessage_Id = this.message_Id;
+													nowMessage_Id = this[0].message_Id;
 												}
 											})
 											maxMessageSize = data.length;
@@ -401,9 +400,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    						var invert; 
 			    				    	var li_direction;
 
-			    				    	
-			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record invert')){
-
+			    						if($('#grid>li:nth-child(1) div>a>i').hasClass('glyphicon glyphicon-record invert')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
 			    				    		invert='<i class="glyphicon glyphicon-record " '
 			    						}else{
@@ -417,7 +414,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    						    	+ '<div class="timeline-badge primary"><a>'
 			    						    	+ invert 	
 			    			// 			    	↓title塞入時間日期
-			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
+			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div  hidden="hidden" class="timeline-panel">'
 			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
 			    						    	+ data.archives+'" /></a></div>'
 			    						    	+ '<div class="timeline-body">'
@@ -436,7 +433,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    					   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
 			    					   			+ '</div>'
 		   								+ '</li>')
-										$('.timeline-panel').fadeIn(1200);
+		   								
+										$('.timeline-panel').fadeIn(2200);
 			    						$('#exampleModal textarea').val('')
 										$('#uploadfile').val('')
 										
