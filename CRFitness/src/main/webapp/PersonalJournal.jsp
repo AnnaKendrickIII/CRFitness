@@ -263,10 +263,10 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '</div>'
 				   			+ '<div class="timeline-footer">'
 				   			+ '</div>'
-				   			+ '<div  class="col-md-12"></div>'
-				   			+ '<div class="message_div form-group">'
-				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
-				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+				   			
+				   			+ '<div class="message_div form-group ">'
+				   			+ '<textarea class="form-control " rows="1" placeholder="留言....."></textarea>'
+				   			+ '<button class="btn btn-primary pull-right " type="button">送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
@@ -419,7 +419,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    						    	+ invert 	
 			    			// 			    	↓title塞入時間日期
 			    						    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
-			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
+			    						    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 			    						    	+ data.archives+'" /></a></div>'
 			    						    	+ '<div class="timeline-body">'
 			    						    	+ 'id:'+ "${LoginOK.nickname}"  // 上線前要拿掉或改暱稱mySelfNickName
