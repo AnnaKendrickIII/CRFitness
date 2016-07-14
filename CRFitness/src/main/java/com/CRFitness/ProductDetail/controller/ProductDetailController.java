@@ -40,11 +40,12 @@ public class ProductDetailController {
 		return null;
 	}
 
-
 	@RequestMapping(method = RequestMethod.GET, value = "/searchByCategory", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> searchByCategory(
-			HttpServletRequest request, @RequestParam String category) {
-		return productDetailService.getItemByCategory(category);
+			HttpServletRequest request, @RequestParam String category,
+			@RequestParam Integer page) {
+		System.out.println(category+","+page);
+		return productDetailService.getItemByCategory(category, page);
 
 	}
 
@@ -60,6 +61,13 @@ public class ProductDetailController {
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<ProductDetailVO> addShoppingCart(
+			HttpServletRequest request, @RequestParam String productDetail_Id) {
+
+		return productDetailService.addShoppingCart(productDetail_Id);
 	}
 
 	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
