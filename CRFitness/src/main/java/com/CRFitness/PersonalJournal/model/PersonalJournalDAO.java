@@ -110,8 +110,6 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	@Override
 	public List<PersonalJournalVO> select_myJournal(String member_Id) {
-//		Query query =  this.getSession().createQuery(GET_MYSELF_JOURNAL).setParameter("memberVO", memberVO);
-//		return (List<PersonalJournalVO>) query.list();
 		Query query = this.getSession().createSQLQuery(GET_MYSELF_JOURNAL)
 				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
 				.addScalar("JournalNickname", StringType.INSTANCE) 
@@ -122,7 +120,6 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	@Override
 	public List<PersonalJournalVO> select_friendJournal(String member_Id) {
-		System.out.println(member_Id);
 		Query query =  this.getSession().createSQLQuery(GET_FRIEND_JOURNAL)
 				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
 				.addScalar("friendJournalNickname", StringType.INSTANCE) // StringType.INSTANCE

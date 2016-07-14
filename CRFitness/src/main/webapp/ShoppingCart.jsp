@@ -7,18 +7,8 @@
 <head>
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
+<link rel="stylesheet" href="${this_contextPath}/css/shoppingcart.css">
 <title>購物車</title>
-
-<style type="text/css">
-aside {
-	margin-top: 3%;
-}
-
-#radioBtn .notActive {
-	color: #3276b1;
-	background-color: #ffffff;
-}
-</style>
 
 </head>
 <body>
@@ -39,18 +29,18 @@ aside {
 						</div>
 						<div class="col-xs-6">
 							<a href='<%=request.getHeader("referer")%>'
-								class="btn btn-primary btn-sm btn-block" type="button"><span
+								class="btn btn-primary btn-sm btn-block"><span
 								class="glyphicon glyphicon-share-alt"></span> 繼續購物 </a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" id="itemlist">
 				<!-- 商品資料  開始 -->
 				<div class="item">
 					<div class="row">
 						<div class="col-xs-2">
-							<img class="img-responsive" src="http://placehold.it/100x70">
+							<img class="img-shoppingcart" src="http://placehold.it/100x70">
 						</div>
 						<div class="col-xs-4">
 							<h4 class="product-name">
@@ -139,18 +129,18 @@ aside {
 					<hr>
 				</div>
 				<!-- 商品資料  結束 -->
-				<div class="row">
-					<div class="text-center">
-						<div class="col-xs-9">
-							<h6 class="text-right">Added items?</h6>
-						</div>
-						<div class="col-xs-3">
-							<a href="${pageContext.request.requestURI}" class="btn btn-default btn-sm btn-block"
-								type="button">更新購物車</a>
-						</div>
+			</div>
+			<div class="row">
+				<div class="text-center">
+				<div class="col-xs-9">
+					<h6 class="text-right">Added items?</h6>
+				</div>
+				<div class="col-xs-3">
+					<a href="${pageContext.request.requestURI}" class="btn btn-default btn-sm btn-block" type="button">更新購物車</a>
 					</div>
 				</div>
 			</div>
+			<hr>
 			<div class="panel-footer">
 				<div class="row text-center">
 					<div class="col-xs-12">
@@ -236,6 +226,27 @@ aside {
 <br /> <br /> <br />
 
 <script type="text/javascript">
+var queryString='${pageContext.request.queryString}';
+queryString=queryString.substring(17);
+
+$.ajax({
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
+	typr:'get',
+	data:{productDetail_Id:queryString},
+	success:function(data){
+		$('#itemlist').append('<div class="item"><div class="row"><div class="col-xs-2">'+
+				'<img class="img-shoppingcart" src="data:image/png;base64,'+
+				data[0][0].photo1+'"/></div><div class="col-xs-4"><h4 class="product-name"><strong>'+
+				data[0][0].product_Name+'</strong></h4></div>'+
+				'<div class="col-xs-6"><div class="col-xs-6 text-right"><h6><strong>'+
+				data[0][1]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h6></div>'+
+				'<div class="col-xs-4"><input type="text" class="form-control input-sm" value="1"></div>'+
+				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
+				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')
+		
+	}
+	
+})
 
 </script>
 

@@ -57,27 +57,17 @@ public class PersonalJournalService {
 			String journal_Id,
 			String contents,
 			Integer publicStatus) {
-		
-//		MemberVO mbmberVO = new MemberVO();
-//		mbmberVO.setMember_Id(member_Id);
-//		PersonalJournalVO personalJournalVO = new PersonalJournalVO();
-//		personalJournalVO.setJournal_Id(journal_Id);
-//		personalJournalVO.setMemberVO(mbmberVO);
-//		personalJournalVO.setContents(contents);
-//		personalJournalVO.setPublicStatus(publicStatus);
 		return personalJournalDAO.update(journal_Id,contents,publicStatus);
 	}
 	
 	
 	// 取得自己個人日誌
 	public List<PersonalJournalVO> showMySelfJournal(String member_Id) {
-
 		return personalJournalDAO.select_myJournal(member_Id);
 	}
 	
 	// 取得好友日誌
 	public List<PersonalJournalVO> showFriendJournal(String member_Id){
-
 		return personalJournalDAO.select_friendJournal(member_Id);
 	}
 

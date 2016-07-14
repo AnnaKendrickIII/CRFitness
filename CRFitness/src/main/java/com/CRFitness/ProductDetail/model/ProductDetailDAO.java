@@ -79,6 +79,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.addEntity(ProductDetailVO.class)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
+
 		return (List<ProductDetailVO>) query.list();
 	}
 
@@ -110,7 +111,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	// 依商品分類顯示
 	@Override
-	public List<ProductDetailVO> getItemByCategory(String category) {
+	public List<ProductDetailVO> getItemByCategory(String category, Integer page) {
 		Query query = this
 				.getSession()
 				.createSQLQuery(
@@ -121,6 +122,8 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.addEntity(ProductDetailVO.class)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
+		query.setFirstResult((page - 1) * 12);
+		query.setMaxResults(12);
 
 		return (List<ProductDetailVO>) query.list();
 	}
@@ -136,7 +139,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 								+ "'").addEntity(ProductDetailVO.class)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
-		
+
 		return (List<ProductDetailVO>) query.list();
 	}
 
