@@ -127,7 +127,7 @@ public class ProductDetailService {
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			// String detailed_Description, // 商品簡介
-			String introduction) {
+			String info) {
 		List<Object> list = new ArrayList<Object>();
 
 		ProductsVO productsVO = new ProductsVO();
@@ -138,7 +138,6 @@ public class ProductDetailService {
 
 		ProductDetailVO productDetailVO = new ProductDetailVO();
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
-		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
 		productDetailVO.setSize(size);
 		productDetailVO.setColor(color);
 		productDetailVO.setStock(stock);
@@ -150,7 +149,7 @@ public class ProductDetailService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		productDetailVO.setIntroduction(introduction);
+		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.insert(productDetailVO);
 
 		list.add(0, productsVO);
@@ -172,7 +171,7 @@ public class ProductDetailService {
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			// String detailed_Description, // 商品簡介
-			String introduction) {
+			String info) {
 		List<Object> list = new ArrayList<Object>();
 		
 //		ProductsVO productsVO = new ProductsVO();
@@ -187,7 +186,6 @@ public class ProductDetailService {
 		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);	
 
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
-		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
 		productDetailVO.setSize(size);
 		productDetailVO.setColor(color);
 		productDetailVO.setStock(stock);
@@ -199,7 +197,7 @@ public class ProductDetailService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		productDetailVO.setIntroduction(introduction);
+		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);
 
 		list.add(0, productsVO);

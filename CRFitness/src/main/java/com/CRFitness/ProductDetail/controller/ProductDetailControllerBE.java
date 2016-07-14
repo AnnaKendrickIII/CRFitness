@@ -58,10 +58,10 @@ public class ProductDetailControllerBE {
 	@RequestMapping(method = RequestMethod.POST, value ="/updateProducts")
 	public @ResponseBody List<Object> updateProducts(
 			@RequestParam String product_Id,
-			@RequestParam String productDetail_Id,
 			@RequestParam String product_Name,
 			@RequestParam String price,
 			@RequestParam String category,
+			@RequestParam String productDetail_Id,
 			@RequestParam String size,
 			@RequestParam String color,
 			@RequestParam String stock,
