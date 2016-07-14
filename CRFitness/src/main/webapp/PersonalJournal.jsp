@@ -85,10 +85,8 @@ textarea{
                                     	+this.member_Id+'" >'
                                     	+'<img src="data:image/png;base64,'
                                     	+this[0].photo1+'" class="" alt="Independence Day" /></a>'
-                                    	+'<div>'
+                                    	+'<div style="text-align : center">'
                                     	+this[0].activity_Class
-                                    	+''
-                                    	+''
                                     	+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')  
