@@ -91,9 +91,10 @@ color: white
 <div class="container">
 <ul class="pagination">
               <li class="disabled"><a href="#">«</a></li>
+<!--                錯誤=>(current) 作用是 ??? class要依點選觸發 -->
               <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-              <li><a >2</a></li>
-              <li><a >3</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
               <li><a href="#">4</a></li>
               <li><a href="#">5</a></li>
               <li><a href="#">»</a></li>
@@ -105,7 +106,6 @@ color: white
 <script type="text/javascript">
 jQuery(function($){
 var Type='${pageContext.request.queryString}';
-console.log(Type)
 Type=Type.substr(9)
 if(Type=='Sports_Equipment'){
 	Type='運動器材'
@@ -119,14 +119,13 @@ if(Type=='Sports_Equipment'){
 
 $('a').on('click',function(){
 var Page = $(this).text()
-console.log(Type)
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByCategory',
 	type:'get',
 	data:{category:Type, page:Page},
 	success:function(data){
-		$.each(data,function(){
 			$('#products>div').remove();
+		$.each(data,function(){
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
 						+this[0].product_Name+'"><img id="b"   class="group list-group-image"  src="data:image/png;base64,'
