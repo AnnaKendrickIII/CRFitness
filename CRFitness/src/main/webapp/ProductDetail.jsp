@@ -37,19 +37,19 @@
 <script type="text/javascript">
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
-
+	console.log(queryString);
 $.ajax({
-	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByPrimaryKey',
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
 	type:'get',
  	data:{productDetail_Id:queryString},
 	success:function(data){
 		$('#productDetailbody').append('<div class="col-md-7"><div class="mag">'
-							+data[0].product_Name+'<br><img data-toggle="magnify" src="data:image/png;base64,'
-							+data[0].photo1+'" /></div></div><div class="col-md-5">尺寸 : '
-							+data[0].size+'<br/>顏色 : '
-							+data[0].color+'<br/>剩餘數量 : '
-							+data[0].stock+'</br></br>商品介紹 : 未看先猜undefined&nbsp&nbsp一>&nbsp '
-							+data[0].Detailed_Description+
+							+data[0][0].product_Name+'<br><img data-toggle="magnify" class="img-responsive" src="data:image/png;base64,'
+							+data[0][0].photo1+'" /></div></div><div class="col-md-5">尺寸 : '
+							+data[0][0].size+'<br/>顏色 : '
+							+data[0][0].color+'<br/>剩餘數量 : '
+							+data[0][0].stock+'</br></br>商品介紹 : 未看先猜undefined&nbsp&nbsp一>&nbsp '
+							+data[0][0].Detailed_Description+
 							'<br/></br></br><a class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw" data-lity>千萬不要按&nbsp!</a></div>')
 	}
 });

@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 import com.CRFitness.Products.model.ProductsVO;
 
@@ -23,7 +24,7 @@ import com.CRFitness.Products.model.ProductsVO;
 public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	private static final String GET_PRODUCTDETAIL_ID = "from ProductDetailVO where product_Name=:product_Name and size=:size and color=:color";
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -37,23 +38,23 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	@Override
 	public ProductDetailVO insert(ProductDetailVO productDetailVO) {
-			this.getSession().saveOrUpdate(productDetailVO);
-			return productDetailVO;
-		
+		this.getSession().saveOrUpdate(productDetailVO);
+		return productDetailVO;
+
 	}
 
 	@Override
 	public ProductDetailVO update(ProductDetailVO productDetailVO) {
-			this.getSession().saveOrUpdate(productDetailVO);
-			return productDetailVO;
+		this.getSession().saveOrUpdate(productDetailVO);
+		return productDetailVO;
 	}
 
 	@Override
 	public boolean delete(String productDetail_Id) {
 		ProductDetailVO productDetailVO = new ProductDetailVO();
 		productDetailVO.setProductDetail_Id(productDetail_Id);
-		ProductDetailVO productDetailVOs = (ProductDetailVO) this.getSession().get(PersonalJournalVO.class,
-				productDetailVO);
+		ProductDetailVO productDetailVOs = (ProductDetailVO) this.getSession()
+				.get(PersonalJournalVO.class, productDetailVO);
 		if (productDetailVOs != null) {
 			this.getSession().delete(productDetailVOs);
 			return true;
@@ -63,15 +64,20 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	@Override
 	public ProductDetailVO findByPrimaryKey(String productDetail_Id) {
-		return (ProductDetailVO) this.getSession().get(ProductDetailVO.class, productDetail_Id);
+		return (ProductDetailVO) this.getSession().get(ProductDetailVO.class,
+				productDetail_Id);
 	}
 
 	@Override
 	public List<ProductDetailVO> getAll() {
-		Query query = this.getSession()
-				.createSQLQuery("select ProductDetail.* ,Products.Price , Products.Category "
-						+ " from  ProductDetail join Products" + " on ProductDetail.Product_Id=Products.Product_Id ")
-				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
+		Query query = this
+				.getSession()
+				.createSQLQuery(
+						"select ProductDetail.* ,Products.Price , Products.Category "
+								+ " from  ProductDetail join Products"
+								+ " on ProductDetail.Product_Id=Products.Product_Id ")
+				.addEntity(ProductDetailVO.class)
+				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 		return (List<ProductDetailVO>) query.list();
 	}
@@ -79,17 +85,22 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	// back-end
 	@Override
 	public List<ProductDetailVO> getAllByDesc() {
-		Query query = this.getSession()
-				.createSQLQuery("Select ProductDetail.* ,Products.Price , Products.Category "
-						+ " from  ProductDetail join Products" + " on ProductDetail.Product_Id=Products.Product_Id "
-						+ " Order by Product_Id desc")
-				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
+		Query query = this
+				.getSession()
+				.createSQLQuery(
+						"Select ProductDetail.* ,Products.Price , Products.Category "
+								+ " from  ProductDetail join Products"
+								+ " on ProductDetail.Product_Id=Products.Product_Id "
+								+ " Order by Product_Id desc")
+				.addEntity(ProductDetailVO.class)
+				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 		return (List<ProductDetailVO>) query.list();
 	}
-	
+
 	@Override
-	public ProductDetailVO getProductDetailId(String product_Name, String size, String color) {
+	public ProductDetailVO getProductDetailId(String product_Name, String size,
+			String color) {
 		Query query = this.getSession().createQuery(GET_PRODUCTDETAIL_ID);
 		query.setParameter("product_Name", product_Name);
 		query.setParameter("size", size);
@@ -100,22 +111,41 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	// 依商品分類顯示
 	@Override
 	public List<ProductDetailVO> getItemByCategory(String category) {
-		Query query = this.getSession()
-				.createSQLQuery("select * " + "from  ProductDetail join Products "
-						+ "on ProductDetail.Product_Id=Products.Product_Id " 
-						+ "where Products.Category='" + category + "'")
-				.addEntity(ProductDetailVO.class).addScalar("price", DoubleType.INSTANCE)
+		Query query = this
+				.getSession()
+				.createSQLQuery(
+						"select * "
+								+ "from  ProductDetail join Products "
+								+ "on ProductDetail.Product_Id=Products.Product_Id "
+								+ "where Products.Category='" + category + "'")
+				.addEntity(ProductDetailVO.class)
+				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 
 		return (List<ProductDetailVO>) query.list();
 	}
-	
-	
+
+	@Override
+	public List<ProductDetailVO> findByPrimaryKeySQLQuery(
+			String productDetail_Id) {
+		Query query = getSession()
+				.createSQLQuery(
+						"select ProductDetail.*, price, category  from ProductDetail join Products "
+								+ "on ProductDetail.Product_Id = Products.Product_Id "
+								+ "where ProductDetail_Id='" + productDetail_Id
+								+ "'").addEntity(ProductDetailVO.class)
+				.addScalar("price", DoubleType.INSTANCE)
+				.addScalar("category", StringType.INSTANCE);
+		
+		return (List<ProductDetailVO>) query.list();
+	}
 
 	public static void main(String[] args) {
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
-		ProductDetailDAO_interface dao = (ProductDetailDAO_interface) context.getBean("productDetailDAO");
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"test.config.xml");
+		ProductDetailDAO_interface dao = (ProductDetailDAO_interface) context
+				.getBean("productDetailDAO");
 
 		// ProductDetailVO result =
 		// productDetailDAO.getProductDetailId("男超寬楦慢跑鞋",

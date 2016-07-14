@@ -3,7 +3,9 @@ package com.CRFitness.ProductDetail.model;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -24,7 +26,7 @@ public class ProductDetailService {
 	@Resource(name = "productsDAO")
 	private ProductsDAO_interface productsDAO;
 
-	List<ProductDetailVO> cart = null;
+	List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
 
 	public ProductDetailService() {
 	}
@@ -73,9 +75,9 @@ public class ProductDetailService {
 	}
 
 	// PK鍵搜尋商品
-	public ProductDetailVO getItemByPrimaryKey(String productDetail_Id) {
+	public List<ProductDetailVO> getItemByPrimaryKey(String productDetail_Id) {
 		if (productDetail_Id != null) {
-			return productDetailDAO.findByPrimaryKey(productDetail_Id);
+			return productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id);
 		} else {
 			return null;
 		}
@@ -105,7 +107,7 @@ public class ProductDetailService {
 	// 加入購物車
 	public List<ProductDetailVO> addShoppingCart(String productDetail_Id) {
 		ProductDetailVO productDetailVO = productDetailDAO
-				.findByPrimaryKey(productDetail_Id);
+				.findByPrimaryKeySQLQuery(productDetail_Id).get(0);
 		cart.add(productDetailVO);
 		return cart;
 	}
@@ -115,11 +117,11 @@ public class ProductDetailService {
 			String category, String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
-//			Timestamp published_Date, // 刊登日期
+			// Timestamp published_Date, // 刊登日期
 			MultipartFile photo1, // 圖片1
-//			byte[] photo2, // 圖片2
-//			byte[] photo3, // 圖片3
-//			String detailed_Description, // 商品簡介
+			// byte[] photo2, // 圖片2
+			// byte[] photo3, // 圖片3
+			// String detailed_Description, // 商品簡介
 			String introduction) {
 		List<Object> list = new ArrayList<Object>();
 
@@ -156,20 +158,20 @@ public class ProductDetailService {
 			String category, String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
-//			Timestamp published_Date, // 刊登日期
+			// Timestamp published_Date, // 刊登日期
 			MultipartFile photo1, // 圖片1
-//			byte[] photo2, // 圖片2
-//			byte[] photo3, // 圖片3
-//			String detailed_Description, // 商品簡介
+			// byte[] photo2, // 圖片2
+			// byte[] photo3, // 圖片3
+			// String detailed_Description, // 商品簡介
 			String introduction) {
 		List<Object> list = new ArrayList<Object>();
-		
+
 		ProductsVO productsVO = new ProductsVO();
 		productsVO.setProduct_Name(product_Name);
 		productsVO.setPrice(price);
 		productsVO.setCategory(category);
 		productsVO = productsDAO.update(productsVO);
-		
+
 		ProductDetailVO productDetailVO = new ProductDetailVO();
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
@@ -178,7 +180,7 @@ public class ProductDetailService {
 		productDetailVO.setStock(stock);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
-		
+
 		try {
 			productDetailVO.setPhoto1(photo1.getBytes());
 		} catch (IOException e) {
@@ -186,12 +188,12 @@ public class ProductDetailService {
 		}
 		productDetailVO.setIntroduction(introduction);
 		productDetailVO = productDetailDAO.update(productDetailVO);
-		
+
 		list.add(0, productsVO);
 		list.add(1, productDetailVO);
 		return list;
 	}
-	
+
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定
 	// 打開：<property
@@ -233,15 +235,15 @@ public class ProductDetailService {
 		// System.out.println(service.getItemByPrimaryKey("prodDetail5015")
 		// .getProductsVO().getProduct_Name());
 
-		List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
-
-		service.addShoppingCart("prodDetail5011");
-		service.addShoppingCart("prodDetail5013");
-		service.addShoppingCart("prodDetail5015");
-
-		for (ProductDetailVO vo : cart) {
-			System.out.println(vo.getProduct_Name());
-		}
+		// List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+		//
+		// service.addShoppingCart("prodDetail5011");
+		// service.addShoppingCart("prodDetail5013");
+		// service.addShoppingCart("prodDetail5015");
+		//
+		// for (ProductDetailVO vo : cart) {
+		// System.out.println(vo.getProduct_Name());
+		// }
 
 		((ConfigurableApplicationContext) context).close();
 	}

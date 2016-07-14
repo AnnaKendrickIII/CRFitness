@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/searchform.css">
 
-<title>鞋類</title>
+<title>購物商城</title>
 
 <style type="text/css">
 aside{
@@ -112,7 +112,7 @@ $.ajax({
 		$.each(data,function(){
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
-						+this[0].product_Name+'"><img id="b"   class="group list-group-image"  src="data:image/png;base64,'
+						+this[0].product_Name+'"><img id="b"   class="group list-group-image img-responsive"  src="data:image/png;base64,'
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff">'
 						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'

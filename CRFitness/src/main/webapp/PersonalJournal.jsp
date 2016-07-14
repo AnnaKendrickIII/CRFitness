@@ -171,7 +171,6 @@ textarea{
 		diffTime1 %= h;
 		var theM = Math.floor(diffTime1/m)
 		var theS = diffTime1%60;
-// 		console.log(theH)
 		console.log(theday>0 ? theday+'天' :(theH > 0 ? theH+'小時'+(theM > 0 ? theM+'分':''):(theM > 0 ? theM+'分':'')))
 return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+' 分前':''):(theM > 0 ? theM+' 分前':(theS > 0 ? theS+' 秒前':'')))
 		
@@ -210,10 +209,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
             type:'get',  //get post put delete
             data:{},
             success:function(data){
-// 				console.log(data)
 //             	------------------------- 判斷是否好友-------------------------
             	$.each(data,function(){
-// 					console.log(data)
             		if(this.member_Id === friendId){
             			theMemberId = this.member_Id;
             			titleNickName = this.nickname;
@@ -233,8 +230,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				type : 'get', //get post put delete
 				data : {member_Id : theMemberId},
 				success : function(data) {
-// 					console.log(data);
-					
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
@@ -266,8 +261,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '<br />日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 				   			+ '</div>'
-				   			
-// 				   			+ '<div  class="well">'
 				   			+ '<div class="timeline-footer">'
 				   			+ '</div>'
 				   			+ '<div  class="col-md-12"></div>'
@@ -277,18 +270,13 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
-
-				
-// 				$('#grid>li textarea[class="form-control"]').css({'resize':'none'})
                 
                 // 留言牆功能 enter -------------------------------------
 				$('#'+this[0].journal_Id+' textarea').on('keydown', this, function (event) {
                     if (event.keyCode == 13 && !event.shiftKey) {
                     	var theData = arguments[0].data;
-//                     	console.log(theData);
                         var val= $(this).val()
                         if(val.trim().length != 0){
-// 	                        $('#'+theData.journal_Id+' textarea[class=form-control]').val('')
 	                        val = val.replace(/\r?\n/g, '</br> ')
 	                        addMessageDetail(theData[0].journal_Id, member_Id, val)
 	                        writeMessageDetail(theData[0].journal_Id, myNickname, val, new Date().getTime());
@@ -301,7 +289,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 
               	//send MessageDetail button
                 $('#'+this[0].journal_Id+' .btn.btn-primary.pull-right').bind('click', this, function () {
-//                 	console.log(arguments[0].data);
                 	var theData = arguments[0].data;
                     var val = $('#'+theData[0].journal_Id+' textarea[class=form-control]').val()
                     if(val.trim().length != 0){
@@ -318,8 +305,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友
 						if(mySelf){
 							var eleS = $('<br/><select />').bind('change',this,function(){
-// 								console.log(arguments[0].data)
-						
 								$.ajax({
 									url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
 									type: 'POST',
@@ -341,7 +326,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
  						}
 						
 						// 查看留言功能-------------------------------------------------------
-// 						if(this.messageDetailVOs.length != 0){
 							var eleMessageA2 = $('<a></a>',{text:'隱藏留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
 								$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]').slideUp();
@@ -356,11 +340,9 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 									data: {'journal_Id':thisData.journal_Id},
 									success: function(data){
 										$('#grid>li[id="'+thisData.journal_Id+'"] div[class="timeline-footer"]');
-// 										console.log(data.length+','+maxMessageSize);
 										// 顯示留言
 										if(maxMessageSize != data.length){
 											$.each(data, function(index,ele){
-// 												console.log(diffTime(this.messageTime));
 												writeMessageDetail(this.journal_Id, this.member_Id, this.content, this.messageTime);
 											});
 										}
@@ -416,26 +398,14 @@ console.log(data);
 			    						var invert; 
 			    				    	var li_direction;
 			    				    	
-			    						/*
-			    				    	var  invert; 
-			    				    	var li_direction;
-
-			    				    	if(index%2==0){
-			    				    		li_direction='<li id="'+ this[0].journal_Id +'">';
-			    				    		invert='<i class="glyphicon glyphicon-record " '
-			    				    	}else{
-			    				    		li_direction='<li id="'+ this[0].journal_Id +'" class="timeline-inverted" >';
-			    				    		invert='<i class="glyphicon glyphicon-record invert" '
-			    				    	}
-
-			    						*/
+			    
 			    						
 			    						if($('#grid>li:nth-child(1)>div>a').hasClass('glyphicon glyphicon-record')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
 			    				    		invert='<i class="glyphicon glyphicon-record " '
 			    						}else{
-			    							li_direction='<li id="'+ data.journal_Id +'" class="timeline-inverted" >';
 			    				    		invert='<i class="glyphicon glyphicon-record invert" '
+			    							li_direction='<li id="'+ data.journal_Id +'" class="timeline-inverted" >';
 			    						}
 			    						
 			    						// 顯示新增
@@ -454,7 +424,6 @@ console.log(data);
 			    					   			+ '<br />日期：'
 			    					   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 			    					   			+ '</div>'			    					   			
-//			    	 				   			+ '<div  class="well">'
 			    					   			// 加入留言
 			    					   			+ '<div class="timeline-footer">'
 			    					   			+'</div>'
@@ -505,7 +474,6 @@ console.log(data);
     				 
     				 theNickname
     				 +': ' + theContent
-//     				 +'<br>時間: '+ theBeforeTime
     				 +'<br>時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
     				 +'<hr/>'
     			)
@@ -525,15 +493,6 @@ console.log(data);
             })
     	}
     	
-// 	        $('#grid').on('click','li :button', function () {
-// 	        	console.log(arguments[0].data);
-// 	        	console.log($(this))
-// 	            var val = $('.form-control').val()
-// 	            val = val.replace(/\r?\n/g, '</br> ');
-// 	             $('#grid>li[id="'+thisData.journal_Id+'"]').append('<div>' + val + '</div>')
-// 	            $('.form-control').val('')
-// 	        })
-					
 					
     	});
 	</script>
