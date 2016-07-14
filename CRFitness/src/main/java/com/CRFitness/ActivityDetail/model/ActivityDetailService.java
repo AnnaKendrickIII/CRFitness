@@ -33,12 +33,18 @@ public class ActivityDetailService {
 		System.out.println(member_Id);
 		ActivityDetailVO activitydetailVO=new ActivityDetailVO();
 		ActivitysVO activitysVO=activitysDAO.findByPrimaryKey(activity_Id);
+//		String a_Id = activitydetailVO.getActivity_Id();
+//		String m_Id = activitydetailVO.getMember_Id();
+//		if((a_Id == activity_Id) && (m_Id == member_Id) ){
+//			return activityDetailDAO.;
+//		}else{
 		activitydetailVO.setMember_Id(member_Id);
 		activitydetailVO.setActivity_Id(activity_Id);
 		int people = activitysVO.getPeople();
 		activitysVO.setPeople((people)+1);
 		activitysDAO.insert(activitysVO);
 		return activityDetailDAO.insert(activitydetailVO);
+//		}
 	}
 
 	
