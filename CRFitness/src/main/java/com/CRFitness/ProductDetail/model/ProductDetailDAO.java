@@ -73,10 +73,11 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-						"select ProductDetail.* ,Products.Price , Products.Category "
+						"select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category "
 								+ " from  ProductDetail join Products"
 								+ " on ProductDetail.Product_Id=Products.Product_Id ")
 				.addEntity(ProductDetailVO.class)
+				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 		return (List<ProductDetailVO>) query.list();
@@ -88,11 +89,12 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-						"Select ProductDetail.* ,Products.Price , Products.Category "
+						"Select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category "
 								+ " from  ProductDetail join Products"
 								+ " on ProductDetail.Product_Id=Products.Product_Id "
 								+ " Order by Product_Id desc")
 				.addEntity(ProductDetailVO.class)
+				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 		return (List<ProductDetailVO>) query.list();
@@ -119,6 +121,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 								+ "on ProductDetail.Product_Id=Products.Product_Id "
 								+ "where Products.Category='" + category + "'")
 				.addEntity(ProductDetailVO.class)
+				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 
@@ -130,10 +133,11 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 			String productDetail_Id) {
 		Query query = getSession()
 				.createSQLQuery(
-						"select ProductDetail.*, price, category  from ProductDetail join Products "
+						"select ProductDetail.*, product_Name, price, category  from ProductDetail join Products "
 								+ "on ProductDetail.Product_Id = Products.Product_Id "
 								+ "where ProductDetail_Id='" + productDetail_Id
 								+ "'").addEntity(ProductDetailVO.class)
+				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 		
