@@ -2,9 +2,6 @@
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
-<c:if test="${ empty LoginOK}">
-<c:redirect url="/index.jsp?NoLogin"></c:redirect>
-</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -341,9 +338,8 @@
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+"<button class='btn btn-theme submit_x' style='float:right'  type='button'  value='INSERT_MEMBER'>參加活動</button>" 
-									+"<div hidden='hidden'>"+this[0].activity_Id
-									+'</div>"><span title=""><img src="data:image/png;base64,'
+									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+'"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
 									+this[2]+'<br />類別：'
 									+this[0].activity_Class+'<br />地區：'
@@ -365,7 +361,7 @@
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
 	                      viewportFactor: 0.2
-	                  });              
+	                  });
 	                  $.ajax({
 	    		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembersTwo",
 	    		          type:'get',  //get post put delete
@@ -394,9 +390,8 @@
 	    									+this[0].activity_Info+'<br />活動時間：'
 	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-	    									+this[0].people+"<button class='btn btn-theme submit_x' style='float:right' type='button' value='INSERT_MEMBER'>參加活動</button>" 
-	    									+"<div hidden='hidden'>"+this[0].activity_Id
-	    									+'</div>"><span title=""><img src="data:image/png;base64,'
+	    									+this[0].people+"<button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+	    									+'"><span title=""><img src="data:image/png;base64,'
 	    									+this[0].photo1+'" /></span></a>發起人：'
 	    									+this[2]+'<br />類別：'
 	    									+this[0].activity_Class+'<br />地區：'
@@ -420,26 +415,10 @@
 	    	                      viewportFactor: 0.2
 	    	                  });  
 	    		          }	 
-	    		      })      	       		
+	    		      })      
 		          }	 
 		      })
-		       $("body").on("click", '.submit_x', function(){
-// 		    	   console.log($('.boxer-caption').find('div').text())
-// 		    	   console.log('${LoginOK.member_Id}')
-		    	   $.ajax({
-		    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/addActivityDetail",
-		    		   type:'post',
-		    		   data:{
-		    			   activity_Id:$('.boxer-caption').find('div').text(),
-		    			   member_Id:'${LoginOK.member_Id}'
-		    		   },
-		    		   success:function(data){
-		    			   console.log(data)
-		    		   }
-		    	   })
-  				});
-		    	
-		      
+	 
 	  })
     
 </script>

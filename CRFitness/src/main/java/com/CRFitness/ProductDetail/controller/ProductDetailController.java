@@ -40,12 +40,6 @@ public class ProductDetailController {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/searchByPrimaryKey", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody ProductDetailVO searchByPrimaryKey(
-			HttpServletRequest request, @RequestParam String productDetail_Id) {
-
-		return productDetailService.getItemByPrimaryKey(productDetail_Id);
-	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/searchByCategory", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> searchByCategory(
@@ -56,15 +50,23 @@ public class ProductDetailController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/searchAllItem", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> searchAllItem(
-			HttpServletRequest request, String products_Id) {
+			HttpServletRequest request) {
 
 		return productDetailService.getAllItem();
 	}
 
-//	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = MediaType.APPLICATION_JSON)
-//	public @ResponseBody Map<String, ProductDetailVO> addShoppingCart(
-//			HttpServletRequest request, String productDetail_Id) {
-//
-//		return productDetailService.addShoppingCart(productDetail_Id);
-//	}
+	@RequestMapping(method = RequestMethod.GET, value = "/findByPrimaryKeySQLQuery", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<ProductDetailVO> findByPrimaryKeySQLQuery(
+			HttpServletRequest request, @RequestParam String productDetail_Id) {
+
+		return productDetailService.getItemByPrimaryKey(productDetail_Id);
+	}
+
+	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
+	// produces = MediaType.APPLICATION_JSON)
+	// public @ResponseBody Map<String, ProductDetailVO> addShoppingCart(
+	// HttpServletRequest request, String productDetail_Id) {
+	//
+	// return productDetailService.addShoppingCart(productDetail_Id);
+	// }
 }

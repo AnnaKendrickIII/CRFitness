@@ -25,8 +25,8 @@ aside {
 <aside>
 <div class="row">
 	<legend class="well well-sm" style="text-align: center">確認購物車</legend>
-	<div class="col-xs-2"></div>
-	<div class="row col-xs-8">
+	<div class="col-xs-3"></div>
+	<div class="row col-xs-6">
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<div class="panel-title">
@@ -162,8 +162,9 @@ aside {
 			</div>
 		</div>
 	</div>
-	<div class="col-xs-2"></div>
+	<div class="col-xs-3"></div>
 </div>
+
 <div class="row">
 	<div class="checkorder">
 		<form class="form-horizontal">
@@ -233,11 +234,17 @@ aside {
 	</div>
 </div>
 <br /> <br /> <br />
+
+<script type="text/javascript">
+
+</script>
+
 <script type="text/javascript">
 	$('.delete').on('click', function() {
 		$(this).parent().parent().parent().parent().remove();
 	});
 </script>
+
 <script type="text/javascript">
 	$('#radioBtn a').on('click', function() {
 		var sel = $(this).data('title');
@@ -261,6 +268,7 @@ $('#checkorder').on('click', function(){
 });
 
 </script>
+
 </aside>
 </body>
 
