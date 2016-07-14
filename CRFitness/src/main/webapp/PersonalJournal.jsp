@@ -20,9 +20,10 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
-.timeline-footer {
-	background-color: #F5F5F5;
-}
+/* .timeline-footer { */
+/* 	background-color: #F5F5F5; */
+	
+/* } */
 textarea{
 	resize: none;
 }
@@ -40,28 +41,26 @@ textarea{
 <c:if test="${! empty LoginOK}">
 <aside> 
 <div class="row">
-			<div class="col-md-2 col-xs-1"></div>
-				<div class="col-md-8 col-xs-10" >
-					<div class="col-md-8 col-xs-10">
-						<div class="page-header text-center">
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#exampleModal">新增個人日誌</button>
+			<div class="col-md-2 "></div>
+				<div class="col-md-8 col-xs-12" >
+					<div class="col-md-8 col-xs-8">
+						<div class="page-header text-center" id="insterjournal">
+<!-- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button> -->
 						</div>
 						<ul class="timeline" id="grid">
 
 						</ul>
 					</div>
-					<div class="col-md-4 col-xs-2" id="testcss">
+					<div class="col-md-4 col-xs-4" id="testcss">
 						<h3>---揪團要塞這邊---</h3>
 						<ul class="event-list" id="myactivity_personal">
 
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-2 col-xs-1"></div>
+				<div class="col-md-2"></div>
 		
-		<!-- 抓取使用者建立的揪團  開始-->
-		
+		<!-- 抓取使用者建立的揪團  開始-->		
              <script type="text/javascript">
                      $(function () {
                          $.ajax({
@@ -81,20 +80,15 @@ textarea{
             							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
             							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
             							+'</time>'
-                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'
-                                    	+this.member_Id+'" >'
+                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="data:image/png;base64,'
-                                    	+this[0].photo1+'" class="" alt="Independence Day" /></a>'
-                                    	+'<div>'
-                                    	+this[0].activity_Class
-                                    	+''
-                                    	+''
-                                    	+this[0].activity_Area 
+                                    	+this[0].photo1+'" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')  
-                                 })
+                                 }) //each
                              }          	 
-                         })
+                         }) //ajax
                      })
                  </script > 
 		<!-- 抓取使用者建立的揪團  結束-->
@@ -109,7 +103,13 @@ textarea{
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button> -->
-
+<script type="text/javascript">
+ 					$('#insterjournal').append(
+							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'
+ 							+"新增個人日誌"
+ 							+'</button>'
+ 							);
+</script>
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -220,7 +220,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
             			titleNickName = "${LoginOK.nickname}";
             		}
 				})
-				//----------------------------------------------
+// 				----------------------------------------------
 										
 				// 日誌titleNickName
 				$('#titleNickName').text(titleNickName+'的日誌');
@@ -230,7 +230,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				type : 'get', //get post put delete
 				data : {member_Id : theMemberId},
 				success : function(data) {
-
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
@@ -244,15 +243,16 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				    		li_direction='<li id="'+ this[0].journal_Id +'" class="timeline-inverted" >';
 				    		invert='<i class="glyphicon glyphicon-record invert" '
 				    	}
-
 							//顯示查詢日誌
 						$('#grid').append(
 					    	li_direction
 					    	+ '<div class="timeline-badge primary"><a>'
 					    	+ invert 	
-		// 			    	↓title塞入時間日期
 					    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
-					    	+ '<div class="timeline-heading"><a href=""><img class="img-responsive" src="data:image/png;base64,'
+					    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+// 					    	+ '<button type="button" title="收藏此篇日誌" aria-label="Close"><span class="fa fa-tag fa-lg" aria-hidden="true"></span></button>'
+// 					    	+ '<i class="fa fa-tag fa-lg" title="收藏此篇日誌" aria-hidden="true"></i>'
+					    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
 					    	+ 'id:'+this[1]  // 上線前要拿掉或改暱稱
@@ -262,12 +262,12 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 				   			+ '</div>'
 				   			+ '<div class="timeline-footer">'
-				   			+'</div>'
+				   			+ '</div>'
 				   			+ '<div  class="col-md-12"></div>'
 				   			+ '<div class="message_div form-group">'
 				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
 				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
-				   			+'</div>'
+				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
                 
@@ -351,18 +351,18 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 											maxMessageSize = data.length;
 										}
 									}
-								})
+								}) // ajax 顯示留言
 							})
 							
 							// 綁定顯示和隱藏留言的按鈕
 							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA1);
 							$('#grid>li div[class="col-md-12"]:last').append(eleMessageA2);
-  					})
+  					}) //each
   					
   					$('#grid').append('<li class="clearfix" style="float: none;">');
 	    			}
 
-	    					})
+	    					}) //ajax 查詢日誌開始
 						}
 					})
 					

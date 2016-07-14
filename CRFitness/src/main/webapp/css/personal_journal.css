@@ -1,4 +1,16 @@
-﻿
+﻿.timeline-heading{
+	padding : 10px;
+}
+
+.img-journal{
+	border : 10px solid #F5F5F5;
+    display: block;
+    margin :auto;
+    width :100%;
+    height : 100%;
+/*     max-width: 80%; */
+/*     height: auto; */
+}
 .timeline {
   list-style: none;
   padding: 20px 0 20px;
