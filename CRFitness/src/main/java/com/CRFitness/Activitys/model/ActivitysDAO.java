@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.CRFitness.ActivityDetail.model.ActivityDetailVO;
+
 @Transactional(transactionManager = "transactionManager")
 @Repository("activitysDAO")
 public class ActivitysDAO implements ActivitysDAO_interface {
@@ -110,11 +112,28 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 				+ "FOR XML PATH('') ) as Nicknames "
 				+ "FROM Activitys JOIN Members "
 				+ "ON Activitys.Member_Id = Members.Member_Id "
-				+ "WHERE Activitys.Member_Id = '"+member_Id+"'")
+				+ "WHERE Activitys.Member_Id = '"+member_Id+"' "
+				+ "order by activity_Day desc")
 				.addEntity("Activitys.*",ActivitysVO.class)
 				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
 				.addScalar("Nickname", StringType.INSTANCE);
 	return (List<ActivitysVO>) query.list();	
+
+	}
+	
+	public List<ActivitysVO> select_MyActivitys(String member_Id) {	
+		Query query = this.getSession().createSQLQuery(
+				"SELECT Activitys.*,ActivityDetail.*,Members.Nickname "
+						+ "FROM Activitys JOIN ActivityDetail "
+						+ "ON Activitys.Activity_Id = ActivityDetail.Activity_Id "
+						+ "JOIN Members "
+						+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+						+ "WHERE ActivityDetail.Member_Id = '"+member_Id+"' "
+						+ "order by activity_Day desc")
+						.addEntity("Activitys.*",ActivitysVO.class)
+						.addEntity("ActivityDetail.*",ActivityDetailVO.class)
+						.addScalar("Nickname", StringType.INSTANCE);
+	return (List<ActivitysVO>) query.list();
 }
 
 }

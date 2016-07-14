@@ -94,7 +94,7 @@
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel">                          
                             <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}&nbsp個人日誌</a></li>
                             <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
-                            <li><a data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>  
+                            <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>  
                             <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
                         </ul>
                 </div>
@@ -158,68 +158,7 @@
                 </c:if>              
         <!-- 好友區塊 結束-->
         
-        <!-- 揪團區塊 開始-->
-    <c:if test="${! empty LoginOK }">
-		<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myactivitys" class="modal fade">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header friend_header ">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h2 class="modal-title">${LoginOK.nickname}的揪團紀錄</h2>
-                            </div>
-                            <div class="modal-body">
-                                <div id="show">                 
-					<table class="myactivity_create">
-						<thead>
-								<tr>
-						<th></th>
-						<th>建立的揪團</th>
-						<th></th>
-						<th></th>
-						<th></th>
-								</tr>
-						</thead>
-						<tbody id="myactivity_create_tbody">
-						</tbody>
-					</table>
-					
-					<table class="myactivity_join">
-							<thead>
-								<tr>
-						<th></th>
-						<th>參與的揪團</th>
-						<th></th>
-						<th></th>
-						<th></th>
-								</tr>
-						</thead>
-							<tbody id="myactivity_join_friend_tbody">
-						</tbody>
-					</table>
-						</div>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <script type="text/javascript">
-                     $(function () {
-                         $.ajax({
-                             url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
-                             type:'get',  //get post put delete
-                             data:{},
-                             success:function(data){
-                                 $.each(data,function(){
-                                     $('#myactivity_create_tbody').append('<tr><td><a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" ><img src="data:image/png;base64,'+this[0].photo1+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="myactivity_class">'+  this[0].activity_Class +'</td><td>'+  this[0].activity_Area +'</td></tr>')  
-                                 })
-                             }          	 
-                         })
-                     })
-                 </script > 
-                </c:if>              
-        <!-- 揪團區塊 結束-->
-        
+      
         <!-- 登入對話方塊 開始-->
         <div  class="container"> 
          <c:if test="${!empty LoginErrorMessage}">

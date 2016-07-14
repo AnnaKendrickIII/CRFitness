@@ -49,6 +49,12 @@ public class ActivitysController {
 		return activitysService.findActivitysMem(member_Id);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/myActivitys/{member_Id}", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<ActivitysVO> findMyActivitys(
+			@PathVariable String member_Id) {		
+		return activitysService.findMyActivitys(member_Id);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
 	public @ResponseBody ActivitysVO addActivitys(
 			@RequestParam String member_Id,
