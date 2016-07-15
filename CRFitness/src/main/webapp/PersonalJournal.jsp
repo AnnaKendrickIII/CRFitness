@@ -20,10 +20,10 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
-{ 
- 	background-color: #F5F5F5;
+/* .timeline-footer { */
+/* 	background-color: #F5F5F5; */
 	
-} 
+/* } */
 textarea{
 	resize: none;
 }
@@ -473,6 +473,23 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     			)
     	}
     	
+		// addMessageDetail ajax -> server 
+    	function addMessageDetail(theJournal_Id, theMember_Id, theVal, theMessageTime){
+            $.ajax({
+            	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
+				type : 'post', //get post put delete
+				data : {'journal_Id':theJournal_Id,
+						'member_Id':theMember_Id,
+						'content':theVal},
+				success : function(data) {
+					if(data){
+						writeMessageDetail(theJournal_Id, "${LoginOK.nickname}", theVal, theMessageTime)
+					}
+				}
+            })
+		}
+    	
+    	
     	// 更新日誌狀態
     	function updateJournal(journal_Id,theMemberId,contents,val){
 			$.ajax({
@@ -491,21 +508,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 //     		updateJournal($(this).parents('li').attr('id'),"${LoginOK.member_Id}",$(this).next().attr('id'))
 //     		$(this).parents('li').remove();
     	})
-		// addMessageDetail ajax -> server 
-    	function addMessageDetail(theJournal_Id, theMember_Id, theVal, theMessageTime){
-            $.ajax({
-            	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
-				type : 'post', //get post put delete
-				data : {'journal_Id':theJournal_Id,
-						'member_Id':theMember_Id,
-						'content':theVal},
-				success : function(data) {
-					if(data){
-						writeMessageDetail(theJournal_Id, "${LoginOK.nickname}", theVal, theMessageTime)
-					}
-				}
-            })
-		}
+
 		
 		
 		})
