@@ -37,8 +37,9 @@ public class ProductDetailControllerBE {
 			@RequestParam String color,
 			@RequestParam String stock,
 //			@RequestParam String published_Date,
-			@RequestParam MultipartFile photo1,
-			@RequestParam String introduction){
+			@RequestParam MultipartFile photo1,			
+			@RequestParam String product_Status,
+			@RequestParam String info){
 		Double price2 = Double.parseDouble(price);
 		Integer stock2 = Integer.parseInt(stock);
 		try {
@@ -47,11 +48,12 @@ public class ProductDetailControllerBE {
 			size = new String(size.getBytes("iso-8859-1"), "utf-8");
 			color = new String(color.getBytes("iso-8859-1"), "utf-8");
 //			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
-			introduction = new String(introduction.getBytes("iso-8859-1"), "utf-8");
+			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
+			info = new String(info.getBytes("iso-8859-1"), "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, introduction);	
+		return productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, product_Status, info);	
 	}
 	
 	// 修改 products
@@ -67,7 +69,8 @@ public class ProductDetailControllerBE {
 			@RequestParam String stock,
 //			@RequestParam String published_Date,
 			@RequestParam MultipartFile photo1,
-			@RequestParam String introduction){
+			@RequestParam String product_Status,
+			@RequestParam String info){
 		Double price2 = Double.parseDouble(price);
 		Integer stock2 = Integer.parseInt(stock);
 		try {
@@ -76,11 +79,12 @@ public class ProductDetailControllerBE {
 			size = new String(size.getBytes("iso-8859-1"), "utf-8");
 			color = new String(color.getBytes("iso-8859-1"), "utf-8");
 //			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
-			introduction = new String(introduction.getBytes("iso-8859-1"), "utf-8");
+			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
+			info = new String(info.getBytes("iso-8859-1"), "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.updateProductDetail(product_Id, productDetail_Id, product_Name, price2, category, size, color, stock2, photo1, introduction);	
+		return productDetailService.updateProductDetail(product_Id, product_Name, price2, category, productDetail_Id, size, color, stock2, photo1, product_Status, info);	
 	}
 	
 	
