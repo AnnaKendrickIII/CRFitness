@@ -92,10 +92,12 @@
 	            	$.each(data,function(){
 		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
 							var jdate_value = new Date(jdate_int); 
-		        		 $('#grid').append('<li value="'+this[0].journal_Id+'"><a href="data:image/png;base64,'
-		        		 +this[0].archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
-		        		 +this[0].archives+'" /></a>發起人：'+this[1]+'<br />類別：'
-		        		 +this[0].contents+'<br />內容：'+this[0].contents+'<br />日期：'
+		        		 $('#grid').append(
+		        		 '<li value="'+this[0].journal_Id+'">'
+		        		 +'發起人：'+this[1]+'<br />'
+		        		 +'<a href="data:image/png;base64,'+this[0].archives+'" title="1321564" data-gallery>'
+		        		 +'<img src="data:image/png;base64,'+this[0].archives+'" /></a>'
+		        		 +'類別：'+this[0].contents+'<br />內容：'+this[0].contents+'<br />日期：'
 		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")
 		        		 +'</li>')	     
 	                })

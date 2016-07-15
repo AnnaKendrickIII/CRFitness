@@ -487,7 +487,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     		alert("確認刪除");
     		var journal_Id = $(this).parents('li').attr('id');
     		var theContents = $(this).nextAll('div[class="timeline-body"]').find('p:nth-child(2)').text().slice(3);
-//     		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
+    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
     	})
 
 		
