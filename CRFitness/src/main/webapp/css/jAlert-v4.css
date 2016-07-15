@@ -280,6 +280,7 @@ html,body
 */
 .ja_body
 {
+	font-size: 16px; 
 	background: white;
 	color: #616161;
 	padding: 20px;
