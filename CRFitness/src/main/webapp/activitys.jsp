@@ -2,6 +2,9 @@
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+<c:if test="${ empty LoginOK}">
+<c:redirect url="/index.jsp?NoLogin"></c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +18,12 @@
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
-
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  
+<script src="${this_contextPath}/js/velocity.min.js" ></script>
+<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>
+<script src="${this_contextPath}/js/jquery.alertable.js" ></script>
+<script src="${this_contextPath}/js/jAlert-v4.js" ></script>
 
 <style>
 
@@ -145,9 +153,9 @@
                             </div>
                             <div id="addActivitys_form" class="modal-body">
                             <div id='fine-uploader-manual-trigger'></div>
-                                <p>活動時間&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.nickname_error}</span></p>
+                                <p>活動時間&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                                 <input required="required" type="text" id="datetimepicker" name="addActivitys_Day" autocomplete="off" class="form-control" placeholder="活動時間" />                                                
-                                <p>活動類別&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.e_mail_error}</span></p>
+                                <p>活動類別&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
 	                            <select id="addActivity_Class" name="test1" class="form-control" >
 								  <option value="跑步">跑步</option>
 								  <option value="登山">登山</option>
@@ -159,12 +167,14 @@
 								  <option value="室內運動">室內運動</option>
 								  <option value="其他類別">其他類別</option>
 								</select>
-                                <p>活動地點&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.password_error}</span></p>
+                                <p>活動地點&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                                 <input required="required" type="text" id="addActivitys_Area" class="form-control" autocomplete="off" placeholder="活動地點"/>
-                                <p>活動內容&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.checkpassword_error}</span></p>
+                                <p>活動內容&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                                 <input required="required" type="text" id="addActivitys_Info"  class="form-control" autocomplete="off" placeholder="活動內容" />
-                                <p>報名截止日&nbsp&nbsp&nbsp<span style="color:red">${ErrorMessage.checkpassword_error}</span></p>
+                                <p>報名截止日&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                                 <input required="required" type="text" id="datetimepickerb" name="deadline" autocomplete="off" class="form-control" placeholder="報名截止日" />
+                                <p>人數上限&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                                <input required="required" type="text" id="addActivitys_People" class="form-control" autocomplete="off" placeholder="人數上限"/>
                             </div>
                             <div class="modal-footer">
                              <h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4>
@@ -262,6 +272,7 @@
 			 formData.append('activity_Area', $('#addActivitys_Area').val());
 			 formData.append('activity_Info', $('#addActivitys_Info').val());
 			 formData.append('deadline', datetimepickerb.val());
+			 formData.append('people_Max', $('#addActivitys_People').val());
 		   $.ajax({
                url:"${this_contextPath}/CRFSERVICE/activitysController/addActivitys",
                type:'post',  //get post put delete
@@ -338,7 +349,7 @@
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+"<button class='btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+this[0].people+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+this[0].activity_Id
 									+'</div>"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
@@ -348,7 +359,7 @@
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')
 									  					
@@ -401,7 +412,7 @@
 	    									+this[0].activity_Info+'<br />活動時間：'
 	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-	    									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+	    									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
 	    									+names+'">'
 	    									+this[0].people+'</button></li>')
 	    									  					
@@ -422,8 +433,7 @@
 		      })
 	 
 		      $("body").on("click", '.submit_x', function(){
-//		    	   console.log($('.boxer-caption').find('div').text())
-//		    	   console.log('${LoginOK.member_Id}')
+		    	  var whatActivityID=$(this).parent().siblings("div").text()
 		    	   $.ajax({
 		    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/addActivityDetail",
 		    		   type:'post',
@@ -432,7 +442,59 @@
 		    			   member_Id:'${LoginOK.member_Id}'
 		    		   },
 		    		   success:function(data){
-		    			   console.log(data)
+		    			   console.log(data[0])
+		    			   if(data[0]=='無法參加自己的活動'){
+		    				   $("#boxer-overlay").remove();
+		    				   $("#boxer").remove();
+		    				   $('body').toggleClass();
+		    				   
+		    				   errorAlert('北七膩', '無法參加自己的活動');
+
+		    				   
+		    			   }else if(data[0]=='參加過'){
+		    				   $("#boxer-overlay").remove();
+		    				   $("#boxer").remove();
+		    				   $('body').toggleClass();		
+		    				     		
+		    				   errorAlert('北七膩', '已參加此活動');
+	
+		    			   }else if(data[0]=='已額滿'){
+// 		    				   alert('已額滿')
+		    				   $("#boxer-overlay").remove();
+		    				   $("#boxer").remove();
+		    				   $('body').toggleClass();		
+		    				     			
+		    				   errorAlert('北七膩', '活動已額滿');
+		    				   
+// 		    				   $.alertable.alert(data[0]);
+		    			   }else{
+		    				var members="";
+		    				var sum =0;
+		    				var whoButton=$('#button'+whatActivityID);
+		    				   $.each(data,function(index){          
+		    					   members+=this+" ";
+		    					   sum+=1;
+		    				   })   
+		    				   whoButton.text(sum)
+		    				    whoButton.attr("data-original-title",members)
+		    
+		    				   
+		    				   $("#boxer-overlay").remove();
+		    				   $("#boxer").remove();
+		    				   $('body').toggleClass();		
+		    				
+		    				   $.alertable.alert('參加成功', {
+		    					   show: function() {
+		    					     $(this.overlay).velocity('transition.fadeIn');        
+		    					     $(this.modal).velocity('transition.flipBounceYIn');
+		    					   },
+		    					   hide: function() {
+		    					     $(this.overlay).velocity('transition.fadeOut');
+		    					     $(this.modal).velocity('transition.perspectiveUpOut');
+		    					   } 
+		    					 });
+
+		    			   }			   
 		    		   }
 		    	   })
  				});
@@ -441,7 +503,8 @@
 	  })
     
 </script>
-<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
+<script src="${this_contextPath}/js/jAlert-functions.js"></script>
+<script src="${this_contextPath}/js/jquery.fs.boxer.js" ></script>
 <!-- 頁面部分 結束-->
 </body>
 </html>

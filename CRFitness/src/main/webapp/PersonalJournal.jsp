@@ -20,10 +20,10 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
-/* .timeline-footer { */
-/* 	background-color: #F5F5F5; */
-	
-/* } */
+aside
+{ 
+ 	background-color: #F5F5F5;
+}
 textarea{
 	resize: none;
 }
@@ -31,7 +31,12 @@ textarea{
 	margin-top: 3px;
 }
 
+/* 防止script語法 */
+#grid li p{
+	margin:0 ;
+}
 </style>
+
 </head>
 
 <body >
@@ -68,10 +73,12 @@ textarea{
                              type:'get',  //get post put delete
                              data:{},
                              success:function(data){
+                            	 var c=1;
+                            	
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
-             						
+            						 if(c<7){
                                      $('#myactivity_personal').append(
                                     	 '<li>'	 
                                     	+'<time datetime="2014-07-20">'
@@ -85,8 +92,11 @@ textarea{
                                     	+this[0].photo1+'" class="img-responsive" alt="Independence Day" /></a>'
                                     	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
-                                    	+'</li>')  
+                                    	+'</li>')
+                                        c+=1;
+                                 	}                    
                                  }) //each
+                          
                              }          	 
                          }) //ajax
                      })
@@ -262,44 +272,22 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				   			+ '</div>'
 				   			+ '<div hidden="hidden" class="timeline-footer">'
+// 				   			+  '留言塞這裡'
 				   			+ '</div>'
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
-				   			+ '<div class="message_div form-group">'
-				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
-				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+				   			+ '<div class="message_div">'	
+// 				   			class="form-control"
+				   			+ '<textarea class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言....."></textarea>'
+// 				   			class="btn btn-primary pull-right"
+							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
                 $('#grid p').css({'padding':'0'})
+                             
                 
-                // 留言牆功能 enter -------------------------------------
-				$('#'+this[0].journal_Id+' textarea').on('keydown', this, function (event) {
-                    if (event.keyCode == 13 && !event.shiftKey) {
-                    	var theData = arguments[0].data;
-                        var val= $(this).val()
-                        if(val.trim().length != 0){
-	                        val = val.replace(/\r?\n/g, '</br> ')
-	                        addMessageDetail(theData[0].journal_Id, member_Id, val, new Date().getTime());
-	                        $(this).val('')
-                        }
-                        return false; 
-                    }
-                })
-              	//--------------------------------------------------------
-
-              	//send MessageDetail button
-                $('#'+this[0].journal_Id+' .btn.btn-primary.pull-right').bind('click', this, function () {
-                	var theData = arguments[0].data;
-                    var val = $('#'+theData[0].journal_Id+' textarea[class=form-control]').val()
-                    if(val.trim().length != 0){
-	                    val = val.replace(/\r?\n/g, '</br> ')
-	                    addMessageDetail(theData[0].journal_Id, member_Id, val, new Date().getTime())
-	                    $('#'+theData[0].journal_Id+' textarea[class=form-control]').val('')
-                    }
-                })
-              //--------------------------------------------------------
-              
-
                 //------------------------------------------------------
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if(mySelf){
@@ -338,7 +326,18 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 										if(maxMessageSize != data.length){
 											$.each(data, function(){
 												if(this[0].message_Id < nowMessage_Id || nowMessage_Id == 0){
-													writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
+// 													writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
+											    	
+													// 查詢留言寫入牆
+											    	var writeMessageDetail = function(theObj, theJournal_Id, theNickname, theContent, theMessageTime){
+											    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
+											    				 '<p></p><p></p>'
+											    			)
+//											     			+theNickname
+//											 				 +': ' + theContent
+															 
+//											 				 時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
+											    	}
 													nowMessage_Id = this[0].message_Id;
 												}
 											})
@@ -415,7 +414,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    						    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 			    						    	+ data.archives+'" /></a></div>'
 			    						    	+ '<div class="timeline-body">'
-			    						    	+ 'id:'+ "${LoginOK.nickname}"  // 上線前要拿掉或改暱稱mySelfNickName
+			    						    	+ "${LoginOK.nickname}"  // 上線前要拿掉或改暱稱mySelfNickName
 			    					   			+ '<br />內容：'
 			    					   			+ data.contents
 			    					   			+ '<br />日期：'
@@ -427,7 +426,9 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    					   			+ '<div  class="col-md-12"></div>'
 			    					   			+ '<div class="message_div form-group">'
 			    					   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
-			    					   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+			    								+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+			    					   			+ '<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+			    					   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 			    					   			+ '</div>'
 		   								+ '</li>')
 		   								
@@ -461,32 +462,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 						}						
 					})
 					 
-					 
-    	// 寫入留言牆
-    	function writeMessageDetail(theJournal_Id, theNickname, theContent, theMessageTime){
-    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
-    				 theNickname
-    				 +': ' + theContent
-    				 +'<br>時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
-    				 +'<hr style="margin:2px 0 5px 0"/>'
-    			)
-    	}
-    	
-		// addMessageDetail ajax -> server 
-    	function addMessageDetail(theJournal_Id, theMember_Id, theVal, theMessageTime){
-            $.ajax({
-            	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
-				type : 'post', //get post put delete
-				data : {'journal_Id':theJournal_Id,
-						'member_Id':theMember_Id,
-						'content':theVal},
-				success : function(data) {
-					if(data){
-						writeMessageDetail(theJournal_Id, "${LoginOK.nickname}", theVal, theMessageTime)
-					}
-				}
-            })
-		}
+		
 		
     	// 更新日誌狀態
     	function updateJournal(journal_Id, theMemberId, contents, val, theLi){
@@ -504,18 +480,106 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     	
     	// 移除篇此日誌
     	$(divGrid).on('click','button[title="移除此篇日誌"]',function(){
+    		alert("確認刪除");
     		var journal_Id = $(this).parents('li').attr('id');
     		var theContents = $(this).nextAll('div[class="timeline-body"]').find('p:nth-child(2)').text().slice(3);
-    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
+//     		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
     	})
 
 		
-		
+		//send MessageDetail from enter -------------------------------------
+		divGrid.on('keydown', 'textarea', function (event) {
+			if (event.keyCode == 13 && !event.shiftKey) {
+				var theJournal_Id = $(this).parents('li').attr('id');
+				var val = $(this).val();
+				if(val.trim().length != 0){
+					val = val.replace(/\r?\n/g, '</br> ');
+					addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
+					$(this).val('')
+				}
+				return false;
+			}
 		})
-	</script>
+
+        //send MessageDetail from button
+		divGrid.on('click', 'button', function (event) {
+			var theJournal_Id = $(this).parents('li').attr('id');
+			var theData = arguments[0].data;
+			var val = $(this).prev().val()
+			if(val.trim().length != 0){
+				val = val.replace(/\r?\n/g, '</br> ')
+				addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
+				$(this).prev().val('');
+			}
+		})
+		
+		// addMessageDetail ajax -> server 新增留言從最下方開始顯示
+    	var addMessageDetail = function(theObj, theJournal_Id, theMember_Id, theNickname, theContent, theMessageTime){
+			var messageDiv =  theObj.parents('li').find('div[class="timeline-footer"]');
+			console.log(theObj.parents('li').attr('id'))
+			$.ajax({
+            	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
+				type : 'post', //get post put delete
+				data : {'journal_Id':theJournal_Id,
+						'member_Id':theMember_Id,
+						'content':theContent},
+				success : function(data) {
+					if(data){
+						messageDiv.append('<p/>').find('p:last').text(theNickname+": "+ theContent)
+						messageDiv.append('<p/>').find('p:last').text('時間: ' + new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
+					}
+				}
+            })
+		}
+      	//--------------------------------------------------------
+            
+              
+		// 載入頁面時先顯示3筆留言 thisData[0].journal_Id
+		var loadMessageOne = function(theJournal_Id){
+    		$.ajax({
+    			url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
+				type: 'GET',
+				data: {'journal_Id':journal_Id},
+				success: function(data){
+					// 顯示留言
+					if(maxMessageSize != data.length){
+						$.each(data, function(){
+							if(this[0].message_Id < nowMessage_Id || nowMessage_Id == 0){
+								writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
+						    	
+								// 查詢留言寫入牆
+						    	var writeMessageDetail = function(theObj, theJournal_Id, theNickname, theContent, theMessageTime){
+						    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
+						    				 '<p></p><p></p>'
+						    			)
+// 						     			+theNickname
+// 						 				 +': ' + theContent
+										 
+// 						 				 時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
+						    	}
+								nowMessage_Id = this[0].message_Id;
+							}
+						})
+						maxMessageSize = data.length;
+					}
+				}
+			}) // ajax 顯示留言
+    	}
+	})
+</script>
 </c:if>
 	<!--  頁面部分 結束 -->
-	
+<!-- 	TEXT自動擴行 -->
+	<script>
+		function autogrow(textarea) {
+			var adjustedHeight = textarea.clientHeight;
+			adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
+			if (adjustedHeight > textarea.clientHeight) {
+				textarea.style.height = adjustedHeight + 'px';
+			}
+		}
+	</script>
+
 	<script src="${this_contextPath}/js/personal_journal.js"></script>	
 	
 </body>
