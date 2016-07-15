@@ -1,5 +1,8 @@
 package com.CRFitness.ActivityDetail.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -25,26 +28,37 @@ public class ActivityDetailService {
 
 	}
 	
-	public ActivityDetailVO addActivityDetail(
-			@RequestParam String activity_Id,
-			@RequestParam String member_Id) 
-	{
-		System.out.println(activity_Id);
-		System.out.println(member_Id);
-		ActivityDetailVO activitydetailVO=new ActivityDetailVO();
+	public List<String> addActivityDetail( String activity_Id,String member_Id){
+		
+		List<String> list=new ArrayList<String>();
+		
+//		System.out.println(activity_Id);
+//		System.out.println(member_Id);
+		ActivityDetailVO activityDetailVO =new ActivityDetailVO();
+		activityDetailVO.setActivity_Id(activity_Id);
+		activityDetailVO.setMember_Id(member_Id);
 		ActivitysVO activitysVO=activitysDAO.findByPrimaryKey(activity_Id);
-//		String a_Id = activitydetailVO.getActivity_Id();
-//		String m_Id = activitydetailVO.getMember_Id();
-//		if((a_Id == activity_Id) && (m_Id == member_Id) ){
-//			return activityDetailDAO.;
-//		}else{
-		activitydetailVO.setMember_Id(member_Id);
-		activitydetailVO.setActivity_Id(activity_Id);
+		
+		System.out.println(activitysVO.getMember_Id());
 		int people = activitysVO.getPeople();
+		
+		if(activitysVO.getMember_Id().equals(member_Id)){
+			list.add("無法參加自己的活動");
+			return list;
+		}
+		if(activityDetailDAO.findByPrimaryKey(activityDetailVO)!=null){
+			list.add("參加過");
+			return list;
+		}
+		if(activitysVO.getPeople_Max()==people){
+			list.add("已額滿");
+			return list;
+		}
+		
 		activitysVO.setPeople((people)+1);
-		activitysDAO.insert(activitysVO);
-		return activityDetailDAO.insert(activitydetailVO);
-//		}
+		activitysDAO.update(activitysVO);
+		activityDetailDAO.insert(activityDetailVO);
+		return activityDetailDAO.joinMembers(activityDetailVO.getActivity_Id());	
 	}
 
 	

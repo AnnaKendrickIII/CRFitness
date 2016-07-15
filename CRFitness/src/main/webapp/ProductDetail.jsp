@@ -44,7 +44,7 @@ $.ajax({
  	data:{productDetail_Id:queryString},
 	success:function(data){
 		$('#productDetailbody').append('<div class="col-md-7"><div class="mag">'
-							+data[0][0].product_Name+'<br><img data-toggle="magnify" class="img-responsive" src="data:image/png;base64,'
+							+data[0][1] +'<br><img data-toggle="magnify" class="img-responsive" src="data:image/png;base64,'
 							+data[0][0].photo1+'" /></div></div><div class="col-md-5">尺寸 : '
 							+data[0][0].size+'<br/>顏色 : '
 							+data[0][0].color+'<br/>剩餘數量 : '
