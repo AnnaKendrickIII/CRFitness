@@ -78,7 +78,7 @@ textarea{
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
-            						 if(c<7){
+//             						 if(c<7){
                                      $('#myactivity_personal').append(
                                     	 '<li>'	 
                                     	+'<time datetime="2014-07-20">'
@@ -93,8 +93,8 @@ textarea{
                                     	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')
-                                        c+=1;
-                                 	}                    
+//                                         c+=1;
+//                                  	}                    
                                  }) //each
                           
                              }          	 
