@@ -114,6 +114,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	// 依商品分類顯示
 	@Override
 	public List<ProductDetailVO> getItemByCategory(String category, Integer page) {
+		int max=12;
 		Query query = this
 				.getSession()
 				.createSQLQuery(
@@ -125,8 +126,8 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
-		query.setFirstResult((page - 1) * 12);
-		query.setMaxResults(12);
+		query.setFirstResult((page - 1) * max);
+		query.setMaxResults(max);
 
 		return (List<ProductDetailVO>) query.list();
 	}
@@ -138,7 +139,8 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.createSQLQuery(
 						"select ProductDetail.*, product_Name, price, category  from ProductDetail join Products "
 								+ "on ProductDetail.Product_Id = Products.Product_Id "
-								+ "where ProductDetail_Id='" + productDetail_Id
+								+ "where ProductDetail_Id='"
+								+ productDetail_Id
 								+ "'").addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
