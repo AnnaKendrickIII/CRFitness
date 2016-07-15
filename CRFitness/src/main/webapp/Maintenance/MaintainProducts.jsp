@@ -504,6 +504,8 @@ textarea{
 		  $('#updatebtn').click(function () {
 			  	var formData = new FormData();
 			  	formData.append('photo1', file[0]);
+				formData.append('product_Id', $('#update_prodId').val());
+				formData.append('productDetail_Id', $('#update_prodDetId').val());
 				formData.append('product_Name', $('#update_name').val());
 				formData.append('size', $('#update_size').val());
 				formData.append('color', $('#update_color').val());
@@ -558,10 +560,7 @@ textarea{
 							$("tr").fadeIn(800);				
 							$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
 							file = null;				 
-	               	}, // end of success:function(data)
-	               	error: function(e) {
-    					console.log(e);
-  					}
+	               	} // end of success:function(data)
 	           }); // end of  $.ajax({
 	}); // end of $('#updatebtn').click(function (){
 })) // end of $('table').on('click',".2g",(function(){			
