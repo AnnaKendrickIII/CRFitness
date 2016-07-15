@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.CRFitness.Orders.model.OrdersVO;
 import com.CRFitness.Products.model.ProductsDAO_interface;
 import com.CRFitness.Products.model.ProductsVO;
 
@@ -212,6 +213,23 @@ public class ProductDetailService {
 		list.add(1, productDetailVO);
 		return list;
 	}
+	
+	// back-end: change status
+//	public List<Object> changeStatus(String productDetail_Id, String product_Status) {
+//		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
+//		List<Object> list = new ArrayList<Object>();
+//		if (productDetailVO != null && !"已下架".equals(productDetailVO.getProduct_Status())) {
+//			productDetailVO.setProduct_Status("已下架");
+//			productDetailVO = productDetailDAO.update(productDetailVO);
+//			list.add(0, productDetailVO);
+//			return list;
+//		} else if (productDetailVO != null && !"上架中".equals(productDetailVO.getProduct_Status())) {			
+//			productDetailVO.setProduct_Status("上架中");
+//			productDetailVO = productDetailDAO.update(productDetailVO);
+//			list.add(0, productDetailVO);
+//			return list;
+//		};
+//	}
 
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定
