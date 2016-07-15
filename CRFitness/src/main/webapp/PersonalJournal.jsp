@@ -30,24 +30,13 @@ textarea{
 .message_div {
 	margin-top: 3px;
 }
-.textarea-control{
-  border : 0;
-  overflow-y : auto; /* IE */
-/*   resize : none; /* Firefox, Chrome */ */
-}
 
-/* .textarea-control:focus { */
-/*   outline : 0; /* Chrome */ */
-/* } */
-
-/* .form-group { 
-     margin-bottom: 15px; 
- } */
-
+/* 防止script語法 */
 #grid li p{
 	margin:0 ;
 }
 </style>
+
 </head>
 
 <body >
@@ -283,16 +272,17 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
 				   			+ '<div class="message_div">'	
 // 				   			class="form-control"
-				   			+ '<textarea class="textarea-control" cols="30" rows="1" placeholder="留言....."></textarea>'
-// 				   			class="pull-right"
-				   			+ '<button class="btn btn-primary" type="button">送出 </button>'
+				   			+ '<textarea class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言....."></textarea>'
+// 				   			class="btn btn-primary pull-right"
+							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
                 $('#grid p').css({'padding':'0'})
+                             
                 
-
-
                 //------------------------------------------------------
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if(mySelf){
@@ -572,7 +562,17 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 </script>
 </c:if>
 	<!--  頁面部分 結束 -->
-	
+<!-- 	TEXT自動擴行 -->
+	<script>
+		function autogrow(textarea) {
+			var adjustedHeight = textarea.clientHeight;
+			adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
+			if (adjustedHeight > textarea.clientHeight) {
+				textarea.style.height = adjustedHeight + 'px';
+			}
+		}
+	</script>
+
 	<script src="${this_contextPath}/js/personal_journal.js"></script>	
 	
 </body>
