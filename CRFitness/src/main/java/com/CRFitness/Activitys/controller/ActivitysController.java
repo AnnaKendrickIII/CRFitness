@@ -63,7 +63,8 @@ public class ActivitysController {
 			@RequestParam String activity_Area,
 			@RequestParam MultipartFile photo1,
 			@RequestParam String activity_Info,
-			@RequestParam String deadline){
+			@RequestParam String deadline,
+			@RequestParam Integer people_Max){
 		try {
 			member_Id = new String(member_Id.getBytes("iso-8859-1"), "utf-8");
 			activity_Class = new String(activity_Class.getBytes("iso-8859-1"), "utf-8");
@@ -72,7 +73,7 @@ public class ActivitysController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline);	
+		return activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline, people_Max);	
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/modifyActivitys")
