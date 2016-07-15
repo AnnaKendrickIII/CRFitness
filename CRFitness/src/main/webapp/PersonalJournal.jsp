@@ -501,7 +501,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 		
 		// addMessageDetail ajax -> server 新增留言從最下方開始顯示
     	var addMessageDetail = function(theObj, theJournal_Id, theMember_Id, theNickname, theContent, theMessageTime){
-			var messageDiv =  $(theObj).parents('li:nth-child(1)').find('div[class="timeline-footer"]');
+			var messageDiv =  theObj.parents('li').find('div[class="timeline-footer"]');
+			console.log(theObj.parents('li').attr('id'))
 			$.ajax({
             	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
 				type : 'post', //get post put delete
