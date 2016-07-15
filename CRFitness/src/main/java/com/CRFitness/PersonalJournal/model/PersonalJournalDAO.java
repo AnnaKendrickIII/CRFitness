@@ -23,9 +23,9 @@ import com.CRFitness.Member.model.MemberVO;
 public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	// 所有的日誌
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
-	// 個人所有日誌 從最近開始往後排序
+	// 個人所有日誌
 	private static final String GET_MYSELF_JOURNAL = 
-			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as JournalNickname from PersonalJournal where Member_Id=:member_Id order by publishTime desc";
+			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as JournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '4' order by publishTime desc";
 	//挑選publicStatus狀態為1的日誌  先取六筆
 	private static final String GET_COMMON_JOURNAL6 
 	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname  from PersonalJournal where publicStatus='1' order by publishTime desc  OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY";
