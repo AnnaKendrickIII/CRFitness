@@ -348,7 +348,8 @@
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />'
+									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
+									+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+this[0].activity_Id
 									+'</div>"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
@@ -400,7 +401,8 @@
 	    									+this[0].activity_Area+'<br />內容：'
 	    									+this[0].activity_Info+'<br />活動時間：'
 	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />'
+	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
+	    									+"<button class='btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 	    									+"<div hidden='hidden'>"+this[0].activity_Id
 	    									+'</div>"><span title=""><img src="data:image/png;base64,'
 	    									+this[0].photo1+'" /></span></a>發起人：'
