@@ -649,10 +649,7 @@ textarea{
 												updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
 												})	// end of $('.2g').click(function(){
 												//
-												$('.easyswitch').easyswitch();
-													function onSwitch(value, obj) {
-													alert(value);
-												}
+												
 		
 		} // end of success : function(data) 
 	}) // end of $.ajax({
@@ -678,7 +675,11 @@ textarea{
 //           	   	var beforeSiblingTr = btn.parent().parent().prev();
 //           	  	btn.parent().parent().fadeOut(800, function(){
 //           	  		$(this).remove();
-//           	  	})  	
+//           	  	})  
+					$('.easyswitch').easyswitch();
+						function onSwitch(value, obj) {
+						alert(value);
+					}
           	  } // end of success:function(data)	 
 	   	 }) // end of  $.ajax({  	    	   
 	}); // end of 	$('.3g').click(function () {
