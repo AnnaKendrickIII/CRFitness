@@ -248,14 +248,19 @@ textarea{
                         <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="insert_price" autocomplete="off" class="form-control" placeholder="輸入價格" />
                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <select id="insert_category" name="test1" class="form-control" >
+                        <select id="insert_category" name="test2" class="form-control" >
 							<option value="運動器材">運動器材</option>
 							<option value="服飾類">服飾類</option>
 							<option value="運動用品">運動用品</option>
 							<option value="鞋類">鞋類</option>
 						</select>
+                        <p>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <select id="insert_status" name="test3" class="form-control" >
+							<option value="上架中">上架中</option>
+							<option value="已下架">已下架</option>
+						</select>
                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <textarea required="required" id="insert_info" class="form-control" ></textarea>    
+                        <textarea id="insert_info" required="required" class="form-control" ></textarea>    
                      </div> <!-- end of id="addProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer">
@@ -323,8 +328,13 @@ textarea{
 							<option value="運動用品">運動用品</option>
 							<option value="鞋類">鞋類</option>
 						</select>
+                        <p>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <select id="update_status" name="test3" class="form-control" >
+							<option value="上架中">上架中</option>
+							<option value="已下架">已下架</option>
+						</select>
                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <textarea required="required" id="update_info" class="form-control" ></textarea>
+                        <textarea id="update_info" required="required" class="form-control" ></textarea>
                      </div> <!-- end of id="updateProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer">
@@ -443,6 +453,7 @@ textarea{
 				formData.append('stock', $('#insert_stock').val());
 				formData.append('price', $('#insert_price').val());
 				formData.append('category', $('#insert_category').val());
+				formData.append('product_Status', $('#insert_status').val());
 				formData.append('info', $('#insert_info').val());
 			   $.ajax({
 	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
@@ -455,66 +466,6 @@ textarea{
 						var pdate_value = new Date(pdate_int);  
 	            	   $('#new_products').modal('hide');	
 	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' 
-	   								+ data[1].photo1 
-	   								+ '" class="img-thumbnail" /></td><td>'
-									+ data[0].product_Id
-									+ '</td><td>'
-									+ data[1].productDetail_Id
-									+ '</td><td>'
-									+ data[1].product_Name
-									+ '</td><td>'
-									+ data[1].size
-									+ '</td><td>'
-									+ data[1].color
-									+ '</td><td>'
-									+ data[1].stock
-									+ '</td><td>'
-									+ data[0].price
-									+ '</td><td>'
-									+ data[0].category
-									+ '</td><td>'
-									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-									+ '</td><td hidden="hidden">'
-									+ data[1].info
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
-									+ '</td></tr>') // end of after	            	   
-							$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty();
-							file = null;				 
-	               	} // end of success:function(data)	 
-	           }) // end of  $.ajax({
-	}) // end of $('#addbtn').click(function ()
-// 新增產品的程式 結束
-
-
-// 修改產品的程式 開始 
-	$('table').on('click',".2g",(function(){	
-		var btn=$(this);
-		  $('#updatebtn').click(function () {
-			  	var formData = new FormData();
-			  	formData.append('photo1', file[0]);
-				formData.append('product_Name', $('#update_name').val());
-				formData.append('size', $('#update_size').val());
-				formData.append('color', $('#update_color').val());
-				formData.append('stock', $('#update_stock').val());
-				formData.append('price', $('#update_price').val());
-				formData.append('category', $('#update_category').val());
-				formData.append('info', $('#update_info').val());
-			   $.ajax({
-	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/updateProducts",
-	               type:'post',  //get post put delete
-					data: formData,
-	    		   processData: false,
-				   contentType: false,
-	               success:function(data){
-						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
-						var pdate_value = new Date(pdate_int);  
-	            	   $('#update_products').modal('hide');
-	            	   var beforeSiblingTr = btn.parent().parent().prev();
-	            	  	btn.parent().parent().fadeOut(800,function(){
-	            	  		$(this).remove();
-	            	  	})
-	            	   beforeSiblingTr.after('<tr hidden="hidden"><td><img src="data:image/png;base64,' 
 	   								+ data[1].photo1 
 	   								+ '" class="img-thumbnail" /></td><td>'
 									+ data[0].product_Id
@@ -537,17 +488,83 @@ textarea{
 									+ '</td><td hidden="hidden">'
 									+ data[1].info
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
-									+ '</td></tr>') // end of xxx
-									// 修改產品的小程式		
-										// end of $('.2g').click(function(){				
-							$("tr").fadeIn(800)				
-							$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
+									+ '</td></tr>') // end of after	            	   
+							$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty();
 							file = null;				 
 	               	} // end of success:function(data)	 
 	           }) // end of  $.ajax({
-	}) // end of $('#updatebtn').click(function ()
-}))			
+	}) // end of $('#addbtn').click(function ()
+// 新增產品的程式 結束
+
+
+// 修改產品的程式 開始 
+	$('table').on('click',".2g",(function(){	
+		var btn=$(this);
+		  $('#updatebtn').click(function () {
+			  	var formData = new FormData();
+			  	formData.append('photo1', file[0]);
+				formData.append('product_Name', $('#update_name').val());
+				formData.append('size', $('#update_size').val());
+				formData.append('color', $('#update_color').val());
+				formData.append('stock', $('#update_stock').val());
+				formData.append('price', $('#update_price').val());
+				formData.append('category', $('#update_category').val());
+				formData.append('product_Status', $('#update_status').val());
+				formData.append('info', $('#update_info').val());
+			   $.ajax({
+	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/updateProducts",
+	               type:'post',  //get post put delete
+					data: formData,
+	    		   processData: false,
+				   contentType: false,
+	               success:function(data){
+						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
+						var pdate_value = new Date(pdate_int);  
+	            	  	$('#update_products').modal('hide');
+	            	   	var beforeSiblingTr = btn.parent().parent().prev();
+	            	  	btn.parent().parent().fadeOut(800, function(){
+	            	  		$(this).remove();
+	            	  	})
+	            	   	beforeSiblingTr.after('<tr hidden="hidden"><td><img src="data:image/png;base64,' 
+	   								+ data[1].photo1 
+	   								+ '" class="img-thumbnail" /></td><td>'
+									+ data[0].product_Id
+									+ '</td><td>'
+									+ data[1].productDetail_Id
+									+ '</td><td>'
+									+ data[0].product_Name
+									+ '</td><td>'
+									+ data[1].size
+									+ '</td><td>'
+									+ data[1].color
+									+ '</td><td>'
+									+ data[1].stock
+									+ '</td><td>'
+									+ data[0].price
+									+ '</td><td>'
+									+ data[0].category
+									+ '</td><td>'
+									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+									+ '</td><td hidden="hidden">'
+									+ data[1].info
+									+ '</td><td hidden="hidden">'
+					                + data[1].product_Status
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
+									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
+									// 修改產品的小程式		
+									// end of $('.2g').click(function(){				
+							$("tr").fadeIn(800);				
+							$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
+							file = null;				 
+	               	}, // end of success:function(data)
+	               	error: function(e) {
+    					console.log(e);
+  					}
+	           }); // end of  $.ajax({
+	}); // end of $('#updatebtn').click(function (){
+})) // end of $('table').on('click',".2g",(function(){			
 // 修改產品的程式 結束
 
     	
@@ -583,6 +600,8 @@ textarea{
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td hidden="hidden">'
 									                + this[0].info
+													+ '</td><td hidden="hidden">'
+									                + this[0].product_Status
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
 													+ '</td></tr>') // end of append
@@ -592,7 +611,7 @@ textarea{
 // 												console.log($('.img-thumbnail:eq(0)').attr('src'))
 // 												console.log($(this).parent().parent().find("img").attr('src'))
 // 												console.log($(this).parent().parent().find("img").attr('src').substr(22))
-												$('#uploadfile').prop("files",$(this).parent().parent().find("img").attr('src').substr(22));
+// 												$('#uploadfile').prop("files",$(this).parent().parent().find("img").attr('src').substr(22));
 // 												console.log($(this).parent().siblings(":eq(1)").text())
 // 												console.log($(this).parent().siblings(":eq(2)").text())
 // 												console.log($(this).parent().siblings(":eq(3)").text())
@@ -603,7 +622,9 @@ textarea{
 // 												console.log($(this).parent().siblings(":eq(8)").text())
 // 												console.log($(this).parent().siblings(":eq(9)").text())
 // 												console.log($(this).parent().siblings(":eq(10)").text())
+// 												console.log($(this).parent().siblings(":eq(11)").text())
 												var updProducts = $('#update_products')  // 寫成這樣才有效能
+												// 以下2行為詳細寫法
 												var eq1 = $(this).parent().siblings(":eq(1)")
 												updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
 												var eq2 = $(this).parent().siblings(":eq(2)")
@@ -620,6 +641,7 @@ textarea{
 												updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
 												updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
 												updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
+												updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
 												updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
 												})	// end of $('.2g').click(function(){
 		

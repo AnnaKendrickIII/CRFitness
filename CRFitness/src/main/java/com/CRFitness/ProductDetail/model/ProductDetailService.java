@@ -191,8 +191,7 @@ public class ProductDetailService {
 
 		
 //		ProductDetailVO productDetailVO = new ProductDetailVO();
-		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);	
-
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 		productDetailVO.setSize(size);
 		productDetailVO.setColor(color);

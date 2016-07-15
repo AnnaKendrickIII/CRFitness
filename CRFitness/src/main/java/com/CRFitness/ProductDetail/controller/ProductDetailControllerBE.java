@@ -88,7 +88,7 @@ public class ProductDetailControllerBE {
 	}
 	
 	
-	// 新增的列顯示在最上面
+	// Insert products 新增的列顯示在最上面
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> getAllDetail() {
 		return productDetailService.getAllByDesc();
