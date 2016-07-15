@@ -73,10 +73,12 @@ textarea{
                              type:'get',  //get post put delete
                              data:{},
                              success:function(data){
+                            	 var c=1;
+                            	
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
-             						
+            						 if(c<7){
                                      $('#myactivity_personal').append(
                                     	 '<li>'	 
                                     	+'<time datetime="2014-07-20">'
@@ -90,8 +92,11 @@ textarea{
                                     	+this[0].photo1+'" class="img-responsive" alt="Independence Day" /></a>'
                                     	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
-                                    	+'</li>')  
+                                    	+'</li>')
+                                        c+=1;
+                                 	}                    
                                  }) //each
+                          
                              }          	 
                          }) //ajax
                      })
@@ -421,7 +426,9 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    					   			+ '<div  class="col-md-12"></div>'
 			    					   			+ '<div class="message_div form-group">'
 			    					   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
-			    					   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+			    								+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+			    					   			+ '<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+			    					   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 			    					   			+ '</div>'
 		   								+ '</li>')
 		   								
