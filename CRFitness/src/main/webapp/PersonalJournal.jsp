@@ -273,7 +273,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
 				   			+ '<div class="message_div">'	
 // 				   			class="form-control"
-				   			+ '<textarea class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言....."></textarea>'
+				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
 							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
 				   			+ '<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
@@ -501,7 +501,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
         //send MessageDetail from button
 		divGrid.on('click', 'button', function (event) {
 			var theJournal_Id = $(this).parents('li').attr('id');
-			var theData = arguments[0].data;
 			var val = $(this).prev().val()
 			if(val.trim().length != 0){
 				val = val.replace(/\r?\n/g, '</br> ')
@@ -520,8 +519,15 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 						'member_Id':theMember_Id,
 						'content':theContent},
 				success : function(data) {
-					if(data){
-						messageDiv.append('<p/>').find('p:last').text(theNickname+": "+ theContent)
+					if(data){	
+						var theContentArray=theContent.split("</br>")
+						$.each(theContentArray,function(index){
+							if(index==0){
+								messageDiv.append('<p/>').find('p:last').text(theNickname+": "+ this)	
+							}else{
+								messageDiv.append('<p/>').find('p:last').text(this)						
+							}
+						})
 						messageDiv.append('<p/>').find('p:last').text('時間: ' + new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
 					}
 				}
@@ -541,9 +547,19 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 					if(maxMessageSize != data.length){
 						var messageDiv = $('#'+theJournal_Id).find('div.timeline-footer');
 						$.each(data, function(){
-							messageDiv.append('<p/>').find('p:last').text(this[1]+": "+ this[0].content)
+							var theNickname = this[1];
+							var theContentArray = this[0].content.split("</br>")
+							$.each(theContentArray,function(index){
+								if(index==0){
+									messageDiv.append('<p/>').find('p:last').text(theNickname+": "+ this)	
+								}else{
+									messageDiv.append('<p/>').find('p:last').text(this)						
+								}
+							})
 							messageDiv.append('<p/>').find('p:last').text('時間: ' + new Date(this[0].messageTime).Format('yyyy-MM-dd hh:mm:ss'))
 						})
+						
+
 						maxMessageSize = data.length;
 					}
 				}
