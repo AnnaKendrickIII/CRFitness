@@ -45,7 +45,8 @@ textarea{
  } */
 
 #grid li p{
-	margin:0 ;
+	margin:0px ;
+	padding:0px;
 }
 </style>
 </head>
@@ -243,11 +244,11 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				$('#titleNickName').text(titleNickName+'的日誌');
 				// 查詢日誌開始-------------------------
    				$.ajax({
-				url : "${this_contextPath}/CRFSERVICE/personalJournalController/showJournal",
-				type : 'get', //get post put delete
-				data : {member_Id : theMemberId},
-				success : function(data) {
-					$.each(data,function(index) {
+					url : "${this_contextPath}/CRFSERVICE/personalJournalController/showJournal",
+					type : 'get', //get post put delete
+					data : {member_Id : theMemberId},
+					success : function(data) {
+						$.each(data,function(index) {
 						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
 				    	var invert; 
@@ -355,7 +356,10 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 							// 綁定顯示和隱藏留言的按鈕
 							$('#grid>li:last .viewmessages').append(eleMessageA1);
 							$('#grid>li:last div[class="timeline-footer"]').append(eleMessageA2);
-  					}) //each
+							
+							loadMessageOne(this[0].journal_Id);
+  					}) 
+  					//each
   					
   					$('#grid').append('<li class="clearfix" style="float: none;">');
 	    			}
@@ -519,7 +523,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 		// addMessageDetail ajax -> server 新增留言從最下方開始顯示
     	var addMessageDetail = function(theObj, theJournal_Id, theMember_Id, theNickname, theContent, theMessageTime){
 			var messageDiv =  theObj.parents('li').find('div[class="timeline-footer"]');
-			console.log(theObj.parents('li').attr('id'))
 			$.ajax({
             	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
 				type : 'post', //get post put delete
@@ -539,29 +542,17 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
               
 		// 載入頁面時先顯示3筆留言 thisData[0].journal_Id
 		var loadMessageOne = function(theJournal_Id){
+      		var maxMessageSize = 0
     		$.ajax({
     			url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
 				type: 'GET',
-				data: {'journal_Id':journal_Id},
+				data: {'journal_Id':theJournal_Id},
 				success: function(data){
-					// 顯示留言
 					if(maxMessageSize != data.length){
+						var messageDiv = $('#'+theJournal_Id).find('div.timeline-footer');
 						$.each(data, function(){
-							if(this[0].message_Id < nowMessage_Id || nowMessage_Id == 0){
-								writeMessageDetail(this[0].journal_Id, this[1], this[0].content, this[0].messageTime);
-						    	
-								// 查詢留言寫入牆
-						    	var writeMessageDetail = function(theObj, theJournal_Id, theNickname, theContent, theMessageTime){
-						    		$('#grid>li[id="'+theJournal_Id+'"] div[class="timeline-footer"]:first').prepend(
-						    				 '<p></p><p></p>'
-						    			)
-// 						     			+theNickname
-// 						 				 +': ' + theContent
-										 
-// 						 				 時間: '+ new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')
-						    	}
-								nowMessage_Id = this[0].message_Id;
-							}
+							messageDiv.append('<p/>').find('p:last').text(this[1]+": "+ this[0].content)
+							messageDiv.append('<p/>').find('p:last').text('時間: ' + new Date(this[0].messageTime).Format('yyyy-MM-dd hh:mm:ss'))
 						})
 						maxMessageSize = data.length;
 					}
