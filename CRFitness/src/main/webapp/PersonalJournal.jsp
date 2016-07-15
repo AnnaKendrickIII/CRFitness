@@ -30,6 +30,19 @@ textarea{
 .message_div {
 	margin-top: 3px;
 }
+.textarea-control{
+  border : 0;
+  overflow-y : auto; /* IE */
+/*   resize : none; /* Firefox, Chrome */ */
+}
+
+/* .textarea-control:focus { */
+/*   outline : 0; /* Chrome */ */
+/* } */
+
+/* .form-group { 
+     margin-bottom: 15px; 
+ } */
 
 </style>
 </head>
@@ -262,11 +275,14 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				   			+ '</div>'
 				   			+ '<div hidden="hidden" class="timeline-footer">'
+// 				   			+  '留言塞這裡'
 				   			+ '</div>'
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
-				   			+ '<div class="message_div form-group">'
-				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
-				   			+ '<button class="btn btn-primary pull-right" type="button">送出 </button>'
+				   			+ '<div class="message_div">'	
+// 				   			class="form-control"
+				   			+ '<textarea class="textarea-control" cols="30" rows="1" placeholder="留言....."></textarea>'
+// 				   			class="pull-right"
+				   			+ '<button class="btn btn-primary" type="button">送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
