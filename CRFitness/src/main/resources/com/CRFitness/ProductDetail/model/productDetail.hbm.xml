@@ -15,7 +15,7 @@
 <!-- 		</many-to-one> -->
 		<property name="size" column="Size" />
 		<property name="color" column="Color" />
-		<property name="product_Name" column="Product_Name" />
+<!-- 		<property name="product_Name" column="Product_Name" /> -->
 		<property name="stock" column="Stock" />
 		<property name="published_Date" column="Published_Date" />
 		<property name="photo1" type="binary">
@@ -27,7 +27,8 @@
 		<property name="photo3" type="binary">
 			<column name="photo3" />
 		</property>
-		<property name="introduction" column="Introduction" />
+		<property name="product_Status" column="Product_Status" />
+		<property name="info" column="Info" />
 		<property name="detailed_Description" column="Detailed_Description" />
 
 	</class>

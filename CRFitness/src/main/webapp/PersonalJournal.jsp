@@ -256,15 +256,13 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 					    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
-					    	+ 'id:'+this[1]  // 上線前要拿掉或改暱稱
-				   			+ '<br />內容：'
-				   			+ this[0].contents
-				   			+ '<br />日期：'
-				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
+					    	+'<p>'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
+				   			+ '<p>內容：'+ this[0].contents+'</p>'
+				   			+ '<p >日期：'
+				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				   			+ '</div>'
 				   			+ '<div hidden="hidden" class="timeline-footer">'
 				   			+ '</div>'
-
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
 				   			+ '<div class="message_div form-group">'
 				   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
@@ -272,6 +270,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
+                $('#grid p').css({'padding':'0'})
                 
                 // 留言牆功能 enter -------------------------------------
 				$('#'+this[0].journal_Id+' textarea').on('keydown', this, function (event) {
@@ -305,15 +304,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if(mySelf){
 							var eleS = $('<br/><select />').bind('change',this,function(){
-								$.ajax({
-									url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
-									type: 'POST',
-									data: {'journal_Id':arguments[0].data[0].journal_Id,'member_Id':theMemberId,'contents':arguments[0].data[0].contents,'publicStatus':$(this).val()},
-									success: function(data){
-										console.log(data);
-									}
-								})
-							});
+								updateJournal(arguments[0].data[0].journal_Id, "${LoginOK.member_Id}",arguments[0].data[0].contents,$(this).val())
+							})
 							var publicStatus = ['限本人','公開','朋友'];
 							for(var i =0;i<3;i++){
 								if(parseInt(this[0].publicStatus) === i){
@@ -480,9 +472,6 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     			)
     	}
     	
-    	//'<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-    	console.log($(divGrid))
-    	
 		// addMessageDetail ajax -> server 
     	function addMessageDetail(theJournal_Id, theMember_Id, theVal, theMessageTime){
             $.ajax({
@@ -498,7 +487,31 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				}
             })
 		}
-		});
+		
+    	// 更新日誌狀態
+    	function updateJournal(journal_Id, theMemberId, contents, val, theLi){
+			$.ajax({
+				url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
+				type: 'POST',
+				data: {'journal_Id':journal_Id,'member_Id':theMemberId,'contents':contents,'publicStatus':val},
+				success: function(data){
+					console.log(data);
+					if(data)
+						theLi.remove();
+				}
+			})
+    	}
+    	
+    	// 移除篇此日誌
+    	$(divGrid).on('click','button[title="移除此篇日誌"]',function(){
+    		var journal_Id = $(this).parents('li').attr('id');
+    		var theContents = $(this).nextAll('div[class="timeline-body"]').find('p:nth-child(2)').text().slice(3);
+    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
+    	})
+
+		
+		
+		})
 	</script>
 </c:if>
 	<!--  頁面部分 結束 -->

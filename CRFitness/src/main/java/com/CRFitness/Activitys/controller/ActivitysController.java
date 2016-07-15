@@ -83,7 +83,8 @@ public class ActivitysController {
 			@RequestParam String activity_Info,
 			@RequestParam String activity_Day,
 			@RequestParam String deadline) {
-			System.out.println(activity_Day);
+		System.out.println("activity_DayController" + activity_Day);
+			System.out.println("deadlineController" + deadline);
 		return activitysService.modifyActivitys(activity_Id, activity_Day,
 				activity_Class, activity_Area, activity_Info, deadline);
 	}

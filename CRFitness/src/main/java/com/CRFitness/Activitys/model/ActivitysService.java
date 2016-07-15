@@ -118,8 +118,8 @@ public class ActivitysService {
 			String activity_Info,
 			String deadline)
 	{
-		System.out.println(activity_Day);
-		System.out.println(deadline);	
+		System.out.println("activity_DayServer" + activity_Day);
+		System.out.println("activity_Daydeadline" + deadline);	
 		activity_Day=activity_Day.replace("-", "/");
 		deadline=deadline.replace("-", "/");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");

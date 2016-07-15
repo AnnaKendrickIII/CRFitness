@@ -443,7 +443,7 @@ textarea{
 				formData.append('stock', $('#insert_stock').val());
 				formData.append('price', $('#insert_price').val());
 				formData.append('category', $('#insert_category').val());
-				formData.append('introduction', $('#insert_info').val());
+				formData.append('info', $('#insert_info').val());
 			   $.ajax({
 	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/addProducts",
 	               type:'post',  //get post put delete
@@ -461,7 +461,7 @@ textarea{
 									+ '</td><td>'
 									+ data[1].productDetail_Id
 									+ '</td><td>'
-									+ data[0].product_Name
+									+ data[1].product_Name
 									+ '</td><td>'
 									+ data[1].size
 									+ '</td><td>'
@@ -475,7 +475,7 @@ textarea{
 									+ '</td><td>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
-									+ data[1].introduction
+									+ data[1].info
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
 									+ '</td></tr>') // end of after	            	   
@@ -489,7 +489,7 @@ textarea{
 
 // 修改產品的程式 開始 
 	$('table').on('click',".2g",(function(){	
-		var btn=$(this)
+		var btn=$(this);
 		  $('#updatebtn').click(function () {
 			  	var formData = new FormData();
 			  	formData.append('photo1', file[0]);
@@ -499,7 +499,7 @@ textarea{
 				formData.append('stock', $('#update_stock').val());
 				formData.append('price', $('#update_price').val());
 				formData.append('category', $('#update_category').val());
-				formData.append('introduction', $('#update_info').val());
+				formData.append('info', $('#update_info').val());
 			   $.ajax({
 	               url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/updateProducts",
 	               type:'post',  //get post put delete
@@ -510,10 +510,10 @@ textarea{
 						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
 						var pdate_value = new Date(pdate_int);  
 	            	   $('#update_products').modal('hide');
-	            	   var beforeSiblingTr=btn.parent().parent().prev()
+	            	   var beforeSiblingTr = btn.parent().parent().prev();
 	            	  	btn.parent().parent().fadeOut(800,function(){
 	            	  		$(this).remove();
-	            	  		})
+	            	  	})
 	            	   beforeSiblingTr.after('<tr hidden="hidden"><td><img src="data:image/png;base64,' 
 	   								+ data[1].photo1 
 	   								+ '" class="img-thumbnail" /></td><td>'
@@ -535,7 +535,7 @@ textarea{
 									+ '</td><td>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
-									+ data[1].introduction
+									+ data[1].info
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
 									+ '</td></tr>') // end of xxx
@@ -568,7 +568,7 @@ textarea{
 													+ '</td><td>'
 													+ this[0].productDetail_Id
 													+ '</td><td>'
-													+ this[0].product_Name
+													+ this[1] // product_Name
 													+ '</td><td>'
 													+ this[0].size
 													+ '</td><td>'
@@ -576,13 +576,13 @@ textarea{
 													+ '</td><td>'
 													+ this[0].stock
 													+ '</td><td>'
- 													+ this[1]
+ 													+ this[2] // price
 													+ '</td><td>'
- 													+ this[2]
+ 													+ this[3] // category
  													+ '</td><td>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td hidden="hidden">'
-									                + this[0].introduction
+									                + this[0].info
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
 													+ '</td></tr>') // end of append
@@ -593,16 +593,16 @@ textarea{
 // 												console.log($(this).parent().parent().find("img").attr('src'))
 // 												console.log($(this).parent().parent().find("img").attr('src').substr(22))
 												$('#uploadfile').prop("files",$(this).parent().parent().find("img").attr('src').substr(22));
-												console.log($(this).parent().siblings(":eq(1)").text())
-												console.log($(this).parent().siblings(":eq(2)").text())
-												console.log($(this).parent().siblings(":eq(3)").text())
-												console.log($(this).parent().siblings(":eq(4)").text())
-												console.log($(this).parent().siblings(":eq(5)").text())
-												console.log($(this).parent().siblings(":eq(6)").text())
-												console.log($(this).parent().siblings(":eq(7)").text())
-												console.log($(this).parent().siblings(":eq(8)").text())
-												console.log($(this).parent().siblings(":eq(9)").text())
-												console.log($(this).parent().siblings(":eq(10)").text())
+// 												console.log($(this).parent().siblings(":eq(1)").text())
+// 												console.log($(this).parent().siblings(":eq(2)").text())
+// 												console.log($(this).parent().siblings(":eq(3)").text())
+// 												console.log($(this).parent().siblings(":eq(4)").text())
+// 												console.log($(this).parent().siblings(":eq(5)").text())
+// 												console.log($(this).parent().siblings(":eq(6)").text())
+// 												console.log($(this).parent().siblings(":eq(7)").text())
+// 												console.log($(this).parent().siblings(":eq(8)").text())
+// 												console.log($(this).parent().siblings(":eq(9)").text())
+// 												console.log($(this).parent().siblings(":eq(10)").text())
 												var updProducts = $('#update_products')  // 寫成這樣才有效能
 												var eq1 = $(this).parent().siblings(":eq(1)")
 												updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())

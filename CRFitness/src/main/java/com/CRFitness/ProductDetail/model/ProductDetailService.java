@@ -117,17 +117,22 @@ public class ProductDetailService {
 
 	}
 
-	// back-end 新增商品至 ProductDetail & Product Table
-	public List<Object> addProductDetail(String product_Name, Double price,
-			String category, String size, // 尺寸
+	// back-end: 新增商品至 ProductDetail & Product Table
+	public List<Object> addProductDetail(
+			String product_Name, 
+			Double price,// 價格
+			String category, // 分類
+			String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
 			// Timestamp published_Date, // 刊登日期
 			MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
-			// String detailed_Description, // 商品簡介
-			String introduction) {
+			String product_Status, // 狀態
+			String info // 商品簡介
+			// String detailed_Description, // 商品詳細說明
+			) {
 		List<Object> list = new ArrayList<Object>();
 
 		ProductsVO productsVO = new ProductsVO();
@@ -138,19 +143,18 @@ public class ProductDetailService {
 
 		ProductDetailVO productDetailVO = new ProductDetailVO();
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
-		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
 		productDetailVO.setSize(size);
 		productDetailVO.setColor(color);
 		productDetailVO.setStock(stock);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
-
 		try {
 			productDetailVO.setPhoto1(photo1.getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		productDetailVO.setIntroduction(introduction);
+		productDetailVO.setProduct_Status(product_Status);
+		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.insert(productDetailVO);
 
 		list.add(0, productsVO);
@@ -158,21 +162,24 @@ public class ProductDetailService {
 		return list;
 	}
 
-	// back-end 修改商品至 ProductDetail & Product Table
+	// back-end: 修改商品至 ProductDetail & Product Table
 	public List<Object> updateProductDetail(
 			String product_Id,
-			String productDetail_Id,
 			String product_Name, 
-			Double price,
-			String category, String size, // 尺寸
+			Double price, // 價格
+			String category, // 分類
+			String productDetail_Id, 
+			String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
 			// Timestamp published_Date, // 刊登日期
 			MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
-			// String detailed_Description, // 商品簡介
-			String introduction) {
+			String product_Status,  // 狀態 
+			String info // 商品簡介
+			// String detailed_Description, // 商品詳細說明
+			) {
 		List<Object> list = new ArrayList<Object>();
 		
 //		ProductsVO productsVO = new ProductsVO();
@@ -187,7 +194,6 @@ public class ProductDetailService {
 		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);	
 
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
-		productDetailVO.setProduct_Name(productsVO.getProduct_Name());
 		productDetailVO.setSize(size);
 		productDetailVO.setColor(color);
 		productDetailVO.setStock(stock);
@@ -199,7 +205,8 @@ public class ProductDetailService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		productDetailVO.setIntroduction(introduction);
+		productDetailVO.setProduct_Status(product_Status);
+		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);
 
 		list.add(0, productsVO);
