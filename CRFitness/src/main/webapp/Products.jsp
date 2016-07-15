@@ -113,20 +113,36 @@ $.ajax({
 	success:function(data){
 
 		$.each(data,function(){
-			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><a href="data:image/png;base64,'
+			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div class="thumbnail "><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
-						+this[1] +'"><img id="b" class="group list-group-image" src="data:image/png;base64,'
+						+this[1] +'"><img  class="shopimage" src="data:image/png;base64,'
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff">'
 						+this[1] +'</h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].info+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
 						+this[2] +'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
 						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4">'+
-						'<a href="${this_contextPath}/ShoppingCart.jsp?productDetail_Id='+this[0].productDetail_Id+'" class="btn shop" >加入購物車</a></div></div></div></a></div></div>'
+						'<div class="btn shop" >加入購物車</div></div></div></div></a></div></div>'
 					)	
 		})		
 	}
 });
 
+$('body').on('click','.shop',function(){
+	var whichImg=$(this).parent().parent().parent().parent().find('img')
+	var copyimg=$('<img width="150px" height="150px" src="' 
+	+ whichImg.attr('src') + '"/>').css({"position": "fixed", "z-index": "999"});
+	whichImg.parent().prepend(copyimg);	
+	copyimg.animate({"top":$('.shopping_car').position().top,
+					"left":$('.shopping_car').position().left+100+'px'
+					},500,"linear", function() {
+					      copyimg.remove();
+					 });
+			
+
+	console.log($('.shopping_car').position().left)
+	console.log($('.shopping_car').position().top)
+	
+	})
 })
 </script>
 
