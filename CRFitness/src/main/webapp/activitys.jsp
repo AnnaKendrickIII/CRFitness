@@ -292,16 +292,17 @@
 									+data.activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+data.people+"<br /><button class='btn btn-theme' style='float:right;border:none' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-									+'"><img src="data:image/png;base64,'
-									+data.photo1+'" /></a>發起人：'
+									+data.people+"<br /><button class='btn btn-theme submit_x' style='float:right;border:none' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+"<div hidden='hidden'>"+data.activity_Id
+									+'</div>"><span title=""><img src="data:image/png;base64,'
+									+data.photo1+'" /></span></a>發起人：'
 									+'${LoginOK.nickname}'+'<br />類別：'
 									+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
+									+'<button type="button" class="btn btn-default " data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
 									+data.people+'</button></li>')								
 										 $('.btn.btn-default').tooltip()	
 										  $(".boxer").boxer({ 
