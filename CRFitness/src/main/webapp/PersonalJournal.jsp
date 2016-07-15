@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
+aside
 { 
  	background-color: #F5F5F5;
 	
