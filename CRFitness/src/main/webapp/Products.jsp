@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="page" value="${pageContext.request.requestURI}" scope="page"/>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -14,45 +15,6 @@
 
 <title>商品</title>
 
-<style type="text/css">
-aside{
-background-color: #f5f5f5;
-}
-.productsclass {
-	background-color: #f5f5f5;
-}
-#a{
-height:425px; 
-}
-#b{
-height:250px;
-}
-#a:hover{
-border:1px solid #3333ff;
-
-}
-.shopping_car{
-position:fixed;
-right:2%;
-top:35%;
- opacity:0.6;
-}
-.shopping_car:hover{
-position:fixed;
-right:2%;
-top:35%;
- opacity:1;
-}
-.shop{
-background-color: red;
-color: white
-}
-.shop:LINK,.shop:FOCUS,.shop:hover,.shop:ACTIVE{
-background-color: #AE0000;
-color: white
-}
-
-</style>
 
 </head>
 
@@ -90,13 +52,13 @@ color: white
 </div>
 <div class="container">
 <ul class="pagination">
-              <li class="disabled"><a href="#">«</a></li>
-              <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-              <li><a >2</a></li>
-              <li><a >3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">»</a></li>
+              <li><a href="">«</a></li>
+              <li><a href="">1</a></li>
+              <li><a href="">2</a></li>
+              <li><a href="">3</a></li>
+              <li><a href="">4</a></li>
+              <li><a href="">5</a></li>
+              <li><a href="">»</a></li>
             </ul>
 </div>
 </div>
@@ -105,7 +67,34 @@ color: white
 <script type="text/javascript">
 jQuery(function($){
 var Type='${pageContext.request.queryString}';
-Type=Type.substr(9)
+num1=Type.substr(9).indexOf("&")
+num2=Type.indexOf("&")
+var queryString=Type.substr(0,num2)
+var whichPage=Type.substr(num2)
+whichPage=whichPage.substr(6)
+Type=Type.substr(9,num1)
+var n=parseInt(whichPage)
+
+if(n<=1){
+	$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page=1")
+}else{
+	$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page="+(n-1))
+}
+if(n>=2){
+	$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
+}else{
+	$('.pagination>li:nth-child(7) a').attr("href",'${page}?'+queryString+"&page="+(n+1))
+}
+
+$('.pagination>li:nth-child('+(n+1)+')').addClass("active")
+$('.pagination>li:nth-child(2) a').attr("href",'${page}?'+queryString+"&page=1")
+$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
+$('.pagination>li:nth-child(4) a').attr("href",'${page}?'+queryString+"&page=3")
+$('.pagination>li:nth-child(5) a').attr("href",'${page}?'+queryString+"&page=4")
+$('.pagination>li:nth-child(6) a').attr("href",'${page}?'+queryString+"&page=5")
+
+
+
 if(Type=='Sports_Equipment'){
 	Type='運動器材'
 }else if(Type=='Apparel'){
@@ -116,29 +105,28 @@ if(Type=='Sports_Equipment'){
 	Type='鞋類'
 }
 
-$('a').on('click',function(){
-var Page = $(this).text()
-console.log(Type)
+
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByCategory',
 	type:'get',
-	data:{category:Type, page:Page},
+	data:{category:Type, page:whichPage},
 	success:function(data){
+
 		$.each(data,function(){
-			$('#products>div').remove();
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div id="a" class="thumbnail"><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
-						+this[0].product_Name+'"><img id="b"   class="group list-group-image"  src="data:image/png;base64,'
+						+this[1] +'"><img id="b" class="group list-group-image" src="data:image/png;base64,'
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff">'
-						+this[0].product_Name+'</h4><p class="group inner list-group-item-text" style="color:#555555">'
-						+this[0].introduction+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
-						+this[1]+'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
-						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4"><a class="btn shop" >加入購物車</a></div></div></div></a></div></div>'
+						+this[1] +'</h4><p class="group inner list-group-item-text" style="color:#555555">'
+						+this[0].info+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
+						+this[2] +'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
+						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4">'+
+						'<a href="${this_contextPath}/ShoppingCart.jsp?productDetail_Id='+this[0].productDetail_Id+'" class="btn shop" >加入購物車</a></div></div></div></a></div></div>'
 					)	
 		})		
 	}
 });
-})
+
 })
 </script>
 

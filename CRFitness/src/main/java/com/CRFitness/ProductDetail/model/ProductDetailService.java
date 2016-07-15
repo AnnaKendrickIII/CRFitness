@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.CRFitness.Orders.model.OrdersVO;
 import com.CRFitness.Products.model.ProductsDAO_interface;
 import com.CRFitness.Products.model.ProductsVO;
 
@@ -114,13 +115,10 @@ public class ProductDetailService {
 		} else {
 			return null;
 		}
-
 	}
 
 	// back-end: 新增商品至 ProductDetail & Product Table
-	public List<Object> addProductDetail(
-			String product_Name, 
-			Double price,// 價格
+	public List<Object> addProductDetail(String product_Name, Double price,// 價格
 			String category, // 分類
 			String size, // 尺寸
 			String color, // 顏色
@@ -131,8 +129,8 @@ public class ProductDetailService {
 			// byte[] photo3, // 圖片3
 			String product_Status, // 狀態
 			String info // 商品簡介
-			// String detailed_Description, // 商品詳細說明
-			) {
+	// String detailed_Description, // 商品詳細說明
+	) {
 		List<Object> list = new ArrayList<Object>();
 
 		ProductsVO productsVO = new ProductsVO();
@@ -163,27 +161,24 @@ public class ProductDetailService {
 	}
 
 	// back-end: 修改商品至 ProductDetail & Product Table
-	public List<Object> updateProductDetail(
-			String product_Id,
-			String product_Name, 
-			Double price, // 價格
+	public List<Object> updateProductDetail(String product_Id,
+			String product_Name, Double price, // 價格
 			String category, // 分類
-			String productDetail_Id, 
-			String size, // 尺寸
+			String productDetail_Id, String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
 			// Timestamp published_Date, // 刊登日期
 			MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
-			String product_Status,  // 狀態 
+			String product_Status, // 狀態
 			String info // 商品簡介
-			// String detailed_Description, // 商品詳細說明
-			) {
+	// String detailed_Description, // 商品詳細說明
+	) {
 		List<Object> list = new ArrayList<Object>();
-		
-//		ProductsVO productsVO = new ProductsVO();
-		ProductsVO productsVO = productsDAO.findByPrimaryKey(product_Id);	
+
+		// ProductsVO productsVO = new ProductsVO();
+		ProductsVO productsVO = productsDAO.findByPrimaryKey(product_Id);
 		productsVO.setProduct_Name(product_Name);
 		productsVO.setPrice(price);
 		productsVO.setCategory(category);
@@ -193,6 +188,7 @@ public class ProductDetailService {
 //		ProductDetailVO productDetailVO = new ProductDetailVO();
 		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
+
 		productDetailVO.setSize(size);
 		productDetailVO.setColor(color);
 		productDetailVO.setStock(stock);
@@ -212,6 +208,23 @@ public class ProductDetailService {
 		list.add(1, productDetailVO);
 		return list;
 	}
+	
+	// back-end: change status
+//	public List<Object> changeStatus(String productDetail_Id, String product_Status) {
+//		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
+//		List<Object> list = new ArrayList<Object>();
+//		if (productDetailVO != null && !"已下架".equals(productDetailVO.getProduct_Status())) {
+//			productDetailVO.setProduct_Status("已下架");
+//			productDetailVO = productDetailDAO.update(productDetailVO);
+//			list.add(0, productDetailVO);
+//			return list;
+//		} else if (productDetailVO != null && !"上架中".equals(productDetailVO.getProduct_Status())) {			
+//			productDetailVO.setProduct_Status("上架中");
+//			productDetailVO = productDetailDAO.update(productDetailVO);
+//			list.add(0, productDetailVO);
+//			return list;
+//		};
+//	}
 
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定

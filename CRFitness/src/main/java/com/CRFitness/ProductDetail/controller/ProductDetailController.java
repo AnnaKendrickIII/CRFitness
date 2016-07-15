@@ -44,7 +44,6 @@ public class ProductDetailController {
 	public @ResponseBody List<ProductDetailVO> searchByCategory(
 			HttpServletRequest request, @RequestParam String category,
 			@RequestParam Integer page) {
-		System.out.println(category+","+page);
 		return productDetailService.getItemByCategory(category, page);
 
 	}

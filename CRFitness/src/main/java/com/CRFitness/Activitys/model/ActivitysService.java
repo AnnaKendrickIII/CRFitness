@@ -78,7 +78,8 @@ public class ActivitysService {
 			String activity_Area,
 			MultipartFile photo1,
 			String activity_Info,
-			String deadline)
+			String deadline,
+			Integer people_Max)
 	{
 		System.out.println(activity_Day);
 		System.out.println(deadline);	
@@ -96,7 +97,7 @@ public class ActivitysService {
 			activitysVO.setActivity_Day(ts);
 			activitysVO.setActivity_Class(activity_Class);
 			activitysVO.setActivity_Area(activity_Area);
-			
+			activitysVO.setPeople_Max(people_Max);
 			try {
 				activitysVO.setPhoto1(photo1.getBytes());
 			} catch (IOException e) {
@@ -106,6 +107,7 @@ public class ActivitysService {
 			activitysVO.setDeadline(tsd);
 			activitysVO.setStartDay(datetime);
 			activitysVO.setPeople(0);
+			activitysVO.setActivity_Status(1);
 		return activitysDAO.insert(activitysVO);
 		
 	}

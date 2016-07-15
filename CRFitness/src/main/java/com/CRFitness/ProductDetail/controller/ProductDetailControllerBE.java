@@ -74,8 +74,10 @@ public class ProductDetailControllerBE {
 		Double price2 = Double.parseDouble(price);
 		Integer stock2 = Integer.parseInt(stock);
 		try {
+			product_Id = new String(product_Id.getBytes("iso-8859-1"), "utf-8");
 			product_Name = new String(product_Name.getBytes("iso-8859-1"), "utf-8");
 			category = new String(category.getBytes("iso-8859-1"), "utf-8");
+			productDetail_Id = new String(productDetail_Id.getBytes("iso-8859-1"), "utf-8");
 			size = new String(size.getBytes("iso-8859-1"), "utf-8");
 			color = new String(color.getBytes("iso-8859-1"), "utf-8");
 //			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
@@ -87,6 +89,19 @@ public class ProductDetailControllerBE {
 		return productDetailService.updateProductDetail(product_Id, product_Name, price2, category, productDetail_Id, size, color, stock2, photo1, product_Status, info);	
 	}
 	
+	// change status
+//	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus")
+//	public @ResponseBody List<Object> changeStatus(
+//			@RequestParam String productDetail_Id,
+//			@RequestParam String product_Status){
+//		try {
+//			productDetail_Id = new String(productDetail_Id.getBytes("iso-8859-1"), "utf-8");
+//			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+//		return productDetailService.changeStatus(productDetail_Id, product_Status);	
+//	}
 	
 	// Insert products 新增的列顯示在最上面
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
