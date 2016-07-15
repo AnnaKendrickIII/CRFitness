@@ -14,6 +14,9 @@
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" />
+<script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script>
+
 <title>MaintainProducts</title>
 
 <script type="text/template" id="qq-template-manual-trigger">
@@ -394,6 +397,8 @@ textarea{
 			}
 // 轉換日期的小程式 結束
 
+
+
 // 所有功能的程式開始
 	jQuery(function ($) {	  
 		  var file;	
@@ -488,7 +493,7 @@ textarea{
 									+ '</td><td hidden="hidden">'
 									+ data[1].info
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch" data-default="1" data-label-on="M" data-label-off="F"></span>'
 									+ '</td></tr>') // end of after	            	   
 							$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty();
 							file = null;				 
@@ -553,7 +558,7 @@ textarea{
 									+ '</td><td hidden="hidden">'
 					                + data[1].product_Status
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch" data-default="1" data-label-on="M" data-label-off="F"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 									// 修改產品的小程式		
 									// end of $('.2g').click(function(){				
@@ -602,7 +607,7 @@ textarea{
 													+ '</td><td hidden="hidden">'
 									                + this[0].product_Status
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><i class="fa fa-toggle-on" aria-hidden="true"></i>'
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="1"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 												// 修改產品的小程式		
@@ -643,37 +648,48 @@ textarea{
 												updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
 												updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
 												})	// end of $('.2g').click(function(){
+												//
+												$('.easyswitch').easyswitch();
+													function onSwitch(value, obj) {
+													alert(value);
+												}
 		
 		} // end of success : function(data) 
 	}) // end of $.ajax({
 // 顯示產品的程式 結束			
 
 
+
+
+
 // 改變產品狀態的程式 開始
 	$('.3g').click(function () {
-		
-		// 關閉的圖示 <i class="fa fa-toggle-off" aria-hidden="true"></i>
-	});
+// 		var btn2=$(this);
+		 $.ajax({
+             url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/changeStatus",
+             type:'post',  //get post put delete
+				data: {},
+//   		        processData: false,
+// 			    contentType: false,
+                success:function(data){
+// 					var pdate_int = parseInt(data[1].published_Date); //轉換成數字
+// 					var pdate_value = new Date(pdate_int);  
+//           	  	$('#update_products').modal('hide');
+//           	   	var beforeSiblingTr = btn.parent().parent().prev();
+//           	  	btn.parent().parent().fadeOut(800, function(){
+//           	  		$(this).remove();
+//           	  	})  	
+          	  } // end of success:function(data)	 
+	   	 }) // end of  $.ajax({  	    	   
+	}); // end of 	$('.3g').click(function () {
 // 改變產品狀態的程式 結束
 
 
-// 	$.ajax({
-//         url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
-//         type:'get',  //get post put delete
-//         data:{ },
-//         success:function(data){      	  
-//       	  $.each(data,function(){        		  
-
-//            }) // end of $.each(data,function()
-//         }//end of success:function(data)
-//     }) // end of $.ajax({
-
 }); // end of jQuery(function ($)
 </script>
+
 
 </div> <!-- end of <div class="row"> -->
 	<!--  頁面部分 結束 -->
 </body>
 </html>
-
-<!-- <span class="glyphicon glyphicon-wrench"> -->

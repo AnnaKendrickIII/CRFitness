@@ -190,7 +190,6 @@ public class ProductDetailService {
 		productsVO.setCategory(category);
 		productsVO = productsDAO.update(productsVO);
 
-		
 //		ProductDetailVO productDetailVO = new ProductDetailVO();
 		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
@@ -215,21 +214,18 @@ public class ProductDetailService {
 	}
 	
 	// back-end: change status
-//	public List<Object> changeStatus(String productDetail_Id, String product_Status) {
-//		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
-//		List<Object> list = new ArrayList<Object>();
-//		if (productDetailVO != null && !"已下架".equals(productDetailVO.getProduct_Status())) {
-//			productDetailVO.setProduct_Status("已下架");
-//			productDetailVO = productDetailDAO.update(productDetailVO);
-//			list.add(0, productDetailVO);
-//			return list;
-//		} else if (productDetailVO != null && !"上架中".equals(productDetailVO.getProduct_Status())) {			
-//			productDetailVO.setProduct_Status("上架中");
-//			productDetailVO = productDetailDAO.update(productDetailVO);
-//			list.add(0, productDetailVO);
-//			return list;
-//		};
-//	}
+	public ProductDetailVO changeStatus(String productDetail_Id, String product_Status) {
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
+		if (productDetailVO != null && !"已下架".equals(productDetailVO.getProduct_Status())) {
+			productDetailVO.setProduct_Status("已下架");
+			return productDetailDAO.changStatus(product_Status);
+			
+		} else if (productDetailVO != null && !"上架中".equals(productDetailVO.getProduct_Status())) {			
+			productDetailVO.setProduct_Status("上架中");
+			return productDetailDAO.changStatus(product_Status);
+		};
+		return productDetailVO;
+	}
 
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定

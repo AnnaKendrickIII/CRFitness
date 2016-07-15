@@ -90,18 +90,18 @@ public class ProductDetailControllerBE {
 	}
 	
 	// change status
-//	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus")
-//	public @ResponseBody List<Object> changeStatus(
-//			@RequestParam String productDetail_Id,
-//			@RequestParam String product_Status){
-//		try {
-//			productDetail_Id = new String(productDetail_Id.getBytes("iso-8859-1"), "utf-8");
-//			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-//		return productDetailService.changeStatus(productDetail_Id, product_Status);	
-//	}
+	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus")
+	public @ResponseBody ProductDetailVO changeStatus(
+			@RequestParam String productDetail_Id,
+			@RequestParam String product_Status){
+		try {
+			productDetail_Id = new String(productDetail_Id.getBytes("iso-8859-1"), "utf-8");
+			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return productDetailService.changeStatus(productDetail_Id, product_Status);	
+	}
 	
 	// Insert products 新增的列顯示在最上面
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)

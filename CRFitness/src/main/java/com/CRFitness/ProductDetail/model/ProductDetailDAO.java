@@ -24,7 +24,8 @@ import com.CRFitness.Products.model.ProductsVO;
 public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	private static final String GET_PRODUCTDETAIL_ID = "from ProductDetailVO where product_Name=:product_Name and size=:size and color=:color";
-
+	private static final String CHANGE_STATUS = "from ProductDetailVO where product_Status=:product_Status";
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -145,6 +146,15 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.addScalar("category", StringType.INSTANCE);
 
 		return (List<ProductDetailVO>) query.list();
+	}
+
+	// back-end: change status
+	@Override
+	public ProductDetailVO changStatus(String product_Status) {
+		Query query = this.getSession().createQuery(CHANGE_STATUS);
+//		query.setParameter("productDetail_Id", productDetail_Id);
+		query.setParameter("product_Status", product_Status);
+		return (ProductDetailVO) query.list().get(0);
 	}
 
 	public static void main(String[] args) {
