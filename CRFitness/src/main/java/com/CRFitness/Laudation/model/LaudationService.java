@@ -1,5 +1,7 @@
 package com.CRFitness.Laudation.model;
 
+
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -7,8 +9,9 @@ import org.springframework.stereotype.Service;
 @Service("laudationService")
 public class LaudationService {
 	
-	@Resource(name = "laudationlDAO")
-	private LaudationDAO_interface laudationlDAO;
+
+	@Resource(name="laudationDAO")
+	private LaudationDAO_interface laudationDAO;
 
 	public LaudationService() {		
 	}
@@ -19,7 +22,7 @@ public class LaudationService {
 		laudationVO.setJournal_Id(journal_Id);
 		laudationVO.setLauded_Id(lauded_Id);
 		
-		laudationlDAO.insert(laudationVO); 
+		laudationDAO.insert(laudationVO); 
 		
 		return false;
 	}

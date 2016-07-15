@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.CRFitness.Laudation.model.LaudationService;
 
 @Controller
-@RequestMapping("/laudationController")
+@RequestMapping("/laudationcontroller")
 public class Laudationcontroller {
 
 	@Resource(name="laudationService")
