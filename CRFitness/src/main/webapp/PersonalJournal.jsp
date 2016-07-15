@@ -20,10 +20,10 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
-/* .timeline-footer { */
-/* 	background-color: #F5F5F5; */
-	
-/* } */
+aside
+{ 
+ 	background-color: #F5F5F5;
+}
 textarea{
 	resize: none;
 }
@@ -466,9 +466,10 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
     	
     	// 移除篇此日誌
     	$(divGrid).on('click','button[title="移除此篇日誌"]',function(){
+    		alert("確認刪除");
     		var journal_Id = $(this).parents('li').attr('id');
     		var theContents = $(this).nextAll('div[class="timeline-body"]').find('p:nth-child(2)').text().slice(3);
-    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
+//     		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
     	})
 
 		
