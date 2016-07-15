@@ -12,7 +12,7 @@
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <title>揪團紀錄</title>
 <jsp:include page="/CRFitness.jsp" />
-
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
 <script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 彈跳視窗 -->
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"> <!-- 檔案上傳 -->
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
@@ -177,7 +177,7 @@ padding:10px 5px 2px 5px;
 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Info'>"+this[0].activity_Info+"</a>"+'<br />活動時間：'
 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />活動截止日：'
 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></div></div>')
 									
@@ -294,7 +294,7 @@ padding:10px 5px 2px 5px;
 									+this[0].activity_Info+"</a>"+'<br />活動時間：'
 									+jdate_value.Format('yyyy-MM-dd hh:mm')+'<br />活動截止日：'
 									+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></div></div>')
 									

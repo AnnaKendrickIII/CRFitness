@@ -8,10 +8,13 @@
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" href="${this_contextPath}/css/shoppingcart.css">
+<link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
 <title>購物車</title>
 
 </head>
 <body>
+<script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
+
 <aside>
 <div class="row">
 	<legend class="well well-sm" style="text-align: center">確認購物車</legend>
@@ -215,7 +218,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="check"></label>
 					<div class="col-md-4">
-						<a href="#" id="check" class="btn btn-success" id="checkorder" name="check">送出訂單</a>
+						<a id="check" class="btn btn-success">送出訂單</a>
 					</div>
 				</div>
 
@@ -229,17 +232,22 @@
 var queryString='${pageContext.request.queryString}';
 queryString=queryString.substring(17);
 
+console.log(queryString)
+
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
 	typr:'get',
 	data:{productDetail_Id:queryString},
 	success:function(data){
-		$('#itemlist').append('<div class="item"><div class="row"><div class="col-xs-2">'+
+		$('#itemlist').append('<div class="item">'+
+				'<div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="data:image/png;base64,'+
-				data[0][0].photo1+'"/></div><div class="col-xs-4"><h4 class="product-name"><strong>'+
-				data[0][0].product_Name+'</strong></h4></div>'+
-				'<div class="col-xs-6"><div class="col-xs-6 text-right"><h6><strong>'+
-				data[0][1]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h6></div>'+
+				data[0][0].photo1+'"/></div>'+
+				'<div class="col-xs-4"><h4 class="product-name"><strong>'+
+				data[0][1]+'</strong></h4></div>'+
+				'<div class="col-xs-6">'+
+				'<div class="col-xs-6 text-right"><h6><strong>'+
+				data[0][2]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h6></div>'+
 				'<div class="col-xs-4"><input type="text" class="form-control input-sm" value="1"></div>'+
 				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
 				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')
@@ -272,10 +280,12 @@ $.ajax({
 </script>
 
 <script type="text/javascript">
-$('#checkorder').on('click', function(){
-	console.log('hahaha');
-	alert('hahaha');
-	
+
+$('.btn-success').on('click', function () {
+    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
+    	alertify.success('訂單送出') }
+        , function () { 
+        alertify.error('訂單取消') });
 });
 
 </script>

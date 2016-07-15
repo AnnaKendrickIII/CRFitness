@@ -18,7 +18,12 @@
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
-
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  
+<script src="${this_contextPath}/js/velocity.min.js" ></script>
+<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>
+<script src="${this_contextPath}/js/jquery.alertable.js" ></script>
+<script src="${this_contextPath}/js/jAlert-v4.js" ></script>
 
 <style>
 
@@ -214,7 +219,7 @@
 	
 	<script>
 		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00:00',step:10});
-		$('#datetimepickerb').datetimepicker({value:'2016/08/12 10:00:00',step:10});
+		$('#datetimepickerb').datetimepicker({value:'2016/08/19 10:00:00',step:10});
 	</script>
 	<!-- 輸入日期 結尾-->
 	<script>
@@ -287,7 +292,7 @@
 									+data.activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+data.people+"<br /><button class='btn btn-theme' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+data.people+"<br /><button class='btn btn-theme' style='float:right;border:none' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+'"><img src="data:image/png;base64,'
 									+data.photo1+'" /></a>發起人：'
 									+'${LoginOK.nickname}'+'<br />類別：'
@@ -296,7 +301,7 @@
 									+data.activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title=" ">'
+									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
 									+data.people+'</button></li>')								
 										 $('.btn.btn-default').tooltip()	
 										  $(".boxer").boxer({ 
@@ -343,8 +348,7 @@
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+this[0].people+"<button class='btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />'
 									+"<div hidden='hidden'>"+this[0].activity_Id
 									+'</div>"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
@@ -354,7 +358,7 @@
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
 									+this[0].people+'</button></li>')
 									  					
@@ -396,8 +400,7 @@
 	    									+this[0].activity_Area+'<br />內容：'
 	    									+this[0].activity_Info+'<br />活動時間：'
 	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-	    									+this[0].people+"<button class='btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />'
 	    									+"<div hidden='hidden'>"+this[0].activity_Id
 	    									+'</div>"><span title=""><img src="data:image/png;base64,'
 	    									+this[0].photo1+'" /></span></a>發起人：'
@@ -407,7 +410,7 @@
 	    									+this[0].activity_Info+'<br />活動時間：'
 	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-	    									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="'
+	    									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
 	    									+names+'">'
 	    									+this[0].people+'</button></li>')
 	    									  					
@@ -439,11 +442,29 @@
 		    		   success:function(data){
 		    			   console.log(data[0])
 		    			   if(data[0]=='無法參加自己的活動'){
-		    				   alert('無法參加自己的活動')
+		    				   $("#boxer-overlay").remove();
+		    				   $("#boxer").remove();
+		    				   $('body').toggleClass();
+		    				   
+		    				   errorAlert('北七膩', '你舉辦你自己不參加???????');
+
+		    				   
 		    			   }else if(data[0]=='參加過'){
-		    				   alert('參加過')
+		    				   $("#boxer-overlay").remove();
+		    				   $("#boxer").remove();
+		    				   $('body').toggleClass();		
+		    				     		
+		    				   errorAlert('北七膩', '你已經參加過了');
+	
 		    			   }else if(data[0]=='已額滿'){
-		    				   alert('已額滿')
+// 		    				   alert('已額滿')
+		    				   $("#boxer-overlay").remove();
+		    				   $("#boxer").remove();
+		    				   $('body').toggleClass();		
+		    				     			
+		    				   errorAlert('殘念', '已額滿');
+		    				   
+// 		    				   $.alertable.alert(data[0]);
 		    			   }else{
 		    				var members="";
 		    				var sum =0;
@@ -459,8 +480,18 @@
 		    				   $("#boxer-overlay").remove();
 		    				   $("#boxer").remove();
 		    				   $('body').toggleClass();		
-		    				     			
-		    				  
+		    				
+		    				   $.alertable.alert('參加成功', {
+		    					   show: function() {
+		    					     $(this.overlay).velocity('transition.fadeIn');        
+		    					     $(this.modal).velocity('transition.flipBounceYIn');
+		    					   },
+		    					   hide: function() {
+		    					     $(this.overlay).velocity('transition.fadeOut');
+		    					     $(this.modal).velocity('transition.perspectiveUpOut');
+		    					   } 
+		    					 });
+
 		    			   }			   
 		    		   }
 		    	   })
@@ -470,6 +501,7 @@
 	  })
     
 </script>
+<script src="${this_contextPath}/js/jAlert-functions.js"></script>
 <script src="${this_contextPath}/js/jquery.fs.boxer.js" ></script>
 <!-- 頁面部分 結束-->
 </body>
