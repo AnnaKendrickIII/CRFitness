@@ -74,9 +74,11 @@ height: 36px;
 						  var jdate_value = new Date(jdate_int); 
 		        		  var journalId=this[0].journal_Id
 		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+			        		 +'<button type="button" class="btn btn-link pull-right"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'		 
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
-			        		 +this[1]+'</p></a><p class="time_p">'
+			        		 +this[1]+'</p></a>'
+			        		 +'<p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
 							 +this[0].contents+'</p>'
 							 

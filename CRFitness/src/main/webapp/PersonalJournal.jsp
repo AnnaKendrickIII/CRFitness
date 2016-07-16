@@ -282,7 +282,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 // 				   			  '留言塞這裡'
 				   			+ '</div>'
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
-				   			+ '<div class="message_div">'	
+				   			+ '<div class="message_div function_list">'	
 // 				   			class="form-control"
 				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
@@ -592,8 +592,19 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			}
 		}
 		
+		
 		$("body").on("click",'.likethis',function(){
-			
+			$.ajax({
+				url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
+				type: "post",
+				data:{
+					journal_Id:$('.function_list').find('div').text(),
+					lauded_Id:'${LoginOK.member_Id}'
+				},
+				success:function(data){
+					console.log(data[0]);
+				}
+			})
 		})
 	</script>
 
