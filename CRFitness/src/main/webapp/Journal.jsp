@@ -32,6 +32,10 @@ color:#66B3FF;
 .time_p{
 margin: 0px;
 }
+.message_img{
+width: 32px;
+height: 32px;
+}
 </style>
 </head>
 
@@ -67,28 +71,36 @@ margin: 0px;
 	            success:function(data){          	
 	            	$.each(data,function(){
 		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-							var jdate_value = new Date(jdate_int); 
-		        		  
+						  var jdate_value = new Date(jdate_int); 
+		        		  var journalId=this[0].journal_Id
+		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+			        		 +'<img class="Emoticons" src="data:image/png;base64,'+this[2]+'" /><p class="name_p">'
+			        		 +this[1]+'</p></a><p class="time_p">'
+			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
+							 +this[0].contents+'</p>'
+							 
 		        		 $('#grid').append(
-		        		 '<li  class="gallery-img"><p hidden="hidden">'+this[0].journal_Id+'</p>'
-		        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-		        		 +'<img class="Emoticons" src="data:image/png;base64,'+this[2]+'" /><p class="name_p">'
-		        		 +this[1]+'</p></a><p class="time_p">'
-		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
-						 +this[0].contents+'</p>'
+		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img">'
+		        		 +contet
 		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
 		        		 +'<div data-desc=""></div>'
 		        		 +'</li>') 
-// 		        		  $.ajax({
-// 	           				 url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
-// 	            			 type:'get',  //get post put delete
-// 	          			     data:{},
-// 	            			 success:function(data){ 
-	            				
-	           				
-// 	            			 }
-// 	           			 })
-	                })// each end
+		        		  $.ajax({
+	           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
+	            			 type:'get',  //get post put delete
+	          			     data:{journal_Id:journalId},
+	            			 success:function(data){ 
+	            				 var message="";
+	            				 $.each(data,function(){
+	            					 message+='<div><img class="message_img" src="data:image/png;base64,'+this[2]+'" />'
+	            					 +this[1]+'</div>'
+	            				 })//留言明細迴圈     	
+	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
+	            						 contet+message)
+	            			 }//留言success結束
+	           			 })//留言ajax結束	                
+	            	})// each end
 	                new AnimOnScroll(document.getElementById('grid'), {
 	                    minDuration: 0.4,
 	                    maxDuration: 0.6,
@@ -104,17 +116,30 @@ margin: 0px;
 	    	            	$.each(data,function(){
 	    	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
 								var jdate_value = new Date(jdate_int); 
+			        		  var journalId=this[0].journal_Id
 			        		 $('#grid').append(
-			        		 '<li class="gallery-img">'
+			        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img"><p hidden="hidden">'+this[0].journal_Id+'</p>'
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 			        		 +'<img class="Emoticons" src="data:image/png;base64,'+this[2]+'" /><p class="name_p">'
 			        		 +this[1]+'</p></a><p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
 							 +this[0].contents+'</p>'
-			        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	
-			        		 +'<div data-desc="'+this[1]+'"></div>'
-			        		 +'</li>')	       
-	    	                }) // each end
+			        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
+			        		 +'<div data-desc=""></div>'
+			        		 +'</li>') 
+			        		  $.ajax({
+		           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
+		            			 type:'get',  //get post put delete
+		          			     data:{journal_Id:journalId},
+		            			 success:function(data){ 
+		            				 var message="";
+		            				 $.each(data,function(){
+		            					 message+=this[0].journal_Id
+		            				 })//留言明細迴圈     				
+		            				 $("#"+journalId+' div[data-desc]').attr('data-desc',message)
+		            			 }//留言success結束
+		           			 })//留言ajax結束	                
+		            	})// each end
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
 	    	                    maxDuration: 0.6,
