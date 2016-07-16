@@ -20,10 +20,10 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 
 <style>
-aside
-{ 
- 	background-color: #F5F5F5;
-}
+/* aside 
+ {  
+  	background-color: #F5F5F5; 
+ } */
 textarea{
 	resize: none;
 }
@@ -50,8 +50,8 @@ textarea{
 			<div class="col-md-2 "></div>
 				<div class="col-md-8 col-xs-12" >
 					<div class="col-md-8 col-xs-8">
-						<div class="page-header text-center" id="insterjournal">
-<!-- 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button> -->
+						<div class="page-header text-center" id="inster_journal">
+						<!-- 新增日誌按鈕位置 -->
 						</div>
 						<ul class="timeline" id="grid">
 
@@ -110,65 +110,74 @@ textarea{
 </div>
 	<!-- 頁面部分 開始-->
 	
-	<!-- 	新增個人日誌開始       -->
+	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 
 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button> -->
 <script type="text/javascript">
- 					$('#insterjournal').append(
-							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'
- 							+"新增個人日誌"
- 							+'</button>'
+ 					$('#inster_journal').append(
+							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
  							);
+ 					
+//  					$('#remove_journal').append(
+//  					'<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close">'
+//  					+'<span aria-hidden="true">'+"&times;"+'</span></button>'
+//  					);		//只在使用者個人頁面有刪除選項  卡在每一篇日誌是自動生成怎麼把&times新增在日誌右上角 同時要判斷是否是個人的日誌
 </script>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="exampleModalLabel">新增個人日誌</h4>
-      </div>
-      <div class="modal-body">
-          
-		<form role="form" action="" method="post" >
-<!-- 		  <div class="form-group"> -->
-<!-- 		    <label for="category">類別</label> -->
-<!-- 		    <input type="text" class="form-control" id="category" placeholder="類別"> -->
-<!-- 		  </div> -->
-		  <div class="form-group">
-		    <label for="content">內容</label>
-		    <input type="text" class="form-control" id="content" placeholder="內容輸入在此">
-		  </div>
+</c:if> 
+<!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
 
-		  <div class="form-group">
-		    <label for="openStatus">公開狀態</label>
-		    <select id="openStatus">
-			    <option value="1" >公開</option>
-			    <option value="2" >朋友</option>
-			    <option value="0" >限本人</option>
-		    </select>
-		  </div>
-		  <div class="form-group">
-		    <label for="uploadfile">檔案上傳</label>
-		    <input id="uploadfile" type="file" multiple="multiple" >
-		    <p class="help-block">在此示範區塊層級輔助說明文字。</p>
-		  </div>
-		<div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button id="sendBtn" type="button" class="btn btn-primary">送出</button>
-	    </div>
-		</form>
-<!--         form over -->
-      </div>
-    </div>
-  </div>
-</div>
+				<!-- 新增個人日誌頁面開始 -->
+				<div class="modal fade" id="exampleModal" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">
+									<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+								</button>
+								<h4 class="modal-title" id="exampleModalLabel">新增個人日誌</h4>
+							</div>
+							<div class="modal-body">
 
-<!-- -------------------------------- -->
-</c:if>
+								<form role="form" action="" method="post">
+<!-- 									<div class="form-group"> -->
+<!-- 										<label for="category">類別</label> <input type="text" -->
+<!-- 											class="form-control" id="category" placeholder="類別"> -->
+<!-- 									</div> -->
+									<div class="form-group">
+										<label for="content">內容</label> <input type="text"
+											class="form-control" id="content" placeholder="內容輸入在此">
+									</div>
+
+									<div class="form-group">
+										<label for="openStatus">公開狀態</label> <select id="openStatus">
+											<option value="1">公開</option>
+											<option value="2">朋友</option>
+											<option value="0">限本人</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="uploadfile">檔案上傳</label> <input id="uploadfile"
+											type="file" multiple="multiple">
+										<p class="help-block">在此示範區塊層級輔助說明文字。</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Close</button>
+										<button id="sendBtn" type="button" class="btn btn-primary">送出</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 新增個人日誌頁面結束  -->
+
 </aside>
-<!-- 	新增個人日誌結束 -->
-	<script type="text/javascript">
+
+<script type="text/javascript">
 	function diffTime(beforeTime){
 		var nowTime = new Date();
 		var diffTime1 = nowTime.getTime() - beforeTime;
@@ -206,22 +215,19 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 
 	jQuery(function ($) {
 		var member_Id = "${LoginOK.member_Id}";
-		var myNickname = "${LoginOK.nickname}";
-	
+		var myNickname = "${LoginOK.nickname}";	
     	var theMemberId = "${LoginOK.member_Id}";
         var friendId = "${pageContext.request.queryString}";
         var titleNickName;
         var divGrid = $('#grid');
-       
-//         	標記本頁日誌是否會員自己
-        var mySelf = true;
-//         	先查詢自己所有好友名單
+        var mySelf = true;  //	標記本頁日誌是否會員自己
+		// 先查詢自己所有好友名單
     	$.ajax({
             url:"${this_contextPath}/CRFSERVICE/friendships/${LoginOK.member_Id}",
             type:'get',  //get post put delete
             data:{},
             success:function(data){
-//             	------------------------- 判斷是否好友-------------------------
+//  ------------------ 判斷是否好友------------------
             	$.each(data,function(){
             		if(this.member_Id === friendId){
             			theMemberId = this.member_Id;
@@ -231,11 +237,13 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
             		}else{
             			titleNickName = "${LoginOK.nickname}";
             		}
-				})
-// 				----------------------------------------------
+				}) 
+// 	----------------------------------------------
 										
 				// 日誌titleNickName
 				$('#titleNickName').text(titleNickName+'的日誌');
+				
+								
 				// 查詢日誌開始-------------------------
    				$.ajax({
 					url : "${this_contextPath}/CRFSERVICE/personalJournalController/showJournal",
@@ -260,10 +268,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 					    	li_direction
 					    	+ '<div class="timeline-badge primary"><a>'
 					    	+ invert 	
-					    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel">'
+					    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel" id="remove_journal">'
 					    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-// 					    	+ '<button type="button" title="收藏此篇日誌" aria-label="Close"><span class="fa fa-tag fa-lg" aria-hidden="true"></span></button>'
-// 					    	+ '<i class="fa fa-tag fa-lg" title="收藏此篇日誌" aria-hidden="true"></i>'
 					    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
@@ -273,7 +279,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				   			+ '</div>'
 				   			+ '<div hidden="hidden" class="timeline-footer">'
-// 				   			+  '留言塞這裡'
+// 				   			  '留言塞這裡'
 				   			+ '</div>'
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
 				   			+ '<div class="message_div">'	
@@ -281,7 +287,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
 							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-				   			+ '<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-link likethis"><i class="fa fa-heart-o" aria-hidden="true"></i></button>'
 				   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
@@ -317,6 +323,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 							var eleMessageA1 = $('<a></a>',{text:'查看更多留言'}).on('click',this, function(){
 								var thisData = arguments[0].data;
 								$('#grid>li[id="'+thisData[0].journal_Id+'"] div[class="timeline-footer"]').slideDown()
+								
+								
 								// 顯示留言
 								$.ajax({
 									url: "${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetail",
@@ -356,7 +364,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
   					}) 
   					//each
   					
-  					$('#grid').append('<li class="clearfix" style="float: none;">');
+  					$('#grid').append('<li class="clearfix" style="float: none;">');  // 顯示中間時間軸的線
 	    			}
 
 	    					}) //ajax 查詢日誌開始
@@ -368,8 +376,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
 						var file = $('#uploadfile').prop("files")[0];
-					//	var category = $('#category').val();  // 類別是??
-					
+					//	var category = $('#category').val();  // 類別是??	 好像沒有設定類別欄位 			
 						var contents = $('#content').val();
 						var publishTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
 						var publicStatus = $('#openStatus').val();
@@ -564,9 +571,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 								}
 							})
 							messageDiv.append('<p/>').find('p:last').text('時間: ' + new Date(this[0].messageTime).Format('yyyy-MM-dd hh:mm:ss'))
-						})
-						
-
+						})						
 						maxMessageSize = data.length;
 					}
 				}
@@ -576,6 +581,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 </script>
 </c:if>
 	<!--  頁面部分 結束 -->
+	
 <!-- 	TEXT自動擴行 -->
 	<script>
 		function autogrow(textarea) {
@@ -585,6 +591,10 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				textarea.style.height = adjustedHeight + 'px';
 			}
 		}
+		
+		$("body").on("click",'.likethis',function(){
+			
+		})
 	</script>
 
 	<script src="${this_contextPath}/js/personal_journal.js"></script>	
