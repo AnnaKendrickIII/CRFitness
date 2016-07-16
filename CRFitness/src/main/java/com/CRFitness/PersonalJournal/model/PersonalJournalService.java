@@ -70,7 +70,7 @@ public class PersonalJournalService {
 	public List<PersonalJournalVO> showFriendJournal(String member_Id){
 		return personalJournalDAO.select_friendJournal(member_Id);
 	}
-
+	
 
 //	 public static void main(String[] args) {
 //	 ApplicationContext context = new

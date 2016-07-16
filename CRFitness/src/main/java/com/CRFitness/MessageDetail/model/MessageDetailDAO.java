@@ -77,9 +77,14 @@ public class MessageDetailDAO implements MessageDetailDAO_interface{
 	@Override
 	public List<MessageDetailVO> select_JournalMessageAll(String journal_Id) {
 		Query query = this.getSession().createSQLQuery(
-				"select MessageDetail.*,(select Members.Nickname from Members where Members.Member_Id = MessageDetail.Member_Id) as messageDetailNickname from MessageDetail where Journal_Id=:journal_Id order by MessageTime desc OFFSET 3 ")
+				"select MessageDetail.*,Nickname,Photo " 
+				+"from MessageDetail join Members " 
+				+"on MessageDetail.Member_Id=Members.Member_Id " 
+				+"where Journal_Id=:journal_Id " 
+				+"order by MessageTime ")
 				.addEntity(MessageDetailVO.class)
-				.addScalar("messageDetailNickname", StringType.INSTANCE)
+				.addScalar("Nickname", StringType.INSTANCE)
+				.addScalar("Photo")
 				.setParameter("journal_Id", journal_Id);
 		return (List<MessageDetailVO>) query.list();
 	}

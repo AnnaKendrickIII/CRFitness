@@ -2,10 +2,15 @@ package com.CRFitness.PersonalJournal.model;
 
 import java.util.List;
 
+import javassist.bytecode.ByteArray;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
+import org.hibernate.type.BlobType;
+import org.hibernate.type.ByteArrayBlobType;
+import org.hibernate.type.ByteType;
 import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -26,12 +31,6 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	// 個人所有日誌
 	private static final String GET_MYSELF_JOURNAL = 
 			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as JournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '4' order by publishTime desc";
-	//挑選publicStatus狀態為1的日誌  先取六筆
-	private static final String GET_COMMON_JOURNAL6 
-	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname  from PersonalJournal where publicStatus='1' order by publishTime desc  OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY";
-	//挑選publicStatus狀態為1的日誌  再全取來
-	private static final String GET_COMMON_JOURNAL
-	= "Select *,(Select Nickname from Members where PersonalJournal.Member_Id=Members.Member_Id )as nickname from PersonalJournal where publicStatus='1' order by publishTime desc OFFSET 6 ROWS ";
 	// 查朋友日誌										
 	private static final String GET_FRIEND_JOURNAL = 
 			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '0' and publicStatus != '4' order by publishTime desc";
@@ -127,20 +126,34 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		
 		return (List<PersonalJournalVO>) query.list();
 	}
-	
+	//挑選publicStatus狀態為1的日誌  先取六筆
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_One( ){
 		Query query = this.getSession().createSQLQuery(
-				GET_COMMON_JOURNAL6).addEntity(PersonalJournalVO.class)
-				.addScalar("nickname", StringType.INSTANCE);
+				"Select *,Nickname,Photo " 
+				+"from PersonalJournal join Members "
+				+"on PersonalJournal.Member_Id=Members.Member_Id "
+				+"where publicStatus='1' "
+				+"order by publishTime desc "  
+				+"OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY")
+				.addEntity(PersonalJournalVO.class)
+				.addScalar("nickname", StringType.INSTANCE)
+				.addScalar("Photo");
 		return (List<PersonalJournalVO>) query.list();
 	}
-	
+	//挑選publicStatus狀態為1的日誌  剩下去的取出來	
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_Two( ){
 		Query query = this.getSession().createSQLQuery(
-				GET_COMMON_JOURNAL).addEntity(PersonalJournalVO.class)
-				.addScalar("nickname", StringType.INSTANCE);
+				"Select *,Nickname,Photo " 
+				+"from PersonalJournal join Members "
+				+"on PersonalJournal.Member_Id=Members.Member_Id "
+				+"where publicStatus='1' "
+				+"order by publishTime desc "  
+				+"OFFSET 6 ROWS ")
+				.addEntity(PersonalJournalVO.class)
+				.addScalar("nickname", StringType.INSTANCE)
+				.addScalar("Photo");
 		return (List<PersonalJournalVO>) query.list();
 	}
 
@@ -176,21 +189,6 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 //				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
 //				.addScalar("Nickname", StringType.INSTANCE);
 //		return (List<ActivitysVO>) query.list();	
-//	}
-	
-//	public static void main(String[] args) {
-//		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
-//
-//		PersonalJournalDAO_interface personalJournalDAO = (PersonalJournalDAO_interface) context.getBean("personalJournalDAO");
-//		String journal_Id = "journal2002";
-//		String member_Id = 	"member1001";	
-//				List<PersonalJournalVO> list = personalJournalDAO.select_journal(member_Id);
-//		for (PersonalJournalVO data : list) {
-//			System.out.println(data.getJournal_Id()+" "+data.getArchives()+" "+data.getContents()+" "+
-//					data.getPublishTime()+" "+data.getPublicStatus());
-//			}		
-//		((ConfigurableApplicationContext) context).close();
-//
 //	}
 
 
