@@ -7,20 +7,12 @@ import javassist.bytecode.ByteArray;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
-import org.hibernate.type.BlobType;
-import org.hibernate.type.ByteArrayBlobType;
-import org.hibernate.type.ByteType;
+
 import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.CRFitness.Activitys.model.ActivitysVO;
-import com.CRFitness.Member.model.MemberVO;
 
 
 @Repository("personalJournalDAO")
@@ -130,7 +122,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_One( ){
 		Query query = this.getSession().createSQLQuery(
-				"Select *,Nickname,Photo " 
+				"Select *,Nickname,Members.Member_Id " 
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
 				+"where publicStatus='1' "
@@ -138,14 +130,14 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY")
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
-				.addScalar("Photo");
+				.addScalar("Member_Id");
 		return (List<PersonalJournalVO>) query.list();
 	}
 	//挑選publicStatus狀態為1的日誌  剩下去的取出來	
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_Two( ){
 		Query query = this.getSession().createSQLQuery(
-				"Select *,Nickname,Photo " 
+				"Select *,Nickname,Members.Member_Id " 
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
 				+"where publicStatus='1' "
@@ -153,7 +145,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"OFFSET 6 ROWS ")
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
-				.addScalar("Photo");
+				.addScalar("Member_Id");
 		return (List<PersonalJournalVO>) query.list();
 	}
 
