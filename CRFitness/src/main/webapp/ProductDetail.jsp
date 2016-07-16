@@ -12,11 +12,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 
 <title>商品明細</title><base>
-<style type="text/css">
-.ProductDetail{
-	margin-top: 10%;
-}
-</style>
+
 </head>
 <body>
 <aside>
@@ -34,6 +30,7 @@
 
 </div>
 </aside>
+
 <script type="text/javascript">
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
@@ -43,14 +40,19 @@ $.ajax({
 	type:'get',
  	data:{productDetail_Id:queryString},
 	success:function(data){
-		$('#productDetailbody').append('<div class="col-md-7"><div class="mag">'
-							+data[0][1] +'<br><img data-toggle="magnify" class="img-responsive" src="data:image/png;base64,'
-							+data[0][0].photo1+'" /></div></div><div class="col-md-5">尺寸 : '
-							+data[0][0].size+'<br/>顏色 : '
-							+data[0][0].color+'<br/>剩餘數量 : '
-							+data[0][0].stock+'</br></br>商品介紹 : 未看先猜undefined&nbsp&nbsp一>&nbsp '
-							+data[0][0].Detailed_Description+
-							'<br/></br></br><a class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw" data-lity>千萬不要按&nbsp!</a></div>')
+		$('#productDetailbody').append('<div class="col-md-7">'+
+							'<div class="mag"><h3>'+data[0][1] +
+							'<h3/>'+
+							'<img data-toggle="magnify" class="img-responsive" src="data:image/png;base64,'+data[0][0].photo1+'" />'+
+							'</div>'+
+							'</div>'+
+							'<div class="col-md-5"><br/>尺寸 : '+data[0][0].size+
+							'<br/>顏色 : '+data[0][0].color+
+							'<br/>剩餘數量 : '+data[0][0].stock+
+							'</br></br>'+
+							'商品介紹 : 未看先猜undefined&nbsp&nbsp一>&nbsp '+data[0][0].Detailed_Description+
+							'<br/></br>'+
+							'</br><a class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw" data-lity>千萬不要按&nbsp!</a></div>')
 	}
 });
 </script>
