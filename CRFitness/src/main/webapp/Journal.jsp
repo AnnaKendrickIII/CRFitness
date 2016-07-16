@@ -19,11 +19,16 @@ width: 40px;
 height: 36px;
 float:left;
 }
-.a_img_p{
+a{
 text-decoration: none !important;
+}
+.a_img_p{
 font-size: 24px;
 color:blue;
 
+}
+.message_div{
+margin:5px; 
 }
 .name_p:HOVER{
 font-size: 24px;
@@ -33,8 +38,54 @@ color:#66B3FF;
 margin: 0px;
 }
 .message_img{
-width: 40px;
-height: 36px;
+margin-right:0px;
+width: 36px;
+height: 32px;
+}
+.message_name_span{
+font-size: 12px;
+color:blue;
+margin-right: 5px;
+}
+.message_name_p:HOVER {
+font-size: 12px;
+color:#66B3FF;
+}
+.messge_div{
+margin: 2px;
+}
+.message_inner_div_css{
+display: inline;
+}
+.out_message_div{
+border-top:1px solid #C4E1FF;
+background-color:#F0F0F0;
+margin:0px;
+}
+.messge_header_body{
+height:500px;
+overflow-x:hidden;
+overflow-y:auto !important; 
+margin:0px; 
+}
+.header_div{
+margin:3%; 
+}
+.inner_img_div{
+display: inline;
+margin-right: 0px;
+}
+.message_submit_button{
+background-color:#5599FF; 
+}
+.message_submit_button:HOVER{
+background-color:#66B3FF; 
+}
+textarea{
+	resize: none;
+}
+.PersonalJournal_contents_p{
+margin-bottom: 0px;
 }
 </style>
 </head>
@@ -77,11 +128,11 @@ height: 36px;
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
 			        		 +this[1]+'</p></a><p class="time_p">'
-			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
+			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 							 +this[0].contents+'</p>'
 							 
 		        		 $('#grid').append(
-		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img">'
+		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img1">'
 		        		 +contet
 		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
 		        		 +'<div data-desc=""></div>'
@@ -92,12 +143,21 @@ height: 36px;
 	          			     data:{journal_Id:journalId},
 	            			 success:function(data){ 
 	            				 var message="";
+	            				
 	            				 $.each(data,function(){
-	            					 message+='<div><img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" />'
-	            					 +this[1]+'</div>'
+	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
+	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
+	            					 +this[1]+'</span></a><span class="span_contet">'+this[0].content+'</span></div></div>'
 	            				 })//留言明細迴圈     	
 	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
-	            						 contet+message)
+	            				'<div class="messge_header_body"><div class="header_div">'+contet
+	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+					   			+'<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
+					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
+					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
+					   			+ '</div>')
 	            			 }//留言success結束
 	           			 })//留言ajax結束	                
 	            	})// each end
@@ -106,7 +166,7 @@ height: 36px;
 	                    maxDuration: 0.6,
 	                    viewportFactor: 0.2
 	                });//瀑布流 new 
-	                $('.gallery-img').Am2_SimpleSlider();    
+	                $('.gallery-img1').Am2_SimpleSlider();    
 	            	$.ajax({
 	    	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalTwo",
 	    	            type:'get',  //get post put delete
@@ -114,48 +174,142 @@ height: 36px;
 	    	            success:function(data){
     	       
 	    	            	$.each(data,function(){
-	    	            		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-	    						  var jdate_value = new Date(jdate_int); 
-	    		        		  var journalId=this[0].journal_Id
-	    		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
-	    			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	    			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
-	    			        		 +this[1]+'</p></a><p class="time_p">'
-	    			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
-	    							 +this[0].contents+'</p>'
-	    							 
-	    		        		 $('#grid').append(
-	    		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img">'
-	    		        		 +contet
-	    		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
-	    		        		 +'<div data-desc=""></div>'
-	    		        		 +'</li>') 
-	    		        		  $.ajax({
-	    	           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
-	    	            			 type:'get',  //get post put delete
-	    	          			     data:{journal_Id:journalId},
-	    	            			 success:function(data){ 
-	    	            				 var message="";
-	    	            				 $.each(data,function(){
-	    	            					 message+='<div><img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" />'
-	    	            					 +this[1]+'</div>'
-	    	            				 })//留言明細迴圈     	
-	    	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
-	    	            						 contet+message)
-	    	            			 }//留言success結束
-	    	           			 })//留言ajax結束	                    
+	    	            		 var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
+	   						  var jdate_value = new Date(jdate_int); 
+	   		        		  var journalId=this[0].journal_Id
+	   		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+	   			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+	   			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
+	   			        		 +this[1]+'</p></a><p class="time_p">'
+	   			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
+	   							 +this[0].contents+'</p>'
+	   							 
+	   		        		 $('#grid').append(
+	   		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img2">'
+	   		        		 +contet
+	   		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
+	   		        		 +'<div data-desc=""></div>'
+	   		        		 +'</li>') 
+	   		        		  $.ajax({
+	   	           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
+	   	            			 type:'get',  //get post put delete
+	   	          			     data:{journal_Id:journalId},
+	   	            			 success:function(data){ 
+	   	            				 var message="";
+	   	            				 $.each(data,function(){            					
+	   	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
+	   	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+	   	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
+	   	            					 +this[1]+'</span></a><span class="span_contet">'+this[0].content+'</span></div></div>'
+	   	            				 })//留言明細迴圈     	
+	   	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
+	   	            				'<div class="messge_header_body"><div class="header_div">'+contet
+	   	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+	   					   			+'<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+	   	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
+	   					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
+	   					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
+	   					   			+ '</div>')
+	   	            			 }//留言success結束
+	   	           			 })//留言ajax結束	                                                     	                
 		            	})// each end
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
 	    	                    maxDuration: 0.6,
 	    	                    viewportFactor: 0.2
 	    	                });//瀑布流 new 
-	    	            	$('.gallery-img').Am2_SimpleSlider();    
+	    	            	$('.gallery-img2').Am2_SimpleSlider();    
 	    	 	          }//第2次撈資料  success結束  	 
 	    	        })//第2次ajax結束	       
 	    	        
 	            }//第1次撈資料  success結束      
-	        })//第1次ajax結束
+	        })//第1次ajax結束    
+	      // enter換行變成shift enter ,enter變送出
+			$('body').on('keydown', 'textarea', function (event) {
+				if (event.keyCode == 13 && !event.shiftKey) {
+					var theJournal_Id = $(this).parents().siblings(".messge_header_body").find(".header_div>p:nth-child(1)").text();
+					var val = $(this).val();
+					if(val.trim().length != 0){
+						val = val.replace(/\r?\n/g, '</br> ');
+						addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
+						$(this).val('')
+					}
+					return false;
+				}
+			})
+	        //右下腳按鈕 送出
+			$('body').on('click', '.message_submit_button', function (event) {
+				var theJournal_Id = $(this).parents().siblings(".messge_header_body").find(".header_div>p:nth-child(1)").text();
+				var val = $(this).prev().val()
+				if(val.trim().length != 0){
+					val = val.replace(/\r?\n/g, '</br> ')
+					addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
+					$(this).prev().val('');
+				}
+			})  
+			var addMessageDetail = function(theObj, theJournal_Id, theMember_Id, theNickname, val, theMessageTime){
+				var messageDiv =  theObj.parents().siblings(".messge_header_body").find(".out_message_div")
+				$.ajax({
+	            	url : "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
+					type : 'post', //get post put delete
+					data : {'journal_Id':theJournal_Id,
+							'member_Id':theMember_Id,
+							'content':val},
+					success : function(data) {
+						if(data){	
+							var theContentArray=val.split("</br>")
+							$.each(theContentArray,function(index){
+								if(index==0){					
+									messageDiv.append('<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" >'
+		  	            					 	+'<img class="message_img" src="${this_contextPath}/images/members/'+theMember_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+		  	            						+'<a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" ><span class="message_name_span">'
+		  	            					 	+theNickname+'</span></a><span class="span_contet">'+this[0].content+'</span></div></div>')	
+		  	            					 	.find('.span_contet:last').text(this)
+								}else{
+									messageDiv.find('.message_div:last .span_contet:last').append('<p></p>').find('p:last').text(this)
+								}
+							})
+							messageDiv.find('.message_div:last ').find('p:last').append('<p></p>').find('p:last').text('時間: ' + new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
+						}
+					}
+	            })
+			}
+	       $("body").on("focusin","textarea",function(e){
+	        	$(document).off('keyup')  	
+	        })
+	      $("body").on("focusout","textarea",function(e){
+		        	   $(document).on('keyup', function (e) {
+		                   e.preventDefault();
+		                   //Close popup on esc
+		                   if (e.keyCode === 27) { $('.product-gallery-popup').fadeOut(500); $('body').css({ 'overflow': 'initial' }); }
+		                   //Next Img On Right Arrow Click
+		                   if (e.keyCode === 39) {  if ($nextElm.length === 1) {
+		                       $NewCurrent = $nextElm;
+		                       $PreviousElm = $NewCurrent.prev();
+		                       $nextElm = $NewCurrent.next();
+		                       $('.product-popup-content .product-image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img:eq(1)').attr('src')).animate({ opacity: '1' }, 500);
+		                       $('.product-popup-content .product-information div').html($NewCurrent.find('div').attr('data-desc'));
+		                       if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
+		                       else { $('.nav-btn.prev').css({ 'display': 'block' }); }
+		                       if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }
+		                       else { $('.nav-btn.next').css({ 'display': 'block' }); }
+		                   } }
+		                   //Prev Img on Left Arrow Click
+		                   if (e.keyCode === 37) {  if ($PreviousElm.length === 1) {
+		                       $NewCurrent = $PreviousElm;
+		                       $PreviousElm = $NewCurrent.prev();
+		                       $nextElm = $NewCurrent.next();
+		                       $('.product-popup-content .product-image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img:eq(1)').attr('src')).animate({ opacity: '1' }, 500);
+		               
+		                       $('.product-popup-content .product-information div').html($NewCurrent.find('div').attr('data-desc'));
+		                       if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
+		                       else { $('.nav-btn.prev').css({ 'display': 'block' }); }
+		                       if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }
+		                       else { $('.nav-btn.next').css({ 'display': 'block' }); }
+		                   } }
+		               });
+		        })
+	        
 	})//jQuery end  	
 	</script>
 </aside>

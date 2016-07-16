@@ -19,7 +19,7 @@
             $('.product-gallery-popup').fadeIn(500);
             $('body').css({ 'overflow': 'hidden' });
             $('.product-popup-content .product-image img').attr('src', $(this).find('img:eq(1)').attr('src'));
-            $('.product-popup-content .product-information div').html($(this).find('div').attr('data-desc'));
+            $('.product-popup-content .product-information div').html($(this).find('div').attr('data-desc'));   
             $Current = $(this);
             $PreviousElm = $(this).prev();
             $nextElm = $(this).next();
@@ -33,11 +33,9 @@
             $NewCurrent = $nextElm;
             $PreviousElm = $NewCurrent.prev();
             $nextElm = $NewCurrent.next();
-            $('.product-popup-content .product-image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img:eq(1)').attr('src')).animate({ opacity: '1' }, 500);
-          
-          
-            
+            $('.product-popup-content .product-image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img:eq(1)').attr('src')).animate({ opacity: '1' }, 500);       
             $('.product-popup-content .product-information div').html($NewCurrent.find('div').attr('data-desc'));
+            var xc=$NewCurrent.find('div').attr('data-desc').split("span_contet")
             if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
             else { $('.nav-btn.prev').css({ 'display': 'block' }); }
             if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }
@@ -49,8 +47,8 @@
             $PreviousElm = $NewCurrent.prev();
             $nextElm = $NewCurrent.next();
             $('.product-popup-content .product-image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img:eq(1)').attr('src')).animate({ opacity: '1' }, 500);
-            
             $('.product-popup-content .product-information div').html($NewCurrent.find('div').attr('data-desc'));
+            var xc=$NewCurrent.find('div').attr('data-desc').split("span_contet")
             if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
             else { $('.nav-btn.prev').css({ 'display': 'block' }); }
             if ($nextElm.length === 0) { $('.nav-btn.next').css({ 'display': 'none' }); }
@@ -63,6 +61,7 @@
         });
 
         //Key Events
+        
         $(document).on('keyup', function (e) {
             e.preventDefault();
             //Close popup on esc
@@ -79,7 +78,6 @@
                 $PreviousElm = $NewCurrent.prev();
                 $nextElm = $NewCurrent.next();
                 $('.product-popup-content .product-image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img:eq(1)').attr('src')).animate({ opacity: '1' }, 500);
-                
                 $('.product-popup-content .product-information div').html($NewCurrent.find('div').attr('data-desc'));
                 if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
                 else { $('.nav-btn.prev').css({ 'display': 'block' }); }
@@ -95,7 +93,6 @@
                 $PreviousElm = $NewCurrent.prev();
                 $nextElm = $NewCurrent.next();
                 $('.product-popup-content .product-image img').clearQueue().animate({ opacity: '0' }, 0).attr('src', $NewCurrent.find('img:eq(1)').attr('src')).animate({ opacity: '1' }, 500);
-        
                 $('.product-popup-content .product-information div').html($NewCurrent.find('div').attr('data-desc'));
                 if ($PreviousElm.length === 0) { $('.nav-btn.prev').css({ 'display': 'none' }); }
                 else { $('.nav-btn.prev').css({ 'display': 'block' }); }
