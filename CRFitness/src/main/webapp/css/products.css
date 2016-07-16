@@ -2,9 +2,11 @@
 Credits:
 https://github.com/marcaube/bootstrap-magnify
 */
-
+.ProductDetail{
+	margin-top: 10%;
+}
 .mag {
-    width:300px;
+    width:400px;
     margin: 0 auto;
     float: none;
 }
@@ -34,3 +36,8 @@ https://github.com/marcaube/bootstrap-magnify
        -moz-border-radius: 100%;
              border-radius: 100%
 }
+
+
+
+
+/* css  */
