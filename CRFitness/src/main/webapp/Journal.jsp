@@ -7,61 +7,39 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
+<jsp:include page="/CRFitness.jsp" />
 <title>健康日誌</title>
 
-<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css"> -->
-<jsp:include page="/CRFitness.jsp" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/blueimp-gallery.css" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/blueimp-gallery-indicator.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/Journal_component.css" />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/SimpleSlider.css" />
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
+<style type="text/css">
+.Emoticons{
+width: 40px;
+height: 36px;
+float:left;
+}
+.a_img_p{
+text-decoration: none !important;
+font-size: 24px;
+color:blue;
 
-<!-- 新增CSS -->
-
-<link rel="stylesheet" href="${this_contextPath}/css/bootstrap-image-gallery.min.css">
-<!-- 新增CSS結束 -->
-
+}
+.name_p:HOVER{
+font-size: 24px;
+color:#66B3FF;
+}
+.time_p{
+margin: 0px;
+}
+</style>
 </head>
 
 <body >
 <aside>
 
-	  <ul class="grid effect-7" id="grid"  ></ul>
+	  <ul class="grid effect-7 " id="grid"  ></ul>
 
-<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
-	<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
-	<script src="${this_contextPath}/js/classie.js"></script>
-	<script src="${this_contextPath}/js/imagesloaded.js"></script>
-	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
-	<!-- 頁面部分 開始-->
-	<!-- 	新增留言開始       -->
-<c:if test="${!empty LoginOK.member_Id}">
-<div class="modal fade" id="insertMessageDetailDiv"  tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="insertMessageModalLabel">新增留言</h4>
-      </div>
-      <div class="modal-body">
-		<form role="form" action="" method="post" >
-		  <div class="form-group">
-		    <label for="content">留言內容</label>
-		    <textarea class="form-control" id="insertMessageDetail" placeholder="留言內容輸入在此"></textarea>
-		  </div>
-		<div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button id="sendEditBtn" type="button" class="btn btn-primary">送出留言</button>
-	    </div>
-		</form>
-      </div>
-    </div>
-  </div>
-</div>
-
-</c:if>
 <!-- 	新增留言結束 -->
 	<script type="text/javascript">
 	Date.prototype.Format = function (fmt) {  
@@ -82,32 +60,41 @@
 	
 	jQuery(function ($) {	
 		var theMessageDetailObj;
-		
 	        $.ajax({
 	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
 	            type:'get',  //get post put delete
 	            data:{},
-	            success:function(data){
-// 	             		console.log(data);
+	            success:function(data){          	
 	            	$.each(data,function(){
 		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
 							var jdate_value = new Date(jdate_int); 
+		        		  
 		        		 $('#grid').append(
-		        		 '<li value="'+this[0].journal_Id+'">'
-		        		 +'發起人：'+this[1]+'<br />'
-		        		 +'<a href="data:image/png;base64,'+this[0].archives+'" title="1321564" data-gallery>'
-		        		 +'<img src="data:image/png;base64,'+this[0].archives+'" /></a>'
-		        		 +'類別：'+this[0].contents+'<br />內容：'+this[0].contents+'<br />日期：'
-		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-		        		 +'</li>')	     
-	                })
-	                // each end
+		        		 '<li  class="gallery-img"><p hidden="hidden">'+this[0].journal_Id+'</p>'
+		        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+		        		 +'<img class="Emoticons" src="data:image/png;base64,'+this[2]+'" /><p class="name_p">'
+		        		 +this[1]+'</p></a><p class="time_p">'
+		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
+						 +this[0].contents+'</p>'
+		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
+		        		 +'<div data-desc=""></div>'
+		        		 +'</li>') 
+// 		        		  $.ajax({
+// 	           				 url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
+// 	            			 type:'get',  //get post put delete
+// 	          			     data:{},
+// 	            			 success:function(data){ 
+	            				
+	           				
+// 	            			 }
+// 	           			 })
+	                })// each end
 	                new AnimOnScroll(document.getElementById('grid'), {
 	                    minDuration: 0.4,
 	                    maxDuration: 0.6,
 	                    viewportFactor: 0.2
-	                });
-	            	
+	                });//瀑布流 new 
+	                $('.gallery-img').Am2_SimpleSlider();    
 	            	$.ajax({
 	    	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalTwo",
 	    	            type:'get',  //get post put delete
@@ -115,146 +102,37 @@
 	    	            success:function(data){
     	             		console.log(data);
 	    	            	$.each(data,function(){
-	    		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-	    							var jdate_value = new Date(jdate_int); 
-	    		        		 $('#grid').append('<li value="'+this[0].journal_Id+'"><a href="data:image/png;base64,'
-	    		        		 +this[0].archives+'" title="1321564" data-gallery><img src="data:image/png;base64,'
-	    		        		 +this[0].archives+'" /></a>發起人：'+this[1]+'<br />類別：'
-	    		        		 +this[0].contents+'<br />內容：'+this[0].contents+'<br />日期：'
-	    		        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-	    		        		 +'</li>')	        
-	    	                })
-	    	                // each end
+	    	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
+								var jdate_value = new Date(jdate_int); 
+			        		 $('#grid').append(
+			        		 '<li class="gallery-img">'
+			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+			        		 +'<img class="Emoticons" src="data:image/png;base64,'+this[2]+'" /><p class="name_p">'
+			        		 +this[1]+'</p></a><p class="time_p">'
+			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p>'
+							 +this[0].contents+'</p>'
+			        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	
+			        		 +'<div data-desc="'+this[1]+'"></div>'
+			        		 +'</li>')	       
+	    	                }) // each end
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
 	    	                    maxDuration: 0.6,
 	    	                    viewportFactor: 0.2
-	    	                });
-	    	            	
-	    	 	          }
-         	 
-	    	        })
-	    	        	
-	    	      
-	 	          }
-   	
-	                  	 
-	        })
-	        
-	      //新增留言按鈕
-     		if("${LoginOK}"!=""){
-				var eleBtn = $('<button />',{'text':'留言'}).on('click',this,function(){
-//						console.log(arguments[0].data);
-					$('#insertMessageDetailDiv').modal('toggle');
-					theMessageDetailObj = arguments[0].data;
-				});
-    		 $('#grid>li:last').append(eleBtn);
-     		}		 
-    		 //  顯示留言
-    		 $.each(this.messageDetailVOs, function(index){
-    					 $('#grid>li:last').append(
-    					 '<hr/>#'+(index+1)
-    					 +'<br>留言人:'+this.member_Id
-    					 +'<br>留言內容:'+this.content
-    					 +'<br>時間:'+new Date(this.messageTime).Format('yyyy-MM-dd hh:mm:ss')		 
-    						 );
-    			
-    					 })
-    		
-	        
-//	   	 新增留言送出的click事件==================================
-			$('#sendEditBtn').on('click', function(){
-				$('#insertMessageDetailDiv').modal('toggle');
-				var formData = new FormData();
-//	 			var category = $('#category').val();  // 類別是??
-				console.log(theMessageDetailObj);
-				var member_Id = "${LoginOK.member_Id}";
-				var journal_Id = theMessageDetailObj.journal_Id;
-				var content = $('#insertMessageDetail').val();
-//					var publishTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
-				formData.append('journal_Id', journal_Id);
-				formData.append('member_Id', member_Id);
-				formData.append('content', content);
-				
-				if(content === undefined || content.trim().length == 0){
-					alert('請輸入留言內容');
-				}else{
-					$.ajax({
-						url: "${this_contextPath}/CRFSERVICE/messageDetailController/addMessageDetail",
-						type: 'post',
-						data: formData,
-						processData: false,
-						contentType: false,
-						success: function(data){
-//								console.log(data);
-							if(data){
-								// 重新載入??
-//									console.log($('#grid>li[value='+journal_Id+']').attr('value'));
-//									$('#grid>li[value='+journal_Id+']').remove();
-								$('#insertMessageDetailDiv').modal('toggle');
-								$('#insertMessageDetail').val('');
-								
-							}else{
-								alert('留言失敗，請重新嘗試或電洽客服');
-							}
-							/*
-							$('#exampleModal').modal('toggle');									
-	    						var jdate_int = parseInt(data.publishTime); //轉換成數字
-	    						var jdate_value = new Date(jdate_int);
-	    						
-	    						$('#grid>li:nth-child(1)').before(
-	    						'<li ><a href=""><img src="data:image/png;base64,'
-	    						+data.archives+'" /></a>'
-		    						+'id:'+data.memberVO.member_Id  // 上線前要拿掉或改暱稱
-	    						+ '<br />類別：'
-   								+ data.contents
-   								+ '<br />內容：'
-   								+ data.contents
-   								+ '<br />日期：'
-   								+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")
-   								+ '<br/><button>編輯</button>'
-   								+ '</li>')
-   								
-    							$('#grid>li:nth-child(1)').on('click',' :button',data,function(){
-   									console.log(arguments.length);
-   									console.log(arguments[0].data);
-   								});	
-	    						*/							
-						}						
-					})
-				}		
-			});
-	    })
+	    	                });//瀑布流 new 
+	    	            	$('.gallery-img').Am2_SimpleSlider();    
+	    	 	          }//第2次撈資料  success結束  	 
+	    	        })//第2次ajax結束	       
+	    	        
+	            }//第1次撈資料  success結束      
+	        })//第1次ajax結束
+	})//jQuery end  	
 	</script>
 </aside>
-	<!--  頁面部分 結束 -->
-	
-	<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery " data-use-bootstrap-modal="false">
-    <!-- The container for the modal slides -->
-    <div class="slides"><div class="slide-content">asa</div></div>
-
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <a class="play-pause"></a>
- 
-    <h1 class="title"> </h1>
-    <ol class="indicator"></ol>
-</div>
-
-
-
-<!-- 新增JS -->
-
-<script src="${this_contextPath}/js/blueimp-gallery.js"></script>
-<script src="${this_contextPath}/js/blueimp-helper.js"></script>
-<script src="${this_contextPath}/js/blueimp-gallery-indicator.js"></script>
-<script src="${this_contextPath}/js/jquery.blueimp-gallery.js"></script>
-
-<!-- <script src="js/bootstrap-image-gallery.min.js"></script> -->
-
-<!-- 新增JS結束 -->
-
+<script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
+<script src="${this_contextPath}/js/classie.js"></script>
+<script src="${this_contextPath}/js/imagesloaded.js"></script>
+<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
+<script src="${this_contextPath}/js/Am2_SimpleSlider.js"></script>  
 </body>
 </html>

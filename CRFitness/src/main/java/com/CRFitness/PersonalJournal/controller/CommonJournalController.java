@@ -28,4 +28,6 @@ public class CommonJournalController {
 	public @ResponseBody List<PersonalJournalVO> getAll_Two() {
 		return commonJournalService.ShowAllJournal_Two();
 	}
+
+	
 }
