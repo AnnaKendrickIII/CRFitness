@@ -204,7 +204,7 @@ color:	#9D9D9D;
 	  							 +this[0].contents+'</p>'
 	  							 
 	  		        		 $('#grid').append(
-	  		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img1">'
+	  		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img2">'
 	  		        		 +contet
 	  		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
 	  		        		 +'<div data-desc=""></div>'
