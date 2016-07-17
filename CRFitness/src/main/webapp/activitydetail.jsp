@@ -267,8 +267,8 @@ padding:10px 5px 2px 5px;
 						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
 						  var jdate_value_deadline = new Date(jdate_int2);
 						  var names=' ';
-		        		  if(this[2]!=null){
-						  var nameData=this[2].split(",")						  
+		        		  if(this[3]!=null){
+						  var nameData=this[3].split(",")						  
 						  $.each(nameData,function(){
 							if(this!=""){
 								names+=this+'\n'
@@ -280,7 +280,7 @@ padding:10px 5px 2px 5px;
 		        		 }	 
 							$('#div2_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
-							+this[3]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
 							+this[0].activity_Info+'<br />日期：'
 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
@@ -288,7 +288,7 @@ padding:10px 5px 2px 5px;
 							//外
 							+'"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
-									+this[3]+'<br />類別：'
+									+this[2]+'<br />類別：'
 									+this[0].activity_Class+"</a>"+'<br />地區：'
 									+this[0].activity_Area+"</a>"+'<br />內容：'
 									+this[0].activity_Info+"</a>"+'<br />活動時間：'
