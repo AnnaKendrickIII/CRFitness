@@ -157,11 +157,11 @@ color:	#9D9D9D;
 										var arraythecontent= this[0].content.split("</br>")
 										var thecontent="";
 										$.each(arraythecontent,function(index){
-											var thecontent2=this.replace('<','&lt').replace('>','&gt').replace('</','&lt/')
-											if(index==0){
+											var thecontent2=this.replace(/\</g,'&lt').replace(/\>/g,'&gt')
+											if(index==0){		
 												thecontent+='<span class="span_contet">'+thecontent2+'</span>'
 											}else{
-												thecontent+='<br><span class="span_contet2">'+thecontent2+'</span>'					
+												thecontent+='<br><span class="span_contet">'+thecontent2+'</span>'					
 											}
 										})
 	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
@@ -225,7 +225,7 @@ color:	#9D9D9D;
 	  											if(index==0){
 	  												thecontent+='<span class="span_contet">'+thecontent2+'</span>'
 	  											}else{
-	  												thecontent+='<br><span class="span_contet2">'+thecontent2+'</span>'					
+	  												thecontent+='<br><span class="span_contet">'+thecontent2+'</span>'					
 	  											}
 	  										})
 	  	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
@@ -291,16 +291,19 @@ color:	#9D9D9D;
 							var theContentArray=val.split("</br>")
 							$.each(theContentArray,function(index){
 								if(index==0){					
-									messageDiv.append('<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" >'
-		  	            					 	+'<img class="message_img" src="${this_contextPath}/images/members/'+theMember_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
-		  	            						+'<a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" ><span class="message_name_span">'
-		  	            					 	+theNickname+'</span></a><span class="span_contet">'+this[0].content+'</span></div></div>')	
-		  	            					 	.find('.span_contet:last').text(this)
+									messageDiv.append(
+											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" >'
+		 	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+theMember_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+		 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" ><span class="message_name_span">'
+		 	            					 +theNickname+'</span></a><div class="innercontent_div"><span class="span_contet"></span>'
+		 	            					 +'</div></div></div>').find('.message_div:last .span_contet').text(this)
 								}else{
-									messageDiv.find('.message_div:last .span_contet:last').append('<p></p>').find('p:last').text(this)
+									messageDiv.find('.message_div:last .innercontent_div').append('<br><span class="span_contet"></span>')
+									.find('.span_contet:last').text(this)
 								}
 							})
-							messageDiv.find('.message_div:last ').find('p:last').append('<p></p>').find('p:last').text('時間: ' + new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
+							messageDiv.find('.message_div:last .innercontent_div').append('<p class="time_p"></p>')
+						.find('.time_p:last').text( new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
 						}
 					}
 	            })
