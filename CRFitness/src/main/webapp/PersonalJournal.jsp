@@ -602,7 +602,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 					lauded_Id:'${LoginOK.member_Id}'
 				},
 				success:function(data){
-					console.log(data[0]);
+					console.log(data);
 				}
 			})
 		})
