@@ -7,9 +7,9 @@
 /* Toggle Styles */
 
 /*�N���b���ð_��*/
-::-webkit-scrollbar {
-display:none;
-}
+/* ::-webkit-scrollbar { */
+/* display:none; */
+/* } */
 aside{
 	margin-top:55px;	
 	width:99%;  
