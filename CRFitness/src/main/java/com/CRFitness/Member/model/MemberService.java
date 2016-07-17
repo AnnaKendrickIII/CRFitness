@@ -1,7 +1,11 @@
 package com.CRFitness.Member.model;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -140,7 +144,40 @@ public class MemberService {
 	public List<MemberVO> getAll() {
 		return memberDAO.getAll();
 	}
-
+	public void Third_insertimages(String Path,String photoUrl){
+		FileOutputStream fop = null;
+		File file=null;
+		byte[] photo=null;			
+		ByteArrayOutputStream baos = null;       
+		try {
+			baos = new ByteArrayOutputStream();
+			file = new File(Path);
+			fop = new FileOutputStream(file);
+			if (!file.exists()) {
+				file.createNewFile();
+			}		
+			if(!photoUrl.equals("")){
+						URL url = new URL(photoUrl);
+						BufferedImage originalImage = ImageIO.read(url);
+						ImageIO.write(originalImage, "jpg", baos);
+						baos.flush();
+						photo = baos.toByteArray();
+			}
+			baos.close();		
+			fop.write(photo);
+			fop.flush();
+			fop.close();		
+		} catch (Exception e) {
+			
+		}finally{
+			try {
+				fop.close();
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+			}	
+		}
+	}
 
 //	public static void main(String[] args) {
 //		ApplicationContext context = new ClassPathXmlApplicationContext(
