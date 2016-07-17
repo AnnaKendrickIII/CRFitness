@@ -43,12 +43,12 @@ width: 36px;
 height: 32px;
 }
 .message_name_span{
-font-size: 12px;
+font-size: 16px;
 color:blue;
 margin-right: 5px;
 }
-.message_name_p:HOVER {
-font-size: 12px;
+.message_name_span:HOVER {
+font-size: 16px;
 color:#66B3FF;
 }
 .messge_div{
@@ -56,6 +56,9 @@ margin: 2px;
 }
 .message_inner_div_css{
 display: inline;
+}
+.innercontent_div{
+display:inline-table;
 }
 .out_message_div{
 border-top:1px solid #C4E1FF;
@@ -86,6 +89,11 @@ textarea{
 }
 .PersonalJournal_contents_p{
 margin-bottom: 0px;
+}
+.time_p{
+margin: 0px;
+font-size: smaller;
+color:	#9D9D9D;
 }
 </style>
 </head>
@@ -142,13 +150,24 @@ margin-bottom: 0px;
 	            			 type:'get',  //get post put delete
 	          			     data:{journal_Id:journalId},
 	            			 success:function(data){ 
-	            				 var message="";
-	            				
-	            				 $.each(data,function(){
+	            				 var message="";			 
+	            				 $.each(data,function(){    
+	            					 var jdate_int2 = parseInt(this[0].messageTime);                          //轉換成數字
+		   						  	 var jdate_value2 = new Date(jdate_int2); 
+										var arraythecontent= this[0].content.split("</br>")
+										var thecontent="";
+										$.each(arraythecontent,function(index){
+											var thecontent2=this.replace('<','&lt').replace('>','&gt').replace('</','&lt/')
+											if(index==0){
+												thecontent+='<span class="span_contet">'+thecontent2+'</span>'
+											}else{
+												thecontent+='<br><span class="span_contet2">'+thecontent2+'</span>'					
+											}
+										})
 	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
 	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
-	            					 +this[1]+'</span></a><span class="span_contet">'+this[0].content+'</span></div></div>'
+	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	            				 })//留言明細迴圈     	
 	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
 	            				'<div class="messge_header_body"><div class="header_div">'+contet
@@ -174,44 +193,56 @@ margin-bottom: 0px;
 	    	            success:function(data){
     	       
 	    	            	$.each(data,function(){
-	    	            		 var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-	   						  var jdate_value = new Date(jdate_int); 
-	   		        		  var journalId=this[0].journal_Id
-	   		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
-	   			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	   			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
-	   			        		 +this[1]+'</p></a><p class="time_p">'
-	   			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
-	   							 +this[0].contents+'</p>'
-	   							 
-	   		        		 $('#grid').append(
-	   		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img2">'
-	   		        		 +contet
-	   		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
-	   		        		 +'<div data-desc=""></div>'
-	   		        		 +'</li>') 
-	   		        		  $.ajax({
-	   	           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
-	   	            			 type:'get',  //get post put delete
-	   	          			     data:{journal_Id:journalId},
-	   	            			 success:function(data){ 
-	   	            				 var message="";
-	   	            				 $.each(data,function(){            					
-	   	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
-	   	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
-	   	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
-	   	            					 +this[1]+'</span></a><span class="span_contet">'+this[0].content+'</span></div></div>'
-	   	            				 })//留言明細迴圈     	
-	   	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
-	   	            				'<div class="messge_header_body"><div class="header_div">'+contet
-	   	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-	   					   			+'<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
-	   	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
-	   					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
-	   					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
-	   					   			+ '</div>')
-	   	            			 }//留言success結束
-	   	           			 })//留言ajax結束	                                                     	                
+	    	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
+	  						  var jdate_value = new Date(jdate_int); 
+	  		        		  var journalId=this[0].journal_Id
+	  		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+	  			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+	  			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
+	  			        		 +this[1]+'</p></a><p class="time_p">'
+	  			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
+	  							 +this[0].contents+'</p>'
+	  							 
+	  		        		 $('#grid').append(
+	  		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img1">'
+	  		        		 +contet
+	  		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
+	  		        		 +'<div data-desc=""></div>'
+	  		        		 +'</li>') 
+	  		        		  $.ajax({
+	  	           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
+	  	            			 type:'get',  //get post put delete
+	  	          			     data:{journal_Id:journalId},
+	  	            			 success:function(data){ 
+	  	            				 var message="";			 
+	  	            				 $.each(data,function(){    
+	  	            					 var jdate_int2 = parseInt(this[0].messageTime);                          //轉換成數字
+	  		   						  	 var jdate_value2 = new Date(jdate_int2); 
+	  										var arraythecontent= this[0].content.split("</br>")
+	  										var thecontent="";
+	  										$.each(arraythecontent,function(index){
+	  											var thecontent2=this.replace('<','&lt').replace('>','&gt').replace('</','&lt/')
+	  											if(index==0){
+	  												thecontent+='<span class="span_contet">'+thecontent2+'</span>'
+	  											}else{
+	  												thecontent+='<br><span class="span_contet2">'+thecontent2+'</span>'					
+	  											}
+	  										})
+	  	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
+	  	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+	  	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
+	  	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
+	  	            				 })//留言明細迴圈     	
+	  	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
+	  	            				'<div class="messge_header_body"><div class="header_div">'+contet
+	  	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+	  					   			+'<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+	  	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
+	  					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
+	  					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
+	  					   			+ '</div>')
+	  	            			 }//留言success結束
+	  	           			 })//留言ajax結束	                                                      	                
 		            	})// each end
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,

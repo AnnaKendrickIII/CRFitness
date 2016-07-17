@@ -28,6 +28,6 @@ public class LaudationService {
 	}
 
 
-//健康日誌
+
 
 }
