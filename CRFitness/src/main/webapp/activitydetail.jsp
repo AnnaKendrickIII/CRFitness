@@ -161,16 +161,16 @@ padding:10px 5px 2px 5px;
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div').append("<div id='div_"+count+"' class='row'></div>")      			 
 		        		 }	 
-							$('#div_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="data:image/png;base64,'
-							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
+							$('#div_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/images/activitys/'
+									+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
 							+this[0].activity_Info+'<br />日期：'
 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 							+this[0].people 
 							//外
-							+'"><span title=""><img src="data:image/png;base64,'
-									+this[0].photo1+'" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
+							+'"><span title=""><img src="${this_contextPath}/images/activitys/'
+							+this[0].activity_Id+'.jpg" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
 									+this[2]+'<br />類別：'
 									+"<a href='#' class='select'>"+this[0].activity_Class+"</a>"+'<br />地區：'
 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Area'>"+this[0].activity_Area+"</a>"+'<br />內容：'
@@ -179,7 +179,7 @@ padding:10px 5px 2px 5px;
 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
 									+names+'">'
-									+this[0].people+'</button></div></div>')
+									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></div></div>')
 									
 							if(index%3 == 2){
 								count++;
@@ -278,16 +278,16 @@ padding:10px 5px 2px 5px;
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div2').append("<div id='div2_"+count+"' class='row'></div>")      			 
 		        		 }	 
-							$('#div2_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="data:image/png;base64,'
-							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
+							$('#div2_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/images/activitys/'
+							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
 							+this[0].activity_Info+'<br />日期：'
 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 							+this[0].people 
 							//外
-							+'"><span title=""><img src="data:image/png;base64,'
-									+this[0].photo1+'" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
+							+'"><span title=""><img src="${this_contextPath}/images/activitys/'
+							+this[0].activity_Id+'.jpg" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
 									+this[2]+'<br />類別：'
 									+this[0].activity_Class+"</a>"+'<br />地區：'
 									+this[0].activity_Area+"</a>"+'<br />內容：'
@@ -296,7 +296,7 @@ padding:10px 5px 2px 5px;
 									+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
 									+names+'">'
-									+this[0].people+'</button></div></div>')
+									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></button></div></div>')
 									
 							if(index%3 == 2){
 								count++;

@@ -29,7 +29,6 @@ public class MemberController {
 			@PathVariable String member_Id)   {
 		String realPath=request.getServletContext().getRealPath("/");
 		String Path=realPath+"/images/members/"+member_Id+".jpg";
-		System.out.println(Path);
 		if(memberService.ExitsPhoto(Path)){				
 			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/NoImage.jpg"));
 		}else{
@@ -49,7 +48,7 @@ public class MemberController {
 		MemberVO memberVO=memberService.SignCheck(nickname, e_mail);
 		request.getSession().setAttribute("LoginOK", memberVO);
 		String realPath=request.getServletContext().getRealPath("/");
-		System.out.println(realPath);
+		
 		String Path=realPath+"/images/members/"+memberVO.getMember_Id()+".jpg";
 		memberService.Third_insertimages(Path,photoUrl);
 		return null;
