@@ -19,6 +19,8 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+<link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
+
 <style>
 /* aside 
  {  
@@ -322,7 +324,8 @@ div.timeline-body{
 					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
 					    	+'<p>'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
-				   			+ '<p>內容：'+ this[0].contents+'</p>'
+				   			+ '<p class="userContents">內容： </p>'
+							
 				   			+ '<p >日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				   			+ '</div>'
@@ -358,8 +361,17 @@ div.timeline-body{
 									$('<option />',{value:i,text:publicStatus[i]}).appendTo(eleS);
 								}
 							}
-							divGrid.find('div.timeline-panel:last').prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
     						$('#grid>li div[class="timeline-body"]:last').append(eleS);
+							
+    						// 移除個人日誌
+							divGrid.find('div.timeline-panel:last')
+							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+							
+							
+							//+ "<p>內容：<a href='#' class='username' data-type='text' data-placement='right' >"+this[0].contents+"</a></p>"
+							divGrid.find('p.userContents').append("<a href='#' class='username' data-type='text' data-placement='right' >"+this[0].contents+"</a>")
+ 						}else{
+ 							divGrid.find('p.userContents').append(this[0].contents)
  						}
 						
 
@@ -403,7 +415,7 @@ div.timeline-body{
 					})
 					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
 
-					
+					$('.username').editable();  // 編輯個人日誌的內容
   					$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
 	    			}
 	    		})
@@ -725,5 +737,6 @@ div.timeline-body{
 
 	<script src="${this_contextPath}/js/personal_journal.js"></script>
 	<script src="${this_contextPath}/js/alertify.js"></script>
+	<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
 </body>
 </html>
