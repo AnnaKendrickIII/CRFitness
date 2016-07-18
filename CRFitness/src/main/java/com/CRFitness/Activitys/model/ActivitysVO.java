@@ -13,7 +13,6 @@ public class ActivitysVO implements java.io.Serializable{				//揪團專區
 	private Timestamp activity_Day;		//活動日
 	private String activity_Class;		//揪團類別
 	private String activity_Area;		//活動地區
-	private byte[] photo1;				//照片1
 	private String activity_Info;		//活動內容
 	private Timestamp deadline;		//報名截止日
 	private Timestamp startDay;		//發起日期
@@ -61,14 +60,6 @@ public class ActivitysVO implements java.io.Serializable{				//揪團專區
 
 	public void setActivity_Area(String activity_Area) {
 		this.activity_Area = activity_Area;
-	}
-
-	public byte[] getPhoto1() {
-		return photo1;
-	}
-
-	public void setPhoto1(byte[] photo1) {
-		this.photo1 = photo1;
 	}
 
 	public String getActivity_Info() {

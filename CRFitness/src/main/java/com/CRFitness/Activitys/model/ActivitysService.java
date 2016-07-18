@@ -27,11 +27,6 @@ public class ActivitysService {
 	public ActivitysService(){
 		
 	}
-
-	//找活動照片
-	public byte[] findActivitysPhoto(String activity_Id){
-		return activitysDAO.findByPrimaryKey(activity_Id).getPhoto1();
-	}
 	
 	public void updateactivitys(ActivitysVO activitysVO){
 		activitysDAO.update(activitysVO);
@@ -98,11 +93,11 @@ public class ActivitysService {
 			activitysVO.setActivity_Class(activity_Class);
 			activitysVO.setActivity_Area(activity_Area);
 			activitysVO.setPeople_Max(people_Max);
-			try {
-				activitysVO.setPhoto1(photo1.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				activitysVO.setPhoto1(photo1.getBytes());
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 			activitysVO.setActivity_Info(activity_Info);
 			activitysVO.setDeadline(tsd);
 			activitysVO.setStartDay(datetime);

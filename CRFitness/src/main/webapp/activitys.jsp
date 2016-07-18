@@ -342,9 +342,11 @@
 								names+=this+'\n'
 							}				  
 						  })	
-		        		 }
-							$('#grid').append('<li ><a href="data:image/png;base64,'
-							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+		        		 }								//href="data:image/png;base64,'+this[0].photo1+'"
+                          								//href="${this_contextPath}/CRFSERVICE/activitysController/photo/'+this[0].activity_Id+'"
+                          								//${this_contextPath}/images/activitys/'+this[0].activity_Id+' .jpg
+							$('#grid').append('<li ><a href="${this_contextPath}/images/activitys/'
+							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+this[2]+"<i class='fa fa-commenting-o' aria-hidden='true'></i>"
 							+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
@@ -353,8 +355,8 @@
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
 									+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+this[0].activity_Id
-									+'</div>"><span title=""><img src="data:image/png;base64,'
-									+this[0].photo1+'" /></span></a>發起人：'
+									+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+									+this[0].activity_Id+'.jpg" /></span></a>發起人：'
 									+this[2]+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
@@ -396,9 +398,9 @@
 	    								names+=this+'\n'
 	    							}				  
 	    						  })	
-	    		        		 }
-	    							$('#grid').append('<li ><a href="data:image/png;base64,'
-	    							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+	    		        		 }                          
+	    							$('#grid').append('<li ><a href="${this_contextPath}/images/activitys/'
+	    							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 	    							+this[2]+"<i class='fa fa-commenting-o' aria-hidden='true'></i>"
 	    							+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 	    									+this[0].activity_Area+'<br />內容：'
@@ -407,8 +409,8 @@
 	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
 	    									+"<button class='btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 	    									+"<div hidden='hidden'>"+this[0].activity_Id
-	    									+'</div>"><span title=""><img src="data:image/png;base64,'
-	    									+this[0].photo1+'" /></span></a>發起人：'
+	    									+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+	    									+this[0].activity_Id+'.jpg" /></span></a>發起人：'
 	    									+this[2]+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
 	    									+this[0].activity_Class+'<br />地區：'
 	    									+this[0].activity_Area+'<br />內容：'

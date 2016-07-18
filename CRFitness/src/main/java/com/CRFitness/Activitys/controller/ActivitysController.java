@@ -23,11 +23,11 @@ public class ActivitysController {
 	@Resource(name = "activitysService")
 	private ActivitysService activitysService;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/photo/{activity_Id}", produces={
-			"image/jpeg", "image/gif" })
-	public @ResponseBody byte[] findActivitysPhoto(@PathVariable String activity_Id){
-			return activitysService.findActivitysPhoto(activity_Id);
-	}
+//	@RequestMapping(method = RequestMethod.GET, value = "/photo/{activity_Id}", produces={
+//			"image/jpeg", "image/gif" })
+//	public @ResponseBody byte[] findActivitysPhoto(@PathVariable String activity_Id){
+//			return activitysService.findActivitysPhoto(activity_Id);
+//	}
 	
 	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitys", produces = {MediaType.APPLICATION_JSON})
 	public @ResponseBody List<ActivitysVO> findActivitysID(){	
