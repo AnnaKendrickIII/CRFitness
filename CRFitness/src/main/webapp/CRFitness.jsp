@@ -176,7 +176,48 @@
                         }) 
                          $('.container_a_css').click(function () {	
                         	  Custombox.close('#login-box') 
-                          })     
+                          })  
+                                	 //google 開始
+      	 
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'profile'
+                });
+
+                auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
+                  function (googleUser) {
+//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
+                	 var ImageUrl;
+                     if (googleUser.getBasicProfile().getImageUrl() == undefined) {
+                         ImageUrl = null;
+                     } else {
+                         ImageUrl = googleUser.getBasicProfile().getImageUrl()
+                     }
+                      $.ajax({
+           		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
+           		          type:'post',  //get post put delete
+           		          data:{nickname:googleUser.getBasicProfile().getName(),
+           		        	  	e_mail:googleUser.getBasicProfile().getEmail(),
+           		        	  	photoUrl:ImageUrl 
+           		          },
+           		          success:function(){
+           		        	  location.href ='${pageContext.request.requestURI}';
+           		          }          	 
+           		      })
+           		  
+                  }, function (error) {       	  
+                      console.log('Sign-in error', error);
+                  }                    
+                   );
+            });     
+      	 $("#googleSignIna").click(function(e){
+    		 e.preventDefault(); 
+    	 })  
+    	 //google 結束
                 });
        </script>
      </c:if >
@@ -375,11 +416,11 @@
             });     
       	 $("#googleSignIna").click(function(e){
     		 e.preventDefault(); 
-    	 }) 
-    	 
+    	 })  
+    	 //google 結束
     	    e.preventDefault();
      });
-      	//google 結束
+      	
       jQuery(function ($) {	      	        
             $("#menu-toggle").click(function () {//點擊左上角小圖 
                 $("#wrapper").addClass("toggled");//讓清單加入class toggled 使其寬度由0增加到235px 呈現由左到右效果 

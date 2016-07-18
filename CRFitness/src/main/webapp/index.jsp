@@ -74,6 +74,47 @@
                 target: '#login-box',
                 effect: 'rotate'
             });
+	      	 //google 開始
+	      	 
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'profile'
+                });
+
+                auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
+                  function (googleUser) {
+//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
+                	 var ImageUrl;
+                     if (googleUser.getBasicProfile().getImageUrl() == undefined) {
+                         ImageUrl = null;
+                     } else {
+                         ImageUrl = googleUser.getBasicProfile().getImageUrl()
+                     }
+                      $.ajax({
+           		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
+           		          type:'post',  //get post put delete
+           		          data:{nickname:googleUser.getBasicProfile().getName(),
+           		        	  	e_mail:googleUser.getBasicProfile().getEmail(),
+           		        	  	photoUrl:ImageUrl 
+           		          },
+           		          success:function(){
+           		        	  location.href ='${pageContext.request.requestURI}';
+           		          }          	 
+           		      })
+           		  
+                  }, function (error) {       	  
+                      console.log('Sign-in error', error);
+                  }                    
+                   );
+            });     
+      	 $("#googleSignIna").click(function(e){
+    		 e.preventDefault(); 
+    	 })  
+    	 //google 結束
 		}
 	</script>
 	<!--  頁面部分 結束 -->
