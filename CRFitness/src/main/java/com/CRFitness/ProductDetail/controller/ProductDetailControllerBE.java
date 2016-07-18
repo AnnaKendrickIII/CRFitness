@@ -66,7 +66,7 @@ public class ProductDetailControllerBE {
 			@RequestParam String color,
 			@RequestParam String stock,
 //			@RequestParam String published_Date,
-			@RequestParam MultipartFile photo1,
+//			@RequestParam MultipartFile photo1,
 			@RequestParam String product_Status,
 			@RequestParam String info){
 		Double price2 = Double.parseDouble(price);
@@ -84,7 +84,7 @@ public class ProductDetailControllerBE {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.updateProductDetail(product_Id, product_Name, price2, category, productDetail_Id, size, color, stock2, photo1, product_Status, info);	
+		return productDetailService.updateProductDetail(product_Id, product_Name, price2, category, productDetail_Id, size, color, stock2, product_Status, info);	
 	}
 	
 	// change status
@@ -99,8 +99,6 @@ public class ProductDetailControllerBE {
 //		}
 		String VO = productDetailService.changeStatus(productDetail_Id, product_Status);
 		System.out.println(VO);
-		List<String> list=new ArrayList<String>();
-		list.add(VO);
 		return VO;	
 	}
 	

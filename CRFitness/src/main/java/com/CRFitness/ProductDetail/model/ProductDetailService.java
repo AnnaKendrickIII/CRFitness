@@ -164,7 +164,7 @@ public class ProductDetailService {
 			String color, // 顏色
 			Integer stock, // 庫存量
 			// Timestamp published_Date, // 刊登日期
-			MultipartFile photo1, // 圖片1
+//			MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			String product_Status, // 狀態
@@ -191,11 +191,11 @@ public class ProductDetailService {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
 		// System.out.println(productDetailVO.getPublished_Date());
-		try {
-			productDetailVO.setPhoto1(photo1.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			productDetailVO.setPhoto1(photo1.getBytes());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		productDetailVO.setProduct_Status(product_Status);
 		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);

@@ -95,6 +95,27 @@ margin: 0px;
 font-size: smaller;
 color:	#9D9D9D;
 }
+._soakw{
+display:block;
+overflow:hidden;
+text-indent:25%;
+white-space:nowrap;
+}
+
+.coreSpriteHeartOpen{
+background-image:url(${this_contextPath}/images/c97b56.png);
+background-repeat:no-repeat;
+background-position:-579px -321px;
+height:24px;
+width:24px;
+}
+.coreSpriteHeartFull{
+background-image:url(${this_contextPath}/images/c97b56.png);
+background-repeat:no-repeat;
+background-position:-93px -582px;
+height:24px;
+width:24px;
+}
 </style>
 </head>
 
@@ -134,7 +155,7 @@ color:	#9D9D9D;
 		        		  var journalId=this[0].journal_Id
 		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
+			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
 			        		 +this[1]+'</p></a><p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 							 +this[0].contents+'</p>'
@@ -165,14 +186,14 @@ color:	#9D9D9D;
 											}
 										})
 	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
-	            					 +'<img class="message_img" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css"></a>'
+	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
 	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	            				 })//留言明細迴圈     	
 	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
 	            				'<div class="messge_header_body"><div class="header_div">'+contet
-	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-					   			+'<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
+					   			+'<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
@@ -198,13 +219,13 @@ color:	#9D9D9D;
 	  		        		  var journalId=this[0].journal_Id
 	  		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 	  			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	  			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
+	  			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
 	  			        		 +this[1]+'</p></a><p class="time_p">'
 	  			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 	  							 +this[0].contents+'</p>'
 	  							 
 	  		        		 $('#grid').append(
-	  		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img1">'
+	  		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img2">'
 	  		        		 +contet
 	  		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
 	  		        		 +'<div data-desc=""></div>'
@@ -221,28 +242,28 @@ color:	#9D9D9D;
 	  										var arraythecontent= this[0].content.split("</br>")
 	  										var thecontent="";
 	  										$.each(arraythecontent,function(index){
-	  											var thecontent2=this.replace(/\</g,'&lt').replace(/\>/g,'&gt')
-	  											if(index==0){		
+	  											var thecontent2=this.replace('<','&lt').replace('>','&gt').replace('</','&lt/')
+	  											if(index==0){
 	  												thecontent+='<span class="span_contet">'+thecontent2+'</span>'
 	  											}else{
 	  												thecontent+='<br><span class="span_contet">'+thecontent2+'</span>'					
 	  											}
 	  										})
 	  	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
-	  	            					 +'<img class="message_img" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css"></a>'
+	  	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
 	  	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
 	  	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	  	            				 })//留言明細迴圈     	
 	  	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
 	  	            				'<div class="messge_header_body"><div class="header_div">'+contet
-	  	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-	  					   			+'<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+	  	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
+	  					   			+'<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 	  	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 	  					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 	  					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
 	  					   			+ '</div>')
 	  	            			 }//留言success結束
-	  	           			 })//留言ajax結束	                                                         	                
+	  	           			 })//留言ajax結束	                                                      	                
 		            	})// each end
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
@@ -293,7 +314,7 @@ color:	#9D9D9D;
 								if(index==0){					
 									messageDiv.append(
 											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" >'
-		 	            					 +'<img class="message_img" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+theMember_Id+'" /></div><div class="message_inner_div_css"></a>'
+		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+theMember_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
 		 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" ><span class="message_name_span">'
 		 	            					 +theNickname+'</span></a><div class="innercontent_div"><span class="span_contet"></span>'
 		 	            					 +'</div></div></div>').find('.message_div:last .span_contet').text(this)
@@ -347,6 +368,39 @@ color:	#9D9D9D;
 	})//jQuery end  	
 	</script>
 </aside>
+<script type="text/javascript">
+		jQuery(function($){
+			$("body").on("click",'.likethis',function(){
+				var theclick = $(this);
+				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
+				if(!tset){
+					$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
+						type: "post",
+						data:{
+							journal_Id:$(this).siblings("p[hidden]").text(),
+							lauded_Id:'${LoginOK.member_Id}'
+						},
+						success:function(data){
+							theclick.find('span').toggleClass("coreSpriteHeartFull")
+						}				
+					})						
+				}else{
+					$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalcancel",
+						type: "post",
+						data:{
+							journal_Id:$(this).siblings("p[hidden]").text(),
+							lauded_Id:'${LoginOK.member_Id}'
+						},
+						success:function(data){
+							theclick.find('span').toggleClass("coreSpriteHeartFull")
+						}				
+					})						
+				}
+			})		
+		})
+</script>
 <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
 <script src="${this_contextPath}/js/classie.js"></script>
 <script src="${this_contextPath}/js/imagesloaded.js"></script>
