@@ -17,6 +17,8 @@ import java.util.*;
 public class LaudationDAO implements LaudationDAO_interface {
 
 	private static final String GET_ALL_STMT = "from LaudationVO ";
+	private static final String GET_ALL_LIKEJOURNAL = "from LaudationVO where lauded_Id=:lauded_Id";
+	
 	@Autowired
 	private SessionFactory sessionFactory ;
 
@@ -79,6 +81,15 @@ public class LaudationDAO implements LaudationDAO_interface {
 	@Override
 	public List<LaudationVO> getAll() {
 			Query query = this.getSession().createQuery(GET_ALL_STMT);
+		return (List<LaudationVO>) query.list();
+	}
+	
+	
+	
+
+	@Override
+	public List<LaudationVO> getJournalnumber(LaudationVO laudationVO) {
+		Query query = this.getSession().createQuery(GET_ALL_LIKEJOURNAL).setParameter("lauded_Id", laudationVO.getLauded_Id());
 		return (List<LaudationVO>) query.list();
 	}
 

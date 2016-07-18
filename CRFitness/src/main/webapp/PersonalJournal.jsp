@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
-
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
 <style>
 /* aside 
  {  
@@ -37,18 +37,21 @@ overflow:hidden;
 text-indent:25%;
 white-space:nowrap;
 }
-
-.coreSpriteHeartFull{
-background-image:url(//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png);
+/*  
+//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png
+*/
+.coreSpriteHeartOpen{
+background-image:url(${this_contextPath}/images/c97b56.png);
 background-repeat:no-repeat;
-background-position:-93px -582px;
+background-position:-579px -321px;
 height:24px;
 width:24px;
 }
-.coreSpriteHeartOpen{
-background-image:url(//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png);
+
+.coreSpriteHeartFull{
+background-image:url(${this_contextPath}/images/c97b56.png);
 background-repeat:no-repeat;
-background-position:-579px -321px;
+background-position:-93px -582px;
 height:24px;
 width:24px;
 }
@@ -331,10 +334,10 @@ div.timeline-body{
 // 				   			class="form-control"
 				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
-							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
 
-				   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartFull"></span></button>'
-				   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
+							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
+				   			+ '<button type="button" class="btn btn-info pull-right" >送出留言 </button>'
 
 				   			+ '</div>'
 				   			+ '</div>'
@@ -364,8 +367,6 @@ div.timeline-body{
 						loadMessageOne(this[0].journal_Id, 0);
   					}) 	//each
 
-  					
-
 	 				// 查看留言功能按鈕
 					var eleMessageA1 = $('<a>').text('查看更多留言').on('click', function(){
 						var theLi = $(this).parents('li');
@@ -376,8 +377,22 @@ div.timeline-body{
 						else{
 							theLi.find('div.timeline-footer').slideDown();
 							theLi.find('div.viewmessages').slideUp();
+
 						}
 					})
+
+					$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalnumber",
+						type:"get",
+						data:{lauded_Id:'${LoginOK.member_Id}'},
+   	   					success:function(data){
+   	   						$.each(data,function(){
+   	   							$('#'+this.journal_Id).find('Span._soakw').toggleClass("coreSpriteHeartFull")
+   	   						})
+   	   					}
+   	   				})
+					
+					
 					divGrid.find('div.viewmessages').append(eleMessageA1);
   					
 					//隱藏留言按鈕
@@ -397,6 +412,7 @@ div.timeline-body{
 		})
 					
 
+
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
@@ -413,7 +429,7 @@ div.timeline-body{
 						
 
 						if(file === undefined){
-							alert('請選擇一個檔案');
+							alertify.alert('請選擇一個檔案').set('title', '警告');
 						}else{
 							$.ajax({
 								url: "${this_contextPath}/CRFSERVICE/personalJournalController/insertJournal",
@@ -454,19 +470,18 @@ div.timeline-body{
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 								   			+ '</div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
-				// 				   			  '留言塞這裡'
+											// 	'留言塞這裡'
 								   			+ '<div></div><div></div></div>'
 								   			+ '<div  class="col-md-12 viewmessages"></div>'
 								   			+ '<div class="message_div function_list">'	
-				// 				   			class="form-control"
 								   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
-				// 				   			class="btn btn-primary pull-right"
-											+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-								   			+ '<button type="button" class="btn btn-link likethis"><i class="fa fa-heart-o" aria-hidden="true"></i></button>'
+											+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
+								   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 								   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
 								   			+ '</div>'
 								   			+ '</div>'
 								   			+ '</li>')
+
 		   								
 		   								//新增日誌後清除內容
 										$('.timeline-panel').fadeIn(2200);
@@ -497,7 +512,7 @@ div.timeline-body{
 		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
 								}
 							})	
-						}						
+						}
 					})
 					 
 		
@@ -514,7 +529,7 @@ div.timeline-body{
 				success: function(data){
 					console.log(data);
 					if(data && val == 4)
-						theLi.hide('explode', 1200, function(){theLi.remove()})
+						theLi.hide('explode', 2200, function(){theLi.remove()})
 						
 				}
 			})
@@ -522,10 +537,16 @@ div.timeline-body{
     	
     	// 移除篇此日誌
     	divGrid.on('click','button[title="移除此篇日誌"]',function(){
-    		alert("確認刪除");
     		var journal_Id = $(this).parents('li').attr('id');
     		var theContents = $(this).nextAll('div.timeline-body').find('p:nth-child(2)').text().slice(3);
-    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, $(this).parents('li'));
+    		var theLi = $(this).parents('li');
+    		alertify.confirm().set('title', '警告');
+    		alertify.confirm('確認刪除此日誌',function(e){
+    			if(e){
+		    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, theLi);
+    				}
+    			else{console.log(e)} 
+    		});
     	})
 		
 		//send MessageDetail from enter -------------------------------------
@@ -662,49 +683,47 @@ div.timeline-body{
 			}
 		}
 		
-		
-		$("body").on("click",'.likethis',function(){
 
-			var theclick = $(this);
-			var tset= theclick.find('span').hasClass("coreSpriteHeartOpen");
-			if(tset){
-				$.ajax({
-					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
-					type: "post",
-					data:{
-						journal_Id:$(this).parents('li').attr('id'),
-						lauded_Id:'${LoginOK.member_Id}'
-					},
-					success:function(data){
-						
-						theclick.find('span').toggleClass("coreSpriteHeartOpen")
-											
-					}				
-				})						
-			}else{
-				$.ajax({
-					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalcancel",
-					type: "post",
-					data:{
-						journal_Id:$(this).parents('li').attr('id'),
-						lauded_Id:'${LoginOK.member_Id}'
-					},
-					success:function(data){
-						
-								theclick.find('span').toggleClass("coreSpriteHeartOpen")
-						
-						
-					}				
-				})						
-			}
-						
+
+		jQuery(function($){
+			$("body").on("click",'.likethis',function(){
+				var theclick = $(this);
+				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
+				if(!tset){
+					$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
+						type: "post",
+						data:{
+							journal_Id:$(this).parents('li').attr('id'),
+							lauded_Id:'${LoginOK.member_Id}'
+						},
+						success:function(data){
+							theclick.find('span').toggleClass("coreSpriteHeartFull")
+						}				
+					})						
+				}else{
+					$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalcancel",
+						type: "post",
+						data:{
+							journal_Id:$(this).parents('li').attr('id'),
+							lauded_Id:'${LoginOK.member_Id}'
+						},
+						success:function(data){
+							theclick.find('span').toggleClass("coreSpriteHeartFull")
+						}				
+					})						
+				}
+			})
+			
+
 		})
 		
 		
 		
 	</script>
 
-	<script src="${this_contextPath}/js/personal_journal.js"></script>	
-	
+	<script src="${this_contextPath}/js/personal_journal.js"></script>
+	<script src="${this_contextPath}/js/alertify.js"></script>
 </body>
 </html>
