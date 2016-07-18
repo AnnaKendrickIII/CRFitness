@@ -206,22 +206,12 @@ public class ProductDetailService {
 	}
 
 	// back-end: change status
-	public ProductDetailVO changeStatus(String productDetail_Id,
-			String product_Status) {
-		ProductDetailVO productDetailVO = productDetailDAO
-				.findByPrimaryKey(productDetail_Id);
-		if (productDetailVO != null
-				&& !"已下架".equals(productDetailVO.getProduct_Status())) {
-			productDetailVO.setProduct_Status("已下架");
-			return productDetailDAO.changStatus(product_Status);
-
-		} else if (productDetailVO != null
-				&& !"上架中".equals(productDetailVO.getProduct_Status())) {
-			productDetailVO.setProduct_Status("上架中");
-			return productDetailDAO.changStatus(product_Status);
-		}
-		;
-		return productDetailVO;
+	public String changeStatus(String productDetail_Id, String product_Status) {
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
+		productDetailVO.setProduct_Status(product_Status);
+		productDetailVO = productDetailDAO.update(productDetailVO);
+//		System.out.println(productDetailVO.getProduct_Status());
+		return productDetailVO.getProduct_Status();
 	}
 
 	// public static void main(String[] args) {
