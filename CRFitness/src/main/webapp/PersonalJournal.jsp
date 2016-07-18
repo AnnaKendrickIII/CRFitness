@@ -594,11 +594,13 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 		
 		
 		$("body").on("click",'.likethis',function(){
+			console.log($(this).parents('li').attr('id'))
+			
 			$.ajax({
 				url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
 				type: "post",
 				data:{
-					journal_Id:$('.function_list').find('div').text(),
+					journal_Id:$(this).parents('li').attr('id'),
 					lauded_Id:'${LoginOK.member_Id}'
 				},
 				success:function(data){
