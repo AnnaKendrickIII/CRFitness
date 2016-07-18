@@ -30,6 +30,27 @@ textarea{
 .message_div {
 	margin-top: 3px;
 }
+._soakw{
+display:block;
+overflow:hidden;
+text-indent:25%;
+white-space:nowrap;
+}
+
+.coreSpriteHeartFull{
+background-image:url(//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png);
+background-repeat:no-repeat;
+background-position:-93px -582px;
+height:24px;
+width:24px;
+}
+.coreSpriteHeartOpen{
+background-image:url(//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png);
+background-repeat:no-repeat;
+background-position:-579px -321px;
+height:24px;
+width:24px;
+}
 
 /* 防止script語法 */
 #grid li p{
@@ -66,8 +87,25 @@ textarea{
 				</div>
 				<div class="col-md-2"></div>
 		
-		<!-- 抓取使用者建立的揪團  開始-->		
-             <script type="text/javascript">
+		
+                             
+		
+		
+	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
+</div>
+	<!-- 頁面部分 開始-->
+	
+	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    -->
+<c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
+
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button> -->
+<script type="text/javascript">
+ 					$('#inster_journal').append(
+							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+ 							);
+ 					
+//  				<!-- 抓取使用者建立的揪團  開始-->		
+             
                      $(function () {
                          $.ajax({
                              url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
@@ -101,29 +139,8 @@ textarea{
                              }          	 
                          }) //ajax
                      })
-                 </script > 
-		<!-- 抓取使用者建立的揪團  結束-->
-                             
-		
-		
-	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
-</div>
-	<!-- 頁面部分 開始-->
-	
-	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    -->
-<c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
+</script > 
 
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button> -->
-<script type="text/javascript">
- 					$('#inster_journal').append(
-							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
- 							);
- 					
-//  					$('#remove_journal').append(
-//  					'<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close">'
-//  					+'<span aria-hidden="true">'+"&times;"+'</span></button>'
-//  					);		//只在使用者個人頁面有刪除選項  卡在每一篇日誌是自動生成怎麼把&times新增在日誌右上角 同時要判斷是否是個人的日誌
-</script>
 </c:if> 
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
 
@@ -287,7 +304,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
 							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-				   			+ '<button type="button" class="btn btn-link likethis"><i class="fa fa-heart-o" aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartFull"></span></button>'
 				   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
@@ -595,19 +612,43 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 		
 		$("body").on("click",'.likethis',function(){
 			console.log($(this).parents('li').attr('id'))
-			
-			$.ajax({
-				url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
-				type: "post",
-				data:{
-					journal_Id:$(this).parents('li').attr('id'),
-					lauded_Id:'${LoginOK.member_Id}'
-				},
-				success:function(data){
-					console.log(data[0]);
-				}
-			})
+			var theclick = $(this);
+			var tset= theclick.find('span').hasClass("coreSpriteHeartOpen");
+			if(tset){
+				$.ajax({
+					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
+					type: "post",
+					data:{
+						journal_Id:$(this).parents('li').attr('id'),
+						lauded_Id:'${LoginOK.member_Id}'
+					},
+					success:function(data){
+						
+						theclick.find('span').toggleClass("coreSpriteHeartOpen")
+											
+					}				
+				})						
+			}else{
+				$.ajax({
+					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalcancel",
+					type: "post",
+					data:{
+						journal_Id:$(this).parents('li').attr('id'),
+						lauded_Id:'${LoginOK.member_Id}'
+					},
+					success:function(data){
+						
+								theclick.find('span').toggleClass("coreSpriteHeartOpen")
+						
+						
+					}				
+				})						
+			}
+						
 		})
+		
+		
+		
 	</script>
 
 	<script src="${this_contextPath}/js/personal_journal.js"></script>	
