@@ -39,9 +39,7 @@ overflow:hidden;
 text-indent:25%;
 white-space:nowrap;
 }
-/*  
-//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png
-*/
+
 .coreSpriteHeartOpen{
 background-image:url(${this_contextPath}/images/c97b56.png);
 background-repeat:no-repeat;
@@ -149,8 +147,8 @@ div.timeline-body{
             							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
             							+'</time>'
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
-                                    	+'<img src="data:image/png;base64,'
-                                    	+this[0].photo1+'" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<img src="${this_contextPath}/images/activitys/'
+                                    	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
                                     	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')
@@ -727,8 +725,6 @@ div.timeline-body{
 					})						
 				}
 			})
-			
-
 		})
 		
 		
