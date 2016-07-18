@@ -80,7 +80,7 @@ div.timeline-body{
 
 .msgTime {
 	color:#BEBEBE;
-	font-size: 12px;
+	font-size: 10px;
 }
 </style>
 
@@ -321,9 +321,8 @@ div.timeline-body{
 					    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
-					    	+'<p>'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
-				   			+ '<p class="userContents">內容： </p>'
-							
+					    	+'<p>'+this[1]+'</p><br />'  // 上線前要拿掉或改暱稱
+				   			+ '<p class="userContents"></p>'
 				   			+ '<p >日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				   			+ '</div>'
@@ -333,7 +332,7 @@ div.timeline-body{
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
 				   			+ '<div class="message_div function_list">'	
 // 				   			class="form-control"
-				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
+				   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
 
 							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
@@ -344,7 +343,7 @@ div.timeline-body{
 				   			+ '</div>'
 				   			+ '</li>')
                              
-                
+                			
                 //------------------------------------------------------
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
@@ -365,19 +364,19 @@ div.timeline-body{
 							divGrid.find('div.timeline-panel:last')
 							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
 							
-							
-							//+ "<p>內容：<a href='#' class='username' data-type='text' data-placement='right' >"+this[0].contents+"</a></p>"
-							divGrid.find('p.userContents').append("<a href='#' class='username' data-type='text' data-placement='right' >"+this[0].contents+"</a>")
+							divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
  						}else{
- 							divGrid.find('p.userContents').append(this[0].contents)
+ 							divGrid.find('p.userContents:last').text(this[0].contents)
  						}
 						
-
+					
 						// 第一次載入日誌先撈三筆留言
 						loadMessageOne(this[0].journal_Id, 0);
   					}) 	//each
-
-	 				// 查看留言功能按鈕
+  					
+  					$('p.userContents')
+	 				
+  					// 查看留言功能按鈕
 					var eleMessageA1 = $('<a>').text('查看更多留言').on('click', function(){
 						var theLi = $(this).parents('li');
 						var theMessage_Id = theLi.find('div.timeline-footer>div:first>div:first').val();
@@ -413,7 +412,9 @@ div.timeline-body{
 					})
 					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
 
-					$('.username').editable();  // 編輯個人日誌的內容
+					$('.username').editable({
+					     rows:3
+					});  // 編輯個人日誌的內容
   					$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
 	    			}
 	    		})
@@ -484,7 +485,7 @@ div.timeline-body{
 								   			+ '<div></div><div></div></div>'
 								   			+ '<div  class="col-md-12 viewmessages"></div>'
 								   			+ '<div class="message_div function_list">'	
-								   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
+								   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 											+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
 								   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 								   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
@@ -548,7 +549,7 @@ div.timeline-body{
     	// 移除篇此日誌
     	divGrid.on('click','button[title="移除此篇日誌"]',function(){
     		var journal_Id = $(this).parents('li').attr('id');
-    		var theContents = $(this).nextAll('div.timeline-body').find('p:nth-child(2)').text().slice(3);
+    		var theContents = $(this).nextAll('div.timeline-body').find('p:nth-child(2)').text();
     		var theLi = $(this).parents('li');
     		alertify.confirm().set('title', '警告');
     		alertify.confirm('確認刪除此日誌',function(e){
@@ -559,8 +560,27 @@ div.timeline-body{
     		});
     	})
 		
+    	//edit Contents
+		divGrid.on('submit','.form-inline',function(){
+			console.log('edit')
+			
+			var theLi = $(this).parents('li');
+			var journal_Id = theLi.attr('id');
+				$.ajax({
+					url: "${this_contextPath}",
+					type: 'POST',
+					data: {'journal_Id':journal_Id,
+						   'content':$('.form-inline textarea').val()
+						   },
+					success: function(data){
+				
+					}
+				})
+							
+			})
+    	
 		//send MessageDetail from enter -------------------------------------
-		divGrid.on('keydown', 'li textarea', function (event) {
+		divGrid.on('keydown', 'textarea.message-textarea', function (event) {
 			if (event.keyCode == 13 && !event.shiftKey) {
 				var theJournal_Id = $(this).parents('li').attr('id');
 				var val = $(this).val();
@@ -577,12 +597,12 @@ div.timeline-body{
         //send MessageDetail from button
 		divGrid.on('click', 'li button[class="btn btn-info pull-right"]', function (event) {
 			var theJournal_Id = $(this).parents('li').attr('id');
-			var val = $(this).prevAll('textarea').val()
+			var val = $(this).prevAll('textarea.message-textarea').val()
 			if(val.trim().length != 0){
 				val = val.replace(/\r?\n/g, '</br> ')
 				addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
-				$(this).prevAll('textarea').css('height','31');
-				$(this).prevAll('textarea').val('');
+				$(this).prevAll('textarea.message-textarea').css('height','31');
+				$(this).prevAll('textarea.message-textarea').val('');
 			}
 		})
 		
