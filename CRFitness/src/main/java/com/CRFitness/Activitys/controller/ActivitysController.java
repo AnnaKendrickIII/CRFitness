@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,7 @@ public class ActivitysController {
 	
 	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
 	public @ResponseBody ActivitysVO addActivitys(
+			HttpServletRequest request,
 			@RequestParam String member_Id,
 			@RequestParam String activity_Day,
 			@RequestParam String activity_Class,
@@ -73,7 +75,11 @@ public class ActivitysController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline, people_Max);	
+		 ActivitysVO activitysVO = activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, activity_Info, deadline, people_Max);	
+		 String realPath=request.getServletContext().getRealPath("/");
+		 String Path = realPath+"/images/activitys/"+activitysVO.getActivity_Id()+".jpg";
+		 activitysService.Insert_activitysImages(Path, photo1);
+		 return activitysVO;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/modifyActivitys")
