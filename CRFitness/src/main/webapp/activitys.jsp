@@ -345,7 +345,8 @@
 		        		 }
 							$('#grid').append('<li ><a href="data:image/png;base64,'
 							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+							+this[2]+"<i class='fa fa-commenting-o' aria-hidden='true'></i>"
+							+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
@@ -354,7 +355,7 @@
 									+"<div hidden='hidden'>"+this[0].activity_Id
 									+'</div>"><span title=""><img src="data:image/png;base64,'
 									+this[0].photo1+'" /></span></a>發起人：'
-									+this[2]+'<br />類別：'
+									+this[2]+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
@@ -362,7 +363,7 @@
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
-									+this[0].people+'</button></li>')
+									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></li>')
 									  					
 	                 		 })
 							  $('.btn.btn-default').tooltip()
@@ -398,7 +399,8 @@
 	    		        		 }
 	    							$('#grid').append('<li ><a href="data:image/png;base64,'
 	    							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-	    							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+	    							+this[2]+"<i class='fa fa-commenting-o' aria-hidden='true'></i>"
+	    							+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 	    									+this[0].activity_Area+'<br />內容：'
 	    									+this[0].activity_Info+'<br />活動時間：'
 	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
@@ -407,7 +409,7 @@
 	    									+"<div hidden='hidden'>"+this[0].activity_Id
 	    									+'</div>"><span title=""><img src="data:image/png;base64,'
 	    									+this[0].photo1+'" /></span></a>發起人：'
-	    									+this[2]+'<br />類別：'
+	    									+this[2]+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
 	    									+this[0].activity_Class+'<br />地區：'
 	    									+this[0].activity_Area+'<br />內容：'
 	    									+this[0].activity_Info+'<br />活動時間：'
@@ -415,7 +417,7 @@
 	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 	    									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
 	    									+names+'">'
-	    									+this[0].people+'</button></li>')
+	    									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></li>')
 	    									  					
 	    	                 		 })
 	    							$('.btn.btn-default').tooltip()
