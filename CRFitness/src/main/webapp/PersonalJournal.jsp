@@ -36,9 +36,7 @@ overflow:hidden;
 text-indent:25%;
 white-space:nowrap;
 }
-/*  
-//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png
-*/
+
 .coreSpriteHeartOpen{
 background-image:url(${this_contextPath}/images/c97b56.png);
 background-repeat:no-repeat;
@@ -130,8 +128,8 @@ width:24px;
             							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
             							+'</time>'
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
-                                    	+'<img src="data:image/png;base64,'
-                                    	+this[0].photo1+'" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<img src="${this_contextPath}/images/activitys/'
+                                    	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
                                     	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')
@@ -470,7 +468,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    					   			+ '<div  class="col-md-12"></div>'
 			    					   			+ '<div class="message_div form-group">'
 			    					   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
-			    								+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
+			    								+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
 			    					   			+ '<button type="button" class="btn btn-link"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 			    					   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 			    					   			+ '</div>'
@@ -655,9 +653,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 						}				
 					})						
 				}
-			})
-			
-
+			})		
 		})
 		
 		
