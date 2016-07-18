@@ -65,12 +65,18 @@ public class MessageDetailDAO implements MessageDetailDAO_interface{
 	}
 
 	@Override
-	public List<MessageDetailVO> select_JournalMessage(String journal_Id) {
+	public List<MessageDetailVO> select_JournalMessage(String journal_Id, Integer message_Id) {
 		Query query = this.getSession().createSQLQuery(
-				"select MessageDetail.*,(select Members.Nickname from Members where Members.Member_Id = MessageDetail.Member_Id) as messageDetailNickname from MessageDetail where Journal_Id=:journal_Id order by MessageTime desc OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY")
+				  "select MessageDetail.*, Members.Nickname " 
+				  +" from MessageDetail join Members " 
+				  +" on MessageDetail.Member_Id = Members.Member_Id " 
+				  +" where Journal_Id=:journal_Id and (Message_Id<:message_Id or 0=:message_Id) order by Message_Id desc " 
+				  +" OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY"
+				)
 				.addEntity(MessageDetailVO.class)
-				.addScalar("messageDetailNickname", StringType.INSTANCE)
-				.setParameter("journal_Id", journal_Id);
+				.addScalar("Nickname", StringType.INSTANCE)
+				.setParameter("journal_Id", journal_Id)
+				.setParameter("message_Id", message_Id);
 		return (List<MessageDetailVO>) query.list();
 	}
 	
