@@ -29,8 +29,8 @@ public class MessageDetailService {
 		return messageDetailDAO.insert(messageDetailVO);
 	}
 	
-	public List<MessageDetailVO> get_JournalMessage(String journal_Id){
-		return messageDetailDAO.select_JournalMessage(journal_Id);
+	public List<MessageDetailVO> get_JournalMessage(String journal_Id, Integer message_Id){
+		return messageDetailDAO.select_JournalMessage(journal_Id, message_Id);
 	}
 	
 	public List<MessageDetailVO> get_JournalMessageAll(String journal_Id){
