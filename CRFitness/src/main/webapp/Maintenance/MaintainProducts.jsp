@@ -574,20 +574,22 @@ textarea{
 
     	
 // 顯示產品的程式 開始
+	var i;
 	$.ajax({
 		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
 			$.each( data,
-				function() {
+				function(index) {
 					var pdate_int = parseInt(this[0].published_Date); //轉換成數字
 					var pdate_value = new Date(pdate_int);
-					console.log(this[0].product_Status);
+// 					console.log(this[0].product_Status);
+					var Status="";
 					if(this[0].product_Status == '上架中'){
-						$('.easyswitch').attr("data-label-on", "ON")
-					}else (this[0].product_Status == '已下架'){
-						$('.easyswitch').attr("data-label-off", "OFF")
+						Status=1;
+					}else if(this[0].product_Status == '已下架'){
+						Status=0;
 					};
 					$('#products_tbody').append('<tr><td><img src="data:image/png;base64,' 
 													+ this[0].photo1 
@@ -614,7 +616,7 @@ textarea{
 													+ '</td><td hidden="hidden">'
 									                + this[0].product_Status
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="1" data-label-on="ON" data-label-off="OFF"></i>'
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 						// 修改產品的小程式		
@@ -659,37 +661,35 @@ textarea{
 						$('.easyswitch').easyswitch();
 							function onSwitch(value, obj) {
 								alert(value);
-					    	}					
+					    	}
+						// 改變產品狀態的程式 開始
+						$('.3g').click(function (productDetail_Id, product_Status) {
+// 							console.log($(this).parent().siblings(":eq(2)").text());
+// 							console.log($(this).parent().siblings(":eq(11)").text());
+ 							var this_prodStatus=$(this).parent().siblings(":eq(11)")
+							var prodDetaId = $(this).parent().siblings(":eq(2)").text();
+							var prodStatus = this_prodStatus.text();
+							var state = "";
+							if(prodStatus=="上架中"){
+								state="已下架";
+							}else{
+								state="上架中";
+							}
+							 $.ajax({
+								     url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/changeStatus",
+						             type:'post',  //get post put delete
+					         			data: {'productDetail_Id': prodDetaId,
+												'product_Status': state},
+						                success:function(data){
+						                	 this_prodStatus.text(state)
+											
+						          	  } // end of success:function(data)	 
+							   	 }) // end of  $.ajax({  	    	   
+							}); // end of 	$('.3g').click(function () {
+						// 改變產品狀態的程式 結束
 		} // end of success : function(data) 
 	}) // end of $.ajax({
 // 顯示產品的程式 結束			
-
-
-
-
-
-// 改變產品狀態的程式 開始
-	$('.3g').click(function () {
-// 		var btn2=$(this);
-		 $.ajax({
-             url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/changeStatus",
-             type:'post',  //get post put delete
-				data: {},
-//   		        processData: false,
-// 			    contentType: false,
-                success:function(data){
-// 					var pdate_int = parseInt(data[1].published_Date); //轉換成數字
-// 					var pdate_value = new Date(pdate_int);  
-//           	  	$('#update_products').modal('hide');
-//           	   	var beforeSiblingTr = btn.parent().parent().prev();
-//           	  	btn.parent().parent().fadeOut(800, function(){
-//           	  		$(this).remove();
-//           	  	})  
-					
-          	  } // end of success:function(data)	 
-	   	 }) // end of  $.ajax({  	    	   
-	}); // end of 	$('.3g').click(function () {
-// 改變產品狀態的程式 結束
 
 
 }); // end of jQuery(function ($)
