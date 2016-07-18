@@ -11,9 +11,7 @@
         <property name="password" column="password" />
         <property name="nickname" column="nickname" />
         <property name="registerdate" column="registerdate" />
-        <property name="photo" type="binary">
-            <column name="photo"  />
-        </property>      
+    
 
     </class>
 </hibernate-mapping>

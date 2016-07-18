@@ -11,9 +11,6 @@
 		<property name="activity_Day" column="activity_Day"></property>
 		<property name="activity_Class" column="activity_Class"></property>
 		<property name="activity_Area" column="activity_Area"></property>
-		<property name="photo1" type="binary">
-			<column name="photo1" />
-		</property>
 		<property name="activity_Info" column="activity_Info"></property>
 		<property name="deadline" column="deadline"></property>
 		<property name="startDay" column="startDay"></property>

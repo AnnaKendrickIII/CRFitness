@@ -28,8 +28,9 @@ public class MessageDetailController {
 
 	}
 	@RequestMapping(method = RequestMethod.GET, value = "/getMessageDetail", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<MessageDetailVO> getMessageDetail(@RequestParam String journal_Id) {
-		return messageDetailService.get_JournalMessage(journal_Id);
+	public @ResponseBody List<MessageDetailVO> getMessageDetail(@RequestParam String journal_Id,
+			@RequestParam Integer message_Id) {
+		return messageDetailService.get_JournalMessage(journal_Id, message_Id);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/getMessageDetailAll", produces = MediaType.APPLICATION_JSON)

@@ -24,8 +24,7 @@ import com.CRFitness.Products.model.ProductsVO;
 public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	private static final String GET_PRODUCTDETAIL_ID = "from ProductDetailVO where product_Name=:product_Name and size=:size and color=:color";
-	private static final String CHANGE_STATUS = "from ProductDetailVO where product_Status=:product_Status";
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -76,7 +75,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.createSQLQuery(
 						"select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category "
 								+ " from  ProductDetail join Products"
-								+ " on ProductDetail.Product_Id=Products.Product_Id ")
+								+ " on ProductDetail.Product_Id=Products.Product_Id  Order by Product_Id desc")
 				.addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
@@ -94,7 +93,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 						"Select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category "
 								+ " from  ProductDetail join Products"
 								+ " on ProductDetail.Product_Id=Products.Product_Id "
-								+ " Order by Product_Id desc")
+								+ " Order by ProductDetail_Id desc")
 				.addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
@@ -115,14 +114,15 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	// 依商品分類顯示
 	@Override
 	public List<ProductDetailVO> getItemByCategory(String category, Integer page) {
-		int max=12;
+		int max = 12;
 		Query query = this
 				.getSession()
 				.createSQLQuery(
 						"select * "
 								+ "from  ProductDetail join Products "
 								+ "on ProductDetail.Product_Id=Products.Product_Id "
-								+ "where Products.Category='" + category + "'")
+								+ "where Products.Category='" + category + "'"
+								+ "Order by ProductDetail_Id desc")
 				.addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
@@ -138,7 +138,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 			String productDetail_Id) {
 		Query query = getSession()
 				.createSQLQuery(
-						"select ProductDetail.*, product_Name, price, category  from ProductDetail join Products "
+						"select *  from ProductDetail join Products "
 								+ "on ProductDetail.Product_Id = Products.Product_Id "
 								+ "where ProductDetail_Id='"
 								+ productDetail_Id
@@ -150,14 +150,6 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		return (List<ProductDetailVO>) query.list();
 	}
 
-	// back-end: change status
-	@Override
-	public ProductDetailVO changStatus(String product_Status) {
-		Query query = this.getSession().createQuery(CHANGE_STATUS);
-//		query.setParameter("productDetail_Id", productDetail_Id);
-		query.setParameter("product_Status", product_Status);
-		return (ProductDetailVO) query.list().get(0);
-	}
 
 	public static void main(String[] args) {
 

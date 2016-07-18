@@ -1,7 +1,10 @@
 package com.CRFitness.Member.model;
 
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -24,23 +27,10 @@ public class MemberService {
 	}
 
 	// Fb登入判斷
-	public MemberVO SignCheck(String nickname, String e_mail, String photoUrl) {		
-		ByteArrayOutputStream baos;
-		MemberVO memberVO= new MemberVO();
-		byte[] photo=null;
-		try {
-			baos = new ByteArrayOutputStream();
-			if(!photoUrl.equals("")){
-			URL url = new URL(photoUrl);
-			BufferedImage originalImage = ImageIO.read(url);
-			ImageIO.write(originalImage, "jpg", baos);
-			baos.flush();
-			photo = baos.toByteArray();
-			}
-			baos.close();								
+	public MemberVO SignCheck(String nickname, String e_mail) {		
+		MemberVO memberVO= new MemberVO();							
 			if (memberDAO.select_email(e_mail).size() != 0) {
 				memberVO=memberDAO.select_email(e_mail).get(0);
-				memberVO.setPhoto(photo);
 				memberDAO.update(memberVO);
 				return memberVO;
 			} else {		
@@ -48,14 +38,9 @@ public class MemberService {
 				memberVO.setNickname(nickname);
 			Timestamp datetime = new Timestamp(System.currentTimeMillis());
 				memberVO.setRegisterdate(datetime);
-				memberVO.setPhoto(photo);
 				memberDAO.insert(memberVO);
 				return memberVO;			
-			}		
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}	
+			}			
 	}
 	
 	//登入判斷
@@ -102,10 +87,15 @@ public class MemberService {
 			}  	       
 	}
 	
-	//找會員照片
-	public byte[] findMemberPhoto(String member_Id) {		
-			return memberDAO.findByPrimaryKey(member_Id).getPhoto();	
+	public Boolean ExitsPhoto(String Path){
+		File file=null;
+		file = new File(Path);
+		if (!file.exists()) {
+			return true;
+		}		
+		return false;
 	}
+
 	//檢查e_mail
 	public Boolean checkE_mail(String E_mail) {
 		if ((memberDAO.select_email(E_mail)).size() != 0) {
@@ -140,7 +130,40 @@ public class MemberService {
 	public List<MemberVO> getAll() {
 		return memberDAO.getAll();
 	}
-
+	public void Third_insertimages(String Path,String photoUrl){
+		FileOutputStream fop = null;
+		File file=null;
+		byte[] photo=null;			
+		ByteArrayOutputStream baos = null;       
+		try {
+			baos = new ByteArrayOutputStream();
+			file = new File(Path);
+			fop = new FileOutputStream(file);
+			if (!file.exists()) {
+				file.createNewFile();
+			}		
+			if(!photoUrl.equals("")){
+						URL url = new URL(photoUrl);
+						BufferedImage originalImage = ImageIO.read(url);
+						ImageIO.write(originalImage, "jpg", baos);
+						baos.flush();
+						photo = baos.toByteArray();
+			}
+			baos.close();		
+			fop.write(photo);
+			fop.flush();
+			fop.close();		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fop.close();
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+			}	
+		}
+	}
 
 //	public static void main(String[] args) {
 //		ApplicationContext context = new ClassPathXmlApplicationContext(

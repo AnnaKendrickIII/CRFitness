@@ -2,21 +2,19 @@ package com.CRFitness.ProductDetail.controller;
 
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.CRFitness.Activitys.model.ActivitysVO;
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 
@@ -68,7 +66,7 @@ public class ProductDetailControllerBE {
 			@RequestParam String color,
 			@RequestParam String stock,
 //			@RequestParam String published_Date,
-			@RequestParam MultipartFile photo1,
+//			@RequestParam MultipartFile photo1,
 			@RequestParam String product_Status,
 			@RequestParam String info){
 		Double price2 = Double.parseDouble(price);
@@ -86,21 +84,22 @@ public class ProductDetailControllerBE {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.updateProductDetail(product_Id, product_Name, price2, category, productDetail_Id, size, color, stock2, photo1, product_Status, info);	
+		return productDetailService.updateProductDetail(product_Id, product_Name, price2, category, productDetail_Id, size, color, stock2, product_Status, info);	
 	}
 	
 	// change status
-	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus")
-	public @ResponseBody ProductDetailVO changeStatus(
+	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus",produces="text/html;charset=utf-8")
+	public @ResponseBody String changeStatus(
 			@RequestParam String productDetail_Id,
 			@RequestParam String product_Status){
-		try {
-			productDetail_Id = new String(productDetail_Id.getBytes("iso-8859-1"), "utf-8");
-			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return productDetailService.changeStatus(productDetail_Id, product_Status);	
+//		try {
+//			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		}
+		String VO = productDetailService.changeStatus(productDetail_Id, product_Status);
+		System.out.println(VO);
+		return VO;	
 	}
 	
 	// Insert products 新增的列顯示在最上面

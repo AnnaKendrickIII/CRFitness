@@ -3,9 +3,7 @@ package com.CRFitness.ProductDetail.model;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,7 +13,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.CRFitness.Orders.model.OrdersVO;
 import com.CRFitness.Products.model.ProductsDAO_interface;
 import com.CRFitness.Products.model.ProductsVO;
 
@@ -109,7 +106,6 @@ public class ProductDetailService {
 	public List<ProductDetailVO> addShoppingCart(String productDetail_Id) {
 		ProductDetailVO productDetailVO = productDetailDAO
 				.findByPrimaryKeySQLQuery(productDetail_Id).get(0);
-
 		if (cart.add(productDetailVO)) {
 			return cart;
 		} else {
@@ -168,7 +164,7 @@ public class ProductDetailService {
 			String color, // 顏色
 			Integer stock, // 庫存量
 			// Timestamp published_Date, // 刊登日期
-			MultipartFile photo1, // 圖片1
+//			MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			String product_Status, // 狀態
@@ -184,8 +180,9 @@ public class ProductDetailService {
 		productsVO.setCategory(category);
 		productsVO = productsDAO.update(productsVO);
 
-//		ProductDetailVO productDetailVO = new ProductDetailVO();
-		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
+		// ProductDetailVO productDetailVO = new ProductDetailVO();
+		ProductDetailVO productDetailVO = productDetailDAO
+				.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 
 		productDetailVO.setSize(size);
@@ -194,11 +191,11 @@ public class ProductDetailService {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
 		// System.out.println(productDetailVO.getPublished_Date());
-		try {
-			productDetailVO.setPhoto1(photo1.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			productDetailVO.setPhoto1(photo1.getBytes());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		productDetailVO.setProduct_Status(product_Status);
 		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);
@@ -207,19 +204,14 @@ public class ProductDetailService {
 		list.add(1, productDetailVO);
 		return list;
 	}
-	
+
 	// back-end: change status
-	public ProductDetailVO changeStatus(String productDetail_Id, String product_Status) {
+	public String changeStatus(String productDetail_Id, String product_Status) {
 		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
-		if (productDetailVO != null && !"已下架".equals(productDetailVO.getProduct_Status())) {
-			productDetailVO.setProduct_Status("已下架");
-			return productDetailDAO.changStatus(product_Status);
-			
-		} else if (productDetailVO != null && !"上架中".equals(productDetailVO.getProduct_Status())) {			
-			productDetailVO.setProduct_Status("上架中");
-			return productDetailDAO.changStatus(product_Status);
-		};
-		return productDetailVO;
+		productDetailVO.setProduct_Status(product_Status);
+		productDetailVO = productDetailDAO.update(productDetailVO);
+//		System.out.println(productDetailVO.getProduct_Status());
+		return productDetailVO.getProduct_Status();
 	}
 
 	// public static void main(String[] args) {

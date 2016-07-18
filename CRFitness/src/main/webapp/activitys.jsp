@@ -285,8 +285,8 @@
 				   var jdate_intb = parseInt(data.deadline);                        //轉換成數字
 				   var jdate_value_deadline = new Date(jdate_intb);
             	   $('#new_activity').modal('hide');	
-            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
-							+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="${this_contextPath}/images/activitys/'
+							+data.activity_Id+'.jpg" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+'${LoginOK.nickname}'+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />活動時間：'
@@ -294,8 +294,8 @@
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+data.people+"<br /><button class='btn btn-theme submit_x' style='float:right;border:none' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+data.activity_Id
-									+'</div>"><span title=""><img src="data:image/png;base64,'
-									+data.photo1+'" /></span></a>發起人：'
+									+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+									+data.activity_Id+'.jpg" /></span></a>發起人：'
 									+'${LoginOK.nickname}'+'<br />類別：'
 									+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
@@ -303,7 +303,7 @@
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default " data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
-									+data.people+'</button></li>')								
+									+data.people+'</button><br />報名人數上限：<button class="btn btn-default" style="border:none">'+data.people_Max+'</button></li>')								
 										 $('.btn.btn-default').tooltip()	
 										  $(".boxer").boxer({ 
 											  top: 50,
@@ -323,7 +323,7 @@
            })
 	})	    
 	    $.ajax({
-		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembersOne",
+		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembers",
 		          type:'get',  //get post put delete
 		          data:{ },
 		          success:function(data){      	  
@@ -341,20 +341,23 @@
 							if(this!=""){
 								names+=this+'\n'
 							}				  
-						  })	
-		        		 }
-							$('#grid').append('<li ><a href="data:image/png;base64,'
-							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+						  })//第二個each	
+		        		 }								//href="data:image/png;base64,'+this[0].photo1+'"
+                          								//href="${this_contextPath}/CRFSERVICE/activitysController/photo/'+this[0].activity_Id+'"
+                          								//${this_contextPath}/images/activitys/'+this[0].activity_Id+' .jpg
+							$('#grid').append('<li ><a href="${this_contextPath}/images/activitys/'
+							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+							+this[2]+"<i class='fa fa-commenting-o' aria-hidden='true'></i>"
+							+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
 									+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+this[0].activity_Id
-									+'</div>"><span title=""><img src="data:image/png;base64,'
-									+this[0].photo1+'" /></span></a>發起人：'
-									+this[2]+'<br />類別：'
+									+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+									+this[0].activity_Id+'.jpg" /></span></a>發起人：'
+									+this[2]+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
@@ -362,9 +365,9 @@
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
 									+names+'">'
-									+this[0].people+'</button></li>')
+									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></li>')
 									  					
-	                 		 })
+	                 		 })//第一個each
 							  $('.btn.btn-default').tooltip()
 								$(".boxer").boxer({
     							top: 50,
@@ -374,64 +377,9 @@
 	                      minDuration: 0.4,
 	                      maxDuration: 0.6,
 	                      viewportFactor: 0.2
-	                  });
-	                  $.ajax({
-	    		          url:"${this_contextPath}/CRFSERVICE/activitysController/AllActivitysMembersTwo",
-	    		          type:'get',  //get post put delete
-	    		          data:{ },
-	    		          success:function(data){      	  
-	    		        	  $.each(data,function(index){        		  
-	    		        		  var message;
-	    		        		  var activityID=this[0].activity_Id;     		   
-	    		        		  var jdate_int = parseInt(this[0].activity_Day);                          //轉換成數字
-	    						  var jdate_value = new Date(jdate_int);
-	    						  var jdate_intb = parseInt(this[0].deadline);                        //轉換成數字
-	    						  var jdate_value_deadline = new Date(jdate_intb);
-	    						  var names=' ';
-	    		        		  if(this[1]!=null){
-	    						  var nameData=this[1].split(",")						  
-	    						  $.each(nameData,function(){
-	    							if(this!=""){
-	    								names+=this+'\n'
-	    							}				  
-	    						  })	
-	    		        		 }
-	    							$('#grid').append('<li ><a href="data:image/png;base64,'
-	    							+this[0].photo1+'" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-	    							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
-	    									+this[0].activity_Area+'<br />內容：'
-	    									+this[0].activity_Info+'<br />活動時間：'
-	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
-	    									+"<button class='btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-	    									+"<div hidden='hidden'>"+this[0].activity_Id
-	    									+'</div>"><span title=""><img src="data:image/png;base64,'
-	    									+this[0].photo1+'" /></span></a>發起人：'
-	    									+this[2]+'<br />類別：'
-	    									+this[0].activity_Class+'<br />地區：'
-	    									+this[0].activity_Area+'<br />內容：'
-	    									+this[0].activity_Info+'<br />活動時間：'
-	    									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-	    									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-	    									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
-	    									+names+'">'
-	    									+this[0].people+'</button></li>')
-	    									  					
-	    	                 		 })
-	    							$('.btn.btn-default').tooltip()
-	    								$(".boxer").boxer({
-	        							top: 50,
-	        							fixed:true
-	    								});																	
-	    	                  new AnimOnScroll(document.getElementById('grid'), {
-	    	                      minDuration: 0.4,
-	    	                      maxDuration: 0.6,
-	    	                      viewportFactor: 0.2
-	    	                  });   
-	    		          }	 
-	    		      })      
-		          }	 
-		      })
+	                  });     
+		          }//success	 
+		      })//ajax
 	 
 		      $("body").on("click", '.submit_x', function(){
 		    	  var whatActivityID=$(this).parent().siblings("div").text()

@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Controller;
@@ -23,24 +24,24 @@ public class ActivitysController {
 	@Resource(name = "activitysService")
 	private ActivitysService activitysService;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/photo/{activity_Id}", produces={
-			"image/jpeg", "image/gif" })
-	public @ResponseBody byte[] findActivitysPhoto(@PathVariable String activity_Id){
-			return activitysService.findActivitysPhoto(activity_Id);
-	}
+//	@RequestMapping(method = RequestMethod.GET, value = "/photo/{activity_Id}", produces={
+//			"image/jpeg", "image/gif" })
+//	public @ResponseBody byte[] findActivitysPhoto(@PathVariable String activity_Id){
+//			return activitysService.findActivitysPhoto(activity_Id);
+//	}
 	
 	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitys", produces = {MediaType.APPLICATION_JSON})
 	public @ResponseBody List<ActivitysVO> findActivitysID(){	
 		return activitysService.getAll();	
 	}
-	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembersOne", produces = {MediaType.APPLICATION_JSON})
+	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembers", produces = {MediaType.APPLICATION_JSON})
 	public @ResponseBody List<ActivitysVO> findActivitysMembers_One(){	
 		return activitysService.findActivitysMembers_One();	
 	}
-	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembersTwo", produces = {MediaType.APPLICATION_JSON})
-	public @ResponseBody List<ActivitysVO> findActivitysMembers_Two(){	
-		return activitysService.findActivitysMembers_Two();	
-	}
+//	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembersTwo", produces = {MediaType.APPLICATION_JSON})
+//	public @ResponseBody List<ActivitysVO> findActivitysMembers_Two(){	
+//		return activitysService.findActivitysMembers_Two();	
+//	}
 	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{member_Id}", produces = MediaType.APPLICATION_JSON)
@@ -57,6 +58,7 @@ public class ActivitysController {
 	
 	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
 	public @ResponseBody ActivitysVO addActivitys(
+			HttpServletRequest request,
 			@RequestParam String member_Id,
 			@RequestParam String activity_Day,
 			@RequestParam String activity_Class,
@@ -73,7 +75,11 @@ public class ActivitysController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, photo1, activity_Info, deadline, people_Max);	
+		 ActivitysVO activitysVO = activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, activity_Info, deadline, people_Max);	
+		 String realPath=request.getServletContext().getRealPath("/");
+		 String Path = realPath+"/images/activitys/"+activitysVO.getActivity_Id()+".jpg";
+		 activitysService.Insert_activitysImages(Path, photo1);
+		 return activitysVO;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/modifyActivitys")
