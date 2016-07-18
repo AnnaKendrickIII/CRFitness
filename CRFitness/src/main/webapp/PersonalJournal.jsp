@@ -36,21 +36,24 @@ overflow:hidden;
 text-indent:25%;
 white-space:nowrap;
 }
-
-.coreSpriteHeartFull{
-background-image:url(//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png);
-background-repeat:no-repeat;
-background-position:-93px -582px;
-height:24px;
-width:24px;
-}
+/*  
+//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png
+*/
 .coreSpriteHeartOpen{
-background-image:url(//instagramstatic-a.akamaihd.net/h1/sprites/core/c97b56.png);
+background-image:url(${this_contextPath}/images/c97b56.png);
 background-repeat:no-repeat;
 background-position:-579px -321px;
 height:24px;
 width:24px;
 }
+.coreSpriteHeartFull{
+background-image:url(${this_contextPath}/images/c97b56.png);
+background-repeat:no-repeat;
+background-position:-93px -582px;
+height:24px;
+width:24px;
+}
+
 
 /* 防止script語法 */
 #grid li p{
@@ -303,8 +306,8 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 // 				   			class="form-control"
 				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
-							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-				   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartFull"></span></button>'
+							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
+				   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 				   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 				   			+ '</div>'
 				   			+ '</div>'
@@ -379,15 +382,28 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 							
 							loadMessageOne(this[0].journal_Id);
   					}) 
-  					//each
+  					//each end
   					
+  						   	$.ajax({
+	    	   					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalnumber",
+	    	   					type:"get",
+	    	   					data:{lauded_Id:'${LoginOK.member_Id}'},
+	    	   					success:function(data){
+	    	   						$.each(data,function(){
+	    	   							$('#'+this.journal_Id).find('Span._soakw').toggleClass("coreSpriteHeartFull")
+	    	   							
+	    	   						})
+	    	   					}
+	    	   				})
+	    	   				
   					$('#grid').append('<li class="clearfix" style="float: none;">');  // 顯示中間時間軸的線
 	    			}
 
-	    					}) //ajax 查詢日誌開始
+	    					}) //ajax 查詢日誌 end
+
 						}
 					})
-					
+	
 
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
@@ -455,7 +471,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			    					   			+ '<div class="message_div form-group">'
 			    					   			+ '<textarea class="form-control" rows="1" placeholder="留言....."></textarea>'
 			    								+ '<button type="button" class="btn btn-link"><i class="fa fa-tag" aria-hidden="true"></i></button>'
-			    					   			+ '<button type="button" class="btn btn-link"><i class="fa fa-heart-o " aria-hidden="true"></i></button>'
+			    					   			+ '<button type="button" class="btn btn-link"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 			    					   			+ '<button type="button" class="btn btn-info pull-right" >送出 </button>'
 			    					   			+ '</div>'
 		   								+ '</li>')
@@ -487,7 +503,7 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
 								}
 							})	
-						}						
+						}
 					})
 					 
 		
@@ -609,42 +625,39 @@ return theday>0 ? theday+' 天前' :(theH > 0 ? theH+' 小時'+(theM > 0 ? theM+
 			}
 		}
 		
-		
-		$("body").on("click",'.likethis',function(){
-			console.log($(this).parents('li').attr('id'))
-			var theclick = $(this);
-			var tset= theclick.find('span').hasClass("coreSpriteHeartOpen");
-			if(tset){
-				$.ajax({
-					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
-					type: "post",
-					data:{
-						journal_Id:$(this).parents('li').attr('id'),
-						lauded_Id:'${LoginOK.member_Id}'
-					},
-					success:function(data){
-						
-						theclick.find('span').toggleClass("coreSpriteHeartOpen")
-											
-					}				
-				})						
-			}else{
-				$.ajax({
-					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalcancel",
-					type: "post",
-					data:{
-						journal_Id:$(this).parents('li').attr('id'),
-						lauded_Id:'${LoginOK.member_Id}'
-					},
-					success:function(data){
-						
-								theclick.find('span').toggleClass("coreSpriteHeartOpen")
-						
-						
-					}				
-				})						
-			}
-						
+
+		jQuery(function($){
+			$("body").on("click",'.likethis',function(){
+				var theclick = $(this);
+				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
+				if(!tset){
+					$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
+						type: "post",
+						data:{
+							journal_Id:$(this).parents('li').attr('id'),
+							lauded_Id:'${LoginOK.member_Id}'
+						},
+						success:function(data){
+							theclick.find('span').toggleClass("coreSpriteHeartFull")
+						}				
+					})						
+				}else{
+					$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalcancel",
+						type: "post",
+						data:{
+							journal_Id:$(this).parents('li').attr('id'),
+							lauded_Id:'${LoginOK.member_Id}'
+						},
+						success:function(data){
+							theclick.find('span').toggleClass("coreSpriteHeartFull")
+						}				
+					})						
+				}
+			})
+			
+
 		})
 		
 		
