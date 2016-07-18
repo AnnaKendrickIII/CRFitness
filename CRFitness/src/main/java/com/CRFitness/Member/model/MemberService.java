@@ -87,7 +87,15 @@ public class MemberService {
 			}  	       
 	}
 	
-	
+	public Boolean ExitsPhoto(String Path){
+		File file=null;
+		file = new File(Path);
+		
+		if (!file.exists()) {
+			return true;
+		}		
+		return false;
+	}
 
 	//檢查e_mail
 	public Boolean checkE_mail(String E_mail) {
