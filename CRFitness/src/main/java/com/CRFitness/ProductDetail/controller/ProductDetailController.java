@@ -1,23 +1,19 @@
 package com.CRFitness.ProductDetail.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.CRFitness.Activitys.model.ActivitysVO;
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
-import com.CRFitness.Products.model.ProductsService;
 
 @Controller
 @RequestMapping("/productDetailController")
@@ -65,10 +61,10 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> addShoppingCart(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
-
+		request.getSession().setAttribute("cart", productDetailService);
+		System.out.println(productDetailService);
 		return productDetailService.addShoppingCart(productDetail_Id);
 	}
-
 	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
 	// produces = MediaType.APPLICATION_JSON)
 	// public @ResponseBody Map<String, ProductDetailVO> addShoppingCart(

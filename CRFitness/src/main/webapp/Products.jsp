@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/lightbox.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/searchform.css">
+<link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
 
 <title>商品</title>
 
@@ -23,6 +24,7 @@
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
+<script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
 
 <aside>
 <div class="productsclass">
@@ -60,6 +62,7 @@
               <li><a href="">5</a></li>
               <li><a href="">»</a></li>
             </ul>
+            
 </div>
 </div>
 <a href="${this_contextPath}/ShoppingCart.jsp"><img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png"></a>
@@ -67,31 +70,34 @@
 <script type="text/javascript">
 jQuery(function($){
 var Type='${pageContext.request.queryString}';
-num1=Type.substr(9).indexOf("&")
-num2=Type.indexOf("&")
-var queryString=Type.substr(0,num2)
-var whichPage=Type.substr(num2)
-whichPage=whichPage.substr(6)
-Type=Type.substr(9,num1)
-var n=parseInt(whichPage)
+num1 = Type.substr(9).indexOf("&")
+num2 = Type.indexOf("&")
+var queryString = Type.substr(0,num2)
+var whichPage = Type.substr(num2)
+whichPage = whichPage.substr(6)
+Type = Type.substr(9,num1)
+var page = parseInt(whichPage)
 
-if(n<=1){
-	$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page=1")
+if(page<=1){
+// 	 alertify.alert('警告','已是第一頁')
+	$('.pagination>li:nth-child(2) a').attr("href",'${page}?'+queryString+"&page=1")
 }else{
-	$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page="+(n-1))
+	$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page="+(page-1))
 }
-if(n>=2){
+if(page>=2){
+	 alertify.alert('警告','已是最末頁')
 	$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
 }else{
-	$('.pagination>li:nth-child(7) a').attr("href",'${page}?'+queryString+"&page="+(n+1))
+	$('.pagination>li:nth-child(7) a').attr("href",'${page}?'+queryString+"&page="+(page+1))
 }
 
-$('.pagination>li:nth-child('+(n+1)+')').addClass("active")
+$('.pagination>li:nth-child('+(page+1)+')').addClass("active")
 $('.pagination>li:nth-child(2) a').attr("href",'${page}?'+queryString+"&page=1")
 $('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
 $('.pagination>li:nth-child(4) a').attr("href",'${page}?'+queryString+"&page=3")
 $('.pagination>li:nth-child(5) a').attr("href",'${page}?'+queryString+"&page=4")
 $('.pagination>li:nth-child(6) a').attr("href",'${page}?'+queryString+"&page=5")
+
 
 
 
@@ -120,8 +126,8 @@ $.ajax({
 						+this[1] +'</h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].info+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
 						+this[2] +'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
-						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4">'+
-						'<div class="btn shop" >加入購物車</div></div></div></div></a></div></div>'
+						+this[0].productDetail_Id+'">商品介紹</a></div>'+'<span id="pKey" hidden="hidden">'+this[0].productDetail_Id+'</span>'+'<div class="col-xs-12 col-md-4">'
+						+'<div class="btn shop" >加入購物車</div></div></div></div></a></div></div>'
 					)	
 		})		
 	}
@@ -138,9 +144,8 @@ $('body').on('click','.shop',function(){
 					      copyimg.remove();
 					 });
 			
-
-	console.log($('.shopping_car').position().left)
-	console.log($('.shopping_car').position().top)
+// 	console.log($('.shopping_car').position().left)
+// 	console.log($('.shopping_car').position().top)
 	
 	})
 })

@@ -3,9 +3,7 @@ package com.CRFitness.ProductDetail.model;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -15,7 +13,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.CRFitness.Orders.model.OrdersVO;
 import com.CRFitness.Products.model.ProductsDAO_interface;
 import com.CRFitness.Products.model.ProductsVO;
 
@@ -109,7 +106,6 @@ public class ProductDetailService {
 	public List<ProductDetailVO> addShoppingCart(String productDetail_Id) {
 		ProductDetailVO productDetailVO = productDetailDAO
 				.findByPrimaryKeySQLQuery(productDetail_Id).get(0);
-
 		if (cart.add(productDetailVO)) {
 			return cart;
 		} else {
@@ -184,8 +180,9 @@ public class ProductDetailService {
 		productsVO.setCategory(category);
 		productsVO = productsDAO.update(productsVO);
 
-//		ProductDetailVO productDetailVO = new ProductDetailVO();
-		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
+		// ProductDetailVO productDetailVO = new ProductDetailVO();
+		ProductDetailVO productDetailVO = productDetailDAO
+				.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 
 		productDetailVO.setSize(size);
@@ -207,7 +204,7 @@ public class ProductDetailService {
 		list.add(1, productDetailVO);
 		return list;
 	}
-	
+
 	// back-end: change status
 	public String changeStatus(String productDetail_Id, String product_Status) {
 		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
