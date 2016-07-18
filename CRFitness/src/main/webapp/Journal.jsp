@@ -134,7 +134,7 @@ color:	#9D9D9D;
 		        		  var journalId=this[0].journal_Id
 		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
+			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
 			        		 +this[1]+'</p></a><p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 							 +this[0].contents+'</p>'
@@ -165,7 +165,7 @@ color:	#9D9D9D;
 											}
 										})
 	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
-	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+	            					 +'<img class="message_img" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css"></a>'
 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
 	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	            				 })//留言明細迴圈     	
@@ -198,13 +198,13 @@ color:	#9D9D9D;
 	  		        		  var journalId=this[0].journal_Id
 	  		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 	  			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	  			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><p class="name_p">'
+	  			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
 	  			        		 +this[1]+'</p></a><p class="time_p">'
 	  			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 	  							 +this[0].contents+'</p>'
 	  							 
 	  		        		 $('#grid').append(
-	  		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img2">'
+	  		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img1">'
 	  		        		 +contet
 	  		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
 	  		        		 +'<div data-desc=""></div>'
@@ -221,15 +221,15 @@ color:	#9D9D9D;
 	  										var arraythecontent= this[0].content.split("</br>")
 	  										var thecontent="";
 	  										$.each(arraythecontent,function(index){
-	  											var thecontent2=this.replace('<','&lt').replace('>','&gt').replace('</','&lt/')
-	  											if(index==0){
+	  											var thecontent2=this.replace(/\</g,'&lt').replace(/\>/g,'&gt')
+	  											if(index==0){		
 	  												thecontent+='<span class="span_contet">'+thecontent2+'</span>'
 	  											}else{
 	  												thecontent+='<br><span class="span_contet">'+thecontent2+'</span>'					
 	  											}
 	  										})
 	  	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
-	  	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+	  	            					 +'<img class="message_img" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css"></a>'
 	  	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
 	  	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	  	            				 })//留言明細迴圈     	
@@ -242,7 +242,7 @@ color:	#9D9D9D;
 	  					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
 	  					   			+ '</div>')
 	  	            			 }//留言success結束
-	  	           			 })//留言ajax結束	                                                      	                
+	  	           			 })//留言ajax結束	                                                         	                
 		            	})// each end
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
@@ -293,7 +293,7 @@ color:	#9D9D9D;
 								if(index==0){					
 									messageDiv.append(
 											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" >'
-		 	            					 +'<img class="message_img" src="${this_contextPath}/images/members/'+theMember_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
+		 	            					 +'<img class="message_img" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+theMember_Id+'" /></div><div class="message_inner_div_css"></a>'
 		 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" ><span class="message_name_span">'
 		 	            					 +theNickname+'</span></a><div class="innercontent_div"><span class="span_contet"></span>'
 		 	            					 +'</div></div></div>').find('.message_div:last .span_contet').text(this)
