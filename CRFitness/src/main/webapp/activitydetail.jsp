@@ -86,7 +86,7 @@ padding:10px 5px 2px 5px;
 }
 </style>
 <body >
-<button style="padding-top: 3%;padding-left: 3%;" >Toggle</button>
+<button class="fa fa-exchange" style="padding-top: 3%;" ></button>
 <!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 	<c:if test="${! empty LoginOK}">
 	

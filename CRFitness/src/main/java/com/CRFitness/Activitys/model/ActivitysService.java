@@ -1,12 +1,18 @@
 package com.CRFitness.Activitys.model;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
@@ -71,13 +77,10 @@ public class ActivitysService {
 			String activity_Day,
 			String activity_Class,
 			String activity_Area,
-			MultipartFile photo1,
 			String activity_Info,
 			String deadline,
 			Integer people_Max)
 	{
-		System.out.println(activity_Day);
-		System.out.println(deadline);	
 			Timestamp datetime = new Timestamp(System.currentTimeMillis());
 			MemberVO memberVO=new MemberVO();
 			memberVO.setMember_Id(member_Id);
@@ -93,18 +96,12 @@ public class ActivitysService {
 			activitysVO.setActivity_Class(activity_Class);
 			activitysVO.setActivity_Area(activity_Area);
 			activitysVO.setPeople_Max(people_Max);
-//			try {
-//				activitysVO.setPhoto1(photo1.getBytes());
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
 			activitysVO.setActivity_Info(activity_Info);
 			activitysVO.setDeadline(tsd);
 			activitysVO.setStartDay(datetime);
 			activitysVO.setPeople(0);
 			activitysVO.setActivity_Status(1);
-		return activitysDAO.insert(activitysVO);
-		
+		return activitysDAO.insert(activitysVO);	
 	}
 	
 	public ActivitysVO modifyActivitys(
@@ -133,6 +130,32 @@ public class ActivitysService {
 			activitysVO.setDeadline(tsd);		
 		return activitysDAO.update(activitysVO);
 		
+	}
+		
+	public void Insert_activitysImages(String Path,MultipartFile photo1){
+		FileOutputStream fop = null;
+		File file=null;
+		byte[] photo=null;			      
+		try {
+			photo=photo1.getBytes();
+			file = new File(Path);		
+			if (!file.exists()) {
+				file.createNewFile();
+			}	
+			fop = new FileOutputStream(file);
+			fop.write(photo);
+			fop.flush();
+			fop.close();		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fop.close();
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+			}	
+		}
 	}
 
 }

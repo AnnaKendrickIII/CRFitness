@@ -285,8 +285,8 @@
 				   var jdate_intb = parseInt(data.deadline);                        //轉換成數字
 				   var jdate_value_deadline = new Date(jdate_intb);
             	   $('#new_activity').modal('hide');	
-            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="data:image/png;base64,'
-							+data.photo1+'" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="${this_contextPath}/images/activitys/'
+							+data.activity_Id+'.jpg" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+'${LoginOK.nickname}'+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />活動時間：'
@@ -294,8 +294,8 @@
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+data.people+"<br /><button class='btn btn-theme submit_x' style='float:right;border:none' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+data.activity_Id
-									+'</div>"><span title=""><img src="data:image/png;base64,'
-									+data.photo1+'" /></span></a>發起人：'
+									+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+									+data.activity_Id+'.jpg" /></span></a>發起人：'
 									+'${LoginOK.nickname}'+'<br />類別：'
 									+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
@@ -303,7 +303,7 @@
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+'<button type="button" class="btn btn-default " data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
-									+data.people+'</button></li>')								
+									+data.people+'</button><br />報名人數上限：<button class="btn btn-default" style="border:none">'+data.people_Max+'</button></li>')								
 										 $('.btn.btn-default').tooltip()	
 										  $(".boxer").boxer({ 
 											  top: 50,
