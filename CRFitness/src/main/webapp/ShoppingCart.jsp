@@ -235,10 +235,11 @@ queryString=queryString.substring(17);
 console.log(queryString)
 
 $.ajax({
-	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
 	typr:'get',
 	data:{productDetail_Id:queryString},
 	success:function(data){
+		$.each(data,function(){
 		$('#itemlist').append('<div class="item">'+
 				'<div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="data:image/png;base64,'+
@@ -250,10 +251,9 @@ $.ajax({
 				data[0][2]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h6></div>'+
 				'<div class="col-xs-4"><input type="text" class="form-control input-sm" value="1"></div>'+
 				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
-				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')
-		
+				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')	
+		})	
 	}
-	
 })
 
 </script>
