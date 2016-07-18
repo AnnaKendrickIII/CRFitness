@@ -11,11 +11,10 @@
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
 <jsp:include page="/AdminFrame.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
-<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
-<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
-
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" />
-<script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script>
+<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- upload files -->
+<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- upload files -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- on & off button -->
+<script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- on & off button -->
 
 <title>MaintainProducts</title>
 
@@ -468,7 +467,8 @@ textarea{
 				   contentType: false,
 	               success:function(data){
 						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
-						var pdate_value = new Date(pdate_int);  
+						var pdate_value = new Date(pdate_int); 
+						var Status="";
 	            	   $('#new_products').modal('hide');	
 	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="data:image/png;base64,' 
 	   								+ data[1].photo1 
@@ -492,9 +492,22 @@ textarea{
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
 									+ data[1].info
+									+ '</td><td hidden="hidden">'
+					                + data[1].product_Status
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch" data-default="1" data-label-on="M" data-label-off="F"></span>'
-									+ '</td></tr>') // end of after	            	   
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></span>'
+									+ '</td></tr>') // end of after
+						if(data[1].product_Status == '上架中'){
+							Status=1;
+						}else if(data[1].product_Status == '已下架'){
+							Status=0;
+						};
+						// 產品狀態on&off的程式 開始
+							$('.easyswitch').easyswitch();
+								function onSwitch(value, obj) {
+								alert(value);
+								}
+						// 產品狀態on&off的程式 結束
 						$("tr").fadeIn(800);
 						$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty();
 						file = null;				 
@@ -509,7 +522,7 @@ textarea{
 		var btn=$(this);
 		  $('#updatebtn').click(function () {
 			  	var formData = new FormData();
-			  	formData.append('photo1', file[0]);
+// 			  	formData.append('photo1', file[0]);
 				formData.append('product_Id', $('#update_prodId').val());
 				formData.append('productDetail_Id', $('#update_prodDetId').val());
 				formData.append('product_Name', $('#update_name').val());
@@ -530,6 +543,12 @@ textarea{
 						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
 						var pdate_value = new Date(pdate_int);  
 	            	  	$('#update_products').modal('hide');
+						var Status="";
+						if(data[1].product_Status == '上架中'){
+							Status=1;
+						}else if(data[1].product_Status == '已下架'){
+							Status=0;
+						};
 	            	   	var beforeSiblingTr = btn.parent().parent().prev();
 	            	  	btn.parent().parent().fadeOut(800, function(){
 	            	  		$(this).remove();
@@ -559,13 +578,19 @@ textarea{
 									+ '</td><td hidden="hidden">'
 					                + data[1].product_Status
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch" data-default="1" data-label-on="M" data-label-off="F"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 									// 修改產品的小程式		
 									// end of $('.2g').click(function(){				
 							$("tr").fadeIn(800);				
 							$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
-							file = null;				 
+							file = null;
+							// 產品狀態on&off的程式 開始
+// 							$('.easyswitch').easyswitch();
+// 								function onSwitch(value, obj) {
+// 								alert(value);
+// 								}
+							// 產品狀態on&off的程式 結束
 	               	} // end of success:function(data)
 	           }); // end of  $.ajax({
 	}); // end of $('#updatebtn').click(function (){
@@ -574,7 +599,6 @@ textarea{
 
     	
 // 顯示產品的程式 開始
-	var i;
 	$.ajax({
 		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
 		type : 'get', //get post put delete
@@ -619,74 +643,81 @@ textarea{
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
-						// 修改產品的小程式		
-						$('.2g').click(function(){	
-// 						console.log($('.img-thumbnail:eq(0)').attr('src'))
-// 						console.log($(this).parent().parent().find("img").attr('src'))
-// 						console.log($(this).parent().parent().find("img").attr('src').substr(22))
-// 						$('#uploadfile').prop("files",$(this).parent().parent().find("img").attr('src').substr(22));
-// 						console.log($(this).parent().siblings(":eq(1)").text())
-// 						console.log($(this).parent().siblings(":eq(2)").text())
-// 						console.log($(this).parent().siblings(":eq(3)").text())
-// 						console.log($(this).parent().siblings(":eq(4)").text())
-// 						console.log($(this).parent().siblings(":eq(5)").text())
-// 						console.log($(this).parent().siblings(":eq(6)").text())
-// 						console.log($(this).parent().siblings(":eq(7)").text())
-// 						console.log($(this).parent().siblings(":eq(8)").text())
-// 						console.log($(this).parent().siblings(":eq(9)").text())
-// 						console.log($(this).parent().siblings(":eq(10)").text())
-// 						console.log($(this).parent().siblings(":eq(11)").text())
-						var updProducts = $('#update_products')  // 寫成這樣才有效能
-						// 以下2行為詳細寫法
-						var eq1 = $(this).parent().siblings(":eq(1)")
-						updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
-						var eq2 = $(this).parent().siblings(":eq(2)")
-						updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
-						// 以下2行為chaining寫法
-// 						updProducts.find('input:eq(2)').prop("readonly",true).val($(this).parent().siblings(":eq(1)").text())
-// 						updProducts.find('input:eq(3)').prop("readonly",true).val($(this).parent().siblings(":eq(2)").text())
-						// 以下2行為沒有readonly寫法
-// 						updProducts.find('input:eq(2)').val($(this).parent().siblings(":eq(1)").text()) // 沒有readonly寫法
-// 						updProducts.find('input:eq(3)').val($(this).parent().siblings(":eq(2)").text()) // 沒有readonly寫法
-						updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
-						updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
-						updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
-						updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
-						updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
-						updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
-						updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
-						updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
-						})	// end of $('.2g').click(function(){
-						//
-						$('.easyswitch').easyswitch();
-							function onSwitch(value, obj) {
-								alert(value);
-					    	}
-						// 改變產品狀態的程式 開始
-						$('.3g').click(function (productDetail_Id, product_Status) {
-// 							console.log($(this).parent().siblings(":eq(2)").text());
-// 							console.log($(this).parent().siblings(":eq(11)").text());
- 							var this_prodStatus=$(this).parent().siblings(":eq(11)")
-							var prodDetaId = $(this).parent().siblings(":eq(2)").text();
-							var prodStatus = this_prodStatus.text();
-							var state = "";
-							if(prodStatus=="上架中"){
-								state="已下架";
-							}else{
-								state="上架中";
+					// 產品狀態on&off的程式 開始    bug待解！
+// 					$('body').on('click', '.easyswitch', function(){									
+// 						easyswitch();
+// 						onSwitch(value, obj)
+// 							alert(value);
+// 					});	
+					$('.easyswitch').easyswitch();
+						function onSwitch(value, obj) {
+						alert(value);
+						}
+					// 產品狀態on&off的程式 結束
+					// 修改產品的小程式		
+					$('body').on('click', '.2g', function(){									
+// 					$('.2g').click(function(){	
+// 					console.log($('.img-thumbnail:eq(0)').attr('src'))
+// 					console.log($(this).parent().parent().find("img").attr('src'))
+// 					console.log($(this).parent().parent().find("img").attr('src').substr(22))
+// 					$('#uploadfile').prop("files",$(this).parent().parent().find("img").attr('src').substr(22));
+// 					console.log($(this).parent().siblings(":eq(1)").text())
+// 					console.log($(this).parent().siblings(":eq(2)").text())
+// 					console.log($(this).parent().siblings(":eq(3)").text())
+// 					console.log($(this).parent().siblings(":eq(4)").text())
+// 					console.log($(this).parent().siblings(":eq(5)").text())
+// 					console.log($(this).parent().siblings(":eq(6)").text())
+// 					console.log($(this).parent().siblings(":eq(7)").text())
+// 					console.log($(this).parent().siblings(":eq(8)").text())
+// 					console.log($(this).parent().siblings(":eq(9)").text())
+// 					console.log($(this).parent().siblings(":eq(10)").text())
+// 					console.log($(this).parent().siblings(":eq(11)").text())
+					var updProducts = $('#update_products')  // 寫成這樣才有效能
+					// 以下2行為詳細寫法
+					var eq1 = $(this).parent().siblings(":eq(1)")
+					updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
+					var eq2 = $(this).parent().siblings(":eq(2)")
+					updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
+					// 以下2行為chaining寫法
+// 					updProducts.find('input:eq(2)').prop("readonly",true).val($(this).parent().siblings(":eq(1)").text())
+// 					updProducts.find('input:eq(3)').prop("readonly",true).val($(this).parent().siblings(":eq(2)").text())
+					// 以下2行為沒有readonly寫法
+// 					updProducts.find('input:eq(2)').val($(this).parent().siblings(":eq(1)").text()) // 沒有readonly寫法
+// 					updProducts.find('input:eq(3)').val($(this).parent().siblings(":eq(2)").text()) // 沒有readonly寫法
+					updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
+					updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
+					updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
+					updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
+					updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
+					updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
+					updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
+					updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
+					})	// end of $('.2g').click(function(){
+					// 改變產品狀態的程式 開始
+					$('body').on('click', '.3g', function(productDetail_Id, product_Status){
+// 					$('.3g').click(function (productDetail_Id, product_Status) {
+// 						console.log($(this).parent().siblings(":eq(2)").text());
+// 						console.log($(this).parent().siblings(":eq(11)").text());
+ 						var this_prodStatus=$(this).parent().siblings(":eq(11)");
+						var prodDetaId = $(this).parent().siblings(":eq(2)").text();
+						var prodStatus = this_prodStatus.text();
+						var reversedState = "";
+						if(prodStatus=="上架中"){
+							reversedState="已下架";
+						}else{
+							reversedState="上架中";
 							}
-							 $.ajax({
-								     url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/changeStatus",
-						             type:'post',  //get post put delete
-					         			data: {'productDetail_Id': prodDetaId,
-												'product_Status': state},
-						                success:function(data){
-						                	 this_prodStatus.text(state)
-											
-						          	  } // end of success:function(data)	 
-							   	 }) // end of  $.ajax({  	    	   
-							}); // end of 	$('.3g').click(function () {
-						// 改變產品狀態的程式 結束
+						 $.ajax({
+							    url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/changeStatus",
+						        type:'post',  //get post put delete
+					    		data: {'productDetail_Id': prodDetaId,
+										'product_Status': reversedState},
+						    	success:function(data){
+						        	this_prodStatus.text(reversedState)
+						        } // end of success:function(data)	 
+						 }) // end of  $.ajax({  	    	   
+					}); // end of 	$('.3g').click(function () {
+					// 改變產品狀態的程式 結束
 		} // end of success : function(data) 
 	}) // end of $.ajax({
 // 顯示產品的程式 結束			
