@@ -27,7 +27,7 @@ public class MemberController {
 	public @ResponseBody byte[] findMemberPhoto(
 			HttpServletRequest request,
 			@PathVariable String member_Id)   {
-		if(memberService.findMemberPhoto(member_Id)==null){				
+		if(request.getServletContext().getResourceAsStream("/images/members/"+member_Id+".jpg")==null){				
 			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/NoImage.jpg"));
 		}else{
 			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/members/"+member_Id+".jpg"));
@@ -43,9 +43,10 @@ public class MemberController {
 			@RequestParam String nickname,
 			@RequestParam String e_mail,
 			@RequestParam String photoUrl)  {
-		MemberVO memberVO=memberService.SignCheck(nickname, e_mail, photoUrl);
+		MemberVO memberVO=memberService.SignCheck(nickname, e_mail);
 		request.getSession().setAttribute("LoginOK", memberVO);
 		String realPath=request.getServletContext().getRealPath("/");
+		System.out.println(realPath);
 		String Path=realPath+"/images/members/"+memberVO.getMember_Id()+".jpg";
 		memberService.Third_insertimages(Path,photoUrl);
 		return null;

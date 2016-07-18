@@ -41,12 +41,6 @@ public class MemberVO implements java.io.Serializable{
 	public void setRegisterdate(Timestamp registerdate) {
 		this.registerdate = registerdate;
 	}
-	public byte[] getPhoto() {
-		return photo;
-	}
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
 	
 	
 }
