@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.CRFitness.ActivityDetail.model.ActivityDetailVO;
+import com.CRFitness.Friendships.model.FriendshipsVO;
 
 @Transactional(transactionManager = "transactionManager")
 @Repository("activitysDAO")
@@ -164,19 +165,16 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 
 	public List<ActivitysVO> select_FriendActivitys(String member_Id) {	
 		Query query = this.getSession().createSQLQuery(	
-			"SELECT Activitys.*,Friendships.Friend_Id,(SELECT Members.Nickname "
-		+ "FROM Activitys join Members "
-		+ "on  Activitys.Member_Id =Members.Member_Id "
-		+ "WHERE ActivityDetail.Activity_Id=Activitys.Activity_Id ) "
-		+ "as Nicknames "
-		+ "FROM ActivityDetail JOIN Friendships "
-		+ "ON ActivityDetail.Member_Id = Friendships.Member_Id "
-		+ "JOIN Activitys on ActivityDetail.Activity_Id=Activitys.Activity_Id "
-		+ "WHERE Friendships.Friend_Status = 1 and Friendships.Member_Id = '"+member_Id+"' "
-		+ "order by activity_Day desc").addEntity("Activitys.*",ActivitysVO.class)
-					  .addEntity("ActivityDetail.*",ActivityDetailVO.class)
-					  .addScalar("Nicknames", StringType.INSTANCE)
-					  .addScalar("Friend_Id", StringType.INSTANCE);
+		"SELECT Friendships.*,ActivityDetail.*,Activitys.* "
+			+ "FROM Friendships JOIN ActivityDetail "
+			+ "ON Friendships.Friend_Id = ActivityDetail.Member_Id "
+			+ "JOIN Activitys "
+			+ "ON ActivityDetail.Activity_Id = Activitys.Activity_Id "
+			+ "WHERE Friend_Status = '1' and Friendships.Member_Id = '"+member_Id+"' "
+			+ "order by activity_Day desc").addEntity("Friendships.*",FriendshipsVO.class)
+			  .addEntity("ActivityDetail.*",ActivityDetailVO.class)
+			  .addEntity("Activitys.*",ActivitysVO.class);
+		
 	return (List<ActivitysVO>) query.list();
 }
 
