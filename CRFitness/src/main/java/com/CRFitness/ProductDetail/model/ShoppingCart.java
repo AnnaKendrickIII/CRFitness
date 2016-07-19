@@ -7,14 +7,13 @@ import javax.annotation.Resource;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CRFitness.Products.model.ProductsDAO_interface;
-import org.springframework.context.annotation.ScopedProxyMode;
+@Transactional
 @Service("shoppingCart")
-@Scope(value="session", proxyMode =ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart {
 	
 	@Resource(name = "productDetailDAO")
@@ -22,9 +21,9 @@ public class ShoppingCart {
 	@Resource(name = "productsDAO")
 	private ProductsDAO_interface productsDAO;
 	
-	private List<Object> cart = new ArrayList<Object>();
+	private List<Object> cart =null;
 	public ShoppingCart() {
-		 
+		 cart = new ArrayList<Object>();
 	}
 
 	// 加入購物車
@@ -72,11 +71,11 @@ public class ShoppingCart {
 
 //			ProductDetailService service = (ProductDetailService) context
 //					.getBean("productDetailService");
-//			shoppingCart CshoppingCart = (shoppingCart) context
-//					.getBean("shoppingCart");
+			ShoppingCart CshoppingCart = (ShoppingCart) context
+					.getBean("shoppingCart");
 			
 //			shoppingCart cart=new shoppingCart();
-//			CshoppingCart.addShoppingCart("prodDetail5024");
+			CshoppingCart.addShoppingCart("prodDetail5024");
 //			System.out.println(service.getItemByPrimaryKey("prodDetail5024").get(0));
 //			 List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
 			
