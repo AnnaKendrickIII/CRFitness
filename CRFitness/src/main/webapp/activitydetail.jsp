@@ -221,12 +221,12 @@ padding:10px 5px 2px 5px;
 	                 $('div a:not(:first-child)').click(function(){
 	                	 var li_notfirst =$(this)
 	                	  $('form').submit(function(){
-	                		    console.log(li_notfirst.siblings("p").text())
-	                			console.log(li_notfirst.parent().find("a:eq(0)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(3)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(4)").text())
+// 	                		    console.log(li_notfirst.siblings("p").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(0)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(3)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(4)").text())
 		                	   $.ajax({
 	    						url:"${this_contextPath}/CRFSERVICE/activitysController/modifyActivitys",
 		          				type:'post',  //get post put delete
