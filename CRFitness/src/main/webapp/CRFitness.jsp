@@ -20,7 +20,9 @@
     <script src="${this_contextPath}/js/custombox.js"></script>	
     <script src="${this_contextPath}/js/legacy.js"></script>	
       <script src="${this_contextPath}/js/lrtk.js"></script>	
-      <!-- GoogleLogin-->   
+      <!-- GoogleLogin-->  
+      <!-- bootstrap.min.js  開始-->
+  <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
     <script src="https://apis.google.com/js/platform.js"></script>	
     <!-- FBLogin JavaScript -->
     <script type="text/javascript" src="http://connect.facebook.net/zh_TW/all.js"></script>
@@ -174,7 +176,48 @@
                         }) 
                          $('.container_a_css').click(function () {	
                         	  Custombox.close('#login-box') 
-                          })     
+                          })  
+                                	 //google 開始
+      	 
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'profile'
+                });
+
+                auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
+                  function (googleUser) {
+//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
+                	 var ImageUrl;
+                     if (googleUser.getBasicProfile().getImageUrl() == undefined) {
+                         ImageUrl = null;
+                     } else {
+                         ImageUrl = googleUser.getBasicProfile().getImageUrl()
+                     }
+                      $.ajax({
+           		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
+           		          type:'post',  //get post put delete
+           		          data:{nickname:googleUser.getBasicProfile().getName(),
+           		        	  	e_mail:googleUser.getBasicProfile().getEmail(),
+           		        	  	photoUrl:ImageUrl 
+           		          },
+           		          success:function(){
+           		        	  location.href ='${pageContext.request.requestURI}';
+           		          }          	 
+           		      })
+           		  
+                  }, function (error) {       	  
+                      console.log('Sign-in error', error);
+                  }                    
+                   );
+            });     
+      	 $("#googleSignIna").click(function(e){
+    		 e.preventDefault(); 
+    	 })  
+    	 //google 結束
                 });
        </script>
      </c:if >
@@ -289,12 +332,11 @@
 	<div style="opacity:0;display:block;" class="level-2"></div>
 	<div class="level-3"></div>
 </div>
-<!-- bootstrap.min.js  開始-->
-  <script src="${this_contextPath}/js/bootstrap.min.js"></script>
+
 <!--  判斷註冊是否成功  結束-->  
     <script type="text/javascript"> 
     //fb javascript 開始
-           function fblogin(){     // facebook 登入
+    function fblogin(){     // facebook 登入
                FB.login(function(response){
             	 
                    if (response.authResponse){// 登入成功             	
@@ -323,9 +365,20 @@
     		 e.preventDefault(); 
     	 })  	     
       	 //fb javascript 結束
-      	 
+    
+     $('a.login-window').click( function (e) {
+                    Custombox.open({
+                        target: '#login-box',
+                        effect: 'fall'
+                    });
+                    $('#create_account').click(function () {	
+                    	  Custombox.close('#login-box') 
+                    }) 
+                    $('.container_a_css').click(function () {	
+                        	  Custombox.close('#login-box') 
+                         })     	 
       	 //google 開始
-      
+      	 
             gapi.load('auth2', function () {
                 auth2 = gapi.auth2.init({
                     client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
@@ -335,6 +388,9 @@
 
                 auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
                   function (googleUser) {
+//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
+//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
                 	 var ImageUrl;
                      if (googleUser.getBasicProfile().getImageUrl() == undefined) {
                          ImageUrl = null;
@@ -358,11 +414,13 @@
                   }                    
                    );
             });     
-		
       	 $("#googleSignIna").click(function(e){
     		 e.preventDefault(); 
-    	 })  	   	
-      	//google 結束
+    	 })  
+    	 //google 結束
+    	    e.preventDefault();
+     });
+      	
       jQuery(function ($) {	      	        
             $("#menu-toggle").click(function () {//點擊左上角小圖 
                 $("#wrapper").addClass("toggled");//讓清單加入class toggled 使其寬度由0增加到235px 呈現由左到右效果 
@@ -384,19 +442,7 @@
 //             $('a.login-window').click(function () {//點擊右上角人頭小圖示
 //                 var loginBox = $(this).attr('href');//讀取$('a.login-window')屬性href的值存入loginBox變數裡
                 
-                $('a.login-window').on('click', function (e) {
-                    Custombox.open({
-                        target: '#login-box',
-                        effect: 'fall'
-                    });
-                    $('#create_account').click(function () {	
-                    	  Custombox.close('#login-box') 
-                    }) 
-                    $('.container_a_css').click(function () {	
-                        	  Custombox.close('#login-box') 
-                         })   
-                    e.preventDefault();
-                });
+               
 
             //------------------------------------------------------------
             //左側清單下拉功能
