@@ -101,11 +101,21 @@ div.timeline-body{
 
 						</ul>
 					</div>
-					<div class="col-md-4 col-xs-4" id="testcss">
-						<h3>---揪團要塞這邊---</h3>
-						<ul class="event-list" id="myactivity_personal">
-
+					<div class="col-md-4 col-xs-4" id="">
+						<ul class="nav nav-tabs" role="tablist" id="myTab">
+							<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">${LoginOK.nickname}</a></li>
+							<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
 						</ul>
+						<div class="tab-content">
+							 <div role="tabpanel" class="tab-pane active" id="home">
+								<ul class="event-list" id="myactivity_personal">
+								</ul>
+							</div>	
+							<div role="tabpanel" class="tab-pane" id="profile">
+								<ul class="event-list" id="myactivity_join">
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-2"></div>
@@ -130,12 +140,10 @@ div.timeline-body{
                              type:'get',  //get post put delete
                              data:{},
                              success:function(data){
-                            	 var c=1;
-                            	
+                            	 var c=1;                            	
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
-//             						 if(c<7){
                                      $('#myactivity_personal').append(
                                     	 '<li>'	 
                                     	+'<time datetime="2014-07-20">'
@@ -149,15 +157,48 @@ div.timeline-body{
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
                                     	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
-                                    	+'</li>')
-//                                         c+=1;
-//                                  	}                    
+                                    	+'</li>')                
                                  }) //each
                           
                              }          	 
                          }) //ajax
 
                      })
+                     
+                     
+                     
+                      
+                     $(function () {
+                         $.ajax({
+                        	 url:"${this_contextPath}/CRFSERVICE/activitysController/myActivitys/${LoginOK.member_Id}",
+                             type:'get',  //get post put delete
+                             data:{},
+                             success:function(data){
+                            	 var c=1;                            	
+                                 $.each(data,function(){
+             						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
+            						var jdate_value = new Date(jdate_int);
+                                     $('#myactivity_join').append(
+                                    	 '<li>'	 
+                                    	+'<time datetime="2014-07-20">'
+            							+'<span class="month">'+jdate_value.Format("MM")+'</span>'
+             							+'<span class="day">'+jdate_value.Format("dd")+'</span>'
+            							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
+            							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+            							+'</time>'
+                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
+                                    	+'<img src="${this_contextPath}/images/activitys/'
+                                    	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
+                                    	+'</div>'
+                                    	+'</li>')                
+                                 }) //each
+                          
+                             }          	 
+                         }) //ajax
+
+                     })
+                     
 </script > 
 
 
