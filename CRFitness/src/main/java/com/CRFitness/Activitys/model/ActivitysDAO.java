@@ -162,4 +162,23 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	return (List<ActivitysVO>) query.list();
 }
 
+	public List<ActivitysVO> select_FriendActivitys(String member_Id) {	
+		Query query = this.getSession().createSQLQuery(	
+			"SELECT Activitys.*,Friendships.Friend_Id,(SELECT Members.Nickname "
+		+ "FROM Activitys join Members "
+		+ "on  Activitys.Member_Id =Members.Member_Id "
+		+ "WHERE ActivityDetail.Activity_Id=Activitys.Activity_Id ) "
+		+ "as Nicknames "
+		+ "FROM ActivityDetail JOIN Friendships "
+		+ "ON ActivityDetail.Member_Id = Friendships.Member_Id "
+		+ "JOIN Activitys on ActivityDetail.Activity_Id=Activitys.Activity_Id "
+		+ "WHERE Friendships.Friend_Status = 1 and Friendships.Member_Id = '"+member_Id+"' "
+		+ "order by activity_Day desc").addEntity("Activitys.*",ActivitysVO.class)
+					  .addEntity("ActivityDetail.*",ActivityDetailVO.class)
+					  .addScalar("Nicknames", StringType.INSTANCE)
+					  .addScalar("Friend_Id", StringType.INSTANCE);
+	return (List<ActivitysVO>) query.list();
+}
+
+	
 }
