@@ -22,8 +22,8 @@ public class ProductDetailController {
 
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
-	@Resource(name = "shoppingCart")
-	private shoppingCart Cart;
+//	@Resource(name = "shoppingCart")
+//	private shoppingCart Cart;
 
 	// front-end
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
@@ -65,11 +65,11 @@ public class ProductDetailController {
 	public @ResponseBody List<Object> addShoppingCart(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 
-		Cart = (shoppingCart) request
+		shoppingCart Cart = (shoppingCart) request
 				.getSession().getAttribute("cart");
 
 		if (Cart == null) {
-			
+			Cart=new  shoppingCart();
 			request.getSession().setAttribute("cart", Cart);
 		}
 

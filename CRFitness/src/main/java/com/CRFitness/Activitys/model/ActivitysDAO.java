@@ -165,15 +165,14 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 
 	public List<ActivitysVO> select_FriendActivitys(String member_Id) {	
 		Query query = this.getSession().createSQLQuery(	
-		"SELECT Friendships.*,ActivityDetail.*,Activitys.* "
-			+ "FROM Friendships JOIN ActivityDetail "
-			+ "ON Friendships.Friend_Id = ActivityDetail.Member_Id "
-			+ "JOIN Activitys "
-			+ "ON ActivityDetail.Activity_Id = Activitys.Activity_Id "
+			"SELECT Friendships.*,Activitys.*,Members.Nickname "
+			+ "FROM Friendships JOIN Activitys "
+			+ "ON Friendships.Friend_Id = Activitys.Member_Id "
+			+ "JOIN Members ON Activitys.Member_Id = Members.Member_Id "
 			+ "WHERE Friend_Status = '1' and Friendships.Member_Id = '"+member_Id+"' "
 			+ "order by activity_Day desc").addEntity("Friendships.*",FriendshipsVO.class)
-			  .addEntity("ActivityDetail.*",ActivityDetailVO.class)
-			  .addEntity("Activitys.*",ActivitysVO.class);
+				  .addEntity("Activitys.*",ActivitysVO.class)
+				  .addScalar("Nickname", StringType.INSTANCE);
 		
 	return (List<ActivitysVO>) query.list();
 }
