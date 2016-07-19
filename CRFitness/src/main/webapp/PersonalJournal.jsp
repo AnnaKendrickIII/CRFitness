@@ -133,9 +133,8 @@ div.timeline-body{
                              success:function(data){
                             	 var c=1;                            	
                                  $.each(data,function(){
-             						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
+             						var jdate_int = parseInt(this[2].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
-             						console.log(data)
                                      $('#myactivity_personal').append(
                                     	 '<li>'	 
                                     	+'<time datetime="2014-07-20">'
@@ -146,8 +145,8 @@ div.timeline-body{
             							+'</time>'
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
-                                    	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
+                                    	+this[2].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<div style="text-align : center">'+this[2].activity_Class+this[2].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each                         
