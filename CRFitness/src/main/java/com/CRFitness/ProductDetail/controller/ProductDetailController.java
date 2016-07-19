@@ -67,7 +67,6 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<Object> addShoppingCart(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
-		
 		return shoppingCart.addShoppingCart(productDetail_Id);
 
 	}
