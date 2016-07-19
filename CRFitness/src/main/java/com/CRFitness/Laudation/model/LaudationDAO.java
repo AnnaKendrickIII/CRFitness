@@ -18,6 +18,7 @@ public class LaudationDAO implements LaudationDAO_interface {
 
 	private static final String GET_ALL_STMT = "from LaudationVO ";
 	private static final String GET_ALL_LIKEJOURNAL = "from LaudationVO where lauded_Id=:lauded_Id";
+	private static final String COUNT_LIKE = "select count(*) from Laudation where Journal_Id=:Journal_Id";
 	
 	@Autowired
 	private SessionFactory sessionFactory ;
@@ -91,6 +92,14 @@ public class LaudationDAO implements LaudationDAO_interface {
 	public List<LaudationVO> getJournalnumber(LaudationVO laudationVO) {
 		Query query = this.getSession().createQuery(GET_ALL_LIKEJOURNAL).setParameter("lauded_Id", laudationVO.getLauded_Id());
 		return (List<LaudationVO>) query.list();
+	}
+	
+	
+
+	@Override
+	public Integer countLike(String journal_Id) {
+		Query query =this.getSession().createQuery(COUNT_LIKE).setParameter("journal_Id", journal_Id);
+		return (Integer) query.list().get(0);
 	}
 
 	public static void main(String[] args) {

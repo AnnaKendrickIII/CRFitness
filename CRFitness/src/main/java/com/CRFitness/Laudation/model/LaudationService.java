@@ -49,7 +49,11 @@ public class LaudationService {
 		return (List<LaudationVO>) laudationDAO.getJournalnumber(laudationVO);
 	}
 	
-	
+	public Integer countLike(String journal_Id){
+				
+		return (Integer) laudationDAO.countLike(journal_Id);
+				
+	}
 
 
 
