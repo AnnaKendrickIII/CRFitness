@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
-import com.CRFitness.ProductDetail.model.shoppingCart;
 
 @Controller
 @RequestMapping("/productDetailController")
@@ -22,8 +21,7 @@ public class ProductDetailController {
 
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
-	@Resource(name = "shoppingCart")
-	private shoppingCart Cart;
+
 
 	// front-end
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
@@ -61,20 +59,6 @@ public class ProductDetailController {
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<Object> addShoppingCart(
-			HttpServletRequest request, @RequestParam String productDetail_Id) {
-
-		Cart = (shoppingCart) request
-				.getSession().getAttribute("cart");
-
-		if (Cart == null) {
-			
-			request.getSession().setAttribute("cart", Cart);
-		}
-
-		return Cart.addShoppingCart(productDetail_Id);
-	}
 
 	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
 	// produces = MediaType.APPLICATION_JSON)

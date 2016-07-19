@@ -43,7 +43,7 @@ $.ajax({
 		$('#productDetailbody').append('<div class="col-md-7">'+
 							'<div class="mag"><h3>'+data[0][1] +
 							'<h3/>'+
-							'<img data-toggle="magnify" class="img-responsive" src="data:image/png;base64,'+data[0][0].photo1+'" />'+
+							'<img data-toggle="magnify" src="data:image/png;base64,'+data[0][0].photo1+'" />'+
 							'</div>'+
 							'</div>'+
 							'<div class="col-md-5"><br/>尺寸 : '+data[0][0].size+
@@ -51,8 +51,8 @@ $.ajax({
 							'<br/>剩餘數量 : '+data[0][0].stock+
 							'</br></br>'+
 							'商品介紹 : 未看先猜undefined&nbsp&nbsp一>&nbsp '+data[0][0].Detailed_Description+
-							'<br/></br>'+
-							'</br><a class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw" data-lity>千萬不要按&nbsp!</a></div>')
+							'<br/></br></br>'+
+							'<a class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw"  data-lity>千萬不要按&nbsp!</a></div>')
 	}
 });
 </script>
