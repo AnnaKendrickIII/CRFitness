@@ -107,7 +107,7 @@ margin: 1px;
 
 <body >
 
-<!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
+
 <!-- 將顯示內容放置到aside -->
 <c:if test="${! empty LoginOK}">
 <aside> 
@@ -143,6 +143,7 @@ margin: 1px;
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 </div>
 	<!-- 頁面部分 開始-->
+<c:if test="${LoginOK.member_Id != pageContext.request.queryString}">
 <script>
 jQuery(function($){
 //進入好友頁面揪團活動
@@ -254,7 +255,8 @@ jQuery(function($){
  }) //ajax
 })
 </script>
-	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    -->
+</c:if>
+	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 <script type="text/javascript">
 
