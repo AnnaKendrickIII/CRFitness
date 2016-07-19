@@ -163,7 +163,7 @@ width:24px;
 		        		 $('#grid').append(
 		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img1">'
 		        		 +contet
-		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
+		        		 +'<img class="img-thumbnail" src="/images/Journal/'+this[0].journal_Id+'.jpg" />'	 
 		        		 +'<div data-desc=""></div>'
 		        		 +'</li>') 
 		        		  $.ajax({
@@ -189,18 +189,18 @@ width:24px;
 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
 	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
-	            				 })//留言明細迴圈     	
+	            				 })//留言明細迴圈     	    				
 	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
 	            				'<div class="messge_header_body"><div class="header_div">'+contet
 	            				+'<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
-					   			+'<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
+					   			+'<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></button>'
 	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
 					   			+ '</div>')
 	            			 }//留言success結束
 	           			 })//留言ajax結束	                
-	            	})// each end
+	            	})// each end          	     	
 	                new AnimOnScroll(document.getElementById('grid'), {
 	                    minDuration: 0.4,
 	                    maxDuration: 0.6,
@@ -261,10 +261,25 @@ width:24px;
 	  	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 	  					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 	  					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
-	  					   			+ '</div>')
+	  					   			+ '</div>')		 
 	  	            			 }//留言success結束
 	  	           			 })//留言ajax結束	                                                      	                
 		            	})// each end
+		            	 $.ajax({
+								url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalnumber",
+									type:"get",
+									data:{lauded_Id:'${LoginOK.member_Id}'},
+	   								success:function(data){
+	   								$.each(data,function(){
+	   									var journal_attr=$('#'+this.journal_Id+' div[data-desc]').attr('data-desc')	
+	   									if(journal_attr){
+										journal_attr=journal_attr.replace('coreSpriteHeartOpen','coreSpriteHeartOpen coreSpriteHeartFull')
+	   									$('#'+this.journal_Id+' div[data-desc]').attr('data-desc',journal_attr)
+	   									}
+	   								})
+	   							}
+	   						})	 
+		            	
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
 	    	                    maxDuration: 0.6,
@@ -372,16 +387,21 @@ width:24px;
 		jQuery(function($){
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
+				var thisID=$(this).siblings("p[hidden]").text();
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
 				if(!tset){
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
 						type: "post",
 						data:{
-							journal_Id:$(this).siblings("p[hidden]").text(),
+							journal_Id:thisID,
 							lauded_Id:'${LoginOK.member_Id}'
 						},
-						success:function(data){
+						success:function(data){					
+							var journal_attr=$('#'+thisID+' div[data-desc]').attr('data-desc')	
+							journal_attr=journal_attr.replace('coreSpriteHeartOpen','coreSpriteHeartOpen coreSpriteHeartFull')
+	   							$('#'+thisID+' div[data-desc]').attr('data-desc',journal_attr)
+	   						
 							theclick.find('span').toggleClass("coreSpriteHeartFull")
 						}				
 					})						
@@ -394,6 +414,9 @@ width:24px;
 							lauded_Id:'${LoginOK.member_Id}'
 						},
 						success:function(data){
+							var journal_attr=$('#'+thisID+' div[data-desc]').attr('data-desc')	
+							journal_attr=journal_attr.replace('coreSpriteHeartOpen coreSpriteHeartFull','coreSpriteHeartOpen ')
+	   						$('#'+thisID+' div[data-desc]').attr('data-desc',journal_attr)
 							theclick.find('span').toggleClass("coreSpriteHeartFull")
 						}				
 					})						

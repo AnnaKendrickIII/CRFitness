@@ -56,6 +56,12 @@ public class ActivitysController {
 		return activitysService.findMyActivitys(member_Id);
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/friendActivitys/{member_Id}", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<ActivitysVO> findFriendActivitys(
+			@PathVariable String member_Id) {		
+		return activitysService.findFriendActivitys(member_Id);
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
 	public @ResponseBody ActivitysVO addActivitys(
 			HttpServletRequest request,

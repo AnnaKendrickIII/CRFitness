@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.CRFitness.Friendships.model.FriendshipsDAO_interface;
 import com.CRFitness.Member.model.MemberVO;
 
 // 健康日誌
@@ -24,7 +25,9 @@ public class PersonalJournalService {
 
 	@Resource(name = "personalJournalDAO")
 	private PersonalJournalDAO_interface personalJournalDAO;
-
+	@Resource(name = "friendshipsDAO")
+	private FriendshipsDAO_interface friendshipsDAO;
+	
 	public PersonalJournalService() {
 
 	}
@@ -59,7 +62,6 @@ public class PersonalJournalService {
 			Integer publicStatus) {
 		return personalJournalDAO.update(journal_Id,contents,publicStatus);
 	}
-	
 	
 	// 取得自己個人日誌
 	public List<PersonalJournalVO> showMySelfJournal(String member_Id) {

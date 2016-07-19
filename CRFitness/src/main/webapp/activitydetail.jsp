@@ -14,7 +14,7 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
 <script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 彈跳視窗 -->
-<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"> <!-- 檔案上傳 -->
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 </head>
 <style>
@@ -221,12 +221,12 @@ padding:10px 5px 2px 5px;
 	                 $('div a:not(:first-child)').click(function(){
 	                	 var li_notfirst =$(this)
 	                	  $('form').submit(function(){
-	                		    console.log(li_notfirst.siblings("p").text())
-	                			console.log(li_notfirst.parent().find("a:eq(0)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(3)").text())
-	                			console.log(li_notfirst.parent().find("a:eq(4)").text())
+// 	                		    console.log(li_notfirst.siblings("p").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(0)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(3)").text())
+// 	                			console.log(li_notfirst.parent().find("a:eq(4)").text())
 		                	   $.ajax({
 	    						url:"${this_contextPath}/CRFSERVICE/activitysController/modifyActivitys",
 		          				type:'post',  //get post put delete
