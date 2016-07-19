@@ -14,7 +14,7 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
 <script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 彈跳視窗 -->
-<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"> <!-- 檔案上傳 -->
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 </head>
 <style>
