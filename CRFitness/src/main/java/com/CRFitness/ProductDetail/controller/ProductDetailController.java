@@ -16,7 +16,6 @@ import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 import com.CRFitness.ProductDetail.model.ShoppingCart;
 
-
 @Controller
 @RequestMapping("/productDetailController")
 public class ProductDetailController {
@@ -25,7 +24,6 @@ public class ProductDetailController {
 	private ProductDetailService productDetailService;
 	@Resource(name = "shoppingCart")
 	private ShoppingCart shoppingCart;
-
 
 	// front-end
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
@@ -63,7 +61,12 @@ public class ProductDetailController {
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object> addShoppingCart(
+			HttpServletRequest request, @RequestParam String productDetail_Id) {
+		return shoppingCart.addShoppingCart(productDetail_Id);
 
+	}
 
 	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
 	// produces = MediaType.APPLICATION_JSON)
