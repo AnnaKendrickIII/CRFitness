@@ -9,10 +9,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CRFitness.Products.model.ProductsDAO_interface;
+@Transactional
 @Service("shoppingCart")
-public class shoppingCart {
+public class ShoppingCart {
 	
 	@Resource(name = "productDetailDAO")
 	private ProductDetailDAO_interface productDetailDAO;
@@ -20,7 +22,7 @@ public class shoppingCart {
 	private ProductsDAO_interface productsDAO;
 	
 	private List<Object> cart =null;
-	public shoppingCart() {
+	public ShoppingCart() {
 		 cart = new ArrayList<Object>();
 	}
 
@@ -69,7 +71,7 @@ public class shoppingCart {
 
 //			ProductDetailService service = (ProductDetailService) context
 //					.getBean("productDetailService");
-			shoppingCart CshoppingCart = (shoppingCart) context
+			ShoppingCart CshoppingCart = (ShoppingCart) context
 					.getBean("shoppingCart");
 			
 //			shoppingCart cart=new shoppingCart();

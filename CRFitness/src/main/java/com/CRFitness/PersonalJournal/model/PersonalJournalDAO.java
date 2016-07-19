@@ -27,6 +27,10 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	private static final String GET_FRIEND_JOURNAL = 
 			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '0' and publicStatus != '4' order by publishTime desc";
 	
+	// 查非好朋友日誌										
+	private static final String GET_OTHER_JOURNAL = 
+				"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus == '1' order by publishTime desc";
+		
 	private static final String UPDATE_JOURNAL = 
 			"update PersonalJournalVO set contents=:contents , publicStatus=:publicStatus where journal_Id=:journal_Id";
 	@Autowired
@@ -63,7 +67,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 			String journal_Id,
 			String contents,
 			Integer publicStatus) {
-		if (journal_Id != null || contents != null || publicStatus != null) {
+		if (journal_Id != null && contents != null && publicStatus != null) {
 			Query query = this.getSession().createQuery(UPDATE_JOURNAL);
 			query.setParameter("journal_Id", journal_Id);
 			query.setParameter("contents", contents);

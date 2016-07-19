@@ -12,8 +12,10 @@ public interface LaudationDAO_interface {
 	
 	public  LaudationVO findByPrimaryKey(String journal_Id,String lauded_Id);
 	
+	public  Integer countLike(String journal_Id);
+	
 	public  List<LaudationVO> getAll();
 	
-	public List<LaudationVO> getJournalnumber(LaudationVO laudationVO);
+	public  List<LaudationVO> getJournalnumber(LaudationVO laudationVO);
 
 }

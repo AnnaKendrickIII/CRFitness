@@ -135,7 +135,7 @@
 			padding: 0px;
 		}
 		.event-list > li > time,
-		.event-list > li > a > img  {
+		.event-list > li > a > img {
 			display: inline-block;
 		}
 		.event-list > li > time,

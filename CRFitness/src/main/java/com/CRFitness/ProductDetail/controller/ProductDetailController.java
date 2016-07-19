@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
+import com.CRFitness.ProductDetail.model.ShoppingCart;
+
 
 @Controller
 @RequestMapping("/productDetailController")
@@ -21,6 +23,8 @@ public class ProductDetailController {
 
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
+	@Resource(name = "shoppingCart")
+	private ShoppingCart shoppingCart;
 
 
 	// front-end
@@ -58,6 +62,7 @@ public class ProductDetailController {
 
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
+
 
 
 	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
