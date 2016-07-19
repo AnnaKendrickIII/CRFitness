@@ -109,8 +109,9 @@ public class MemberService {
 		MemberVO memberVO = new MemberVO();
 		for (MemberVO data : list) {
 			memberVO = data;
-		}System.out.println();
+		}
 		if (memberVO.getPassword() == null) {
+			System.out.println(memberVO.getMember_Status());
 			return true;
 		}
 		return false;
