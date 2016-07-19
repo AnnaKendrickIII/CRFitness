@@ -24,7 +24,7 @@ public class ProductDetailService {
 	@Resource(name = "productsDAO")
 	private ProductsDAO_interface productsDAO;
 
-	List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+
 
 	public ProductDetailService() {
 	}
@@ -102,16 +102,6 @@ public class ProductDetailService {
 		}
 	}
 
-	// 加入購物車
-	public List<ProductDetailVO> addShoppingCart(String productDetail_Id) {
-		ProductDetailVO productDetailVO = productDetailDAO
-				.findByPrimaryKeySQLQuery(productDetail_Id).get(0);
-		if (cart.add(productDetailVO)) {
-			return cart;
-		} else {
-			return null;
-		}
-	}
 
 	// back-end: 新增商品至 ProductDetail & Product Table
 	public List<Object> addProductDetail(String product_Name, Double price,// 價格
@@ -164,7 +154,7 @@ public class ProductDetailService {
 			String color, // 顏色
 			Integer stock, // 庫存量
 			// Timestamp published_Date, // 刊登日期
-//			MultipartFile photo1, // 圖片1
+			// MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			String product_Status, // 狀態
@@ -191,11 +181,11 @@ public class ProductDetailService {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
 		// System.out.println(productDetailVO.getPublished_Date());
-//		try {
-//			productDetailVO.setPhoto1(photo1.getBytes());
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// productDetailVO.setPhoto1(photo1.getBytes());
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		productDetailVO.setProduct_Status(product_Status);
 		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);
@@ -207,10 +197,11 @@ public class ProductDetailService {
 
 	// back-end: change status
 	public String changeStatus(String productDetail_Id, String product_Status) {
-		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
+		ProductDetailVO productDetailVO = productDetailDAO
+				.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Status(product_Status);
 		productDetailVO = productDetailDAO.update(productDetailVO);
-//		System.out.println(productDetailVO.getProduct_Status());
+		// System.out.println(productDetailVO.getProduct_Status());
 		return productDetailVO.getProduct_Status();
 	}
 
