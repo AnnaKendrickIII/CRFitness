@@ -1,10 +1,20 @@
 package com.CRFitness.PersonalJournal.model;
 
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+
+
+
+import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 
@@ -27,7 +37,47 @@ public class CommonJournalService {
 	public List<PersonalJournalVO> ShowAllJournal_Two() {
 		return  personalJournalDAO.select_publicStatus_Two();
 	}
-
+	
+	public byte[] ExitsCovertPhoto(String Path){
+		File file=null;
+		ByteArrayOutputStream baos = null;
+		FileInputStream fis=null;
+		byte[] photo=null;		
+		file = new File(Path+".jpg");
+		if(!file.exists()){
+			file = new File(Path+".gif"); 
+		}
+		if(!file.exists()){
+			file = new File(Path+".png");
+		}
+		try {	
+			fis=new FileInputStream(file);
+			baos = new ByteArrayOutputStream();
+//			BufferedImage originalImage = ImageIO.read(file);
+//			ImageIO.write(originalImage,MimeType, baos);
+			int count = 0;
+    		byte[] bytes = new byte[1024];
+    		while ((count = fis.read(bytes)) != -1) {
+    			baos.write(bytes, 0, count);
+    		}
+			baos.flush();
+			photo = baos.toByteArray();
+			baos.close();
+			return photo;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			try {
+				fis.close();
+			} catch (IOException e) {	
+				e.printStackTrace();
+				return null;
+			}
+		}
+	
+	}
+	
 //	 public static void main(String[] args) {
 //	 ApplicationContext context = new
 //	 ClassPathXmlApplicationContext("test.config.xml");

@@ -28,10 +28,10 @@ public class TargetURLInterceptor extends AbstractInterceptor {
             else {  
                 int begin = preURL.indexOf(contextPath);  
                 preURL = preURL.substring(begin + contextPath.length());           
-                if(preURL.endsWith("jsp")){
-                ((TargetURLAware) obj).setPreURL(preURL);    
+                if(preURL.endsWith("do")){
+                	((TargetURLAware) obj).setPreURL("/index.jsp");  
                 }  else{
-                	((TargetURLAware) obj).setPreURL("/index.jsp");   	
+                	 ((TargetURLAware) obj).setPreURL(preURL);        	 	
                 }
                
             }  
