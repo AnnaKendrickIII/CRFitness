@@ -9,7 +9,8 @@ public class MemberVO implements java.io.Serializable{
 	private String password;
 	private String nickname;
 	private Timestamp registerdate;
-	private byte[] photo;
+//	private byte[] photo;
+	private String member_Status;
 
 	public String getMember_Id() {
 		return member_Id;
@@ -40,6 +41,12 @@ public class MemberVO implements java.io.Serializable{
 	}
 	public void setRegisterdate(Timestamp registerdate) {
 		this.registerdate = registerdate;
+	}
+	public String getMember_Status() {
+		return member_Status;
+	}
+	public void setMember_Status(String member_Status) {
+		this.member_Status = member_Status;
 	}
 	
 	

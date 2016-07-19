@@ -35,7 +35,7 @@ textarea{
 .message_div {
 	margin-top: 3px;
 }
-
+/* 案讚的愛心 */
 ._soakw{
 display:block;
 overflow:hidden;
@@ -85,26 +85,29 @@ div.timeline-body{
 	color:#BEBEBE;
 	font-size: 10px;
 }
+
+/* 為了非本人顯示揪團創建的 */
 .jouranl_activity{
 display:block;
 max-width:100%;
 height:auto;
 
-    width: 60px;
-    height: 60px;
-    padding: 0px;
-    margin: 0px;
-
-
+width: 60px;
+height: 60px;
+padding: 0px;
+margin: 0px;
 }
 
+.divideline{
+margin: 1px;
+}
 </style>
 
 </head>
 
 <body >
 
-<!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
+
 <!-- 將顯示內容放置到aside -->
 <c:if test="${! empty LoginOK}">
 <aside> 
@@ -140,6 +143,7 @@ height:auto;
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 </div>
 	<!-- 頁面部分 開始-->
+<c:if test="${LoginOK.member_Id != pageContext.request.queryString}">
 <script>
 jQuery(function($){
 //進入好友頁面揪團活動
@@ -251,7 +255,8 @@ jQuery(function($){
  }) //ajax
 })
 </script>
-	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    -->
+</c:if>
+	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 <script type="text/javascript">
 
@@ -283,7 +288,7 @@ jQuery(function($){
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
+                                    	+'<div style="text-align : center">'+this[0].activity_Class+'<hr calss="divideline"/>'+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each
@@ -556,24 +561,11 @@ jQuery(function($){
 							
 							// 移除個人日誌按鈕
 							divGrid.find('div.timeline-panel:last')
-							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-							
+							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')							
 							divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
-							
-						
-							
  						}else{
- 							divGrid.find('p.userContents:last').text(this[0].contents);
- 							
- 							
-	                    	 
- 							
- 							
- 							
- 							
+ 							divGrid.find('p.userContents:last').text(this[0].contents);							
  						}
-						
-					
 						// 第一次載入日誌先撈三筆留言
 						loadMessageOne(this[0].journal_Id, 0);
   					}) 	//each
@@ -589,10 +581,8 @@ jQuery(function($){
 						else{
 							theLi.find('div.timeline-footer').slideDown();
 							theLi.find('div.viewmessages').slideUp();
-
 						}
 					})
-
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalnumber",
 						type:"get",
@@ -603,8 +593,6 @@ jQuery(function($){
    	   						})
    	   					}
    	   				})
-					
-					
 					divGrid.find('div.viewmessages').append(eleMessageA1);
   					
 					//隱藏留言按鈕
@@ -624,9 +612,6 @@ jQuery(function($){
 	    		//ajax 查詢日誌結束
 			}
 		})
-					
-
-
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
@@ -640,8 +625,6 @@ jQuery(function($){
 						formData.append('contents', contents);
 						formData.append('publishTime', publishTime);
 						formData.append('publicStatus', publicStatus);
-						
-
 						if(file === undefined){
 							alertify.alert('請選擇一個檔案').set('title', '警告');
 						}else{
@@ -654,12 +637,9 @@ jQuery(function($){
 								success: function(data){
 									$('#exampleModal').modal('toggle');
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
-			    						var jdate_value = new Date(jdate_int);	    						
-			    						
+			    						var jdate_value = new Date(jdate_int);	    									    						
 			    						var invert; 
 			    				    	var li_direction;
-
-
 			    						if($('#grid>li:nth-child(1) div>a>i').hasClass('glyphicon glyphicon-record invert')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
 			    				    		invert='<i class="glyphicon glyphicon-record " '
@@ -725,10 +705,7 @@ jQuery(function($){
 								}
 							})	
 						}
-					})
-					 
-		
-		
+					})					 		
     	// 更新日誌狀態
     	function updateJournal(journal_Id, theMemberId, contents, val, theLi){
 			$.ajax({
@@ -745,8 +722,7 @@ jQuery(function($){
 						
 				}
 			})
-    	}
-    	
+    	}   	
     	// 移除篇此日誌
     	divGrid.on('click','button[title="移除此篇日誌"]',function(){
     		var journal_Id = $(this).parents('li').attr('id');
@@ -759,8 +735,7 @@ jQuery(function($){
     				}
     			else{console.log(e)} 
     		});
-    	})
-		
+    	})		
     	//edit Contents
 		divGrid.on('click','a.username',function(){
 			var theLi = $(this).parents('li');
@@ -770,8 +745,7 @@ jQuery(function($){
 			$('.form-inline').submit(function(){
 				updateJournal(theLi.attr('id'), "${LoginOK.member_Id}", contexts.text(), openStatus.val())
 			})
-		})
-    	
+		})   	
 		//send MessageDetail from enter -------------------------------------
 		divGrid.on('keydown', 'textarea.message-textarea', function (event) {
 			if (event.keyCode == 13 && !event.shiftKey) {
@@ -786,7 +760,6 @@ jQuery(function($){
 				return false;
 			}
 		})
-
         //send MessageDetail from button
 		divGrid.on('click', 'li button[class="btn btn-info pull-right"]', function (event) {
 			var theJournal_Id = $(this).parents('li').attr('id');
@@ -797,8 +770,7 @@ jQuery(function($){
 				$(this).prevAll('textarea.message-textarea').css('height','31');
 				$(this).prevAll('textarea.message-textarea').val('');
 			}
-		})
-		
+		})		
 		// addMessageDetail ajax -> server 新增留言從最下方開始顯示
     	var addMessageDetail = function(theObj, theJournal_Id, theMember_Id, theNickname, theContent, theMessageTime){
 			var messageDiv =  theObj.parents('li').find('div.timeline-footer>div:first');
@@ -906,8 +878,6 @@ jQuery(function($){
 			}
 		}
 		
-
-
 		jQuery(function($){
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
@@ -939,8 +909,6 @@ jQuery(function($){
 				}
 			})
 		})
-		
-		
 		
 	</script>
 

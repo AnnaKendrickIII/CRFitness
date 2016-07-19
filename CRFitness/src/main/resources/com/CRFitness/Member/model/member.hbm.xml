@@ -11,6 +11,7 @@
         <property name="password" column="password" />
         <property name="nickname" column="nickname" />
         <property name="registerdate" column="registerdate" />
+        <property name="member_Status" column="Member_Status" />
     
 
     </class>
