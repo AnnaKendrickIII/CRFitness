@@ -325,7 +325,7 @@ div.timeline-body{
 				   			+ '<p class="userContents"></p>'
 				   			+ '<p >日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
-				   			+ '</div>'
+				   			+ '<br /><select class="statusSelect" /></div>'
 				   			+ '<div class="timeline-footer">'
 // 				   			  '留言塞這裡'
 				   			+ '<div></div><div></div></div>'
@@ -347,20 +347,20 @@ div.timeline-body{
                 //------------------------------------------------------
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
-							var eleS = $('<br/><select />').bind('change',this,function(){
+							var eleS = $('select.statusSelect:last').bind('change',this,function(){
 								updateJournal(arguments[0].data[0].journal_Id, "${LoginOK.member_Id}",arguments[0].data[0].contents,$(this).val())
 							})
 							var publicStatus = ['限本人','公開','朋友'];
 							for(var i =0;i<3;i++){
 								if(parseInt(this[0].publicStatus) === i){
-									$('<option />',{value:i,text:publicStatus[i],selected:true}).appendTo(eleS);
+									$('<option />',{'value':i,'text':publicStatus[i],'selected':true}).appendTo(eleS);
 								}else{
-									$('<option />',{value:i,text:publicStatus[i]}).appendTo(eleS);
+									$('<option />',{'value':i,'text':publicStatus[i]}).appendTo(eleS);
 								}
 							}
-    						$('#grid>li div[class="timeline-body"]:last').append(eleS);
+							divGrid.find('div.timeline-body:last').append(eleS);
 							
-    						// 移除個人日誌
+							// 移除個人日誌按鈕
 							divGrid.find('div.timeline-panel:last')
 							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
 							
@@ -374,7 +374,6 @@ div.timeline-body{
 						loadMessageOne(this[0].journal_Id, 0);
   					}) 	//each
   					
-  					$('p.userContents')
 	 				
   					// 查看留言功能按鈕
 					var eleMessageA1 = $('<a>').text('查看更多留言').on('click', function(){
@@ -410,7 +409,7 @@ div.timeline-body{
 						theLi.find('div.timeline-footer').slideUp();
 						theLi.find('div.viewmessages').slideDown();
 					})
-					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
+// 					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
 
 					$('.username').editable({
 					     rows:3
@@ -561,23 +560,27 @@ div.timeline-body{
     	})
 		
     	//edit Contents
-		divGrid.on('submit','.form-inline',function(){
-			console.log('edit')
-			
+		divGrid.on('click','a.username',function(){
 			var theLi = $(this).parents('li');
+			var contexts = $(this);
 			var journal_Id = theLi.attr('id');
-				$.ajax({
-					url: "${this_contextPath}",
-					type: 'POST',
-					data: {'journal_Id':journal_Id,
-						   'content':$('.form-inline textarea').val()
-						   },
-					success: function(data){
+			var openStatus = theLi.find('select.statusSelect');
+			
+			$('.form-inline').submit(function(){
+// 			console.log(openStatus+contexts.text())
+				updateJournal(theLi.attr('id'), "${LoginOK.member_Id}", contexts.text(), openStatus.val())
+// 				$.ajax({
+// 					url: "${this_contextPath}",
+// 					type: 'POST',
+// 					data: {'journal_Id':theLi.attr('id'),
+// 						   'content':contexts.text()
+// 						   },
+// 					success: function(data){
 				
-					}
-				})
-							
+// 					}
+// 				})
 			})
+		})
     	
 		//send MessageDetail from enter -------------------------------------
 		divGrid.on('keydown', 'textarea.message-textarea', function (event) {
