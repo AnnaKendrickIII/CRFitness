@@ -127,7 +127,7 @@ div.timeline-body{
 <script type="text/javascript">
                      $(function () {
                          $.ajax({
-                        	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${member_Id}",
+                        	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",
                              type:'get',  //get post put delete
                              data:{},
                              success:function(data){
@@ -135,6 +135,7 @@ div.timeline-body{
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
+             						console.log(data)
                                      $('#myactivity_personal').append(
                                     	 '<li>'	 
                                     	+'<time datetime="2014-07-20">'
