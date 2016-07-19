@@ -82,8 +82,8 @@ if(page<=1){
 }else{
 	$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page="+(page-1))
 }
-if(page>=2){
-	 alertify.alert('警告','已是最末頁')
+if(page>=3){
+	 alertify.alert('警告','本頁已無商品')
 	$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
 }else{
 	$('.pagination>li:nth-child(7) a').attr("href",'${page}?'+queryString+"&page="+(page+1))
