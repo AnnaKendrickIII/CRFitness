@@ -1,5 +1,6 @@
 package com.CRFitness.ProductDetail.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
-import com.CRFitness.ProductDetail.model.shoppingCart;
+import com.CRFitness.ProductDetail.model.ShoppingCart;
 
 @Controller
 @RequestMapping("/productDetailController")
@@ -23,7 +24,7 @@ public class ProductDetailController {
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
 	@Resource(name = "shoppingCart")
-	private shoppingCart Cart;
+	private ShoppingCart shoppingCart;
 
 	// front-end
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
@@ -64,16 +65,8 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<Object> addShoppingCart(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
-
-		Cart = (shoppingCart) request
-				.getSession().getAttribute("cart");
-
-		if (Cart == null) {
-			
-			request.getSession().setAttribute("cart", Cart);
-		}
-
-		return Cart.addShoppingCart(productDetail_Id);
+		
+		return shoppingCart.addShoppingCart(productDetail_Id);
 	}
 
 	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",

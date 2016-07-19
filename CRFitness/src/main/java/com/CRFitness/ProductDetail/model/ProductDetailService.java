@@ -28,7 +28,14 @@ public class ProductDetailService {
 
 	public ProductDetailService() {
 	}
-
+	public List<Object> addShoppingCart222(String productDetail_Id) {
+		List<Object> cart=new ArrayList<Object>();
+		System.out.println("A."+productDetail_Id);
+		cart.add(productDetailDAO.findByPrimaryKey(productDetail_Id));
+		System.out.println("B"+cart);
+		System.out.println("C"+productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id).get(0));
+		return cart;
+	}
 	// back-end: 找商品照片
 	public byte[] findProductsPhoto(String productDetail_Id) {
 		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
