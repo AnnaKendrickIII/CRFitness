@@ -163,7 +163,7 @@ width:24px;
 		        		 $('#grid').append(
 		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img1">'
 		        		 +contet
-		        		 +'<img class="img-thumbnail" src="data:image/png;base64,'+this[0].archives+'" />'	 
+		        		 +'<img class="img-thumbnail" src="/images/Journal/'+this[0].journal_Id+'.jpg" />'	 
 		        		 +'<div data-desc=""></div>'
 		        		 +'</li>') 
 		        		  $.ajax({
