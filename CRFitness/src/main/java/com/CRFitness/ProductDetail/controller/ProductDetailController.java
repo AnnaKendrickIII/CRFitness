@@ -68,11 +68,9 @@ public class ProductDetailController {
 
 	}
 
-	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
-	// produces = MediaType.APPLICATION_JSON)
-	// public @ResponseBody Map<String, ProductDetailVO> addShoppingCart(
-	// HttpServletRequest request, String productDetail_Id) {
-	//
-	// return productDetailService.addShoppingCart(productDetail_Id);
-	// }
+	@RequestMapping(method = RequestMethod.GET, value = "/showCart", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object> showCart(HttpServletRequest request) {
+		return shoppingCart.getCart();
+	}
+
 }

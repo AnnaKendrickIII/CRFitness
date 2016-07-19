@@ -7,18 +7,16 @@
 <head>
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
-<link rel="stylesheet" href="${this_contextPath}/css/products.css">
-<link rel="stylesheet" href="${this_contextPath}/css/lightbox.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
-
+<link rel="stylesheet" href="${this_contextPath}/css/products.css">
 <title>商品明細</title><base>
 
 </head>
 <body>
 <aside>
 <script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
+
 
 <div class="ProductDetail">
 
@@ -41,8 +39,8 @@ $.ajax({
  	data:{productDetail_Id:queryString},
 	success:function(data){
 		$('#productDetailbody').append('<div class="col-md-7">'+
-							'<div class="mag"><h3>'+data[0][1] +
-							'<h3/>'+
+							'<div class="mag"><h2><strong>'+data[0][1] +
+							'</strong><h2/>'+
 							'<img data-toggle="magnify" src="data:image/png;base64,'+data[0][0].photo1+'" />'+
 							'</div>'+
 							'</div>'+
@@ -56,6 +54,7 @@ $.ajax({
 	}
 });
 </script>
+
 <!-- https://youtu.be/AUChk0lxF44  victorious -->
 <!-- https://youtu.be/-aWcy0TAaWk -->
 <!-- https://youtu.be/2Vhlzdj6Csw -->
