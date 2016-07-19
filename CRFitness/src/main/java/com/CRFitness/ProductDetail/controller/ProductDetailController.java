@@ -25,6 +25,7 @@ public class ProductDetailController {
 	@Resource(name = "shoppingCart")
 	private ShoppingCart shoppingCart;
 
+
 	// front-end
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> getAllDetail(
