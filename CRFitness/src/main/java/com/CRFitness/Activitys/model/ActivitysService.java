@@ -64,6 +64,11 @@ public class ActivitysService {
 		return list;
 	}
 	
+	public List<ActivitysVO> findFriendActivitys(String member_Id) {
+		List<ActivitysVO> list = activitysDAO.select_FriendActivitys(member_Id);
+		return list;
+	}
+	
 	public List<ActivitysVO> getAll(){
 		List<ActivitysVO> list = activitysDAO.getAll();
 		for(ActivitysVO activitysVO:list){

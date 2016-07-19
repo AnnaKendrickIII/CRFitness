@@ -117,7 +117,6 @@ $.ajax({
 	type:'get',
 	data:{category:Type, page:whichPage},
 	success:function(data){
-
 		$.each(data,function(){
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div class="thumbnail "><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
@@ -126,8 +125,8 @@ $.ajax({
 						+this[1] +'</h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].info+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
 						+this[2] +'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
-						+this[0].productDetail_Id+'">商品介紹</a></div>'+'<span id="pKey" hidden="hidden">'+this[0].productDetail_Id+'</span>'+'<div class="col-xs-12 col-md-4">'
-						+'<div class="btn shop" >加入購物車</div></div></div></div></a></div></div>'
+						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4">'
+						+'<div class="btn shop">'+'<span hidden="hidden" class="detailId">'+this[0].productDetail_Id+'</span></button>加入購物車</div></div></div></div></a></div></div>'
 					)	
 		})		
 	}
@@ -143,12 +142,25 @@ $('body').on('click','.shop',function(){
 					},500,"linear", function() {
 					      copyimg.remove();
 					 });
-			
+
 // 	console.log($('.shopping_car').position().left)
 // 	console.log($('.shopping_car').position().top)
-	
+
+	var detailId=$(this).find('span.detailId').text()
+	console.log(detailId)
+	$.ajax({
+		url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
+		type:'get',
+		data:{productDetail_Id:detailId},
+		success:function(data){
+			console.log(data)
+		}
 	})
+	})
+
 })
+
+
 </script>
 
 

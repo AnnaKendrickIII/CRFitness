@@ -20,6 +20,9 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  
 
 <style>
 /* aside 
@@ -32,7 +35,7 @@ textarea{
 .message_div {
 	margin-top: 3px;
 }
-
+/* 案讚的愛心 */
 ._soakw{
 display:block;
 overflow:hidden;
@@ -82,13 +85,29 @@ div.timeline-body{
 	color:#BEBEBE;
 	font-size: 10px;
 }
+
+/* 為了非本人顯示揪團創建的 */
+.jouranl_activity{
+display:block;
+max-width:100%;
+height:auto;
+
+width: 60px;
+height: 60px;
+padding: 0px;
+margin: 0px;
+}
+
+.divideline{
+margin: 1px;
+}
 </style>
 
 </head>
 
 <body >
 
-<!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
+
 <!-- 將顯示內容放置到aside -->
 <c:if test="${! empty LoginOK}">
 <aside> 
@@ -103,42 +122,192 @@ div.timeline-body{
 
 						</ul>
 					</div>
-					<div class="col-md-4 col-xs-4" id="testcss">
-						<h3>---揪團要塞這邊---</h3>
-						<ul class="event-list" id="myactivity_personal">
-
+					<div class="col-md-4 col-xs-4" id="">
+						<ul class="nav nav-tabs" role="tablist" id="myTab">
+							<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">${LoginOK.nickname}</a></li>
+							<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
 						</ul>
+						<div class="tab-content">
+							 <div role="tabpanel" class="tab-pane active" id="home">
+								<ul class="event-list" id="myactivity_personal">
+								</ul>
+							</div>	
+							<div role="tabpanel" class="tab-pane" id="profile">
+								<ul class="event-list" id="myactivity_join">
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="col-md-2"></div>
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 </div>
 	<!-- 頁面部分 開始-->
-	
-	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    -->
-<c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
+<c:if test="${LoginOK.member_Id != pageContext.request.queryString}">
+<script>
+jQuery(function($){
+//進入好友頁面揪團活動
+ $.ajax({
+	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",
+     type:'get',  //get post put delete
+     data:{},
+     success:function(data){
+//     	 console.log(data)
+    	 var c=1;                            	
+         $.each(data,function(){
+        	 console.log(this[1].activity_Id)
+				var jdate_int = parseInt(this[1].activity_Day); //轉換成數字
+			var jdate_value = new Date(jdate_int);
+			var jdate_int2 = parseInt(this[1].deadline);                          //轉換成數字
+				var jdate_value_deadline = new Date(jdate_int2);
+             $('#myactivity_personal').append(
+            	 '<li>'	 
+            	+'<time datetime="2014-07-20">'
+				+'<span class="month">'+jdate_value.Format("MM")+'</span>'
+					+'<span class="day">'+jdate_value.Format("dd")+'</span>'
+				+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
+				+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+				+'<span class="time">'+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+				+'</time>'
+				
+			+'<a href="${this_contextPath}/images/activitys/'
+			+this[1].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+			+this[2]+"<i class='fa fa-commenting-o img-responsive' aria-hidden='true'></i>"
+			+'<br />類別：'+this[1].activity_Class+'<br />地區：'
+			+this[1].activity_Area+'<br />內容：'
+			+this[1].activity_Info+'<br />活動時間：'
+			+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+			+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
+			+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+			+"<div hidden='hidden'>"+this[1].activity_Id
+			+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+			+this[1].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'
+			
+            	+'<div style="text-align : center">'+this[1].activity_Class+this[1].activity_Area                                     	
+            	+'</div>'
+            	+'</li>')
+            	
+            	
+         }) //each
+         $(".boxer").boxer({
+				top: 50,
+				fixed:true
+				});
+         
+	      $("body").on("click", '.submit_x', function(){
+    	  var whatActivityID=$(this).parent().siblings("div").text()
+    	   $.ajax({
+    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/addActivityDetail",
+    		   type:'post',
+    		   data:{
+    			   activity_Id:$('.boxer-caption').find('div').text(),
+    			   member_Id:'${LoginOK.member_Id}'
+    		   },
+    		   success:function(data){
+    			  if(data[0]=='參加過'){
+    				   $("#boxer-overlay").remove();
+    				   $("#boxer").remove();
+    				   $('body').toggleClass();		
+    				     		
+    				   errorAlert('北七膩', '你已經參加過了');
 
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >新增個人日誌</button> -->
+    			   }else if(data[0]=='已額滿'){
+//	    				   alert('已額滿')
+    				   $("#boxer-overlay").remove();
+    				   $("#boxer").remove();
+    				   $('body').toggleClass();		
+    				     			
+    				   errorAlert('殘念', '已額滿');
+    				   
+//	    				   $.alertable.alert(data[0]);
+    			   }else{
+    				var members="";
+    				var sum =0;
+    				var whoButton=$('#button'+whatActivityID);
+    				   $.each(data,function(index){          
+    					   members+=this+" ";
+    					   sum+=1;
+    				   })   
+    				   whoButton.text(sum)
+    				   whoButton.attr("data-original-title",members)
+    
+    				   
+    				   $("#boxer-overlay").remove();
+    				   $("#boxer").remove();
+    				   $('body').toggleClass();		
+    				
+    				   $.alertable.alert('參加成功', {
+    					   show: function() {
+    					     $(this.overlay).velocity('transition.fadeIn');        
+    					     $(this.modal).velocity('transition.flipBounceYIn');
+    					   },
+    					   hide: function() {
+    					     $(this.overlay).velocity('transition.fadeOut');
+    					     $(this.modal).velocity('transition.perspectiveUpOut');
+    					   } 
+    					 });
+
+    			   }			   
+    		   }
+    	   })
+			});
+     }          	 
+ }) //ajax
+})
+</script>
+</c:if>
+	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
+<c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 <script type="text/javascript">
+
+ 					
+ 					
  					$('#inster_journal').append(
 							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
  							);
  					
-//  				<!-- 抓取使用者建立的揪團  開始-->		
-             
+//  				<!-- 抓取使用者建立的揪團  開始-->		             
                      $(function () {
                          $.ajax({
                              url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
                              type:'get',  //get post put delete
                              data:{},
                              success:function(data){
-                            	 var c=1;
-                            	
+                            	 var c=1;                            	
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
-//             						 if(c<7){
                                      $('#myactivity_personal').append(
+                                    	 '<li>'	 
+                                    	+'<time datetime="2014-07-20">'
+            							+'<span class="month">'+jdate_value.Format("MM")+'</span>'
+             							+'<span class="day">'+jdate_value.Format("dd")+'</span>'
+            							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
+            							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+            							+'</time>'
+                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
+                                    	+'<img src="${this_contextPath}/images/activitys/'
+                                    	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<div style="text-align : center">'+this[0].activity_Class+'<hr calss="divideline"/>'+this[0].activity_Area 
+                                    	+'</div>'
+                                    	+'</li>')                
+                                 }) //each
+                          
+                             }          	 
+                         }) //ajax
+
+                     })                   
+                     $(function () {
+                         $.ajax({
+                        	 url:"${this_contextPath}/CRFSERVICE/activitysController/myActivitys/${LoginOK.member_Id}",
+                             type:'get',  //get post put delete
+                             data:{},
+                             success:function(data){
+                            	 var c=1;                            	
+                                 $.each(data,function(){
+             						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
+            						var jdate_value = new Date(jdate_int);
+                                     $('#myactivity_join').append(
                                     	 '<li>'	 
                                     	+'<time datetime="2014-07-20">'
             							+'<span class="month">'+jdate_value.Format("MM")+'</span>'
@@ -151,21 +320,51 @@ div.timeline-body{
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
                                     	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
                                     	+'</div>'
-                                    	+'</li>')
-//                                         c+=1;
-//                                  	}                    
+                                    	+'</li>')                
                                  }) //each
                           
                              }          	 
                          }) //ajax
 
-                     })
+                     })                     
+//                      /friendActivitys/{member_Id}                     
 </script > 
 
 
 </c:if> 
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
-
+<%-- <c:if test="${LoginOK.member_Id != pageContext.request.queryString or pageContext.request.queryString != null}"> --%>
+<script type="text/javascript">
+                     $(function () {
+                         $.ajax({
+                        	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",
+                             type:'get',  //get post put delete
+                             data:{},
+                             success:function(data){
+                            	 var c=1;                            	
+                                 $.each(data,function(){
+             						var jdate_int = parseInt(this[2].activity_Day); //轉換成數字
+            						var jdate_value = new Date(jdate_int);
+                                     $('#myactivity_personal').append(
+                                    	 '<li>'	 
+                                    	+'<time datetime="2014-07-20">'
+            							+'<span class="month">'+jdate_value.Format("MM")+'</span>'
+             							+'<span class="day">'+jdate_value.Format("dd")+'</span>'
+            							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
+            							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+            							+'</time>'
+                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
+                                    	+'<img src="${this_contextPath}/images/activitys/'
+                                    	+this[2].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
+                                    	+'<div style="text-align : center">'+this[2].activity_Class+this[2].activity_Area 
+                                    	+'</div>'
+                                    	+'</li>')                
+                                 }) //each                         
+                             }          	 
+                         }) //ajax
+                     })
+	</script>
+<%-- </c:if> --%>
 
 				<!-- 新增個人日誌頁面開始 -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -325,7 +524,7 @@ div.timeline-body{
 				   			+ '<p class="userContents"></p>'
 				   			+ '<p >日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
-				   			+ '</div>'
+				   			+ '<br /><select class="statusSelect" hidden="hidden" /></div>'
 				   			+ '<div class="timeline-footer">'
 // 				   			  '留言塞這裡'
 				   			+ '<div></div><div></div></div>'
@@ -344,37 +543,33 @@ div.timeline-body{
 				   			+ '</li>')
                              
                 			
-                //------------------------------------------------------
-						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
+						// 判斷queryString 和 LoginOK.member_Id 是否一樣
 						if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
-							var eleS = $('<br/><select />').bind('change',this,function(){
+							// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
+							var eleS = $('select.statusSelect:last').bind('change',this,function(){
 								updateJournal(arguments[0].data[0].journal_Id, "${LoginOK.member_Id}",arguments[0].data[0].contents,$(this).val())
 							})
 							var publicStatus = ['限本人','公開','朋友'];
 							for(var i =0;i<3;i++){
 								if(parseInt(this[0].publicStatus) === i){
-									$('<option />',{value:i,text:publicStatus[i],selected:true}).appendTo(eleS);
+									$('<option />',{'value':i,'text':publicStatus[i],'selected':true}).appendTo(eleS);
 								}else{
-									$('<option />',{value:i,text:publicStatus[i]}).appendTo(eleS);
+									$('<option />',{'value':i,'text':publicStatus[i]}).appendTo(eleS);
 								}
 							}
-    						$('#grid>li div[class="timeline-body"]:last').append(eleS);
+							eleS.show();
 							
-    						// 移除個人日誌
+							// 移除個人日誌按鈕
 							divGrid.find('div.timeline-panel:last')
-							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-							
+							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')							
 							divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
  						}else{
- 							divGrid.find('p.userContents:last').text(this[0].contents)
+ 							divGrid.find('p.userContents:last').text(this[0].contents);							
  						}
-						
-					
 						// 第一次載入日誌先撈三筆留言
 						loadMessageOne(this[0].journal_Id, 0);
   					}) 	//each
   					
-  					$('p.userContents')
 	 				
   					// 查看留言功能按鈕
 					var eleMessageA1 = $('<a>').text('查看更多留言').on('click', function(){
@@ -386,10 +581,8 @@ div.timeline-body{
 						else{
 							theLi.find('div.timeline-footer').slideDown();
 							theLi.find('div.viewmessages').slideUp();
-
 						}
 					})
-
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalnumber",
 						type:"get",
@@ -400,8 +593,6 @@ div.timeline-body{
    	   						})
    	   					}
    	   				})
-					
-					
 					divGrid.find('div.viewmessages').append(eleMessageA1);
   					
 					//隱藏留言按鈕
@@ -410,7 +601,7 @@ div.timeline-body{
 						theLi.find('div.timeline-footer').slideUp();
 						theLi.find('div.viewmessages').slideDown();
 					})
-					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
+// 					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
 
 					$('.username').editable({
 					     rows:3
@@ -421,9 +612,6 @@ div.timeline-body{
 	    		//ajax 查詢日誌結束
 			}
 		})
-					
-
-
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
@@ -437,8 +625,6 @@ div.timeline-body{
 						formData.append('contents', contents);
 						formData.append('publishTime', publishTime);
 						formData.append('publicStatus', publicStatus);
-						
-
 						if(file === undefined){
 							alertify.alert('請選擇一個檔案').set('title', '警告');
 						}else{
@@ -451,12 +637,9 @@ div.timeline-body{
 								success: function(data){
 									$('#exampleModal').modal('toggle');
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
-			    						var jdate_value = new Date(jdate_int);	    						
-			    						
+			    						var jdate_value = new Date(jdate_int);	    									    						
 			    						var invert; 
 			    				    	var li_direction;
-
-
 			    						if($('#grid>li:nth-child(1) div>a>i').hasClass('glyphicon glyphicon-record invert')){
 			    							li_direction='<li id="'+ data.journal_Id +'">';
 			    				    		invert='<i class="glyphicon glyphicon-record " '
@@ -479,7 +662,7 @@ div.timeline-body{
 								   			+ '<p>內容：'+ data.contents +'</p>'
 								   			+ '<p >日期：'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
-								   			+ '</div>'
+								   			+ '<br/><select class="statusSelect" /></div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
 											// 	'留言塞這裡'
 								   			+ '<div></div><div></div></div>'
@@ -493,7 +676,6 @@ div.timeline-body{
 								   			+ '</div>'
 								   			+ '</li>')
 
-		   								
 		   								//新增日誌後清除內容
 										$('.timeline-panel').fadeIn(2200);
 			    						$('#content').val('')
@@ -501,8 +683,7 @@ div.timeline-body{
 										$('#openStatus').find('option:selected').prop('selected',false)
 										
 		   								// 新增的日誌公開狀態change功能
-		   								var eleS = $('<br/><select />').bind('change',data,function(){
-// 		   									console.log(arguments[0].data)
+		   								var eleS = $('#grid>li:nth-child(1)').find('select.statusSelect').bind('change',data,function(){
 		   									$.ajax({
 		   										url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
 		   										type: 'POST',
@@ -524,10 +705,7 @@ div.timeline-body{
 								}
 							})	
 						}
-					})
-					 
-		
-		
+					})					 		
     	// 更新日誌狀態
     	function updateJournal(journal_Id, theMemberId, contents, val, theLi){
 			$.ajax({
@@ -544,8 +722,7 @@ div.timeline-body{
 						
 				}
 			})
-    	}
-    	
+    	}   	
     	// 移除篇此日誌
     	divGrid.on('click','button[title="移除此篇日誌"]',function(){
     		var journal_Id = $(this).parents('li').attr('id');
@@ -558,27 +735,17 @@ div.timeline-body{
     				}
     			else{console.log(e)} 
     		});
-    	})
-		
+    	})		
     	//edit Contents
-		divGrid.on('submit','.form-inline',function(){
-			console.log('edit')
-			
+		divGrid.on('click','a.username',function(){
 			var theLi = $(this).parents('li');
+			var contexts = $(this);
 			var journal_Id = theLi.attr('id');
-				$.ajax({
-					url: "${this_contextPath}",
-					type: 'POST',
-					data: {'journal_Id':journal_Id,
-						   'content':$('.form-inline textarea').val()
-						   },
-					success: function(data){
-				
-					}
-				})
-							
+			var openStatus = theLi.find('select.statusSelect');
+			$('.form-inline').submit(function(){
+				updateJournal(theLi.attr('id'), "${LoginOK.member_Id}", contexts.text(), openStatus.val())
 			})
-    	
+		})   	
 		//send MessageDetail from enter -------------------------------------
 		divGrid.on('keydown', 'textarea.message-textarea', function (event) {
 			if (event.keyCode == 13 && !event.shiftKey) {
@@ -593,7 +760,6 @@ div.timeline-body{
 				return false;
 			}
 		})
-
         //send MessageDetail from button
 		divGrid.on('click', 'li button[class="btn btn-info pull-right"]', function (event) {
 			var theJournal_Id = $(this).parents('li').attr('id');
@@ -604,8 +770,7 @@ div.timeline-body{
 				$(this).prevAll('textarea.message-textarea').css('height','31');
 				$(this).prevAll('textarea.message-textarea').val('');
 			}
-		})
-		
+		})		
 		// addMessageDetail ajax -> server 新增留言從最下方開始顯示
     	var addMessageDetail = function(theObj, theJournal_Id, theMember_Id, theNickname, theContent, theMessageTime){
 			var messageDiv =  theObj.parents('li').find('div.timeline-footer>div:first');
@@ -713,8 +878,6 @@ div.timeline-body{
 			}
 		}
 		
-
-
 		jQuery(function($){
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
@@ -747,12 +910,16 @@ div.timeline-body{
 			})
 		})
 		
-		
-		
 	</script>
 
 	<script src="${this_contextPath}/js/personal_journal.js"></script>
 	<script src="${this_contextPath}/js/alertify.js"></script>
 	<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
+	<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
+	<script src="${this_contextPath}/js/jquery.alertable.js" ></script>
+	<script src="${this_contextPath}/js/jAlert-v4.js" ></script>
+	<script src="${this_contextPath}/js/jAlert-functions.js"></script>
+	<script src="${this_contextPath}/js/velocity.min.js" ></script>
+	<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>
 </body>
 </html>

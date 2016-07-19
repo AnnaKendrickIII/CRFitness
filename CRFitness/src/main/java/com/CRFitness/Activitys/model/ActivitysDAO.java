@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.CRFitness.ActivityDetail.model.ActivityDetailVO;
+import com.CRFitness.Friendships.model.FriendshipsVO;
 
 @Transactional(transactionManager = "transactionManager")
 @Repository("activitysDAO")
@@ -162,4 +163,19 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	return (List<ActivitysVO>) query.list();
 }
 
+	public List<ActivitysVO> select_FriendActivitys(String member_Id) {	
+		Query query = this.getSession().createSQLQuery(	
+			"SELECT Friendships.*,Activitys.*,Members.Nickname "
+			+ "FROM Friendships JOIN Activitys "
+			+ "ON Friendships.Friend_Id = Activitys.Member_Id "
+			+ "JOIN Members ON Activitys.Member_Id = Members.Member_Id "
+			+ "WHERE Friend_Status = '1' and Friendships.Member_Id = '"+member_Id+"' "
+			+ "order by activity_Day desc").addEntity("Friendships.*",FriendshipsVO.class)
+				  .addEntity("Activitys.*",ActivitysVO.class)
+				  .addScalar("Nickname", StringType.INSTANCE);
+		
+	return (List<ActivitysVO>) query.list();
+}
+
+	
 }

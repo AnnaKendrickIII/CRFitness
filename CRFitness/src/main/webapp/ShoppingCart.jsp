@@ -235,7 +235,7 @@ queryString=queryString.substring(17);
 console.log(queryString)
 
 $.ajax({
-	url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
 	typr:'get',
 	data:{productDetail_Id:queryString},
 	success:function(data){
