@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
+import com.CRFitness.ProductDetail.model.shoppingCart;
 
 @Controller
 @RequestMapping("/productDetailController")
@@ -21,6 +22,8 @@ public class ProductDetailController {
 
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
+//	@Resource(name = "shoppingCart")
+//	private shoppingCart Cart;
 
 	// front-end
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
@@ -44,27 +47,35 @@ public class ProductDetailController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/searchAllItem", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/searchAllItem", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<ProductDetailVO> searchAllItem(
 			HttpServletRequest request) {
 
 		return productDetailService.getAllItem();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/findByPrimaryKeySQLQuery", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/findByPrimaryKeySQLQuery", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<ProductDetailVO> findByPrimaryKeySQLQuery(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> addShoppingCart(
+	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object> addShoppingCart(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
-		request.getSession().setAttribute("cart", productDetailService);
-		System.out.println(productDetailService);
-		return productDetailService.addShoppingCart(productDetail_Id);
+
+		shoppingCart Cart = (shoppingCart) request
+				.getSession().getAttribute("cart");
+
+		if (Cart == null) {
+			Cart=new  shoppingCart();
+			request.getSession().setAttribute("cart", Cart);
+		}
+
+		return Cart.addShoppingCart(productDetail_Id);
 	}
+
 	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
 	// produces = MediaType.APPLICATION_JSON)
 	// public @ResponseBody Map<String, ProductDetailVO> addShoppingCart(

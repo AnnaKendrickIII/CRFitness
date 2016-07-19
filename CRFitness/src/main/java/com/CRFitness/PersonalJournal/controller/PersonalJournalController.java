@@ -36,7 +36,6 @@ public class PersonalJournalController {
 	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,HttpSession session) {
 		if(member_Id != null && member_Id.trim().length() != 0){
 			MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
-			personalJournalService.showJournal(mySelf.getMember_Id(), member_Id);
 			if(mySelf.getMember_Id().equals(member_Id)){
 				return personalJournalService.showMySelfJournal(member_Id);
 			}

@@ -63,23 +63,6 @@ public class PersonalJournalService {
 		return personalJournalDAO.update(journal_Id,contents,publicStatus);
 	}
 	
-	public List<PersonalJournalVO> showJournal(String mySelfId, String member_Id) {
-		List<MemberVO> friends = friendshipsDAO.select_Friends(mySelfId);
-		List<String> friendsMemberId = new ArrayList<>();
-		for(MemberVO friend : friends){
-			friendsMemberId.add(friend.getMember_Id());
-		}
-		
-		System.out.println(friendsMemberId.contains(member_Id));
-//		if(member_Id.equals(mySelfId)){
-//			return personalJournalDAO.select_myJournal(member_Id);
-//		}else if(friends.contains(mySelfId)){
-//			
-//		}
-		
-		return null;
-	}
-	
 	// 取得自己個人日誌
 	public List<PersonalJournalVO> showMySelfJournal(String member_Id) {
 		return personalJournalDAO.select_myJournal(member_Id);
