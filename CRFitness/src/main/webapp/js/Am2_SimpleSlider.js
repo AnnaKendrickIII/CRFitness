@@ -72,6 +72,8 @@
             if (e.keyCode === 37) { PrevProduct(); }
         });
 
+        
+
         function NextProduct() {
             if ($nextElm.length === 1) {
                 $NewCurrent = $nextElm;

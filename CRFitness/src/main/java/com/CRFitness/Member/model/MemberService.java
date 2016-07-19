@@ -4,6 +4,7 @@ package com.CRFitness.Member.model;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,15 +88,49 @@ public class MemberService {
 			}  	       
 	}
 	
-	public Boolean ExitsPhoto(String Path){
-		File file=null;
-		file = new File(Path);
-		if (!file.exists()) {
-			return true;
-		}		
-		return false;
-	}
-
+	//照片判斷哪種型態是否存在  轉byte
+		public byte[] ExitsCovertPhoto(String Path){
+			File file=null;
+			ByteArrayOutputStream baos = null;
+			FileInputStream fis=null;
+			byte[] photo=null;		
+			file = new File(Path+".jpg");
+			if(!file.exists()){
+				file = new File(Path+".gif"); 
+			}
+			if(!file.exists()){
+				file = new File(Path+".png");
+			}
+			if(!file.exists()){
+				return null;
+			}
+			try {	
+				fis=new FileInputStream(file);
+				baos = new ByteArrayOutputStream();
+//				BufferedImage originalImage = ImageIO.read(file);
+//				ImageIO.write(originalImage,MimeType, baos);
+				int count = 0;
+	    		byte[] bytes = new byte[1024];
+	    		while ((count = fis.read(bytes)) != -1) {
+	    			baos.write(bytes, 0, count);
+	    		}
+				baos.flush();
+				photo = baos.toByteArray();
+				baos.close();
+				return photo;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			}finally{
+				try {
+					fis.close();
+				} catch (IOException e) {	
+					e.printStackTrace();
+					return null;
+				}
+			}
+		
+		}
 	//檢查e_mail
 	public Boolean checkE_mail(String E_mail) {
 		if ((memberDAO.select_email(E_mail)).size() != 0) {
