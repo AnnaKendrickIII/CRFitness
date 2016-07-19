@@ -49,7 +49,8 @@
 					<h6 class="text-right">Added items?</h6>
 				</div>
 				<div class="col-xs-3">
-					<a href="${pageContext.request.requestURI}" class="btn btn-default btn-sm btn-block" type="button">更新購物車</a>
+<%-- 					<a href="${pageContext.request.requestURI}" class="btn btn-default btn-sm btn-block" type="button" id="refresh">更新購物車</a> --%>
+					<a  class="btn btn-default btn-sm btn-block" type="button" id="refresh">更新購物車</a>
 					</div>
 				</div>
 			</div>
@@ -57,7 +58,7 @@
 			<div class="panel-footer">
 				<div class="row text-center">
 					<div class="col-xs-12">
-						<h4 class="text-right">
+						<h4 class="text-right" id="amount">
 							總金額: $<strong>999999.99</strong>
 						</h4>
 					</div>
@@ -98,7 +99,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="e-mail">E-mail</label>
 					<div class="col-md-4">
-						<input id="e-mailt" name="e-mail" type="text"
+						<input id="e-mailt" name="e-mail" type="email"
 							placeholder="E-mail" class="form-control input-lg"
 							autocomplete="off">
 					</div>
@@ -154,25 +155,30 @@ $.ajax({
 				'<div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="data:image/png;base64,'+
 				this[0][0].photo1+'"/></div>'+
-				'<div class="col-xs-4"><h4 class="product-name"><strong>'+
-				this[0][1]+'</strong></h4></div>'+
+				'<div class="col-xs-4"><span hidden="hidden">'+this[0][0].productDetail_Id+'</span><h4 class="product-name"><strong>'+
+				this[0][1]+'</strong></h4><h4><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
-				'<div class="col-xs-6 text-right"><h6><strong>'+
-				this[0][2]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h6></div>'+
-				'<div class="col-xs-4"><input type="text" class="form-control input-sm" value="1"></div>'+
+				'<div class="col-xs-6 text-right"><h5><strong class="price">'+
+				this[0][2]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h5></div>'+
+				'<div class="col-xs-4"><input type="text" class="form-control input-sm qty" value="1"/></div>'+
 				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
 				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')	
-		})	
+	
+
+		})
+		$('.delete').on('click', function() {
+			$(this).parent().parent().parent().parent().remove();
+		});
+
+	
 	}
+	
 })
-
-
-</script>
-
-<script type="text/javascript">
-	$('.delete').on('click', function() {
-		$(this).parent().parent().parent().parent().remove();
-	});
+$('#itemlist').on('change', 'div.item input.qty',function(){
+// 	var price= $('.price').text()
+	var qty= $('.qty').val()
+	console.log(qty)
+})
 </script>
 
 <script type="text/javascript">

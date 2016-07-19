@@ -84,7 +84,7 @@ body {
 		<div class="col-md-8 col-xs-12 ">
 		
 		<button type="button" id="creProdBtn" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#new_products">  
-  		<i class="fa fa-plus" aria-hidden="true"></i> <!-- 新增產品 --> 
+  		<i class="fa fa-plus" aria-hidden="true"></i> <!-- 新增會員 --> 
   		</button>
 
 <!-- 資料表格 開始 -->
@@ -94,40 +94,20 @@ body {
 				<tr>
 					<th><h3>大頭照</h3></th>
 					<th><h3>會員ID</h3></th>
-					<th><h3>Emil</h3></th>
-<!-- 					<th><h3>密碼</h3></th> -->
 					<th><h3>暱稱</h3></th>
+					<th><h3>Email</h3></th>
 					<th><h3>註冊日</h3></th>
+					<th><h3>好友名單</h3></th>
+					<th><h3>好友狀態</h3></th>
+					<th><h3>封鎖名單</h3></th>
 					<th><h3>會員狀態</h3></th>
 				</tr>
 			</thead>
-			<tbody id="products_tbody"></tbody>
+			<tbody id="members_tbody"></tbody>
 		</table>	
 		</div> <!-- end of class="col-md-8 col-xs-12" -->
 		<div class="col-md-2"></div>
 <!-- 資料表格 結束 -->
-
-<!-- 1.新增上傳圖片 開始 以下這段一定要放這，不然就是ready or onload-->
-<script>
-        $('#fine-uploader-manual-trigger').fineUploader({
-            template: 'qq-template-manual-trigger',
-            request: {
-                endpoint: '/server/uploads'
-            },
-            thumbnails: {
-                placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
-                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
-                }
-            },
-            autoUpload: false
-        });
-        $('#trigger-upload').click(function() {
-            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
-        });
-</script>
-<!-- 1.新增上傳圖片   結尾-->
-
 
 <script>
 // 轉換日期的小程式 開始
@@ -159,32 +139,9 @@ body {
 	jQuery(function ($) {	  
 		  var file;	
 		  var count=0;
-// 1.新增上傳圖片的小程式   開始
-		$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
-		 file=event.target.files;			  	 	 
-		})
-			jQuery.event.props.push('dataTransfer');
-			//加入dragover和drop
-		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('dragover', function(event){
-    		//停止開啟檔案及其他動作
-    		event.stopPropagation();
-    		event.preventDefault();
-    		//複製拖移的物件
-    		event.dataTransfer.dropEffect = 'copy';
-		});
-		$('#fine-uploader-manual-trigger .qq-uploader-selector .qq-upload-drop-area-selector').on('drop', function(event){
-   			//停止開啟檔案及其他動作
-    		event.stopPropagation();
-    		event.preventDefault();
-    		//透過dataTransfer取得FileList object.
-    		file = event.dataTransfer.files;
-		})
-// 1.新增上傳圖片的小程式   結束
-
-    	
-// 3.顯示產品的程式   開始
+// 3.顯示會員的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
+		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAllByDesc",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
@@ -199,81 +156,53 @@ body {
 					}else if(this[0].product_Status == '已下架'){
 						Status=0;
 					};
-					$('#products_tbody').append('<tr class="'+this[0].productDetail_Id+'"><td><img src="data:image/png;base64,' 
-													+ this[0].photo1 
+					$('#members_tbody').append('<tr class="'+this[0].member_Id+'"><td><img src="data:image/png;base64,' 
+													+ this[0].photo1 // cancel
 													+ '" class="img-thumbnail" /></td><td>'
-													+ this[0].product_Id
+													+ this[0].member_Id
 													+ '</td><td>'
-													+ this[0].productDetail_Id
+													+ this[0].nickname
 													+ '</td><td>'
-													+ this[1] // product_Name
+													+ this[0].e_mail
 													+ '</td><td>'
-													+ this[0].size
-													+ '</td><td>'
-													+ this[0].color
-													+ '</td><td>'
-													+ this[0].stock
-													+ '</td><td>'
- 													+ this[2] // price
-													+ '</td><td>'
- 													+ this[3] // category
- 													+ '</td><td>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-													+ '</td><td hidden="hidden">'
-									                + this[0].info
-													+ '</td><td hidden="hidden">'
-									                + this[0].product_Status
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></i>'
+													+ '</td><td>'
+													+ this[1] // friend_Id
+													+ '</td><td>'
+ 													+ this[2] // friend_Status
+													+ '</td><td>'
+ 													+ this[3] // blockade_Id
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
-					// 產品狀態on&off的程式   開始
-						$('.easyswitch').easyswitch();
-					// 產品狀態on&off的程式   結束
-					// 修改產品的小程式   開始	
-// 					$('body').on('click', '.2g', function(){									
-// 					$('.2g').click(function(){	
-// 					var updProducts = $('#update_products')  // 寫成這樣才有效能
-// 					var eq1 = $(this).parent().siblings(":eq(1)")
-// 					updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
-// 					var eq2 = $(this).parent().siblings(":eq(2)")
-// 					updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
-//      			updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
-// 					updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
-// 					updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
-// 					updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
-// 					updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
-// 					updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
-// 					updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
-// 					updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
-// 					})	// end of $('.2g').click(function(){
-					// 修改產品的小程式  結束	
-					// 改變產品狀態的程式 開始
-					$('body').on('click', '.3g', function(productDetail_Id, product_Status){
-// 					$('.3g').click(function (productDetail_Id, product_Status) {
- 						var this_prodStatus=$(this).parent().siblings(":eq(11)");
-						var prodDetaId = $(this).parent().siblings(":eq(2)").text();
-						var prodStatus = this_prodStatus.text();
+					// 會員狀態on&off的程式   開始
+					$('.easyswitch').easyswitch();
+					// 會員狀態on&off的程式   結束
+					// 改變會員狀態的程式 開始
+					$('body').on('click', '.3g', function(member_Id, member_Status){
+ 						var this_memStatus = $(this).parent().siblings(":eq(9)"); //要改
+						var memberId = $(this).parent().siblings(":eq(2)").text(); //要改
+						var prodStatus = this_memStatus.text();
 						var reversedState = "";
-						if(prodStatus=="上架中"){
-							reversedState="已下架";
+						if(prodStatus=="正常"){
+							reversedState="停權";
 						}else{
-							reversedState="上架中";
+							reversedState="正常";
 							}
 						 $.ajax({
-							    url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/changeStatus",
+							    url:"${this_contextPath}/CRFSERVICE/memberControllerBE/changeStatus",
 						        type:'post',  //get post put delete
-					    		data: {'productDetail_Id': prodDetaId,
-										'product_Status': reversedState}, // 把
+					    		data: {'member_Id': memberId,
+										'member_Status': reversedState}, //
 						    	success:function(data){
-						        	this_prodStatus.text(reversedState)
+						    		this_memStatus.text(reversedState)
 						        } // end of success:function(data)	 
 						 }) // end of  $.ajax({  	    	   
 					}); // end of 	$('.3g').click(function () {
-					// 改變產品狀態的程式 結束
+					// 改變會員狀態的程式 結束
 		} // end of success : function(data) 
 	}) // end of $.ajax({
-// 3.顯示產品的程式   結束			
+// 3.顯示會員的程式   結束			
 
 }); // end of jQuery(function ($)
 </script>
