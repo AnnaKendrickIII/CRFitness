@@ -10,7 +10,6 @@
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" href="${this_contextPath}/css/products2.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lightbox.css">
-<link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/searchform.css">
 <link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
 
@@ -23,7 +22,6 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
 
 <aside>
@@ -121,8 +119,8 @@ $.ajax({
 			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div class="thumbnail "><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
 						+this[1] +'"><img  class="shopimage" src="data:image/png;base64,'
-						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff">'
-						+this[1] +'</h4><p class="group inner list-group-item-text" style="color:#555555">'
+						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff"><strong>'
+						+this[1] +'</strong></h4><p class="group inner list-group-item-text" style="color:#555555">'
 						+this[0].info+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
 						+this[2] +'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
 						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4">'

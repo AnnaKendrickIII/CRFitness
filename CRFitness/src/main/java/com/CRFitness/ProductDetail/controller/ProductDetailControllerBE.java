@@ -102,7 +102,7 @@ public class ProductDetailControllerBE {
 		return VO;	
 	}
 	
-	// Insert products 新增的列顯示在最上面
+	// 顯示產品，新增的列顯示在最上面
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<ProductDetailVO> getAllDetail() {
 		return productDetailService.getAllByDesc();

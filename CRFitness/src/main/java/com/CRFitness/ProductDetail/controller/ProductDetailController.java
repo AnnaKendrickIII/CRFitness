@@ -1,6 +1,5 @@
 package com.CRFitness.ProductDetail.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 import com.CRFitness.ProductDetail.model.ShoppingCart;
-
 
 @Controller
 @RequestMapping("/productDetailController")
@@ -71,11 +69,9 @@ public class ProductDetailController {
 
 	}
 
-	// @RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart",
-	// produces = MediaType.APPLICATION_JSON)
-	// public @ResponseBody Map<String, ProductDetailVO> addShoppingCart(
-	// HttpServletRequest request, String productDetail_Id) {
-	//
-	// return productDetailService.addShoppingCart(productDetail_Id);
-	// }
+	@RequestMapping(method = RequestMethod.GET, value = "/showCart", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object> showCart(HttpServletRequest request) {
+		return shoppingCart.getCart();
+	}
+
 }

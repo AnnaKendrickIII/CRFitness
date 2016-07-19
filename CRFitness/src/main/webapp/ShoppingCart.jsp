@@ -40,97 +40,7 @@
 			</div>
 			<div class="panel-body" id="itemlist">
 				<!-- 商品資料  開始 -->
-				<div class="item">
-					<div class="row">
-						<div class="col-xs-2">
-							<img class="img-shoppingcart" src="http://placehold.it/100x70">
-						</div>
-						<div class="col-xs-4">
-							<h4 class="product-name">
-								<strong>Product name</strong>
-							</h4>
-						</div>
-						<div class="col-xs-6">
-							<div class="col-xs-6 text-right">
-								<h6>
-									<strong>25.00 <span class="text-muted">x</span></strong>
-								</h6>
-							</div>
-							<div class="col-xs-4">
-								<input type="text" class="form-control input-sm" value="1">
-							</div>
-							<div class="col-xs-2">
-								<button type="button" class="btn btn-link btn-xs delete"
-									title="移除此商品">
-									<span class="glyphicon glyphicon-trash" title="移除此商品">
-									</span>
-								</button>
-							</div>
-						</div>
-					</div>
-					<hr>
-				</div>
 
-				<div class="item">
-					<div class="row">
-						<div class="col-xs-2">
-							<img class="img-responsive" src="http://placehold.it/100x70">
-						</div>
-						<div class="col-xs-4">
-							<h4 class="product-name">
-								<strong>Product name</strong>
-							</h4>
-						</div>
-						<div class="col-xs-6">
-							<div class="col-xs-6 text-right">
-								<h6>
-									<strong>25.00 <span class="text-muted">x</span></strong>
-								</h6>
-							</div>
-							<div class="col-xs-4">
-								<input type="text" class="form-control input-sm" value="1">
-							</div>
-							<div class="col-xs-2">
-								<button type="button" class="btn btn-link btn-xs delete"
-									title="移除此商品">
-									<span class="glyphicon glyphicon-trash" title="移除此商品">
-									</span>
-								</button>
-							</div>
-						</div>
-					</div>
-					<hr>
-				</div>
-				<div class="item">
-					<div class="row">
-						<div class="col-xs-2">
-							<img class="img-responsive" src="http://placehold.it/100x70">
-						</div>
-						<div class="col-xs-4">
-							<h4 class="product-name">
-								<strong>Product name</strong>
-							</h4>
-						</div>
-						<div class="col-xs-6">
-							<div class="col-xs-6 text-right">
-								<h6>
-									<strong>25.00 <span class="text-muted">x</span></strong>
-								</h6>
-							</div>
-							<div class="col-xs-4">
-								<input type="text" class="form-control input-sm" value="1">
-							</div>
-							<div class="col-xs-2">
-								<button type="button" class="btn btn-link btn-xs delete"
-									title="移除此商品">
-									<span class="glyphicon glyphicon-trash" title="移除此商品">
-									</span>
-								</button>
-							</div>
-						</div>
-					</div>
-					<hr>
-				</div>
 				<!-- 商品資料  結束 -->
 			</div>
 			<div class="row">
@@ -237,24 +147,25 @@ console.log(queryString)
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
 	typr:'get',
-	data:{productDetail_Id:queryString},
+	data:{},
 	success:function(data){
 		$.each(data,function(){
 		$('#itemlist').append('<div class="item">'+
 				'<div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="data:image/png;base64,'+
-				data[0][0].photo1+'"/></div>'+
+				this[0][0].photo1+'"/></div>'+
 				'<div class="col-xs-4"><h4 class="product-name"><strong>'+
-				data[0][1]+'</strong></h4></div>'+
+				this[0][1]+'</strong></h4></div>'+
 				'<div class="col-xs-6">'+
 				'<div class="col-xs-6 text-right"><h6><strong>'+
-				data[0][2]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h6></div>'+
+				this[0][2]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h6></div>'+
 				'<div class="col-xs-4"><input type="text" class="form-control input-sm" value="1"></div>'+
 				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
 				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')	
 		})	
 	}
 })
+
 
 </script>
 

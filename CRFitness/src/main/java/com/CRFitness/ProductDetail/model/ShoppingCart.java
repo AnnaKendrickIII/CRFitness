@@ -1,5 +1,6 @@
 package com.CRFitness.ProductDetail.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,79 +14,58 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.CRFitness.Products.model.ProductsDAO_interface;
+
 @Service("shoppingCart")
-@Scope(value="session", proxyMode =ScopedProxyMode.TARGET_CLASS)
-public class ShoppingCart {
-	
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class ShoppingCart implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Resource(name = "productDetailDAO")
 	private ProductDetailDAO_interface productDetailDAO;
 	@Resource(name = "productsDAO")
 	private ProductsDAO_interface productsDAO;
-	
-	private List<Object> cart =null;
+
+	private List<Object> cart = null;
+
 	public ShoppingCart() {
-		 cart = new ArrayList<Object>();
+		cart = new ArrayList<Object>();
+	}
+
+	public List<Object> getCart() {
+		return cart;
+	}
+
+	public void setCart(List<Object> cart) {
+		this.cart = cart;
 	}
 
 	// 加入購物車
 	public List<Object> addShoppingCart(String productDetail_Id) {
-		cart.add(productDetailDAO.findByPrimaryKey(productDetail_Id));
+		cart.add(productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
 
 		return cart;
 	}
-	// public static void main(String[] args) {
-		// 如果要進行以下測試，要調整hibernate.cfg.xml的設定
-		// 打開：<property
-		// name="hibernate.current_session_context_class">thread</property>
-		// 註解：<property name="hibernate.show_sql">true</property>
-		// 增加 ProductDetailVO 的toString();
-		// Run as >> Java Application
-		// List<ProductDetailVO> beans = null;
-		//
-		// ApplicationContext context = new
-		// ClassPathXmlApplicationContext("test.config.xml");
-		// SessionFactory sessionFactory = (SessionFactory)
-		// context.getBean("sessionFactory");
-		// sessionFactory.getCurrentSession().beginTransaction();
-		//
-		// ProductDetailService productDetailService = (ProductDetailService)
-		// context.getBean("productDetailService");
-		//
-		// beans = productDetailService.getAll();
-		// for(ProductDetailVO item : beans) {
-		// System.out.println(item);
+
+
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"test.config.xml");
+
+		// ProductDetailService service = (ProductDetailService) context
+		// .getBean("productDetailService");
+		ShoppingCart CshoppingCart = (ShoppingCart) context
+				.getBean("shoppingCart");
+
+		// shoppingCart cart=new shoppingCart();
+		CshoppingCart.addShoppingCart("prodDetail5024");
+		// System.out.println(service.getItemByPrimaryKey("prodDetail5024").get(0));
+		// List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
+
+		// for (ProductDetailVO vo : cart) {
+		// System.out.println();
 		// }
-		//
-		// sessionFactory.getCurrentSession().getTransaction().commit();
-		// ((ConfigurableApplicationContext) context).close();
 
-		// JDBC
-		// ProductsService productService = new ProductsService();
-		// List<ProductsVO> productsVO = productService.getAll();
-		// System.out.println("productsVO="+productsVO);
-		// }
-		public static void main(String[] args) {
-			ApplicationContext context = new ClassPathXmlApplicationContext(
-					"test.config.xml");
+		((ConfigurableApplicationContext) context).close();
+	}
 
-//			ProductDetailService service = (ProductDetailService) context
-//					.getBean("productDetailService");
-			ShoppingCart CshoppingCart = (ShoppingCart) context
-					.getBean("shoppingCart");
-			
-//			shoppingCart cart=new shoppingCart();
-			CshoppingCart.addShoppingCart("prodDetail5024");
-//			System.out.println(service.getItemByPrimaryKey("prodDetail5024").get(0));
-//			 List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
-			
-			
-			
-//			 for (ProductDetailVO vo : cart) {
-//			 System.out.println();
-//			 }
-
-			((ConfigurableApplicationContext) context).close();
-		}
-	
-	
 }
