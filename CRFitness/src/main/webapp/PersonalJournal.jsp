@@ -19,6 +19,8 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+<link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
+
 <style>
 /* aside 
  {  
@@ -78,7 +80,7 @@ div.timeline-body{
 
 .msgTime {
 	color:#BEBEBE;
-	font-size: 12px;
+	font-size: 10px;
 }
 </style>
 
@@ -360,18 +362,18 @@ div.timeline-body{
 					    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
 					    	+ this[0].archives+'" /></a></div>'
 					    	+ '<div class="timeline-body">'
-					    	+'<p>'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
-				   			+ '<p>內容：'+ this[0].contents+'</p>'
+					    	+'<p>'+this[1]+'</p><br />'  // 上線前要拿掉或改暱稱
+				   			+ '<p class="userContents"></p>'
 				   			+ '<p >日期：'
 				   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
-				   			+ '</div>'
+				   			+ '<br /><select class="statusSelect" /></div>'
 				   			+ '<div class="timeline-footer">'
 // 				   			  '留言塞這裡'
 				   			+ '<div></div><div></div></div>'
 				   			+ '<div  class="col-md-12 viewmessages"></div>'
 				   			+ '<div class="message_div function_list">'	
 // 				   			class="form-control"
-				   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
+				   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
 
 							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
@@ -382,31 +384,39 @@ div.timeline-body{
 				   			+ '</div>'
 				   			+ '</li>')
                              
-                
+                			
                 //------------------------------------------------------
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
 						if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
-							var eleS = $('<br/><select />').bind('change',this,function(){
+							var eleS = $('select.statusSelect:last').bind('change',this,function(){
 								updateJournal(arguments[0].data[0].journal_Id, "${LoginOK.member_Id}",arguments[0].data[0].contents,$(this).val())
 							})
 							var publicStatus = ['限本人','公開','朋友'];
 							for(var i =0;i<3;i++){
 								if(parseInt(this[0].publicStatus) === i){
-									$('<option />',{value:i,text:publicStatus[i],selected:true}).appendTo(eleS);
+									$('<option />',{'value':i,'text':publicStatus[i],'selected':true}).appendTo(eleS);
 								}else{
-									$('<option />',{value:i,text:publicStatus[i]}).appendTo(eleS);
+									$('<option />',{'value':i,'text':publicStatus[i]}).appendTo(eleS);
 								}
 							}
-							divGrid.find('div.timeline-panel:last').prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
-    						$('#grid>li div[class="timeline-body"]:last').append(eleS);
+							divGrid.find('div.timeline-body:last').append(eleS);
+							
+							// 移除個人日誌按鈕
+							divGrid.find('div.timeline-panel:last')
+							.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+							
+							divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
+ 						}else{
+ 							divGrid.find('p.userContents:last').text(this[0].contents)
  						}
 						
-
+					
 						// 第一次載入日誌先撈三筆留言
 						loadMessageOne(this[0].journal_Id, 0);
   					}) 	//each
-
-	 				// 查看留言功能按鈕
+  					
+	 				
+  					// 查看留言功能按鈕
 					var eleMessageA1 = $('<a>').text('查看更多留言').on('click', function(){
 						var theLi = $(this).parents('li');
 						var theMessage_Id = theLi.find('div.timeline-footer>div:first>div:first').val();
@@ -440,9 +450,11 @@ div.timeline-body{
 						theLi.find('div.timeline-footer').slideUp();
 						theLi.find('div.viewmessages').slideDown();
 					})
-					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
+// 					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
 
-					
+					$('.username').editable({
+					     rows:3
+					});  // 編輯個人日誌的內容
   					$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
 	    			}
 	    		})
@@ -513,7 +525,7 @@ div.timeline-body{
 								   			+ '<div></div><div></div></div>'
 								   			+ '<div  class="col-md-12 viewmessages"></div>'
 								   			+ '<div class="message_div function_list">'	
-								   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
+								   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 											+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
 								   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
 								   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
@@ -577,7 +589,7 @@ div.timeline-body{
     	// 移除篇此日誌
     	divGrid.on('click','button[title="移除此篇日誌"]',function(){
     		var journal_Id = $(this).parents('li').attr('id');
-    		var theContents = $(this).nextAll('div.timeline-body').find('p:nth-child(2)').text().slice(3);
+    		var theContents = $(this).nextAll('div.timeline-body').find('p:nth-child(2)').text();
     		var theLi = $(this).parents('li');
     		alertify.confirm().set('title', '警告');
     		alertify.confirm('確認刪除此日誌',function(e){
@@ -588,8 +600,31 @@ div.timeline-body{
     		});
     	})
 		
+    	//edit Contents
+		divGrid.on('click','a.username',function(){
+			var theLi = $(this).parents('li');
+			var contexts = $(this);
+			var journal_Id = theLi.attr('id');
+			var openStatus = theLi.find('select.statusSelect');
+			
+			$('.form-inline').submit(function(){
+// 			console.log(openStatus+contexts.text())
+				updateJournal(theLi.attr('id'), "${LoginOK.member_Id}", contexts.text(), openStatus.val())
+// 				$.ajax({
+// 					url: "${this_contextPath}",
+// 					type: 'POST',
+// 					data: {'journal_Id':theLi.attr('id'),
+// 						   'content':contexts.text()
+// 						   },
+// 					success: function(data){
+				
+// 					}
+// 				})
+			})
+		})
+    	
 		//send MessageDetail from enter -------------------------------------
-		divGrid.on('keydown', 'li textarea', function (event) {
+		divGrid.on('keydown', 'textarea.message-textarea', function (event) {
 			if (event.keyCode == 13 && !event.shiftKey) {
 				var theJournal_Id = $(this).parents('li').attr('id');
 				var val = $(this).val();
@@ -606,12 +641,12 @@ div.timeline-body{
         //send MessageDetail from button
 		divGrid.on('click', 'li button[class="btn btn-info pull-right"]', function (event) {
 			var theJournal_Id = $(this).parents('li').attr('id');
-			var val = $(this).prevAll('textarea').val()
+			var val = $(this).prevAll('textarea.message-textarea').val()
 			if(val.trim().length != 0){
 				val = val.replace(/\r?\n/g, '</br> ')
 				addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
-				$(this).prevAll('textarea').css('height','31');
-				$(this).prevAll('textarea').val('');
+				$(this).prevAll('textarea.message-textarea').css('height','31');
+				$(this).prevAll('textarea.message-textarea').val('');
 			}
 		})
 		
@@ -762,5 +797,6 @@ div.timeline-body{
 
 	<script src="${this_contextPath}/js/personal_journal.js"></script>
 	<script src="${this_contextPath}/js/alertify.js"></script>
+	<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
 </body>
 </html>

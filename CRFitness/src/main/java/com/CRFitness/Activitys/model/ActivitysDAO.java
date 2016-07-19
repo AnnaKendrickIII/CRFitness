@@ -67,7 +67,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 
 	//揪團 載入時顯示抓八筆
 	@Override
-	public List<ActivitysVO>  select_ActivityMember_One() {
+	public List<ActivitysVO>  select_ActivityMember() {
 		Query query = this.getSession().createSQLQuery(
 				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
 				+ "FROM ActivityDetail JOIN Members "
@@ -76,8 +76,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 				+ "FOR XML PATH('') ) as Nicknames "
 				+ "FROM Activitys JOIN Members "
 				+ "ON Activitys.Member_Id = Members.Member_Id "
-				+"order by activity_Day desc"	
-				+" OFFSET 0 ROWS FETCH NEXT 8 ROWS ONLY")
+				+"order by activity_Day desc")
 				.addEntity("Activitys.*", ActivitysVO.class)
 				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
 				.addScalar("Nickname", StringType.INSTANCE);			
@@ -85,23 +84,23 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	}
 	
 	//揪團 上列方法跑完繼續執行以下方法 (分批進行抓 加速頁面載入)
-	@Override
-	public List<ActivitysVO> select_ActivityMember_Two() {
-		Query query = this.getSession().createSQLQuery(
-				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
-				+ "FROM ActivityDetail JOIN Members "
-				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
-				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
-				+ "FOR XML PATH('') ) as Nicknames "
-				+ "FROM Activitys JOIN Members "
-				+ "ON Activitys.Member_Id = Members.Member_Id "
-				+"order by activity_Day desc"	
-				+" OFFSET 8 ROWS ")
-				.addEntity("Activitys.*", ActivitysVO.class)
-				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
-				.addScalar("Nickname", StringType.INSTANCE);			
-		return (List<ActivitysVO>) query.list();
-	}
+//	@Override
+//	public List<ActivitysVO> select_ActivityMember_Two() {
+//		Query query = this.getSession().createSQLQuery(
+//				"SELECT DISTINCT Activitys.*,Members.Nickname,(SELECT ','+Members.Nickname "
+//				+ "FROM ActivityDetail JOIN Members "
+//				+ "ON ActivityDetail.Member_Id = Members.Member_Id "
+//				+ "WHERE Activitys.Activity_Id = ActivityDetail.Activity_Id "
+//				+ "FOR XML PATH('') ) as Nicknames "
+//				+ "FROM Activitys JOIN Members "
+//				+ "ON Activitys.Member_Id = Members.Member_Id "
+//				+"order by activity_Day desc"	
+//				+" OFFSET 8 ROWS ")
+//				.addEntity("Activitys.*", ActivitysVO.class)
+//				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
+//				.addScalar("Nickname", StringType.INSTANCE);			
+//		return (List<ActivitysVO>) query.list();
+//	}
 	
 	public List<ActivitysVO> select_Activitys(String member_Id) {	
 		Query query = this.getSession().createSQLQuery(
@@ -163,4 +162,23 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	return (List<ActivitysVO>) query.list();
 }
 
+	public List<ActivitysVO> select_FriendActivitys(String member_Id) {	
+		Query query = this.getSession().createSQLQuery(	
+			"SELECT Activitys.*,Friendships.Friend_Id,(SELECT Members.Nickname "
+		+ "FROM Activitys join Members "
+		+ "on  Activitys.Member_Id =Members.Member_Id "
+		+ "WHERE ActivityDetail.Activity_Id=Activitys.Activity_Id ) "
+		+ "as Nicknames "
+		+ "FROM ActivityDetail JOIN Friendships "
+		+ "ON ActivityDetail.Member_Id = Friendships.Member_Id "
+		+ "JOIN Activitys on ActivityDetail.Activity_Id=Activitys.Activity_Id "
+		+ "WHERE Friendships.Friend_Status = 1 and Friendships.Member_Id = '"+member_Id+"' "
+		+ "order by activity_Day desc").addEntity("Activitys.*",ActivitysVO.class)
+					  .addEntity("ActivityDetail.*",ActivityDetailVO.class)
+					  .addScalar("Nicknames", StringType.INSTANCE)
+					  .addScalar("Friend_Id", StringType.INSTANCE);
+	return (List<ActivitysVO>) query.list();
+}
+
+	
 }

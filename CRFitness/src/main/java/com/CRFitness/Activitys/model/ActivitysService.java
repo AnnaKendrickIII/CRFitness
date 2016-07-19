@@ -47,13 +47,13 @@ public class ActivitysService {
 	}
 	
 	public List<ActivitysVO> findActivitysMembers_One( ){
-		List<ActivitysVO> list = activitysDAO.select_ActivityMember_One();
+		List<ActivitysVO> list = activitysDAO.select_ActivityMember();
 		return list;
 	}
-	public List<ActivitysVO> findActivitysMembers_Two( ){
-		List<ActivitysVO> list = activitysDAO.select_ActivityMember_Two();
-		return list;
-	}
+//	public List<ActivitysVO> findActivitysMembers_Two( ){
+//		List<ActivitysVO> list = activitysDAO.select_ActivityMember_Two();
+//		return list;
+//	}
 	public  List<ActivitysVO> findActivitysMem(String member_Id){
 		List<ActivitysVO> list = activitysDAO.select_Activitys(member_Id);
 		return list;	
@@ -61,6 +61,11 @@ public class ActivitysService {
 	
 	public List<ActivitysVO> findMyActivitys(String member_Id) {
 		List<ActivitysVO> list = activitysDAO.select_MyActivitys(member_Id);
+		return list;
+	}
+	
+	public List<ActivitysVO> findFriendActivitys(String member_Id) {
+		List<ActivitysVO> list = activitysDAO.select_FriendActivitys(member_Id);
 		return list;
 	}
 	

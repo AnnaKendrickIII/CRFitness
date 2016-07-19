@@ -34,14 +34,14 @@ public class ActivitysController {
 	public @ResponseBody List<ActivitysVO> findActivitysID(){	
 		return activitysService.getAll();	
 	}
-	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembersOne", produces = {MediaType.APPLICATION_JSON})
+	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembers", produces = {MediaType.APPLICATION_JSON})
 	public @ResponseBody List<ActivitysVO> findActivitysMembers_One(){	
 		return activitysService.findActivitysMembers_One();	
 	}
-	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembersTwo", produces = {MediaType.APPLICATION_JSON})
-	public @ResponseBody List<ActivitysVO> findActivitysMembers_Two(){	
-		return activitysService.findActivitysMembers_Two();	
-	}
+//	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembersTwo", produces = {MediaType.APPLICATION_JSON})
+//	public @ResponseBody List<ActivitysVO> findActivitysMembers_Two(){	
+//		return activitysService.findActivitysMembers_Two();	
+//	}
 	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{member_Id}", produces = MediaType.APPLICATION_JSON)
@@ -54,6 +54,12 @@ public class ActivitysController {
 	public @ResponseBody List<ActivitysVO> findMyActivitys(
 			@PathVariable String member_Id) {		
 		return activitysService.findMyActivitys(member_Id);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/friendActivitys/{member_Id}", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<ActivitysVO> findFriendActivitys(
+			@PathVariable String member_Id) {		
+		return activitysService.findFriendActivitys(member_Id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value ="/addActivitys")
