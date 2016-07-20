@@ -99,7 +99,7 @@ margin: 0px;
 }
 
 .divideline{
-margin: 1px;
+margin: 5px;
 }
 </style>
 
@@ -288,7 +288,7 @@ jQuery(function($){
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+this[0].activity_Class+'<hr calss="divideline"/>'+this[0].activity_Area 
+                                    	+'<div style="text-align : center">'+this[0].activity_Class+'<hr class="divideline"/>'+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each
@@ -333,38 +333,7 @@ jQuery(function($){
 
 </c:if> 
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
-<%-- <c:if test="${LoginOK.member_Id != pageContext.request.queryString or pageContext.request.queryString != null}"> --%>
-<script type="text/javascript">
-                     $(function () {
-                         $.ajax({
-                        	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",
-                             type:'get',  //get post put delete
-                             data:{},
-                             success:function(data){
-                            	 var c=1;                            	
-                                 $.each(data,function(){
-             						var jdate_int = parseInt(this[2].activity_Day); //轉換成數字
-            						var jdate_value = new Date(jdate_int);
-                                     $('#myactivity_personal').append(
-                                    	 '<li>'	 
-                                    	+'<time datetime="2014-07-20">'
-            							+'<span class="month">'+jdate_value.Format("MM")+'</span>'
-             							+'<span class="day">'+jdate_value.Format("dd")+'</span>'
-            							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
-            							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
-            							+'</time>'
-                                    	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
-                                    	+'<img src="${this_contextPath}/images/activitys/'
-                                    	+this[2].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+this[2].activity_Class+this[2].activity_Area 
-                                    	+'</div>'
-                                    	+'</li>')                
-                                 }) //each                         
-                             }          	 
-                         }) //ajax
-                     })
-	</script>
-<%-- </c:if> --%>
+
 
 				<!-- 新增個人日誌頁面開始 -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
