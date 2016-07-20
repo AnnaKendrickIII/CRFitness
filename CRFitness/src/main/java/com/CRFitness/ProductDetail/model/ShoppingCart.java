@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -45,14 +46,23 @@ public class ShoppingCart implements Serializable {
 	public Map<String, Object> addShoppingCart(String productDetail_Id) {
 		cart.put(productDetail_Id,
 				productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
-
+		ArrayList<Object> xxx = (ArrayList<Object>)(productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id).get(0));
+		System.out.println(xxx.get(1));
+		
 		return cart;
 	}
 
+	// 刪除購物車商品
 	public Map<String, Object> deleteItem(String productDetail_Id) {
 		cart.remove(productDetail_Id);
-		System.out.println(cart);
+		System.out.println(productDetail_Id);
 		return cart;
+	}
+
+	// 計算購物車內商品價格
+	public Integer totalAmount(Integer qty, String productDetail_Id) {
+
+		return null;
 	}
 
 	public static void main(String[] args) {

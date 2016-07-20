@@ -159,31 +159,44 @@ $.ajax({
 				this[0][1]+'</strong></h4><h4><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
 				'<div class="col-xs-6 text-right"><h5><strong class="price">'+
-				this[0][2]+'<span class="text-muted">&nbsp&nbspx&nbsp</span></strong></h5></div>'+
+				this[0][2]+'</strong><span class="text-muted">&nbsp&nbspx&nbsp</span></h5></div>'+
 				'<div class="col-xs-4"><input type="text" class="form-control input-sm qty" value="1"/></div>'+
 				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
 				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')	
 	
 
 		})
+		
 		$('#itemlist').on('click','.delete', function() {
 			var thisdelete =$(this)
+			alertify.confirm().set('title', '警告');
+			alertify.confirm('確定刪除此商品?', function(){ 
 			$.ajax({
 				url:'${this_contextPath}/CRFSERVICE/productDetailController/deleteItem',
 				typr:'get',
-				data:{productDetail_Id:$(this).parent().parent().parent().find('span[hidden]').text()},
+				data:{productDetail_Id:thisdelete.parent().parent().parent().find('span[hidden]').text()},
 				success:function(data){
-					thisdelete.parent().parent().parent().parent().remove();
+					//console.log(thisdelete.parent().parent().parent().find('span[hidden]').text())
+						 thisdelete.parent().parent().parent().parent().remove();
 				}
 			})
+				alertify.warning('商品刪除成功')
+		 });
 		});
 		
 		$('#itemlist').on('change', 'div.item input.qty',function(){
-			for(var i=0;i<$('.qty').length;i++){
-				console.log( $('.qty:eq('+i+')').val()+':'+ $('.price:eq('+i+')').text())
-			}		
+			var amount = 0;
+			var sum = 0;
+			for(var i=0; i<$('.qty').length; i++){
+				var qty = parseInt($('.qty:eq('+i+')').val());
+				var price = parseInt($('.price:eq('+i+')').text());
+				amount = qty * price;
+		//		console.log( $('.qty:eq('+i+')').val()+':'+$('.price:eq('+i+')').text())
+				console.log(amount);	
+				sum += amount;
+			}
+			console.log(sum)
 		})
-		
 	}
 })
 

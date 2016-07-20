@@ -145,7 +145,7 @@ $('body').on('click','.shop',function(){
 // 	console.log($('.shopping_car').position().top)
 
 	var detailId=$(this).find('span.detailId').text()
-	console.log(detailId)
+//	console.log(detailId)
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
 		type:'get',
