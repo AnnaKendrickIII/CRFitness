@@ -28,12 +28,12 @@ public class MemberController {
 			HttpServletRequest request,
 			@PathVariable String member_Id)   {
 		String realPath=request.getServletContext().getRealPath("/");
-		String Path=realPath+"/images/members/"+member_Id+".jpg";
-		if(memberService.ExitsPhoto(Path)){				
-			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/NoImage.jpg"));
+		String Path=realPath+"/images/members/"+member_Id;
+		if(memberService.ExitsCovertPhoto(Path)!=null){
+			return memberService.ExitsCovertPhoto(Path);
 		}else{
-			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/members/"+member_Id+".jpg"));
-		}
+			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/NoImage.jpg"));	
+		}			
 	}
 	
 
