@@ -29,8 +29,9 @@ public class CommonJournalController {
 	public @ResponseBody List<PersonalJournalVO> getAll_Two() {
 		return commonJournalService.ShowAllJournal_Two();
 	}
+	//CRFSERVICE/commonJournalController/photo/journal2004
 	@RequestMapping(method = RequestMethod.GET, value = "/photo/{journal_Id}", produces = {
-			"image/jpeg", "image/gif","image/gif" })
+			"image/jpeg", "image/gif","image/png" })
 	public @ResponseBody byte[] findMemberPhoto(
 			HttpServletRequest request,
 			@PathVariable String journal_Id)   {

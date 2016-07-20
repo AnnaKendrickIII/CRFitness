@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.annotation.Resources;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
@@ -52,6 +53,7 @@ public class PersonalJournalController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/insertJournal", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody PersonalJournalVO insertPersonalJournal(
+			HttpServletRequest request,
 			@RequestParam String member_Id,
 			@RequestParam MultipartFile archives,
 			@RequestParam String contents,
@@ -64,7 +66,17 @@ public class PersonalJournalController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return personalJournalService.insertPersonalJournal(member_Id,archives,contents,publishTime,publicStatus);
+		PersonalJournalVO personalJournalVO=personalJournalService.insertPersonalJournal(member_Id,contents,publishTime,publicStatus);
+		String realPath=request.getServletContext().getRealPath("/");
+		String contentType;
+		if(archives.getContentType().substring(6).equalsIgnoreCase("jpeg")){
+			contentType=".jpg";
+		}else{
+			contentType="."+archives.getContentType().substring(6);
+		}
+		String Path=realPath+"/images/Journal/"+personalJournalVO.getJournal_Id()+contentType;	
+		personalJournalService.Insert_JournalImages(Path,archives);
+		return personalJournalVO;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/updateJournal", produces = MediaType.APPLICATION_JSON)

@@ -1,5 +1,7 @@
 package com.CRFitness.PersonalJournal.model;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -35,7 +37,6 @@ public class PersonalJournalService {
 	// 新增個人日誌
 	public PersonalJournalVO insertPersonalJournal(
 			 String member_Id,
-			 MultipartFile archives,
 			 String contents,
 			 Timestamp publishTime,
 			 Integer publicStatus
@@ -44,15 +45,36 @@ public class PersonalJournalService {
 		memberVO.setMember_Id(member_Id);
 		PersonalJournalVO personalJournalVO = new PersonalJournalVO();
 		personalJournalVO.setMember_Id(member_Id);
-		try {
-			personalJournalVO.setArchives(archives.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		personalJournalVO.setContents(contents);
 		personalJournalVO.setPublishTime(publishTime);
 		personalJournalVO.setPublicStatus(publicStatus);
 		return personalJournalDAO.insert(personalJournalVO);
+	}
+	
+	public void Insert_JournalImages(String Path,MultipartFile archives){
+		FileOutputStream fop = null;
+		File file=null;
+		byte[] photo=null;			      
+		try {
+			photo=archives.getBytes();
+			file = new File(Path);		
+			if (!file.exists()) {
+				file.createNewFile();
+			}	
+			fop = new FileOutputStream(file);
+			fop.write(photo);
+			fop.flush();
+			fop.close();		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fop.close();
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+			}	
+		}
 	}
 	
 	// 編輯個人日誌公開狀態

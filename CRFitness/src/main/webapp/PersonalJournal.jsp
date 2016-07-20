@@ -106,6 +106,10 @@ margin: 5px;
 
 }
 
+.name_p{
+font-size: 24px;
+color:#0000C6;
+}
 </style>
 
 </head>
@@ -349,38 +353,6 @@ jQuery(function($){
 </c:if> 
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
 
-<%-- <c:if test="${LoginOK.member_Id != pageContext.request.queryString or pageContext.request.queryString != null}"> --%>
-<script type="text/javascript">
-     $(function () {
-         $.ajax({
-        	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",
-             type:'get',  //get post put delete
-             data:{},
-             success:function(data){
-            	 var c=1;                            	
-                 $.each(data,function(){
-				var jdate_int = parseInt(this[2].activity_Day); //轉換成數字
-				var jdate_value = new Date(jdate_int);
-                     $('#myactivity_personal').append(
-                    	 '<li>'	 
-                    	+'<time datetime="2014-07-20">'
-						+'<span class="month">'+jdate_value.Format("MM")+'</span>'
-						+'<span class="day">'+jdate_value.Format("dd")+'</span>'
-						+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
-						+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
-						+'</time>'
-                    	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
-                    	+'<img src="${this_contextPath}/images/activitys/'
-                    	+this[2].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                    	+'<div style="text-align : center">'+this[2].activity_Class+this[2].activity_Area 
-                    	+'</div>'
-                    	+'</li>')                
-                 }) //each                         
-             }          	 
-         }) //ajax
-     })
-	</script>
-<%-- </c:if> --%>
 
 
 				<!-- 新增個人日誌頁面開始 -->
@@ -540,10 +512,10 @@ jQuery(function($){
 				    	+ invert 	
 				    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel" id="remove_journal">'
 //					    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-				    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
-				    	+ this[0].archives+'" /></a></div>'
+				    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
+				    	+ this[0].journal_Id+'" /></a></div>'
 				    	+ '<div class="timeline-body">'
-				    	+'<p>'+this[1]+'</p><br />'  // 上線前要拿掉或改暱稱
+				    	+'<p class="name_p">'+this[1]+'</p><br />'  // 上線前要拿掉或改暱稱
 			   			+ '<p class="userContents"></p>'
 			   			+ '<p >日期：'
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
@@ -586,11 +558,9 @@ jQuery(function($){
 						
 						// 移除個人日誌按鈕
 						divGrid.find('div.timeline-panel:last')
-						.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
+						.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x removeJournal" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
 						
 						divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
-						
-					
 						
 						}else{
 							divGrid.find('p.userContents:last').text(this[0].contents);
@@ -698,12 +668,12 @@ jQuery(function($){
 									    	+ '<div class="timeline-badge primary"><a>'
 									    	+ invert 	
 									    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div hidden="hidden" class="timeline-panel" id="remove_journal">'
-									    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="data:image/png;base64,'
-									    	+ data.archives+'" /></a></div>'
+									    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x removeJournal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
+									    	+ data.journal_Id+'" /></a></div>'
 									    	+ '<div class="timeline-body">'
-									    	+'<p>'+ "${LoginOK.nickname}" +'</p>'  // 上線前要拿掉或改暱稱
-								   			+ '<p>內容：'+ data.contents +'</p>'
+									    	+'<p class="name_p">'+ "${LoginOK.nickname}" +'</p>'  // 上線前要拿掉或改暱稱
+								   			+ '<br/><a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
 								   			+ '<p >日期：'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 								   			+ '<br/><select class="statusSelect" /></div>'
@@ -720,6 +690,7 @@ jQuery(function($){
 								   			+ '</div>'
 								   			+ '</li>')
 
+// 								   			divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
 		   								//新增日誌後清除內容
 										$('.timeline-panel').fadeIn(2200);
 			    						$('#content').val('')
@@ -768,7 +739,7 @@ jQuery(function($){
 			})
     	}   	
     	// 移除篇此日誌
-    	divGrid.on('click','button[title="移除此篇日誌"]',function(){
+    	divGrid.on('click','button.removeJournal',function(){
     		var journal_Id = $(this).parents('li').attr('id');
     		var theContents = $(this).nextAll('div.timeline-body').find('p:nth-child(2)').text();
     		var theLi = $(this).parents('li');
@@ -870,7 +841,7 @@ jQuery(function($){
 								var thP1 = $('<p>')
 								if(index==0){
 									thP1.text(theNickname+": "+ this);
-									$('<img src="${this_contextPath}/images/members/'+Obj[0].member_Id+'.jpg" />')
+									$('<img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+Obj[0].member_Id+'" />')
 									.addClass('img-circle msgPhoto .img-responsive')
 									.prependTo(thP1)
 								}else{
