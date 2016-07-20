@@ -11,8 +11,6 @@
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
 <jsp:include page="/AdminFrame.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
-<%-- <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- upload files --> --%>
-<%-- <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- upload files --> --%>
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- switch button -->
 <script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- on & off button -->
 

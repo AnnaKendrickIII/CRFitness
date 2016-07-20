@@ -13,8 +13,8 @@
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- upload files -->
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- upload files -->
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- on & off button -->
-<script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- on & off button -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- switch button -->
+<script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- switch button -->
 
 <title>MaintainProducts</title>
 
@@ -468,12 +468,12 @@ textarea{
 									+ '</td><td hidden="hidden">'
 					                + data[1].product_Status
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></span>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
 									+ '</td></tr>') // end of after				
-						// 產品狀態on&off的程式 開始
+						// 產品狀態switch的程式 開始
 						$('.insertSwitch'+count).easyswitch();
 						count++;
-						// 產品狀態on&off的程式 結束
+						// 產品狀態switch的程式 結束
 						$("tr").fadeIn(800);
 						$('#fine-uploader-manual-trigger .qq-upload-list-selector').empty(); // file的清空
 						$('#insert_name').val(''); // 值的清空
@@ -566,13 +566,13 @@ textarea{
 									+ '</td><td hidden="hidden">'
 					                + data[1].product_Status
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 									// 修改產品的小程式
-					// 產品狀態on&off的程式 開始
+					// 產品狀態switch的程式 開始
 					$('.updateSwitch'+count).easyswitch();
 					count++;
-					// 產品狀態on&off的程式 結束
+					// 產品狀態switch的程式 結束
 					$("tr").fadeIn(800);				
 					$('#fine-uploader-manual-trigger2 .qq-upload-list-selector').empty();
 					file = null;
@@ -625,12 +625,12 @@ textarea{
 													+ '</td><td hidden="hidden">'
 									                + this[0].product_Status
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="ON" data-label-off="OFF"></i>'
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
-					// 產品狀態on&off的程式   開始
-						$('.easyswitch').easyswitch();
-					// 產品狀態on&off的程式   結束
+					// 產品狀態switch的程式   開始
+					$('.easyswitch').easyswitch();
+					// 產品狀態switch的程式   結束
 					// 修改產品的小程式   開始	
 // 					$('body').on('click', '.2g', function(){									
 // 					$('.2g').click(function(){	
