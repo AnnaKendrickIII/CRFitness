@@ -386,7 +386,7 @@ jQuery(function($){
 										</select>
 									</div>
 									<div class="form-group">
-										<label for="uploadfile">檔案上傳</label> <input id="uploadfile"
+										<label for="uploadfile">檔案上傳</label> <input id="uploadfile" class=""
 											type="file" multiple="multiple">
 										<p class="help-block">在此示範區塊層級輔助說明文字。</p>
 									</div>
@@ -551,7 +551,6 @@ jQuery(function($){
 							}else{
 								$('<option />',{'value':i,'text':publicStatus[i]}).appendTo(eleS);
 							}
-
 						}
 
 						eleS.show();
@@ -564,13 +563,6 @@ jQuery(function($){
 						
 						}else{
 							divGrid.find('p.userContents:last').text(this[0].contents);
-							
-							
-                    	 
-							
-							
-							
-							
 						}
 					
 				
@@ -806,7 +798,7 @@ jQuery(function($){
 							if(index==0){
 								messageDiv.append('<p/>').find('p:last').text(theNickname+": "+ this)
 								$('<img  />')
-								.attr('src',"${this_contextPath}/images/members/${LoginOK.member_Id}.jpg")
+								.attr('src',"${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}.jpg")
 								.addClass('img-circle msgPhoto .img-responsive')
 								.prependTo(messageDiv.find('p:last'))
 							}else{
