@@ -145,7 +145,6 @@ jQuery(function($){
      type:'get',  //get post put delete
      data:{},
      success:function(data){
-     	 console.log(data)
     	 $('#personal_activity').append(
 				 '<ul class="nav nav-tabs" role="tablist" id="myTab">'
 				+'<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"選取的會員"+"參加的揪團"+'</a></li>'
@@ -485,7 +484,7 @@ jQuery(function($){
 							var jdate_value = new Date(jdate_int);
 					    	var invert; 
 					    	var li_direction;
-	
+					    	var thejournal_Id=this[0].journal_Id
 					    	if(index%2==0){
 					    		li_direction='<li id="'+ this[0].journal_Id +'">';
 					    		invert='<i class="glyphicon glyphicon-record " '
@@ -517,15 +516,25 @@ jQuery(function($){
 				   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 // 				   			class="btn btn-primary pull-right"
 
-							+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
-				   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
+							+ '<a class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
+				   			+ '<a class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen" ></span></a>'
+				   			+ '<a><span class="badge countLike" ></span></a>'
 				   			+ '<button type="button" class="btn btn-info pull-right" >送出留言 </button>'
 
 				   			+ '</div>'
 				   			+ '</div>'
 				   			+ '</li>')
                              
-                			
+                 	//顯示按讚數		
+				   	$.ajax({
+						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
+						type:"get",
+						data:{journal_Id:this[0].journal_Id},
+						success:function(data){
+ 				 			$('#'+thejournal_Id).find(".countLike").append(data)						
+						}					
+					})
+				   			
 						// 判斷queryString 和 LoginOK.member_Id 是否一樣
 						if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 							// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除
@@ -575,7 +584,10 @@ jQuery(function($){
    	   							$('#'+this.journal_Id).find('Span._soakw').toggleClass("coreSpriteHeartFull")
    	   						})
    	   					}
-   	   				})
+	   	   				})
+
+
+	   	   			
 					divGrid.find('div.viewmessages').append(eleMessageA1);
   					
 					//隱藏留言按鈕
@@ -652,8 +664,8 @@ jQuery(function($){
 								   			+ '<div  class="col-md-12 viewmessages"></div>'
 								   			+ '<div class="message_div function_list">'	
 								   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
-											+ '<button type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></button>'
-								   			+ '<button type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></button>'
+											+ '<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
+								   			+ '<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></a>'
 								   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
 								   			+ '</div>'
 								   			+ '</div>'
@@ -672,7 +684,6 @@ jQuery(function($){
 		   										type: 'POST',
 		   										data: {'journal_Id':arguments[0].data.journal_Id,'member_Id':theMemberId,'contents':arguments[0].data.contents,'publicStatus':$(this).val()},
 		   										success: function(data){
-		   											console.log(data);
 		   										}
 		   									})
 		   								});
@@ -699,7 +710,6 @@ jQuery(function($){
 					'contents':contents,
 					'publicStatus':val},
 				success: function(data){
-					console.log(data);
 					if(data && val == 4)
 						theLi.hide('explode', 2200, function(){theLi.remove()})
 						
@@ -780,7 +790,6 @@ jQuery(function($){
 						if(messageDiv.find('p:first').text()=='尚無新留言'){
 							messageDiv.find('p:first').text('');
 						}
-						console.log(new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
 // 						messageDiv.append('<p/>').find('p:last').text('留言時間: ' + new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
 						messageDiv.append('<p/>').find('p:last').text('留言時間: ' + diffTime(theMessageTime)).addClass('msgTime')
 						messageDiv.next().show().parent().slideDown()
@@ -820,7 +829,6 @@ jQuery(function($){
 
 							var thP2 = $('<p>')
 
-// 							console.log(new Date(this[0].messageTime).Format('yyyy-MM-dd hh:mm:ss'))
 // 							thP2.text('留言時間: ' + new Date(this[0].messageTime).Format('yyyy-MM-dd hh:mm:ss'))
 							thP2.text('留言時間: ' + diffTime(this[0].messageTime)).addClass('msgTime')
 							theDiv.append(thP2)
@@ -861,9 +869,21 @@ jQuery(function($){
 			}
 		}
 		
-		jQuery(function($){
+		jQuery(function($){ 
+			
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
+				var count=null;
+
+	   	   		$.ajax({
+					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
+					type:"post",
+					data:{journal_Id:$(this).parents('li').attr('id')},
+					success:function(data){
+			 			theclick.next().find('span.countLike').text(data)						
+					}					
+				})
+	   	   			
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
 				if(!tset){
 					$.ajax({
@@ -874,7 +894,8 @@ jQuery(function($){
 							lauded_Id:'${LoginOK.member_Id}'
 						},
 						success:function(data){
-							theclick.find('span').toggleClass("coreSpriteHeartFull")
+// 							console.log(data)
+							theclick.find('span').toggleClass("coreSpriteHeartFull")						
 						}				
 					})						
 				}else{
@@ -887,6 +908,7 @@ jQuery(function($){
 						},
 						success:function(data){
 							theclick.find('span').toggleClass("coreSpriteHeartFull")
+							
 						}				
 					})						
 				}
