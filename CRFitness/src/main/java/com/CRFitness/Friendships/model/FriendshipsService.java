@@ -29,7 +29,24 @@ public class FriendshipsService {
 			memberVO.setPassword(null);
 		}	
 		return list;	
-	} 
+	}
+	
+	public boolean addFriend(String member_Id,String friend_Id){
+		FriendshipsVO friendshipsVO = new FriendshipsVO();
+		friendshipsVO.setMember_Id(member_Id);
+		friendshipsVO.setFriend_Id(friend_Id);
+		friendshipsVO.setFriend_Status(1);
+		return friendshipsDAO.insert(friendshipsVO);	
+	}
+	
+	public boolean updateFriend(String member_Id,String friend_Id, Integer friend_Status){
+		FriendshipsVO friendshipsVO = new FriendshipsVO();
+		friendshipsVO.setMember_Id(member_Id);
+		friendshipsVO.setFriend_Id(friend_Id);
+		friendshipsVO.setFriend_Status(friend_Status);
+		return friendshipsDAO.update(friendshipsVO);
+	}
+	
 //	public static void main(String[] args)  {	
 //		ApplicationContext context = new ClassPathXmlApplicationContext(
 //				"test.config.xml");
