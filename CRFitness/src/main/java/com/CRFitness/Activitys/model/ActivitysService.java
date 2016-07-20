@@ -3,6 +3,7 @@ package com.CRFitness.Activitys.model;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -50,10 +51,12 @@ public class ActivitysService {
 		List<ActivitysVO> list = activitysDAO.select_ActivityMember();
 		return list;
 	}
+	
 //	public List<ActivitysVO> findActivitysMembers_Two( ){
 //		List<ActivitysVO> list = activitysDAO.select_ActivityMember_Two();
 //		return list;
 //	}
+	
 	public  List<ActivitysVO> findActivitysMem(String member_Id){
 		List<ActivitysVO> list = activitysDAO.select_Activitys(member_Id);
 		return list;	
@@ -138,6 +141,84 @@ public class ActivitysService {
 	}
 		
 	public void Insert_activitysImages(String Path,MultipartFile photo1){
+		FileOutputStream fop = null;
+		File file=null;
+		byte[] photo=null;
+		file = new File(Path + ".jpg");
+		if(!file.exists()){
+			file = new File(Path + ".gif");
+		}
+		if(!file.exists()){
+			file = new File(Path + ".png");
+		}
+		try {
+			photo=photo1.getBytes();
+			file = new File(Path);		
+			if (!file.exists()) {
+				file.createNewFile();
+			}	
+			fop = new FileOutputStream(file);
+			fop.write(photo);
+			fop.flush();
+			fop.close();		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fop.close();
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+			}	
+		}
+	}
+
+	public byte[] findActivitysPhoto(String activity_Id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	//取得照片
+	public byte[] ExitsCovertPhoto(String Path){
+		File file=null;
+		ByteArrayOutputStream baos = null;
+		FileInputStream fis=null;
+		byte[] photo=null;		
+		file = new File(Path+".jpg");
+		if(!file.exists()){
+			file = new File(Path+".gif"); 
+		}
+		if(!file.exists()){
+			file = new File(Path+".png");
+		}
+		try {	
+			fis=new FileInputStream(file);
+			baos = new ByteArrayOutputStream();
+			int count = 0;
+    		byte[] bytes = new byte[1024];
+    		while ((count = fis.read(bytes)) != -1) {
+    			baos.write(bytes, 0, count);
+    		}
+			baos.flush();
+			photo = baos.toByteArray();
+			baos.close();
+			return photo;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			try {
+				fis.close();
+			} catch (IOException e) {	
+				e.printStackTrace();
+				return null;
+			}
+		}
+	
+	}
+	
+	
+	public void Insert_Images(String Path,MultipartFile photo1){
 		FileOutputStream fop = null;
 		File file=null;
 		byte[] photo=null;			      

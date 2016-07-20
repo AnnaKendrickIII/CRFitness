@@ -23,16 +23,17 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/photo/{member_Id}", produces = {
-			"image/jpeg", "image/gif" })
+			"image/png","image/jpeg", "image/gif" })
 	public @ResponseBody byte[] findMemberPhoto(
 			HttpServletRequest request,
 			@PathVariable String member_Id)   {
+		
 		String realPath=request.getServletContext().getRealPath("/");
 		String Path=realPath+"/images/members/"+member_Id;
 		if(memberService.ExitsCovertPhoto(Path)!=null){
 			return memberService.ExitsCovertPhoto(Path);
 		}else{
-			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/NoImage.jpg"));	
+			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/memebers/NoImage.jpg"));	
 		}			
 	}
 	

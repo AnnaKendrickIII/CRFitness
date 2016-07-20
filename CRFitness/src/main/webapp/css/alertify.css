@@ -854,7 +854,7 @@
   top: 10px;
 }
 .alertify-notifier.ajs-bottom {
-  bottom: 150px;
+  bottom: 30px;  /* 150 */
 }
 /* 左邊顯示 */
 .alertify-notifier.ajs-right {
