@@ -12,9 +12,9 @@
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <title>揪團紀錄</title>
 <jsp:include page="/CRFitness.jsp" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css"> <!-- 日期選擇器 --> 
 <script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 彈跳視窗 -->
-<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"><!-- 彈跳視窗 -->
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 </head>
 <style>
@@ -319,8 +319,8 @@ padding:10px 5px 2px 5px;
 
 </c:if>
 	<!--  頁面部分 結束 -->
-<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
-<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
-<script src="${this_contextPath}/js/moment.min.js"  ></script>
+<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script> <!-- 彈跳視窗--> 
+<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script> <!-- 日期選擇器 --> >
+<script src="${this_contextPath}/js/moment.min.js"  ></script> <!-- 日期選擇器 --> 
 </body>
 </html>

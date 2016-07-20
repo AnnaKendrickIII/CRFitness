@@ -40,9 +40,10 @@ public class Laudationcontroller {
 						@RequestParam String lauded_Id) {
 		return laudationService.haslaudation(lauded_Id) ;
 	}
-	@RequestMapping(method = RequestMethod.POST , value = "/countlike", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET , value = "/countlike", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody  Integer countlike(
 			@RequestParam String journal_Id) {
+		System.out.println("countlike");
 		return laudationService.countLike(journal_Id);
 	}
 

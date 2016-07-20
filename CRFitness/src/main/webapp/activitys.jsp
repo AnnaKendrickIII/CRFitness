@@ -285,7 +285,7 @@
 				   var jdate_intb = parseInt(data.deadline);                        //轉換成數字
 				   var jdate_value_deadline = new Date(jdate_intb);
             	   $('#new_activity').modal('hide');	
-            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="${this_contextPath}/images/activitys/'
+            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 							+data.activity_Id+'.jpg" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+'${LoginOK.nickname}'+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
@@ -294,7 +294,7 @@
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
 									+data.people+"<br /><button class='btn btn-theme submit_x' style='float:right;border:none' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+data.activity_Id
-									+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+									+'</div>"><span title=""><img src=${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+data.activity_Id+'.jpg" /></span></a>發起人：'
 									+'${LoginOK.nickname}'+'<br />類別：'
 									+data.activity_Class+'<br />地區：'
@@ -345,7 +345,7 @@
 		        		 }								//href="data:image/png;base64,'+this[0].photo1+'"
                           								//href="${this_contextPath}/CRFSERVICE/activitysController/photo/'+this[0].activity_Id+'"
                           								//${this_contextPath}/images/activitys/'+this[0].activity_Id+' .jpg
-							$('#grid').append('<li ><a href="${this_contextPath}/images/activitys/'
+							$('#grid').append('<li ><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+this[2]+"<i class='fa fa-commenting-o' aria-hidden='true'></i>"
 							+'<br />類別：'+this[0].activity_Class+'<br />地區：'
@@ -355,7 +355,7 @@
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
 									+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 									+"<div hidden='hidden'>"+this[0].activity_Id
-									+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+									+'</div>"><span title=""><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+this[0].activity_Id+'.jpg" /></span></a>發起人：'
 									+this[2]+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
 									+this[0].activity_Class+'<br />地區：'
