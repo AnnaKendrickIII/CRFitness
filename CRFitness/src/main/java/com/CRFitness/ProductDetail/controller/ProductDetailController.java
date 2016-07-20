@@ -58,7 +58,6 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/findByPrimaryKeySQLQuery", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<Object[]> findByPrimaryKeySQLQuery(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
-
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
@@ -79,7 +78,17 @@ public class ProductDetailController {
 	@RequestMapping(method = RequestMethod.GET, value = "/deleteItem")
 	public @ResponseBody void deleteItem(HttpServletRequest request,
 			@RequestParam String productDetail_Id) {
-		System.out.println(productDetail_Id);
 		shoppingCart.deleteItem(productDetail_Id);
 	}
+	//取總金額
+	@RequestMapping(method = RequestMethod.GET, value = "/totalAmount")
+	public @ResponseBody double totalAmount() {
+		return shoppingCart.totalAmount();
+	}
+	//更改數量
+	@RequestMapping(method = RequestMethod.POST, value = "/ChangeProductNum")
+	public @ResponseBody void ChangeProductNum(String productDetail_Id,String num) {
+		shoppingCart.ChangeProductNum(productDetail_Id, num);
+	}
+	
 }

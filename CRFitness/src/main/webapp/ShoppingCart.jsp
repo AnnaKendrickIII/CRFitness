@@ -84,7 +84,7 @@
 							class="form-control input-lg" autocomplete="off" required="">
 					</div>
 				</div>
-				</br>
+				<br>
 				<!-- Text input-->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="address">收件地址</label>
@@ -94,7 +94,7 @@
 							autocomplete="off">
 					</div>
 				</div>
-				</br>
+				<br>
 				<!-- Text input-->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="e-mail">E-mail</label>
@@ -104,7 +104,7 @@
 							autocomplete="off">
 					</div>
 				</div>
-				</br>
+				<br>
 				<!-- 付款方式 -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="payment"> 付款方式</label>
@@ -124,7 +124,7 @@
 						</div>
 					</div>
 				</div>
-				</br>
+				<br>
 				<!-- Button -->
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="check"></label>
@@ -142,15 +142,25 @@
 <script type="text/javascript">
 var queryString='${pageContext.request.queryString}';
 queryString=queryString.substring(17);
-
-console.log(queryString)
-
-$.ajax({
-	url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
+//總金額function
+ function totalAmount(){
+	$.ajax({
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/totalAmount',
 	typr:'get',
 	data:{},
 	success:function(data){
-		$.each(data,function(){
+	$('#amount strong').text(data);
+		}
+	})
+}
+
+jQuery(function($){
+	$.ajax({
+		url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
+		typr:'get',
+		data:{},
+		success:function(data){
+			$.each(data,function(){
 		$('#itemlist').append('<div class="item">'+
 				'<div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="data:image/png;base64,'+
@@ -160,46 +170,68 @@ $.ajax({
 				'<div class="col-xs-6">'+
 				'<div class="col-xs-6 text-right"><h5><strong class="price">'+
 				this[0][2]+'</strong><span class="text-muted">&nbsp&nbspx&nbsp</span></h5></div>'+
-				'<div class="col-xs-4"><input type="text" class="form-control input-sm qty" value="1"/></div>'+
+				'<div class="col-xs-4"><input type="text" class="form-control input-sm qty" value="'+this[1]+'"/></div>'+
 				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
 				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')	
 	
 
 		})
-		
-		$('#itemlist').on('click','.delete', function() {
-			var thisdelete =$(this)
-			alertify.confirm().set('title', '警告');
-			alertify.confirm('確定刪除此商品?', function(){ 
-			$.ajax({
-				url:'${this_contextPath}/CRFSERVICE/productDetailController/deleteItem',
-				typr:'get',
-				data:{productDetail_Id:thisdelete.parent().parent().parent().find('span[hidden]').text()},
-				success:function(data){
-					//console.log(thisdelete.parent().parent().parent().find('span[hidden]').text())
-						 thisdelete.parent().parent().parent().parent().remove();
-				}
-			})
-				alertify.warning('商品刪除成功')
-		 });
-		});
-		
-		$('#itemlist').on('change', 'div.item input.qty',function(){
-			var amount = 0;
-			var sum = 0;
-			for(var i=0; i<$('.qty').length; i++){
-				var qty = parseInt($('.qty:eq('+i+')').val());
-				var price = parseInt($('.price:eq('+i+')').text());
-				amount = qty * price;
-		//		console.log( $('.qty:eq('+i+')').val()+':'+$('.price:eq('+i+')').text())
-				console.log(amount);	
-				sum += amount;
-			}
-			console.log(sum)
-		})
+		//取出新總額
+		totalAmount()	
 	}
 })
+	
+})
+</script>
 
+<script type="text/javascript">
+//刪除商品
+$('#itemlist').on('click','.delete', function() {
+	var thisdelete =$(this)
+	alertify.confirm().set('title', '警告');
+	alertify.confirm('確定刪除此商品?', function(){ 
+	$.ajax({
+		url:'${this_contextPath}/CRFSERVICE/productDetailController/deleteItem',
+		typr:'get',
+		data:{productDetail_Id:thisdelete.parent().parent().parent().find('span[hidden]').text()},
+		success:function(data){
+				 thisdelete.parent().parent().parent().parent().remove();
+		}
+	})
+		alertify.warning('商品刪除成功')
+		//取出新總額
+		totalAmount()	
+ });
+});	
+</script>
+<script type="text/javascript">
+//當換數量 總價格變動
+$('#itemlist').on('focusout', 'div.item input.qty',function(){
+	var productDetailId=$(this).parent().parent().prev().find('span[hidden]').text();
+	$.ajax({
+		url:'${this_contextPath}/CRFSERVICE/productDetailController/ChangeProductNum',
+		type:'post',
+		data:{ productDetail_Id:productDetailId,
+			 	num:$(this).val()},
+		success:function(data){
+			totalAmount()
+		}
+	})
+	
+})
+
+// 	$('#itemlist').on('change', 'div.item input.qty',function(){
+// 	var amount = 0;
+// 	var sum = 0;
+// 	for(var i=0; i<$('.qty').length; i++){
+// 		var qty = parseInt($('.qty:eq('+i+')').val());
+// 		var price = parseInt($('.price:eq('+i+')').text());
+// 		amount = qty * price;
+// 		console.log(amount);	
+// 		sum += amount;
+// 	}
+	
+// 	})
 </script>
 
 <script type="text/javascript">
@@ -218,14 +250,12 @@ $.ajax({
 </script>
 
 <script type="text/javascript">
-
 $('.btn-success').on('click', function () {
     alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
     	alertify.success('訂單送出') }
         , function () { 
         alertify.error('訂單取消') });
 });
-
 </script>
 
 </aside>

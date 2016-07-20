@@ -22,8 +22,7 @@ import org.springframework.stereotype.Service;
 import com.CRFitness.Products.model.ProductsDAO_interface;
 
 @Service("shoppingCart")
-
-//@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart implements Serializable{
 
 
@@ -63,7 +62,6 @@ public class ShoppingCart implements Serializable{
 			//把車子裡的數量換新數量
 			((List<Object[]>)(cart.get(productDetail_Id))).set(1, numob);
 		}		
-		System.out.println(totalAmount());
 //System.out.println(((Integer)(((List<Object[]>)(cart.get(productDetail_Id))).get(1))[0]));/這給你測試看的
 		
 		return cart;
@@ -72,20 +70,15 @@ public class ShoppingCart implements Serializable{
 	// 刪除購物車商品
 	public Map<String, Object> deleteItem(String productDetail_Id) {
 		cart.remove(productDetail_Id);
-		System.out.println(productDetail_Id);
 		return cart;
 	}
 
 	// 計算購物車內商品價格
-	@SuppressWarnings("unchecked")
 	public double totalAmount() {
 		double subTotal = 0;
 			if(cart.size()>0){	
 				Set<String> set = cart.keySet();
 				Iterator<String> prouducts = set.iterator();
-//				Set<Entry<String, Object>> u = cart.entrySet();
-//				System.out.println(u);
-//				System.out.println(set);
 				while (prouducts.hasNext()) {	
 					List<Object[]> product = (List<Object[]>)(cart.get(prouducts.next()));
 					double price=(Double)(product.get(0))[2];
@@ -96,26 +89,23 @@ public class ShoppingCart implements Serializable{
 			}	
 		return  subTotal;
 	}
-
-	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"test.config.xml");
-
-		// ProductDetailService service = (ProductDetailService) context
-		// .getBean("productDetailService");
-		ShoppingCart CshoppingCart = (ShoppingCart) context
-				.getBean("shoppingCart");
-
-		// shoppingCart cart=new shoppingCart();
-		CshoppingCart.addShoppingCart("prodDetail5024");
-		// System.out.println(service.getItemByPrimaryKey("prodDetail5024").get(0));
-		// List<ProductDetailVO> cart = new ArrayList<ProductDetailVO>();
-
-		// for (ProductDetailVO vo : cart) {
-		// System.out.println();
-		// }
-
-		((ConfigurableApplicationContext) context).close();
+	//更改數量
+	public void ChangeProductNum(String productDetail_Id,String num){
+		List<Object[]> prouduct=(List<Object[]>)(cart.get(productDetail_Id));
+		(prouduct.get(1))[0]=Integer.parseInt(num);
 	}
+	
+//	public static void main(String[] args) {
+//		ApplicationContext context = new ClassPathXmlApplicationContext(
+//				"test.config.xml");
+//
+//		ShoppingCart CshoppingCart = (ShoppingCart) context
+//				.getBean("shoppingCart");
+//
+//		CshoppingCart.addShoppingCart("prodDetail5024");
+//
+//
+//		((ConfigurableApplicationContext) context).close();
+//	}
 
 }
