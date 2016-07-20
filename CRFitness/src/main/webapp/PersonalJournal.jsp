@@ -452,12 +452,11 @@ jQuery(function($){
     	var theMemberId = "${LoginOK.member_Id}";
         var divGrid = $('#grid');
 		var visitorStatus;  // 記錄目前登入者狀態  1:自己  2:朋友 3:非好友
-		
+		var titleNickName;
         
     //  ------------------ 判斷是否本人, 好友 , 非好友------------------
 		if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 			visitorStatus = 1;
-			alert('本人')
 			callShowJournal(visitorStatus)
 		} else {
 			// 先查詢自己所有好友名單
@@ -466,26 +465,36 @@ jQuery(function($){
 	            type:'get',  //get post put delete
 	            data:{},
 	            success:function(data){
-	            	$.each(data,function(){
+		            $.each(data,function(){
 	            		if(this.member_Id === "${pageContext.request.queryString}"){
 	            			theMemberId = this.member_Id;
 	            			titleNickName = this.nickname;
 	            			visitorStatus = 2;
 	            			callShowJournal(visitorStatus)
-	            		}else {
-	            			visitorStatus = 3;
-	            			callShowJournal(visitorStatus)
-	            			titleNickName = "${LoginOK.nickname}";
+	            			return false;
 	            		}
-					})
 					// 日誌titleNickName
-					$('#titleNickName').text(titleNickName+'的日誌');
+		            })
+		            if(visitorStatus != 2){
+            			visitorStatus = 3;
+            			callShowJournal(visitorStatus)
+            			titleNickName = "${LoginOK.nickname}";
+            			alertify.confirm().set('title', '想加好友嗎');
+                		alertify.confirm('確認加此好友',function(e){
+                			if(e){
+                				alertify.alert('++')
+                			}
+                		})
+	            	}
 				}
+		            
 			})
+					$('#titleNickName').text(titleNickName+'的日誌');
 		}
 
 					
 		function callShowJournal(visitorStatus){
+			console.log('callShowJournal')
 			// 查詢日誌開始-------------------------
 				$.ajax({
 				url : "${this_contextPath}/CRFSERVICE/personalJournalController/showJournal",
