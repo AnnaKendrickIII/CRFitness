@@ -107,7 +107,7 @@ margin: 5px;
 }
 
 .name_p{
-font-size: 24px;
+font-size: 16px;
 color:#0000C6;
 }
 </style>
@@ -352,8 +352,6 @@ jQuery(function($){
 </c:if> 
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
 
-
-
 				<!-- 新增個人日誌頁面開始 -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
@@ -496,6 +494,7 @@ jQuery(function($){
 						var jdate_value = new Date(jdate_int);
 				    	var invert; 
 				    	var li_direction;
+				    	var thejournal_Id=this[0].journal_Id;
 				    	if(index%2==0){
 				    		li_direction='<li id="'+ this[0].journal_Id +'">';
 				    		invert='<i class="glyphicon glyphicon-record " '
@@ -509,7 +508,6 @@ jQuery(function($){
 				    	+ '<div class="timeline-badge primary"><a>'
 				    	+ invert 	
 				    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel" id="remove_journal">'
-//					    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
 				    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 				    	+ this[0].journal_Id+'" /></a></div>'
 				    	+ '<div class="timeline-body">'
@@ -519,13 +517,13 @@ jQuery(function($){
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 			   			+ '<br /><select class="statusSelect" hidden="hidden" /></div>'
 			   			+ '<div class="timeline-footer">'
-//				   			  '留言塞這裡'
+			   			  //'留言塞這裡'
 			   			+ '<div></div><div></div></div>'
 			   			+ '<div  class="col-md-12 viewmessages"></div>'
 			   			+ '<div class="message_div function_list">'	
-//				   			class="form-control"
+
 			   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
-//				   			class="btn btn-primary pull-right"
+
 
 						+ '<a class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 				   		+ '<a class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen" ></span></a>'
@@ -535,18 +533,17 @@ jQuery(function($){
 			   			+ '</div>'
 			   			+ '</li>')
 			   			
-			   			                 	//顯示按讚數		
-				   	$.ajax({
-						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
-						type:"get",
-						data:{journal_Id:this[0].journal_Id},
-						success:function(data){
- 				 			$('#'+thejournal_Id).find(".countLike").append(data)						
-						}					
-					})
+			   			//顯示按讚數		
+					   	$.ajax({
+							url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
+							type:"get",
+							data:{journal_Id:this[0].journal_Id},
+							success:function(data){
+	 				 			$('#'+thejournal_Id).find(".countLike").append(data)						
+							}					
+						})
                          
-            			
-					// 判斷queryString 和 LoginOK.member_Id 是否一樣
+            								// 判斷queryString 和 LoginOK.member_Id 是否一樣
 					if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除 5:停權
 						var eleS = $('select.statusSelect:last').bind('change',this,function(){
@@ -562,7 +559,6 @@ jQuery(function($){
 							}
 						}
 
-
 						eleS.show();
 						
 						// 移除個人日誌按鈕
@@ -574,8 +570,7 @@ jQuery(function($){
 						}else{
 							divGrid.find('p.userContents:last').text(this[0].contents);
 						}
-					
-				
+								
 					// 第一次載入日誌先撈三筆留言
 					loadMessageOne(this[0].journal_Id, 0);
 					}) 	//each
@@ -899,18 +894,11 @@ jQuery(function($){
 			
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
-				var count=null;
-
-	   	   		$.ajax({
-					url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
-					type:"post",
-					data:{journal_Id:$(this).parents('li').attr('id')},
-					success:function(data){
-			 			theclick.next().find('span.countLike').text(data)						
-					}					
-				})
-	   	   			
+				var likenum=theclick.next().find('.countLike')
+				var count=parseInt(likenum.text());	
+				
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
+// 				console.log(count)
 				if(!tset){
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
@@ -920,10 +908,14 @@ jQuery(function($){
 							lauded_Id:'${LoginOK.member_Id}'
 						},
 						success:function(data){
-// 							console.log(data)
-							theclick.find('span').toggleClass("coreSpriteHeartFull")						
-						}				
-					})						
+// 							console.log(count)
+							theclick.find('span').toggleClass("coreSpriteHeartFull"),
+							count+=1
+							likenum.text(count)
+							console.log(count)
+						}							
+					})	
+					
 				}else{
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournalcancel",
@@ -934,14 +926,14 @@ jQuery(function($){
 						},
 						success:function(data){
 							theclick.find('span').toggleClass("coreSpriteHeartFull")
-							
+							count-=1
+							likenum.text(count)
+							console.log(count)
 						}				
 					})						
 				}
 			})
-		})
-		
-		
+		})				
 		
 	</script>
 
