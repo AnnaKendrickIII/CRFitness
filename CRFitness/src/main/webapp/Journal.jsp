@@ -194,6 +194,7 @@ width:24px;
 	            				'<div class="messge_header_body"><div class="header_div">'+contet
 	            				+'<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
+					   			+ '<a><span class="badge countLike" ></span></a>'
 	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
@@ -257,6 +258,7 @@ width:24px;
 	   	            				'<div class="messge_header_body"><div class="header_div">'+contet
 	   	            				+'<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 	   					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
+	   					   			+ '<a><span class="badge countLike" ></span></a>'
 	   	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 	   					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 	   					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
@@ -277,7 +279,17 @@ width:24px;
 	   									}
 	   								})
 	   							}
-	   						})	 
+	   						})
+	   							console.log($('#'+this.journal_Id+' div[data-desc]'))		   			
+	   							//顯示按讚數		
+// 					   	$.ajax({
+// 							url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
+// 							type:"get",
+// 							data:{journal_Id:this[0].journal_Id},
+// 							success:function(data){
+// 	 				 			$('#'+thejournal_Id).find(".countLike").append(data)						
+// 							}					
+// 						})
 		            	
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
