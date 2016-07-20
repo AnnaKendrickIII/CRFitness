@@ -276,20 +276,12 @@ width:24px;
 	   									if(journal_attr){
 										journal_attr=journal_attr.replace('coreSpriteHeartOpen','coreSpriteHeartOpen coreSpriteHeartFull')
 	   									$('#'+this.journal_Id+' div[data-desc]').attr('data-desc',journal_attr)
+	   									
 	   									}
 	   								})
 	   							}
 	   						})
-	   							console.log($('#'+this.journal_Id+' div[data-desc]'))		   			
-	   							//顯示按讚數		
-// 					   	$.ajax({
-// 							url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
-// 							type:"get",
-// 							data:{journal_Id:this[0].journal_Id},
-// 							success:function(data){
-// 	 				 			$('#'+thejournal_Id).find(".countLike").append(data)						
-// 							}					
-// 						})
+						
 		            	
 	    	                new AnimOnScroll(document.getElementById('grid'), {
 	    	                    minDuration: 0.4,
