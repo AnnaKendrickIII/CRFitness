@@ -2,7 +2,9 @@ package com.CRFitness.ProductDetail.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -17,7 +19,7 @@ import com.CRFitness.Products.model.ProductsDAO_interface;
 
 @Service("shoppingCart")
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class ShoppingCart implements Serializable{
+public class ShoppingCart implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Resource(name = "productDetailDAO")
@@ -25,27 +27,33 @@ public class ShoppingCart implements Serializable{
 	@Resource(name = "productsDAO")
 	private ProductsDAO_interface productsDAO;
 
-	private List<Object> cart = null;
+	private Map<String, Object> cart = null;
 
 	public ShoppingCart() {
-		cart = new ArrayList<Object>();
+		cart = new HashMap<String, Object>();
 	}
 
-	public List<Object> getCart() {
+	public Map<String, Object> getCart() {
 		return cart;
 	}
 
-	public void setCart(List<Object> cart) {
+	public void setCart(Map<String, Object> cart) {
 		this.cart = cart;
 	}
 
 	// 加入購物車
-	public List<Object> addShoppingCart(String productDetail_Id) {
-		cart.add(productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
+	public Map<String, Object> addShoppingCart(String productDetail_Id) {
+		cart.put(productDetail_Id,
+				productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
 
 		return cart;
 	}
 
+	public Map<String, Object> deleteItem(String productDetail_Id) {
+		cart.remove(productDetail_Id);
+		System.out.println(cart);
+		return cart;
+	}
 
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
