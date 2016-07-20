@@ -33,15 +33,17 @@ public class PersonalJournalController {
 	private PersonalJournalService personalJournalService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/showJournal", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,HttpSession session) {
+	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,
+			@RequestParam Integer visitorStatus , HttpSession session) {
 		if(member_Id != null && member_Id.trim().length() != 0){
 			MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
-			if(mySelf.getMember_Id().equals(member_Id)){
+			if(mySelf.getMember_Id().equals(member_Id) && visitorStatus == 1){
 				return personalJournalService.showMySelfJournal(member_Id);
 			}
-			else{
-				
+			else if(visitorStatus == 2){
 				return personalJournalService.showFriendJournal(member_Id);
+			}else{
+				return personalJournalService.showOtherJournal(member_Id);
 			}
 		}else{
 			return null;

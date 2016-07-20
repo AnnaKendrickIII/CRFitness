@@ -73,6 +73,10 @@ public class PersonalJournalService {
 		return personalJournalDAO.select_friendJournal(member_Id);
 	}
 	
+	// 取得其它日誌
+	public List<PersonalJournalVO> showOtherJournal(String member_Id){
+		return personalJournalDAO.select_otherJournal(member_Id);
+	}	
 
 //	 public static void main(String[] args) {
 //	 ApplicationContext context = new
