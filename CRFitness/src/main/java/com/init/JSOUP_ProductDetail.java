@@ -1,6 +1,10 @@
 package com.init;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,48 +13,74 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.CRFitness.Products.model.ProductsDAO_interface;
-import com.CRFitness.Products.model.ProductsVO;
+import com.CRFitness.ProductDetail.model.ProductDetailDAO_interface;
+import com.CRFitness.ProductDetail.model.ProductDetailVO;
 
 
 public class JSOUP_ProductDetail {
 
 	public static void main(String[] args) throws IOException {
-		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
-		ProductsDAO_interface dao = (ProductsDAO_interface) context.getBean("productsDAO");
-		ProductsVO productsVO;
+//		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
+//		ProductDetailDAO_interface productDetailDAO = (ProductDetailDAO_interface) context.getBean("productDetailDAO");
+		ProductDetailVO productDetailVO;
 
 		Document doc;
-		doc = Jsoup.connect("http://www.underarmour.tw/cmens-footwear/").timeout(30*1000).get();
+		doc = Jsoup.connect("http://www.underarmour.tw/cmens-bottoms-capri/").timeout(30*1000).get();
 		
 		// get how many items
 		Elements element_link = doc.select(".product-list .product-list-li .color-item .more-color");
 		// System.out.println(element_link.size());
 		
 		for(int i=0;i<element_link.size();i++){
-			productsVO=new ProductsVO();
+			productDetailVO = new ProductDetailVO();
 			Document doc2;
-			doc2=Jsoup.connect("http://www.underarmour.tw/p"+element_link.get(i).id()+".htm").timeout(30*1000).get();	
+			doc2 = Jsoup.connect("http://www.underarmour.tw/p"+element_link.get(i).id()+".htm").timeout(30*1000).get();	
 			
-//			Elements Product_Name=doc2.select(".trade-name"); // Product_Name
-//			productsVO.setProduct_Name(Product_Name.text());
-//			System.out.println(Product_Name.text());
+//			productDetailVO.setSize("US9.5");; // Size
+			
+//			Elements Color = doc2.select(".show_color"); // Color
+//			System.out.println((i+1) + " " + Color.text());
+//			productDetailVO.setColor(Color.text());
+
+//			productDetailVO.setStock(500);; // Stock
+									
+//			Timestamp ts = new Timestamp(System.currentTimeMillis()); // Published_Date
+//			productDetailVO.setPublished_Date(ts);
 //			
-//			Elements Price=doc2.select(".price"); // Price
-//			System.out.println(Price.text().substring(3));
-//			productsVO.setPrice(Double.parseDouble(Price.text().substring(3)));
-//			
-//			productsVO.setCategory("鞋類"); // Category			
-//			dao.insert(productsVO);
-			
-			
-			// ProductDetail Table: get info
-			 Elements li=doc2.select(".pdp-product-introduce ul li");		
-			 System.out.println(li.text());
+//			productDetailVO.setProduct_Status("上架"); // Product_Status		
+						
+//			Elements Info = doc2.select(".pdp-product-introduce ul li"); //Info		
+//			System.out.println(Info.text());
+//			productDetailVO.setInfo(Info.text());
 	
+			Elements productName = doc2.select(".trade-name"); // Product_Name
+//			// System.out.println(product_Name.text());
+			String[] Product_Name = new String[element_link.size()]; 
+			Product_Name[i] = productName.text();
+			 System.out.println((i+1) + " " + Product_Name[i]);
+						
+//			if(i==0){
+//				productDetailVO.setProduct_Id("product413"+ (i+1) );
+//			} else if(i>0 && Product_Name[i] == Product_Name[i-1]){
+//				productDetailVO.setProduct_Id("product413"+ (i-1) );
+//			} else{
+//				productDetailVO.setProduct_Id("product413"+ i );
+//			}
+			 
+			if(i>0 && Product_Name[i] == Product_Name[i-1]){
+				System.out.println("product413"+ (i-1) );
+			} else if(i>0 && Product_Name[i] != Product_Name[i-1]){
+				System.out.println("product413"+ i );
+			} else{
+				System.out.println("product413"+ (i+1) );
+			}
+			 
+//			productDetailDAO.insert(productDetailVO);
+			
 		} // end for (int i = 0; i < element_link.size(); i++)
 		
-		((ConfigurableApplicationContext) context).close();
+//		((ConfigurableApplicationContext) context).close();
+		System.out.println("Grasp finished!");
 		
 	} // end public static void main(String[] args) throws IOException
 } // end public class JSOUP_F_tops
