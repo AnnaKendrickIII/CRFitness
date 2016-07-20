@@ -56,7 +56,7 @@ public class ProductDetailController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/findByPrimaryKeySQLQuery", produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<Object> findByPrimaryKeySQLQuery(
+	public @ResponseBody List<Object[]> findByPrimaryKeySQLQuery(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);

@@ -3,8 +3,11 @@ package com.CRFitness.ProductDetail.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -33,7 +36,7 @@ public class ShoppingCart implements Serializable{
 	private Map<String, Object> cart = null;
 
 	public ShoppingCart() {
-		cart = new HashMap<String, Object>();
+		cart = new   LinkedHashMap<String, Object>();
 	}
 
 	public Map<String, Object> getCart() {
@@ -45,11 +48,23 @@ public class ShoppingCart implements Serializable{
 	}
 
 	// 加入購物車
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> addShoppingCart(String productDetail_Id) {
-		cart.put(productDetail_Id,
-				productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
-		ArrayList<Object> xxx = (ArrayList<Object>)(productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id).get(0));
-		System.out.println(xxx.get(1));
+		//判斷車子裡是否有這東西 沒有就幫他加數量1
+		if(cart.get(productDetail_Id)==null){
+			cart.put(productDetail_Id,productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
+		Integer num=1;
+			Object[] numob={num};
+			//給車子數量1
+			((List<Object[]>)(cart.get(productDetail_Id))).add(1,numob );
+		}else{//如果車子裡有這東西就把他數量取出來加1再放回去
+		Integer newNum = ((Integer)(((List<Object[]>)(cart.get(productDetail_Id))).get(1))[0])+1;
+			Object[] numob={newNum};
+			//把車子裡的數量換新數量
+			((List<Object[]>)(cart.get(productDetail_Id))).set(1, numob);
+		}		
+		System.out.println(totalAmount());
+//System.out.println(((Integer)(((List<Object[]>)(cart.get(productDetail_Id))).get(1))[0]));/這給你測試看的
 		
 		return cart;
 	}
@@ -62,9 +77,24 @@ public class ShoppingCart implements Serializable{
 	}
 
 	// 計算購物車內商品價格
-	public Integer totalAmount(Integer qty, String productDetail_Id) {
-
-		return null;
+	@SuppressWarnings("unchecked")
+	public double totalAmount() {
+		double subTotal = 0;
+			if(cart.size()>0){	
+				Set<String> set = cart.keySet();
+				Iterator<String> prouducts = set.iterator();
+//				Set<Entry<String, Object>> u = cart.entrySet();
+//				System.out.println(u);
+//				System.out.println(set);
+				while (prouducts.hasNext()) {	
+					List<Object[]> product = (List<Object[]>)(cart.get(prouducts.next()));
+					double price=(Double)(product.get(0))[2];
+					int num = (Integer)(product.get(1))[0];
+					double num_price = num*price;
+					subTotal+=num_price;
+				}		
+			}	
+		return  subTotal;
 	}
 
 	public static void main(String[] args) {

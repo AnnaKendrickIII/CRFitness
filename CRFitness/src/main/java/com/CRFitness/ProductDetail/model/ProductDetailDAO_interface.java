@@ -14,7 +14,7 @@ public interface ProductDetailDAO_interface {
 	public ProductDetailVO getProductDetailId(String product_Name, String size, String color);
 	public List<ProductDetailVO> getItemByCategory(String category, Integer page);
 	public List<ProductDetailVO> getAllByDesc();
-	public List<Object> findByPrimaryKeySQLQuery(String productDetail_Id);
+	public List<Object[]> findByPrimaryKeySQLQuery(String productDetail_Id);
 	
 	
 }

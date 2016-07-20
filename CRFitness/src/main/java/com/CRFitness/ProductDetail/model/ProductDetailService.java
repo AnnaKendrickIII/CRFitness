@@ -80,7 +80,7 @@ public class ProductDetailService {
 	}
 
 	// PK鍵搜尋商品
-	public List<Object> getItemByPrimaryKey(String productDetail_Id) {
+	public List<Object[]> getItemByPrimaryKey(String productDetail_Id) {
 		if (productDetail_Id != null) {
 			return productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id);
 		} else {

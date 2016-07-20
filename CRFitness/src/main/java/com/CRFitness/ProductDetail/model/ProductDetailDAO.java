@@ -134,7 +134,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	}
 
 	@Override
-	public List<Object> findByPrimaryKeySQLQuery(
+	public List<Object[]> findByPrimaryKeySQLQuery(
 			String productDetail_Id) {
 		Query query = getSession()
 				.createSQLQuery(
@@ -147,7 +147,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE);
 
-		return (List<Object>) query.list();
+		return (List<Object[]>) query.list();
 	}
 
 
