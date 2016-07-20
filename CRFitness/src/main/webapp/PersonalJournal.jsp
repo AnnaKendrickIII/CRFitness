@@ -457,6 +457,7 @@ jQuery(function($){
     //  ------------------ 判斷是否本人, 好友 , 非好友------------------
 		if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 			visitorStatus = 1;
+			alert('本人')
 			callShowJournal(visitorStatus)
 		} else {
 			// 先查詢自己所有好友名單
