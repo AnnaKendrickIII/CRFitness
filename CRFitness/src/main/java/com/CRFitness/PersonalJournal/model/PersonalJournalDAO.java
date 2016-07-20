@@ -29,7 +29,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	
 	// 查非好朋友日誌										
 	private static final String GET_OTHER_JOURNAL = 
-				"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus == '1' order by publishTime desc";
+				"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus = '1' order by publishTime desc";
 		
 	private static final String UPDATE_JOURNAL = 
 			"update PersonalJournalVO set contents=:contents , publicStatus=:publicStatus where journal_Id=:journal_Id";
@@ -119,9 +119,18 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
 				.addScalar("friendJournalNickname", StringType.INSTANCE) // StringType.INSTANCE
 				.setParameter("member_Id", member_Id);
-		
 		return (List<PersonalJournalVO>) query.list();
 	}
+	
+	@Override
+	public List<PersonalJournalVO> select_otherJournal(String member_Id) {
+		Query query =  this.getSession().createSQLQuery(GET_OTHER_JOURNAL)
+				.addEntity("PersonalJournal.*", PersonalJournalVO.class)
+				.addScalar("friendJournalNickname", StringType.INSTANCE) // StringType.INSTANCE
+				.setParameter("member_Id", member_Id);
+		return (List<PersonalJournalVO>) query.list();
+	}
+	
 	//挑選publicStatus狀態為1的日誌  先取六筆
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_One( ){

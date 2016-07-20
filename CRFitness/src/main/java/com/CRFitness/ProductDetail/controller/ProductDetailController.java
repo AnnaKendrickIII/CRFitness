@@ -1,6 +1,7 @@
 package com.CRFitness.ProductDetail.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,6 @@ public class ProductDetailController {
 	private ProductDetailService productDetailService;
 	@Resource(name = "shoppingCart")
 	private ShoppingCart shoppingCart;
-
 
 	// front-end
 	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
@@ -63,15 +63,21 @@ public class ProductDetailController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<Object> addShoppingCart(
+	public @ResponseBody Map<String, Object> addShoppingCart(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 		return shoppingCart.addShoppingCart(productDetail_Id);
 
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/showCart", produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<Object> showCart(HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> showCart(HttpServletRequest request) {
 		return shoppingCart.getCart();
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/deleteItem")
+	public @ResponseBody void deleteItem(HttpServletRequest request,
+			@RequestParam String productDetail_Id) {
+		System.out.println(productDetail_Id);
+		shoppingCart.deleteItem(productDetail_Id);
+	}
 }

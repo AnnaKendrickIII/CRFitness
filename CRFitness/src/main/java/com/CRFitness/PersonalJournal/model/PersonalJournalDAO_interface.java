@@ -17,5 +17,6 @@ public interface PersonalJournalDAO_interface {
      public List<PersonalJournalVO> select_publicStatus_Two();
      public List<PersonalJournalVO> select_myJournal(String member_Id);
      public List<PersonalJournalVO> select_friendJournal(String member_Id);
+     public List<PersonalJournalVO> select_otherJournal(String member_Id);
      
 }

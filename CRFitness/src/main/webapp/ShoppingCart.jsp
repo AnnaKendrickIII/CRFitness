@@ -166,19 +166,27 @@ $.ajax({
 	
 
 		})
-		$('.delete').on('click', function() {
-			$(this).parent().parent().parent().parent().remove();
+		$('#itemlist').on('click','.delete', function() {
+			var thisdelete =$(this)
+			$.ajax({
+				url:'${this_contextPath}/CRFSERVICE/productDetailController/deleteItem',
+				typr:'get',
+				data:{productDetail_Id:$(this).parent().parent().parent().find('span[hidden]').text()},
+				success:function(data){
+					thisdelete.parent().parent().parent().parent().remove();
+				}
+			})
 		});
-
-	
+		
+		$('#itemlist').on('change', 'div.item input.qty',function(){
+			for(var i=0;i<$('.qty').length;i++){
+				console.log( $('.qty:eq('+i+')').val()+':'+ $('.price:eq('+i+')').text())
+			}		
+		})
+		
 	}
-	
 })
-$('#itemlist').on('change', 'div.item input.qty',function(){
-// 	var price= $('.price').text()
-	var qty= $('.qty').val()
-	console.log(qty)
-})
+
 </script>
 
 <script type="text/javascript">
