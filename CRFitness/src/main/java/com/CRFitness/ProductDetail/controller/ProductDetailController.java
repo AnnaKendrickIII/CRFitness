@@ -56,24 +56,26 @@ public class ProductDetailController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/findByPrimaryKeySQLQuery", produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<ProductDetailVO> findByPrimaryKeySQLQuery(
+	public @ResponseBody List<Object> findByPrimaryKeySQLQuery(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
+	// 加入購物車
 	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
 	public @ResponseBody Map<String, Object> addShoppingCart(
 			HttpServletRequest request, @RequestParam String productDetail_Id) {
 		return shoppingCart.addShoppingCart(productDetail_Id);
-
 	}
 
+	// 取出購物車內容
 	@RequestMapping(method = RequestMethod.GET, value = "/showCart", produces = "application/json;charset=UTF-8")
 	public @ResponseBody Map<String, Object> showCart(HttpServletRequest request) {
 		return shoppingCart.getCart();
 	}
 
+	// 刪除購物車內商品
 	@RequestMapping(method = RequestMethod.GET, value = "/deleteItem")
 	public @ResponseBody void deleteItem(HttpServletRequest request,
 			@RequestParam String productDetail_Id) {

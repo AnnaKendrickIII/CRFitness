@@ -76,7 +76,7 @@ public class MemberService {
 	        try {
 	        	baos = new ByteArrayOutputStream();
 	        	int count = 0;
-	    		byte[] bytes = new byte[8192];
+	    		byte[] bytes = new byte[1024];
 	    		while ((count = is.read(bytes)) != -1) {
 	    			baos.write(bytes, 0, count);
 	    		}
