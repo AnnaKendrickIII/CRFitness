@@ -90,23 +90,27 @@ div.timeline-body{
 .jouranl_activity{
 display:block;
 max-width:100%;
-height:auto;
 
 width: 60px;
 height: 60px;
 padding: 0px;
 margin: 0px;
+
+display:inline-block;
 }
 
 .divideline{
 margin: 5px;
 }
+.jouranl_activity_div{
+
+}
+
 </style>
 
 </head>
 
 <body >
-
 
 <!-- 將顯示內容放置到aside -->
 <c:if test="${! empty LoginOK}">
@@ -122,21 +126,8 @@ margin: 5px;
 
 						</ul>
 					</div>
-					<div class="col-md-4 col-xs-4" id="">
-						<ul class="nav nav-tabs" role="tablist" id="myTab">
-							<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">${LoginOK.nickname}</a></li>
-							<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-						</ul>
-						<div class="tab-content">
-							 <div role="tabpanel" class="tab-pane active" id="home">
-								<ul class="event-list" id="myactivity_personal">
-								</ul>
-							</div>	
-							<div role="tabpanel" class="tab-pane" id="profile">
-								<ul class="event-list" id="myactivity_join">
-								</ul>
-							</div>
-						</div>
+					<div class="col-md-4 col-xs-4" id="personal_activity">
+
 					</div>
 				</div>
 				<div class="col-md-2"></div>
@@ -145,6 +136,8 @@ margin: 5px;
 	<!-- 頁面部分 開始-->
 <c:if test="${LoginOK.member_Id != pageContext.request.queryString}">
 <script>
+
+
 jQuery(function($){
 //進入好友頁面揪團活動
  $.ajax({
@@ -152,19 +145,30 @@ jQuery(function($){
      type:'get',  //get post put delete
      data:{},
      success:function(data){
-//     	 console.log(data)
+     	 console.log(data)
+    	 $('#personal_activity').append(
+				 '<ul class="nav nav-tabs" role="tablist" id="myTab">'
+				+'<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"選取的會員"+"參加的揪團"+'</a></li>'
+				+'</ul>'
+				+'<div class="tab-content">'
+				+'<div role="tabpanel" class="tab-pane active" id="home">'
+				+'<ul class="event-list" id="myactivity_personal">'
+				+'</ul>'
+				+'</div>'	
+				+'</div>'
+					);   	 
     	 var c=1;                            	
          $.each(data,function(){
-        	 console.log(this[1].activity_Id)
+//          	 console.log(this[1].activity_Id)
 				var jdate_int = parseInt(this[1].activity_Day); //轉換成數字
-			var jdate_value = new Date(jdate_int);
-			var jdate_int2 = parseInt(this[1].deadline);                          //轉換成數字
+				var jdate_value = new Date(jdate_int);
+				var jdate_int2 = parseInt(this[1].deadline);                          //轉換成數字
 				var jdate_value_deadline = new Date(jdate_int2);
-             $('#myactivity_personal').append(
+            $('#myactivity_personal').append(
             	 '<li>'	 
             	+'<time datetime="2014-07-20">'
 				+'<span class="month">'+jdate_value.Format("MM")+'</span>'
-					+'<span class="day">'+jdate_value.Format("dd")+'</span>'
+				+'<span class="day">'+jdate_value.Format("dd")+'</span>'
 				+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
 				+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
 				+'<span class="time">'+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
@@ -183,11 +187,8 @@ jQuery(function($){
 			+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
 			+this[1].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'
 			
-            	+'<div style="text-align : center">'+this[1].activity_Class+this[1].activity_Area                                     	
-            	+'</div>'
-            	+'</li>')
-            	
-            	
+			+'<div style="text-align : center;">'+this[1].activity_Class+this[1].activity_Area+'</div>'
+			+'</li>')         	
          }) //each
          $(".boxer").boxer({
 				top: 50,
@@ -246,11 +247,10 @@ jQuery(function($){
     					     $(this.modal).velocity('transition.perspectiveUpOut');
     					   } 
     					 });
-
     			   }			   
     		   }
     	   })
-			});
+			}); //on結束
      }          	 
  }) //ajax
 })
@@ -266,8 +266,26 @@ jQuery(function($){
 							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
  							);
  					
+ 					$('#personal_activity').append(
+ 							'<ul class="nav nav-tabs" role="tablist" id="myTab">'
+							+'<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"建立的揪團"+'</a></li>'
+							+'<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">'+"參加的揪團"+'</a></li>'
+						+'</ul>'
+						+'<div class="tab-content">'
+							 +'<div role="tabpanel" class="tab-pane active" id="home">'
+								+'<ul class="event-list" id="myactivity_personal">'
+								+'</ul>'
+							+'</div>'	
+							+'<div role="tabpanel" class="tab-pane" id="profile">'
+								+'<ul class="event-list" id="myactivity_join">'
+								+'</ul>'
+							+'</div>'
+						+'</div>'
+ 						);
+ 					
 //  				<!-- 抓取使用者建立的揪團  開始-->		             
-                     $(function () {
+                     jQuery(function($){
+                    	 
                          $.ajax({
                              url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
                              type:'get',  //get post put delete
@@ -291,13 +309,10 @@ jQuery(function($){
                                     	+'<div style="text-align : center">'+this[0].activity_Class+'<hr class="divideline"/>'+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
-                                 }) //each
-                          
+                                 }) //each                         
                              }          	 
                          }) //ajax
 
-                     })                   
-                     $(function () {
                          $.ajax({
                         	 url:"${this_contextPath}/CRFSERVICE/activitysController/myActivitys/${LoginOK.member_Id}",
                              type:'get',  //get post put delete
@@ -333,7 +348,6 @@ jQuery(function($){
 
 </c:if> 
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
-
 
 				<!-- 新增個人日誌頁面開始 -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -878,6 +892,8 @@ jQuery(function($){
 				}
 			})
 		})
+		
+		
 		
 	</script>
 
