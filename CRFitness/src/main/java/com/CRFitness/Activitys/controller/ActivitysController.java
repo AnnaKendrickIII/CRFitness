@@ -24,11 +24,15 @@ public class ActivitysController {
 	@Resource(name = "activitysService")
 	private ActivitysService activitysService;
 	
-//	@RequestMapping(method = RequestMethod.GET, value = "/photo/{activity_Id}", produces={
-//			"image/jpeg", "image/gif" })
-//	public @ResponseBody byte[] findActivitysPhoto(@PathVariable String activity_Id){
-//			return activitysService.findActivitysPhoto(activity_Id);
-//	}
+	@RequestMapping(method = RequestMethod.GET, value = "/photo/{activity_Id}", produces={
+			"image/jpeg", "image/gif","image/png" })
+	public @ResponseBody byte[] findActivitysPhoto(
+			HttpServletRequest request,
+			@PathVariable String activity_Id){
+			String realPath=request.getServletContext().getRealPath("/");
+			String Path=realPath + "/images/activitys/" + activity_Id;
+			return activitysService.ExitsCovertPhoto(Path);
+	}
 	
 	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitys", produces = {MediaType.APPLICATION_JSON})
 	public @ResponseBody List<ActivitysVO> findActivitysID(){	
@@ -83,7 +87,14 @@ public class ActivitysController {
 		}
 		 ActivitysVO activitysVO = activitysService.addActivitys(member_Id, activity_Day, activity_Class, activity_Area, activity_Info, deadline, people_Max);	
 		 String realPath=request.getServletContext().getRealPath("/");
-		 String Path = realPath+"/images/activitys/"+activitysVO.getActivity_Id()+".jpg";
+		 //設定進來的格式如為jepg or 其他格式 該如何做判斷傳到service
+		 String photoType;
+		 if(photo1.getContentType().substring(6).equalsIgnoreCase("jpeg")){
+			 photoType = ".jpg";
+		 }else{
+			 photoType = "." + photo1.getContentType().substring(6);
+		 }
+		 String Path = realPath+"/images/activitys/"+activitysVO.getActivity_Id() + photoType;
 		 activitysService.Insert_activitysImages(Path, photo1);
 		 return activitysVO;
 	}

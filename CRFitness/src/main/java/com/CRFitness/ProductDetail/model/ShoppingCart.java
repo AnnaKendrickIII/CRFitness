@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import com.CRFitness.Products.model.ProductsDAO_interface;
 
 @Service("shoppingCart")
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+//@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart implements Serializable{
 
 	private static final long serialVersionUID = 1L;
