@@ -8,9 +8,7 @@
             <generator class="generator.PersonalJournalGenerator"/>
         </id>
 		<property name="member_Id" column="Member_Id"></property>
-		<property name="archives" type="binary">
-            <column name="Archives"  />
-        </property>
+
         <property name="contents" column="Contents"></property>
         <property name="publishTime" column="PublishTime"></property>
         <property name="publicStatus" column="PublicStatus"></property>

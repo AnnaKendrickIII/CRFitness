@@ -716,6 +716,10 @@ jQuery(function($){
 		   										$('<option />',{value:i,text:publicStatusArray[i]}).appendTo(eleS);
 		   									}
 		   								}
+		   								
+		   								$('.username').editable({
+		   							     rows:3
+		   								});  // 編輯個人日誌的內容
 		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
 								}
 							})	
