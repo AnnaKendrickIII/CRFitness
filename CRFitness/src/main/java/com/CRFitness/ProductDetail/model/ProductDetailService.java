@@ -1,5 +1,9 @@
 package com.CRFitness.ProductDetail.model;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -61,16 +65,6 @@ public class ProductDetailService {
 		return productDetailDAO.getAll();
 	}
 
-	// 新增商品至 ProductDetail Table
-//	public ProductDetailVO addProductDetail(ProductDetailVO productDetailVO) {
-//		if (productDetailVO != null) {
-//			productDetailDAO.insert(productDetailVO);
-//			return productDetailVO;
-//		} else {
-//			return null;
-//		}
-//	}
-
 	// PK鍵搜尋商品
 	public List<Object[]> getItemByPrimaryKey(String productDetail_Id) {
 		if (productDetail_Id != null) {
@@ -100,7 +94,47 @@ public class ProductDetailService {
 			return null;
 		}
 	}
-
+	
+	// 取得照片
+	public byte[] showPhotos(String Path){
+		File file=null;
+		ByteArrayOutputStream baos = null;
+		FileInputStream fis = null;
+		byte[] photo = null;		
+		file = new File(Path+".jpg");
+		if(!file.exists()){
+			file = new File(Path+".gif"); 
+		}
+		if(!file.exists()){
+			file = new File(Path+".png");
+		}
+		try {	
+			fis = new FileInputStream(file);
+			baos = new ByteArrayOutputStream();
+			int count = 0;
+    		byte[] bytes = new byte[1024];
+    		while ((count = fis.read(bytes)) != -1) {
+    			baos.write(bytes, 0, count);
+    		}
+			baos.flush();
+			photo = baos.toByteArray();
+			baos.close();
+			return photo;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			try {
+				fis.close();
+			} catch (IOException e) {	
+				e.printStackTrace();
+				return null;
+			}
+		}
+	
+	} // end public byte[] showPhotos(String Path){
+	
+	
 	// back-end: select all columns in ProductDetail & Product Table
 	public List<Object[]> getAllByDesc() {
 		return productDetailDAO.getAllByDesc();
@@ -177,12 +211,6 @@ public class ProductDetailService {
 		productDetailVO.setStock(stock);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
-		// System.out.println(productDetailVO.getPublished_Date());
-		// try {
-		// productDetailVO.setPhoto1(photo1.getBytes());
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
 		productDetailVO.setProduct_Status(product_Status);
 		productDetailVO = productDetailDAO.update(productDetailVO);
 		
@@ -203,6 +231,41 @@ public class ProductDetailService {
 		// System.out.println(productDetailVO.getProduct_Status());
 		return productDetailVO.getProduct_Status();
 	}
+	
+	// back-end: insert or update images
+	public void Insert_Images(String Path, MultipartFile[] photos){
+		FileOutputStream fos = null;
+		File file = null;
+	
+		for(int i=0; i<=4; i++){
+		try {
+			String contentType;
+			if(photos[i] != null){
+			byte[] photo = photos[i].getBytes();
+			if(photos[i].getContentType().substring(6).equalsIgnoreCase("jpeg")){
+				contentType=".jpg";
+			}else{
+				contentType="."+photos[i].getContentType().substring(6);
+			}
+			file = new File(Path+"_"+(i+1)+contentType);		
+			if (!file.exists()) {
+				file.createNewFile();
+			}	
+			fos = new FileOutputStream(file);
+			fos.write(photo);
+			fos.flush();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+		} // end finally
+	} // end for(i=0; i<=4; i++){
+}
 
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定
