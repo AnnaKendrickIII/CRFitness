@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository("personalJournalDAO")
 @Transactional(transactionManager = "transactionManager")
 public class PersonalJournalDAO implements PersonalJournalDAO_interface {
+	// publicStatus 0:限本人 1:公開 2:朋友 4:刪除 5:被檢舉
 	// 所有的日誌
 	private static final String GET_ALL_STMT = "from PersonalJournalVO ";
 	// 個人所有日誌
@@ -26,11 +27,16 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	// 查朋友日誌										
 	private static final String GET_FRIEND_JOURNAL = 
 			"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus != '0' and publicStatus != '4' order by publishTime desc";
-	
 	// 查非好朋友日誌										
 	private static final String GET_OTHER_JOURNAL = 
-				"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and publicStatus = '1' order by publishTime desc";
-		
+				"select PersonalJournal.*,(select Members.Nickname from Members where Members.Member_Id = PersonalJournal.Member_Id) as friendJournalNickname from PersonalJournal where Member_Id=:member_Id and (publicStatus = '1' or publicStatus='5') order by publishTime desc";
+	// 查詢被檢舉的日誌
+	private static final String GET_FLAG_JOURNAL = 
+			"from PersonalJournalVO where publicStatus='5'";
+	// 管理者
+	private static final String UPDATE_FLAG_JOURNAL = 
+			"update PersonalJournalVO set publicStatus=:publicStatus where journal_Id=:journal_Id";
+	
 	private static final String UPDATE_JOURNAL = 
 			"update PersonalJournalVO set contents=:contents , publicStatus=:publicStatus where journal_Id=:journal_Id";
 	@Autowired
@@ -44,6 +50,20 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		return sessionFactory.getCurrentSession();
 	}
 
+	public boolean update_Flag_Journal(String journal_Id, Integer publicStatus){
+		if(this.getSession().createQuery(UPDATE_FLAG_JOURNAL).setParameter("journal_Id", journal_Id).setParameter("publicStatus", publicStatus).executeUpdate() == 1){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	@Override
+	public List<PersonalJournalVO> get_Flag_All() {
+		Query query = this.getSession().createQuery(GET_FLAG_JOURNAL);
+		return (List<PersonalJournalVO>) query.list();
+	}
+	
 	@Override
 	public PersonalJournalVO insert(PersonalJournalVO personalJournalVO) {
 		if (personalJournalVO != null) {			
@@ -138,7 +158,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				"Select *,Nickname,Members.Member_Id " 
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
-				+"where publicStatus='1' "
+				+"where publicStatus='1' or publicStatus='5' "
 				+"order by publishTime desc "  
 				+"OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY")
 				.addEntity(PersonalJournalVO.class)
@@ -153,7 +173,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				"Select *,Nickname,Members.Member_Id " 
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
-				+"where publicStatus='1' "
+				+"where publicStatus='1' or publicStatus='5' "
 				+"order by publishTime desc "  
 				+"OFFSET 6 ROWS ")
 				.addEntity(PersonalJournalVO.class)
