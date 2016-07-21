@@ -36,10 +36,10 @@ public class ProductDetailService {
 		System.out.println("C"+productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id).get(0));
 		return cart;
 	}
-	// back-end: 找商品照片
-	public byte[] findProductsPhoto(String productDetail_Id) {
-		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
-	}
+//	// back-end: 找商品照片
+//	public byte[] findProductsPhoto(String productDetail_Id) {
+//		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
+//	}
 
 	public ProductDetailVO insertProductDetail(ProductDetailVO productDetailVO) {
 		productDetailDAO.insert(productDetailVO);
@@ -139,13 +139,13 @@ public class ProductDetailService {
 		productDetailVO.setStock(stock);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
-		try {
-			productDetailVO.setPhoto1(photo1.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			productDetailVO.setPhoto1(photo1.getBytes());
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		productDetailVO.setProduct_Status(product_Status);
-		productDetailVO.setInfo(info);
+//		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.insert(productDetailVO);
 
 		list.add(0, productsVO);
@@ -194,7 +194,7 @@ public class ProductDetailService {
 		// e.printStackTrace();
 		// }
 		productDetailVO.setProduct_Status(product_Status);
-		productDetailVO.setInfo(info);
+//		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);
 
 		list.add(0, productsVO);

@@ -10,6 +10,6 @@
         <property name="product_Name" column="Product_Name" />
         <property name="price" column="Price" />
         <property name="category" column="Category" />
-        
+        <property name="info" column="Info" />
     </class>
 </hibernate-mapping>
