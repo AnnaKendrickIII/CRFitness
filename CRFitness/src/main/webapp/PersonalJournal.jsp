@@ -19,11 +19,12 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_profile.css" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_head.css" />
+ <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css"> 
 
 <style>
 /* aside   {    
@@ -264,7 +265,7 @@ jQuery(function($){
 
  					$('#personal_profile').append( 							
 // 							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
-				           ' <a class="pull-left" id="clickchangehead" href="#">'
+				           ' <a class="pull-left" id="clickchangehead" data-toggle="modal" data-target="#changhead" href="#">'
 			             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" >'
 			             +'</a>'
 			             +'<div class="media-body">'
@@ -402,18 +403,32 @@ jQuery(function($){
 		<!-- 新增個人日誌頁面結束  -->
 		
 		<!-- 修改個人頭像 -->
-			<div class="" id="cha">
-				<div class="imageBox">
-					<div class="thumbBox"></div>
-					<div class="spinner" style="display: none">Loading...</div>
+			<div class="modal fade" id="changhead" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+							</button>
+							<h4 class="modal-title" id="exampleModalLabel">修改個人頭像</h4>
+						</div>
+						<div class="modal-body">
+							<div class="imageBox">
+								<div class="thumbBox"></div>
+								<div class="spinner" style="display: none">Loading...</div>
+							</div>
+							<div class="head_action">
+								<input type="file" id="file" style="float: left; width: 250px">
+								<input type="button" id="btnCrop" value="Crop"
+									style="float: right"> <input type="button"
+									id="btnZoomIn" value="+" style="float: right"> <input
+									type="button" id="btnZoomOut" value="-" style="float: right">
+							</div>
+							<div class="cropped"></div>
+						</div>
+					</div>
 				</div>
-				<div class="action">
-					<input type="file" id="file" style="float: left; width: 250px">
-					<input type="button" id="btnCrop" value="Crop" style="float: right">
-					<input type="button" id="btnZoomIn" value="+" style="float: right">
-					<input type="button" id="btnZoomOut" value="-" style="float: right">
-				</div>
-				<div class="cropped"></div>
 			</div>
 			<!-- 修改個人頭像結束 -->
 
@@ -951,9 +966,38 @@ jQuery(function($){
 		}
 		
 		jQuery(function($){ 
-// 			$('#changehead').click(function(){
-// 			$('#changehead').modal('toggle');
-// 			})
+			
+			$("body").on("click",'#clickchangehead',function(){
+				$('#changehead').modal('toggle');
+				
+				var options =
+		        {
+		            imageBox: '.imageBox',
+		            thumbBox: '.thumbBox',
+		            spinner: '.spinner',
+		            imgSrc: 'avatar.png'
+		        }
+		        var cropper = new cropbox(options);
+		        document.querySelector('#file').addEventListener('change', function(){
+		            var reader = new FileReader();
+		            reader.onload = function(e) {
+		                options.imgSrc = e.target.result;
+		                cropper = new cropbox(options);
+		            }
+		            reader.readAsDataURL(this.files[0]);
+		            this.files = [];
+		        })
+		        document.querySelector('#btnCrop').addEventListener('click', function(){
+		            var img = cropper.getDataURL();
+		            document.querySelector('.cropped').innerHTML += '<img src="'+img+'">';
+		        })
+		        document.querySelector('#btnZoomIn').addEventListener('click', function(){
+		            cropper.zoomIn();
+		        })
+		        document.querySelector('#btnZoomOut').addEventListener('click', function(){
+		            cropper.zoomOut();
+		        })
+			})
 			
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
@@ -1000,6 +1044,7 @@ jQuery(function($){
 		
 	</script>
 
+	<script src="${this_contextPath}/js/personal_head.js"></script>
 	<script src="${this_contextPath}/js/personal_journal.js"></script>
 	<script src="${this_contextPath}/js/alertify.js"></script>
 	<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
