@@ -21,7 +21,7 @@ public class JSOUP_Products {
 		ProductsVO productsVO;
 
 		Document doc;
-		doc = Jsoup.connect("http://www.underarmour.tw/cmens-footwear/").timeout(30*1000).get();
+		doc = Jsoup.connect("http://www.underarmour.tw/cmens-bottoms-capri/").timeout(30*1000).get();
 		
 		// get how many items
 		Elements element_link = doc.select(".product-list .product-list-li .color-item .more-color");
@@ -40,14 +40,18 @@ public class JSOUP_Products {
 			// System.out.println(Price.text().substring(3));
 			productsVO.setPrice(Double.parseDouble(Price.text().substring(3)));
 			
-			productsVO.setCategory("鞋類"); // Category			
+			productsVO.setCategory("服飾類"); // Category: 鞋類、服飾類、運動用品、運動器材 			
 			productsDAO.insert(productsVO);
+			
+//			Elements Info = doc2.select(".pdp-product-introduce ul li"); //Info		
+//			System.out.println(Info.text());
+//			productDetailVO.setInfo(Info.text());
 			
 	
 		} // end for (int i = 0; i < element_link.size(); i++)
 		
-		System.out.println("Grasp finished!");
 		((ConfigurableApplicationContext) context).close();
+		System.out.println("Grasp finished!");
 		
 	} // end public static void main(String[] args) throws IOException
 } // end public class JSOUP_F_tops
@@ -105,9 +109,9 @@ public class JSOUP_Products {
 				// 男鞋類圖：5001-5083
 				// Jsoup.connect: http://www.underarmour.tw/cmens-footwear/
 //				if ((i + 1) < 10) {
-//					file = new File("c:\\products/M-tops-sleeveless/prodDetail510" + (i + 1) + "_" + (j + 1) + ".png");
+//					file = new File("c:\\products/M-footwear/prodDetail500" + (i + 1) + "_" + (j + 1) + ".png");
 //				} else {
-//					file = new File("c:\\products/M-tops-sleeveless/prodDetail51" + (i + 1) + "_" + (j + 1) + ".png");
+//					file = new File("c:\\products/M-footwear/prodDetail50" + (i + 1) + "_" + (j + 1) + ".png");
 //				}
 				// 男衣類圖：5084-5130
 				// Jsoup.connect: http://www.underarmour.tw/cmens-tops-sleeveless/

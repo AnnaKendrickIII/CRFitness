@@ -47,17 +47,13 @@ public class JSOUP_ProductDetail {
 //			Timestamp ts = new Timestamp(System.currentTimeMillis()); // Published_Date
 //			productDetailVO.setPublished_Date(ts);
 //			
-//			productDetailVO.setProduct_Status("上架"); // Product_Status		
-						
-//			Elements Info = doc2.select(".pdp-product-introduce ul li"); //Info		
-//			System.out.println(Info.text());
-//			productDetailVO.setInfo(Info.text());
+//			productDetailVO.setProduct_Status("上架"); // Product_Status：上架、下架		
 	
 			Elements productName = doc2.select(".trade-name"); // Product_Name
 //			// System.out.println(product_Name.text());
 			String[] Product_Name = new String[element_link.size()]; 
 			Product_Name[i] = productName.text();
-			 System.out.println((i+1) + " " + Product_Name[i]);
+			 System.out.println("i= "+(i+1) + " " + Product_Name[i]);
 						
 //			if(i==0){
 //				productDetailVO.setProduct_Id("product413"+ (i+1) );
@@ -74,6 +70,7 @@ public class JSOUP_ProductDetail {
 			} else{
 				System.out.println("product413"+ (i+1) );
 			}
+			System.out.println("========================================");
 			 
 //			productDetailDAO.insert(productDetailVO);
 			
@@ -137,9 +134,9 @@ public class JSOUP_ProductDetail {
 				// 男鞋類圖：5001-5083
 				// Jsoup.connect: http://www.underarmour.tw/cmens-footwear/
 //				if ((i + 1) < 10) {
-//					file = new File("c:\\products/M-tops-sleeveless/prodDetail510" + (i + 1) + "_" + (k + 1) + ".png");
+//				file = new File("c:\\products/M-footwear/prodDetail500" + (i + 1) + "_" + (j + 1) + ".png");
 //				} else {
-//					file = new File("c:\\products/M-tops-sleeveless/prodDetail51" + (i + 1) + "_" + (k + 1) + ".png");
+//				file = new File("c:\\products/M-footwear/prodDetail50" + (i + 1) + "_" + (j + 1) + ".png");
 //				}
 				// 男衣類圖：5084-5130
 				// Jsoup.connect: http://www.underarmour.tw/cmens-tops-sleeveless/
