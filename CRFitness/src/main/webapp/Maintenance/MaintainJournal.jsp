@@ -1,4 +1,4 @@
-,<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
@@ -14,7 +14,7 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- switch button -->
 <script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- on & off button -->
 
-<title>MaintainMembers</title>
+<title>MaintainJournal</title>
 
 
 <style>
@@ -40,7 +40,10 @@ body {
 	color: #F75000;
 	text-decoration: none;
 }
-
+.table>tbody>tr>td{
+	vertical-align: middle;
+	width:72px;
+}
 .table tbody a:hover {
 	color: black;
 }
@@ -70,6 +73,9 @@ body {
 #creProdBtn, #modProdBtn{
 	margin-top: 55px;
 }
+.img-thumbnail{
+	
+}
 
 
 </style>
@@ -87,18 +93,16 @@ body {
 
 <!-- 資料表格 開始 -->
 	
-		<table id="games_talbe" class="table">
+		<table id="games_talbe" class="table " border="1">
 			<thead>
-				<tr>
-					<th><h3>大頭照</h3></th>
-					<th><h3>會員ID</h3></th>
-					<th><h3>暱稱</h3></th>
-					<th><h3>Email</h3></th>
-					<th><h3>註冊日</h3></th>
-					<th><h3>好友名單</h3></th>
-					<th><h3>好友狀態</h3></th>
-					<th><h3>封鎖名單</h3></th>
-					<th><h3>會員狀態</h3></th>
+				<tr> 
+					<th><h3>照片</h3></th>
+					<th><h3>日誌編號</h3></th>
+					<th><h3>會員編號</h3></th>
+					<th><h3>日誌內容</h3></th>
+					<th><h3>發表日誌時間</h3></th>
+					<th><h3>是否公開(狀態)</h3></th>
+					<th><h3>編輯</h3></th>
 				</tr>
 			</thead>
 			<tbody id="members_tbody"></tbody>
@@ -113,7 +117,7 @@ body {
 				var o = {
 					"M+" : this.getMonth() + 1, //月份 
 					"d+" : this.getDate(), //日 
-					"h+" : this.getHours(), //小时 
+					"h+" : this.getHours(), //小? 
 					"m+" : this.getMinutes(), //分 
 					"s+" : this.getSeconds(), //秒 
 					"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
@@ -139,65 +143,73 @@ body {
 		  var count=0;
 // 3.顯示會員的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAllByDesc",
+		url : "${this_contextPath}/CRFSERVICE/commonJournalControllerBE/getAllFlagJournal",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
-			$.each( data,
-				function(index) {
-					var pdate_int = parseInt(this[0].published_Date); //轉換成數字
-					var pdate_value = new Date(pdate_int);
-// 					console.log(this[0].product_Status);
-					var Status="";
-					if(this[0].product_Status == '上架中'){
-						Status=1;
-					}else if(this[0].product_Status == '已下架'){
-						Status=0;
-					};
-					$('#members_tbody').append('<tr class="'+this[0].member_Id+'"><td><img src="data:image/png;base64,' 
-													+ this[0].photo1 // cancel
-													+ '" class="img-thumbnail" /></td><td>'
-													+ this[0].member_Id
-													+ '</td><td>'
-													+ this[0].nickname
-													+ '</td><td>'
-													+ this[0].e_mail
-													+ '</td><td>'
-													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-													+ '</td><td>'
-													+ this[1] // friend_Id
-													+ '</td><td>'
- 													+ this[2] // friend_Status
-													+ '</td><td>'
- 													+ this[3] // blockade_Id
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
-													+ '</td></tr>') // end of append
+		console.log(data)	
+		
+			$.each( data, function(index) {
+				var pdate_int = parseInt(this.publishTime); //轉換成數字
+				var pdate_value = new Date(pdate_int);
+				var Status="";
+				if(this.publicStatus == '5'){
+					Status=1;
+				}else if(this.publicStatus == '1'){
+					Status=0;
+				};
+					$('#members_tbody').append('<tr class="'+this.member_Id+'">'
+					+ '<td ><img class="img-thumbnail" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this.journal_Id+'" /></td>'
+					+ '<td>'+ this.journal_Id+'</td>'
+					+ '<td>'+ this.member_Id+ '</td>'
+					+ '<td>'+ this.contents+'</td>'
+					+ '<td>'+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</td>'
+					+ '<td>'+ this.publicStatus+'</td>'
+// 					+ '<td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="公開" data-label-off="隱藏"></td>'
+					+ '<td class="">'
+					+ '<div class="radio"><label><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>隱藏此日誌(無功能)</label></div>'
+					+ '<div class="radio"><label><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>開放此日誌(無功能)</label></div></td>'
+
+//  													+ this[2] // friend_Status
+// 													+ '</td><td>'
+//  													+ this[3] // blockade_Id
+// 													+ '</td><td></i>'
+													+ '</tr>') // end of append
 												}) // end of $.each(
 					// 會員狀態on&off的程式   開始
 					$('.easyswitch').easyswitch();
 					// 會員狀態on&off的程式   結束
-					// 改變會員狀態的程式 開始
-					$('body').on('click', '.3g', function(member_Id, member_Status){
- 						var this_memStatus = $(this).parent().siblings(":eq(9)"); //要改
-						var memberId = $(this).parent().siblings(":eq(2)").text(); //要改
+// 					// 改變會員狀態的程式 開始
+					$('body').on('click', '.3g', function(){
+ 						var this_memStatus = $(this).parent().siblings(":eq(5)"); //要改
+						var journal_Id = $(this).parent().siblings(":eq(1)").text(); //要改
+						console.log(journal_Id)
 						var prodStatus = this_memStatus.text();
 						var reversedState = "";
-						if(prodStatus=="正常"){
-							reversedState="停權";
-						}else{
-							reversedState="正常";
-							}
-						 $.ajax({
-							    url:"${this_contextPath}/CRFSERVICE/memberControllerBE/changeStatus",
+						if(prodStatus != 4){
+	 						 $.ajax({
+							    url:"${this_contextPath}/CRFSERVICE/commonJournalControllerBE/updateFlagJournal",
 						        type:'post',  //get post put delete
-					    		data: {'member_Id': memberId,
-										'member_Status': reversedState}, //
+					    		data: {'journal_Id': journal_Id,
+										'publicStatus': 4}, //
 						    	success:function(data){
-						    		this_memStatus.text(reversedState)
+						    		this_memStatus.text(4)
 						        } // end of success:function(data)	 
-						 }) // end of  $.ajax({  	    	   
+						 	}) // end of 
+						}else{
+	 						 $.ajax({
+								    url:"${this_contextPath}/CRFSERVICE/commonJournalControllerBE/updateFlagJournal",
+							        type:'post',  //get post put delete
+						    		data: {'journal_Id': journal_Id,
+											'publicStatus': 1}, //
+							    	success:function(data){
+							    		this_memStatus.text(1)
+							        } // end of success:function(data)	 
+							 	}) // end of 
+						}
+ 	   
 					}); // end of 	$('.3g').click(function () {
-					// 改變會員狀態的程式 結束
+// 					// 改變會員狀態的程式 結束
 		} // end of success : function(data) 
 	}) // end of $.ajax({
 // 3.顯示會員的程式   結束			

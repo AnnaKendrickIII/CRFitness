@@ -6,15 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 
@@ -41,8 +44,13 @@ public class ProductDetailControllerBE {
 			@RequestParam String color,
 			@RequestParam String stock,
 			@RequestParam MultipartFile photo1,			
+			@RequestParam MultipartFile photo2,			
+			@RequestParam MultipartFile photo3,			
+			@RequestParam MultipartFile photo4,			
+			@RequestParam MultipartFile photo5,					
 			@RequestParam String product_Status,
-			@RequestParam String info){
+			@RequestParam String info,
+			HttpServletRequest request){
 		Double price2 = Double.parseDouble(price);
 		Integer stock2 = Integer.parseInt(stock);
 		try {
@@ -55,7 +63,15 @@ public class ProductDetailControllerBE {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, product_Status, info);	
+		List<Object[]> list = productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, product_Status, info);
+		
+		String realPath=request.getServletContext().getRealPath("/");
+
+		MultipartFile[] photos = {photo1, photo2, photo3, photo4, photo5};
+	System.out.println(realPath);
+		String Path = realPath+"/images/products/"+((ProductDetailVO)((list.get(0))[1])).getProductDetail_Id();	
+		productDetailService.Insert_Images(Path, photos);
+		return list;
 	}
 	
 	// update products
@@ -99,5 +115,14 @@ public class ProductDetailControllerBE {
 		return productDetailService.changeStatus(productDetail_Id, product_Status);	
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/photo/{productDetail_Id}_1", produces={
+			"image/jpeg", "image/gif", "image/png"})
+	public @ResponseBody byte[] findActivitysPhoto(
+			HttpServletRequest request,
+			@PathVariable String productDetail_Id){
+			String realPath = request.getServletContext().getRealPath("/");
+			String Path = realPath + "/images/products/" + productDetail_Id+"_1";
+			return productDetailService.showPhotos(Path);
+	}
 
 }

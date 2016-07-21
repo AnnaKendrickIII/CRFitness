@@ -38,6 +38,14 @@ public class CommonJournalService {
 		return  personalJournalDAO.select_publicStatus_Two();
 	}
 	
+	public List<PersonalJournalVO> Show_AllFlag_Journal() {
+		return personalJournalDAO.get_Flag_All();
+	}
+	
+	public boolean update_Flag_Journal(String journal_Id, Integer publicStatus) {
+		return personalJournalDAO.update_Flag_Journal(journal_Id, publicStatus);
+	}
+	
 	public byte[] ExitsCovertPhoto(String Path){
 		File file=null;
 		ByteArrayOutputStream baos = null;

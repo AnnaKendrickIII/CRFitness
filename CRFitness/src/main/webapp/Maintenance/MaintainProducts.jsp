@@ -219,15 +219,15 @@ textarea{
                         <input required="required" type="text" id="insert_price" autocomplete="off" class="form-control" placeholder="輸入價格" />
                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <select id="insert_category" name="test2" class="form-control" >
-							<option value="運動器材">運動器材</option>
-							<option value="服飾類">服飾類</option>
-							<option value="運動用品">運動用品</option>
+							<option value="上裝">上裝</option>
+							<option value="下裝">下裝</option>
 							<option value="鞋類">鞋類</option>
+							<option value="配件">配件</option>
 						</select>
                         <p>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <select id="insert_status" name="test3" class="form-control" >
-							<option value="上架中">上架中</option>
-							<option value="已下架">已下架</option>
+							<option value="上架">上架</option>
+							<option value="下架">下架</option>
 						</select>
                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <textarea id="insert_info" required="required" class="form-control" ></textarea>    
@@ -293,15 +293,15 @@ textarea{
                         <input required="required" type="text" id="update_price" autocomplete="off" class="form-control" />
                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <select id="update_category" name="test2" class="form-control" >
-							<option value="運動器材">運動器材</option>
-							<option value="服飾類">服飾類</option>
-							<option value="運動用品">運動用品</option>
+							<option value="上裝">上裝</option>
+							<option value="下裝">下裝</option>
 							<option value="鞋類">鞋類</option>
+							<option value="配件">配件</option>
 						</select>
                         <p>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <select id="update_status" name="test3" class="form-control" >
-							<option value="上架中">上架中</option>
-							<option value="已下架">已下架</option>
+							<option value="上架">上架</option>
+							<option value="下架">下架</option>
 						</select>
                         <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <textarea id="update_info" required="required" class="form-control" ></textarea>
@@ -418,7 +418,10 @@ textarea{
 		  $('#addbtn').click(function () {
 			  	var formData = new FormData();
 			  	formData.append('photo1', file[0]);
-// 				formData.append('member_Id',  '${LoginOK.member_Id}');
+			  	formData.append('photo2', file[1]);
+			  	formData.append('photo3', file[2]);
+			  	formData.append('photo4', file[3]);
+			  	formData.append('photo5', file[4]);
 				formData.append('product_Name', $('#insert_name').val());
 				formData.append('size', $('#insert_size').val());
 				formData.append('color', $('#insert_color').val());
@@ -437,9 +440,9 @@ textarea{
 						var pdate_int = parseInt(data[1].published_Date); //轉換成數字
 						var pdate_value = new Date(pdate_int); 
 						var Status="";
-						if(data[1].product_Status == '上架中'){
+						if(data[1].product_Status == '上架'){
 							Status=1;
-						}else if(data[1].product_Status == '已下架'){
+						}else if(data[1].product_Status == '下架'){
 							Status=0;
 						};
 	            	   $('#new_products').modal('hide');	
@@ -464,7 +467,7 @@ textarea{
 									+ '</td><td>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
-									+ data[1].info
+									+ data[0].info
 									+ '</td><td hidden="hidden">'
 					                + data[1].product_Status
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
@@ -494,19 +497,6 @@ textarea{
 // 2.修改產品的程式   開始 
 	$('tbody').on('click',".2g",(function(){	
 		var btn=$(this);
-		var updProducts = $('#update_products')  // 寫成這樣才有效能
-		var eq1 = $(this).parent().siblings(":eq(1)")
-		updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
-		var eq2 = $(this).parent().siblings(":eq(2)")
-		updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
-		updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
-		updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
-		updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
-		updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
-		updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
-		updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
-		updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
-		updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())		
 		
 		$('#updatebtn').click(function () {
 		 	var formData = new FormData();
@@ -532,9 +522,9 @@ textarea{
 					var pdate_value = new Date(pdate_int);  
 	              	$('#update_products').modal('hide');
 					var Status="";
-					if(data[1].product_Status == '上架中'){
+					if(data[1].product_Status == '上架'){
 						Status=1;
-					}else if(data[1].product_Status == '已下架'){
+					}else if(data[1].product_Status == '下架'){
 						Status=0;
 					};
 	               	var beforeSiblingTr = btn.parent().parent().prev(); // 找到前一個tr
@@ -562,7 +552,7 @@ textarea{
 									+ '</td><td>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
-									+ data[1].info
+									+ data[0].info
 									+ '</td><td hidden="hidden">'
 					                + data[1].product_Status
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
@@ -595,14 +585,14 @@ textarea{
 					var pdate_value = new Date(pdate_int);
 // 					console.log(this[0].product_Status);
 					var Status="";
-					if(this[0].product_Status == '上架中'){
+					if(this[0].product_Status == '上架'){
 						Status=1;
-					}else if(this[0].product_Status == '已下架'){
+					}else if(this[0].product_Status == '下架'){
 						Status=0;
 					};
-					$('#products_tbody').append('<tr class="'+this[0].productDetail_Id+'"><td><img src="data:image/png;base64,' 
-													+ this[0].photo1 
-													+ '" class="img-thumbnail" /></td><td>'
+					$('#products_tbody').append('<tr class="'+this[0].productDetail_Id+'"><td><a href="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/'
+													+ this[0].productDetail_Id+'_1.png" class="img-thumbnail" /a>' 
+													+ '</td><td>'
 													+ this[0].product_Id
 													+ '</td><td>'
 													+ this[0].productDetail_Id
@@ -621,7 +611,7 @@ textarea{
  													+ '</td><td>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td hidden="hidden">'
-									                + this[0].info
+									                + this[4] // info
 													+ '</td><td hidden="hidden">'
 									                + this[0].product_Status
 													+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
@@ -632,22 +622,22 @@ textarea{
 					$('.easyswitch').easyswitch();
 					// 產品狀態switch的程式   結束
 					// 修改產品的小程式   開始	
-// 					$('body').on('click', '.2g', function(){									
+					$('body').on('click', '.2g', function(){									
 // 					$('.2g').click(function(){	
-// 					var updProducts = $('#update_products')  // 寫成這樣才有效能
-// 					var eq1 = $(this).parent().siblings(":eq(1)")
-// 					updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
-// 					var eq2 = $(this).parent().siblings(":eq(2)")
-// 					updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
-//      			updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
-// 					updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
-// 					updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
-// 					updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
-// 					updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
-// 					updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
-// 					updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
-// 					updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
-// 					})	// end of $('.2g').click(function(){
+					var updProducts = $('#update_products')  // 寫成這樣才有效能
+					var eq1 = $(this).parent().siblings(":eq(1)")
+					updProducts.find('input:eq(2)').prop("readonly",true).val(eq1.text())
+					var eq2 = $(this).parent().siblings(":eq(2)")
+					updProducts.find('input:eq(3)').prop("readonly",true).val(eq2.text())
+     			    updProducts.find('input:eq(4)').val($(this).parent().siblings(":eq(3)").text())
+					updProducts.find('input:eq(5)').val($(this).parent().siblings(":eq(4)").text())
+					updProducts.find('input:eq(6)').val($(this).parent().siblings(":eq(5)").text())
+					updProducts.find('input:eq(7)').val($(this).parent().siblings(":eq(6)").text())
+					updProducts.find('input:eq(8)').val($(this).parent().siblings(":eq(7)").text())
+					updProducts.find('select:eq(0)').val($(this).parent().siblings(":eq(8)").text())
+					updProducts.find('select:eq(1)').val($(this).parent().siblings(":eq(11)").text())
+					updProducts.find('textarea:eq(0)').val($(this).parent().siblings(":eq(10)").text())									
+					})	// end of $('.2g').click(function(){
 					// 修改產品的小程式  結束	
 					// 改變產品狀態的程式 開始
 					$('body').on('click', '.3g', function(productDetail_Id, product_Status){
@@ -656,16 +646,16 @@ textarea{
 						var prodDetaId = $(this).parent().siblings(":eq(2)").text();
 						var prodStatus = this_prodStatus.text();
 						var reversedState = "";
-						if(prodStatus=="上架中"){
-							reversedState="已下架";
+						if(prodStatus=="上架"){
+							reversedState="下架";
 						}else{
-							reversedState="上架中";
+							reversedState="上架";
 							}
 						 $.ajax({
 							    url:"${this_contextPath}/CRFSERVICE/productDetailControllerBE/changeStatus",
 						        type:'post',  //get post put delete
 					    		data: {'productDetail_Id': prodDetaId,
-										'product_Status': reversedState}, // 把
+										'product_Status': reversedState}, // 
 						    	success:function(data){
 						        	this_prodStatus.text(reversedState)
 						        } // end of success:function(data)	 
