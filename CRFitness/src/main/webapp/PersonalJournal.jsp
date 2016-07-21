@@ -17,18 +17,19 @@
 <title>${LoginOK.nickname}的個人日誌</title>
 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_journal.css" />
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" /> 
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_profile.css" />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_head.css" />
+ <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css"> 
 
 <style>
-/* aside 
- {  
-  	background-color: #F5F5F5; 
- } */
+/* aside   {    
+    background: url(${this_contextPath}/images/test0001.jpg);  
+}  */
 textarea{
 	resize: none;
 }
@@ -94,16 +95,17 @@ max-width:100%;
 width: 60px;
 height: 60px;
 padding: 0px;
-margin: 0px;
+margin-right : 20%;
 
 display:inline-block;
+}
+.friend_joinactivity{
+text-align : center;
+display : inline;
 }
 
 .divideline{
 margin: 5px;
-}
-.jouranl_activity_div{
-
 }
 
 .name_p{
@@ -120,19 +122,17 @@ color:#0000C6;
 <c:if test="${! empty LoginOK}">
 <aside> 
 <div class="row">
-			<div class="col-md-2 "></div>
-				<div class="col-md-8 col-xs-12" >
+				<div class="col-md-2 "></div>
+				<div class="col-md-8 col-xs-12">
 					<div class="col-md-8 col-xs-8">
-						<div class="page-header text-center" id="inster_journal">
-						<!-- 新增日誌按鈕位置 -->
-						</div>
+
+						<div class="media" id="personal_profile"></div>
+
 						<ul class="timeline" id="grid">
 
 						</ul>
 					</div>
-					<div class="col-md-4 col-xs-4" id="personal_activity">
-
-					</div>
+					<div class="col-md-4 col-xs-4" id="personal_activity"></div>
 				</div>
 				<div class="col-md-2"></div>
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
@@ -188,11 +188,11 @@ jQuery(function($){
 			+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 			+"<div hidden='hidden'>"+this[1].activity_Id
 			+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
-			+this[1].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'
-			
-			+'<div style="text-align : center;">'+this[1].activity_Class+this[1].activity_Area+'</div>'
+			+this[1].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'			
+			+'<div class="friend_joinactivity">'+this[1].activity_Class+this[1].activity_Area+'</div>'
 			+'</li>')         	
          }) //each
+         
          $(".boxer").boxer({
 				top: 50,
 				fixed:true
@@ -234,8 +234,7 @@ jQuery(function($){
     				   })   
     				   whoButton.text(sum)
     				   whoButton.attr("data-original-title",members)
-    
-    				   
+      				   
     				   $("#boxer-overlay").remove();
     				   $("#boxer").remove();
     				   $('body').toggleClass();		
@@ -262,12 +261,20 @@ jQuery(function($){
 	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 <script type="text/javascript">
+				console.log('${LoginOK.e_mail}')
 
- 					
- 					
- 					$('#inster_journal').append(
-							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
- 							);
+ 					$('#personal_profile').append( 							
+// 							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+				           ' <a class="pull-left" id="clickchangehead" data-toggle="modal" data-target="#changhead" href="#">'
+			             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" >'
+			             +'</a>'
+			             +'<div class="media-body">'
+			             +'<h4 class="profile-heading" style="font-family:fantasy; font-size:1.2cm;">${LoginOK.nickname} <small>${LoginOK.e_mail}</small></h4>'
+// 			             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
+			             +'<hr style="margin:8px auto">'		             
+			             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
+			             +'</div>'
+ 					);
  					
  					$('#personal_activity').append(
  							'<ul class="nav nav-tabs" role="tablist" id="myTab">'
@@ -309,7 +316,7 @@ jQuery(function($){
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+this[0].activity_Class+'<hr class="divideline"/>'+this[0].activity_Area 
+                                    	+'<div style="text-align : center">'+"類別："+''+this[0].activity_Class+'<hr class="divideline"/>'+"地區："+''+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each                         
@@ -352,7 +359,7 @@ jQuery(function($){
 </c:if> 
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
 
-				<!-- 新增個人日誌頁面開始 -->
+			<!-- 新增個人日誌頁面開始 -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
@@ -367,10 +374,6 @@ jQuery(function($){
 							<div class="modal-body">
 
 								<form role="form" action="" method="post">
-<!-- 									<div class="form-group"> -->
-<!-- 										<label for="category">類別</label> <input type="text" -->
-<!-- 											class="form-control" id="category" placeholder="類別"> -->
-<!-- 									</div> -->
 									<div class="form-group">
 										<label for="content">內容</label> <textarea  class="form-control" id="content" placeholder="內容輸入在此"></textarea>
 									</div>
@@ -398,10 +401,39 @@ jQuery(function($){
 					</div>
 				</div>
 		<!-- 新增個人日誌頁面結束  -->
+		
+		<!-- 修改個人頭像 -->
+			<div class="modal fade" id="changhead" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+							</button>
+							<h4 class="modal-title" id="exampleModalLabel">修改個人頭像</h4>
+						</div>
+						<div class="modal-body">
+							<div class="imageBox">
+								<div class="thumbBox"></div>
+								<div class="spinner" style="display: none">Loading...</div>
+							</div>
+							<div class="head_action">
+								<input type="file" id="file" style="float: left; width: 250px">
+								<input type="button" id="btnCrop" value="Crop"
+									style="float: right"> <input type="button"
+									id="btnZoomIn" value="+" style="float: right"> <input
+									type="button" id="btnZoomOut" value="-" style="float: right">
+							</div>
+							<div class="cropped"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 修改個人頭像結束 -->
 
+		
 </aside>
-
-<!-- 	新增個人日誌結束 -->
 
 <script type="text/javascript">
 	function diffTime(beforeTime){
@@ -476,12 +508,6 @@ jQuery(function($){
             			visitorStatus = 3;
             			callShowJournal(visitorStatus)
             			titleNickName = "${LoginOK.nickname}";
-            			alertify.confirm().set('title', '想加好友嗎');
-                		alertify.confirm('確認加此好友',function(e){
-                			if(e){
-                				alertify.alert('++')
-                			}
-                		})
 	            	}
 				}
 		            
@@ -489,9 +515,42 @@ jQuery(function($){
 					$('#titleNickName').text(titleNickName+'的日誌');
 		}
 
-					
+				
 		function callShowJournal(visitorStatus){
-			console.log('callShowJournal')
+		
+   			if(visitorStatus == 2){ 
+   				console.log(visitorStatus)
+			$('#personal_profile').append(
+//						'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+		           ' <a class="pull-left" href="#">'
+	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
+	             +'</a>'
+	             +'<div class="media-body">'
+	             +'<h4 class="media-heading">hardik sondagar <small> india</small></h4>'
+	             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
+	             +'<hr style="margin:8px auto">'		             
+//		             +'<button type="button" class="profile-btn btn btn-info" >加為好友</button>'
+		             +'<button type="button" class="profile-btn btn btn-primary">傳送訊息給他</button>'
+// 	             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
+	             +'</div>'
+				);
+			}else if(visitorStatus == 3){
+				$('#personal_profile').append(
+//						'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+		           ' <a class="pull-left" href="#">'
+	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
+	             +'</a>'
+	             +'<div class="media-body">'
+	             +'<h4 class="media-heading">hardik sondagar <small> india</small></h4>'
+	             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
+	             +'<hr style="margin:8px auto">'		             
+		             +'<button type="button" class="profile-btn btn btn-info addfriend" >加為好友</button>'
+//		             +'<button type="button" class="profile-btn btn btn-default">jquery</button>'
+// 	             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
+	             +'</div>'
+				);				
+			}
+   			
 			// 查詢日誌開始-------------------------
 				$.ajax({
 				url : "${this_contextPath}/CRFSERVICE/personalJournalController/showJournal",
@@ -533,7 +592,6 @@ jQuery(function($){
 			   			+ '<div class="message_div function_list">'	
 
 			   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
-
 
 						+ '<a class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 				   		+ '<a class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen" ></span></a>'
@@ -693,11 +751,12 @@ jQuery(function($){
 								   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 											+ '<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 								   			+ '<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></a>'
+									   		+ '<a><span class="badge countLike">"0"</span></a>'
 								   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
 								   			+ '</div>'
 								   			+ '</div>'
 								   			+ '</li>')
-
+								   											   			
 // 								   			divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
 		   								//新增日誌後清除內容
 										$('.timeline-panel').fadeIn(2200);
@@ -885,6 +944,12 @@ jQuery(function($){
 			}) // ajax 顯示留言
     	}
       	
+      	$('body').on('click','button.addfriend', function(){
+   			alertify.confirm().set('title', '想加好友嗎');
+			alertify.confirm('確認加此好友', function(e) {
+						if (e) {alertify.alert('++')}
+					})
+		})		
 	});
 </script>
 </c:if>
@@ -901,6 +966,38 @@ jQuery(function($){
 		}
 		
 		jQuery(function($){ 
+			
+			$("body").on("click",'#clickchangehead',function(){
+				$('#changehead').modal('toggle');
+				
+				var options =
+		        {
+		            imageBox: '.imageBox',
+		            thumbBox: '.thumbBox',
+		            spinner: '.spinner',
+		            imgSrc: 'avatar.png'
+		        }
+		        var cropper = new cropbox(options);
+		        document.querySelector('#file').addEventListener('change', function(){
+		            var reader = new FileReader();
+		            reader.onload = function(e) {
+		                options.imgSrc = e.target.result;
+		                cropper = new cropbox(options);
+		            }
+		            reader.readAsDataURL(this.files[0]);
+		            this.files = [];
+		        })
+		        document.querySelector('#btnCrop').addEventListener('click', function(){
+		            var img = cropper.getDataURL();
+		            document.querySelector('.cropped').innerHTML += '<img src="'+img+'">';
+		        })
+		        document.querySelector('#btnZoomIn').addEventListener('click', function(){
+		            cropper.zoomIn();
+		        })
+		        document.querySelector('#btnZoomOut').addEventListener('click', function(){
+		            cropper.zoomOut();
+		        })
+			})
 			
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
@@ -947,6 +1044,7 @@ jQuery(function($){
 		
 	</script>
 
+	<script src="${this_contextPath}/js/personal_head.js"></script>
 	<script src="${this_contextPath}/js/personal_journal.js"></script>
 	<script src="${this_contextPath}/js/alertify.js"></script>
 	<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>

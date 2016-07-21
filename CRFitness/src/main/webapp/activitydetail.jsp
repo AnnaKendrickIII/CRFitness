@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 </head>
 <style>
+aside 
+ {  
+  	background-color: #F5F5F5; 
+ }
 @media  screen and (min-width:100px) {
 .poto_Outline{
 margin:auto;
@@ -153,14 +157,6 @@ padding:10px 5px 2px 5px;
 						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
 						  var jdate_value_deadline = new Date(jdate_int2);
 						  var names=' ';
-		        		  if(this[1]!=null){
-						  var nameData=this[1].split(",")						  
-						  $.each(nameData,function(){
-							if(this!=""){
-								names+=this+'\n'
-							}				  
-						  })	
-		        		 }//到第一個ajax
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div').append("<div id='div_"+count+"' class='row'></div>")      			 
 		        		 }	 
@@ -180,20 +176,26 @@ padding:10px 5px 2px 5px;
 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Info'>"+this[0].activity_Info+"</a>"+'<br />活動時間：'
 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />活動截止日：'
 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
-									+names+'">'
-									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></div></div>')
+									+'<a href="#" title='+this[1]+'>'+this[0].people+'</a><br />'
+									+'<p>報名人數上限：'+this[0].people_Max+'</p></div></div>') 									
+// 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
+// 									+names+'">'
+// 									+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></div></div>')
 									
 							if(index%3 == 2){
 								count++;
 							}
 									  					
 	                 		 })//each
-							  $('.btn.btn-default').tooltip()
+						
+	                 		//tooltip
+	                 		    $( document ).tooltip();
+	                 		 //tooltip
 								$(".boxer").boxer({
     							top: 50,
     							fixed:true
 								});	
+	                 		 
 		        	  $.fn.editable.defaults.mode = 'inline';     
 		        	    $('.select').editable({
 		        	        type: 'select',
@@ -269,15 +271,7 @@ padding:10px 5px 2px 5px;
 						  var jdate_value = new Date(jdate_int);
 						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
 						  var jdate_value_deadline = new Date(jdate_int2);
-						  var names=' ';
-		        		  if(this[3]!=null){
-						  var nameData=this[3].split(",")						  
-						  $.each(nameData,function(){
-							if(this!=""){
-								names+=this+'\n'
-							}				  
-						  })	
-		        		 }//到第一個ajax
+						  
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div2').append("<div id='div2_"+count+"' class='row'></div>")      			 
 		        		 }	 
@@ -297,21 +291,31 @@ padding:10px 5px 2px 5px;
 									+this[0].activity_Info+"</a>"+'<br />活動時間：'
 									+jdate_value.Format('yyyy-MM-dd hh:mm')+'<br />活動截止日：'
 									+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
-									+names+'">'
-									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></button></div></div>')
+									+'<a href="#" title='+this[3]+'>'+this[0].people+'</a><br />'
+									+'<p>報名人數上限：'+this[0].people_Max+'</p></div></div>') 
+// 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
+// 									+">'
+// 									+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></button></div></div>')
 									
 							if(index%3 == 2){
 								count++;
 							}
 									  					
 	                 		 })//each
-							  $('.btn.btn-default').tooltip()
+
+	                 		
+	                 		 //tooltip
+	                 		    $( document ).tooltip();
+	                 		 //tooltip
+	                 		  
+	                 		 
+	                 		 //彈跳視窗	                 		 
 								$(".boxer").boxer({
     							top: 50,
     							fixed:true
 								});	
-
+							//彈跳視窗
+							
 		          }//外層success          	 
 		      })
 		      
