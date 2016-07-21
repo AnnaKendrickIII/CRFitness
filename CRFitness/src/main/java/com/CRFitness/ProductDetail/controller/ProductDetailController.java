@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.CRFitness.OrderDetails.model.OrderDetailsService;
 import com.CRFitness.ProductDetail.model.ProductDetailService;
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 import com.CRFitness.ProductDetail.model.ShoppingCart;
@@ -23,6 +24,8 @@ public class ProductDetailController {
 
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
+	@Resource(name = "orderDetailsService")
+	private OrderDetailsService orderDetailsService;
 	@Resource(name = "shoppingCart")
 	private ShoppingCart shoppingCart;
 
@@ -80,15 +83,18 @@ public class ProductDetailController {
 			@RequestParam String productDetail_Id) {
 		shoppingCart.deleteItem(productDetail_Id);
 	}
-	//取總金額
+
+	// 取總金額
 	@RequestMapping(method = RequestMethod.GET, value = "/totalAmount")
 	public @ResponseBody double totalAmount() {
 		return shoppingCart.totalAmount();
 	}
-	//更改數量
+
+	// 更改數量
 	@RequestMapping(method = RequestMethod.POST, value = "/ChangeProductNum")
-	public @ResponseBody void ChangeProductNum(String productDetail_Id,String num) {
+	public @ResponseBody void ChangeProductNum(String productDetail_Id,
+			String num) {
 		shoppingCart.ChangeProductNum(productDetail_Id, num);
 	}
-	
+
 }

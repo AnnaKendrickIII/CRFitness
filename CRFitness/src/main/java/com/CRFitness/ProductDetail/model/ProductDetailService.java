@@ -1,5 +1,9 @@
 package com.CRFitness.ProductDetail.model;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -36,10 +40,6 @@ public class ProductDetailService {
 		System.out.println("C"+productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id).get(0));
 		return cart;
 	}
-//	// back-end: 找商品照片
-//	public byte[] findProductsPhoto(String productDetail_Id) {
-//		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
-//	}
 
 	public ProductDetailVO insertProductDetail(ProductDetailVO productDetailVO) {
 		productDetailDAO.insert(productDetailVO);
@@ -58,25 +58,11 @@ public class ProductDetailService {
 		return productDetailDAO.findByPrimaryKey(productDetail_Id);
 	}
 
-	// back-end
-	public List<ProductDetailVO> getAllByDesc() {
-		return productDetailDAO.getAllByDesc();
-	}
 
 	// front-end
 	// 撈出所有商品資訊
 	public List<ProductDetailVO> getAllItem() {
 		return productDetailDAO.getAll();
-	}
-
-	// 新增商品至 ProductDetail Table
-	public ProductDetailVO addProductDetial(ProductDetailVO productDetailVO) {
-		if (productDetailVO != null) {
-			productDetailDAO.insert(productDetailVO);
-			return productDetailVO;
-		} else {
-			return null;
-		}
 	}
 
 	// PK鍵搜尋商品
@@ -108,28 +94,71 @@ public class ProductDetailService {
 			return null;
 		}
 	}
-
+	
+	// 取得照片
+	public byte[] showPhotos(String Path){
+		File file=null;
+		ByteArrayOutputStream baos = null;
+		FileInputStream fis = null;
+		byte[] photo = null;		
+		file = new File(Path+".jpg");
+		if(!file.exists()){
+			file = new File(Path+".gif"); 
+		}
+		if(!file.exists()){
+			file = new File(Path+".png");
+		}
+		try {	
+			fis = new FileInputStream(file);
+			baos = new ByteArrayOutputStream();
+			int count = 0;
+    		byte[] bytes = new byte[1024];
+    		while ((count = fis.read(bytes)) != -1) {
+    			baos.write(bytes, 0, count);
+    		}
+			baos.flush();
+			photo = baos.toByteArray();
+			baos.close();
+			return photo;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			try {
+				fis.close();
+			} catch (IOException e) {	
+				e.printStackTrace();
+				return null;
+			}
+		}
+	
+	} // end public byte[] showPhotos(String Path){
+	
+	
+	// back-end: select all columns in ProductDetail & Product Table
+	public List<Object[]> getAllByDesc() {
+		return productDetailDAO.getAllByDesc();
+	}
 
 	// back-end: 新增商品至 ProductDetail & Product Table
-	public List<Object> addProductDetail(String product_Name, Double price,// 價格
+	public List<Object[]> addProductDetail(String product_Name, Double price,// 價格
 			String category, // 分類
 			String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
-			// Timestamp published_Date, // 刊登日期
 			MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			String product_Status, // 狀態
 			String info // 商品簡介
-	// String detailed_Description, // 商品詳細說明
 	) {
-		List<Object> list = new ArrayList<Object>();
+		List<Object[]> list = new ArrayList<Object[]>();
 
 		ProductsVO productsVO = new ProductsVO();
 		productsVO.setProduct_Name(product_Name);
 		productsVO.setPrice(price);
 		productsVO.setCategory(category);
+		productsVO.setInfo(info);
 		productsVO = productsDAO.insert(productsVO);
 
 		ProductDetailVO productDetailVO = new ProductDetailVO();
@@ -145,41 +174,36 @@ public class ProductDetailService {
 //			e.printStackTrace();
 //		}
 		productDetailVO.setProduct_Status(product_Status);
-//		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.insert(productDetailVO);
 
-		list.add(0, productsVO);
-		list.add(1, productDetailVO);
+		Object[] pVO = {productsVO, productDetailVO}; 
+		list.add(0, pVO);
 		return list;
 	}
 
 	// back-end: 修改商品至 ProductDetail & Product Table
-	public List<Object> updateProductDetail(String product_Id,
-			String product_Name, Double price, // 價格
-			String category, // 分類
-			String productDetail_Id, String size, // 尺寸
-			String color, // 顏色
-			Integer stock, // 庫存量
-			// Timestamp published_Date, // 刊登日期
-			// MultipartFile photo1, // 圖片1
-			// byte[] photo2, // 圖片2
-			// byte[] photo3, // 圖片3
-			String product_Status, // 狀態
-			String info // 商品簡介
-	// String detailed_Description, // 商品詳細說明
-	) {
-		List<Object> list = new ArrayList<Object>();
+	public List<Object[]> updateProductDetail(
+			String productDetail_Id, 
+			String product_Id,
+			String product_Name, 
+			Double price,             // 價格
+			String category,          // 分類
+			String info,              // 商品簡介
+			String size,              // 尺寸
+			String color,             // 顏色
+			Integer stock,            // 庫存量
+			String product_Status)    // 狀態
+			{
+		List<Object[]> list = new ArrayList<Object[]>();
 
-		// ProductsVO productsVO = new ProductsVO();
 		ProductsVO productsVO = productsDAO.findByPrimaryKey(product_Id);
 		productsVO.setProduct_Name(product_Name);
 		productsVO.setPrice(price);
 		productsVO.setCategory(category);
+		productsVO.setInfo(info);
 		productsVO = productsDAO.update(productsVO);
 
-		// ProductDetailVO productDetailVO = new ProductDetailVO();
-		ProductDetailVO productDetailVO = productDetailDAO
-				.findByPrimaryKey(productDetail_Id);
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 
 		productDetailVO.setSize(size);
@@ -187,18 +211,14 @@ public class ProductDetailService {
 		productDetailVO.setStock(stock);
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		productDetailVO.setPublished_Date(ts);
-		// System.out.println(productDetailVO.getPublished_Date());
-		// try {
-		// productDetailVO.setPhoto1(photo1.getBytes());
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
 		productDetailVO.setProduct_Status(product_Status);
-//		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);
-
-		list.add(0, productsVO);
-		list.add(1, productDetailVO);
+		
+		Object[] pVO = {productsVO, productDetailVO}; 
+		list.add(0, pVO);
+		
+//		//list.add(0, productsVO);
+//		//list.add(1, productDetailVO);
 		return list;
 	}
 
@@ -211,6 +231,41 @@ public class ProductDetailService {
 		// System.out.println(productDetailVO.getProduct_Status());
 		return productDetailVO.getProduct_Status();
 	}
+	
+	// back-end: insert or update images
+	public void Insert_Images(String Path, MultipartFile[] photos){
+		FileOutputStream fos = null;
+		File file = null;
+	
+		for(int i=0; i<=4; i++){
+		try {
+			String contentType;
+			if(photos[i] != null){
+			byte[] photo = photos[i].getBytes();
+			if(photos[i].getContentType().substring(6).equalsIgnoreCase("jpeg")){
+				contentType=".jpg";
+			}else{
+				contentType="."+photos[i].getContentType().substring(6);
+			}
+			file = new File(Path+"_"+(i+1)+contentType);		
+			if (!file.exists()) {
+				file.createNewFile();
+			}	
+			fos = new FileOutputStream(file);
+			fos.write(photo);
+			fos.flush();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+		} // end finally
+	} // end for(i=0; i<=4; i++){
+}
 
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定

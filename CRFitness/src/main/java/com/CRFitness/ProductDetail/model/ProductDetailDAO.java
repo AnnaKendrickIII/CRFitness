@@ -84,22 +84,24 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 		return (List<ProductDetailVO>) query.list();
 	}
 
-	// back-end
+	// back-end: select all products
 	@Override
-	public List<ProductDetailVO> getAllByDesc() {
+	public List<Object[]> getAllByDesc() {
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-						"Select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category "
+						"Select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category , Products.Info"
 								+ " from  ProductDetail join Products"
 								+ " on ProductDetail.Product_Id=Products.Product_Id "
 								+ " Order by ProductDetail_Id desc")
 				.addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
-				.addScalar("category", StringType.INSTANCE);
-		return (List<ProductDetailVO>) query.list();
+				.addScalar("category", StringType.INSTANCE)
+				.addScalar("info", StringType.INSTANCE);
+		return (List<Object[]>) query.list();
 	}
+
 
 	@Override
 	public ProductDetailVO getProductDetailId(String product_Name, String size,
@@ -114,7 +116,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 	// 依商品分類顯示
 	@Override
 	public List<ProductDetailVO> getItemByCategory(String category, Integer page) {
-		int max = 12;
+		int max = 20;
 		Query query = this
 				.getSession()
 				.createSQLQuery(
