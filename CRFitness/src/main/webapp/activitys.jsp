@@ -13,21 +13,23 @@
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/component_activity.css" />
 
-<script src="${this_contextPath}/js/modernizr.custom.js"></script>
-<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
-<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" />
-<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script>
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">  
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  
-<script src="${this_contextPath}/js/velocity.min.js" ></script>
-<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>
-<script src="${this_contextPath}/js/jquery.alertable.js" ></script>
-<script src="${this_contextPath}/js/jAlert-v4.js" ></script>
+<script src="${this_contextPath}/js/modernizr.custom.js"></script><!-- 瀑布流 -->
+<link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"> <!-- 彈跳視窗 -->
+<link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- 檔案上傳 -->
+<script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- 檔案上傳 -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css">    <!-- 日期選擇器 -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css"> <!-- alert -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  <!-- alert -->
+<script src="${this_contextPath}/js/velocity.min.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/jquery.alertable.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/jAlert-v4.js" ></script>  <!-- alert -->
 
 <style>
-
-
+aside 
+ {  
+  	background-color: #F5F5F5; 
+ }
 .gallery {
 	margin: 20px 0;
 	overflow: hidden;
@@ -135,7 +137,7 @@
 
 </head>
 <body >
-
+<aside>
 	<!-- 頁面部分 開始-->
 
     <ul class="grid effect-5 " id="grid">
@@ -209,13 +211,13 @@
                 <!-- 上傳圖片 結尾-->
                
                    <!-- 新增活動 結尾-->
-    <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
-	<script src="${this_contextPath}/js/classie.js"></script>
-	<script src="${this_contextPath}/js/imagesloaded.js"></script>
-	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
+    <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    <!-- 瀑布流 -->
+	<script src="${this_contextPath}/js/classie.js"></script><!-- 瀑布流 -->
+	<script src="${this_contextPath}/js/imagesloaded.js"></script><!-- 瀑布流 -->
+	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	<!-- 瀑布流 -->
 	
 	<!-- 輸入日期 開始-->
-	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script><!-- 日期選擇器 -->
 	
 	<script>
 		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00:00',step:10});
@@ -286,7 +288,7 @@
 				   var jdate_value_deadline = new Date(jdate_intb);
             	   $('#new_activity').modal('hide');	
             	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
-							+data.activity_Id+'.jpg" class="lightbox_image boxer " data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+							+data.activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+'${LoginOK.nickname}'+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />活動時間：'
@@ -296,15 +298,22 @@
 									+"<div hidden='hidden'>"+data.activity_Id
 									+'</div>"><span title=""><img src=${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+data.activity_Id+'.jpg" /></span></a>發起人：'
-									+'${LoginOK.nickname}'+'<br />類別：'
+									+'<a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}</a>'
+									+'<br />類別：'
 									+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button type="button" class="btn btn-default " data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
-									+data.people+'</button><br />報名人數上限：<button class="btn btn-default" style="border:none">'+data.people_Max+'</button></li>')								
-										 $('.btn.btn-default').tooltip()	
+									+'<a href="#" class="linkpeople" title="">'+data.people+'</a><br /><p>報名人數上限：'+data.people_Max+'</p></li>')
+// 									+'<button type="button" class="btn btn-default " data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
+// 									+data.people+'</button><br /><p>報名人數上限：'+data.people_Max+'</p></li>')								
+// 										 $('.btn.btn-default').tooltip()	
+
+									
+										$(".linkpeople").tooltip();
+										
+
 										  $(".boxer").boxer({ 
 											  top: 50,
 											  fixed:true
@@ -334,15 +343,15 @@
 						  var jdate_value = new Date(jdate_int);
 						  var jdate_intb = parseInt(this[0].deadline);                        //轉換成數字
 						  var jdate_value_deadline = new Date(jdate_intb);
-						  var names=' ';
-		        		  if(this[1]!=null){
-						  var nameData=this[1].split(",")						  
-						  $.each(nameData,function(){
-							if(this!=""){
-								names+=this+'\n'
-							}				  
-						  })//第二個each	
-		        		 }								//href="data:image/png;base64,'+this[0].photo1+'"
+// 						  var names=' ';
+// 		        		  if(this[1]!=null){
+// 						  var nameData=this[1].split(",")						  
+// 						  $.each(nameData,function(){
+// 							if(this!=""){
+// 								names+=this+'\n'
+// 							}				  
+// 						  })//第二個each	
+// 		        		 }								//href="data:image/png;base64,'+this[0].photo1+'"
                           								//href="${this_contextPath}/CRFSERVICE/activitysController/photo/'+this[0].activity_Id+'"
                           								//${this_contextPath}/images/activitys/'+this[0].activity_Id+' .jpg
 							$('#grid').append('<li ><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
@@ -357,18 +366,21 @@
 									+"<div hidden='hidden'>"+this[0].activity_Id
 									+'</div>"><span title=""><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+this[0].activity_Id+'.jpg" /></span></a>發起人：'
-									+this[2]+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
+									+'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'+this[2]+'</a>'
+									+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
-									+names+'">'
-									+this[0].people+'</button><br />'+'報名人數上限：<button class="btn btn-default" style="border:none">'+this[0].people_Max+'</button></li>')
+									+'<a href="#" class="linkpeople" title='+this[1]+'>'+this[0].people+'</a><br /><p>報名人數上限：'+this[0].people_Max+'</p></li>')
+// 									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
+// 									+names+'">'
+// 									+this[0].people+'</button><br />'+'<p>報名人數上限：'+this[0].people_Max+'</p></li>')
 									  					
 	                 		 })//第一個each
-							  $('.btn.btn-default').tooltip()
+// 							  $('.btn.btn-default').tooltip()
+								$(".linkpeople").tooltip();
 								$(".boxer").boxer({
     							top: 50,
     							fixed:true
@@ -452,8 +464,9 @@
 	  })
     
 </script>
-<script src="${this_contextPath}/js/jAlert-functions.js"></script>
-<script src="${this_contextPath}/js/jquery.fs.boxer.js" ></script>
+<script src="${this_contextPath}/js/jAlert-functions.js"></script><!-- alert -->
+<script src="${this_contextPath}/js/jquery.fs.boxer.js" ></script><!-- 彈跳視窗 -->
 <!-- 頁面部分 結束-->
+</aside>
 </body>
 </html>
