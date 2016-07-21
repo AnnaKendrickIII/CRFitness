@@ -36,10 +36,6 @@ public class ProductDetailService {
 		System.out.println("C"+productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id).get(0));
 		return cart;
 	}
-//	// back-end: 找商品照片
-//	public byte[] findProductsPhoto(String productDetail_Id) {
-//		return productDetailDAO.findByPrimaryKey(productDetail_Id).getPhoto1();
-//	}
 
 	public ProductDetailVO insertProductDetail(ProductDetailVO productDetailVO) {
 		productDetailDAO.insert(productDetailVO);
@@ -58,10 +54,6 @@ public class ProductDetailService {
 		return productDetailDAO.findByPrimaryKey(productDetail_Id);
 	}
 
-	// back-end
-	public List<ProductDetailVO> getAllByDesc() {
-		return productDetailDAO.getAllByDesc();
-	}
 
 	// front-end
 	// 撈出所有商品資訊
@@ -70,14 +62,14 @@ public class ProductDetailService {
 	}
 
 	// 新增商品至 ProductDetail Table
-	public ProductDetailVO addProductDetial(ProductDetailVO productDetailVO) {
-		if (productDetailVO != null) {
-			productDetailDAO.insert(productDetailVO);
-			return productDetailVO;
-		} else {
-			return null;
-		}
-	}
+//	public ProductDetailVO addProductDetail(ProductDetailVO productDetailVO) {
+//		if (productDetailVO != null) {
+//			productDetailDAO.insert(productDetailVO);
+//			return productDetailVO;
+//		} else {
+//			return null;
+//		}
+//	}
 
 	// PK鍵搜尋商品
 	public List<Object[]> getItemByPrimaryKey(String productDetail_Id) {
@@ -109,27 +101,30 @@ public class ProductDetailService {
 		}
 	}
 
+	// back-end: select all columns in ProductDetail & Product Table
+	public List<Object[]> getAllByDesc() {
+		return productDetailDAO.getAllByDesc();
+	}
 
 	// back-end: 新增商品至 ProductDetail & Product Table
-	public List<Object> addProductDetail(String product_Name, Double price,// 價格
+	public List<Object[]> addProductDetail(String product_Name, Double price,// 價格
 			String category, // 分類
 			String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
-			// Timestamp published_Date, // 刊登日期
 			MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			String product_Status, // 狀態
 			String info // 商品簡介
-	// String detailed_Description, // 商品詳細說明
 	) {
-		List<Object> list = new ArrayList<Object>();
+		List<Object[]> list = new ArrayList<Object[]>();
 
 		ProductsVO productsVO = new ProductsVO();
 		productsVO.setProduct_Name(product_Name);
 		productsVO.setPrice(price);
 		productsVO.setCategory(category);
+		productsVO.setInfo(info);
 		productsVO = productsDAO.insert(productsVO);
 
 		ProductDetailVO productDetailVO = new ProductDetailVO();
@@ -145,41 +140,36 @@ public class ProductDetailService {
 //			e.printStackTrace();
 //		}
 		productDetailVO.setProduct_Status(product_Status);
-//		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.insert(productDetailVO);
 
-		list.add(0, productsVO);
-		list.add(1, productDetailVO);
+		Object[] pVO = {productsVO, productDetailVO}; 
+		list.add(0, pVO);
 		return list;
 	}
 
 	// back-end: 修改商品至 ProductDetail & Product Table
-	public List<Object> updateProductDetail(String product_Id,
-			String product_Name, Double price, // 價格
-			String category, // 分類
-			String productDetail_Id, String size, // 尺寸
-			String color, // 顏色
-			Integer stock, // 庫存量
-			// Timestamp published_Date, // 刊登日期
-			// MultipartFile photo1, // 圖片1
-			// byte[] photo2, // 圖片2
-			// byte[] photo3, // 圖片3
-			String product_Status, // 狀態
-			String info // 商品簡介
-	// String detailed_Description, // 商品詳細說明
-	) {
-		List<Object> list = new ArrayList<Object>();
+	public List<Object[]> updateProductDetail(
+			String productDetail_Id, 
+			String product_Id,
+			String product_Name, 
+			Double price,             // 價格
+			String category,          // 分類
+			String info,              // 商品簡介
+			String size,              // 尺寸
+			String color,             // 顏色
+			Integer stock,            // 庫存量
+			String product_Status)    // 狀態
+			{
+		List<Object[]> list = new ArrayList<Object[]>();
 
-		// ProductsVO productsVO = new ProductsVO();
 		ProductsVO productsVO = productsDAO.findByPrimaryKey(product_Id);
 		productsVO.setProduct_Name(product_Name);
 		productsVO.setPrice(price);
 		productsVO.setCategory(category);
+		productsVO.setInfo(info);
 		productsVO = productsDAO.update(productsVO);
 
-		// ProductDetailVO productDetailVO = new ProductDetailVO();
-		ProductDetailVO productDetailVO = productDetailDAO
-				.findByPrimaryKey(productDetail_Id);
+		ProductDetailVO productDetailVO = productDetailDAO.findByPrimaryKey(productDetail_Id);
 		productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 
 		productDetailVO.setSize(size);
@@ -194,11 +184,13 @@ public class ProductDetailService {
 		// e.printStackTrace();
 		// }
 		productDetailVO.setProduct_Status(product_Status);
-//		productDetailVO.setInfo(info);
 		productDetailVO = productDetailDAO.update(productDetailVO);
-
-		list.add(0, productsVO);
-		list.add(1, productDetailVO);
+		
+		Object[] pVO = {productsVO, productDetailVO}; 
+		list.add(0, pVO);
+		
+//		//list.add(0, productsVO);
+//		//list.add(1, productDetailVO);
 		return list;
 	}
 

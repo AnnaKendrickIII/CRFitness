@@ -13,7 +13,7 @@ public interface ProductDetailDAO_interface {
 	public List<ProductDetailVO> getAll();
 	public ProductDetailVO getProductDetailId(String product_Name, String size, String color);
 	public List<ProductDetailVO> getItemByCategory(String category, Integer page);
-	public List<ProductDetailVO> getAllByDesc();
+	public List<Object[]> getAllByDesc();
 	public List<Object[]> findByPrimaryKeySQLQuery(String productDetail_Id);
 	
 	
