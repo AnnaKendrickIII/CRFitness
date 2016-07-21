@@ -1,89 +1,73 @@
 package com.init;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.CRFitness.ProductDetail.model.ProductDetailDAO_interface;
-import com.CRFitness.ProductDetail.model.ProductDetailVO;
 
 
 public class JSOUP_ProductDetail {
 
 	public static void main(String[] args) throws IOException {
-//		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
-//		ProductDetailDAO_interface productDetailDAO = (ProductDetailDAO_interface) context.getBean("productDetailDAO");
-		ProductDetailVO productDetailVO;
-
 		Document doc;
-		doc = Jsoup.connect("http://www.underarmour.tw/cmens-bottoms-capri/").timeout(30*1000).get();
+		doc = Jsoup.connect("http://www.underarmour.tw/cmens-footwear/").timeout(50*1000).get();
 		
 		// get how many items
 		Elements element_link = doc.select(".product-list .product-list-li .color-item .more-color");
-		// System.out.println(element_link.size());
+			// System.out.println(element_link.size()); //顯示主頁有多少商品圖
 		
-		for(int i=0;i<element_link.size();i++){
-			productDetailVO = new ProductDetailVO();
+		for (int i = 0; i < element_link.size(); i++) {
 			Document doc2;
-			doc2 = Jsoup.connect("http://www.underarmour.tw/p"+element_link.get(i).id()+".htm").timeout(30*1000).get();	
+			doc2 = Jsoup.connect("http://www.underarmour.tw/p" + element_link.get(i).id() + ".htm")
+					.timeout(40 * 1000).get();
 			
-//			productDetailVO.setSize("US9.5");; // Size
-			
-//			Elements Color = doc2.select(".show_color"); // Color
-//			System.out.println((i+1) + " " + Color.text());
-//			productDetailVO.setColor(Color.text());
-
-//			productDetailVO.setStock(500);; // Stock
-									
-//			Timestamp ts = new Timestamp(System.currentTimeMillis()); // Published_Date
-//			productDetailVO.setPublished_Date(ts);
-//			
-//			productDetailVO.setProduct_Status("上架"); // Product_Status：上架、下架		
-	
-			Elements productName = doc2.select(".trade-name"); // Product_Name
-//			// System.out.println(product_Name.text());
-			String[] Product_Name = new String[element_link.size()]; 
-			Product_Name[i] = productName.text();
-			 System.out.println("i= "+(i+1) + " " + Product_Name[i]);
-						
-//			if(i==0){
-//				productDetailVO.setProduct_Id("product413"+ (i+1) );
-//			} else if(i>0 && Product_Name[i] == Product_Name[i-1]){
-//				productDetailVO.setProduct_Id("product413"+ (i-1) );
-//			} else{
-//				productDetailVO.setProduct_Id("product413"+ i );
-//			}
-			 
-			if(i>0 && Product_Name[i] == Product_Name[i-1]){
-				System.out.println("product413"+ (i-1) );
-			} else if(i>0 && Product_Name[i] != Product_Name[i-1]){
-				System.out.println("product413"+ i );
-			} else{
-				System.out.println("product413"+ (i+1) );
-			}
-			System.out.println("========================================");
-			 
-//			productDetailDAO.insert(productDetailVO);
-			
+			Elements fivephotoimg = doc2.select("#vertical ul li img");
+			// System.out.println(element_link.size()); //顯示子頁產品有幾張圖
+			 System.out.println(element_link.size());
+			for (int j = 0; j < fivephotoimg.size(); j++) {
+				String imgurl;
+				if (j == 0) {
+					imgurl = fivephotoimg.get(j).attr("src");
+					System.out.println(imgurl);
+				} else {
+					imgurl = fivephotoimg.get(j).attr("loadsrc");
+					System.out.println(imgurl);
+				}
+				URL url = new URL(imgurl);
+				FileOutputStream fop = null;
+				byte[] photo = null;
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				BufferedImage originalImage = ImageIO.read(url);
+				ImageIO.write(originalImage, "png", baos);
+				baos.flush();
+				photo = baos.toByteArray();
+				baos.close();
+				File file ;
+				if ((i + 1) < 10) {
+				file = new File("c:\\products/M-footwear/prodDetail500" + (i + 1) + "_" + (j + 1) + ".png");
+				} else {
+				file = new File("c:\\products/M-footwear/prodDetail50" + (i + 1) + "_" + (j + 1) + ".png");
+				}
+				if (!file.exists()) {
+					file.createNewFile();
+				}
+				fop = new FileOutputStream(file);
+				fop.write(photo);
+				fop.flush();
+				fop.close();
+			} // end for (int j = 0; j < fivephotoimg.size(); j++)
 		} // end for (int i = 0; i < element_link.size(); i++)
-		
-//		((ConfigurableApplicationContext) context).close();
-		System.out.println("Grasp finished!");
-		
-	} // end public static void main(String[] args) throws IOException
-} // end public class JSOUP_F_tops
-				
-
-				// 抓文字資料，寫盡資料庫，需要再Library加入 jdbc jar
+				System.out.println("Download finished!");
+	}
+}			// 抓文字資料，寫盡資料庫，需要再Library加入 jdbc jar
 
 
 				// 抓圖片，以下這段放在main()裡面：
