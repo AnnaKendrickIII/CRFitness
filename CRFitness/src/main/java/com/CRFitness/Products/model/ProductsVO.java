@@ -8,6 +8,14 @@ public class ProductsVO implements java.io.Serializable{			//商品
 	private String product_Name;	//商品名稱
 	private Double price;			//價格
 	private String category;		//分類
+	private String info; // 商品簡介
+	public String getInfo() {
+		return info;
+	}
+
+	public void setInfo(String info) {
+		this.info = info;
+	}
 
 	public String getProduct_Id() {
 		return product_Id;

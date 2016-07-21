@@ -9,18 +9,11 @@ public class ProductDetailVO implements java.io.Serializable { // 商品明細
 	private static final long serialVersionUID = 1L;
 	private String productDetail_Id; // 商品明細編號
 	private String product_Id; //商品編號
-//	private ProductsVO productsVO;
-//	private String product_Name; // 商品名稱
 	private String size; // 尺寸
 	private String color; // 顏色
 	private Integer stock; // 庫存量
 	private Timestamp published_Date; // 刊登日期
-	private byte[] photo1; // 圖片1
-	private byte[] photo2; // 圖片2
-	private byte[] photo3; // 圖片3
 	private String product_Status; // 商品狀態
-	private String info; // 商品簡介
-	private String detailed_Description; // 商品詳細說明
 	public String getProductDetail_Id() {
 		return productDetail_Id;
 	}
@@ -57,42 +50,11 @@ public class ProductDetailVO implements java.io.Serializable { // 商品明細
 	public void setPublished_Date(Timestamp published_Date) {
 		this.published_Date = published_Date;
 	}
-	public byte[] getPhoto1() {
-		return photo1;
-	}
-	public void setPhoto1(byte[] photo1) {
-		this.photo1 = photo1;
-	}
-	public byte[] getPhoto2() {
-		return photo2;
-	}
-	public void setPhoto2(byte[] photo2) {
-		this.photo2 = photo2;
-	}
-	public byte[] getPhoto3() {
-		return photo3;
-	}
-	public void setPhoto3(byte[] photo3) {
-		this.photo3 = photo3;
-	}
 	public String getProduct_Status() {
 		return product_Status;
 	}
 	public void setProduct_Status(String product_Status) {
 		this.product_Status = product_Status;
 	}
-	public String getInfo() {
-		return info;
-	}
-	public void setInfo(String info) {
-		this.info = info;
-	}
-	public String getDetailed_Description() {
-		return detailed_Description;
-	}
-	public void setDetailed_Description(String detailed_Description) {
-		this.detailed_Description = detailed_Description;
-	}
-	
 	
 }

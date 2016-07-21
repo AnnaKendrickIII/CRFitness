@@ -25,16 +25,21 @@ public class ProductDetailControllerBE {
 	@Resource(name = "productDetailService")
 	private ProductDetailService productDetailService;
 	
-	// 新增products
+	// select products，新增的列顯示在最上面
+	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody List<Object[]> getAllDetail() {
+		return productDetailService.getAllByDesc();
+	}
+	
+	// insert products
 	@RequestMapping(method = RequestMethod.POST, value ="/addProducts")
-	public @ResponseBody List<Object> list(
+	public @ResponseBody List<Object[]> list(
 			@RequestParam String product_Name,
 			@RequestParam String price,
 			@RequestParam String category,
 			@RequestParam String size,
 			@RequestParam String color,
 			@RequestParam String stock,
-//			@RequestParam String published_Date,
 			@RequestParam MultipartFile photo1,			
 			@RequestParam String product_Status,
 			@RequestParam String info){
@@ -45,7 +50,6 @@ public class ProductDetailControllerBE {
 			category = new String(category.getBytes("iso-8859-1"), "utf-8");
 			size = new String(size.getBytes("iso-8859-1"), "utf-8");
 			color = new String(color.getBytes("iso-8859-1"), "utf-8");
-//			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
 			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
 			info = new String(info.getBytes("iso-8859-1"), "utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -54,18 +58,17 @@ public class ProductDetailControllerBE {
 		return productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, product_Status, info);	
 	}
 	
-	// 修改 products
+	// update products
 	@RequestMapping(method = RequestMethod.POST, value ="/updateProducts")
-	public @ResponseBody List<Object> updateProducts(
+	public @ResponseBody List<Object[]> updateProducts(
+			@RequestParam String productDetail_Id,
 			@RequestParam String product_Id,
 			@RequestParam String product_Name,
 			@RequestParam String price,
 			@RequestParam String category,
-			@RequestParam String productDetail_Id,
 			@RequestParam String size,
 			@RequestParam String color,
 			@RequestParam String stock,
-//			@RequestParam String published_Date,
 //			@RequestParam MultipartFile photo1,
 			@RequestParam String product_Status,
 			@RequestParam String info){
@@ -78,13 +81,12 @@ public class ProductDetailControllerBE {
 			productDetail_Id = new String(productDetail_Id.getBytes("iso-8859-1"), "utf-8");
 			size = new String(size.getBytes("iso-8859-1"), "utf-8");
 			color = new String(color.getBytes("iso-8859-1"), "utf-8");
-//			published_Date = new String(published_Date.getBytes("iso-8859-1"), "utf-8");
 			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
 			info = new String(info.getBytes("iso-8859-1"), "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.updateProductDetail(product_Id, product_Name, price2, category, productDetail_Id, size, color, stock2, product_Status, info);	
+		return productDetailService.updateProductDetail(productDetail_Id, product_Id, product_Name, price2, category, info, size, color, stock2, product_Status);	
 	}
 	
 	// change status
@@ -92,20 +94,10 @@ public class ProductDetailControllerBE {
 	public @ResponseBody String changeStatus(
 			@RequestParam String productDetail_Id,
 			@RequestParam String product_Status){
-//		try {
-//			product_Status = new String(product_Status.getBytes("iso-8859-1"), "utf-8");
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-		String VO = productDetailService.changeStatus(productDetail_Id, product_Status);
-		System.out.println(VO);
-		return VO;	
+//		String VO = productDetailService.changeStatus(productDetail_Id, product_Status);
+//		System.out.println(VO);
+		return productDetailService.changeStatus(productDetail_Id, product_Status);	
 	}
 	
-	// 顯示產品，新增的列顯示在最上面
-	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> getAllDetail() {
-		return productDetailService.getAllByDesc();
-	}
 
 }
