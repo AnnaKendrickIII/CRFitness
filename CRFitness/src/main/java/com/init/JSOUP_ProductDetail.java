@@ -18,53 +18,55 @@ public class JSOUP_ProductDetail {
 
 	public static void main(String[] args) throws IOException {
 		Document doc;
-		doc = Jsoup.connect("http://www.underarmour.tw/cmens-footwear/").timeout(50*1000).get();
+		doc = Jsoup.connect("http://www.underarmour.tw/cmens-accessories/").timeout(50*1000).get();
 		
 		// get how many items
 		Elements element_link = doc.select(".product-list .product-list-li .color-item .more-color");
 			// System.out.println(element_link.size()); //顯示主頁有多少商品圖
-		
-		for (int i = 0; i < element_link.size(); i++) {
-			Document doc2;
-			doc2 = Jsoup.connect("http://www.underarmour.tw/p" + element_link.get(i).id() + ".htm")
-					.timeout(40 * 1000).get();
-			
-			Elements fivephotoimg = doc2.select("#vertical ul li img");
-			// System.out.println(element_link.size()); //顯示子頁產品有幾張圖
-			 System.out.println(element_link.size());
-			for (int j = 0; j < fivephotoimg.size(); j++) {
-				String imgurl;
-				if (j == 0) {
-					imgurl = fivephotoimg.get(j).attr("src");
-					System.out.println(imgurl);
-				} else {
-					imgurl = fivephotoimg.get(j).attr("loadsrc");
-					System.out.println(imgurl);
-				}
-				URL url = new URL(imgurl);
-				FileOutputStream fop = null;
-				byte[] photo = null;
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				BufferedImage originalImage = ImageIO.read(url);
-				ImageIO.write(originalImage, "png", baos);
-				baos.flush();
-				photo = baos.toByteArray();
-				baos.close();
-				File file ;
-				if ((i + 1) < 10) {
-				file = new File("c:\\products/M-footwear/prodDetail500" + (i + 1) + "_" + (j + 1) + ".png");
-				} else {
-				file = new File("c:\\products/M-footwear/prodDetail50" + (i + 1) + "_" + (j + 1) + ".png");
-				}
-				if (!file.exists()) {
-					file.createNewFile();
-				}
-				fop = new FileOutputStream(file);
-				fop.write(photo);
-				fop.flush();
-				fop.close();
-			} // end for (int j = 0; j < fivephotoimg.size(); j++)
-		} // end for (int i = 0; i < element_link.size(); i++)
+		 System.out.println(element_link.size());
+//		for (int i = 0; i < element_link.size(); i++) {
+//			Document doc2;
+//			doc2 = Jsoup.connect("http://www.underarmour.tw/p" + element_link.get(i).id() + ".htm")
+//					.timeout(40 * 1000).get();
+//			
+//			Elements fivephotoimg = doc2.select("#vertical ul li img");
+//			// System.out.println(element_link.size()); //顯示子頁產品有幾張圖
+//			 
+//			for (int j = 0; j < fivephotoimg.size(); j++) {
+//				String imgurl;
+//				if (j == 0) {
+//					imgurl = fivephotoimg.get(j).attr("src");
+//					System.out.println(imgurl);
+//				} else {
+//					imgurl = fivephotoimg.get(j).attr("loadsrc");
+//					System.out.println(imgurl);
+//				}
+//				URL url = new URL(imgurl);
+//				FileOutputStream fop = null;
+//				byte[] photo = null;
+//				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//				BufferedImage originalImage = ImageIO.read(url);
+//				ImageIO.write(originalImage, "png", baos);
+//				baos.flush();
+//				photo = baos.toByteArray();
+//				baos.close();
+//				File file ;
+//				if (i < 8) {
+//				file = new File("c:\\products/cmens-tops/prodDetail509" + (i + 2) + "_" + (j + 1) + ".png");
+//				} else if (i>=8 && i<18){
+//				file = new File("c:\\products/cmens-tops/prodDetail510" + (i - 8) + "_" + (j + 1) + ".png");
+//				}else{
+//				file = new File("c:\\products/cmens-tops/prodDetail51" + (i - 8) + "_" + (j + 1) + ".png");
+//				}
+//				if (!file.exists()) {
+//					file.createNewFile();
+//				}
+//				fop = new FileOutputStream(file);
+//				fop.write(photo);
+//				fop.flush();
+//				fop.close();
+//			} // end for (int j = 0; j < fivephotoimg.size(); j++)
+//		} // end for (int i = 0; i < element_link.size(); i++)
 				System.out.println("Download finished!");
 	}
 }			// 抓文字資料，寫盡資料庫，需要再Library加入 jdbc jar

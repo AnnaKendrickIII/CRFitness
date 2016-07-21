@@ -5,9 +5,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -26,92 +27,113 @@ import com.CRFitness.Products.model.ProductsVO;
 
 public class JSOUP_Products {
 
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args)  {
 		ApplicationContext context = new ClassPathXmlApplicationContext("test.config.xml");
 		ProductsDAO_interface productsDAO = (ProductsDAO_interface) context.getBean("productsDAO");
 		ProductDetailDAO_interface productDetailDAO = (ProductDetailDAO_interface) context.getBean("productDetailDAO");
-
 		Document doc;
-		doc = Jsoup.connect("http://www.underarmour.tw/cmens-footwear/").timeout(600*1000).get();
+		try {
+			doc = Jsoup.connect("http://www.underarmour.tw/cmens-accessories/").timeout(600*1000).get();
+		
 		String[] arraySize={"S","M","L","XL","XXL"};
 		String[] arraySize2={"US8","US8.5","US9","US9.5","US10"};
 		// get how many items
 		Elements element_link = doc.select(".product-list .product-list-li .color-item .more-color");
 		 System.out.println(element_link.size());
 		ProductsVO productsVO = null;
-		for(int i=31;i<element_link.size();i++){
+		List<String> list=new ArrayList<String>();
+		int whichsize=element_link.size();
+		for(int i=0;i<whichsize;i++){
+			System.out.println(element_link.get(i).id()+",");
+			list.add(element_link.get(i).id());
+		}
+		List<String> list2=new ArrayList<String>();
+		for(int i=0;i<whichsize;i++){
 			Document doc2;
-			doc2 = Jsoup.connect("http://www.underarmour.tw/p"+element_link.get(i).id()+".htm").timeout(600*1000).get();
+			doc2 = Jsoup.connect("http://www.underarmour.tw/p"+list.get(i)+".htm").timeout(600*1000).get();
 			Elements Product_Name = doc2.select(".trade-name"); // Product_Name
-			
-			Elements Price = doc2.select(".price"); // Price
-			Elements Info = doc2.select(".pdp-product-introduce ul li"); //Info	
-			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			Elements Color = doc2.select(".show_color"); // Color
 			Integer size=((int)(Math.random()*4));
 			Integer num=((int)(Math.random()*25)+1);
+			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			Elements Price = doc2.select(".price"); // Price
+			Elements Info = doc2.select(".pdp-product-introduce ul li"); //Info			
+			Elements Color = doc2.select(".show_color"); // Color	
+			
 				if(i>=1){
-					Document doc3;
-					doc3 = Jsoup.connect("http://www.underarmour.tw/p"+element_link.get(i-1).id()+".htm").timeout(600*1000).get();
-					Elements Product_Name2 = doc3.select(".trade-name");
-					if(Product_Name2.text().equalsIgnoreCase(Product_Name.text())){							
+					if(i%30==0){
+						Thread.sleep(36*1000);
+					}
+//					Document doc3;
+//					doc3 = Jsoup.connect("http://www.underarmour.tw/p"+list.get(i-1)+".htm").timeout(600*1000).get();
+//					Elements Product_Name2 = doc3.select(".trade-name");
+					if((list2.get(0)).equalsIgnoreCase(Product_Name.text())){	
+						System.out.println(i);
+//						 System.out.println("pp:   "+Product_Name.text());
+//							System.out.println("list2:   "+list2.get(0));
 //						System.out.println(Color.text());
 //						System.out.println("上架中");						
-//						System.out.println("size:"+size);	
-//						System.out.println("------------");
+//						System.out.println("size:"+size);				
 						ProductDetailVO productDetailVO=new ProductDetailVO();
 						productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 						productDetailVO.setColor(Color.text());
 						productDetailVO.setProduct_Status("上架");
 						productDetailVO.setPublished_Date(ts);
-						productDetailVO.setSize(arraySize2[size]);
+						productDetailVO.setSize("U");
 						productDetailVO.setStock(num);
 						productDetailDAO.insert(productDetailVO);
+//						System.out.println("------------");
 						}else{
-//							 System.out.println(Product_Name.text());
+							System.out.println(i);
+//							 System.out.println("pp:   "+Product_Name.text());
+//							System.out.println("list2:   "+list2.get(0));
+							list2.set(0, Product_Name.text());
 //							 System.out.println(Price.text().substring(3));
-//							 System.out.println(Info.text());
+//							 System.out.println(Info.text());						
 							productsVO = new ProductsVO();
 							productsVO.setProduct_Name(Product_Name.text());
 							productsVO.setPrice(Double.parseDouble(Price.text().substring(3)));		
-							productsVO.setCategory("鞋類"); // Category: 鞋類、服飾類、運動用品、運動器材 					
+							productsVO.setCategory("配件"); // Category: 鞋類、服飾類、運動用品、運動器材 					
 							productsVO.setInfo(Info.text());
 							productsVO= productsDAO.insert(productsVO);
 //							System.out.println(Color.text());
 //							System.out.println("上架中");
 //							System.out.println("size:"+size);	
-//							System.out.println("------------");
+							
 							ProductDetailVO productDetailVO=new ProductDetailVO();
 							productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 							productDetailVO.setColor(Color.text());
 							productDetailVO.setProduct_Status("上架");
 							productDetailVO.setPublished_Date(ts);
-							productDetailVO.setSize(arraySize2[size]);
+							productDetailVO.setSize("U");
 							productDetailVO.setStock(num);
 							productDetailDAO.insert(productDetailVO);
+//							System.out.println("------------");
 						}
 					}else{	
+						list2.add(0,Product_Name.text());
 						productsVO = new ProductsVO();
 						productsVO.setProduct_Name(Product_Name.text());
 						productsVO.setPrice(Double.parseDouble(Price.text().substring(3)));		
-						productsVO.setCategory("鞋類"); // Category: 鞋類、服飾類、運動用品、運動器材 					
+						productsVO.setCategory("配件"); // Category: 鞋類、服飾類、運動用品、運動器材 					
 						productsVO.setInfo(Info.text());
 						productsVO= productsDAO.insert(productsVO);
-//						System.out.println(Product_Name.text());
+						System.out.println(i);
+//						System.out.println("pp:   "+Product_Name.text());
+//						System.out.println("list2:   "+list2.get(0));
 //						System.out.println(Price.text().substring(3));
 //						System.out.println(Info.text());
 //						System.out.println("size:"+size);
 //						System.out.println(Color.text());
-//						System.out.println("上架中");			
-//						System.out.println("------------");				
+//						System.out.println("上架中");						
 						ProductDetailVO productDetailVO=new ProductDetailVO();
 						productDetailVO.setProduct_Id(productsVO.getProduct_Id());
 						productDetailVO.setColor(Color.text());
 						productDetailVO.setProduct_Status("上架");
 						productDetailVO.setPublished_Date(ts);
-						productDetailVO.setSize(arraySize2[size]);
+						productDetailVO.setSize("U");
 						productDetailVO.setStock(num);
 						productDetailDAO.insert(productDetailVO);
+//						System.out.println("------------");	
 				}
 				Elements fivephotoimg = doc2.select("#vertical ul li img");
 				for (int j = 0; j < fivephotoimg.size(); j++) {
@@ -134,10 +156,17 @@ public class JSOUP_Products {
 					photo = baos.toByteArray();
 					baos.close();
 					File file ;
-					if ((i + 1) < 10) {
-					file = new File("c:\\products/M-footwear/prodDetail500" + (i + 1) + "_" + (j + 1) + ".png");
-					} else {
-					file = new File("c:\\products/M-footwear/prodDetail50" + (i + 1) + "_" + (j + 1) + ".png");
+					if (i < 7) {		
+						file = new File("c:\\products/cmens-accessories/prodDetail539" + (i+3) + "_" + (j + 1) + ".png");
+					} 
+					else if (i>=7 && i<17){
+						file = new File("c:\\products/cmens-accessories/prodDetail540" + (i - 7) + "_" + (j + 1) + ".png");
+					}else if(i>=17 && i<=106){
+						file = new File("c:\\products/cmens-accessories/prodDetail54" + (i - 7) + "_" + (j + 1) + ".png");
+					}else if(i>106 && i<=116){
+						file = new File("c:\\products/cmens-accessories/prodDetail550" + (i - 107) + "_" + (j + 1) + ".png");
+					}else{
+						file = new File("c:\\products/cmens-accessories/prodDetail55" + (i - 107) + "_" + (j + 1) + ".png");
 					}
 					if (!file.exists()) {
 						file.createNewFile();
@@ -147,10 +176,12 @@ public class JSOUP_Products {
 					fop.flush();
 					fop.close();
 				} // end for (int j = 0; j < fivephotoimg.size(); j++)
+			
 		} // end for (int i = 0; i < element_link.size(); i++)
 		
-		
-		
+		} catch (Exception e) {
+			System.out.println("有錯");
+		}	
 		((ConfigurableApplicationContext) context).close();
 		System.out.println("Grasp finished!");
 		
