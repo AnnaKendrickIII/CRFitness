@@ -14,11 +14,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 
-public class JSOUP_ProductDetail {
+public class JSOUP_Product_Photos {
 
 	public static void main(String[] args) throws IOException {
 		Document doc;
-		doc = Jsoup.connect("http://www.underarmour.tw/cmens-footwear/").timeout(50*1000).get();
+		doc = Jsoup.connect("http://www.underarmour.tw/cmens-footwear/").timeout(120*1000).get();
 		
 		// get how many items
 		Elements element_link = doc.select(".product-list .product-list-li .color-item .more-color");
@@ -27,11 +27,11 @@ public class JSOUP_ProductDetail {
 		for (int i = 0; i < element_link.size(); i++) {
 			Document doc2;
 			doc2 = Jsoup.connect("http://www.underarmour.tw/p" + element_link.get(i).id() + ".htm")
-					.timeout(40 * 1000).get();
+					.timeout(120 * 1000).get();
 			
 			Elements fivephotoimg = doc2.select("#vertical ul li img");
 			// System.out.println(element_link.size()); //顯示子頁產品有幾張圖
-			 System.out.println(element_link.size());
+
 			for (int j = 0; j < fivephotoimg.size(); j++) {
 				String imgurl;
 				if (j == 0) {

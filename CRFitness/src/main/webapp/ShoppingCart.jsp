@@ -59,7 +59,7 @@
 				<div class="row text-center">
 					<div class="col-xs-12">
 						<h4 class="text-right" id="amount">
-							總金額: $<strong>999999.99</strong>
+							總金額: $<strong></strong>
 						</h4>
 					</div>
 				</div>
@@ -99,7 +99,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="e-mail">E-mail</label>
 					<div class="col-md-4">
-						<input id="e-mailt" name="e-mail" type="email"
+						<input id="email" name="email" type="email"
 							placeholder="E-mail" class="form-control input-lg"
 							autocomplete="off">
 					</div>
@@ -111,14 +111,14 @@
 					<div class="col-md-4">
 						<div class="input-group">
 							<div id="radioBtn" class="btn-group">
-								<a class="btn btn-primary btn-sm active" data-toggle="happy"
+								<a class="btn btn-primary btn-lg active" data-toggle="happy"
 								data-title="X">線上刷卡</a>
-								<a class="btn btn-primary btn-sm notActive" data-toggle="happy"
+								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
 								data-title="Y">ATM轉帳</a>
-								<a class="btn btn-primary btn-sm notActive" data-toggle="happy"
+								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
 								data-title="Z">超商繳費</a>
-								<a class="btn btn-primary btn-sm notActive" data-toggle="happy"
-								data-title="A">用身體付</a>
+								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
+								data-title="A" disabled="disabled">用身體付</a>
 							</div>
 							<input type="hidden" name="payment" id="payment">
 						</div>
@@ -173,8 +173,6 @@ jQuery(function($){
 				'<div class="col-xs-4"><input type="text" class="form-control input-sm qty" value="'+this[1]+'"/></div>'+
 				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
 				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')	
-	
-
 		})
 		//取出新總額
 		totalAmount()	
@@ -252,8 +250,19 @@ $('#itemlist').on('focusout', 'div.item input.qty',function(){
 <script type="text/javascript">
 $('.btn-success').on('click', function () {
     alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
-    	alertify.success('訂單送出') }
-        , function () { 
+    	alertify.success('訂單送出') 
+
+    	var name = $('#name').val();
+    	var address = $('#address').val();
+    	var email = $('#email').val();
+    	var pay = $('#radioBtn .active').text();
+
+		console.log(name)
+		console.log(address)
+		console.log(email)
+		console.log(pay)
+		
+   		 }, function () { 
         alertify.error('訂單取消') });
 });
 </script>
