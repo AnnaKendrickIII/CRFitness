@@ -46,9 +46,9 @@
     </div>
 </div>
 <div class="row">
-   	  <div class="col-xs-2 col-lg-2"> </div>
-	    <div id="products" class="row list-group col-xs-8 col-lg-8" ></div>
-      <div class="col-xs-2 col-lg-2 shopping_car"> </div>
+   	  <div class="col-xs-1 col-lg-1"> </div>
+	    <div id="products" class="row list-group col-xs-10 col-lg-10" ></div>
+      <div class="col-xs-1 col-lg-1 shopping_car"> </div>
 </div>
 <div class="container">
 <ul class="pagination">
@@ -116,12 +116,11 @@ $.ajax({
 	data:{category:Type, page:whichPage},
 	success:function(data){
 		$.each(data,function(){
-			$('#products').append('<div  class="item  col-xs-4 col-lg-4"><div class="thumbnail "><a href="data:image/png;base64,'
+			$('#products').append('<div  class="item  col-xs-3 col-lg-3"><div class="thumbnail "><a href="data:image/png;base64,'
 						+this[0].photo1+'" data-lightbox="image-1" data-title="'
 						+this[1] +'"><img  class="shopimage" src="data:image/png;base64,'
 						+this[0].photo1+'" /></a><div class="caption"><h4 class="group inner list-group-item-heading" style="color:#3333ff"><strong>'
-						+this[1] +'</strong></h4><p class="group inner list-group-item-text" style="color:#555555">'
-						+this[0].info+'</p><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
+						+this[1] +'</strong></h4><br/><div class="row"><div class="col-xs-12 col-md-4"><p class="lead" style="color:#E63F00">$'
 						+this[2] +'</p></div><div class="col-xs-12 col-md-4"><a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='
 						+this[0].productDetail_Id+'">商品介紹</a></div><div class="col-xs-12 col-md-4">'
 						+'<div class="btn shop">'+'<span hidden="hidden" class="detailId">'+this[0].productDetail_Id+'</span></button>加入購物車</div></div></div></div></a></div></div>'

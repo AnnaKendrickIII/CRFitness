@@ -82,7 +82,6 @@ public class OrderDetailsService {
 		ordersDAO.insert(ordersVO);
 
 		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
-		orderDetailsVO.setDetails_No(details_No);
 		orderDetailsVO.setOrder_Id(ordersVO.getOrder_Id());
 		orderDetailsVO.setProduct_Name(product_Name);
 		orderDetailsVO.setQuantity(quantity);

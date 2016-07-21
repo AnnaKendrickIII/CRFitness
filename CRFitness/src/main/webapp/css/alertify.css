@@ -848,7 +848,7 @@
   background: rgba(217, 92, 92, 0.95);
 }
 .alertify-notifier .ajs-message.ajs-warning {
-  background: rgba(252, 248, 215, 0.95);
+  background: rgba(255, 255, 130, 0.95);
 }
 .alertify-notifier.ajs-top {
   top: 10px;
@@ -939,6 +939,6 @@
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5);
 }
 .alertify-notifier .ajs-message.ajs-warning {
-  background: rgba(252, 248, 215, 0.95);
-  border-color: #999;
+  background: rgba(255, 255, 130, 0.95);
+  border-color: #888;
 }
