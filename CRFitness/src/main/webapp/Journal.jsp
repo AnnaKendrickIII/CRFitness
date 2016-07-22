@@ -144,12 +144,14 @@ width:24px;
 	
 	jQuery(function ($) {	
 		var theMessageDetailObj;
+		var likenum=null;
 	        $.ajax({
 	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
 	            type:'get',  //get post put delete
 	            data:{},
 	            success:function(data){          	
 	            	$.each(data,function(){
+	            		  var likenum = this[3];
 		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
 						  var jdate_value = new Date(jdate_int); 
 		        		  var journalId=this[0].journal_Id
@@ -159,7 +161,6 @@ width:24px;
 			        		 +this[1]+'</p></a><p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 							 +this[0].contents+'</p>'
-							 
 		        		 $('#grid').append(
 		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img">'
 		        		 +contet
@@ -170,13 +171,14 @@ width:24px;
 	           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
 	            			 type:'get',  //get post put delete
 	          			     data:{journal_Id:journalId},
-	            			 success:function(data){ 
-	            				 var message="";			 
-	            				 $.each(data,function(){    
+	            			 success:function(data){
+// 	            				 console.log(likenum)
+	            				 var message="";	
+	            				 $.each(data,function(){	            					
 	            					 var jdate_int2 = parseInt(this[0].messageTime);                          //轉換成數字
 		   						  	 var jdate_value2 = new Date(jdate_int2); 
 										var arraythecontent= this[0].content.split("</br>")
-										var thecontent="";
+										var thecontent="";										
 										$.each(arraythecontent,function(index){
 											var thecontent2=this.replace(/\</g,'&lt').replace(/\>/g,'&gt')
 											if(index==0){		
@@ -194,7 +196,7 @@ width:24px;
 	            				'<div class="messge_header_body"><div class="header_div">'+contet
 	            				+'<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
-					   			+ '<a><span class="badge countLike" ></span></a>'
+					   			+ '<a><span class="badge countLike">'+likenum+'</span></a>'
 	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
@@ -214,10 +216,11 @@ width:24px;
 	    	            success:function(data){
     	       
 	    	            	$.each(data,function(){
-	    	            		 var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-	   						  var jdate_value = new Date(jdate_int); 
-	   		        		  var journalId=this[0].journal_Id
-	   		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+	    	            		var likenum = this[3];
+	    	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
+	   						  	var jdate_value = new Date(jdate_int); 
+	   		        		  	var journalId=this[0].journal_Id
+	   		        		  	var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 	   			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 	   			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
 	   			        		 +this[1]+'</p></a><p class="time_p">'
@@ -258,7 +261,7 @@ width:24px;
 	   	            				'<div class="messge_header_body"><div class="header_div">'+contet
 	   	            				+'<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 	   					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
-	   					   			+ '<a><span class="badge countLike" ></span></a>'
+	   					   			+ '<a><span class="badge countLike">'+likenum+'</span></a>'
 	   	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
 	   					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 	   					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
@@ -388,8 +391,12 @@ width:24px;
 </aside>
 <script type="text/javascript">
 		jQuery(function($){
+
 			$("body").on("click",'.likethis',function(){
-				var theclick = $(this);
+				var theclick = $(this);	
+				var likenum = $(this).siblings("a").find(".countLike");
+				var count = parseInt(likenum.text());
+				var likenumcount=likenum.text()
 				var thisID=$(this).siblings("p[hidden]").text();
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
 				if(!tset){
@@ -400,12 +407,17 @@ width:24px;
 							journal_Id:thisID,
 							lauded_Id:'${LoginOK.member_Id}'
 						},
-						success:function(data){					
+						success:function(data){		
+
 							var journal_attr=$('#'+thisID+' div[data-desc]').attr('data-desc')	
 							journal_attr=journal_attr.replace('coreSpriteHeartOpen','coreSpriteHeartOpen coreSpriteHeartFull')
-	   							$('#'+thisID+' div[data-desc]').attr('data-desc',journal_attr)
-	   						
-							theclick.find('span').toggleClass("coreSpriteHeartFull")
+	   						var attr_conunt=journal_attr.indexOf('countLike')+11;
+	   						var new_journal_attr=journal_attr.substr(0,attr_conunt)+data+journal_attr.substr((attr_conunt+likenumcount.length))	
+	   						$('#'+thisID+' div[data-desc]').attr('data-desc',new_journal_attr)
+							theclick.find('span').toggleClass("coreSpriteHeartFull"),
+							
+							count+=1
+							likenum.text(count)							
 						}				
 					})						
 				}else{
@@ -417,10 +429,16 @@ width:24px;
 							lauded_Id:'${LoginOK.member_Id}'
 						},
 						success:function(data){
+						
 							var journal_attr=$('#'+thisID+' div[data-desc]').attr('data-desc')	
 							journal_attr=journal_attr.replace('coreSpriteHeartOpen coreSpriteHeartFull','coreSpriteHeartOpen ')
-	   						$('#'+thisID+' div[data-desc]').attr('data-desc',journal_attr)
-							theclick.find('span').toggleClass("coreSpriteHeartFull")
+	   						
+							var attr_conunt=journal_attr.indexOf('countLike')+11;
+	   						var new_journal_attr=journal_attr.substr(0,attr_conunt)+data+journal_attr.substr((attr_conunt+likenumcount.length))   						   						
+							$('#'+thisID+' div[data-desc]').attr('data-desc',new_journal_attr)
+	   						theclick.find('span').toggleClass("coreSpriteHeartFull"),
+							count-=1
+							likenum.text(count)							
 						}				
 					})						
 				}

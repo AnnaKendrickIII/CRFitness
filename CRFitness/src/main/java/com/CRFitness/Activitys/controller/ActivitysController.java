@@ -38,6 +38,13 @@ public class ActivitysController {
 	public @ResponseBody List<ActivitysVO> findActivitysID(){	
 		return activitysService.getAll();	
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value ="/downActivitys", produces = {MediaType.APPLICATION_JSON})
+	public @ResponseBody List<ActivitysVO> finddownActivitys(){	
+		return activitysService.getdownActivitys();	
+	}
+	
+	
 	@RequestMapping(method = RequestMethod.GET, value ="/AllActivitysMembers", produces = {MediaType.APPLICATION_JSON})
 	public @ResponseBody List<ActivitysVO> findActivitysMembers_One(){	
 		return activitysService.findActivitysMembers_One();	

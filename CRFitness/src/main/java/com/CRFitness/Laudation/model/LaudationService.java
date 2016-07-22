@@ -18,18 +18,17 @@ public class LaudationService {
 	public LaudationService() {		
 	}
 	
-	public boolean laudationclick(String journal_Id,String lauded_Id){
+	public Integer laudationclick(String journal_Id,String lauded_Id){
 		LaudationVO laudationVO = new LaudationVO();
 		
 		laudationVO.setJournal_Id(journal_Id);
 		laudationVO.setLauded_Id(lauded_Id);
 		
-		laudationDAO.insert(laudationVO); 
-		
-		return false;
+		laudationDAO.insert(laudationVO);	
+		return laudationDAO.countLike(journal_Id);
 	}
 	
-	public boolean laudationclickagain(String journal_Id,String lauded_Id){
+	public Integer laudationclickagain(String journal_Id,String lauded_Id){
 		LaudationVO laudationVO = new LaudationVO();
 		
 		laudationVO.setJournal_Id(journal_Id);
@@ -37,7 +36,7 @@ public class LaudationService {
 		
 		laudationDAO.delete(journal_Id, lauded_Id); 
 		
-		return false;
+		return laudationDAO.countLike(journal_Id);
 	}
 	
 	public List<LaudationVO> haslaudation(String lauded_Id){

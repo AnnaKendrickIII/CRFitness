@@ -22,14 +22,14 @@ public class Laudationcontroller {
 	private LaudationService  laudationService;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/laudationjournal", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody boolean laudationclick(
+	public @ResponseBody Integer laudationclick(
 			@RequestParam String journal_Id,
 			@RequestParam String lauded_Id) {
 		return laudationService.laudationclick(journal_Id, lauded_Id) ;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST , value = "/laudationjournalcancel", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody boolean laudationclickagain(
+	public @ResponseBody Integer laudationclickagain(
 			@RequestParam String journal_Id,
 			@RequestParam String lauded_Id) {
 		return laudationService.laudationclickagain(journal_Id, lauded_Id) ;

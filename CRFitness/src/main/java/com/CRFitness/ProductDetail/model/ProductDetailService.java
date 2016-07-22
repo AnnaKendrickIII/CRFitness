@@ -144,17 +144,18 @@ public class ProductDetailService {
 	}
 
 	// back-end: 新增商品至 ProductDetail & Product Table
-	public List<Object[]> addProductDetail(String product_Name, Double price,// 價格
+	public List<Object[]> addProductDetail(
+			String product_Name, // 名稱 
+			Double price,// 價格
 			String category, // 分類
 			String size, // 尺寸
 			String color, // 顏色
 			Integer stock, // 庫存量
-			MultipartFile photo1, // 圖片1
+			// MultipartFile photo1, // 圖片1
 			// byte[] photo2, // 圖片2
 			// byte[] photo3, // 圖片3
 			String product_Status, // 狀態
-			String info // 商品簡介
-	) {
+			String info) { // 商品簡介
 		List<Object[]> list = new ArrayList<Object[]>();
 
 		ProductsVO productsVO = new ProductsVO();
@@ -195,8 +196,7 @@ public class ProductDetailService {
 			String size,              // 尺寸
 			String color,             // 顏色
 			Integer stock,            // 庫存量
-			String product_Status)    // 狀態
-			{
+			String product_Status){    // 狀態
 		List<Object[]> list = new ArrayList<Object[]>();
 
 		ProductsVO productsVO = productsDAO.findByPrimaryKey(product_Id);
@@ -268,7 +268,7 @@ public class ProductDetailService {
 			}	
 		} // end finally
 	} // end for(i=0; i<=4; i++){
-}
+} // end public void Insert_Images(String Path, MultipartFile[] photos){
 
 	// public static void main(String[] args) {
 	// 如果要進行以下測試，要調整hibernate.cfg.xml的設定

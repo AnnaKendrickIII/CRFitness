@@ -8,7 +8,7 @@
     .dp
     {
         border:10px solid #eee;
-        transition: all 0.2s ease-in-out;
+/*         transition: all 0.2s ease-in-out; */
         width: 120px;
         height:120px;
      
@@ -21,11 +21,31 @@
         -webkit-transform:rotate(360deg);  
         /*-webkit-font-smoothing:antialiased;*/
     }
-    .profile-btn{
-    	margin : 0px 2px;
-    	float :right;
-    }
-.profile-heading{
-        margin-top: 0;
-    	margin-bottom: 5px;
-    }
+
+.profile-btn {
+	margin: 0px 2px;
+	float: right;
+}
+
+.profile-heading {
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+#file{
+	float: left; 
+	width: 250px"
+}
+
+#btnCrop, #btnZoomOut, #btnZoomIn{
+	float: right;
+	margin: 0px 1px;
+}
+
+
+
+
+
+
+
+

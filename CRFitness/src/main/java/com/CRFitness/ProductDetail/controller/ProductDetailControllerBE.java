@@ -35,7 +35,7 @@ public class ProductDetailControllerBE {
 	}
 	
 	// insert products
-	@RequestMapping(method = RequestMethod.POST, value ="/addProducts")
+	@RequestMapping(method = RequestMethod.POST, value ="/insertProducts")
 	public @ResponseBody List<Object[]> list(
 			@RequestParam String product_Name,
 			@RequestParam String price,
@@ -63,15 +63,14 @@ public class ProductDetailControllerBE {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		List<Object[]> list = productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, photo1, product_Status, info);
-		
-		String realPath=request.getServletContext().getRealPath("/");
-
+		List<Object[]> insertList = productDetailService.addProductDetail(product_Name, price2, category, size, color, stock2, product_Status, info);
+		String realPath = request.getServletContext().getRealPath("/");
+//		 System.out.println(realPath);
 		MultipartFile[] photos = {photo1, photo2, photo3, photo4, photo5};
-	System.out.println(realPath);
-		String Path = realPath+"/images/products/"+((ProductDetailVO)((list.get(0))[1])).getProductDetail_Id();	
+		String Path = realPath+"/images/products/"+((ProductDetailVO)((insertList.get(0))[1])).getProductDetail_Id();	
+//		 System.out.println(Path);
 		productDetailService.Insert_Images(Path, photos);
-		return list;
+		return insertList;
 	}
 	
 	// update products
@@ -85,9 +84,14 @@ public class ProductDetailControllerBE {
 			@RequestParam String size,
 			@RequestParam String color,
 			@RequestParam String stock,
-//			@RequestParam MultipartFile photo1,
+			@RequestParam MultipartFile photo1,
+			@RequestParam MultipartFile photo2,
+			@RequestParam MultipartFile photo3,
+			@RequestParam MultipartFile photo4,
+			@RequestParam MultipartFile photo5,
 			@RequestParam String product_Status,
-			@RequestParam String info){
+			@RequestParam String info,
+			HttpServletRequest request){
 		Double price2 = Double.parseDouble(price);
 		Integer stock2 = Integer.parseInt(stock);
 		try {
@@ -102,7 +106,14 @@ public class ProductDetailControllerBE {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return productDetailService.updateProductDetail(productDetail_Id, product_Id, product_Name, price2, category, info, size, color, stock2, product_Status);	
+		List<Object[]> updateList = productDetailService.updateProductDetail(productDetail_Id, product_Id, product_Name, price2, category, info, size, color, stock2, product_Status);
+		String realPath = request.getServletContext().getRealPath("/");
+		// System.out.println(realPath);
+		MultipartFile[] photos = {photo1, photo2, photo3, photo4, photo5};
+		String Path = realPath+"/images/products/"+((ProductDetailVO)((updateList.get(0))[1])).getProductDetail_Id();	
+		// System.out.println(Path);
+		productDetailService.Insert_Images(Path, photos);
+		return updateList;
 	}
 	
 	// change status
@@ -117,7 +128,7 @@ public class ProductDetailControllerBE {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/photo/{productDetail_Id}_1", produces={
 			"image/jpeg", "image/gif", "image/png"})
-	public @ResponseBody byte[] findActivitysPhoto(
+	public @ResponseBody byte[] showPhotos(
 			HttpServletRequest request,
 			@PathVariable String productDetail_Id){
 			String realPath = request.getServletContext().getRealPath("/");

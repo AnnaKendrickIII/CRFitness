@@ -27,9 +27,9 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css"> 
 
 <style>
-/* aside   {    
-    background: url(${this_contextPath}/images/test0001.jpg);  
-}  */
+ body   {    
+    background-color: #f5f5f5;  
+}  
 textarea{
 	resize: none;
 }
@@ -108,6 +108,10 @@ display : inline;
 margin: 5px;
 }
 
+.selfchance{
+margin-top : 50%;
+}
+
 .name_p{
 font-size: 16px;
 color:#0000C6;
@@ -151,7 +155,7 @@ jQuery(function($){
      success:function(data){
     	 $('#personal_activity').append(
 				 '<ul class="nav nav-tabs" role="tablist" id="myTab">'
-				+'<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"選取的會員"+"參加的揪團"+'</a></li>'
+				+'<li role="presentation" class="active"><a class="selfchance" href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"選取的會員"+"參加的揪團"+'</a></li>'
 				+'</ul>'
 				+'<div class="tab-content">'
 				+'<div role="tabpanel" class="tab-pane active" id="home">'
@@ -264,13 +268,12 @@ jQuery(function($){
 				console.log('${LoginOK.e_mail}')
 
  					$('#personal_profile').append( 							
-// 							'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+// 	個人頭像				'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
 				           ' <a class="pull-left" id="clickchangehead" data-toggle="modal" data-target="#changhead" href="#">'
 			             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" >'
 			             +'</a>'
 			             +'<div class="media-body">'
 			             +'<h4 class="profile-heading" style="font-family:fantasy; font-size:1.2cm;">${LoginOK.nickname} <small>${LoginOK.e_mail}</small></h4>'
-// 			             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
 			             +'<hr style="margin:8px auto">'		             
 			             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
 			             +'</div>'
@@ -278,8 +281,8 @@ jQuery(function($){
  					
  					$('#personal_activity').append(
  							'<ul class="nav nav-tabs" role="tablist" id="myTab">'
-							+'<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"建立的揪團"+'</a></li>'
-							+'<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">'+"參加的揪團"+'</a></li>'
+							+'<li role="presentation" class="active"><a class="selfchance" href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"建立的揪團"+'</a></li>'
+							+'<li role="presentation"><a class="selfchance" href="#profile" aria-controls="profile" role="tab" data-toggle="tab">'+"參加的揪團"+'</a></li>'
 						+'</ul>'
 						+'<div class="tab-content">'
 							 +'<div role="tabpanel" class="tab-pane active" id="home">'
@@ -420,10 +423,9 @@ jQuery(function($){
 							</div>
 							<div class="head_action">
 								<input type="file" id="file" style="float: left; width: 250px">
-								<input type="button" id="btnCrop" value="Crop"
-									style="float: right"> <input type="button"
-									id="btnZoomIn" value="+" style="float: right"> <input
-									type="button" id="btnZoomOut" value="-" style="float: right">
+								<input type="button" id="btnCrop" class="btn btn-primary btn-xs" value="確定選取"> 
+								<input type="button" id="btnZoomIn" class="btn btn-primary btn-xs" value="+"> 
+								<input type="button" id="btnZoomOut" class="btn btn-primary btn-xs" value="-">
 							</div>
 							<div class="cropped"></div>
 						</div>
@@ -431,8 +433,6 @@ jQuery(function($){
 				</div>
 			</div>
 			<!-- 修改個人頭像結束 -->
-
-		
 </aside>
 
 <script type="text/javascript">
@@ -521,7 +521,7 @@ jQuery(function($){
    			if(visitorStatus == 2){ 
    				console.log(visitorStatus)
 			$('#personal_profile').append(
-//						'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+//好友頁面頭像		 '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
 		           ' <a class="pull-left" href="#">'
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
@@ -529,14 +529,12 @@ jQuery(function($){
 	             +'<h4 class="media-heading">hardik sondagar <small> india</small></h4>'
 	             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
 	             +'<hr style="margin:8px auto">'		             
-//		             +'<button type="button" class="profile-btn btn btn-info" >加為好友</button>'
-		             +'<button type="button" class="profile-btn btn btn-primary">傳送訊息給他</button>'
-// 	             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
+	             +'<button type="button" class="profile-btn btn btn-primary">傳送訊息給他</button>'
 	             +'</div>'
 				);
 			}else if(visitorStatus == 3){
 				$('#personal_profile').append(
-//						'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+//非好友頁面頭像	  	 '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
 		           ' <a class="pull-left" href="#">'
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
@@ -544,9 +542,7 @@ jQuery(function($){
 	             +'<h4 class="media-heading">hardik sondagar <small> india</small></h4>'
 	             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
 	             +'<hr style="margin:8px auto">'		             
-		             +'<button type="button" class="profile-btn btn btn-info addfriend" >加為好友</button>'
-//		             +'<button type="button" class="profile-btn btn btn-default">jquery</button>'
-// 	             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
+	             +'<button type="button" class="profile-btn btn btn-info addfriend" >加為好友</button>'
 	             +'</div>'
 				);				
 			}
@@ -734,7 +730,6 @@ jQuery(function($){
 									    	+ '<div class="timeline-badge primary"><a>'
 									    	+ invert 	
 									    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div hidden="hidden" class="timeline-panel" id="remove_journal">'
-									    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x removeJournal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
 									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 									    	+ data.journal_Id+'" /></a></div>'
 									    	+ '<div class="timeline-body">'
@@ -968,8 +963,7 @@ jQuery(function($){
 		jQuery(function($){ 
 			
 			$("body").on("click",'#clickchangehead',function(){
-				$('#changehead').modal('toggle');
-				
+				$('#changehead').modal('toggle');				
 				var options =
 		        {
 		            imageBox: '.imageBox',
@@ -1001,7 +995,7 @@ jQuery(function($){
 			
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
-				var likenum=theclick.next().find('.countLike')
+				var likenum=theclick.next().find('.countLike');
 				var count=parseInt(likenum.text());	
 				
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
@@ -1019,7 +1013,6 @@ jQuery(function($){
 							theclick.find('span').toggleClass("coreSpriteHeartFull"),
 							count+=1
 							likenum.text(count)
-							console.log(count)
 						}							
 					})	
 					
@@ -1035,7 +1028,6 @@ jQuery(function($){
 							theclick.find('span').toggleClass("coreSpriteHeartFull")
 							count-=1
 							likenum.text(count)
-							console.log(count)
 						}				
 					})						
 				}
