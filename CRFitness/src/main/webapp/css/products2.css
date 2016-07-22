@@ -92,16 +92,6 @@ aside {
 	opacity: 1;
 }
 
-.shop {
-	background-color: red;
-	color: white
-}
-
-.shop:LINK, .shop:FOCUS, .shop:hover, .shop:ACTIVE {
-	background-color: #AE0000;
-	color: white
-}
-
 /* .shopimage{ */
 /* 	height: 250px !important; */
 /* } */

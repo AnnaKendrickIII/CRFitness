@@ -44,7 +44,6 @@
                         <ul class="wrapper_dropdown_ul">
                             <li><a href="${this_contextPath}/Journal.jsp">健康日誌</a></li>
                             <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">個人日誌</a></li>
-                            <li><a href="#">累積紀錄</a></li>
                         </ul>
                     </div>
                 </li>
@@ -52,10 +51,10 @@
                     <div class="dropdown">
                         <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
-                            <li><a href="${this_contextPath}/Products.jsp?category=Sports_Equipment&page=1">鞋類</a></li>
-                            <li><a href="${this_contextPath}/Products.jsp?category=Apparel&page=1">上裝</a></li>
-                            <li><a href="${this_contextPath}/Products.jsp?category=Sporting_Goods&page=1">下裝</a></li>
-                            <li><a href="${this_contextPath}/Products.jsp?category=Shoes&page=1">配件</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1">上裝</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=cmens-accessories&page=1">配件</a></li>
+                            <li><a href="${this_contextPath}/Products.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                         </ul>
                     </div>
                 </li>

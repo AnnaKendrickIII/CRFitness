@@ -22,6 +22,24 @@
 .img_inner{
 border: 1px solid #E0E0E0;
 }
+@media  screen and (min-width:1235px) {
+.product_Name{
+text-align: center;
+height:45px; 
+	}
+}
+.product_Name{
+text-align: center;
+	}
+.price_div{
+margin-top: 1%;
+text-align: center;
+}
+.shop{
+}
+.color_div{
+text-align: center;
+}
 </style>
 </head>
 
@@ -53,10 +71,10 @@ border: 1px solid #E0E0E0;
     </div>
 </div>
 <div class="row">
-   	  <div class="col-xs-1 col-lg-1"> </div>
-	    <div id="products" class="row list-group col-xs-10 col-lg-10" >       
+   	  <div class="col-xs-2 col-lg-2"> </div>
+	    <div id="products" class="row list-group col-xs-8 col-lg-8" >       
 	    </div>
-      <div class="col-xs-1 col-lg-1 shopping_car"> </div>
+      <div class="col-xs-2 col-lg-2 shopping_car"> </div>
 </div>
 <div class="container">
 <ul class="pagination">
@@ -105,16 +123,13 @@ $('.pagination>li:nth-child(4) a').attr("href",'${page}?'+queryString+"&page=3")
 $('.pagination>li:nth-child(5) a').attr("href",'${page}?'+queryString+"&page=4")
 $('.pagination>li:nth-child(6) a').attr("href",'${page}?'+queryString+"&page=5")
 
-
-
-
-if(Type=='Sports_Equipment'){
+if(Type=='cmens-tops'){
 	Type='上裝'
-}else if(Type=='Apparel'){
+}else if(Type=='cmens-bottoms'){
 	Type='下裝'
-}else if(Type=='Sporting_Goods'){
+}else if(Type=='cmens-accessories'){
 	Type='配件'
-}else if(Type=='Shoes'){
+}else if(Type=='cmens-footwear'){
 	Type='鞋類'
 }
 
@@ -142,10 +157,13 @@ $.ajax({
 							'<div  class="item  col-xs-3 col-lg-3 col-xs-3 thumbnail">'
                         	+'<div class="row">'
                            		+'<div id="main'+this.product_Id+'" class="col-lg-12 col-md-12 col-xs-12 "></div>'
-                        	+'</div>'
-							+'<div class="col-lg-12 col-md-12 col-xs-12">' 
-							+'<a data-toggle="collapse" data-target="#'+this.product_Id+'"  aria-controls="demo">color</a>'
-			                +'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></div></div>'
+                        	+'</div><div class="col-lg-12 col-md-12 col-xs-12 color_div">'
+                        	+'<a data-toggle="collapse" data-target="#'+this.product_Id+'"  aria-controls="demo">color</a>'
+                        	+'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
+							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><strong>'+this.product_Name+'</strong></div>' 
+							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><p>$'+this.price+'</p></strong></div>' 
+							+'<div class="col-lg-12 col-md-12 col-xs-12"><div class="btn shop">加入購物車</div>'
+			                +'</div></div>'
 						)	
 					
 					$.ajax({
@@ -186,20 +204,21 @@ $.ajax({
 });//大表ajax結束
 
 $('body').on('click','.shop',function(){
-	var whichImg=$(this).parent().parent().parent().parent().find('img')
-	var copyimg=$('<img width="150px" height="150px" src="' 
-	+ whichImg.attr('src') + '"/>').css({"position": "fixed", "z-index": "999"});
-	whichImg.parent().prepend(copyimg);	
-	copyimg.animate({"top":$('.shopping_car').position().top,
-					"left":$('.shopping_car').position().left+100+'px'
-					},500,"linear", function() {
-					      copyimg.remove();
-					 });
+	//動畫
+// 	var whichImg=$(this).parent().parent().parent().parent().find('img')
+// 	var copyimg=$('<img width="150px" height="150px" src="' 
+// 	+ whichImg.attr('src') + '"/>').css({"position": "fixed", "z-index": "999"});
+// 	whichImg.parent().prepend(copyimg);	
+// 	copyimg.animate({"top":$('.shopping_car').position().top,
+// 					"left":$('.shopping_car').position().left+100+'px'
+// 					},500,"linear", function() {
+// 					      copyimg.remove();
+// 					 });
 
 // 	console.log($('.shopping_car').position().left)
 // 	console.log($('.shopping_car').position().top)
 
-	var detailId=$(this).find('span.detailId').text()
+	var detailId=$(this).parent().parent().find('.desoslide-wrapper>img').attr('alt')
 //	console.log(detailId)
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',

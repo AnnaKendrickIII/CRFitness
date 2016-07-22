@@ -163,8 +163,8 @@ jQuery(function($){
 			$.each(data,function(){
 		$('#itemlist').append('<div class="item">'+
 				'<div class="row"><div class="col-xs-2">'+
-				'<img class="img-shoppingcart" src="data:image/png;base64,'+
-				this[0][0].photo1+'"/></div>'+
+				'<img class="img-shoppingcart" src="${this_contextPath}/images/products/'
+				+this[0][0].productDetail_Id+'_1.png"/></div>'+
 				'<div class="col-xs-4"><span hidden="hidden">'+this[0][0].productDetail_Id+'</span><h4 class="product-name"><strong>'+
 				this[0][1]+'</strong></h4><h4><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
