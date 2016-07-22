@@ -43,6 +43,7 @@ body {
 .table>tbody>tr>td{
 	vertical-align: middle;
 	width:72px;
+	height:100px;
 }
 .table tbody a:hover {
 	color: black;

@@ -102,6 +102,10 @@ body {
 	color: black;
 }
 
+.table {
+/* 	background-color: white; */
+	border-radius: 20px;
+}
 
 #trigger-upload {
 	color: white;

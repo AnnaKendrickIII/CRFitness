@@ -35,7 +35,7 @@ public class MemberControllerBE {
 	public @ResponseBody String changeStatus(
 			@RequestParam String member_Id,
 			@RequestParam String member_Status){
-//		String VO = productDetailService.changeStatus(member_Id, member_Status);
+//		String VO = memberService.changeStatus(member_Id, member_Status);
 //		System.out.println(VO);
 		return memberService.changeStatus(member_Id, member_Status);	
 	}
