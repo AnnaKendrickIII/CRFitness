@@ -275,5 +275,14 @@ public class ActivitysService {
 			}	
 		}
 	}
+	
+	// back-end: change status
+	public Integer changeStatus(String activity_Id, Integer activity_Status) {
+		ActivitysVO activitysVO = activitysDAO.findByPrimaryKey(activity_Id);
+		activitysVO.setActivity_Status(activity_Status);
+		activitysVO = activitysDAO.update(activitysVO);
+		// System.out.println(productDetailVO.getMember_Status());
+		return activitysVO.getActivity_Status();
+	}
 
 }
