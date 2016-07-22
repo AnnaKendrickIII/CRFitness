@@ -22,7 +22,7 @@ public class ProductsController {
 	@Resource(name = "productsService")
 	private ProductsService productsService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/selectAllItem", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/selectAllItem",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<ProductsVO> list_productsVO(HttpServletRequest request) {
 		
 		return productsService.selectAllItem();

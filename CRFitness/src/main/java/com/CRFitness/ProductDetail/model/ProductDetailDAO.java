@@ -115,26 +115,34 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 
 	// 依商品分類顯示
 	@Override
-	public List<ProductDetailVO> getItemByCategory(String category, Integer page) {
+	public List<Object[]> getItemByCategory(String category, Integer page) {
 		int max = 20;
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-						"select * "
-								+ "from  ProductDetail join Products "
-								+ "on ProductDetail.Product_Id=Products.Product_Id "
-								+ "where Products.Category='" + category + "'"
-								+ "Order by ProductDetail_Id desc")
-				.addEntity(ProductDetailVO.class)
-				.addScalar("product_Name", StringType.INSTANCE)
-				.addScalar("price", DoubleType.INSTANCE)
-				.addScalar("category", StringType.INSTANCE);
+							"select * "
+							+ "from   Products "
+							+ "where Products.Category='" + category + "'"
+							+ "Order by Product_Id desc")
+				.addEntity(ProductsVO.class);
 		query.setFirstResult((page - 1) * max);
 		query.setMaxResults(max);
-
-		return (List<ProductDetailVO>) query.list();
+		return (List<Object[]>) query.list();
 	}
-
+	@Override
+	public List<Object[]> getItemDetail(String Product_Id ) {
+		Query query = this
+				.getSession()
+				.createSQLQuery(
+							"select * "
+							+ "from  ProductDetail "
+							+ "where Product_Id='" + Product_Id + "'"
+							+" and Product_Status='上架'")
+				.addEntity(ProductDetailVO.class);	
+		return (List<Object[]>) query.list();
+	}
+	
+	
 	@Override
 	public List<Object[]> findByPrimaryKeySQLQuery(
 			String productDetail_Id) {

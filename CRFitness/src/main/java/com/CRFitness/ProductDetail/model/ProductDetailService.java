@@ -87,14 +87,17 @@ public class ProductDetailService {
 	}
 
 	// 用商品分類檢索 找出該類商品
-	public List<ProductDetailVO> getItemByCategory(String category, Integer page) {
+	public List<Object[]> getItemByCategory(String category, Integer page) {
 		if (category != null) {
 			return productDetailDAO.getItemByCategory(category, page);
 		} else {
 			return null;
 		}
 	}
-	
+
+	public List<Object[]> getItemDetail(String Product_Id ){
+		return productDetailDAO.getItemDetail(Product_Id);
+	}
 	// 取得照片
 	public byte[] showPhotos(String Path){
 		File file=null;

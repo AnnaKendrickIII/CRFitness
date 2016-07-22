@@ -30,27 +30,34 @@ public class ProductDetailController {
 	private ShoppingCart shoppingCart;
 
 	// front-end
-	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<ProductDetailVO> getAllDetail(
 			HttpServletRequest request) {
 		return productDetailService.getAllItem();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/getProductDetailId", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/getProductDetailId",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody ProductDetailVO productDetailVO(
 			HttpServletRequest request, @RequestParam String product_Name,
 			@RequestParam String size, @RequestParam String color) {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/searchByCategory", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<ProductDetailVO> searchByCategory(
+	@RequestMapping(method = RequestMethod.GET, value = "/searchByCategory",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object[]> searchByCategory(
 			HttpServletRequest request, @RequestParam String category,
 			@RequestParam Integer page) {
 		return productDetailService.getItemByCategory(category, page);
 
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/getItemDetail",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object[]> getItemDetail(
+			HttpServletRequest request, @RequestParam String product_Id) {
+		return productDetailService.getItemDetail(product_Id);
+
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/searchAllItem", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<ProductDetailVO> searchAllItem(
 			HttpServletRequest request) {
