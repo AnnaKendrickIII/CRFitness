@@ -122,8 +122,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 				.createSQLQuery(
 							"select * "
 							+ "from   Products "
-							+ "where Products.Category='" + category + "'"
-							+ "Order by Product_Id desc")
+							+ "where Products.Category='" + category + "'")//+ "Order by Product_Id desc"
 				.addEntity(ProductsVO.class);
 		query.setFirstResult((page - 1) * max);
 		query.setMaxResults(max);

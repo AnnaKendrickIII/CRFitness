@@ -14,10 +14,15 @@
 <link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.desoslide.css">
 <link rel="stylesheet" href="${this_contextPath}/css/animate.min.css">
+<link rel="stylesheet" href="${this_contextPath}/css/magic.min.css">
 
 <title>商品</title>
 
-
+<style type="text/css">
+.img_inner{
+border: 1px solid #E0E0E0;
+}
+</style>
 </head>
 
 <body class="productsbody">
@@ -127,63 +132,20 @@ $.ajax({
 			//<span hidden="hidden" class="detailId">+this[0].productDetail_Id</span>
 			//this[1]//名字    this[2]//價格
 			//<a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='+this[0].productDetail_Id+'">商品介紹</a> 連結
-			//'<div class="btn shop">'+'加入購物車</div>
-			
-// 			  <div class="row">
-
-//                     <!-- Result 4 -->
-//                     <article class="col-lg-12 col-md-12">
-//                         <h4>Result</h4>
-
-//                         <div class="row">
-//                             <div id="slideshow4" class="col-lg-12"></div>
-//                         </div>
-
-//                         <div class="row">
-//                             <article class="col-lg-12">
-//                                 <ul id="slideshow4_thumbs" class="desoslide-thumbs-horizontal list-inline text-center">
-//                                     <li>
-//                                         <a href="assets/img/demos/demo4/tortoise.jpg">
-//                                             <img src="assets/img/demos/demo4/tortoise_thumb.jpg" class="img-responsive"
-//                                                  alt="tortoise" data-desoslide-caption-title="A tortoise">
-//                                         </a>
-//                                     </li>
-//                                     <li>
-//                                         <a href="assets/img/demos/demo4/tiger.jpg">
-//                                             <img src="assets/img/demos/demo4/tiger_thumb.jpg" class="img-responsive"
-//                                                  alt="tiger" data-desoslide-caption-title="A tiger">
-//                                         </a>
-//                                     </li>
-//                                     <li>
-//                                         <a href="assets/img/demos/demo4/lynx.jpg">
-//                                             <img src="assets/img/demos/demo4/lynx_thumb.jpg" class="img-responsive"
-//                                                  alt="lynx" data-desoslide-caption-title="A lynx">
-//                                         </a>
-//                                     </li>
-//                                     <li>
-//                                         <a href="assets/img/demos/demo4/dog.jpg">
-//                                             <img src="assets/img/demos/demo4/dog_thumb.jpg" class="img-responsive"
-//                                                  alt="dog" data-desoslide-caption-title="A dog">
-//                                         </a>
-//                                     </li>
-//                                 </ul>
-//                             </article>
-//                         </div>
-//                     </article>
+			//'<div class="btn shop">'+'加入購物車</div>	
 					if(index%4==0){
 						$('#products').append('<div class="row"></div>')
 					}
 					if(this.product_Id!=prev_id){
 						prev_id=this.product_Id
 					$('#products>.row:last').append(
-							'<div  class="item  col-xs-3 col-lg-3">'
+							'<div  class="item  col-xs-3 col-lg-3 col-xs-3 thumbnail">'
                         	+'<div class="row">'
-                           		+'<div id="main'+this.product_Id+'" class="col-lg-12 "></div>'
+                           		+'<div id="main'+this.product_Id+'" class="col-lg-12 col-md-12 col-xs-12 "></div>'
                         	+'</div>'
-                        	+'<div class="thumbnail row">'
-								+'<article class="col-lg-12 col-md-12">' 
+							+'<div class="col-lg-12 col-md-12 col-xs-12">' 
 							+'<a data-toggle="collapse" data-target="#'+this.product_Id+'"  aria-controls="demo">color</a>'
-			                +'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></article></div></div>'
+			                +'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></div></div>'
 						)	
 					
 					$.ajax({
@@ -195,15 +157,20 @@ $.ajax({
 							$.each(data,function(index){
 								 nid=this.product_Id
 								$('#'+this.product_Id).append(
-							'<li class="col-xs-3 col-lg-3 img_inner">'
+							'<li class="col-xs-3 col-lg-3  img_inner">'
 							+'<a href="${this_contextPath}/images/products/'+this.productDetail_Id+'_1.png">'
-			                +'<img  alt="'+this.productDetail_Id+'"  class="shopimage img-responsive" title="'+this.color+'" src="${this_contextPath}/images/products/'
+			                +'<img  alt="'+this.productDetail_Id+'"  class="shopimage img-responsive" data-desoslide-caption-title="'
+			                +this.color+'" src="${this_contextPath}/images/products/'
 			                +this.productDetail_Id+'_1.png" /></a></li>'
 			               	)                     
 						})//小表 ajax迴圈結束
 					 	$('#main'+nid).desoSlide({
 				            thumbs: $('#'+nid+' li > a'),
 				            overlay: 'hover',
+				            effect: {
+				                provider: 'animate',
+				                name: 'sideFade'
+				            },  
 				            controls: {
 				                show: false,
 				                keys: true
