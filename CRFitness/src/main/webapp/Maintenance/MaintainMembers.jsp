@@ -1,4 +1,4 @@
-,<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
@@ -12,7 +12,7 @@
 <jsp:include page="/AdminFrame.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- switch button -->
-<script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- on & off button -->
+<script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- switch button -->
 
 <title>MaintainMembers</title>
 
@@ -45,30 +45,15 @@ body {
 	color: black;
 }
 
-
-#trigger-upload {
-	color: white;
-    background-color: #00ABC7;
-    font-size: 14px;
-    padding: 7px 20px;
-    background-image: none;
+.table {
+/* 	background-color: white; */
+	border-radius: 20px;
 }
 
-#fine-uploader-manual-trigger .qq-upload-button, #fine-uploader-manual-trigger2 .qq-upload-button {
-	margin-right: 15px;
-}
-
-#fine-uploader-manual-trigger .buttons, #fine-uploader-manual-trigger2 .buttons {
-	width: 50%;
-}
-
-#fine-uploader-manual-trigger .qq-uploader .qq-total-progress-bar-container, #fine-uploader-manual-trigger2 .qq-uploader .qq-total-progress-bar-container {
-    width: 60%;
-}
-
-
-#creProdBtn, #modProdBtn{
-	margin-top: 55px;
+.table>tbody>tr>td{
+	vertical-align: middle;
+	width:50px;
+	height:50px;
 }
 
 

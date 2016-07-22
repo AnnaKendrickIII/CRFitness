@@ -102,6 +102,16 @@ body {
 	color: black;
 }
 
+.table {
+/* 	background-color: white; */
+	border-radius: 20px;
+}
+
+.table>tbody>tr>td{
+	vertical-align: middle;
+	width:72px;
+	height:100px;
+}
 
 #trigger-upload {
 	color: white;
@@ -123,9 +133,6 @@ body {
     width: 60%;
 }
 
-.table>tbody>tr>td{
-	vertical-align: middle;
-}
 
 .gallery {
 	margin: 20px 0;
