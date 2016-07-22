@@ -25,7 +25,7 @@
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/jquery.desoslide.js"></script>
+<script type="text/javascript" src="${this_contextPath}/js/jquery.desoslide.min.js"></script>
 <aside>
 <div class="productsclass">
 <div class="row well">
@@ -49,7 +49,8 @@
 </div>
 <div class="row">
    	  <div class="col-xs-1 col-lg-1"> </div>
-	    <div id="products" class="row list-group col-xs-10 col-lg-10" ></div>
+	    <div id="products" class="row list-group col-xs-10 col-lg-10" >       
+	    </div>
       <div class="col-xs-1 col-lg-1 shopping_car"> </div>
 </div>
 <div class="container">
@@ -69,6 +70,7 @@
 
 <script type="text/javascript">
 jQuery(function($){
+
 var Type='${pageContext.request.queryString}';
 num1 = Type.substr(9).indexOf("&")
 num2 = Type.indexOf("&")
@@ -189,33 +191,30 @@ $.ajax({
 						type:'get',
 						data:{product_Id:prev_id},
 						success:function(data){
+							var nid=""
 							$.each(data,function(index){
+								 nid=this.product_Id
 								$('#'+this.product_Id).append(
-							'<li class="col-xs-3 col-lg-3 ">'
+							'<li class="col-xs-3 col-lg-3 img_inner">'
 							+'<a href="${this_contextPath}/images/products/'+this.productDetail_Id+'_1.png">'
-			                +'<img  class="shopimage img-responsive" title="'+this.color+'" src="${this_contextPath}/images/products/'
+			                +'<img  alt="'+this.productDetail_Id+'"  class="shopimage img-responsive" title="'+this.color+'" src="${this_contextPath}/images/products/'
 			                +this.productDetail_Id+'_1.png" /></a></li>'
-			               	)
-			               	if(prev_id!='product4021'){
-			               	$('#main'+prev_id).desoSlide({
-				            thumbs: $('#'+prev_id+' li > a'),
+			               	)                     
+						})//小表 ajax迴圈結束
+					 	$('#main'+nid).desoSlide({
+				            thumbs: $('#'+nid+' li > a'),
 				            overlay: 'hover',
 				            controls: {
 				                show: false,
 				                keys: true
 				            }
-				        })
-			               	}
-						})//小表 ajax迴圈結束
-						
-						
-// 					 	console.log($('#product4040>li:eq(0)').attr('class'))
-					}//小表ajax結束
+				        })				
+					}//小表ajax success結束
 				})//小表ajax
 			}	
 					
 		})//大表 ajax迴圈結束
-
+	 	
 	}//大表ajax success結束
 });//大表ajax結束
 
