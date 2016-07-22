@@ -155,7 +155,8 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_One( ){
 		Query query = this.getSession().createSQLQuery(
-				"Select *,Nickname,Members.Member_Id " 
+				"Select *,Nickname,Members.Member_Id ,"
+				+"(select count(*) from Laudation where Laudation.Journal_Id = PersonalJournal.Journal_Id) as likenum " 
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
 				+"where publicStatus='1' or publicStatus='5' "
@@ -163,14 +164,16 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY")
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
-				.addScalar("Member_Id");
+				.addScalar("Member_Id")
+				.addScalar("likenum", StringType.INSTANCE);
 		return (List<PersonalJournalVO>) query.list();
 	}
 	//挑選publicStatus狀態為1的日誌  剩下去的取出來	
 	@Override
 	public List<PersonalJournalVO> select_publicStatus_Two( ){
 		Query query = this.getSession().createSQLQuery(
-				"Select *,Nickname,Members.Member_Id " 
+				"Select *,Nickname,Members.Member_Id ,"
+				+"(select count(*) from Laudation where Laudation.Journal_Id = PersonalJournal.Journal_Id) as likenum " 
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
 				+"where publicStatus='1' or publicStatus='5' "
@@ -178,7 +181,8 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"OFFSET 6 ROWS ")
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
-				.addScalar("Member_Id");
+				.addScalar("Member_Id")
+				.addScalar("likenum", StringType.INSTANCE);
 		return (List<PersonalJournalVO>) query.list();
 	}
 
