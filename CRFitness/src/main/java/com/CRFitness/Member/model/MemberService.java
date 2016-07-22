@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 
+import com.CRFitness.ProductDetail.model.ProductDetailVO;
+
 @Service("memberService")
 public class MemberService {
 
@@ -199,6 +201,15 @@ public class MemberService {
 				e.printStackTrace();
 			}	
 		}
+	}
+	
+	// back-end: change status
+	public String changeStatus(String member_Id, String member_Status) {
+		MemberVO memberVO = memberDAO.findByPrimaryKey(member_Id);
+		memberVO.setMember_Status(member_Status);
+		memberVO = memberDAO.update(memberVO);
+		// System.out.println(productDetailVO.getMember_Status());
+		return memberVO.getMember_Status();
 	}
 
 //	public static void main(String[] args) {

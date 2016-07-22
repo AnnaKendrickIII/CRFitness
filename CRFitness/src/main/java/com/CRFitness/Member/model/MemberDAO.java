@@ -40,12 +40,10 @@ public class MemberDAO implements MemberDAO_interface {
 		return false;	
 	}
 	@Override
-	public boolean update(MemberVO memberVO) {
-		if (memberVO != null) {
-			this.getSession().saveOrUpdate(memberVO);
-			return true;
-		}
-		return false;	
+	public MemberVO update(MemberVO memberVO) {
+		this.getSession().saveOrUpdate(memberVO);
+		return memberVO;
+
 	}
 
 	@Override

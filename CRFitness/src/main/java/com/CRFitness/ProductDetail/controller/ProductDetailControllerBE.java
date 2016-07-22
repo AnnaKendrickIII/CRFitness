@@ -29,7 +29,7 @@ public class ProductDetailControllerBE {
 	private ProductDetailService productDetailService;
 	
 	// select products，新增的列顯示在最上面
-	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = "application/json; charset=utf-8")
 	public @ResponseBody List<Object[]> getAllDetail() {
 		return productDetailService.getAllByDesc();
 	}
@@ -117,7 +117,7 @@ public class ProductDetailControllerBE {
 	}
 	
 	// change status
-	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus",produces="text/html;charset=utf-8")
+	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus",produces= "text/html; charset=utf-8")
 	public @ResponseBody String changeStatus(
 			@RequestParam String productDetail_Id,
 			@RequestParam String product_Status){
@@ -126,6 +126,7 @@ public class ProductDetailControllerBE {
 		return productDetailService.changeStatus(productDetail_Id, product_Status);	
 	}
 	
+	// show photo1
 	@RequestMapping(method = RequestMethod.GET, value = "/photo/{productDetail_Id}_1", produces={
 			"image/jpeg", "image/gif", "image/png"})
 	public @ResponseBody byte[] showPhotos(
