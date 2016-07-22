@@ -65,6 +65,12 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 		Query query = this.getSession().createQuery(GET_ALL_STMT);
 		return (List<ActivitysVO>) query.list();
 	}
+	
+	@Override
+	public List<ActivitysVO> getdownActivitys() {
+		Query query = this.getSession().createQuery(GET_ALL_STMT);
+		return (List<ActivitysVO>) query.list();
+	}
 
 	//揪團 載入時顯示抓八筆
 	@Override
