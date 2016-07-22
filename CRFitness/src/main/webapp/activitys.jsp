@@ -305,7 +305,7 @@ aside
 									+data.activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<a href="#" class="linkpeople" title="">'+data.people+'</a><br /><p>報名人數上限：'+data.people_Max+'</p></li>')
+									+'<a href="#" class="linkpeople" title='+0+'>'+data.people+'</a><br /><p>報名人數上限：'+data.people_Max+'</p></li>')
 // 									+'<button type="button" class="btn btn-default " data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
 // 									+data.people+'</button><br /><p>報名人數上限：'+data.people_Max+'</p></li>')								
 // 										 $('.btn.btn-default').tooltip()	
@@ -343,15 +343,24 @@ aside
 						  var jdate_value = new Date(jdate_int);
 						  var jdate_intb = parseInt(this[0].deadline);                        //轉換成數字
 						  var jdate_value_deadline = new Date(jdate_intb);
-// 						  var names=' ';
-// 		        		  if(this[1]!=null){
-// 						  var nameData=this[1].split(",")						  
+						  var names=' ';
+						  var full = ' ';
+		        		  if(this[1]!=null){
+						  var nameData=this[1].replace(",","")						  
 // 						  $.each(nameData,function(){
 // 							if(this!=""){
 // 								names+=this+'\n'
 // 							}				  
 // 						  })//第二個each	
-// 		        		 }								//href="data:image/png;base64,'+this[0].photo1+'"
+		        		 }else{
+			        		  var nameData = 0;
+		        		 }
+		        		  if(this[0].people < this[0].people_Max){
+								full = "<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+								}else{
+								full = "<button class='alert-vel btn btn-danger submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>已額滿</button>" 	
+								}
+		        		  								//href="data:image/png;base64,'+this[0].photo1+'"
                           								//href="${this_contextPath}/CRFSERVICE/activitysController/photo/'+this[0].activity_Id+'"
                           								//${this_contextPath}/images/activitys/'+this[0].activity_Id+' .jpg
 							$('#grid').append('<li ><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
@@ -362,8 +371,7 @@ aside
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
-									+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-									+"<div hidden='hidden'>"+this[0].activity_Id
+									+full+"<div hidden='hidden'>"+this[0].activity_Id
 									+'</div>"><span title=""><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+this[0].activity_Id+'.jpg" /></span></a>發起人：'
 									+'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'+this[2]+'</a>'
@@ -373,7 +381,7 @@ aside
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<a href="#" class="linkpeople" title='+this[1]+'>'+this[0].people+'</a><br /><p>報名人數上限：'+this[0].people_Max+'</p></li>')
+									+'<a href="#" class="linkpeople" title='+nameData+'>'+this[0].people+'</a><br /><p>報名人數上限：'+this[0].people_Max+'</p></li>')
 // 									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
 // 									+names+'">'
 // 									+this[0].people+'</button><br />'+'<p>報名人數上限：'+this[0].people_Max+'</p></li>')

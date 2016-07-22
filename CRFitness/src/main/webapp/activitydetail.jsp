@@ -157,16 +157,21 @@ padding:10px 5px 2px 5px;
 						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
 						  var jdate_value_deadline = new Date(jdate_int2);
 						  var names=' ';
+						  if(this[1]!=null){
+						  var nameData=this[1].replace(",","")
+						  }else{
+			        		  var nameData = 0;
+			        		 }	
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div').append("<div id='div_"+count+"' class='row'></div>")      			 
 		        		 }	 
-							$('#div_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
+							$('#div_'+count).append('<div class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
-							+this[0].activity_Info+'<br />日期：'
-							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-							+this[0].people 
+							+this[0].activity_Info+'<br />活動時間：'
+							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+							+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
 							//外
 							+'"><span title=""><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 							+this[0].activity_Id+'.jpg" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
@@ -176,7 +181,7 @@ padding:10px 5px 2px 5px;
 									+"<a href='#' class='username' data-type='text' data-placement='right' data-title='Enter Info'>"+this[0].activity_Info+"</a>"+'<br />活動時間：'
 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />活動截止日：'
 									+"<a href='#' class='event' data-type='combodate' data-template='YYYY MM D HH:mm' data-format='YYYY/MM/DD HH:mm' data-viewformat='YYYY/MM/DD HH:mm' data-title='Setup event date and time' class='editable editable-click editable-empty' data-original-title='' title=''>"+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+"</a>"+'<br />目前參加人數：'
-									+'<a href="#" title='+this[1]+'>'+this[0].people+'</a><br />'
+									+'<a href="#" class="linkpeople" title='+nameData+'>'+this[0].people+'</a><br />'
 									+'<p>報名人數上限：'+this[0].people_Max+'</p></div></div>') 									
 // 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
 // 									+names+'">'
@@ -189,7 +194,7 @@ padding:10px 5px 2px 5px;
 	                 		 })//each
 						
 	                 		//tooltip
-	                 		    $( document ).tooltip();
+	                 		     $('.linkpeople').tooltip();
 	                 		 //tooltip
 								$(".boxer").boxer({
     							top: 50,
@@ -271,7 +276,12 @@ padding:10px 5px 2px 5px;
 						  var jdate_value = new Date(jdate_int);
 						  var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
 						  var jdate_value_deadline = new Date(jdate_int2);
-						  
+						  var names=' ';
+						  if(this[3]!=null){
+						  var nameData=this[3].replace(",","")
+						  }else{
+			        		  var nameData = 0;
+			        	 }	
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div2').append("<div id='div2_"+count+"' class='row'></div>")      			 
 		        		 }	 
@@ -279,19 +289,20 @@ padding:10px 5px 2px 5px;
 							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
-							+this[0].activity_Info+'<br />日期：'
-							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-							+this[0].people 
+							+this[0].activity_Info+'<br />活動時間：'
+							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+							+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
 							//外
 							+'"><span title=""><img src="${this_contextPath}/images/activitys/'
 							+this[0].activity_Id+'.jpg" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
-									+this[2]+'<br />類別：'
+							+'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'+this[2]+'</a>'
+									+'<br />類別：'
 									+this[0].activity_Class+"</a>"+'<br />地區：'
 									+this[0].activity_Area+"</a>"+'<br />內容：'
 									+this[0].activity_Info+"</a>"+'<br />活動時間：'
 									+jdate_value.Format('yyyy-MM-dd hh:mm')+'<br />活動截止日：'
 									+jdate_value_deadline.Format('yyyy-MM-dd hh:mm')+'<br />目前參加人數：'
-									+'<a href="#" title='+this[3]+'>'+this[0].people+'</a><br />'
+									+'<a href="#" class="linkpeople" title='+nameData+'>'+this[0].people+'</a><br />'
 									+'<p>報名人數上限：'+this[0].people_Max+'</p></div></div>') 
 // 									+'<button type="button" class="btn btn-default" data-toggle="tooltip" style="border:none;color:red" data-placement="right" title="'
 // 									+">'
@@ -305,7 +316,7 @@ padding:10px 5px 2px 5px;
 
 	                 		
 	                 		 //tooltip
-	                 		    $( document ).tooltip();
+	                 		    $('.linkpeople').tooltip();
 	                 		 //tooltip
 	                 		  
 	                 		 
