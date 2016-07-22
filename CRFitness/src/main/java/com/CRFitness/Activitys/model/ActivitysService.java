@@ -80,6 +80,38 @@ public class ActivitysService {
 		return list;
 	}
 	
+	public List<ActivitysVO> getdownActivitys(){
+		List<ActivitysVO> list = activitysDAO.getAll();
+		for(ActivitysVO activitysVO:list){
+//			activitysVO.getMember_Id();
+//			System.out.println(activitysVO.getMember_Id());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			Timestamp activity_day = activitysVO.getActivity_Day();
+//			System.out.println(activity_day);
+//			String ts = sdf.format(activity_day);
+			
+			Date date = new Date();
+			Timestamp sdf2 = new Timestamp(date.getTime());
+//			System.out.println(sdf2);
+			 int compareTo = activity_day.compareTo(sdf2); 
+			 System.out.println(compareTo);
+//			if(compareTo == -1){
+//				System.out.println("更新揪團狀態");
+//			}else(compareTo == 1){
+//				System.out.println("不用動作");
+//			}http://localhost:8080/CRFitness/CRFSERVICE/activitysController/downActivitys
+			 
+//			String dateString = sdf2.format(date);
+//			System.out.println(sdf2);
+//			if(activity_day.compareTo(sdf2))
+			
+			
+//			Timestamp datetime = new Timestamp(System.currentTimeMillis());
+			
+		}
+		return list;
+	}
+	
 	public ActivitysVO addActivitys(
 			String member_Id,
 			String activity_Day,
