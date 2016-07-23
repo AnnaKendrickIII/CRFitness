@@ -273,7 +273,7 @@ $('body').on('click','.shop',function(){
 			var copyimg=$('<img width="100px" height="100px" src="' 
 					+ whichImg.attr('src') + '"/>').css(
 							{"position": "fixed",
-							 'top': whichImg.siblings("div").offset().top - $(document).scrollTop(),
+							 'top': whichImg.parent().parent().parent().parent().find(".product_footer").offset().top - $(document).scrollTop(),
 							"z-index": "999"});
 					whichImg.parent().parent().parent().parent().append(copyimg);	
 					copyimg.animate({"top":$('.shopping_car_div').position().top,
