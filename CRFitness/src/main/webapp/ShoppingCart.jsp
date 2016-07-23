@@ -186,8 +186,8 @@ jQuery(function($){
 //刪除商品
 $('#itemlist').on('click','.delete', function() {
 	var thisdelete =$(this)
-	alertify.confirm().set('title', '警告');
-	alertify.confirm('確定刪除此商品?', function(){ 
+	alertify.confirm().set('title', '刪除購物車商品');
+	alertify.confirm('您確認將該商品從購物車中刪除?', function(){ 
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/deleteItem',
 		typr:'get',

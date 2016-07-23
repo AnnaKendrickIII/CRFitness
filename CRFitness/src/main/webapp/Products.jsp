@@ -22,12 +22,19 @@
 .img_inner{
 border: 1px solid #E0E0E0;
 }
+@media  screen and (min-width:992px) {
+.product_Name{
+text-align: center;
+height:35px; 
+	}
+}
 @media  screen and (min-width:1235px) {
 .product_Name{
 text-align: center;
 height:45px; 
 	}
 }
+
 .product_Name{
 text-align: center;
 	}
@@ -39,6 +46,9 @@ text-align: center;
 }
 .color_div{
 text-align: center;
+}
+.product_footer{
+background-color:#FBFBFF;
 }
 </style>
 </head>
@@ -71,10 +81,10 @@ text-align: center;
     </div>
 </div>
 <div class="row">
-   	  <div class="col-xs-2 col-lg-2"> </div>
-	    <div id="products" class="row list-group col-xs-8 col-lg-8" >       
+   	  <div class="col-xs-1 col-lg-1"> </div>
+	    <div id="products" class="row list-group col-xs-10 col-lg-10" >       
 	    </div>
-      <div class="col-xs-2 col-lg-2 shopping_car"> </div>
+      <div class="col-xs-1 col-lg-1 shopping_car"> </div>
 </div>
 <div class="container">
 <ul class="pagination">
@@ -89,8 +99,12 @@ text-align: center;
             
 </div>
 </div>
-<a href="${this_contextPath}/ShoppingCart.jsp"><img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png"></a>
-
+	<div class="shopping_car_div">
+		<a href="${this_contextPath}/ShoppingCart.jsp">
+			<img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png">
+		</a>
+		 <span class="badge shopping_car_span"></span>
+	</div>
 <script type="text/javascript">
 jQuery(function($){
 
@@ -133,7 +147,24 @@ if(Type=='cmens-tops'){
 	Type='鞋類'
 }
 
-
+//購物車
+function showCart(){
+$.ajax({
+	url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
+	typr:'get',
+	data:{},
+	success:function(data){
+		var count=0;
+		$.each(data,function(index){
+			count++;
+		})
+			if(count>0){
+			$('.shopping_car_span').text(count)
+			}
+		}
+	})
+}	
+showCart();
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/searchByCategory',
 	type:'get',
@@ -144,28 +175,27 @@ $.ajax({
 			
 			//<a href="${this_contextPath}/images/products/'+this[0].productDetail_Id+'_1.png" data-lightbox="image-1" data-title="'+this[1] +'">
 			//<img  class="shopimage" src="${this_contextPath}/images/products/'+this[0].productDetail_Id+'_1.png" />
-			//<span hidden="hidden" class="detailId">+this[0].productDetail_Id</span>
-			//this[1]//名字    this[2]//價格
 			//<a class="btn btn-success" href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='+this[0].productDetail_Id+'">商品介紹</a> 連結
-			//'<div class="btn shop">'+'加入購物車</div>	
 					if(index%4==0){
-						$('#products').append('<div class="row"></div>')
+						$('#products').append('<div class="row"><div  class=" col-lg-1    products_one_div"></div></div>')
 					}
 					if(this.product_Id!=prev_id){
 						prev_id=this.product_Id
 					$('#products>.row:last').append(
-							'<div  class="item  col-xs-3 col-lg-3 col-xs-3 thumbnail">'
+							'<div  class="item   col-lg-2 col-md-4 col-xs-10 thumbnail">'
                         	+'<div class="row">'
                            		+'<div id="main'+this.product_Id+'" class="col-lg-12 col-md-12 col-xs-12 "></div>'
-                        	+'</div><div class="col-lg-12 col-md-12 col-xs-12 color_div">'
+                        	+'</div><div class="col-lg-12 col-md-12 col-xs-12 product_footer"><div class="col-lg-12 col-md-12 col-xs-12 color_div">'
                         	+'<a data-toggle="collapse" data-target="#'+this.product_Id+'"  aria-controls="demo">color</a>'
                         	+'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
 							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><strong>'+this.product_Name+'</strong></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><p>$'+this.price+'</p></strong></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12"><div class="btn shop">加入購物車</div>'
-			                +'</div></div>'
+			                +'</div></div></div></div>'
 						)	
-					
+// 					if(index%4==3){
+// 						$('#products>.row:last').append('<div  class=" col-xs-1 col-lg-1 col-xs-1"></div>')
+// 					}
 					$.ajax({
 						url:'${this_contextPath}/CRFSERVICE/productDetailController/getItemDetail',
 						type:'get',
@@ -205,31 +235,34 @@ $.ajax({
 
 $('body').on('click','.shop',function(){
 	//動畫
-// 	var whichImg=$(this).parent().parent().parent().parent().find('img')
-// 	var copyimg=$('<img width="150px" height="150px" src="' 
-// 	+ whichImg.attr('src') + '"/>').css({"position": "fixed", "z-index": "999"});
-// 	whichImg.parent().prepend(copyimg);	
-// 	copyimg.animate({"top":$('.shopping_car').position().top,
-// 					"left":$('.shopping_car').position().left+100+'px'
-// 					},500,"linear", function() {
-// 					      copyimg.remove();
-// 					 });
-
-// 	console.log($('.shopping_car').position().left)
-// 	console.log($('.shopping_car').position().top)
-
-	var detailId=$(this).parent().parent().find('.desoslide-wrapper>img').attr('alt')
-//	console.log(detailId)
+	var whichImg=$(this).parent().parent().parent().find('.desoslide-wrapper>img')
+	var detailId=whichImg.attr('alt')
+		console.log(whichImg.parent().parent().offset().top - $(document).scrollTop())
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
 		type:'get',
 		data:{productDetail_Id:detailId},
-		success:function(data){
-			console.log(data)
+		success:function(data){		
+			var copyimg=$('<img width="100px" height="100px" src="' 
+					+ whichImg.attr('src') + '"/>').css(
+							{"position": "fixed",
+							 'top': whichImg.siblings("div").offset().top - $(document).scrollTop(),
+							"z-index": "999"});
+					whichImg.parent().parent().parent().parent().append(copyimg);	
+					copyimg.animate({"top":$('.shopping_car_div').position().top,
+									"left":$('.shopping_car_div').position().left
+									},500,"linear", function() {
+									      copyimg.remove();
+									 });
+					var count=0;
+					$.each(data,function(index){
+						count++;
+					})
+					$('.shopping_car_span').text(count)
 		}
 	})
-	})
-
+})
+		
 })
 
 
