@@ -12,13 +12,26 @@
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fancybox.css">
 
 <title>商品明細</title><base>
-
+<style type="text/css">
+aside{ 
+background-image:url(images/Journal/journal2042.gif); /*背景圖存放路徑*/  
+background-attachment:fixed; /*背景固定*/  
+background-repeat:repeat; /*背景圖不要重複*/   
+background-position:center; /*置放位置 下面 左邊*/  
+  }  
+</style>
 </head>
 <body>
 <aside>
 <script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.fancybox.js"></script>
+
+<!-- <div style="position: fixed; z-index: 0; width: 100%; height: 100%"> -->
+<!--   <iframe frameborder="0" height="80%" width="100%"  -->
+<!--     src="https://www.youtube.com/embed/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1"> -->
+<!--   </iframe> -->
+<!-- </div> -->
 
 <div class="ProductDetail">
 
@@ -28,17 +41,24 @@
 	 	<div class="col-md-2"></div>	 	
     </div>
 
+	<div class="shopping_car_div">
+		<a href="${this_contextPath}/ShoppingCart.jsp">
+			<img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png">
+		</a>
+		 <span class="badge shopping_car_span"></span>
+	</div>
+
 </div>
 </aside>
 
 <script type="text/javascript">
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
-	
+	jQuery(function($){
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
 	type:'get',
- 	data:{productDetail_Id:'prodDetail5006'},
+ 	data:{productDetail_Id:queryString},
 	success:function(data){
 		$('#productDetailbody').append('<div class="col-md-8">'
 							+'<div class="gallery">'
@@ -49,23 +69,25 @@ $.ajax({
 							+'<a data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"/></a>'
 							+'<a data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"/></a>'
 							+'</div>'
-							+'<div class="full mag">'
-							+'<img class="magnify" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
+							+'<div class="full">'
+							+'<img data-lity alt="'+data[0][0].productDetail_Id+'" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
 							+'</div>'
 							+'</div></div>'
 							+'<div class="col-md-4">'
-							+'<h2><strong>'+data[0][1] 
-							+'</strong><h2/><br/>尺寸 : '+data[0][0].size
-							+'<br/>顏色 : '+data[0][0].color
+							+'<h2 style="color:blue"><strong>'+data[0][1] 
+							+'</strong><h2/><br/><p style="color:#888888"><br/>顏色 : '
+							+data[0][0].color
 							+'<br/>剩餘數量 : '+data[0][0].stock
-							+'</br></br>'
-							+'商品介紹 :</br>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
-							+'<br/></br></br>'
-							+'<a class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw"  data-lity>千萬不要按&nbsp!</a>'
-							+'&nbsp&nbsp&nbsp<a class="btn btn-success">加入購物車</a>'
-							+'&nbsp&nbsp&nbsp<a href='+<%=request.getHeader("referer")%>+' class="btn btn-primary">繼續購物</a>'
+							+'</br></br></p>'
+							+'<strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
+							+'</p></strong><br/></br></br>'
+							+'<div class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw" data-lity>千萬不要按&nbsp!</div>'
+							+'&nbsp&nbsp&nbsp<div class="btn btn-success addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span>加入購物車</div>'
+							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary">繼續購物</a>'
 							+'</div>')
 							
+							var itemId = $('.btn-success>[span]').text()
+							console.log(itemId)
 							
 							$('a').click(function(){
 						 		var largeImage = $(this).attr('data-full');
@@ -81,32 +103,41 @@ $.ajax({
 						 		$.fancybox.open(modalImage);
 						 		});
 	
-	$('body').on('click','.addCart',function(){
-		$.ajax({
-			url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
-			type:'get',
-			data:{},
-			success:function(data){
-				
-			}
-		})
-		
-	})
-						 		
+	
+						 	
 	}	
 });
-
-
-$(document).ready(function(){
-
-
-
-}); 
+//偷來的購物車動畫
+$('body').on('click','.addCart',function(){
+	var whichImg=$(this).parent().parent().find('.full>img')
+	var detailId=$(this).find('span[hidden]')
+	$.ajax({
+		url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
+		type:'get',
+		data:{productDetail_Id:queryString},
+		success:function(data){
+			var copyimg=$('<img width="100px" height="100px" src="' 
+					+ whichImg.attr('src') + '"/>').css(
+							{"position": "fixed",
+							 'top': whichImg.parent().parent().find('.full').offset().top - $(document).scrollTop(),
+							"z-index": "999"});
+					whichImg.parent().parent().append(copyimg);	
+					copyimg.animate({"top":$('.shopping_car_div').position().top,
+									"left":$('.shopping_car_div').position().left,
+									"opacity": 0,
+									},500,"linear", function() {
+									      copyimg.remove();
+									 });
+					var count=0;
+					$.each(data,function(index){
+						count++;
+					})
+					$('.shopping_car_span').text(count)
+		}
+	})
+	
+})
+	})
 </script>
-
-
-<!-- https://youtu.be/AUChk0lxF44  victorious -->
-<!-- https://youtu.be/-aWcy0TAaWk -->
-<!-- https://youtu.be/2Vhlzdj6Csw -->
 </body>
 </html>

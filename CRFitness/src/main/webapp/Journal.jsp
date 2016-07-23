@@ -163,21 +163,22 @@ width:24px;
 	            data:{},
 	            success:function(data){          	
 	            	$.each(data,function(){
-	            		  var likenum = this[3];
-		        		  var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-						  var jdate_value = new Date(jdate_int); 
-		        		  var journalId=this[0].journal_Id
-		        		  var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+	            		var likenum = this[3];
+	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
+						  	var jdate_value = new Date(jdate_int); 
+		        		  	var journalId=this[0].journal_Id
+		        		  	var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
 			        		 +this[1]+'</p></a><p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 							 +this[0].contents+'</p>'
+							 
 		        		 $('#grid').append(
 		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img">'
-            			 +'<a title="移除此篇日誌" class="close fa-2x removeJournal"><span class="down_arrow" aria-hidden="true"></span></a>'
-            			 +'<ul class="dropdown-menu" role="menu"><li><a href="#">檢舉此篇</a></li></ul>'         			     
-            			 +contet
+        			 +'<a title="移除此篇日誌" class="close fa-2x removeJournal" ><span class="down_arrow" aria-hidden="true"></span></a>'
+        			 +'<ul class="dropdown-menu" role="menu"><li><a href="#">檢舉此篇</a></li></ul>'         			     
+					 +contet
 		        		 +'<img class="img-thumbnail" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this[0].journal_Id+'" />'	 
 		        		 +'<div data-desc=""></div>'
 		        		 +'</li>') 
@@ -185,14 +186,13 @@ width:24px;
 	           				 url:"${this_contextPath}/CRFSERVICE/messageDetailController/getMessageDetailAll",
 	            			 type:'get',  //get post put delete
 	          			     data:{journal_Id:journalId},
-	            			 success:function(data){
-// 	            				 console.log(likenum)
-	            				 var message="";	
-	            				 $.each(data,function(){	            					
+	            			 success:function(data){ 
+	            				 var message="";			 
+	            				 $.each(data,function(){    
 	            					 var jdate_int2 = parseInt(this[0].messageTime);                          //轉換成數字
 		   						  	 var jdate_value2 = new Date(jdate_int2); 
 										var arraythecontent= this[0].content.split("</br>")
-										var thecontent="";										
+										var thecontent="";
 										$.each(arraythecontent,function(index){
 											var thecontent2=this.replace(/\</g,'&lt').replace(/\>/g,'&gt')
 											if(index==0){		
@@ -201,17 +201,17 @@ width:24px;
 												thecontent+='<br><span class="span_contet">'+thecontent2+'</span>'					
 											}
 										})
-	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
-	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css"></a>'
-	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
-	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
+	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css">'
+	            					 +'<span class="message_name_span">'+this[1]+'</span></a><div class="innercontent_div">'
+	            					 +thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	            				 })//留言明細迴圈     	    				
 	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
 	            				'<div class="messge_header_body"><div class="header_div">'+contet
 	            				+'<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
 					   			+ '<a><span class="badge countLike">'+likenum+'</span></a>'
-	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
+	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="texthere message_div">'	
 					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
 					   			+ '</div>')
@@ -268,17 +268,17 @@ width:24px;
 	   												thecontent+='<br><span class="span_contet">'+thecontent2+'</span>'					
 	   											}
 	   										})
-	   	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" >'
-	   	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css"></a>'
-	   	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'" ><span class="message_name_span">'
-	   	            					 +this[1]+'</span></a><div class="innercontent_div">'+thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
+	   	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+	   	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css">'
+	   	            					 +'<span class="message_name_span">'+this[1]+'</span></a><div class="innercontent_div">'
+	   	            					 +thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	   	            				 })//留言明細迴圈     	    				
 	   	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
 	   	            				'<div class="messge_header_body"><div class="header_div">'+contet
 	   	            				+'<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 	   					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
 	   					   			+ '<a><span class="badge countLike">'+likenum+'</span></a>'
-	   	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="message_div">'	
+	   	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="texthere message_div">'	
 	   					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 	   					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
 	   					   			+ '</div>')
@@ -309,8 +309,7 @@ width:24px;
 	    	                });//瀑布流 new 
 	    	            	$('.gallery-img').Am2_SimpleSlider();    
 	    	 	          }//第2次撈資料  success結束  	 
-	    	        })//第2次ajax結束	       
-	    	        
+	    	        })//第2次ajax結束	           
 	            }//第1次撈資料  success結束      
 	        })//第1次ajax結束    
 	      // enter換行變成shift enter ,enter變送出
@@ -350,9 +349,9 @@ width:24px;
 							$.each(theContentArray,function(index){
 								if(index==0){					
 									messageDiv.append(
-											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" >'
-		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+theMember_Id+'.jpg" /></div><div class="message_inner_div_css"></a>'
-		 	            					 +'<a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'" ><span class="message_name_span">'
+											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'">'
+		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'
+		 	            					 +theMember_Id+'.jpg" /></div><div class="message_inner_div_css"><span class="message_name_span">'
 		 	            					 +theNickname+'</span></a><div class="innercontent_div"><span class="span_contet"></span>'
 		 	            					 +'</div></div></div>').find('.message_div:last .span_contet').text(this)
 								}else{
@@ -362,6 +361,8 @@ width:24px;
 							})
 							messageDiv.find('.message_div:last .innercontent_div').append('<p class="time_p"></p>')
 						.find('.time_p:last').text( new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
+						
+						$('#'+theJournal_Id+' div[data-desc]').attr('data-desc',$('.product-desc').html())					
 						}
 					}
 	            })

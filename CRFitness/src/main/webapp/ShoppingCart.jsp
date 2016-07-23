@@ -41,16 +41,17 @@
 			<div class="panel-body" id="itemlist">
 				<!-- 商品資料  開始 -->
 
+
 				<!-- 商品資料  結束 -->
 			</div>
 			<div class="row">
 				<div class="text-center">
 				<div class="col-xs-9">
-					<h6 class="text-right">Added items?</h6>
+					<h6 class="text-right">Clean All items?</h6>
 				</div>
 				<div class="col-xs-3">
 <%-- 					<a href="${pageContext.request.requestURI}" class="btn btn-default btn-sm btn-block" type="button" id="refresh">更新購物車</a> --%>
-					<a  class="btn btn-default btn-sm btn-block" type="button" id="refresh">更新購物車</a>
+					<a  class="btn btn-default btn-sm btn-block" type="button" id="clean">一鍵清空購物車</a>
 					</div>
 				</div>
 			</div>
@@ -202,6 +203,26 @@ $('#itemlist').on('click','.delete', function() {
  });
 });	
 </script>
+
+<script type="text/javascript">
+$('body').on('click','#clean',function(){
+	alertify.confirm().set('title', '刪除整台購物車');
+	alertify.confirm('確認將購物車清空?',function(){
+		$.ajax({
+			url:'${this_contextPath}/CRFSERVICE/productDetailController/cleanCart',
+			typr:'get',
+			data:{},
+			success:function(){
+				$('.item').remove()
+			}
+		})
+		alertify.warning('購物車已清空')
+			totalAmount()
+	})
+	
+})
+</script>
+
 <script type="text/javascript">
 //當換數量 總價格變動
 $('#itemlist').on('focusout', 'div.item input.qty',function(){
