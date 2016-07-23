@@ -363,8 +363,7 @@
       	 $("#fblogina").click(function(e){
     		 e.preventDefault(); 
     	 })  	     
-      	 //fb javascript 結束
-    
+      	 //fb javascript 結束 
      $('a.login-window').click( function (e) {
                     Custombox.open({
                         target: '#login-box',
@@ -376,8 +375,7 @@
                     $('.container_a_css').click(function () {	
                         	  Custombox.close('#login-box') 
                          })     	 
-      	 //google 開始
-      	 
+      	 //google 開始	 
             gapi.load('auth2', function () {
                 auth2 = gapi.auth2.init({
                     client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
@@ -386,10 +384,7 @@
                 });
 
                 auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
-                  function (googleUser) {
-//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
+                  function (googleUser) {     	
                 	 var ImageUrl;
                      if (googleUser.getBasicProfile().getImageUrl() == undefined) {
                          ImageUrl = null;
@@ -418,8 +413,7 @@
     	 })  
     	 //google 結束
     	    e.preventDefault();
-     });
-      	
+     });  	
       jQuery(function ($) {	      	        
             $("#menu-toggle").click(function () {//點擊左上角小圖 
                 $("#wrapper").addClass("toggled");//讓清單加入class toggled 使其寬度由0增加到235px 呈現由左到右效果 
@@ -435,14 +429,7 @@
                     return false;
                 });
             });
-            //登入顯示
-            
-            
-//             $('a.login-window').click(function () {//點擊右上角人頭小圖示
-//                 var loginBox = $(this).attr('href');//讀取$('a.login-window')屬性href的值存入loginBox變數裡
-                
-               
-
+            //登入顯示       
             //------------------------------------------------------------
             //左側清單下拉功能
             $('.sidebar-nav>li').click(function () {

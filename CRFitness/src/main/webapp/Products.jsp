@@ -52,7 +52,7 @@ text-align: center;
 height:100px; 
 	}
 }
-@media  screen and (min-width:1715px) {
+@media  screen and (min-width:1830px) {
 .product_Name{
 text-align: center;
 height:45px; 
@@ -64,6 +64,14 @@ height:45px;
 	float: left;
 		}
 }
+.Introduction{ 
+ background-color:#23527c; 
+ color: white;
+} 
+.Introduction:HOVER{ 
+ background-color:#004B97; 
+ color: white;
+} 
 .price_div{
 margin-top: 1%;
 text-align: center;
@@ -75,6 +83,10 @@ text-align: center;
 }
 .product_footer{
 background-color:#FBFBFF;
+padding-bottom:2%;
+}
+.desoslide-wrapper{
+border-bottom:1px solid #F0F0F0;
 }
 </style>
 </head>
@@ -108,7 +120,7 @@ background-color:#FBFBFF;
 </div>
 <div class="row">
    	  <div class="col-xs-1 col-lg-1"> </div>
-	    <div id="products" class="row list-group col-xs-10 col-lg-10" >       
+	    <div id="products" class="row list-group col-xs-10 col-md-12 col-lg-10" >       
 	    </div>
       <div class="col-xs-1 col-lg-1 shopping_car"> </div>
 </div>
@@ -212,12 +224,14 @@ $.ajax({
                         	+'<div class="row">'
                            		+'<div id="main'+this.product_Id+'" class="col-lg-12 col-md-12 col-xs-12 "></div>'
                         	+'</div><div class="col-lg-12 col-md-12 col-xs-12 product_footer"><div class="col-lg-12 col-md-12 col-xs-12 color_div">'
-                        	+'<a data-toggle="collapse" data-target="#'+this.product_Id+'"  aria-controls="demo">color</a>'
-                        	+'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
-							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><strong>'+this.product_Name+'</strong></div>' 
+                        	+'<a class="btn  btn-xs btn-block color_btn" data-toggle="collapse" data-target="#'+this.product_Id+'"  aria-controls="demo">More Colors'
+                        	+'&nbsp&nbsp&nbsp<i class="fa fa-caret-square-o-down" aria-hidden="true"></i></a>'
+                        	+'<ul id="'+this.product_Id+'" class="collapse row desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
+							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><h5><strong>'+this.product_Name+'</strong></h5></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><p>$'+this.price+'</p></strong></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn btn-success Introduction" >商品介紹</a>'
-							+'<a class="btn btn-danger shop">加入購物車</a>'
+							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn  Introduction" >商品介紹'
+							+'&nbsp&nbsp&nbsp<i class="fa fa-wpforms" aria-hidden="true"></i></a>'
+							+'<a class="btn btn-danger shop">加入購物車&nbsp&nbsp<i class="fa fa-shopping-cart" aria-hidden="true"></i></a>'
 			                +'</div></div></div></div>'
 						)	
 //href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='+this[0].productDetail_Id+'"
@@ -232,8 +246,8 @@ $.ajax({
 								$('#'+this.product_Id).append(
 							'<li class="col-xs-3 col-lg-3  img_inner">'
 							+'<a href="${this_contextPath}/images/products/'+this.productDetail_Id+'_1.png">'
-			                +'<img  alt="'+this.productDetail_Id+'"  class="shopimage img-responsive" data-desoslide-caption-title="'
-			                +this.color+'" src="${this_contextPath}/images/products/'
+			                +'<img  alt="'+this.productDetail_Id+'"  class="shopimage img-responsive"  data-desoslide-caption-title="'
+			                +this.color+'" title="'+this.color+'"   src="${this_contextPath}/images/products/'
 			                +this.productDetail_Id+'_1.png" /></a></li>'
 			               	)                     
 						})//小表 ajax迴圈結束
