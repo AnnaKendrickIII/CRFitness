@@ -129,7 +129,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 	
 	public List<ActivitysVO> select_MyActivitys(String member_Id) {	
 		Query query = this.getSession().createSQLQuery(	
-			"SELECT Activitys.*,(SELECT Members.Nickname "
+			"SELECT Activitys.*,ActivityDetail.*,(SELECT Members.Nickname "
 			+ "FROM Activitys join Members "
 			+ "on  Activitys.Member_Id =Members.Member_Id "
 			+ "WHERE ActivityDetail.Activity_Id=Activitys.Activity_Id "
@@ -141,7 +141,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 			+ "FROM ActivityDetail JOIN Members "
 			+ "ON ActivityDetail.Member_Id = Members.Member_Id "
 			+ "JOIN Activitys on ActivityDetail.Activity_Id=Activitys.Activity_Id "
-			+ "WHERE Members.Member_Id = '"+member_Id+"' "
+			+ "WHERE ActivityDetail.Detail_Status='1' and Members.Member_Id = '"+member_Id+"' "
 			+ "order by activity_Day desc")
 					  .addEntity("Activitys.*",ActivitysVO.class)
 					  .addEntity("ActivityDetail.*",ActivityDetailVO.class)

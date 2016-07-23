@@ -12,5 +12,5 @@ public interface ActivityDetailDAO_interface {
     public ActivityDetailVO findByPrimaryKey(ActivityDetailVO activityDetailVO);
     public List<ActivityDetailVO> getAll();
     public List<String> joinMembers(String activity_Id);
-		
+    public List<String> cleanMembers(String activity_Id);
 }

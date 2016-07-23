@@ -417,7 +417,7 @@ aside
 		    				   $("#boxer").remove();
 		    				   $('body').toggleClass();
 		    				   
-		    				   errorAlert('北七膩', '你舉辦你自己不參加???????');
+		    				   errorAlert('錯誤', '無法參加自己舉辦的活動。');
 
 		    				   
 		    			   }else if(data[0]=='參加過'){
@@ -425,7 +425,7 @@ aside
 		    				   $("#boxer").remove();
 		    				   $('body').toggleClass();		
 		    				     		
-		    				   errorAlert('北七膩', '你已經參加過了');
+		    				   errorAlert('警告', '您已經參加過此活動。');
 	
 		    			   }else if(data[0]=='已額滿'){
 // 		    				   alert('已額滿')
@@ -433,7 +433,7 @@ aside
 		    				   $("#boxer").remove();
 		    				   $('body').toggleClass();		
 		    				     			
-		    				   errorAlert('殘念', '已額滿');
+		    				   errorAlert('抱歉', '活動人數已額滿。');
 		    				   
 // 		    				   $.alertable.alert(data[0]);
 		    			   }else{

@@ -29,4 +29,12 @@ public class ActivityDetailController {
 		return activitydetailService.addActivityDetail(activity_Id, member_Id);	
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, value ="/cleanActivityDetail")
+	public @ResponseBody List<String>  cleanActivityDetail(
+			@RequestParam String activity_Id,
+			@RequestParam String member_Id){
+//		System.out.println("activityDetailController" + activity_Id + member_Id);
+		return activitydetailService.cleanActivityDetail(activity_Id, member_Id);	
+	}
+	
 }

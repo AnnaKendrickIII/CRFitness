@@ -5,10 +5,9 @@
 <hibernate-mapping>
     <class name="com.CRFitness.ActivityDetail.model.ActivityDetailVO" table="ActivityDetail" >
   <composite-id>
-  <key-property name="activity_Id" column="activity_Id"/>
-  <key-property name="member_Id" column="member_Id"/>
+  <key-property name="activity_Id" column="Activity_Id"/>
+  <key-property name="member_Id" column="Member_Id"/>
   </composite-id>
-    
-        
+    <property name="detail_Status" column="Detail_Status"></property>     
     </class>
 </hibernate-mapping>
