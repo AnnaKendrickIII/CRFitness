@@ -22,29 +22,54 @@
 .img_inner{
 border: 1px solid #E0E0E0;
 }
-@media  screen and (min-width:992px) {
+@media  screen and (min-width:100px) {
+.shop{
+		float: right;	
+		}
+.Introduction{
+	float: left;
+		}
 .product_Name{
 text-align: center;
-height:35px; 
+height:85px; 
 	}
 }
-@media  screen and (min-width:1235px) {
+
+@media  screen and (min-width:1200px) {
 .product_Name{
 text-align: center;
 height:45px; 
 	}
+.shop{
+float: none;
 }
-
+.Introduction{
+float: none;
+		}
+	
 .product_Name{
 text-align: center;
+height:100px; 
 	}
+}
+@media  screen and (min-width:1715px) {
+.product_Name{
+text-align: center;
+height:45px; 
+	}
+.shop{
+		float: right;	
+		}
+.Introduction{
+	float: left;
+		}
+}
 .price_div{
 margin-top: 1%;
 text-align: center;
 }
-.shop{
-float: right;
-}
+.shop_button_div{
+padding: 0px;}
 .color_div{
 text-align: center;
 }
@@ -191,8 +216,8 @@ $.ajax({
                         	+'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
 							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><strong>'+this.product_Name+'</strong></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><p>$'+this.price+'</p></strong></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12"><a class="btn btn-success" >商品介紹</a>'
-							+'<div class="btn col-lg-3 col-md-3 col-xs-3 shop">加入購物車</div>'
+							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn btn-success Introduction" >商品介紹</a>'
+							+'<a class="btn btn-danger shop">加入購物車</a>'
 			                +'</div></div></div></div>'
 						)	
 //href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='+this[0].productDetail_Id+'"

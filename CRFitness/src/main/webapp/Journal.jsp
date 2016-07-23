@@ -116,6 +116,18 @@ background-position:-93px -582px;
 height:24px;
 width:24px;
 }
+
+.down_arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 6px dashed;
+    border-top: 4px solid\9;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}
 </style>
 </head>
 
@@ -163,7 +175,9 @@ width:24px;
 							 +this[0].contents+'</p>'
 		        		 $('#grid').append(
 		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img">'
-		        		 +contet
+            			 +'<a title="移除此篇日誌" class="close fa-2x removeJournal"><span class="down_arrow" aria-hidden="true"></span></a>'
+            			 +'<ul class="dropdown-menu" role="menu"><li><a href="#">檢舉此篇</a></li></ul>'         			     
+            			 +contet
 		        		 +'<img class="img-thumbnail" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this[0].journal_Id+'" />'	 
 		        		 +'<div data-desc=""></div>'
 		        		 +'</li>') 
@@ -229,7 +243,9 @@ width:24px;
 	   							 
 	   		        		 $('#grid').append(
 	   		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img">'
-	   		        		 +contet
+	            			 +'<a title="移除此篇日誌" class="close fa-2x removeJournal" ><span class="down_arrow" aria-hidden="true"></span></a>'
+	            			 +'<ul class="dropdown-menu" role="menu"><li><a href="#">檢舉此篇</a></li></ul>'         			     
+							 +contet
 	   		        		 +'<img class="img-thumbnail" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this[0].journal_Id+'" />'	 
 	   		        		 +'<div data-desc=""></div>'
 	   		        		 +'</li>') 
