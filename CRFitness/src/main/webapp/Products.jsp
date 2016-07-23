@@ -257,9 +257,9 @@ $.ajax({
 	 	
 	}//大表ajax success結束
 });//大表ajax結束
-$('body').on('click','.shop',function(){
-	
-	
+$('body').on('click','.Introduction',function(){
+	var detailId=$(this).parent().parent().parent().find('.desoslide-wrapper>img').attr('alt')
+	  location.href ='${this_contextPath}/ProductDetail.jsp?productDetail_Id='+detailId;
 })
 $('body').on('click','.shop',function(){
 	//動畫

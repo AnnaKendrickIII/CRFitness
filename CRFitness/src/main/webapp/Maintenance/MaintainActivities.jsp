@@ -56,6 +56,10 @@ body {
 	height:50px;
 }
 
+#top{
+	height:75px;
+}
+
 
 </style>
 </head>
@@ -66,9 +70,7 @@ body {
 		<div class="col-md-2 "></div>
 		<div class="col-md-8 col-xs-12 ">
 		
-		<button type="button" id="creProdBtn" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#new_products">  
-  		<i class="fa fa-plus" aria-hidden="true"></i> <!-- 新增產品 --> 
-  		</button>
+		<div id="top"></div>
 
 <!-- 資料表格 開始 -->
 	
@@ -156,22 +158,22 @@ body {
 					$('body').on('click', '.3g', function(activity_Id, activity_Status){
 // 					console.log($(this).parent().siblings(":eq(5)").text());
 // 					console.log($(this).parent().siblings(":eq(1)").text());
- 						var this_actStatus = $(this).parent().siblings(":eq(5)"); //要改
-						var activityId = $(this).parent().siblings(":eq(1)").text(); //要改
+ 						var this_actStatus = $(this).parent().siblings(":eq(5)");
+						var activityId = $(this).parent().siblings(":eq(1)").text();
 						var actStatus = this_actStatus.text();
-						var reversedState = "";
-						if(actStatus==1){
-							reversedState=0;
+						var reversedState = 0;
+						if(actStatus == 1){
+							reversedState = 0;
 						}else{
-							reversedState=1;
-							}
+							reversedState = 1;
+							};
 						 $.ajax({
 							    url:"${this_contextPath}/CRFSERVICE/activitysControllerBE/changeStatus",
 						        type:'post',  //get post put delete
 					    		data: {'activity_Id': activityId,
 										'activity_Status': reversedState}, //
 						    	success:function(data){
-						    		this_actStatus.text(reversedState)
+						    		this_actStatus.text("reversedState")
 						        } // end of success:function(data)	 
 						 }) // end of  $.ajax({  	    	   
 					}); // end of 	$('.3g').click(function () {

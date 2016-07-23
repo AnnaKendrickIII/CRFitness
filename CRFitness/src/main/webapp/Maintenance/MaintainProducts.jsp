@@ -109,7 +109,7 @@ body {
 
 .table>tbody>tr>td{
 	vertical-align: middle;
-	width:72px;
+	width:100px;
 	height:100px;
 }
 
@@ -182,7 +182,7 @@ textarea{
 
 <!-- 資料表格 開始 -->
 	
-		<table id="products_talbe" class="table">
+		<table id="games_talbe" class="table">
 			<thead>
 				<tr>
 					<th><h3>小圖</h3></th>
@@ -674,7 +674,7 @@ textarea{
 					    		data: {'productDetail_Id': prodDetaId,
 										'product_Status': reversedState}, // 
 						    	success:function(data){
-						        	this_prodStatus.text(reversedState)
+						        	this_prodStatus.text("reversedState")
 						        } // end of success:function(data)	 
 						 }) // end of  $.ajax({  	    	   
 					}); // end of 	$('.3g').click(function () {

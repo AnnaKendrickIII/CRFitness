@@ -18,18 +18,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.CRFitness.Activitys.model.ActivitysService;
 import com.CRFitness.Activitys.model.ActivitysVO;
 @Controller
-@RequestMapping("/activitysController")
+@RequestMapping("/activitysControllerBE")
 public class ActivitysControllerBE {
 	
 	@Resource(name = "activitysService")
 	private ActivitysService activitysService;
 	
 	// change status
-	@RequestMapping(method = RequestMethod.POST, value ="/changeStatus", produces="text/html; charset=utf-8")
+	@RequestMapping(method = RequestMethod.POST, value = "/changeStatus", produces = "application/json; charset=utf-8")
 	public @ResponseBody Integer changeStatus(
 			@RequestParam String activity_Id,
 			@RequestParam Integer activity_Status){
-//		String VO = memberService.changeStatus(member_Id, member_Status);
+//		String VO = activitysService.changeStatus(activity_Id, activity_Status);
 //		System.out.println(VO);
 		return activitysService.changeStatus(activity_Id, activity_Status);	
 	}

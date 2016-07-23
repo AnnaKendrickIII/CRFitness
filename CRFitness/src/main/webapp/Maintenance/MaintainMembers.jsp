@@ -56,6 +56,9 @@ body {
 	height:50px;
 }
 
+#top{
+	height:75px;
+}
 
 </style>
 </head>
@@ -65,7 +68,8 @@ body {
 	<div class="row">
 		<div class="col-md-2 "></div>
 		<div class="col-md-8 col-xs-12 ">
-
+		
+		<div id="top"></div>
 <!-- 資料表格 開始 -->
 	
 		<table id="games_talbe" class="table">
