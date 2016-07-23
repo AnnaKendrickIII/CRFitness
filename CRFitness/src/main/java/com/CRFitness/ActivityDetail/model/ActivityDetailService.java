@@ -37,6 +37,7 @@ public class ActivityDetailService {
 		ActivityDetailVO activityDetailVO =new ActivityDetailVO();
 		activityDetailVO.setActivity_Id(activity_Id);
 		activityDetailVO.setMember_Id(member_Id);
+		activityDetailVO.setDetail_Status(1);
 		ActivitysVO activitysVO=activitysDAO.findByPrimaryKey(activity_Id);
 		
 		System.out.println(activitysVO.getMember_Id());
