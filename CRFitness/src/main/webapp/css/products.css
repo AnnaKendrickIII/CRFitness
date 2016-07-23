@@ -34,3 +34,58 @@ https://github.com/marcaube/bootstrap-magnify
        -moz-border-radius: 100%;
              border-radius: 100%
 }
+
+
+/*新增*/
+.main {
+width: 700px;
+margin: 50px auto;
+padding: 0 20px;
+padding-bottom: 40px;
+font-family: 'Calibri', 'CalibriRegular', Verdana, Arial, Helvetica, sans-serif;
+}
+.gallery {
+}
+.gallery .previews, .gallery .full, .gallery .desc {
+float: left;
+margin-right: 20px;
+}
+.gallery .desc, .gallery .full {
+width: 400px;
+font-size: 12px;
+}
+.gallery .desc h2 {
+margin-top: 0;
+}
+.gallery .previews a {
+display: block;
+margin-bottom: 5px;
+}
+
+/* 調整大圖尺寸 */
+.gallery .full, .gallery .full img {
+width: 492px;
+height: 520px;
+}
+.gallery .previews a, .gallery .full {
+border: 4px solid #CCC;
+}
+.gallery .previews a:hover, .gallery .previews a.selected {
+border: 4px solid #3333ff;
+}
+.gallery .full img:hover {
+cursor: pointer;
+}
+.clearfix:after {
+content: ".";
+visibility: hidden;
+display: block;
+height: 0;
+clear: both;
+}
+
+/* 調整小圖尺寸 */
+.small{
+width:100px;
+height:92px;
+}

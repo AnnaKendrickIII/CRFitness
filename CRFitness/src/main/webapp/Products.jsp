@@ -43,6 +43,7 @@ margin-top: 1%;
 text-align: center;
 }
 .shop{
+float: right;
 }
 .color_div{
 text-align: center;
@@ -190,12 +191,11 @@ $.ajax({
                         	+'<ul id="'+this.product_Id+'" class="collapse row img_color desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
 							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><strong>'+this.product_Name+'</strong></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><p>$'+this.price+'</p></strong></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12"><div class="btn shop">加入購物車</div>'
+							+'<div class="col-lg-12 col-md-12 col-xs-12"><a class="btn btn-success" >商品介紹</a>'
+							+'<div class="btn col-lg-3 col-md-3 col-xs-3 shop">加入購物車</div>'
 			                +'</div></div></div></div>'
 						)	
-// 					if(index%4==3){
-// 						$('#products>.row:last').append('<div  class=" col-xs-1 col-lg-1 col-xs-1"></div>')
-// 					}
+//href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='+this[0].productDetail_Id+'"
 					$.ajax({
 						url:'${this_contextPath}/CRFSERVICE/productDetailController/getItemDetail',
 						type:'get',
@@ -237,7 +237,6 @@ $('body').on('click','.shop',function(){
 	//動畫
 	var whichImg=$(this).parent().parent().parent().find('.desoslide-wrapper>img')
 	var detailId=whichImg.attr('alt')
-		console.log(whichImg.parent().parent().offset().top - $(document).scrollTop())
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/addShoppingCart',
 		type:'get',
@@ -250,7 +249,8 @@ $('body').on('click','.shop',function(){
 							"z-index": "999"});
 					whichImg.parent().parent().parent().parent().append(copyimg);	
 					copyimg.animate({"top":$('.shopping_car_div').position().top,
-									"left":$('.shopping_car_div').position().left
+									"left":$('.shopping_car_div').position().left,
+									"opacity": 0,
 									},500,"linear", function() {
 									      copyimg.remove();
 									 });
