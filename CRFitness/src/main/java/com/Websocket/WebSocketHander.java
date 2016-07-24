@@ -1,4 +1,4 @@
-package com.init;
+package com.Websocket;
 import org.apache.log4j.Logger;
 import org.springframework.web.socket.*;
 

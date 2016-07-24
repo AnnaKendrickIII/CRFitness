@@ -50,13 +50,14 @@
 		<property name="maxUploadSize" value="5242880"></property>
 	</bean>
 	
-	<bean id="websocket" class="com.init.WebSocketHander" />
+<!-- 	<bean id="websocket" class="com.init.WebSocketHander" /> -->
+	<bean id="websocket" class="com.Websocket.WebsocketEndPoint" />
 
  	
 	<websocket:handlers>
 		<websocket:mapping path="/echo" handler="websocket" />
 		<websocket:handshake-interceptors>
-			<bean class="com.init.HandshakeInterceptor" />
+			<bean class="com.Websocket.HandshakeInterceptor" />
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
 	
