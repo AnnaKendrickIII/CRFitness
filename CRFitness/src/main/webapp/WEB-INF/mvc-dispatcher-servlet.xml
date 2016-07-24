@@ -6,7 +6,9 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
@@ -47,5 +49,16 @@
 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="5242880"></property>
 	</bean>
+	
+	<bean id="websocket" class="com.init.WebSocketHander" />
+
+ 	
+	<websocket:handlers>
+		<websocket:mapping path="/echo" handler="websocket" />
+		<websocket:handshake-interceptors>
+			<bean class="com.init.HandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+	
 
 </beans>
