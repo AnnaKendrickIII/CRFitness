@@ -13,7 +13,7 @@
 
 <title>商品明細</title><base>
 <style type="text/css">
-aside{ 
+.aside{ 
 background-image:url(images/Journal/journal2042.gif); /*背景圖存放路徑*/  
 background-attachment:fixed; /*背景固定*/  
 background-repeat:repeat; /*背景圖不要重複*/   
@@ -27,11 +27,11 @@ background-position:center; /*置放位置 下面 左邊*/
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.fancybox.js"></script>
 
-<!-- <div style="position: fixed; z-index: 0; width: 100%; height: 100%"> -->
-<!--   <iframe frameborder="0" height="80%" width="100%"  -->
-<!--     src="https://www.youtube.com/embed/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1"> -->
-<!--   </iframe> -->
-<!-- </div> -->
+<div style="position: fixed; z-index: 0; width: 100%; height: 100%">
+  <iframe frameborder="0" height="70%" width="100%" 
+    src="https://www.youtube.com/embed/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1">
+  </iframe>
+</div>
 
 <div class="ProductDetail">
 
@@ -81,7 +81,7 @@ $.ajax({
 							+'</br></br></p>'
 							+'<strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
 							+'</p></strong><br/></br></br>'
-							+'<div class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw" data-lity>千萬不要按&nbsp!</div>'
+							+'<div class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity>千萬不要按&nbsp!</div>'
 							+'&nbsp&nbsp&nbsp<div class="btn btn-success addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span>加入購物車</div>'
 							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary">繼續購物</a>'
 							+'</div>')

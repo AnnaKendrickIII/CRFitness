@@ -36,6 +36,27 @@ https://github.com/marcaube/bootstrap-magnify
 }
 
 
+/* 偷來的購物車 */
+.shopping_car {
+	opacity: 0.6;
+}
+
+.shopping_car:hover {	
+	opacity: 1;
+}
+.shopping_car_span{
+	position: absolute;
+    right: 15%;
+    top: 15%;
+    font-size: x-large;
+    background-color: red;
+}
+.shopping_car_div{
+	position: fixed;
+	right: 2%;
+	top: 35%;	
+}
+
 /*新增*/
 .main {
 width: 700px;

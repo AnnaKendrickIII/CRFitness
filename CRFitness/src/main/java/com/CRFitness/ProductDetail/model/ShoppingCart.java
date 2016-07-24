@@ -25,7 +25,7 @@ public class ShoppingCart implements Serializable {
 	@Resource(name = "productsDAO")
 	private ProductsDAO_interface productsDAO;
 	private Map<String, Object> cart = null;
-	
+
 	public ShoppingCart() {
 		cart = new LinkedHashMap<String, Object>();
 	}
@@ -43,15 +43,13 @@ public class ShoppingCart implements Serializable {
 	public Map<String, Object> addShoppingCart(String productDetail_Id) {
 		// 判斷車子裡是否有這東西 沒有就幫他加數量1
 		if (cart.get(productDetail_Id) == null) {
-			cart.put(productDetail_Id,
-					productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
+			cart.put(productDetail_Id, productDetailDAO.findByPrimaryKeySQLQuery(productDetail_Id));
 			Integer num = 1;
 			Object[] numob = { num };
 			// 給車子數量1
 			((List<Object[]>) (cart.get(productDetail_Id))).add(1, numob);
 		} else {// 如果車子裡有這東西就把他數量取出來加1再放回去
-			Integer newNum = ((Integer) (((List<Object[]>) (cart
-					.get(productDetail_Id))).get(1))[0]) + 1;
+			Integer newNum = ((Integer) (((List<Object[]>) (cart.get(productDetail_Id))).get(1))[0]) + 1;
 			Object[] numob = { newNum };
 			// 把車子裡的數量換新數量
 			((List<Object[]>) (cart.get(productDetail_Id))).set(1, numob);
@@ -90,13 +88,20 @@ public class ShoppingCart implements Serializable {
 		(prouduct.get(1))[0] = Integer.parseInt(num);
 	}
 
-	//新增訂單
-	public Map<String, Object> addOrder(){
-		if(cart.size()>0){
-			
+	// 清空購物車
+	public void cleanCart() {
+		if (!cart.isEmpty()) {
+			cart.clear();
+		}
+	}
+
+	// 新增訂單
+	public Map<String, Object> addOrder() {
+		if (cart.size() > 0) {
+
 		}
 		return cart;
-		
+
 	}
 
 	// public static void main(String[] args) {

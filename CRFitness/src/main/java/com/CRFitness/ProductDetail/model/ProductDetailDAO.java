@@ -154,7 +154,8 @@ public class ProductDetailDAO implements ProductDetailDAO_interface {
 								+ "'").addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
-				.addScalar("category", StringType.INSTANCE);
+				.addScalar("category", StringType.INSTANCE)
+				.addScalar("info", StringType.INSTANCE);
 
 		return (List<Object[]>) query.list();
 	}

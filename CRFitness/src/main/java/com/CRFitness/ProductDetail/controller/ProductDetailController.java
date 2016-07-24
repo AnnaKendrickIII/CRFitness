@@ -30,51 +30,46 @@ public class ProductDetailController {
 	private ShoppingCart shoppingCart;
 
 	// front-end
-	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<ProductDetailVO> getAllDetail(
-			HttpServletRequest request) {
+	@RequestMapping(method = RequestMethod.GET, value = "/getAllDetail", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<ProductDetailVO> getAllDetail(HttpServletRequest request) {
 		return productDetailService.getAllItem();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/getProductDetailId",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody ProductDetailVO productDetailVO(
-			HttpServletRequest request, @RequestParam String product_Name,
+	@RequestMapping(method = RequestMethod.GET, value = "/getProductDetailId", produces = "application/json;charset=UTF-8")
+	public @ResponseBody ProductDetailVO productDetailVO(HttpServletRequest request, @RequestParam String product_Name,
 			@RequestParam String size, @RequestParam String color) {
 		return null;
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/searchByCategory",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<Object[]> searchByCategory(
-			HttpServletRequest request, @RequestParam String category,
+	@RequestMapping(method = RequestMethod.GET, value = "/searchByCategory", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object[]> searchByCategory(HttpServletRequest request, @RequestParam String category,
 			@RequestParam Integer page) {
 		return productDetailService.getItemByCategory(category, page);
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/getItemDetail",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<Object[]> getItemDetail(
-			HttpServletRequest request, @RequestParam String product_Id) {
+	@RequestMapping(method = RequestMethod.GET, value = "/getItemDetail", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<Object[]> getItemDetail(HttpServletRequest request, @RequestParam String product_Id) {
 		return productDetailService.getItemDetail(product_Id);
 
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/searchAllItem", produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<ProductDetailVO> searchAllItem(
-			HttpServletRequest request) {
+	public @ResponseBody List<ProductDetailVO> searchAllItem(HttpServletRequest request) {
 
 		return productDetailService.getAllItem();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/findByPrimaryKeySQLQuery", produces = "application/json;charset=UTF-8")
-	public @ResponseBody List<Object[]> findByPrimaryKeySQLQuery(
-			HttpServletRequest request, @RequestParam String productDetail_Id) {
+	public @ResponseBody List<Object[]> findByPrimaryKeySQLQuery(HttpServletRequest request,
+			@RequestParam String productDetail_Id) {
 		return productDetailService.getItemByPrimaryKey(productDetail_Id);
 	}
 
 	// 加入購物車
 	@RequestMapping(method = RequestMethod.GET, value = "/addShoppingCart", produces = "application/json;charset=UTF-8")
-	public @ResponseBody Map<String, Object> addShoppingCart(
-			HttpServletRequest request, @RequestParam String productDetail_Id) {
+	public @ResponseBody Map<String, Object> addShoppingCart(HttpServletRequest request,
+			@RequestParam String productDetail_Id) {
 		return shoppingCart.addShoppingCart(productDetail_Id);
 	}
 
@@ -86,8 +81,7 @@ public class ProductDetailController {
 
 	// 刪除購物車內商品
 	@RequestMapping(method = RequestMethod.GET, value = "/deleteItem")
-	public @ResponseBody void deleteItem(HttpServletRequest request,
-			@RequestParam String productDetail_Id) {
+	public @ResponseBody void deleteItem(HttpServletRequest request, @RequestParam String productDetail_Id) {
 		shoppingCart.deleteItem(productDetail_Id);
 	}
 
@@ -99,9 +93,13 @@ public class ProductDetailController {
 
 	// 更改數量
 	@RequestMapping(method = RequestMethod.POST, value = "/ChangeProductNum")
-	public @ResponseBody void ChangeProductNum(String productDetail_Id,
-			String num) {
+	public @ResponseBody void ChangeProductNum(String productDetail_Id, String num) {
 		shoppingCart.ChangeProductNum(productDetail_Id, num);
 	}
 
+	// 清空購物車
+	@RequestMapping(method = RequestMethod.GET, value = "/cleanCart")
+	public @ResponseBody void cleanCart() {
+		shoppingCart.cleanCart();
+	}
 }
