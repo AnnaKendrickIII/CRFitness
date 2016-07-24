@@ -116,6 +116,11 @@ margin-top : 50%;
 font-size: 16px;
 color:#0000C6;
 }
+
+#clickchangehead:focus{
+	outline: none !important;
+	border: none !important;
+}
 </style>
 
 </head>
@@ -166,7 +171,6 @@ jQuery(function($){
 					);   	 
     	 var c=1;                            	
          $.each(data,function(){
-//          	 console.log(this[1].activity_Id)
 				var jdate_int = parseInt(this[1].activity_Day); //轉換成數字
 				var jdate_value = new Date(jdate_int);
 				var jdate_int2 = parseInt(this[1].deadline);                          //轉換成數字
@@ -220,14 +224,11 @@ jQuery(function($){
     				   errorAlert('北七膩', '你已經參加過了');
 
     			   }else if(data[0]=='已額滿'){
-//	    				   alert('已額滿')
     				   $("#boxer-overlay").remove();
     				   $("#boxer").remove();
     				   $('body').toggleClass();		
     				     			
     				   errorAlert('殘念', '已額滿');
-    				   
-//	    				   $.alertable.alert(data[0]);
     			   }else{
     				var members="";
     				var sum =0;
@@ -265,8 +266,6 @@ jQuery(function($){
 	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 <script type="text/javascript">
-				console.log('${LoginOK.e_mail}')
-
  					$('#personal_profile').append( 							
 // 	個人頭像				'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
 				           ' <a class="pull-left" id="clickchangehead" data-toggle="modal" data-target="#changhead" href="#">'
@@ -521,7 +520,7 @@ jQuery(function($){
    			if(visitorStatus == 2){ 
    				console.log(visitorStatus)
 			$('#personal_profile').append(
-//好友頁面頭像		 '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
+//好友頁面頭像		 
 		           ' <a class="pull-left" href="#">'
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
@@ -534,7 +533,6 @@ jQuery(function($){
 				);
 			}else if(visitorStatus == 3){
 				$('#personal_profile').append(
-//非好友頁面頭像	  	 '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
 		           ' <a class="pull-left" href="#">'
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
@@ -675,8 +673,6 @@ jQuery(function($){
 					theLi.find('div.timeline-footer').slideUp();
 					theLi.find('div.viewmessages').slideDown();
 				})
-//					divGrid.find('div.timeline-footer>div:nth-child(2)').append(eleMessageA2);
-
 				$('.username').editable({
 				     rows:3
 				});  // 編輯個人日誌的內容
@@ -691,8 +687,7 @@ jQuery(function($){
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
-						var file = $('#uploadfile').prop("files")[0];
-					//	var category = $('#category').val();  // 類別是??	 好像沒有設定類別欄位 			
+						var file = $('#uploadfile').prop("files")[0];	
 						var contents = $('#content').val();
 						var publishTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
 						var publicStatus = $('#openStatus').val();
@@ -751,8 +746,7 @@ jQuery(function($){
 								   			+ '</div>'
 								   			+ '</div>'
 								   			+ '</li>')
-								   											   			
-// 								   			divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
+
 		   								//新增日誌後清除內容
 										$('.timeline-panel').fadeIn(2200);
 			    						$('#content').val('')
@@ -876,7 +870,6 @@ jQuery(function($){
 						if(messageDiv.find('p:first').text()=='尚無新留言'){
 							messageDiv.find('p:first').text('');
 						}
-// 						messageDiv.append('<p/>').find('p:last').text('留言時間: ' + new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
 						messageDiv.append('<p/>').find('p:last').text('留言時間: ' + diffTime(theMessageTime)).addClass('msgTime')
 						messageDiv.next().show().parent().slideDown()
 					}
@@ -913,8 +906,6 @@ jQuery(function($){
 								theDiv.append(thP1)
 							})
 							var thP2 = $('<p>')
-
-// 							thP2.text('留言時間: ' + new Date(this[0].messageTime).Format('yyyy-MM-dd hh:mm:ss'))
 							thP2.text('留言時間: ' + diffTime(this[0].messageTime)).addClass('msgTime')
 							theDiv.append(thP2)
 							messageDiv.prepend(theDiv)
@@ -925,9 +916,7 @@ jQuery(function($){
 					if(data.length == 0 && theMessage_Id == 0){
 						theLi.find('div.timeline-footer').hide();
 						theLi.find('div.viewmessages').hide();
-// 						theLi.find('div.timeline-footer>div:first').append('<p>尚無新留言</p>')
 					}else if(data.length < 3 && theLi.find('div.timeline-footer').is(':visible')){
-// 						theLi.find('div.timeline-footer').slideUp();
 						theLi.find('div.viewmessages').slideUp();
 					}else if(data.length < 3 && theLi.find('div.timeline-footer').is(':hidden')){
 						messageDiv.next().show().parent().slideDown()
@@ -999,7 +988,6 @@ jQuery(function($){
 				var count=parseInt(likenum.text());	
 				
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
-// 				console.log(count)
 				if(!tset){
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
@@ -1009,7 +997,6 @@ jQuery(function($){
 							lauded_Id:'${LoginOK.member_Id}'
 						},
 						success:function(data){
-// 							console.log(count)
 							theclick.find('span').toggleClass("coreSpriteHeartFull"),
 							count+=1
 							likenum.text(count)
