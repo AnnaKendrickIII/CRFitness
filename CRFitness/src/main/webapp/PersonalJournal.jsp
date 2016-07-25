@@ -501,8 +501,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	            data:{},
 	            success:function(data){
 	            	
+// 		            	console.log(data)
 		            $.each(data,function(){
-		            	console.log(data)
 	            		if(this.member_Id === "${pageContext.request.queryString}"){
 	            			theMemberId = this.member_Id;
 	            			titleNickName = this.nickname;
@@ -556,12 +556,12 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					data:{'member_Id': "${LoginOK.member_Id}",
 						'friend_Id': "${pageContext.request.queryString}"},
 					success: function(data){
-						console.log(data)
-						if(data == 2){
-							console.log(data)
+						if(data == 2){   //申請人
+							
 							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info canceladdfriend" >不等了，取消申請</button>')
-						}else if(data == 3){
-							console.log(data)
+							
+						}else if(data == 3){  // 被害人
+							
 							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info acceptfriend" >接受申請成為好友</button>')
 						}else{
 							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info addfriend" >加為好友</button>')
@@ -968,7 +968,6 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
       	
       	// 加好友
       	$('body').on('click','button.addfriend', function(){
-   			alertify.confirm().set('title', '想加好友嗎');
 			alertify.confirm('確認加此好友', function(e) {				$.ajax({
 					url:"${this_contextPath}/CRFSERVICE/friendships/addFriends",
 					type:'post',
@@ -976,13 +975,13 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						'friend_Id': "${pageContext.request.queryString}"},
 					success:function(data){
 						if(data){
-							alertify.alert('已申請')
+							alertify.alert('已申請').set('title', '訊息');
 							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
 							.removeClass('addfriend').addClass('canceladdfriend');
 						}else{
-							alertify.alert('異常，請洽客服人員')
+							alertify.alert('異常，請洽客服人員').set('title', '警告');
 						}
-					}				})			})
+					}				})			}).set('title', '想加好友嗎');
 		})
 		
         // acceptfriend 接受成為好友
@@ -995,11 +994,10 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					'friend_Id': "${pageContext.request.queryString}"},
 				success:function(data){
 					if(data){
-						alertify.alert('已成為${pageContext.request.queryString}好友')
 						$('#personal_profile').find('button.acceptfriend').text('傳送訊息給他')
 						.removeClass('btn-info acceptfriend').addClass('btn-primary')
 					}else{
-						alertify.alert('異常，請洽客服人員')
+						alertify.alert('異常，請洽客服人員').set('title', '警告');
 					}
 				}
       		})
@@ -1017,28 +1015,18 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
     					'friend_Id': "${pageContext.request.queryString}"},
           			success:function(data){
           				if(data){
-          					alertify.alert('取消成功')
+          					alertify.alert('取消成功').set('title', '訊息');
           					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
           					.removeClass('canceladdfriend').addClass('addfriend');
           				}else{
-          					alertify.alert('異常，請洽客服人員')
+          					alertify.alert('異常，請洽客服人員').set('title', '警告');
           				}
           			}
           		})
 //       		}
       	})
       	
-      	// 好友申請提示
-		$.ajax({
-			url:"${this_contextPath}/CRFSERVICE/friendships/findFriendFlag",
-			type:'get',
-			data:{'member_Id': "${LoginOK.member_Id}",
-				'friend_Id': "${pageContext.request.queryString}"},
-			success: function(data){
-				//
-// 				$('body').find('span.num_mail')
-			}
-		})
+
 
       	
 //       	//查詢好友狀態

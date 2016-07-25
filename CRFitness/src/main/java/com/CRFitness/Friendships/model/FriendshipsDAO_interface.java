@@ -12,5 +12,6 @@ public interface FriendshipsDAO_interface {
     public List<Object[]> select_Friends(String member_Id);
     public List<FriendshipsVO> getAll();
 	public Integer select_Friend_Flag(String member_Id, String friend_Id);
+	public Long select_Friends_Flag(String member_Id);
 
 }
