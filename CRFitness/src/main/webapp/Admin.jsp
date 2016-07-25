@@ -12,6 +12,7 @@
 <body >
 	<!-- 頁面部分 開始-->
 	<aside>
+		<!-- 輪撥   開始 -->
 		<div id="carousel-example-generic" class="carousel slide"
 			data-ride="carousel" data-interval="2000">
 			<!-- Indicators -->
@@ -48,6 +49,7 @@
 				<span class="sr-only">Next</span>
 			</a>
 		</div>
+		<!-- 輪撥   開始 -->
 	</aside>
 	<!--  頁面部分 結束 -->
 </body>

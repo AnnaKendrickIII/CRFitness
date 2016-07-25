@@ -121,6 +121,7 @@ color:#0000C6;
 	outline: none !important;
 	border: none !important;
 }
+
 .journal-memberphoto{
 	height: 32px;
     width: 32px;
@@ -130,8 +131,12 @@ color:#0000C6;
 	color:#BEBEBE;
 	font-size: 10px;
 }
-
 </style>
+<script type="text/javascript">
+jQuery(function($){
+$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/PersonalJournal.png">')
+})
+</script>
 
 </head>
 
@@ -156,124 +161,7 @@ color:#0000C6;
 				<div class="col-md-2"></div>
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 </div>
-	<!-- 頁面部分 開始-->
-<c:if test="${LoginOK.member_Id != pageContext.request.queryString}">
-<script>
-
-
-jQuery(function($){
-//進入好友頁面揪團活動
- $.ajax({
-	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",
-     type:'get',  //get post put delete
-     data:{},
-     success:function(data){
-    	 $('#personal_activity').append(
-				 '<ul class="nav nav-tabs" role="tablist" id="myTab">'
-				+'<li role="presentation" class="active"><a class="selfchance" href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"選取的會員"+"參加的揪團"+'</a></li>'
-				+'</ul>'
-				+'<div class="tab-content">'
-				+'<div role="tabpanel" class="tab-pane active" id="home">'
-				+'<ul class="event-list" id="myactivity_personal">'
-				+'</ul>'
-				+'</div>'	
-				+'</div>'
-					);   	 
-    	 var c=1;                            	
-         $.each(data,function(){
-				var jdate_int = parseInt(this[1].activity_Day); //轉換成數字
-				var jdate_value = new Date(jdate_int);
-				var jdate_int2 = parseInt(this[1].deadline);                          //轉換成數字
-				var jdate_value_deadline = new Date(jdate_int2);
-            $('#myactivity_personal').append(
-            	 '<li>'	 
-            	+'<time datetime="2014-07-20">'
-				+'<span class="month">'+jdate_value.Format("MM")+'</span>'
-				+'<span class="day">'+jdate_value.Format("dd")+'</span>'
-				+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
-				+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
-				+'<span class="time">'+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
-				+'</time>'
-				
-			+'<a href="${this_contextPath}/images/activitys/'
-			+this[1].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-			+this[2]+"<i class='fa fa-commenting-o img-responsive' aria-hidden='true'></i>"
-			+'<br />類別：'+this[1].activity_Class+'<br />地區：'
-			+this[1].activity_Area+'<br />內容：'
-			+this[1].activity_Info+'<br />活動時間：'
-			+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-			+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
-			+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-			+"<div hidden='hidden'>"+this[1].activity_Id
-			+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
-			+this[1].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'			
-			+'<div class="friend_joinactivity">'+this[1].activity_Class+this[1].activity_Area+'</div>'
-			+'</li>')         	
-         }) //each
-         
-         $(".boxer").boxer({
-				top: 50,
-				fixed:true
-				});
-         
-	      $("body").on("click", '.submit_x', function(){
-    	  var whatActivityID=$(this).parent().siblings("div").text()
-    	   $.ajax({
-    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/addActivityDetail",
-    		   type:'post',
-    		   data:{
-    			   activity_Id:$('.boxer-caption').find('div').text(),
-    			   member_Id:'${LoginOK.member_Id}'
-    		   },
-    		   success:function(data){
-    			  if(data[0]=='參加過'){
-    				   $("#boxer-overlay").remove();
-    				   $("#boxer").remove();
-    				   $('body').toggleClass();		
-    				     		
-    				   errorAlert('北七膩', '你已經參加過了');
-
-    			   }else if(data[0]=='已額滿'){
-    				   $("#boxer-overlay").remove();
-    				   $("#boxer").remove();
-    				   $('body').toggleClass();		
-    				     			
-    				   errorAlert('殘念', '已額滿');
-    			   }else{
-    				var members="";
-    				var sum =0;
-    				var whoButton=$('#button'+whatActivityID);
-    				   $.each(data,function(index){          
-    					   members+=this+" ";
-    					   sum+=1;
-    				   })   
-    				   whoButton.text(sum)
-    				   whoButton.attr("data-original-title",members)
-      				   
-    				   $("#boxer-overlay").remove();
-    				   $("#boxer").remove();
-    				   $('body').toggleClass();		
-    				
-    				   $.alertable.alert('參加成功', {
-    					   show: function() {
-    					     $(this.overlay).velocity('transition.fadeIn');        
-    					     $(this.modal).velocity('transition.flipBounceYIn');
-    					   },
-    					   hide: function() {
-    					     $(this.overlay).velocity('transition.fadeOut');
-    					     $(this.modal).velocity('transition.perspectiveUpOut');
-    					   } 
-    					 });
-    			   }			   
-    		   }
-    	   })
-			}); //on結束
-     }          	 
- }) //ajax
-})
-</script>
-</c:if>
-	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
+	<!-- 頁面部分 開始--><!--   ├─判斷是是個人日誌頁面還是好友開始─┤  --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 <script type="text/javascript">
  					$('#personal_profile').append( 							
@@ -282,7 +170,7 @@ jQuery(function($){
 			             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" >'
 			             +'</a>'
 			             +'<div class="media-body">'
-			             +'<h4 class="profile-heading" style="font-family:fantasy; font-size:1.2cm;">${LoginOK.nickname} <small>${LoginOK.e_mail}</small></h4>'
+			             +'<h4 class="profile-heading">${LoginOK.nickname} <small>${LoginOK.e_mail}</small></h4>'
 			             +'<hr style="margin:8px auto">'		             
 			             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
 			             +'</div>'
@@ -312,8 +200,7 @@ jQuery(function($){
                              url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",
                              type:'get',  //get post put delete
                              data:{},
-                             success:function(data){
-                            	 var c=1;                            	
+                             success:function(data){                            	                            	
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
@@ -328,7 +215,7 @@ jQuery(function($){
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+"類別："+''+this[0].activity_Class+'<hr class="divideline"/>'+"地區："+''+this[0].activity_Area 
+                                    	+'<div style="text-align : center">'+"類別："+this[0].activity_Class+'<hr class="divideline"/>'+"地區："+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each                         
@@ -339,8 +226,7 @@ jQuery(function($){
                         	 url:"${this_contextPath}/CRFSERVICE/activitysController/myActivitys/${LoginOK.member_Id}",
                              type:'get',  //get post put delete
                              data:{},
-                             success:function(data){
-                            	 var c=1;                            	
+                             success:function(data){                           	                             	
                                  $.each(data,function(){
              						var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
             						var jdate_value = new Date(jdate_int);
@@ -355,7 +241,7 @@ jQuery(function($){
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
+                                    	+'<div style="text-align : center">'+"類別："+this[0].activity_Class+'<hr class="divideline"/>'+"地區："+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each
@@ -468,6 +354,117 @@ jQuery(function($){
 	};
 	
 	
+	function activitys(nickname){
+		$.ajax({
+				 url:"${this_contextPath}/CRFSERVICE/activitysController/${pageContext.request.queryString}",
+			     type:'get',  //get post put delete
+			     data:{},
+			     success:function(data){ 
+			    	 $('#personal_activity').append(
+							 '<ul class="nav nav-tabs" role="tablist" id="myTab">'
+							+'<li role="presentation" class="active"><a class="selfchance" href="#home" aria-controls="home" role="tab" data-toggle="tab">'+nickname+"的揪團"+'</a></li>'
+							+'</ul>'
+							+'<div class="tab-content">'
+							+'<div role="tabpanel" class="tab-pane active" id="home">'
+							+'<ul class="event-list" id="myactivity_personal">'
+							+'</ul>'
+							+'</div>'	
+							+'</div>'
+								);   	                            	
+			         $.each(data,function(){
+							var jdate_int = parseInt(this[0].activity_Day); //轉換成數字
+							var jdate_value = new Date(jdate_int);
+							var jdate_int2 = parseInt(this[0].deadline);                          //轉換成數字
+							var jdate_value_deadline = new Date(jdate_int2);
+			            $('#myactivity_personal').append(
+			            	 '<li>'	 
+			            	+'<time datetime="2014-07-20">'
+							+'<span class="month">'+jdate_value.Format("MM")+'</span>'
+							+'<span class="day">'+jdate_value.Format("dd")+'</span>'
+							+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
+							+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+							+'<span class="time">'+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
+							+'</time>'
+						+'<a href="${this_contextPath}/images/activitys/'
+						+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
+						+this[2]+"<i class='fa fa-commenting-o img-responsive' aria-hidden='true'></i>"
+						+'<br />類別：'+this[0].activity_Class+'<br />地區：'
+						+this[0].activity_Area+'<br />內容：'
+						+this[0].activity_Info+'<br />活動時間：'
+						+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
+						+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
+						+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
+						+"<div hidden='hidden'>"+this[0].activity_Id
+						+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
+						+this[0].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'			
+						+'<div class="friend_joinactivity">'+this[0].activity_Class+" "+this[0].activity_Area+'</div>'
+						+'</li>')         	
+			         }) //each
+			      
+			         $(".boxer").boxer({
+							top: 50,
+							fixed:true
+							});
+			         
+				      $("body").on("click", '.submit_x', function(){
+			    	  var whatActivityID=$(this).parent().siblings("div").text()
+			    	   $.ajax({
+			    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/addActivityDetail",
+			    		   type:'post',
+			    		   data:{
+			    			   activity_Id:$('.boxer-caption').find('div').text(),
+			    			   member_Id:'${LoginOK.member_Id}'
+			    		   },
+			    		   success:function(data){
+			    			  if(data[0]=='參加過'){
+			    				   $("#boxer-overlay").remove();
+			    				   $("#boxer").remove();
+			    				   $('body').toggleClass();		
+			    				     		
+			    				   errorAlert('北七膩', '你已經參加過了');
+
+			    			   }else if(data[0]=='已額滿'){
+			    				   $("#boxer-overlay").remove();
+			    				   $("#boxer").remove();
+			    				   $('body').toggleClass();		
+			    				     			
+			    				   errorAlert('殘念', '已額滿');
+			    			   }else{
+			    				var members="";
+			    				var sum =0;
+			    				var whoButton=$('#button'+whatActivityID);
+			    				   $.each(data,function(index){          
+			    					   members+=this+" ";
+			    					   sum+=1;
+			    				   })   
+			    				   whoButton.text(sum)
+			    				   whoButton.attr("data-original-title",members)
+			      				   
+			    				   $("#boxer-overlay").remove();
+			    				   $("#boxer").remove();
+			    				   $('body').toggleClass();		
+			    				
+			    				   $.alertable.alert('參加成功', {
+			    					   show: function() {
+			    					     $(this.overlay).velocity('transition.fadeIn');        
+			    					     $(this.modal).velocity('transition.flipBounceYIn');
+			    					   },
+			    					   hide: function() {
+			    					     $(this.overlay).velocity('transition.fadeOut');
+			    					     $(this.modal).velocity('transition.perspectiveUpOut');
+			    					  	 } 
+			    						 });
+			    			  		 }			   
+			    		  		 }
+			    	   		})
+						}); //on結束
+
+					 }
+				 }) //ajax
+		
+		
+	}
+	
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
 	        "M+": this.getMonth() + 1, //月份 
@@ -491,7 +488,7 @@ jQuery(function($){
         var divGrid = $('#grid');
 		var visitorStatus;  // 記錄目前登入者狀態  1:自己  2:朋友 3:非好友
 		var titleNickName;
-        
+		var usernickname;      
     //  ------------------ 判斷是否本人, 好友 , 非好友------------------
 		if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 			visitorStatus = 1;
@@ -503,6 +500,7 @@ jQuery(function($){
 	            type:'get',  //get post put delete
 	            data:{},
 	            success:function(data){
+	            	
 		            $.each(data,function(){
 		            	console.log(data)
 	            		if(this.member_Id === "${pageContext.request.queryString}"){
@@ -526,22 +524,19 @@ jQuery(function($){
 		}
 
 				
-		function callShowJournal(visitorStatus){
-		
+		function callShowJournal(visitorStatus){			
    			if(visitorStatus == 2){ 
-   				console.log(visitorStatus)
+//好友頁面頭像		 		
 			$('#personal_profile').append(
-//好友頁面頭像		 
-		           ' <a class="pull-left" href="#">'
+		          ' <a class="pull-left" href="#">'
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
 	             +'<div class="media-body">'
-	             +'<h4 class="media-heading">hardik sondagar <small> india</small></h4>'
-	             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
+	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
 	             +'<hr style="margin:8px auto">'		             
 	             +'<button type="button" class="profile-btn btn btn-primary">傳送訊息給他</button>'
 	             +'</div>'
-				);
+				);	
 			}else if(visitorStatus == 3){
 
 				$('#personal_profile').append(
@@ -550,11 +545,11 @@ jQuery(function($){
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
 	             +'<div class="media-body">'
-	             +'<h4 class="media-heading">hardik sondagar <small> india</small></h4>'
-	             +'<h5>software developer at <a href="http://gridle.in">gridle.in</a></h5>'
+	             +'<h4 class="media-heading" id="usernickanme"></h4>'
 	             +'<hr style="margin:8px auto">'		             
 	             +'</div>'
-				);	
+				);
+				
 				$.ajax({
 					url:"${this_contextPath}/CRFSERVICE/friendships/findFriendFlag",
 					type:'get',
@@ -579,17 +574,25 @@ jQuery(function($){
    			
 			// 查詢日誌開始-------------------------
 				$.ajax({
+			    
 				url : "${this_contextPath}/CRFSERVICE/personalJournalController/showJournal",
 				type : 'get', //get post put delete
 				data : {'member_Id' : "${pageContext.request.queryString}" ,
 					'visitorStatus' : visitorStatus},
 				success : function(data) {
+					$('#usernickanme').append(data[0][1])
+										
+					if("${LoginOK.member_Id}" != "${pageContext.request.queryString}"){
+					activitys(data[0][1]);
+					}
+					
 					$.each(data,function(index) {
 						var jdate_int = parseInt(this[0].publishTime); //轉換成數字
 						var jdate_value = new Date(jdate_int);
 				    	var invert; 
 				    	var li_direction;
 				    	var thejournal_Id=this[0].journal_Id;
+
 				    	if(index%2==0){
 				    		li_direction='<li id="'+ this[0].journal_Id +'">';
 				    		invert='<i class="glyphicon glyphicon-record " '
@@ -670,8 +673,7 @@ jQuery(function($){
 					// 第一次載入日誌先撈三筆留言
 					loadMessageOne(this[0].journal_Id, 0);
 					}) 	//each
-					
- 				
+									
 					// 查看留言功能按鈕
 				var eleMessageA1 = $('<a>').text('查看更多留言').on('click', function(){
 					var theLi = $(this).parents('li');
@@ -711,13 +713,13 @@ jQuery(function($){
 				     rows:3
 				});  // 編輯個人日誌的內容
 					$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
+					
+					
     			}
     		})
     		//ajax 查詢日誌結束
         }
         
-        
-
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
@@ -778,7 +780,7 @@ jQuery(function($){
 								   			+ '<textarea maxlength="30" class="form-control message-textarea" rows="1" onkeyup="autogrow(this)" placeholder="留言最大30字數....."></textarea>'
 											+ '<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 								   			+ '<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></a>'
-									   		+ '<a><span class="badge countLike">"0"</span></a>'
+									   		+ '<a><span class="badge countLike">0</span></a>'
 								   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
 								   			+ '</div>'
 								   			+ '</div>'

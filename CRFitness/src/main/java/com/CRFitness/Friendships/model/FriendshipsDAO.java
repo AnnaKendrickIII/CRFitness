@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.type.StringType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,13 +30,15 @@ public class FriendshipsDAO implements FriendshipsDAO_interface {
 	}
 
 	@Override
-	public List<MemberVO> select_Friends(String member_Id) {	
+	public List<Object[]> select_Friends(String member_Id) {	
 			Query query = this.getSession().createSQLQuery(
-					"SELECT Members.* "
+					"SELECT Members.Member_Id,Members.E_mail,Members.Nickname "
 					+"FROM Members JOIN Friendships "
 					+"ON Members.Member_Id=Friendships.Friend_Id "
-					+"where Friendships.Member_Id='"+member_Id+"' and Friend_Status = 1").addEntity(MemberVO.class);				
-		return (List<MemberVO>) query.list();	
+					+"where Friendships.Member_Id='"+member_Id+"' and Friend_Status = 1")
+					.addScalar("Member_Id",StringType.INSTANCE).addScalar("E_mail",StringType.INSTANCE)
+					.addScalar("Nickname",StringType.INSTANCE);				
+		return (List<Object[]>) query.list();	
 	}
 	
 	@Override

@@ -164,7 +164,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY")
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
-				.addScalar("Member_Id")
+				.addScalar("Member_Id",StringType.INSTANCE)
 				.addScalar("likenum", StringType.INSTANCE);
 		return (List<PersonalJournalVO>) query.list();
 	}
@@ -181,7 +181,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"OFFSET 6 ROWS ")
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
-				.addScalar("Member_Id")
+				.addScalar("Member_Id",StringType.INSTANCE)
 				.addScalar("likenum", StringType.INSTANCE);
 		return (List<PersonalJournalVO>) query.list();
 	}
