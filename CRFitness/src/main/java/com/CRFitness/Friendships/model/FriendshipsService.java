@@ -8,10 +8,11 @@ import javax.annotation.Resource;
 
 
 
+
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.CRFitness.Member.model.MemberVO;
 
 @Transactional(transactionManager="transactionManager")
 @Service("friendshipsService")
@@ -22,12 +23,8 @@ public class FriendshipsService {
 	
 	
 	
-	public  List<MemberVO> findFriends(String member_Id){
-		List<MemberVO> list = friendshipsDAO.select_Friends(member_Id);
-		for(MemberVO memberVO:list){
-			memberVO.setPassword(null);
-		}	
-		return list;	
+	public  List<Object[]> findFriends(String member_Id){
+		return  friendshipsDAO.select_Friends(member_Id);		
 	}
 	
 //	public Integer select_Friend_Flag(String member_Id, String friend_Id){
