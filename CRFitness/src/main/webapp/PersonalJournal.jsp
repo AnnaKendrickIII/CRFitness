@@ -121,6 +121,18 @@ color:#0000C6;
 	outline: none !important;
 	border: none !important;
 }
+<<<<<<< HEAD
+=======
+.journal-memberphoto{
+	height: 32px;
+    width: 32px;
+	display:inline;
+}
+.journaltime{
+	color:#BEBEBE;
+	font-size: 10px;
+}
+>>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
 
 </style>
 
@@ -526,16 +538,38 @@ color:#0000C6;
 	             +'</div>'
 				);	
 			}else if(visitorStatus == 3){
+
 				$('#personal_profile').append(
 		           ' <a class="pull-left" href="#">'
+
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
 	             +'<div class="media-body">'
 	             +'<h4 class="media-heading" id="usernickanme"></h4>'
 	             +'<hr style="margin:8px auto">'		             
-	             +'<button type="button" class="profile-btn btn btn-info addfriend" >加為好友</button>'
 	             +'</div>'
-				);		
+				);
+				
+				$.ajax({
+					url:"${this_contextPath}/CRFSERVICE/friendships/findFriendFlag",
+					type:'get',
+					data:{'member_Id': "${LoginOK.member_Id}",
+						'friend_Id': "${pageContext.request.queryString}"},
+					success: function(data){
+						console.log(data)
+						if(data == 2){
+							console.log(data)
+							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info canceladdfriend" >不等了，取消申請</button>')
+						}else if(data == 3){
+							console.log(data)
+							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info acceptfriend" >接受申請成為好友</button>')
+						}else{
+							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info addfriend" >加為好友</button>')
+							
+						}
+					}
+				})
+			
 			}
    			
 			// 查詢日誌開始-------------------------
@@ -575,10 +609,12 @@ color:#0000C6;
 				    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 				    	+ this[0].journal_Id+'" /></a></div>'
 				    	+ '<div class="timeline-body">'
-				    	+'<p class="name_p">'+this[1]+'</p><br />'  // 上線前要拿掉或改暱稱
-			   			+ '<p class="userContents"></p>'
-			   			+ '<p >日期：'
+				    	
+				    	+'<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
+				    	+ '<p class="journaltime">'
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
+				    	+ '<p class="userContents"></p>'
+			   			
 			   			+ '<br /><select class="statusSelect" hidden="hidden" /></div>'
 			   			+ '<div class="timeline-footer">'
 			   			  //'留言塞這裡'
@@ -606,7 +642,7 @@ color:#0000C6;
 							}					
 						})
                          
-            								// 判斷queryString 和 LoginOK.member_Id 是否一樣
+            		// 判斷queryString 和 LoginOK.member_Id 是否一樣
 					if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除 5:停權
 						var eleS = $('select.statusSelect:last').bind('change',this,function(){
@@ -728,10 +764,13 @@ color:#0000C6;
 									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 									    	+ data.journal_Id+'" /></a></div>'
 									    	+ '<div class="timeline-body">'
-									    	+'<p class="name_p">'+ "${LoginOK.nickname}" +'</p>'  // 上線前要拿掉或改暱稱
-								   			+ '<br/><a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
-								   			+ '<p >日期：'
+									
+								   			+ '<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+"${LoginOK.nickname}"+'</p>'  // 上線前要拿掉或改暱稱
+									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
+								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
+								   			
+
 								   			+ '<br/><select class="statusSelect" /></div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
 											// 	'留言塞這裡'
@@ -791,7 +830,7 @@ color:#0000C6;
 					'publicStatus':val},
 				success: function(data){
 					if(data && val == 4)
-						theLi.hide('explode', 2200, function(){theLi.remove()})
+						theLi.hide('explode', 1500, function(){theLi.remove()})
 						
 				}
 			})
@@ -878,7 +917,6 @@ color:#0000C6;
 		}
       	//--------------------------------------------------------
             
-        
 		// 載入頁面時先顯示3筆留言 thisData[0].journal_Id 最新的留言在最下方
 		var loadMessageOne = function(theJournal_Id, theMessage_Id){
     		$.ajax({
@@ -928,12 +966,95 @@ color:#0000C6;
 			}) // ajax 顯示留言
     	}
       	
+      	// 加好友
       	$('body').on('click','button.addfriend', function(){
    			alertify.confirm().set('title', '想加好友嗎');
-			alertify.confirm('確認加此好友', function(e) {
-						if (e) {alertify.alert('++')}
-					})
-		})		
+			alertify.confirm('確認加此好友', function(e) {				$.ajax({
+					url:"${this_contextPath}/CRFSERVICE/friendships/addFriends",
+					type:'post',
+					data:{'member_Id': "${LoginOK.member_Id}",
+						'friend_Id': "${pageContext.request.queryString}"},
+					success:function(data){
+						if(data){
+							alertify.alert('已申請')
+							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
+							.removeClass('addfriend').addClass('canceladdfriend');
+						}else{
+							alertify.alert('異常，請洽客服人員')
+						}
+					}				})			})
+		})
+		
+        // acceptfriend 接受成為好友
+        $('body').on('click','button.acceptfriend', 
+        function (){
+      		$.ajax({
+      			url:"${this_contextPath}/CRFSERVICE/friendships/acceptFriend",
+      			type:'post',
+      			data:{'member_Id': "${LoginOK.member_Id}",
+					'friend_Id': "${pageContext.request.queryString}"},
+				success:function(data){
+					if(data){
+						alertify.alert('已成為${pageContext.request.queryString}好友')
+						$('#personal_profile').find('button.acceptfriend').text('傳送訊息給他')
+						.removeClass('btn-info acceptfriend').addClass('btn-primary')
+					}else{
+						alertify.alert('異常，請洽客服人員')
+					}
+				}
+      		})
+      	})
+      	
+      	// 取消申請，或刪除好友
+      	$('body').on('click', 'button.canceladdfriend', function(){
+//       		var friendFlagStatus = findFriendFlag();
+//       		console.log(friendFlagStatus)
+//       		if(friendFlagStatus == 2 || friendFlagStatus == 1){
+          		$.ajax({
+          			url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
+          			type:'post',
+          			data:{'member_Id': "${LoginOK.member_Id}",
+    					'friend_Id': "${pageContext.request.queryString}"},
+          			success:function(data){
+          				if(data){
+          					alertify.alert('取消成功')
+          					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
+          					.removeClass('canceladdfriend').addClass('addfriend');
+          				}else{
+          					alertify.alert('異常，請洽客服人員')
+          				}
+          			}
+          		})
+//       		}
+      	})
+      	
+      	// 好友申請提示
+		$.ajax({
+			url:"${this_contextPath}/CRFSERVICE/friendships/findFriendFlag",
+			type:'get',
+			data:{'member_Id': "${LoginOK.member_Id}",
+				'friend_Id': "${pageContext.request.queryString}"},
+			success: function(data){
+// 				$('body').find('span.num_mail')
+			}
+		})
+
+      	
+//       	//查詢好友狀態
+//     function thedata(xxxx){
+//       		var thedata= $.ajax({
+// 				url:"${this_contextPath}/CRFSERVICE/friendships/findFriendFlag",
+// 				type:'get',
+// 				data:{'member_Id': "${LoginOK.member_Id}",
+// 					'friend_Id': "${pageContext.request.queryString}"},
+// 				success: function(data){
+// 					xxxx(data)
+// // 					console.log("a:"+data)
+// // 					return data;
+// 				}
+// 			})
+//       	}
+		
 	});
 </script>
 </c:if>

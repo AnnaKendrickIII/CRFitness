@@ -73,9 +73,9 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 	 public List<String> joinMembers(String activity_Id){
 		Query query = this.getSession().createSQLQuery(
 				"Select Nickname " 
-				+"from  ActivityDetail join Members "
-				+"on  ActivityDetail.Member_Id =Members.Member_Id "
-				+"where ActivityDetail.Activity_Id='"+activity_Id+"'")
+				+"from ActivityDetail join Members "
+				+"on ActivityDetail.Member_Id =Members.Member_Id "
+				+"where ActivityDetail.Detail_Status ='1' and ActivityDetail.Activity_Id='"+activity_Id+"'")
 				.addScalar("Nickname", StringType.INSTANCE);
 		 return (List<String>) query.list();
 	 }
