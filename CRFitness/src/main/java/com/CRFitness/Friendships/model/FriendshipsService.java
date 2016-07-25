@@ -9,12 +9,11 @@ import javax.annotation.Resource;
 
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.CRFitness.Member.model.MemberVO;
 
-
-
-
+@Transactional(transactionManager="transactionManager")
 @Service("friendshipsService")
 public class FriendshipsService {
 	
@@ -31,21 +30,62 @@ public class FriendshipsService {
 		return list;	
 	}
 	
+	public Integer select_Friend_Flag(String member_Id, String friend_Id){
+		return friendshipsDAO.select_Friend_Flag(member_Id, friend_Id);
+	}
+	
 	public boolean addFriend(String member_Id,String friend_Id){
 		FriendshipsVO friendshipsVO = new FriendshipsVO();
+		FriendshipsVO friendshipsVO2 = new FriendshipsVO();
+		friendshipsVO.setMember_Id(member_Id);
+		friendshipsVO.setFriend_Id(friend_Id);
+		friendshipsVO.setFriend_Status(2);
+		friendshipsVO2.setMember_Id(friend_Id);
+		friendshipsVO2.setFriend_Id(member_Id);
+		friendshipsVO2.setFriend_Status(3);
+		if(friendshipsDAO.insert(friendshipsVO) && friendshipsDAO.insert(friendshipsVO2))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean acceptFriend(String member_Id,String friend_Id){
+		FriendshipsVO friendshipsVO = new FriendshipsVO();
+		FriendshipsVO friendshipsVO2 = new FriendshipsVO();
 		friendshipsVO.setMember_Id(member_Id);
 		friendshipsVO.setFriend_Id(friend_Id);
 		friendshipsVO.setFriend_Status(1);
-		return friendshipsDAO.insert(friendshipsVO);	
+		friendshipsVO2.setMember_Id(friend_Id);
+		friendshipsVO2.setFriend_Id(member_Id);
+		friendshipsVO2.setFriend_Status(1);
+		if(friendshipsDAO.update(friendshipsVO) && friendshipsDAO.update(friendshipsVO2))
+			return true;
+		else
+			return false;
 	}
 	
-	public boolean updateFriend(String member_Id,String friend_Id, Integer friend_Status){
-		FriendshipsVO friendshipsVO = new FriendshipsVO();
-		friendshipsVO.setMember_Id(member_Id);
-		friendshipsVO.setFriend_Id(friend_Id);
-		friendshipsVO.setFriend_Status(friend_Status);
-		return friendshipsDAO.update(friendshipsVO);
+	public boolean deleteFriend(String member_Id,String friend_Id){
+		if(friendshipsDAO.delete(member_Id, friend_Id) && friendshipsDAO.delete(friend_Id, member_Id))
+			return true;
+		else
+			return false;
 	}
+	
+//	public boolean deleteFriend(String member_Id,String friend_Id){
+//		FriendshipsVO friendshipsVO = new FriendshipsVO();
+//		FriendshipsVO friendshipsVO2 = new FriendshipsVO();
+//		friendshipsVO.setMember_Id(member_Id);
+//		friendshipsVO.setFriend_Id(friend_Id);
+//		friendshipsVO.setFriend_Status(1);
+//		friendshipsVO2.setMember_Id(friend_Id);
+//		friendshipsVO2.setFriend_Id(member_Id);
+//		friendshipsVO2.setFriend_Status(1);
+//		if(friendshipsDAO.delete(member_Id, friend_Id)){
+//			return false;
+//		}else{
+//			return false;
+//		}
+//	}
 	
 //	public static void main(String[] args)  {	
 //		ApplicationContext context = new ClassPathXmlApplicationContext(
