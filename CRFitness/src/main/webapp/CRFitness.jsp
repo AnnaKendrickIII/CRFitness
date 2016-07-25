@@ -87,7 +87,9 @@
             </div>
             
             <div class="col-xs-4">
-                <i id="header_email" class="fa fa-envelope fa-2x" ></i> 
+            
+                <i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
+
                 <c:choose>
                 <c:when test="${! empty LoginOK }">
                	<div class="user_login_div dropdown">

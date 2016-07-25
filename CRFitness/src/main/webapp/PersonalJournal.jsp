@@ -122,9 +122,15 @@ color:#0000C6;
 	border: none !important;
 }
 .journal-memberphoto{
-	width:16px;
+	height: 32px;
+    width: 32px;
 	display:inline;
 }
+.journaltime{
+	color:#BEBEBE;
+	font-size: 10px;
+}
+
 </style>
 
 </head>
@@ -600,10 +606,11 @@ jQuery(function($){
 				    	+ this[0].journal_Id+'" /></a></div>'
 				    	+ '<div class="timeline-body">'
 				    	
-				    	+'<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+this[1]+'</p><br />'  // 上線前要拿掉或改暱稱
-			   			+ '<p class="userContents"></p>'
-			   			+ '<p >日期：'
+				    	+'<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
+				    	+ '<p class="journaltime">'
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
+				    	+ '<p class="userContents"></p>'
+			   			
 			   			+ '<br /><select class="statusSelect" hidden="hidden" /></div>'
 			   			+ '<div class="timeline-footer">'
 			   			  //'留言塞這裡'
@@ -754,10 +761,13 @@ jQuery(function($){
 									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 									    	+ data.journal_Id+'" /></a></div>'
 									    	+ '<div class="timeline-body">'
-									    	+'<p class="name_p">'+ "${LoginOK.nickname}" +'</p>'  // 上線前要拿掉或改暱稱
-								   			+ '<br/><a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
-								   			+ '<p >日期：'
+									
+								   			+ '<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+"${LoginOK.nickname}"+'</p>'  // 上線前要拿掉或改暱稱
+									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
+								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
+								   			
+
 								   			+ '<br/><select class="statusSelect" /></div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
 											// 	'留言塞這裡'
@@ -817,7 +827,7 @@ jQuery(function($){
 					'publicStatus':val},
 				success: function(data){
 					if(data && val == 4)
-						theLi.hide('explode', 2200, function(){theLi.remove()})
+						theLi.hide('explode', 1500, function(){theLi.remove()})
 						
 				}
 			})
@@ -992,24 +1002,56 @@ jQuery(function($){
       		})
       	})
       	
-      	// $('#personal_profile').find('button.addfriend').text('不等了，取消申請').removeClass('addfriend').addClass('canceladdfriend')
+      	// 取消申請，或刪除好友
       	$('body').on('click', 'button.canceladdfriend', function(){
-      		$.ajax({
-      			url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
-      			type:'post',
-      			data:{'member_Id': "${LoginOK.member_Id}",
-					'friend_Id': "${pageContext.request.queryString}"},
-      			success:function(data){
-      				if(data){
-      					alertify.alert('取消成功')
-      					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
-      					.removeClass('canceladdfriend').addClass('addfriend');
-      				}else{
-      					alertify.alert('異常，請洽客服人員')
-      				}
-      			}
-      		})
+//       		var friendFlagStatus = findFriendFlag();
+//       		console.log(friendFlagStatus)
+//       		if(friendFlagStatus == 2 || friendFlagStatus == 1){
+          		$.ajax({
+          			url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
+          			type:'post',
+          			data:{'member_Id': "${LoginOK.member_Id}",
+    					'friend_Id': "${pageContext.request.queryString}"},
+          			success:function(data){
+          				if(data){
+          					alertify.alert('取消成功')
+          					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
+          					.removeClass('canceladdfriend').addClass('addfriend');
+          				}else{
+          					alertify.alert('異常，請洽客服人員')
+          				}
+          			}
+          		})
+//       		}
       	})
+      	
+      	// 好友申請提示
+		$.ajax({
+			url:"${this_contextPath}/CRFSERVICE/friendships/findFriendFlag",
+			type:'get',
+			data:{'member_Id': "${LoginOK.member_Id}",
+				'friend_Id': "${pageContext.request.queryString}"},
+			success: function(data){
+// 				$('body').find('span.num_mail')
+			}
+		})
+
+      	
+//       	//查詢好友狀態
+//     function thedata(xxxx){
+//       		var thedata= $.ajax({
+// 				url:"${this_contextPath}/CRFSERVICE/friendships/findFriendFlag",
+// 				type:'get',
+// 				data:{'member_Id': "${LoginOK.member_Id}",
+// 					'friend_Id': "${pageContext.request.queryString}"},
+// 				success: function(data){
+// 					xxxx(data)
+// // 					console.log("a:"+data)
+// // 					return data;
+// 				}
+// 			})
+//       	}
+		
 	});
 </script>
 </c:if>
