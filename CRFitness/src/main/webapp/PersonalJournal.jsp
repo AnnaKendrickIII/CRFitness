@@ -504,6 +504,7 @@ jQuery(function($){
 	            data:{},
 	            success:function(data){
 		            $.each(data,function(){
+		            	console.log(data)
 	            		if(this.member_Id === "${pageContext.request.queryString}"){
 	            			theMemberId = this.member_Id;
 	            			titleNickName = this.nickname;
@@ -1032,6 +1033,7 @@ jQuery(function($){
 			data:{'member_Id': "${LoginOK.member_Id}",
 				'friend_Id': "${pageContext.request.queryString}"},
 			success: function(data){
+				//
 // 				$('body').find('span.num_mail')
 			}
 		})
