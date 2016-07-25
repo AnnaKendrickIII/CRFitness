@@ -156,6 +156,7 @@ queryString=queryString.substring(17);
 }
 
 jQuery(function($){
+	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ShoppingCart.png">')
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
 		typr:'get',

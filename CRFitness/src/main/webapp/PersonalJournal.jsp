@@ -132,6 +132,11 @@ color:#0000C6;
 }
 
 </style>
+<script type="text/javascript">
+jQuery(function($){
+$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/PersonalJournal.png">')
+})
+</script>
 
 </head>
 
@@ -162,6 +167,7 @@ color:#0000C6;
 
 
 jQuery(function($){
+	
 //進入好友頁面揪團活動
  $.ajax({
 	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",

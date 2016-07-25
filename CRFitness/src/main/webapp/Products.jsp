@@ -164,6 +164,7 @@ margin-top: 5%;
 	</div>
 <script type="text/javascript">
 jQuery(function($){
+	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Products.png">')
 $('.shopping_car_div').popover()//滑到購物車效果
 var Type='${pageContext.request.queryString}';
 num1 = Type.substr(9).indexOf("&")
