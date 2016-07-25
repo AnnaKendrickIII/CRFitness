@@ -33,7 +33,7 @@
             <ul class="sidebar-nav">           
                 <li class="sidebar-brand">
                      <span>
-<!-- 這裡要改 --> 	      <a href="${this_contextPath}/Admin.jsp" >                              
+<!-- 這裡要改 --> 	      <a href="${this_contextPath}/AdminTest.jsp" >                              
                         <i class="fa fa-home fa-2x "></i>                                
                     </a>
                    </span>
