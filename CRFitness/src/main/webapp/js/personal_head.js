@@ -30,15 +30,14 @@ var cropbox = function(options){
             canvas.width = width;
             canvas.height = height;
             var context = canvas.getContext("2d");
-            context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh);
-            var imageData = canvas.toDataURL('image/jpeg');
-            
+            context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh); 
+            var imageData = canvas.toDataURL('image/jpeg')  
             return imageData;
         },
         getBlob: function()
         {
             var imageData = this.getDataURL();
-            var b64 = imageData.replace('data:image/png;base64,','');
+            var b64 = imageData.replace('data:image/jpeg;base64,','');
             var binary = atob(b64);
             var array = [];
             for (var i = 0; i < binary.length; i++) {
