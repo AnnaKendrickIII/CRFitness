@@ -153,7 +153,7 @@ height:48px;
      position: fixed;
     top: 10px;
     left: 10px;
-    color:#46A3FF;
+    color:#6C7476;
     opacity:0.5;
 }
 #header_list:hover {
@@ -177,21 +177,13 @@ height:48px;
     position: fixed;
     right: 80px;
     top:7px;
-    color:#46A3FF;
-     opacity:0.6;
-     font-size:38px;
+    color:#6C7476;
+    opacity:0.3;
 }
 #header_email:hover {
-   opacity:1;
-  
+    opacity:1;
+   font-size:38px;
 }
-.num_mail{
-	position: absolute;
-	right: 0;
-	top: 0;
-	background-color:red;
-}
-
 .error_div{
 	height: 16px;
 	color: red;
@@ -218,4 +210,3 @@ height:48px;
 	width:96px;
 	height:72px;
 }
-

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf8"
-    pageEncoding="utf8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -87,7 +87,9 @@
             </div>
             
             <div class="col-xs-4">
-                <i id="header_email" class="fa fa-envelope fa-2x" ></i> 
+            
+                <i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
+
                 <c:choose>
                 <c:when test="${! empty LoginOK }">
                	<div class="user_login_div dropdown">
