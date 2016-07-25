@@ -16,12 +16,10 @@
 <script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 彈跳視窗 -->
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"><!-- 彈跳視窗 -->
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css"> <!-- alert -->
-<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  <!-- alert -->
-<script src="${this_contextPath}/js/velocity.min.js" ></script>  <!-- alert -->
-<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>  <!-- alert -->
-<script src="${this_contextPath}/js/jquery.alertable.js" ></script>  <!-- alert -->
-<script src="${this_contextPath}/js/jAlert-v4.js" ></script>  <!-- alert -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/dialog.css"> <!-- alert -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/animate.min.css"> <!-- alert -->
+
+
 </head>
 <style>
 aside 
@@ -120,6 +118,24 @@ padding:10px 5px 2px 5px;
 		</div>
 </div>
 		<!-- 頁面部分 開始-->
+		
+		<!-- alert -->
+		<div class="my-dialog-wrap">
+		  <div class="my-dialog animated">
+		    <div class="my-dialog-close">×</div>
+		    <div class="my-dialog-header">
+		      Dialog header
+		    </div>
+		    <div class="my-dialog-body">
+		      Dialog body
+		    </div>
+		    <div class="my-dialog-footer">
+		      <span type="cancel" class="my-dialog-btn">取消</span>
+		      <span type="ok" class="my-dialog-btn">確定</span>
+		    </div>
+		  </div>
+		</div>
+<!-- alert -->
 	
 	<script>
  		$( "button" ).click(function() { 
@@ -235,7 +251,7 @@ padding:10px 5px 2px 5px;
 		        	    });
 			
 	                 $('div a:not(:first-child)').click(function(){
-	                	 var li_notfirst =$(this)
+	                	 
 	                	  $('form').submit(function(){
 // 	                		    console.log(li_notfirst.siblings("p").text())
 // 	                			console.log(li_notfirst.parent().find("a:eq(0)").text())
@@ -291,7 +307,7 @@ padding:10px 5px 2px 5px;
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div2').append("<div id='div2_"+count+"' class='row'></div>")      			 
 		        		 }	 
-							$('#div2_'+count).append('<div  class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/images/activitys/'
+							$('#div2_'+count).append('<div id='+this[0].activity_Id+' class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/images/activitys/'
 							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
@@ -339,61 +355,57 @@ padding:10px 5px 2px 5px;
 							//取消參加
 							
 							$("body").on("click", '.submit_x', function(){
-		    	  var whatActivityID=$(this).parent().siblings("div").text()
-		    	   $.ajax({
-		    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/cleanActivityDetail",
-		    		   type:'post',
-		    		   data:{
-		    			   activity_Id:$('.boxer-caption').find('div').text(),
-		    			   member_Id:'${LoginOK.member_Id}'
-		    		   },
-		    		   success:function(data){
-		    			   console.log(data[0])
-		    			   if(data[0]=='確定取消參加嗎?'){
-// 		    				   alert('已額滿')
-		    				   $("#boxer-overlay").remove();
-		    				   $("#boxer").remove();
-		    				   $('body').toggleClass();		
-		    				     			
-		    				   errorAlert('警告', '確定取消參加嗎?');
-		    				   
-// 		    				   $.alertable.alert(data[0]);
-		    			   }else{
-		    				var members="";
-		    				var sum =0;
-		    				var whoButton=$('#button'+whatActivityID);
-		    				   $.each(data,function(index){          
-		    					   members+=this+" ";
-		    					   sum+=1;
-		    				   })   
-		    				   whoButton.text(sum)
-		    				   whoButton.attr("data-original-title",members)
-		    
-		    				   
-		    				   $("#boxer-overlay").remove();
-		    				   $("#boxer").remove();
-		    				   $('body').toggleClass();		
-
-
-		    			   }			   
-		    		   }
-		    	   })
- 				});
-							
-							//取消參加
-							
-							
+								var acid=$('.boxer-caption').find('div').text()
+							var whatActivityID=$(this).parent().siblings("div").text()
+							$("#boxer-overlay").remove();
+						    $("#boxer").remove();
+						    $('body').toggleClass();
+							//alert
+			                     dialog.confirm({
+						         title: '警告',
+						         inner: '確認取消參加活動嗎?',
+						         ok: function(){
+						        	 del(acid,whatActivityID)
+						        },
+						         showType: 'swing'
+						   		});
+							});
+							    //alert
+							function del(acid,whatActivityID){
+							$.ajax({
+						    	 url:"${this_contextPath}/CRFSERVICE/activityDetailController/cleanActivityDetail",
+						    	 type:'post',
+						    	 data:{
+						    		  activity_Id:acid,
+						    		  member_Id:'${LoginOK.member_Id}'
+						    		  },
+						    		  success:function(data){
+						    		  var members="";
+						    		  var sum =0;
+						    		  var whoButton=$('#button'+whatActivityID);
+						    		  $.each(data,function(index){          
+						    		            members+=this+" ";
+						    		    		sum+=1;
+						    		    	})   
+						    		  $("#"+acid).fadeOut(700,function(){
+						    			  $(this).remove();	  
+						    		  })	
+						    		  console.log(acid)
+							    		}//success			   
+							     }) //ajax
+							    }
+ 											
+							//取消參加		
 		          }//外層success          	 
 		      })
 		      
-// 		      //個人參加的揪團
-		      
+// 		      //個人參加的揪團     
 	})
 	</script>
 
 </c:if>
 	<!--  頁面部分 結束 -->
-	<script src="${this_contextPath}/js/jAlert-functions.js"></script><!-- alert -->
+<script src="${this_contextPath}/js/dialog.js"></script><!-- alert -->
 <script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script> <!-- 彈跳視窗--> 
 <script src="${this_contextPath}/js/bootstrap-editable.js"  ></script> <!-- 日期選擇器 -->
 <script src="${this_contextPath}/js/moment.min.js"  ></script> <!-- 日期選擇器 --> 

@@ -358,7 +358,7 @@ aside
 		        		  if(this[0].people < this[0].people_Max){
 								full = "<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
 								}else{
-								full = "<button class='alert-vel btn btn-danger submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>已額滿</button>" 	
+								full = "<button class='alert-vel btn btn-danger submit_f' style='float:right' type='submit'>已額滿</button>" 	
 								}
 		        		  								//href="data:image/png;base64,'+this[0].photo1+'"
                           								//href="${this_contextPath}/CRFSERVICE/activitysController/photo/'+this[0].activity_Id+'"
@@ -381,7 +381,7 @@ aside
 									+this[0].activity_Info+'<br />活動時間：'
 									+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 									+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'<br />目前參加人數：'
-									+'<a href="#" class="linkpeople" title='+nameData+'>'+this[0].people+'</a><br /><p>報名人數上限：'+this[0].people_Max+'</p></li>')
+									+'<a href="#" id="button'+this[0].activity_Id+'" class="linkpeople" title='+nameData+'>'+this[0].people+'</a><br /><p>報名人數上限：'+this[0].people_Max+'</p></li>')
 // 									+'<button type="button" id="button'+this[0].activity_Id+'" class="btn btn-default" style="border:none" data-toggle="tooltip" data-placement="right" title="'
 // 									+names+'">'
 // 									+this[0].people+'</button><br />'+'<p>報名人數上限：'+this[0].people_Max+'</p></li>')
@@ -400,6 +400,15 @@ aside
 	                  });     
 		          }//success	 
 		      })//ajax
+		      
+		      
+		      $("body").on("click", '.submit_f', function(){	    
+							   $("#boxer-overlay").remove();
+							   $("#boxer").remove();
+							   $('body').toggleClass();						     			
+							   errorAlert('抱歉', '活動人數已額滿。');
+					   })
+		    	  
 	 
 		      $("body").on("click", '.submit_x', function(){
 		    	  var whatActivityID=$(this).parent().siblings("div").text()
@@ -415,28 +424,15 @@ aside
 		    			   if(data[0]=='無法參加自己的活動'){
 		    				   $("#boxer-overlay").remove();
 		    				   $("#boxer").remove();
-		    				   $('body').toggleClass();
-		    				   
-		    				   errorAlert('錯誤', '無法參加自己舉辦的活動。');
-
-		    				   
+		    				   $('body').toggleClass();	   
+		    				   errorAlert('錯誤', '無法參加自己舉辦的活動。');  
 		    			   }else if(data[0]=='參加過'){
 		    				   $("#boxer-overlay").remove();
 		    				   $("#boxer").remove();
-		    				   $('body').toggleClass();		
-		    				     		
+		    				   $('body').toggleClass();		   		
 		    				   errorAlert('警告', '您已經參加過此活動。');
-	
-		    			   }else if(data[0]=='已額滿'){
-// 		    				   alert('已額滿')
-		    				   $("#boxer-overlay").remove();
-		    				   $("#boxer").remove();
-		    				   $('body').toggleClass();		
-		    				     			
-		    				   errorAlert('抱歉', '活動人數已額滿。');
-		    				   
-// 		    				   $.alertable.alert(data[0]);
-		    			   }else{
+		    			   }
+		    			   else{
 		    				var members="";
 		    				var sum =0;
 		    				var whoButton=$('#button'+whatActivityID);
@@ -445,7 +441,7 @@ aside
 		    					   sum+=1;
 		    				   })   
 		    				   whoButton.text(sum)
-		    				    whoButton.attr("data-original-title",members)
+		    				   whoButton.attr("data-original-title",members)
 		    
 		    				   
 		    				   $("#boxer-overlay").remove();
