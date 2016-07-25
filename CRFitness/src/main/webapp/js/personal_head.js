@@ -31,7 +31,8 @@ var cropbox = function(options){
             canvas.height = height;
             var context = canvas.getContext("2d");
             context.drawImage(this.image, 0, 0, sw, sh, dx, dy, dw, dh);
-            var imageData = canvas.toDataURL('image/png');
+            var imageData = canvas.toDataURL('image/jpeg');
+            
             return imageData;
         },
         getBlob: function()
@@ -43,7 +44,7 @@ var cropbox = function(options){
             for (var i = 0; i < binary.length; i++) {
                 array.push(binary.charCodeAt(i));
             }
-            return  new Blob([new Uint8Array(array)], {type: 'image/png'});
+            return  new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
         },
         zoomIn: function ()
         {
@@ -81,8 +82,8 @@ var cropbox = function(options){
         var w =  parseInt(obj.image.width)*obj.ratio;
         var h =  parseInt(obj.image.height)*obj.ratio;
 
-        var pw = (el.clientWidth - w) / 2;
-        var ph = (el.clientHeight - h) / 2;
+        var pw = (el.clientWidth - w) / 20;
+        var ph = (el.clientHeight - h) / 16;
 
         el.setAttribute('style',
                 'background-image: url(' + obj.image.src + '); ' +
