@@ -25,7 +25,7 @@ public class FriendshipsController {
 	private FriendshipsService friendshipsService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "{member_Id}", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<MemberVO> findFriends(
+	public @ResponseBody List<Object[]> findFriends(
 			@PathVariable String member_Id) {		
 		return friendshipsService.findFriends(member_Id);
 	}

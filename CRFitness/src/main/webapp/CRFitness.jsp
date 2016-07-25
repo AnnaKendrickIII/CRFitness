@@ -150,7 +150,7 @@
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
-                                     $('#friend_tbody').append('<tr><td><a href="${this_contextPath}/PersonalJournal.jsp?'+this.member_Id+'" ><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="friend_Name">'+  this.nickname +'</td><td>'+  this.e_mail +'</td>')  
+                                     $('#friend_tbody').append('<tr><td><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" ><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="friend_Name">'+  this[2] +'</td><td>'+  this[1] +'</td>')  
                                  })
                              }          	 
                          })
