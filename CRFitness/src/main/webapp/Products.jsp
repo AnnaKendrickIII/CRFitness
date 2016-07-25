@@ -130,7 +130,7 @@ margin-top: 5%;
 	<div class="col-md-4 col-xs-4"></div>
 	<div class="col-md-4 col-xs-4">
    
-        <strong>&nbsp&nbsp Products Category &nbsp&nbsp</strong>
+        <strong>Products Category &nbsp&nbsp</strong>
           <a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1" class="btn btn-default btn-md">
           	<img src="${this_contextPath}/images/products/icon/jacket24.png">&nbsp上裝</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1" class="btn btn-default btn-md">
