@@ -57,6 +57,19 @@ public class FriendshipsDAO implements FriendshipsDAO_interface {
 	}
 	
 	@Override
+	public Long select_Friends_Flag(String member_Id) {	
+		Query query = this.getSession().createQuery(
+			"SELECT count(*) "
+			+"FROM FriendshipsVO "
+			+"where member_Id=:member_Id and friend_Status=3 ").setParameter("member_Id", member_Id);
+		List<Object> friends_Flag = query.list();
+		if(!friends_Flag.isEmpty())
+			return (Long)friends_Flag.get(0);
+		else
+			return 0L;
+	}
+	
+	@Override
 	public boolean insert(FriendshipsVO friendshipsVO) {
 		if(friendshipsVO != null) {
 			this.getSession().saveOrUpdate(friendshipsVO);

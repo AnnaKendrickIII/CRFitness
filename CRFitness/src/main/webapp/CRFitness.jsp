@@ -154,6 +154,18 @@
                                  })
                              }          	 
                          })
+                         
+                               	// 在mail圖示上顯示好友申請提示的個數
+						$.ajax({
+							url:"${this_contextPath}/CRFSERVICE/friendships/findFriendsFlag",
+							type:'get',
+							data:{'member_Id': "${LoginOK.member_Id}"},
+							success: function(data){
+									console.log(data)
+								if(data>0)
+									$('body').find('span.num_mail').text(data);
+							}
+						})
                      })
                  </script > 
                 </c:if>              

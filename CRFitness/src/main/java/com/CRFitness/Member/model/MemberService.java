@@ -16,6 +16,8 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
 
@@ -89,6 +91,34 @@ public class MemberService {
 					return null;
 			}  	       
 	}
+	
+	public void Insert_MemberImages(String Path,String photo1){
+		FileOutputStream fop = null;
+		File file=null;
+		System.out.println(photo1.substring(23));
+		byte[] photo=null;			      
+		try {
+			photo=Base64Utils.decodeFromString(photo1.substring(23));
+			file = new File(Path);		
+			if (!file.exists()) {
+				file.createNewFile();
+			}	
+			fop = new FileOutputStream(file);
+			fop.write(photo);
+			fop.flush();
+			fop.close();		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				fop.close();
+			} catch (IOException e) {
+			
+				e.printStackTrace();
+			}	
+		}
+	}
+	
 	
 	//照片判斷哪種型態是否存在  轉byte
 		public byte[] ExitsCovertPhoto(String Path){
