@@ -499,10 +499,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	            type:'get',  //get post put delete
 	            data:{},
 	            success:function(data){
-	            	
-// 		            	console.log(data)
 		            $.each(data,function(){
-	            		if(this.member_Id === "${pageContext.request.queryString}"){
+	            		if(this[0] === "${pageContext.request.queryString}"){
 	            			theMemberId = this.member_Id;
 	            			titleNickName = this.nickname;
 	            			visitorStatus = 2;
@@ -523,7 +521,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		}
 
 				
-		function callShowJournal(visitorStatus){			
+		function callShowJournal(visitorStatus){
+			console.log('visitorStatus:'+visitorStatus)
    			if(visitorStatus == 2){ 
 //好友頁面頭像		 		
 			$('#personal_profile').append(
@@ -537,10 +536,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	             +'</div>'
 				);	
 			}else if(visitorStatus == 3){
-
 				$('#personal_profile').append(
 		           ' <a class="pull-left" href="#">'
-
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
 	             +'<div class="media-body">'
