@@ -58,6 +58,8 @@ background-position:center; /*置放位置 下面 左邊*/
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
 	jQuery(function($){
+		$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ProductDetail.png">')
+		
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
 	type:'get',
