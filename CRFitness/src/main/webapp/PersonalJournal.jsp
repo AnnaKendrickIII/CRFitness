@@ -352,8 +352,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			beforeTime2 = '剛剛'
 		return beforeTime2
 	};
-	
-	
+		
 	function activitys(nickname){
 		$.ajax({
 				 url:"${this_contextPath}/CRFSERVICE/activitysController/${pageContext.request.queryString}",
@@ -1067,8 +1066,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		        {
 		            imageBox: '.imageBox',
 		            thumbBox: '.thumbBox',
-		            spinner: '.spinner',
-		            imgSrc: 'avatar.png'
+		            spinner: '.spinner',	    
+		            imgSrc: '${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}'
 		        }
 		        var cropper = new cropbox(options);
 		        document.querySelector('#file').addEventListener('change', function(){
@@ -1081,17 +1080,42 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		            this.files = [];
 		        })
 		        document.querySelector('#btnCrop').addEventListener('click', function(){
-		            var img = cropper.getDataURL();
-		            document.querySelector('.cropped').innerHTML += '<img src="'+img+'">';
+		            var img = cropper.getDataURL(); 
+		            //換大頭貼
+		            changePhoto(img)
+// 		            document.querySelector('.cropped').innerHTML += '<img src="'+img+'">';
 		        })
+		        //變大
 		        document.querySelector('#btnZoomIn').addEventListener('click', function(){
 		            cropper.zoomIn();
 		        })
+		        //變小
 		        document.querySelector('#btnZoomOut').addEventListener('click', function(){
 		            cropper.zoomOut();
 		        })
 			})
-			
+			//換大頭貼
+			function changePhoto(img){
+				$.ajax({
+          			url:"${this_contextPath}/CRFSERVICE/memberController/insertphoto",
+          			type:'post',
+          			data:{'member_ID':'${LoginOK.member_Id}',
+          				'photo1':img},
+          			success:function(data){
+          				
+          				alertify.alert('成功囉')
+          				
+          				
+//           				if(data){
+//           					alertify.alert('取消成功')
+//           					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
+//           					.removeClass('canceladdfriend').addClass('addfriend');
+//           				}else{
+//           					alertify.alert('異常，請洽客服人員')
+//           				}
+          			}
+          		})	
+			}			
 			$("body").on("click",'.likethis',function(){
 				var theclick = $(this);
 				var likenum=theclick.next().find('.countLike');
