@@ -68,6 +68,8 @@
 <!-- 		</div> -->
 	</aside>
 	<script type="text/javascript">
+	jQuery(function($){
+	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/logo.png">')
 	var Islogin='${pageContext.request.queryString}'
 		if(Islogin=='NoLogin'){
 			Custombox.open({
@@ -116,6 +118,7 @@
     	 })  
     	 //google 結束
 		}
+	})
 	</script>
 	<!--  頁面部分 結束 -->
 </body>

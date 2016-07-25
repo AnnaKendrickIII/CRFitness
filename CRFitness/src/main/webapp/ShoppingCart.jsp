@@ -33,7 +33,7 @@
 						<div class="col-xs-6">
 							<a href='<%=request.getHeader("referer")%>'
 								class="btn btn-primary btn-sm btn-block"><span
-								class="glyphicon glyphicon-share-alt"></span> 繼續購物 </a>
+								class="glyphicon glyphicon-share-alt"></span>&nbsp&nbsp&nbsp繼續購物 </a>
 						</div>
 					</div>
 				</div>
@@ -156,6 +156,7 @@ queryString=queryString.substring(17);
 }
 
 jQuery(function($){
+	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ShoppingCart.png">')
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
 		typr:'get',

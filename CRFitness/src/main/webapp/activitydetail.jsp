@@ -95,7 +95,7 @@ padding:10px 5px 2px 5px;
 </style>
 <body >
 <aside>
-<button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+<button type="button" id="a1" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
   切換頁面(建立/參加)
 </button>
 <!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
@@ -106,13 +106,8 @@ padding:10px 5px 2px 5px;
 		<div class="row">
 			<div class="col-md-1 col-xs-1"></div>
 			<div class="col-md-10 col-xs-10 ">
-				<div id="activitys_div" class="row2">
-					建立的活動
-				</div>
-				
-				<div  style="display: none" id="activitys_div2" class="row2">
-					參加的活動
-				</div>
+				<div id="activitys_div" class="row2"></div>
+				<div  style="display: none" id="activitys_div2" class="row2"></div>
 			</div>
 			<div class="col-md-1 col-xs-1"></div>
 		</div>
@@ -139,8 +134,13 @@ padding:10px 5px 2px 5px;
 	
 	<script>
  		$( "button" ).click(function() { 
- 		  $( ".row2" ).toggle("Puff");	
- 		  
+ 		  $( ".row2" ).toggle("Puff");
+ 		 
+ 		  if(!$('#a1').hasClass('active')){
+ 		 $(".logo_css").attr("src", "${this_contextPath}/images/logo/MyParticipateActivity.png")
+ 		  }else {
+ 			$(".logo_css").attr("src", "${this_contextPath}/images/logo/MyCreateActivity.png")
+ 		  }
  		}); 
 
 	</script>
@@ -164,6 +164,8 @@ padding:10px 5px 2px 5px;
 	
 	
 	jQuery(function($){
+		$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/MyCreateActivity.png">')
+		
 		//個人建立的揪團
 	    $.ajax({
 	    	url:"${this_contextPath}/CRFSERVICE/activitysController/${LoginOK.member_Id}",

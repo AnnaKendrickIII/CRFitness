@@ -240,7 +240,8 @@ aside
 	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
 	    return fmt;
 	}
-	  jQuery(function ($) {	  
+	  jQuery(function ($) {
+		  $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Activitys.png">')
 		  var file;	
 		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 
