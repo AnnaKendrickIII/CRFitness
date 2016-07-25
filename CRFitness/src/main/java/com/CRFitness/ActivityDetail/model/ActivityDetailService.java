@@ -40,7 +40,7 @@ public class ActivityDetailService {
 		activityDetailVO.setDetail_Status(1);
 		ActivitysVO activitysVO=activitysDAO.findByPrimaryKey(activity_Id);
 		
-		System.out.println(activitysVO.getMember_Id());
+//		System.out.println(activitysVO.getMember_Id());
 		int people = activitysVO.getPeople();
 		
 		if(activitysVO.getMember_Id().equals(member_Id)){
