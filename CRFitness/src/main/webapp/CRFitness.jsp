@@ -73,25 +73,23 @@
     <!-- 左側清單 結束 -->
 
     <!-- 標頭區塊 開始-->
-    <header class="header_css">
-        <div class="row">
-            <div class="btn-toolbar col-xs-5">
+    <header class="row header_css">
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <div class="btn-toolbar col-lg-5 col-md-5 col-xs-5">
                 <div class="btn-group ">    
                     <a href="#menu-toggle" id="menu-toggle">
                          <i id="header_list" class="fa fa-bars fa-2x" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
-            <div class="col-xs-3">
-                <img  class="img-responsive logo_css" src="${this_contextPath}/images/logo.png">
+            <div class="col-lg-3 col-md-3 col-xs-3 logo_here">
+                
             </div>
             
-            <div class="col-xs-4">
-            
-                <i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
-
+            <div class="col-lg-4 col-md-4 col-xs-4">
                 <c:choose>
                 <c:when test="${! empty LoginOK }">
+                  <i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
                	<div class="user_login_div dropdown">
                         <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel">                          

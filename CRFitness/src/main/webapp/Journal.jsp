@@ -155,6 +155,7 @@ width:24px;
 	}
 	
 	jQuery(function ($) {	
+		$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Journal.png">')
 		var theMessageDetailObj;
 		var likenum=null;
 	        $.ajax({
