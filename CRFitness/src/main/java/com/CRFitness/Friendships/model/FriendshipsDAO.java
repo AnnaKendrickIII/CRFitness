@@ -28,15 +28,31 @@ public class FriendshipsDAO implements FriendshipsDAO_interface {
 		return sessionFactory.getCurrentSession();
 	}
 
-	
+	@Override
 	public List<MemberVO> select_Friends(String member_Id) {	
 			Query query = this.getSession().createSQLQuery(
-					"SELECT  Members.* "
-					+"FROM  Members JOIN Friendships "
+					"SELECT Members.* "
+					+"FROM Members JOIN Friendships "
 					+"ON Members.Member_Id=Friendships.Friend_Id "
-					+"where Friendships.Member_Id='"+member_Id+"'").addEntity(MemberVO.class);				
+					+"where Friendships.Member_Id='"+member_Id+"' and Friend_Status = 1").addEntity(MemberVO.class);				
 		return (List<MemberVO>) query.list();	
 	}
+	
+	@Override
+	public Integer select_Friend_Flag(String member_Id, String friend_Id) {	
+		Query query = this.getSession().createQuery(
+			"SELECT friend_Status "
+			+"FROM FriendshipsVO "
+			+"where member_Id=:member_Id and friend_Id=:friend_Id")
+			.setParameter("member_Id", member_Id)
+			.setParameter("friend_Id", friend_Id);
+		List<Object> friend_Flag = query.list();
+		if(!friend_Flag.isEmpty())
+			return (Integer)friend_Flag.get(0);
+		else
+			return 0;
+	}
+	
 	@Override
 	public boolean insert(FriendshipsVO friendshipsVO) {
 		if(friendshipsVO != null) {

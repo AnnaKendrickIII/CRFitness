@@ -10,7 +10,7 @@ public class FriendshipsVO implements java.io.Serializable{			//好友
 	private static final long serialVersionUID = 1L;
 	private String member_Id;			//會員編號
 	private String friend_Id;			//好友會員編號
-	private Integer friend_Status;		//狀態 
+	private Integer friend_Status;		//狀態  1:已接受 2:等待確認(申請人) 3:等待確認(被害人)
 	
 	public String getMember_Id() {
 		return member_Id;

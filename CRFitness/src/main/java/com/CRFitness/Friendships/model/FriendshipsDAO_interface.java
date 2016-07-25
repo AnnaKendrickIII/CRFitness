@@ -11,5 +11,6 @@ public interface FriendshipsDAO_interface {
     public boolean delete(String member_Id,String friend_Id); 
     public List<MemberVO> select_Friends(String member_Id);
     public List<FriendshipsVO> getAll();
+	public Integer select_Friend_Flag(String member_Id, String friend_Id);
 
 }
