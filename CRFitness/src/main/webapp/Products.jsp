@@ -118,14 +118,30 @@ margin-top: 5%;
 <aside>
 <div class="productsclass">
 <div class="row well">
-    <div class="col-md-8 col-xs-8">
-        <strong> Commodity Category </strong>
-        <div class="btn-group">
-            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                class="glyphicon glyphicon-th"></span>Grid</a>
-        </div>
-    </div>
+<!--     <div class="col-md-4 col-xs-4"> -->
+<!--         <strong> Commodity Category </strong> -->
+<!--         <div class="btn-group"> -->
+<!--             <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"> -->
+<!--             </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span -->
+<!--                 class="glyphicon glyphicon-th"></span>Grid</a> -->
+<!--         </div> -->
+<!--     </div> -->
+
+	<div class="col-md-4 col-xs-4"></div>
+	<div class="col-md-4 col-xs-4">
+   
+        <strong>&nbsp&nbsp Products Category &nbsp&nbsp</strong>
+          <a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1" class="btn btn-default btn-md">
+          	<img src="${this_contextPath}/images/products/icon/jacket24.png">&nbsp上裝</a>&nbsp&nbsp
+          <a href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1" class="btn btn-default btn-md">
+          	<img src="${this_contextPath}/images/products/icon/pants24.png">&nbsp下裝</a>&nbsp&nbsp
+          <a href="${this_contextPath}/Products.jsp?category=cmens-accessories&page=1" class="btn btn-default btn-md">
+          	<img src="${this_contextPath}/images/products/icon/sports24.png">&nbsp配件</a>&nbsp&nbsp
+          <a href="${this_contextPath}/Products.jsp?category=cmens-footwear&page=1" class="btn btn-default btn-md">
+          	<img src="${this_contextPath}/images/products/icon/shoes24.png">&nbsp鞋類</a>
+
+ 
+	</div>
     <div class="col-md-4 col-xs-4">
     	<form action="" class="search-form">
             <div class="form-group has-feedback">
@@ -135,7 +151,8 @@ margin-top: 5%;
         	</div>
         </form>
     </div>
-</div>
+   </div>
+
 <div class="row">
    	  <div class="col-xs-1 col-lg-1"> </div>
 	    <div id="products" class="row list-group col-xs-10 col-md-12 col-lg-10" >       
@@ -263,9 +280,9 @@ $.ajax({
                         	+'<ul id="'+this.product_Id+'" class="collapse row desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
 							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><h5><strong>'+this.product_Name+'</strong></h5></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><p>$'+this.price+'</p></strong></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn  Introduction" >商品介紹'
-							+'&nbsp&nbsp&nbsp<i class="fa fa-wpforms" aria-hidden="true"></i></a>'
-							+'<a class="btn btn-danger shop">加入購物車&nbsp&nbsp<i class="fa fa-shopping-cart" aria-hidden="true"></i></a>'
+							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn  Introduction" ><i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp&nbsp商品介紹'
+							+'</a>'
+							+'<a class="btn btn-danger shop"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</a>'
 			                +'</div></div></div></div>'
 						)	
 					$.ajax({

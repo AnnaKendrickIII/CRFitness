@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/products.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fancybox.css">
+<link rel="stylesheet" href="${this_contextPath}/css/select.css">
 
 <title>商品明細</title><base>
 <style type="text/css">
@@ -27,18 +28,20 @@ background-position:center; /*置放位置 下面 左邊*/
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.fancybox.js"></script>
 
-<div style="position: fixed; z-index: 0; width: 100%; height: 100%">
-  <iframe frameborder="0" height="70%" width="100%" 
-    src="https://www.youtube.com/embed/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1">
-  </iframe>
-</div>
+<!-- <div style="position: fixed; z-index: 0; width: 100%; height: 100%;"> -->
+<!--   <iframe frameborder="0" height="70%" width="100%" -->
+<!--     src="https://www.youtube.com/embed/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1"> -->
+<!--   </iframe> -->
+<!-- </div> -->
 
 <div class="ProductDetail">
 
     <div class="row">
 	    <div class="col-md-2"></div>
-	    <div id="productDetailbody" class="col-md-8"></div> 
-	 	<div class="col-md-2"></div>	 	
+	    <div id="productDetailbody" class="col-md-8">
+	    </div> 	    
+	 	<div class="col-md-2">
+	 	</div>	 	
     </div>
 
 	<div class="shopping_car_div">
@@ -79,14 +82,27 @@ $.ajax({
 							+'<h2 style="color:blue"><strong>'+data[0][1] 
 							+'</strong><h2/><br/><p style="color:#888888"><br/>顏色 : '
 							+data[0][0].color
-							+'<br/>剩餘數量 : '+data[0][0].stock
-							+'</br></br></p>'
-							+'<strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
+							+'<br/>剩餘數量 : '
+							+data[0][0].stock
+							+'</br></p>'
+							+''
+							+'</br></br><strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
 							+'</p></strong><br/></br></br>'
-							+'<div class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity>千萬不要按&nbsp!</div>'
-							+'&nbsp&nbsp&nbsp<div class="btn btn-success addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span>加入購物車</div>'
-							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary">繼續購物</a>'
+							+'<div class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'
+							+'&nbsp&nbsp&nbsp<div class="btn btn-success addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</div>'
+							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span>&nbsp&nbsp繼續購物</a>'
 							+'</div>')
+							
+								$(".selLabel").click(function() {
+		$('.dropdown').toggleClass('active');
+	});
+
+	$(".dropdown-list li").click(function() {
+		$('.selLabel').text($(this).text());
+		$('.dropdown').removeClass('active');
+		$('.selected-item p span').text($('.selLabel').text());
+	});
+							
 							
 							var itemId = $('.btn-success>[span]').text()
 							console.log(itemId)
@@ -109,6 +125,7 @@ $.ajax({
 						 	
 	}	
 });
+
 //偷來的購物車動畫
 $('body').on('click','.addCart',function(){
 	var whichImg=$(this).parent().parent().find('.full>img')
@@ -141,5 +158,22 @@ $('body').on('click','.addCart',function(){
 })
 	})
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$(".selLabel").click(function() {
+		$('.dropdown').toggleClass('active');
+	});
+
+	$(".dropdown-list li").click(function() {
+		$('.selLabel').text($(this).text());
+		$('.dropdown').removeClass('active');
+		$('.selected-item p span').text($('.selLabel').text());
+	});
+
+});
+
+</script>
+
 </body>
 </html>
