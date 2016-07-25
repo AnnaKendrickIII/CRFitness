@@ -501,8 +501,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	            success:function(data){
 		            $.each(data,function(){
 	            		if(this[0] === "${pageContext.request.queryString}"){
-	            			theMemberId = this.member_Id;
-	            			titleNickName = this.nickname;
+	            			theMemberId = this[0];
+	            			titleNickName = this[2];
 	            			visitorStatus = 2;
 	            			callShowJournal(visitorStatus)
 	            			return false;
@@ -511,18 +511,14 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		            })
 		            if(visitorStatus != 2){
             			visitorStatus = 3;
-            			callShowJournal(visitorStatus)
-            			titleNickName = "${LoginOK.nickname}";
+            			callShowJournal(visitorStatus)       			
 	            	}
 				}
 		            
 			})
-					$('#titleNickName').text(titleNickName+'的日誌');
 		}
-
 				
 		function callShowJournal(visitorStatus){
-			console.log('visitorStatus:'+visitorStatus)
    			if(visitorStatus == 2){ 
 //好友頁面頭像		 		
 			$('#personal_profile').append(
@@ -530,7 +526,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
 	             +'<div class="media-body">'
-	             +'<h4 class="media-heading" id="usernickanme"></h4>'
+	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
 	             +'<hr style="margin:8px auto">'		             
 	             +'<button type="button" class="profile-btn btn btn-primary">傳送訊息給他</button>'
 	             +'</div>'
