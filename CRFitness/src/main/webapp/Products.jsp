@@ -130,15 +130,15 @@ margin-top: 5%;
 	<div class="col-md-4 col-xs-4"></div>
 	<div class="col-md-4 col-xs-4">
    
-        <strong>&nbsp&nbsp Products Category &nbsp&nbsp</strong>
+        <strong>Products Category &nbsp&nbsp</strong>
           <a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/images/products/icon/jacket24.png">&nbsp上裝</a>&nbsp&nbsp
+          	<img src="${this_contextPath}/icon/jacket24.png">&nbsp上裝</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/images/products/icon/pants24.png">&nbsp下裝</a>&nbsp&nbsp
+          	<img src="${this_contextPath}/icon/pants24.png">&nbsp下裝</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-accessories&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/images/products/icon/sports24.png">&nbsp配件</a>&nbsp&nbsp
+          	<img src="${this_contextPath}/icon/sports24.png">&nbsp配件</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-footwear&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/images/products/icon/shoes24.png">&nbsp鞋類</a>
+          	<img src="${this_contextPath}/icon/shoes24.png">&nbsp鞋類</a>
 
  
 	</div>

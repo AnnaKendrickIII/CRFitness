@@ -14,7 +14,7 @@
 
 <title>商品明細</title><base>
 <style type="text/css">
-.aside{ 
+aside{ 
 background-image:url(images/Journal/journal2042.gif); /*背景圖存放路徑*/  
 background-attachment:fixed; /*背景固定*/  
 background-repeat:repeat; /*背景圖不要重複*/   
