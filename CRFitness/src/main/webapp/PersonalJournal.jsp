@@ -530,7 +530,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
 	             +'<div class="media-body">'
-	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
+	             +'<h4 class="media-heading" id="usernickanme"></h4>'
 	             +'<hr style="margin:8px auto">'		             
 	             +'<button type="button" class="profile-btn btn btn-primary">傳送訊息給他</button>'
 	             +'</div>'
