@@ -161,130 +161,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				<div class="col-md-2"></div>
 	<%-- 	<img  id="imgloading" src="${this_contextPath}/images/cube.gif" style="display: none"> --%>
 </div>
-	<!-- 頁面部分 開始-->
-<<<<<<< HEAD
-<c:if test="${LoginOK.member_Id != pageContext.request.queryString}">
-<script>
-
-
-jQuery(function($){
-	
-//進入好友頁面揪團活動
- $.ajax({
-	 url:"${this_contextPath}/CRFSERVICE/activitysController/friendActivitys/${LoginOK.member_Id}",
-     type:'get',  //get post put delete
-     data:{},
-     success:function(data){
-    	 $('#personal_activity').append(
-				 '<ul class="nav nav-tabs" role="tablist" id="myTab">'
-				+'<li role="presentation" class="active"><a class="selfchance" href="#home" aria-controls="home" role="tab" data-toggle="tab">'+"選取的會員"+"參加的揪團"+'</a></li>'
-				+'</ul>'
-				+'<div class="tab-content">'
-				+'<div role="tabpanel" class="tab-pane active" id="home">'
-				+'<ul class="event-list" id="myactivity_personal">'
-				+'</ul>'
-				+'</div>'	
-				+'</div>'
-					);   	 
-    	 var c=1;                            	
-         $.each(data,function(){
-				var jdate_int = parseInt(this[1].activity_Day); //轉換成數字
-				var jdate_value = new Date(jdate_int);
-				var jdate_int2 = parseInt(this[1].deadline);                          //轉換成數字
-				var jdate_value_deadline = new Date(jdate_int2);
-            $('#myactivity_personal').append(
-            	 '<li>'	 
-            	+'<time datetime="2014-07-20">'
-				+'<span class="month">'+jdate_value.Format("MM")+'</span>'
-				+'<span class="day">'+jdate_value.Format("dd")+'</span>'
-				+'<span class="year">'+jdate_value.Format("yyyy")+'</span>'
-				+'<span class="time">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
-				+'<span class="time">'+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")+'</span>'
-				+'</time>'
-				
-			+'<a href="${this_contextPath}/images/activitys/'
-			+this[1].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-			+this[2]+"<i class='fa fa-commenting-o img-responsive' aria-hidden='true'></i>"
-			+'<br />類別：'+this[1].activity_Class+'<br />地區：'
-			+this[1].activity_Area+'<br />內容：'
-			+this[1].activity_Info+'<br />活動時間：'
-			+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
-			+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
-			+"<button class='alert-vel btn btn-theme submit_x' style='float:right' type='submit' value='INSERT_MEMBER'>參加活動</button>" 
-			+"<div hidden='hidden'>"+this[1].activity_Id
-			+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
-			+this[1].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'			
-			+'<div class="friend_joinactivity">'+this[1].activity_Class+this[1].activity_Area+'</div>'
-			+'</li>')         	
-         }) //each
-         
-         $(".boxer").boxer({
-				top: 50,
-				fixed:true
-				});
-         
-	      $("body").on("click", '.submit_x', function(){
-    	  var whatActivityID=$(this).parent().siblings("div").text()
-    	   $.ajax({
-    		   url:"${this_contextPath}/CRFSERVICE/activityDetailController/addActivityDetail",
-    		   type:'post',
-    		   data:{
-    			   activity_Id:$('.boxer-caption').find('div').text(),
-    			   member_Id:'${LoginOK.member_Id}'
-    		   },
-    		   success:function(data){
-    			  if(data[0]=='參加過'){
-    				   $("#boxer-overlay").remove();
-    				   $("#boxer").remove();
-    				   $('body').toggleClass();		
-    				     		
-    				   errorAlert('北七膩', '你已經參加過了');
-
-    			   }else if(data[0]=='已額滿'){
-    				   $("#boxer-overlay").remove();
-    				   $("#boxer").remove();
-    				   $('body').toggleClass();		
-    				     			
-    				   errorAlert('殘念', '已額滿');
-    			   }else{
-    				var members="";
-    				var sum =0;
-    				var whoButton=$('#button'+whatActivityID);
-    				   $.each(data,function(index){          
-    					   members+=this+" ";
-    					   sum+=1;
-    				   })   
-    				   whoButton.text(sum)
-    				   whoButton.attr("data-original-title",members)
-      				   
-    				   $("#boxer-overlay").remove();
-    				   $("#boxer").remove();
-    				   $('body').toggleClass();		
-    				
-    				   $.alertable.alert('參加成功', {
-    					   show: function() {
-    					     $(this.overlay).velocity('transition.fadeIn');        
-    					     $(this.modal).velocity('transition.flipBounceYIn');
-    					   },
-    					   hide: function() {
-    					     $(this.overlay).velocity('transition.fadeOut');
-    					     $(this.modal).velocity('transition.perspectiveUpOut');
-    					   } 
-    					 });
-    			   }			   
-    		   }
-    	   })
-			}); //on結束
-     }          	 
- }) //ajax
-})
-</script>
-</c:if>
-=======
-<%-- <c:if test="${LoginOK.member_Id != pageContext.request.queryString}"> --%>
-<%-- </c:if> --%>
->>>>>>> branch 'master' of https://github.com/AnnaKendrickIII/CRFitness.git
-	<!--   ├─判斷是是個人日誌頁面還是好友開始─┤    --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
+	<!-- 頁面部分 開始--><!--   ├─判斷是是個人日誌頁面還是好友開始─┤  --><!-- 	判斷登入者和 queryString 是否相同, 若相同才可修改  -->
 <c:if test="${LoginOK.member_Id == pageContext.request.queryString or pageContext.request.queryString == null}">
 <script type="text/javascript">
  					$('#personal_profile').append( 							
@@ -338,7 +215,7 @@ jQuery(function($){
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+"類別："+''+this[0].activity_Class+'<hr class="divideline"/>'+"地區："+''+this[0].activity_Area 
+                                    	+'<div style="text-align : center">'+"類別："+this[0].activity_Class+'<hr class="divideline"/>'+"地區："+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each                         
@@ -364,7 +241,7 @@ jQuery(function($){
                                     	+'<a href="${this_contextPath}/activitydetail.jsp?'+this.member_Id+'" >'
                                     	+'<img src="${this_contextPath}/images/activitys/'
                                     	+this[0].activity_Id+'.jpg" class="img-responsive" alt="Independence Day" /></a>'
-                                    	+'<div style="text-align : center">'+this[0].activity_Class+this[0].activity_Area 
+                                    	+'<div style="text-align : center">'+"類別："+this[0].activity_Class+'<hr class="divideline"/>'+"地區："+this[0].activity_Area 
                                     	+'</div>'
                                     	+'</li>')                
                                  }) //each
@@ -520,10 +397,10 @@ jQuery(function($){
 						+"<div hidden='hidden'>"+this[0].activity_Id
 						+'</div>"><span title=""><img src="${this_contextPath}/images/activitys/'
 						+this[0].activity_Id+'.jpg" class="jouranl_activity" alt="Independence Day" /></span></a>'			
-						+'<div class="friend_joinactivity">'+this[0].activity_Class+this[0].activity_Area+'</div>'
+						+'<div class="friend_joinactivity">'+this[0].activity_Class+" "+this[0].activity_Area+'</div>'
 						+'</li>')         	
 			         }) //each
-			         
+			      
 			         $(".boxer").boxer({
 							top: 50,
 							fixed:true

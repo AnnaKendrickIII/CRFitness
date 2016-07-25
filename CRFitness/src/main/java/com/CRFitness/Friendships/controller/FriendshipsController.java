@@ -31,29 +31,29 @@ public class FriendshipsController {
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/addFriends", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody boolean addFriends(
-			@RequestParam String member_Id,
-			@RequestParam String friend_Id) {
-		return friendshipsService.addFriend(member_Id, friend_Id);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/findFriendFlag", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody Integer findFriendFlag(@RequestParam String member_Id,
-			@RequestParam String friend_Id){
-		return friendshipsService.select_Friend_Flag(member_Id, friend_Id);
-	}
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/acceptFriend", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody boolean acceptfriend(@RequestParam String member_Id,
-			@RequestParam String friend_Id){
-		return friendshipsService.acceptFriend(member_Id, friend_Id);
-	}
-	
-	@RequestMapping(method = RequestMethod.POST, value = "/deleteFriend", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody boolean deleteFriends(
-			@RequestParam String member_Id,
-			@RequestParam String friend_Id) {
-		return friendshipsService.deleteFriend(member_Id, friend_Id);
-	}
+//	@RequestMapping(method = RequestMethod.POST, value = "/addFriends", produces = MediaType.APPLICATION_JSON)
+//	public @ResponseBody boolean addFriends(
+//			@RequestParam String member_Id,
+//			@RequestParam String friend_Id) {
+//		return friendshipsService.addFriend(member_Id, friend_Id);
+//	}
+//	
+//	@RequestMapping(method = RequestMethod.GET, value = "/findFriendFlag", produces = MediaType.APPLICATION_JSON)
+//	public @ResponseBody Integer findFriendFlag(@RequestParam String member_Id,
+//			@RequestParam String friend_Id){
+//		return friendshipsService.select_Friend_Flag(member_Id, friend_Id);
+//	}
+//	
+//	@RequestMapping(method = RequestMethod.POST, value = "/acceptFriend", produces = MediaType.APPLICATION_JSON)
+//	public @ResponseBody boolean acceptfriend(@RequestParam String member_Id,
+//			@RequestParam String friend_Id){
+//		return friendshipsService.acceptFriend(member_Id, friend_Id);
+//	}
+//	
+//	@RequestMapping(method = RequestMethod.POST, value = "/deleteFriend", produces = MediaType.APPLICATION_JSON)
+//	public @ResponseBody boolean deleteFriends(
+//			@RequestParam String member_Id,
+//			@RequestParam String friend_Id) {
+//		return friendshipsService.deleteFriend(member_Id, friend_Id);
+//	}
 }
