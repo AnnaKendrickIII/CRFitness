@@ -572,10 +572,9 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				data : {'member_Id' : "${pageContext.request.queryString}" ,
 					'visitorStatus' : visitorStatus},
 				success : function(data) {
-					$('#usernickanme').append(data[0][1])
-										
 					if("${LoginOK.member_Id}" != "${pageContext.request.queryString}"){
-					activitys(data[0][1]);
+						$('#usernickanme').append(data[0][1])
+						activitys(data[0][1]);
 					}
 					
 					$.each(data,function(index) {
@@ -646,7 +645,6 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								$('<option />',{'value':i,'text':publicStatus[i],'selected':true}).appendTo(eleS);
 							}else{
 								$('<option />',{'value':i,'text':publicStatus[i]}).appendTo(eleS);
-
 							}
 						}
 
@@ -753,6 +751,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 									    	+ '<div class="timeline-badge primary"><a>'
 									    	+ invert 	
 									    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div hidden="hidden" class="timeline-panel" id="remove_journal">'
+									    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x removeJournal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
 									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 									    	+ data.journal_Id+'" /></a></div>'
 									    	+ '<div class="timeline-body">'
