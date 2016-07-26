@@ -68,5 +68,23 @@ public class MemberController {
 		memberService.Third_insertimages(Path,photoUrl);
 		return null;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value ="/APPLogin", produces= "text/html; charset=utf-8" )
+	public @ResponseBody String APP_Sign(
+			HttpServletResponse response,
+			@RequestParam String e_mail,
+			@RequestParam String password
+			)  {
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:14596");
+		if (memberService.checkPassword(e_mail)) {
+			return "失敗";
+		}
+		if(memberService.login(e_mail, password)!=null){
+			return "成功";
+		}else{
+			return "失敗";
+		}
+	}
+	
 
 }

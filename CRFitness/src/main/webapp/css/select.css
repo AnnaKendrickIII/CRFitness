@@ -1,10 +1,10 @@
 .btn-select {
 	position: relative;
 	padding: 0;
-	min-width: 236px;
-	width: 100%;
+	min-width: 100 px;
+	width: 50%;
 	border-radius: 0;
-	margin-bottom: 20px;
+	margin-bottom: 2px;
 }
 
 .btn-select .btn-select-value {

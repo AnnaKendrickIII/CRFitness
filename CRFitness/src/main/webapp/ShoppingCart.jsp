@@ -59,7 +59,7 @@
 			<div class="panel-footer">
 				<div class="row text-center">
 					<div class="col-xs-12">
-						<h4 class="text-right" id="amount">
+						<h4 class="text-right"  id="amount">
 							總金額: $<strong></strong>
 						</h4>
 					</div>
@@ -81,7 +81,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="name">收件人姓名</label>
 					<div class="col-md-4">
-						<input id="name" name="name" type="text" placeholder="收件人姓名"
+						<input id="consignee_Name" name="name" type="text" placeholder="收件人姓名"
 							class="form-control input-lg" autocomplete="off" required="">
 					</div>
 				</div>
@@ -90,7 +90,7 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="address">收件地址</label>
 					<div class="col-md-4">
-						<input id="address" name="address" type="text"
+						<input id="consignee_Address" name="address" type="text"
 							placeholder="收件地址" class="form-control input-lg"
 							autocomplete="off">
 					</div>
@@ -159,7 +159,7 @@ jQuery(function($){
 	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ShoppingCart.png">')
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
-		typr:'get',
+		type:'get',
 		data:{},
 		success:function(data){
 			$.each(data,function(){
@@ -167,8 +167,8 @@ jQuery(function($){
 				'<div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="${this_contextPath}/images/products/'
 				+this[0][0].productDetail_Id+'_1.png"/></div>'+
-				'<div class="col-xs-4"><span hidden="hidden">'+this[0][0].productDetail_Id+'</span><h4 class="product-name"><strong>'+
-				this[0][1]+'</strong></h4><h4><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp顏色 : '+this[0][0].color+'</small></h4></div>'+
+				'<div class="col-xs-4"><span hidden="hidden">'+this[0][0].productDetail_Id+'</span><h4 class="productname"><strong>'+
+				this[0][1]+'</strong></h4><h4 class="size"><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</small></h4><h4 class="color"><small>顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
 				'<div class="col-xs-6 text-right"><h5><strong class="price">'+
 				this[0][2]+'</strong><span class="text-muted">&nbsp&nbspx&nbsp</span></h5></div>'+
@@ -178,14 +178,51 @@ jQuery(function($){
 		})
 		//取出新總額
 		totalAmount()	
+			
+		$('body').on('click', '.btn-success', function () {
+		    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
+		    	alertify.success('訂單送出') 
+		
+		    	var consignee_Name = $('#consignee_Name').val();
+		    	var consignee_Address = $('#consignee_Address').val();
+		    	var email = $('#email').val();
+		    	var payment_Method = $('#radioBtn .active').text();
+				var qty = $('.qty').val();
+
+		    	
+// 				console.log('consignee_Name='+consignee_Name)
+// 				console.log('consignee_Address='+consignee_Address)
+// 				console.log('E-mail='+email)
+// 				console.log('payment_Method='+payment_Method)
+// 				console.log('qty='+qty)
+// 				console.log('--------------------------')
+				
+				$.ajax({
+					url:'${this_contextPath}/CRFSERVICE/orderDetailsController/addOrder',
+					type:'get',
+					data:{
+						consignee_Name:consignee_Name,
+						consignee_Address:consignee_Address,
+						payment_Method:payment_Method,
+					},
+					success:function(data){
+						console.log('consignee_Name='+consignee_Name)
+						console.log('consignee_Address='+consignee_Address)
+						console.log('E-mail='+email)
+						console.log('payment_Method='+payment_Method)
+						console.log('--------------------------')
+					}
+				})
+				
+		   		 }, function () { 
+		        alertify.error('訂單取消') });
+		});
 	}
 })
 	
 })
-</script>
 
-<script type="text/javascript">
-//刪除商品
+	//刪除商品
 $('#itemlist').on('click','.delete', function() {
 	var thisdelete =$(this)
 	alertify.confirm().set('title', '刪除購物車商品');
@@ -202,10 +239,9 @@ $('#itemlist').on('click','.delete', function() {
 		//取出新總額
 		totalAmount()	
  });
-});	
-</script>
+});
 
-<script type="text/javascript">
+//刪除整台車
 $('body').on('click','#clean',function(){
 	alertify.confirm().set('title', '刪除整台購物車');
 	alertify.confirm('確認將購物車清空?',function(){
@@ -222,9 +258,7 @@ $('body').on('click','#clean',function(){
 	})
 	
 })
-</script>
 
-<script type="text/javascript">
 //當換數量 總價格變動
 $('#itemlist').on('focusout', 'div.item input.qty',function(){
 	var productDetailId=$(this).parent().parent().prev().find('span[hidden]').text();
@@ -252,9 +286,7 @@ $('#itemlist').on('focusout', 'div.item input.qty',function(){
 // 	}
 	
 // 	})
-</script>
 
-<script type="text/javascript">
 	$('#radioBtn a').on('click', function() {
 		var sel = $(this).data('title');
 		var tog = $(this).data('toggle');
@@ -269,25 +301,6 @@ $('#itemlist').on('focusout', 'div.item input.qty',function(){
 	})
 </script>
 
-<script type="text/javascript">
-$('.btn-success').on('click', function () {
-    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
-    	alertify.success('訂單送出') 
-
-    	var name = $('#name').val();
-    	var address = $('#address').val();
-    	var email = $('#email').val();
-    	var pay = $('#radioBtn .active').text();
-
-		console.log(name)
-		console.log(address)
-		console.log(email)
-		console.log(pay)
-		
-   		 }, function () { 
-        alertify.error('訂單取消') });
-});
-</script>
 
 </aside>
 </body>

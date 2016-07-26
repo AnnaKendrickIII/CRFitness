@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface OrdersDAO_interface {
 
-    public boolean insert(OrdersVO ordersVO);
+    public OrdersVO insert(OrdersVO ordersVO);
     public boolean update(OrdersVO ordersVO);
     public boolean delete(String order_Id);       
     public OrdersVO findByPrimaryKey(String order_Id);

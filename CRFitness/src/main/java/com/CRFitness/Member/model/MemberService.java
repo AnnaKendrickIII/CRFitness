@@ -182,7 +182,6 @@ public class MemberService {
 			memberVO = data;
 		}
 		if (memberVO.getPassword() == null) {
-			System.out.println(memberVO.getMember_Status());
 			return true;
 		}
 		return false;
