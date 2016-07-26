@@ -35,7 +35,8 @@ public class MemberController {
 		if(memberService.ExitsCovertPhoto(Path)!=null){
 			return memberService.ExitsCovertPhoto(Path);
 		}else{
-			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/memebers/NoImage.jpg"));	
+			return memberService.CovertPhoto(request.getServletContext().getResourceAsStream("/images/members/NoImage.jpg"));	
+		
 		}			
 	}
 	
