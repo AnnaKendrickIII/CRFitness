@@ -36,20 +36,7 @@ background-position:center; /*置放位置 下面 左邊*/
 <div class="ProductDetail">
 
     <div class="row">
- <div class="col-xs-2 col-sm-2">
-            <a class="btn btn-info btn-select btn-select-light">
-                <input type="hidden" class="btn-select-input" id="" name="" value="" />
-                <span class="btn-select-value">請選擇尺寸</span>
-                <span class='btn-select-arrow glyphicon glyphicon-chevron-down'></span>
-                <ul>
-                    <li>US 8</li>
-                    <li>US 8.5</li>
-                    <li>US 9</li>
-                    <li>US 9.5</li>
-                    <li>US 10</li>
-                </ul>
-            </a>
-        </div>
+ 		<div class="col-xs-2 col-sm-2"></div>
 	    <div id="productDetailbody" class="col-md-8"></div> 	    
 	 	<div class="col-md-2"></div>
 	 		 	
@@ -99,7 +86,10 @@ $.ajax({
 							+'<br/>剩餘數量 : '
 							+data[0][0].stock
 							+'</br></p>'
-							+''
+							+'<a class="btn btn-primary btn-select btn-select-light"><input type="hidden" class="btn-select-input" id="" name="" value="" />'
+							+'<span class="btn-select-value">請選擇尺寸</span>'
+			                +'<span class="btn-select-arrow glyphicon glyphicon-chevron-down"></span>'
+			     			+'<ul><li>US 8</li><li>US 8.5</li><li>US 9</li><li>US 9.5</li><li>US 10</li></ul></a>'
 							+'</br></br><strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
 							+'</p></strong><br/></br></br>'
 							+'<div class="btn btn-danger" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'

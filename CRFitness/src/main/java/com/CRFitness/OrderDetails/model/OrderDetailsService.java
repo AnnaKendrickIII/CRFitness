@@ -1,6 +1,5 @@
 package com.CRFitness.OrderDetails.model;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.Orders.model.OrdersDAO_interface;
 import com.CRFitness.Orders.model.OrdersVO;
-import com.CRFitness.ProductDetail.model.ProductDetailVO;
-import com.CRFitness.Products.model.ProductsVO;
+import com.CRFitness.ProductDetail.model.ShoppingCart;
 
 @Service(value = "orderDetailsService")
 public class OrderDetailsService {
@@ -26,6 +23,9 @@ public class OrderDetailsService {
 
 	@Resource(name = "ordersDAO")
 	OrdersDAO_interface ordersDAO;
+
+	@Resource(name = "shoppingCart")
+	ShoppingCart shoppingCart;
 
 	// 撈出所有訂單明細
 	public List<OrderDetailsVO> searchAllOrderDetails() {
@@ -63,15 +63,14 @@ public class OrderDetailsService {
 		return orderDetailsVO;
 	}
 
-	// 新增訂單 及 明細
-	public List<Object> addOrder(String member_Id, String consignee_Name,
-			String consignee_Address, String payment_Method, String details_No,
-			String product_Name, Integer quantity, String size, String color,
-			Double amount) {
+	// 新增訂單
+	public OrdersVO addOrder(String consignee_Name, String consignee_Address,
+			String payment_Method, Double total_Amount) {
 
-		List<Object> order = new ArrayList<Object>();
+		OrdersVO order = new OrdersVO();
+
 		OrdersVO ordersVO = new OrdersVO();
-		ordersVO.setMember_Id(member_Id);
+		ordersVO.setMember_Id(null);
 		ordersVO.setConsignee_Name(consignee_Name);
 		ordersVO.setConsignee_Address(consignee_Address);
 		ordersVO.setPayment_Method(payment_Method);
@@ -79,10 +78,18 @@ public class OrderDetailsService {
 		ordersVO.setOrder_Time(new Timestamp(System.currentTimeMillis()));
 		ordersVO.setShip_Date(null);
 		ordersVO.setInvoice_Number("GD123456");
-		ordersDAO.insert(ordersVO);
+		ordersVO.setTotal_Amount(total_Amount);
+		return ordersDAO.insert(ordersVO);
+		
+	}
+
+	// 新增訂單明細
+	public OrderDetailsVO addOrderDetail(String order_Id,String product_Name, Integer quantity,
+			String size, String color, Double amount) {
 
 		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
-		orderDetailsVO.setOrder_Id(ordersVO.getOrder_Id());
+
+		orderDetailsVO.setOrder_Id(order_Id);
 		orderDetailsVO.setProduct_Name(product_Name);
 		orderDetailsVO.setQuantity(quantity);
 		orderDetailsVO.setSize(size);
@@ -90,10 +97,7 @@ public class OrderDetailsService {
 		orderDetailsVO.setAmount(amount);
 		orderDetailsDAO.insert(orderDetailsVO);
 
-		order.add(0, ordersVO);
-		order.add(1, orderDetailsVO);
-
-		return order;
+		return orderDetailsVO;
 	}
 
 	public static void main(String[] args) {

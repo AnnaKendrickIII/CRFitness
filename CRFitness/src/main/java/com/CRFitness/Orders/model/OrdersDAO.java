@@ -31,12 +31,9 @@ public class OrdersDAO implements OrdersDAO_interface {
 	}
 
 	@Override
-	public boolean insert(OrdersVO ordersVO) {
-		if (ordersVO != null) {
+	public OrdersVO insert(OrdersVO ordersVO) {
 			this.getSession().saveOrUpdate(ordersVO);
-			return true;
-		}
-		return false;
+			return ordersVO;	
 	}
 
 	@Override

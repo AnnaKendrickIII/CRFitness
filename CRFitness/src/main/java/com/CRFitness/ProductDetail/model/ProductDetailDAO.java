@@ -1,5 +1,6 @@
 package com.CRFitness.ProductDetail.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -21,7 +22,9 @@ import com.CRFitness.Products.model.ProductsVO;
 
 @Repository("productDetailDAO")
 @Transactional(transactionManager = "transactionManager")
-public class ProductDetailDAO implements ProductDetailDAO_interface {
+public class ProductDetailDAO implements ProductDetailDAO_interface, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final String GET_PRODUCTDETAIL_ID = "from ProductDetailVO where product_Name=:product_Name and size=:size and color=:color";
 
