@@ -16,9 +16,11 @@
 </interceptors>
 	    <action name="member"   class="memberAction"  >
 	       <interceptor-ref name="TargetpreURL"></interceptor-ref>  
-   		   <interceptor-ref name="defaultStack"></interceptor-ref>  
+   		   <interceptor-ref name="defaultStack"></interceptor-ref>    
 	        <result name="success" type="redirect">${preURL}</result>
             <result name="input" >${preURL}</result>
+            <result name="go" type="redirect">index.jsp</result>
+             <result name="no" >index.jsp</result>
 		</action>
 		
 		

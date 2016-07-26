@@ -78,7 +78,7 @@ public class MemberService {
 		return memberVO;
 	}
 	//照片轉byte
-	public byte[] CovertPhoto(InputStream is){		
+	public byte[] CovertPhoto(InputStream is){	
 		 ByteArrayOutputStream baos = null;       
 	        try {
 	        	baos = new ByteArrayOutputStream();
@@ -88,7 +88,7 @@ public class MemberService {
 	    			baos.write(bytes, 0, count);
 	    		}
 				 byte[] photo = baos.toByteArray();  
-			        return photo; 	
+				 return photo; 	
 			} catch (IOException e) {		
 				e.printStackTrace();
 					return null;

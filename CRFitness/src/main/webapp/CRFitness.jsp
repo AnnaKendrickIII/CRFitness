@@ -161,7 +161,6 @@
 							type:'get',
 							data:{'member_Id': "${LoginOK.member_Id}"},
 							success: function(data){
-									console.log(data)
 								if(data>0)
 									$('body').find('span.num_mail').text(data);
 							}
@@ -304,7 +303,7 @@
                 </div>              
                 <!-- 忘記密碼需要協助方塊 結尾-->         
 <!-- 註冊帳號 開始-->
-		<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.action" method="post" >
+		<form  name="member" class="form-login" action="${this_contextPath}/CRF/member!registered.do" method="post" >
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="my_create" class="modal fade">
                     <div class="modal-dialog">
                         <div class="modal-content">
