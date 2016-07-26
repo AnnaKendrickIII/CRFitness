@@ -9,7 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-
+	
+    <link href="assets/css/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-switch.css" rel="stylesheet">
+    <script src="assets/js/bootstrap-switch.min.js"></script>
+    <script src="assets/js/bootstrap-switch.js"></script>
+    
+    
     <title>MaintainProducts</title>
     
     <jsp:include page="AdminFrame.jsp"/>
@@ -178,11 +184,14 @@ textarea{
     	<div class="col-md-12 col-xs-12">
         	<div class="content-panel">
 
-		<button type="button" id="creProdBtn" class="btn btn-round btn-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
+		<button type="button" id="creProdBtn" class="btn btn-round btn-theme03 btn-1g" data-toggle="modal" data-target="#new_products">  
   		<i class="fa fa-plus-square" aria-hidden="true"></i>
   		</button>
 
-
+		<button type="button" id="creProdBtn" class="btn btn-primary btn-1g" data-toggle="modal" data-target="#new_products">  
+  		<i class="fa fa-search" aria-hidden="true"></i>
+  		</button>
+  		
             	<table class="table table-striped table-advance table-hover">
 		
 
@@ -256,7 +265,7 @@ textarea{
                      
                      <div class="modal-footer">
 <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
-                        <button data-dismiss="modal" class="btn btn-theme" type="button">取消</button>
+                        <button data-dismiss="modal" class="btn btn-primary" type="button">取消</button>
                         <button id="addbtn" class="btn btn-primary" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
                      </div>
                      
@@ -330,7 +339,7 @@ textarea{
                      
                      <div class="modal-footer upbtn">
 <%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
-                        <button data-dismiss="modal" class="btn btn-theme" type="button">取消</button>
+                        <button data-dismiss="modal" class="btn btn-primary" type="button">取消</button>
                         <button id="updatebtn" class="btn btn-primary" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
                      
@@ -493,7 +502,7 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-theme btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
 									+ '</td></tr>') // end of after				
 						// 產品狀態switch的程式 開始
@@ -583,7 +592,7 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-theme btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 					// 產品狀態switch的程式 開始
@@ -642,8 +651,8 @@ textarea{
 									                + this[4] // info
 													+ '</td><td hidden="hidden"><h4>'
 									                + this[0].product_Status
-													+ '</td><td><button type="button" class="btn btn-theme btn-1g btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
+													+ '</td><td><button type="button" class="btn btn-theme btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+													+ '</td><td><button type="button" class="btn btn-theme btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 					// 產品狀態switch的程式   開始

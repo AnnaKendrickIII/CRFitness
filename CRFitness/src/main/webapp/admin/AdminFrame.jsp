@@ -16,7 +16,7 @@
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<!--     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" /> -->
     <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
@@ -212,14 +212,14 @@
               	  <h5 class="centered">Alvin</h5>
               	  	
                   <li class="mt">
-                      <a class="active" href="Admin2.jsp">
+                      <a class="active" href="Index.jsp">
                           <i class="fa fa-dashboard"></i>
                           <span>主控台</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="${this_contextPath}/Maintenance/MaintainJournals.jsp" >
+                      <a href="MaintainJournals.jsp" >
                           <i class="fa fa-book"></i>
                           <span>維護健康日誌</span>
                       </a>
@@ -231,20 +231,20 @@
                           <span>維護商品專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a  href="MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
+                          <li><a  href="MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                          <li><a  href="MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
+                          <li><a  href="MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="${this_contextPath}/Maintenance/MaintainActivities.jsp" >
+                      <a href="MaintainActivities.jsp" >
                           <i class="fa fa-users"></i>
                           <span>維護揪團專區</span>
                       </a>
                   </li>
                   <li class="sub-menu">
-                      <a href="${this_contextPath}/Maintenance/MaintainMembers.jsp" >
+                      <a href="MaintainMembers.jsp" >
                           <i class="fa fa-commenting"></i>
                           <span>維護會員資訊</span>
                       </a>
@@ -309,6 +309,7 @@
 	<script src="assets/js/jquery.fine-uploader.js"></script>
 	<!-- switch button -->
 	<script type="text/javascript" src="assets/js/jquery.easyswitch.js"></script>
+	
     
 	
 	<script type="application/javascript">
