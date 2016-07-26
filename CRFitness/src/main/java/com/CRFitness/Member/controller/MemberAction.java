@@ -90,6 +90,7 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 
 		if (errorMessage.size()==0) {
 			memberVO.setE_mail(mail);
+			memberVO.setMember_Status("登錄中");
 			memberService.addMember(memberVO);
 			session.setAttribute("LoginOK", memberVO);
 			return SUCCESS;
