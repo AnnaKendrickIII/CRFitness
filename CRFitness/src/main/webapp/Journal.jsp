@@ -205,7 +205,7 @@ width:24px;
 	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css">'
 	            					 +'<span class="message_name_span">'+this[1]+'</span></a><div class="innercontent_div">'
-	            					 +thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
+	            					 +thecontent+'<p class="time_p">'+jQuery.timeago(jdate_value2.Format("yyyy-MM-dd hh:mm:ss"))+'</p></div></div></div>'
 	            				 })//留言明細迴圈     	    				
 	            				 $("#"+journalId+' div[data-desc]').attr('data-desc',
 	            				'<div class="messge_header_body"><div class="header_div">'+contet
@@ -351,8 +351,8 @@ width:24px;
 								if(index==0){					
 									messageDiv.append(
 											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'">'
-		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'
-		 	            					 +theMember_Id+'.jpg" /></div><div class="message_inner_div_css"><span class="message_name_span">'
+		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'
+		 	            					 +theMember_Id+'" /></div><div class="message_inner_div_css"><span class="message_name_span">'
 		 	            					 +theNickname+'</span></a><div class="innercontent_div"><span class="span_contet"></span>'
 		 	            					 +'</div></div></div>').find('.message_div:last .span_contet').text(this)
 								}else{
@@ -467,6 +467,7 @@ width:24px;
 <script src="${this_contextPath}/js/classie.js"></script>
 <script src="${this_contextPath}/js/imagesloaded.js"></script>
 <script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
-<script src="${this_contextPath}/js/Am2_SimpleSlider.js"></script>  
+<script src="${this_contextPath}/js/Am2_SimpleSlider.js"></script>
+<script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>  
 </body>
 </html>
