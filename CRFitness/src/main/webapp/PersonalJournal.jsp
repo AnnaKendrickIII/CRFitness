@@ -70,8 +70,8 @@ div.timeline-body{
 	padding:0 20px 0 20px;
 }
 .msgPhoto{
-	width: 12px;
-    height: 12px;
+	width: 32px;
+    height: 32px;
     margin-right: 5px;
 }
 #grid a{ 
@@ -83,7 +83,7 @@ div.timeline-body{
 }
 
 .msgTime {
-	color:#BEBEBE;
+	color:#7E7E7E;
 	font-size: 10px;
 }
 
@@ -912,7 +912,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						if(messageDiv.find('p:first').text()=='尚無新留言'){
 							messageDiv.find('p:first').text('');
 						}
-						messageDiv.append('<p/>').find('p:last').text('留言時間: ' + diffTime(theMessageTime)).addClass('msgTime')
+						messageDiv.append('<p/>').find('p:last').text(jQuery.timeago(theMessageTime)).addClass('msgTime')
 						messageDiv.next().show().parent().slideDown()
 					}
 				}
@@ -947,7 +947,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								theDiv.append(thP1)
 							})
 							var thP2 = $('<p>')
-							thP2.text('留言時間: ' + diffTime(this[0].messageTime)).addClass('msgTime')
+							thP2.text(jQuery.timeago(this[0].messageTime)).addClass('msgTime')
 							theDiv.append(thP2)
 							messageDiv.prepend(theDiv)
 						})
@@ -1155,7 +1155,10 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					})						
 				}
 			})
+
 		})				
+		
+		
 		
 	</script>
 
@@ -1169,5 +1172,6 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	<script src="${this_contextPath}/js/jAlert-functions.js"></script>
 	<script src="${this_contextPath}/js/velocity.min.js" ></script>
 	<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>
+	<script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
 </body>
 </html>
