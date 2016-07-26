@@ -70,8 +70,8 @@ div.timeline-body{
 	padding:0 20px 0 20px;
 }
 .msgPhoto{
-	width: 12px;
-    height: 12px;
+	width: 32px;
+    height: 32px;
     margin-right: 5px;
 }
 #grid a{ 
@@ -83,7 +83,7 @@ div.timeline-body{
 }
 
 .msgTime {
-	color:#BEBEBE;
+	color:#7E7E7E;
 	font-size: 10px;
 }
 
@@ -130,6 +130,9 @@ color:#0000C6;
 .journaltime{
 	color:#BEBEBE;
 	font-size: 10px;
+}
+.statusSelect{
+	margin-top:5px;
 }
 </style>
 <script type="text/javascript">
@@ -605,8 +608,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				    	+ '<p class="journaltime">'
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				    	+ '<p class="userContents"></p>'
-			   			
-			   			+ '<br /><select class="statusSelect" hidden="hidden" /></div>'
+			   			+ '<div><select class="statusSelect" hidden="hidden" /></div></div>'
 			   			+ '<div class="timeline-footer">'
 			   			  //'留言塞這裡'
 			   			+ '<div></div><div></div></div>'
@@ -699,10 +701,14 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					theLi.find('div.timeline-footer').slideUp();
 					theLi.find('div.viewmessages').slideDown();
 				})
+				
+				// 編輯個人日誌的內容
 				$('.username').editable({
 				     rows:3
-				});  // 編輯個人日誌的內容
-					$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
+				});  
+				
+				
+				$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
 					
 					
     			}
@@ -760,9 +766,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
-								   			
 
-								   			+ '<br/><select class="statusSelect" /></div>'
+								   			+ '<div><select class="statusSelect" /></div></div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
 											// 	'留言塞這裡'
 								   			+ '<div></div><div></div></div>'
@@ -788,7 +793,10 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		   									$.ajax({
 		   										url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
 		   										type: 'POST',
-		   										data: {'journal_Id':arguments[0].data.journal_Id,'member_Id':theMemberId,'contents':arguments[0].data.contents,'publicStatus':$(this).val()},
+		   										data: {'journal_Id':arguments[0].data.journal_Id,
+		   											'member_Id':theMemberId,
+		   											'contents':arguments[0].data.contents,
+		   											'publicStatus':$(this).val()},
 		   										success: function(data){
 		   										}
 		   									})
@@ -806,6 +814,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		   							     rows:3
 		   								});  // 編輯個人日誌的內容
 		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
+								},error: function(){
+									alertify.alert('檔案格式異常').set('title', '警告');
 								}
 							})	
 						}
@@ -840,7 +850,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 //     				console.log(e)
     				} 
     		});
-    	})		
+    	})
     	//edit Contents
 		divGrid.on('click','a.username',function(){
 			var theLi = $(this).parents('li');
@@ -902,7 +912,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						if(messageDiv.find('p:first').text()=='尚無新留言'){
 							messageDiv.find('p:first').text('');
 						}
-						messageDiv.append('<p/>').find('p:last').text('留言時間: ' + diffTime(theMessageTime)).addClass('msgTime')
+						messageDiv.append('<p/>').find('p:last').text(jQuery.timeago(theMessageTime)).addClass('msgTime')
 						messageDiv.next().show().parent().slideDown()
 					}
 				}
@@ -937,7 +947,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								theDiv.append(thP1)
 							})
 							var thP2 = $('<p>')
-							thP2.text('留言時間: ' + diffTime(this[0].messageTime)).addClass('msgTime')
+							thP2.text(jQuery.timeago(this[0].messageTime)).addClass('msgTime')
 							theDiv.append(thP2)
 							messageDiv.prepend(theDiv)
 						})
@@ -948,7 +958,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						theLi.find('div.timeline-footer').hide();
 						theLi.find('div.viewmessages').hide();
 					}else if(data.length < 3 && theLi.find('div.timeline-footer').is(':visible')){
-						theLi.find('div.viewmessages').slideUp();
+						theLi.find('div.viewmessages').hide();
 					}else if(data.length < 3 && theLi.find('div.timeline-footer').is(':hidden')){
 						messageDiv.next().show().parent().slideDown()
 						theLi.find('div.viewmessages').slideUp()
@@ -1145,7 +1155,10 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					})						
 				}
 			})
+
 		})				
+		
+		
 		
 	</script>
 
@@ -1159,5 +1172,6 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	<script src="${this_contextPath}/js/jAlert-functions.js"></script>
 	<script src="${this_contextPath}/js/velocity.min.js" ></script>
 	<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>
+	<script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
 </body>
 </html>
