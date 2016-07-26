@@ -2,6 +2,7 @@ package com.CRFitness.Member.model;
 
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,11 +16,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
+import org.glassfish.jersey.internal.util.Base64;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.ProductDetail.model.ProductDetailVO;
+import com.fasterxml.jackson.core.Base64Variant;
 
 @Service("memberService")
 public class MemberService {
@@ -92,30 +95,31 @@ public class MemberService {
 			}  	       
 	}
 	
-	public void Insert_MemberImages(String Path,String photo1){
-		FileOutputStream fop = null;
-		File file=null;
-		System.out.println(photo1.substring(23));
-		byte[] photo=null;			      
+	public byte[] Insert_MemberImages(String Path,String photo1){
+		ByteArrayOutputStream baos = null;
+		File file=null;	
+		FileOutputStream fop=null;
 		try {
-			photo=Base64Utils.decodeFromString(photo1.substring(23));
-			file = new File(Path);		
-			if (!file.exists()) {
+			file = new File(Path+".jpg");
+			if(!file.exists()){
 				file.createNewFile();
-			}	
+			}
 			fop = new FileOutputStream(file);
-			fop.write(photo);
-			fop.flush();
-			fop.close();		
-		} catch (Exception e) {
+			byte[] imageByte = Base64Utils.decodeFromString(photo1.substring(23));	
+			fop.write(imageByte);
+			return imageByte;
+		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}finally{
-			try {
+			if(fop!=null){
+			try {				
 				fop.close();
-			} catch (IOException e) {
-			
+			} catch (IOException e) {	
 				e.printStackTrace();
-			}	
+				
+			}
+			}
 		}
 	}
 	
@@ -128,10 +132,10 @@ public class MemberService {
 			byte[] photo=null;		
 			file = new File(Path+".jpg");
 			if(!file.exists()){
-				file = new File(Path+".gif"); 
+				file = new File(Path+".png");
 			}
 			if(!file.exists()){
-				file = new File(Path+".png");
+				file = new File(Path+".gif"); 
 			}
 			if(!file.exists()){
 				return null;
@@ -202,20 +206,40 @@ public class MemberService {
 		FileOutputStream fop = null;
 		File file=null;
 		byte[] photo=null;			
-		ByteArrayOutputStream baos = null;       
+		ByteArrayOutputStream baos = null; 
+		InputStream is=null;
 		try {
 			baos = new ByteArrayOutputStream();
-			file = new File(Path);
-			fop = new FileOutputStream(file);
+			file = new File(Path+".jpg");
+			if(!file.exists()){
+				file = new File(Path+".png");
+			}
+			if(!file.exists()){
+				file = new File(Path+".gif"); 
+			}
 			if (!file.exists()) {
 				file.createNewFile();
 			}		
-			if(!photoUrl.equals("")){
-						URL url = new URL(photoUrl);
-						BufferedImage originalImage = ImageIO.read(url);
-						ImageIO.write(originalImage, "jpg", baos);
-						baos.flush();
-						photo = baos.toByteArray();
+			if(!photoUrl.equals("")){	
+//					URL url = new URL(photoUrl);
+//					BufferedImage originalImage = ImageIO.read(url);
+//					ImageIO.write(originalImage, "gif", baos);
+//					baos.flush();
+//					photo = baos.toByteArray();
+				
+//				BufferedImage originalImage = ImageIO.read(file);
+//				ImageIO.write(originalImage,MimeType, baos);
+				 is = new URL(photoUrl).openStream();
+				 fop = new FileOutputStream(file);
+				 baos = new ByteArrayOutputStream();
+				int count = 0;
+	    		byte[] bytes = new byte[1024];
+	    		while ((count = is.read(bytes)) != -1) {
+	    			baos.write(bytes, 0, count);
+	    		}
+				baos.flush();
+				photo = baos.toByteArray();
+				baos.close();		
 			}
 			baos.close();		
 			fop.write(photo);

@@ -7,14 +7,15 @@
 <head>
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
+<link rel="stylesheet" href="${this_contextPath}/css/select.css">
 <link rel="stylesheet" href="${this_contextPath}/css/products.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fancybox.css">
-<link rel="stylesheet" href="${this_contextPath}/css/select.css">
 
-<title>商品明細</title><base>
+
+<title>商品明細</title>
 <style type="text/css">
-aside{ 
+.aside{ 
 background-image:url(images/Journal/journal2042.gif); /*背景圖存放路徑*/  
 background-attachment:fixed; /*背景固定*/  
 background-repeat:repeat; /*背景圖不要重複*/   
@@ -24,9 +25,7 @@ background-position:center; /*置放位置 下面 左邊*/
 </head>
 <body>
 <aside>
-<script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/jquery.fancybox.js"></script>
+
 
 <!-- <div style="position: fixed; z-index: 0; width: 100%; height: 100%;"> -->
 <!--   <iframe frameborder="0" height="70%" width="100%" -->
@@ -37,11 +36,23 @@ background-position:center; /*置放位置 下面 左邊*/
 <div class="ProductDetail">
 
     <div class="row">
-	    <div class="col-md-2"></div>
-	    <div id="productDetailbody" class="col-md-8">
-	    </div> 	    
-	 	<div class="col-md-2">
-	 	</div>	 	
+ <div class="col-xs-2 col-sm-2">
+            <a class="btn btn-info btn-select btn-select-light">
+                <input type="hidden" class="btn-select-input" id="" name="" value="" />
+                <span class="btn-select-value">請選擇尺寸</span>
+                <span class='btn-select-arrow glyphicon glyphicon-chevron-down'></span>
+                <ul>
+                    <li>US 8</li>
+                    <li>US 8.5</li>
+                    <li>US 9</li>
+                    <li>US 9.5</li>
+                    <li>US 10</li>
+                </ul>
+            </a>
+        </div>
+	    <div id="productDetailbody" class="col-md-8"></div> 	    
+	 	<div class="col-md-2"></div>
+	 		 	
     </div>
 
 	<div class="shopping_car_div">
@@ -54,7 +65,10 @@ background-position:center; /*置放位置 下面 左邊*/
 </div>
 </aside>
 
+
+
 <script type="text/javascript">
+jQuery(function($){
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
 	jQuery(function($){
@@ -68,11 +82,11 @@ $.ajax({
 		$('#productDetailbody').append('<div class="col-md-8">'
 							+'<div class="gallery">'
 							+'<div class="previews">'
-							+'<a class="selected" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/></a>'
-							+'<a data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_2.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_2.png"/></a>'
-							+'<a data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_3.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_3.png"/></a>'
-							+'<a data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"/></a>'
-							+'<a data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"/></a>'
+							+'<a class="changeImg onselected" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/></a>'
+							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_2.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_2.png"/></a>'
+							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_3.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_3.png"/></a>'
+							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"/></a>'
+							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"/></a>'
 							+'</div>'
 							+'<div class="full">'
 							+'<img data-lity alt="'+data[0][0].productDetail_Id+'" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
@@ -105,12 +119,12 @@ $.ajax({
 							
 							
 							var itemId = $('.btn-success>[span]').text()
-							console.log(itemId)
 							
-							$('a').click(function(){
+							
+							$('.changeImg').click(function(){
 						 		var largeImage = $(this).attr('data-full');
-						 		$('.selected').removeClass();
-						 		$(this).addClass('selected');
+						 		$('.onselected').removeClass();
+						 		$(this).addClass('onselected');
 						 		$('.full img').hide();
 						 		$('.full img').attr('src', largeImage);
 						 		$('.full img').fadeIn();
@@ -118,7 +132,7 @@ $.ajax({
 
 						 		$('.full img').on('click', function(){
 						 		var modalImage = $(this).attr('src');
-						 		$.fancybox.open(modalImage);
+						 		//$.fancybox.open(modalImage);
 						 		});
 	
 	
@@ -157,23 +171,17 @@ $('body').on('click','.addCart',function(){
 	
 })
 	})
+})
+	
+
 </script>
 <script type="text/javascript">
-$(document).ready(function() {
 
-	$(".selLabel").click(function() {
-		$('.dropdown').toggleClass('active');
-	});
-
-	$(".dropdown-list li").click(function() {
-		$('.selLabel').text($(this).text());
-		$('.dropdown').removeClass('active');
-		$('.selected-item p span').text($('.selLabel').text());
-	});
-
-});
 
 </script>
+<script type="text/javascript" src="${this_contextPath}/js/select.js"></script>
+<script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
+<script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 
 </body>
 </html>

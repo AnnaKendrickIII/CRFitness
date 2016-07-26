@@ -501,8 +501,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	            success:function(data){
 		            $.each(data,function(){
 	            		if(this[0] === "${pageContext.request.queryString}"){
-	            			theMemberId = this.member_Id;
-	            			titleNickName = this.nickname;
+	            			theMemberId = this[0];
+	            			titleNickName = this[2];
 	            			visitorStatus = 2;
 	            			callShowJournal(visitorStatus)
 	            			return false;
@@ -511,18 +511,14 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		            })
 		            if(visitorStatus != 2){
             			visitorStatus = 3;
-            			callShowJournal(visitorStatus)
-            			titleNickName = "${LoginOK.nickname}";
+            			callShowJournal(visitorStatus)       			
 	            	}
 				}
 		            
 			})
-			$('#titleNickName').text(titleNickName+'的日誌');
 		}
-
 				
 		function callShowJournal(visitorStatus){
-			console.log('visitorStatus:'+visitorStatus)
    			if(visitorStatus == 2){ 
 //好友頁面頭像		 		
 			$('#personal_profile').append(
@@ -841,7 +837,9 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
     			if(e){
 		    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, theLi);
     				}
-    			else{console.log(e)} 
+    			else{
+//     				console.log(e)
+    				} 
     		});
     	})		
     	//edit Contents
@@ -1056,6 +1054,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		}
 		
 		jQuery(function($){ 
+			var wimgSrc='${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}'
 			
 			$("body").on("click",'#clickchangehead',function(){
 				$('#changehead').modal('toggle');				
@@ -1064,7 +1063,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		            imageBox: '.imageBox',
 		            thumbBox: '.thumbBox',
 		            spinner: '.spinner',	    
-		            imgSrc: '${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}'
+		            imgSrc: wimgSrc
 		        }
 		        var cropper = new cropbox(options);
 		        document.querySelector('#file').addEventListener('change', function(){
@@ -1080,7 +1079,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		            var img = cropper.getDataURL(); 
 		            //換大頭貼
 		            changePhoto(img)
-// 		            document.querySelector('.cropped').innerHTML += '<img src="'+img+'">';
+// 		            document.querySelector('.cropped').innerHTML += '<img src="'+image+'">';
 		        })
 		        //變大
 		        document.querySelector('#btnZoomIn').addEventListener('click', function(){
@@ -1098,19 +1097,16 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
           			type:'post',
           			data:{'member_ID':'${LoginOK.member_Id}',
           				'photo1':img},
-          			success:function(data){
-          				
-          				alertify.alert('成功囉')
-          				
-          				
-//           				if(data){
-//           					alertify.alert('取消成功')
-//           					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
-//           					.removeClass('canceladdfriend').addClass('addfriend');
-//           				}else{
-//           					alertify.alert('異常，請洽客服人員')
-//           				}
-          			}
+          			success:function(data){   
+          				$('#file').val('').empty();
+          				$('#changhead').modal('hide');
+          				alertify.alert('Success') 
+          				var  myimg= $('img[src="'+wimgSrc+'"]')	
+          				for(var i=0;i<myimg.length;i++){	
+          						myimg.attr('src',img)	
+          					}
+          				wimgSrc=img;
+          		}
           		})	
 			}			
 			$("body").on("click",'.likethis',function(){
