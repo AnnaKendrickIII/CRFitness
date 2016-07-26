@@ -13,6 +13,7 @@
     
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
      <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
+     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
 
@@ -337,11 +338,140 @@
  $('#my_create').toggleClass('in').css({ 'display': 'block' }).modal();
   </script>
   </c:if>
-  
+<!--  火箭  -->
 <div style="display:none;" id="rocket-to-top">
 	<div style="opacity:0;display:block;" class="level-2"></div>
 	<div class="level-3"></div>
 </div>
+
+    
+    <div class="btn-group dropup">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-cog"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#" id="new_chat"><span class="glyphicon glyphicon-plus"></span> Novo</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-list"></span> Ver outras</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Fechar Tudo</a></li>
+            <li class="divider"></li>
+            <li><a href="#"><span class="glyphicon glyphicon-eye-close"></span> Invisivel</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- web聊天 -->
+ <script>
+ 
+var message_div= '<div class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:10px;">'
+ 				+'<div class="col-xs-12 col-md-12">'
+ 				+'<div class="panel panel-default">'
+         		+'<div class="panel-heading top-bar">'
+             	+'<div class="col-md-8 col-xs-8">'
+                +'<h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat - Miguel</h3>'
+             	+'</div>'
+             	+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
+                +'<a href="#"><span id="minim_chat_window" class="glyphicon panel-collapsed glyphicon-plus icon_minim"></span></a>'
+                +' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
+             +'</div>'
+            +'</div>'
+            +'<div class="panel-body msg_container_base">'
+            +'<div class="row msg_container base_sent">'
+            +'<div class=" col-md-10 col-xs-10 message_div">'
+            +'<div class="messages msg_sent">'
+            +'<p>that mongodb thing looks good, huh?'
+            +'tiny master db, and huge document store</p>'
+            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
+            +'</div>'
+            +'</div>'
+            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
+            +'</div>'
+            +'</div>'
+            +'<div class="row msg_container base_receive">'
+            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
+            +'</div>'
+            +'<div class="col-md-10 col-xs-10 message_div">'
+            +'<div class="messages msg_receive">'
+            +'<p>that mongodb thing looks good, huh?'
+            +'tiny master db, and huge document store</p>'
+            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
+            +' </div>'
+            +' </div>'
+            +'</div>'
+            +'<div class="row msg_container base_receive">'
+            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+            +'<img  class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
+            +'</div>'
+            +'<div class="col-xs-10 col-md-10 message_div">'
+            +'<div class="messages msg_receive">'
+            +'<p>that mongodb thing looks good, huh?'
+            +'tiny master db, and huge document store</p>'
+            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
+            +'</div>'
+            +'</div>'
+            +'</div>'
+            +'</div>'
+            +'<div class="panel-footer">'
+            +'<div class="input-group">'
+            +'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
+            +'<span class="input-group-btn">'
+            +'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
+            +'</span>' 
+            +'</div>'
+            +'</div>'
+            +'</div>'
+            +'</div>'
+ 		$('body').on('dblclick', '.panel-heading ', function (e) {
+     	var $this = $(this).find('span.icon_minim');
+     	if (!$this.hasClass('panel-collapsed')) {
+         	$this.parents('.panel').find('.panel-body').slideUp();
+         	$this.addClass('panel-collapsed');
+         	$this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+    	 } else {
+         	$this.parents('.panel').find('.panel-body').slideDown();
+         	$this.removeClass('panel-collapsed');
+         	$this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+    	 }
+ 		});
+ 		$('body').on('click', '.panel-heading span.icon_minim', function (e) {
+            var $this = $(this);
+            if (!$this.hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideUp();
+                $this.addClass('panel-collapsed');
+                $this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            } else {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $this.removeClass('panel-collapsed');
+                $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }
+        });
+ 		$('body').on('focus', '.panel-footer input.chat_input', function (e) {
+            var $this = $(this);
+            if ($('#minim_chat_window').hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $('#minim_chat_window').removeClass('panel-collapsed');
+                $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }
+        });
+ 		$('body').on('click', '#new_chat', function (e) {
+            var size = $(".chat-window:last-child").css("margin-left");
+            size_total = parseInt(size) + 400;
+//             alert(size_total);
+            message_div
+//             var clone = $("#chat_window_1").clone().appendTo("body");
+            var clone =$(message_div).appendTo("body")
+            clone.css("margin-left", size_total);
+            $( ".chat-window" ).draggable();
+        });
+ 		$('body').on('click', '.icon_close', function (e) {
+            //$(this).parent().parent().parent().parent().remove();
+            $("#chat_window_1").remove();
+        });
+        
+    </script>
+
 
 <!--  判斷註冊是否成功  結束-->  
     <script type="text/javascript"> 
