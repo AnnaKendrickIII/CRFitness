@@ -47,7 +47,7 @@
 
 	<bean id="multipartResolver"
 	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="maxUploadSize" value="5242880"></property>
+		<property name="maxUploadSize" value="15242880"></property>
 	</bean>
 	
 <!-- 	<bean id="websocket" class="com.init.WebSocketHander" /> -->

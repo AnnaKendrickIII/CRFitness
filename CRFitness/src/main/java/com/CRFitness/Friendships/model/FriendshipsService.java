@@ -13,8 +13,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-@Transactional(transactionManager="transactionManager")
 @Service("friendshipsService")
 public class FriendshipsService {
 	
@@ -35,6 +33,7 @@ public class FriendshipsService {
 		return friendshipsDAO.select_Friends_Flag(member_Id);
 	}
 	
+	@Transactional(transactionManager="transactionManager")
 	public boolean addFriend(String member_Id,String friend_Id){
 		FriendshipsVO friendshipsVO = new FriendshipsVO();
 		FriendshipsVO friendshipsVO2 = new FriendshipsVO();
@@ -50,6 +49,7 @@ public class FriendshipsService {
 			return false;
 	}
 	
+	@Transactional(transactionManager="transactionManager")
 	public boolean acceptFriend(String member_Id,String friend_Id){
 		FriendshipsVO friendshipsVO = new FriendshipsVO();
 		FriendshipsVO friendshipsVO2 = new FriendshipsVO();
@@ -65,6 +65,7 @@ public class FriendshipsService {
 			return false;
 	}
 	
+	@Transactional(transactionManager="transactionManager")
 	public boolean deleteFriend(String member_Id,String friend_Id){
 		if(friendshipsDAO.delete(member_Id, friend_Id) && friendshipsDAO.delete(friend_Id, member_Id))
 			return true;
