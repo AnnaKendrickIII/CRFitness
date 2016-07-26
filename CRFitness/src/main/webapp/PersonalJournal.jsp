@@ -131,6 +131,9 @@ color:#0000C6;
 	color:#BEBEBE;
 	font-size: 10px;
 }
+.statusSelect{
+	margin-top:5px;
+}
 </style>
 <script type="text/javascript">
 jQuery(function($){
@@ -605,8 +608,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				    	+ '<p class="journaltime">'
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				    	+ '<p class="userContents"></p>'
-			   			
-			   			+ '<br /><select class="statusSelect" hidden="hidden" /></div>'
+			   			+ '<div><select class="statusSelect" hidden="hidden" /></div></div>'
 			   			+ '<div class="timeline-footer">'
 			   			  //'留言塞這裡'
 			   			+ '<div></div><div></div></div>'
@@ -699,10 +701,14 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					theLi.find('div.timeline-footer').slideUp();
 					theLi.find('div.viewmessages').slideDown();
 				})
+				
+				// 編輯個人日誌的內容
 				$('.username').editable({
 				     rows:3
-				});  // 編輯個人日誌的內容
-					$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
+				});  
+				
+				
+				$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
 					
 					
     			}
@@ -760,9 +766,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
-								   			
 
-								   			+ '<br/><select class="statusSelect" /></div>'
+								   			+ '<div><select class="statusSelect" /></div></div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
 											// 	'留言塞這裡'
 								   			+ '<div></div><div></div></div>'
@@ -788,7 +793,10 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		   									$.ajax({
 		   										url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
 		   										type: 'POST',
-		   										data: {'journal_Id':arguments[0].data.journal_Id,'member_Id':theMemberId,'contents':arguments[0].data.contents,'publicStatus':$(this).val()},
+		   										data: {'journal_Id':arguments[0].data.journal_Id,
+		   											'member_Id':theMemberId,
+		   											'contents':arguments[0].data.contents,
+		   											'publicStatus':$(this).val()},
 		   										success: function(data){
 		   										}
 		   									})
@@ -806,6 +814,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		   							     rows:3
 		   								});  // 編輯個人日誌的內容
 		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
+								},error: function(){
+									alertify.alert('檔案格式異常').set('title', '警告');
 								}
 							})	
 						}
@@ -840,7 +850,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 //     				console.log(e)
     				} 
     		});
-    	})		
+    	})
     	//edit Contents
 		divGrid.on('click','a.username',function(){
 			var theLi = $(this).parents('li');
