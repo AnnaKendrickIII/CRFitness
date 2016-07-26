@@ -351,8 +351,8 @@ width:24px;
 								if(index==0){					
 									messageDiv.append(
 											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'">'
-		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'
-		 	            					 +theMember_Id+'.jpg" /></div><div class="message_inner_div_css"><span class="message_name_span">'
+		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'
+		 	            					 +theMember_Id+'" /></div><div class="message_inner_div_css"><span class="message_name_span">'
 		 	            					 +theNickname+'</span></a><div class="innercontent_div"><span class="span_contet"></span>'
 		 	            					 +'</div></div></div>').find('.message_div:last .span_contet').text(this)
 								}else{
