@@ -253,9 +253,9 @@ padding:10px 5px 2px 5px;
 		        	    });
 			
 	                 $('div a:not(:first-child)').click(function(){
-	                	 
+	                	 var li_notfirst =$(this)
 	                	  $('form').submit(function(){
-// 	                		    console.log(li_notfirst.siblings("p").text())
+// 	                		    console.log(li_notfirst.siblings("p:first").text())
 // 	                			console.log(li_notfirst.parent().find("a:eq(0)").text())
 // 	                			console.log(li_notfirst.parent().find("a:eq(1)").text())
 // 	                			console.log(li_notfirst.parent().find("a:eq(2)").text())
@@ -264,7 +264,7 @@ padding:10px 5px 2px 5px;
 		                	   $.ajax({
 	    						url:"${this_contextPath}/CRFSERVICE/activitysController/modifyActivitys",
 		          				type:'post',  //get post put delete
-		          				data:{activity_Id:li_notfirst.siblings("p").text(),
+		          				data:{activity_Id:li_notfirst.siblings("p:first").text(),
 		          					  activity_Class:li_notfirst.parent().find("a:eq(0)").text(),
 		          					  activity_Area:li_notfirst.parent().find("a:eq(1)").text(),
 		          					  activity_Info:li_notfirst.parent().find("a:eq(2)").text(),
