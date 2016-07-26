@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CRFitness</title>
 <link href="${this_contextPath}/css/index_video.css" rel="stylesheet" />
+<link href="${this_contextPath}/css/index_layout.css" rel="stylesheet" />
 </head>
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/css/3dcss.css" rel="stylesheet" />
@@ -19,7 +20,10 @@
 <script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
 <script src="js/index_video.js"></script>
 
-<!--Video Section-->
+
+ <div id="wrapper">
+    <div id="content">
+        <!--第一塊--><!--Video Section-->
 		<section class="content-section video-section">
 			<div class="pattern-overlay">
 				<a id="bgndVideo" class="player"
@@ -35,10 +39,19 @@
 				</div>
 			</div>
 		</section>
-
-
-		<!-- 3D Css -->
-		<div class="row">
+    </div>
+  </div>
+  <div id="navigation">
+		<!--左一塊 -->
+<p></p>
+		
+  </div>
+  <div id="extra">
+    <p><strong>右邊</strong></p>
+    <p>sit malesuada lacus pellus parturpiscing. Pellenterdumat maecenatoque cras a magna nibh et quis diam ames et. Laoremvolutpat ac dolor eget eget temper lacus vestibus velit lacus venean. Magnaipsum tellus morbi leo aliquat nulla convallis pellentesque.</p>
+  </div>
+  <div id="footer">
+			<!-- 3D Css -->
 			<div class="col-md-4 "></div>
 			<div class="col-md-4  ">
 				<div class="container2 ">
@@ -53,9 +66,6 @@
 			</div>
 			<div class="col-md-4 "></div>
 		</div>
-
-
-
 	</aside>
 	<script type="text/javascript">
 	jQuery(function($){
