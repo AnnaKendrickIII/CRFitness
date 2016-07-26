@@ -958,7 +958,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						theLi.find('div.timeline-footer').hide();
 						theLi.find('div.viewmessages').hide();
 					}else if(data.length < 3 && theLi.find('div.timeline-footer').is(':visible')){
-						theLi.find('div.viewmessages').slideUp();
+						theLi.find('div.viewmessages').hide();
 					}else if(data.length < 3 && theLi.find('div.timeline-footer').is(':hidden')){
 						messageDiv.next().show().parent().slideDown()
 						theLi.find('div.viewmessages').slideUp()
