@@ -517,7 +517,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				}
 		            
 			})
-					$('#titleNickName').text(titleNickName+'的日誌');
+			$('#titleNickName').text(titleNickName+'的日誌');
 		}
 
 				

@@ -161,7 +161,6 @@
 							type:'get',
 							data:{'member_Id': "${LoginOK.member_Id}"},
 							success: function(data){
-									console.log(data)
 								if(data>0)
 									$('body').find('span.num_mail').text(data);
 							}
