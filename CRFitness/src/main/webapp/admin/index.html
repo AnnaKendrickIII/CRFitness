@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,14 +7,12 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Administration</title>
-	
-	<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
+    <title>DASHGUM - FREE Bootstrap Admin Template</title>
+
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
     <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">    
@@ -47,7 +42,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>C.R.Fitness Administration</b></a>
+            <a href="index.html" class="logo"><b>DASHGUM FREE</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -206,46 +201,68 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><a href="profile.html"><img src="assets/img/Alvin (the Chipmunk).jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Alvin</h5>
+              	  <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
+              	  <h5 class="centered">Marcel Newman</h5>
               	  	
                   <li class="mt">
-                      <a class="active" href="Admin2.jsp">
+                      <a class="active" href="index.html">
                           <i class="fa fa-dashboard"></i>
-                          <span>主控台</span>
-                      </a>
-                  </li>
-
-                  <li class="sub-menu">
-                      <a href="${this_contextPath}/Maintenance/MaintainJournals.jsp" >
-                          <i class="fa fa-book"></i>
-                          <span>維護健康日誌</span>
+                          <span>Dashboard</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-shopping-cart"></i>
-                          <span>維護商品專區</span>
+                          <i class="fa fa-desktop"></i>
+                          <span>UI Elements</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="${this_contextPath}/Maintenance/MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a  href="general.html">General</a></li>
+                          <li><a  href="buttons.html">Buttons</a></li>
+                          <li><a  href="panels.html">Panels</a></li>
+                      </ul>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-cogs"></i>
+                          <span>Components</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="calendar.html">Calendar</a></li>
+                          <li><a  href="gallery.html">Gallery</a></li>
+                          <li><a  href="todo_list.html">Todo List</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="${this_contextPath}/Maintenance/MaintainActivities.jsp" >
-                          <i class="fa fa-users"></i>
-                          <span>維護揪團專區</span>
+                      <a href="javascript:;" >
+                          <i class="fa fa-book"></i>
+                          <span>Extra Pages</span>
                       </a>
+                      <ul class="sub">
+                          <li><a  href="blank.html">Blank Page</a></li>
+                          <li><a  href="login.html">Login</a></li>
+                          <li><a  href="lock_screen.html">Lock Screen</a></li>
+                      </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="${this_contextPath}/Maintenance/MaintainMembers.jsp" >
-                          <i class="fa fa-commenting"></i>
-                          <span>維護會員資訊</span>
+                      <a href="javascript:;" >
+                          <i class="fa fa-tasks"></i>
+                          <span>Forms</span>
                       </a>
+                      <ul class="sub">
+                          <li><a  href="form_component.html">Form Components</a></li>
+                      </ul>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-th"></i>
+                          <span>Data Tables</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="basic_table.html">Basic Table</a></li>
+                          <li><a  href="responsive_table.html">Responsive Table</a></li>
+                      </ul>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
@@ -368,7 +385,7 @@
 									<h5>TOP USER</h5>
 								</div>
 								<p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
-								<p><b>光志哥</b></p>
+								<p><b>Zac Snider</b></p>
 								<div class="row">
 									<div class="col-md-6">
 										<p class="small mt">MEMBER SINCE</p>
@@ -376,7 +393,7 @@
 									</div>
 									<div class="col-md-6">
 										<p class="small mt">TOTAL SPEND</p>
-										<p>$ 47000,60</p>
+										<p>$ 47,60</p>
 									</div>
 								</div>
 							</div>
