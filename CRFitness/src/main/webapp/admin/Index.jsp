@@ -365,9 +365,9 @@
 							<!-- WHITE PANEL - TOP USER -->
 							<div class="white-panel pn">
 								<div class="white-header">
-									<h5>TOP USER</h5>
+									<h5>頂級會員</h5>
 								</div>
-								<p><img src="assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
+								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="80"></p>
 								<p><b>光志哥</b></p>
 								<div class="row">
 									<div class="col-md-6">
@@ -640,7 +640,7 @@
       <!--footer start-->
       <footer class="site-footer">
           <div class="text-center">
-              2014 - Alvarez.is
+              2016 - C.R.Fitness Co., Ltd.
               <a href="index.html#" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
