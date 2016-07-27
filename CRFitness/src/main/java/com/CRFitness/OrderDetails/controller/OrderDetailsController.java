@@ -40,12 +40,14 @@ public class OrderDetailsController {
 		return orderDetailsService.searchAllOrderDetails();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/search", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.POST, value = "/search", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<OrderDetailsVO> searchByOrder_Id(
 			HttpServletRequest request, @RequestParam String order_Id) {
 		request.getSession().setAttribute("searchByOrder_Id", order_Id);
 		return orderDetailsService.searchOrderDetails(order_Id);
 	}
+	
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/addOrder", produces = "application/json;charset=UTF-8")
 	public @ResponseBody void addOrder(@RequestParam String consignee_Name,

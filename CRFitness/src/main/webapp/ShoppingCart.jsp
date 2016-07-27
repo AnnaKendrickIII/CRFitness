@@ -113,15 +113,15 @@
 						<div class="input-group">
 							<div id="radioBtn" class="btn-group">
 								<a class="btn btn-primary btn-lg active" data-toggle="happy"
-								data-title="X">線上刷卡</a>
+								data-title="x">線上刷卡</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="Y">ATM轉帳</a>
+								data-title="y">ATM轉帳</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="Z">超商繳費</a>
+								data-title="z">超商繳費</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="A" disabled="disabled">用身體付</a>
+								data-title="a" disabled="disabled">用身體付</a>
 							</div>
-							<input type="hidden" name="payment" id="payment">
+							
 						</div>
 					</div>
 				</div>
@@ -155,6 +155,30 @@ queryString=queryString.substring(17);
 	})
 }
 
+//清空購物車
+function cleanCart(){
+	$.ajax({
+		url:'${this_contextPath}/CRFSERVICE/productDetailController/cleanCart',
+		typr:'get',
+		data:{},
+		success:function(){
+			$('.item').remove()
+		}
+	})
+}
+
+//付費方式 Radio Box
+$('#radioBtn a').on('click', function() {
+	var sel = $(this).data('title');
+	var tog = $(this).data('toggle');
+	var a= $('#' + tog).prop('value', sel);
+	$('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]')
+			.removeClass('active').addClass('notActive');	
+	$('a[data-toggle="' + tog + '"][data-title="' + sel + '"]')
+			.removeClass('notActive').addClass('active');
+})
+
+
 jQuery(function($){
 	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ShoppingCart.png">')
 	$.ajax({
@@ -181,22 +205,14 @@ jQuery(function($){
 			
 		$('body').on('click', '.btn-success', function () {
 		    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
-		    	alertify.success('訂單送出') 
-		
+		    	
 		    	var consignee_Name = $('#consignee_Name').val();
 		    	var consignee_Address = $('#consignee_Address').val();
 		    	var email = $('#email').val();
 		    	var payment_Method = $('#radioBtn .active').text();
 				var qty = $('.qty').val();
-
-		    	
-// 				console.log('consignee_Name='+consignee_Name)
-// 				console.log('consignee_Address='+consignee_Address)
-// 				console.log('E-mail='+email)
-// 				console.log('payment_Method='+payment_Method)
-// 				console.log('qty='+qty)
-// 				console.log('--------------------------')
-				
+			
+			//送出訂單
 				$.ajax({
 					url:'${this_contextPath}/CRFSERVICE/orderDetailsController/addOrder',
 					type:'get',
@@ -206,20 +222,28 @@ jQuery(function($){
 						payment_Method:payment_Method,
 					},
 					success:function(data){
-						console.log('consignee_Name='+consignee_Name)
-						console.log('consignee_Address='+consignee_Address)
-						console.log('E-mail='+email)
-						console.log('payment_Method='+payment_Method)
-						console.log('--------------------------')
+						//確認訂單後清空session和頁面上的資料
+			    		$('#consignee_Name').val('');
+				    	$('#consignee_Address').val('');
+				    	$('#email').val('');				    	
+				    	$('a[data-toggle="happy"]').not('[data-title="x"]')
+				    			.removeClass('active').addClass('notActive');	
+				    	$('a[data-toggle="happy"][data-title="x"]')
+				    			.removeClass('notActive').addClass('active'); 						
+						cleanCart()
+						totalAmount()
+						//訂單送出後3秒導向推薦者頁面
+						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後返回首頁',setTimeout(function(){	
+ 							location.href ='<%=request.getHeader("referer")%>'
+							},3000) 
+						)
 					}
 				})
-				
 		   		 }, function () { 
 		        alertify.error('訂單取消') });
 		});
 	}
 })
-	
 })
 
 	//刪除商品
@@ -245,14 +269,7 @@ $('#itemlist').on('click','.delete', function() {
 $('body').on('click','#clean',function(){
 	alertify.confirm().set('title', '刪除整台購物車');
 	alertify.confirm('確認將購物車清空?',function(){
-		$.ajax({
-			url:'${this_contextPath}/CRFSERVICE/productDetailController/cleanCart',
-			typr:'get',
-			data:{},
-			success:function(){
-				$('.item').remove()
-			}
-		})
+			cleanCart()
 		alertify.warning('購物車已清空')
 			totalAmount()
 	})
@@ -274,35 +291,10 @@ $('#itemlist').on('focusout', 'div.item input.qty',function(){
 	
 })
 
-// 	$('#itemlist').on('change', 'div.item input.qty',function(){
-// 	var amount = 0;
-// 	var sum = 0;
-// 	for(var i=0; i<$('.qty').length; i++){
-// 		var qty = parseInt($('.qty:eq('+i+')').val());
-// 		var price = parseInt($('.price:eq('+i+')').text());
-// 		amount = qty * price;
-// 		console.log(amount);	
-// 		sum += amount;
-// 	}
-	
-// 	})
 
-	$('#radioBtn a').on('click', function() {
-		var sel = $(this).data('title');
-		var tog = $(this).data('toggle');
-		$('#' + tog).prop('value', sel);
-		$('a[data-toggle="' + tog + '"]').not(
-				'[data-title="' + sel + '"]').removeClass(
-				'active').addClass('notActive');
-		$(
-				'a[data-toggle="' + tog + '"][data-title="'
-						+ sel + '"]').removeClass('notActive')
-				.addClass('active');
-	})
+
+
 </script>
-
-
 </aside>
 </body>
-
 </html>

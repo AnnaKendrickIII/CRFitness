@@ -33,6 +33,7 @@ public class OrdersService {
 			return null;
 		}
 	}
+	
 
 	// 取消訂單
 	public Boolean cancelOrder(String order_Id) {
@@ -49,6 +50,10 @@ public class OrdersService {
 
 	// 如你所見,撈出所有訂單
 	public List<OrdersVO> searchAllOrders() {
+		return ordersDAO.getAll();
+	}
+	
+	public List<OrdersVO> searchMemberOrders() {
 		return ordersDAO.getAll();
 	}
 
