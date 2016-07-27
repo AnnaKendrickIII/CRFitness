@@ -14,7 +14,7 @@ import com.CRFitness.Member.model.MemberVO;
 import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 
 @Transactional(transactionManager="transactionManager")
-@Repository("friendshipsDAO")
+@Repository("chatDAODAO")
 public class ChatDAO implements ChatDAO_interface {
 
 	private static final String GET_ALL_STMT = "from FriendshipsVO";
