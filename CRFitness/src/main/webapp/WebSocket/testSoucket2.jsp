@@ -70,11 +70,13 @@
  
     ws.onmessage = function(event) 
     {	console.log("onmessage:")
-    	event.data
+    	console.log(event.data)
         var data = JSON.parse(event.data);
         if(data.type == '2')
         {
             render_data(data.username, data.data);
+            console.log(data.username)
+            console.log(data.data)
         }
         else if(data.type == '1')
         {

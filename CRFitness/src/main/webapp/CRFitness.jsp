@@ -14,6 +14,7 @@
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
      <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
      <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
+      <link href="${this_contextPath}/css/friend.css" rel="stylesheet" />
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
 
@@ -41,7 +42,7 @@
                 </li>            
                 <li>
                     <div class="dropdown">    
-                        <a href="#"><i class="fa fa-book"></i>日誌<span class="caret"></span></a>
+                        <a href="#"><i class="fa fa-book"></i>日誌<span class="downc caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
                             <li><a href="${this_contextPath}/Journal.jsp">健康日誌</a></li>
                             <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">個人日誌</a></li>
@@ -50,7 +51,7 @@
                 </li>
                 <li>
                     <div class="dropdown">
-                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="caret"></span></a>
+                        <a href="#"  class="dropdown-toggle"><i class="fa fa-shopping-cart"></i>商品<span class="downc caret"></span></a>
                         <ul class="wrapper_dropdown_ul">
                             <li><a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1">上裝</a></li>
                             <li><a href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1">下裝</a></li>
@@ -114,35 +115,58 @@
   
     <!-- 好友區塊 開始-->
     <c:if test="${! empty LoginOK }">
-		<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myfriend" class="modal fade">
+		<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myfriend" class="modal fade ">
                     <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header friend_header ">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h2 class="modal-title">${LoginOK.nickname}的好友</h2>
-                            </div>
-                            <div class="modal-body">
-                                <div id="show">                 
-						<table class="friend_table">
-							<thead>
-								<tr>
-						<th></th>
-						<th>Name</th>
-						<th>Email</th>
-						<th></th>
-						<th></th>
-								</tr>
-							</thead>
-							<tbody id="friend_tbody">
-						</tbody>
-					</table>
-						</div>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
+                        <div class="modal-content">                 
+            <div class="panel panel-default">
+                <div class="panel-heading c-list modal-header friend_header">
+                
+                    <span class="title">${LoginOK.nickname}的好友</span>
+                    <ul class="pull-right c-controls">
+                        <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>
+                    </ul>
+                </div>
+                
+                <div class="row" style="display: none;">
+                    <div class="col-xs-12">
+                        <div class="input-group c-search">
+                            <input type="text" class="form-control" id="contact-list-search" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
                         </div>
                     </div>
                 </div>
+                
+                <ul class="list-group " id="contact-list">
+                                
+                </ul>
+            </div>
+        </div>
+	</div>
+  </div>
+
+         <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
+                <script>
+    $(function () {
+        /* BOOTSNIPP FULLSCREEN FIX */
+        if (window.location == window.parent.location) {
+            $('#back-to-bootsnipp').removeClass('hide');
+        }
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-command="toggle-search"]').on('click', function (event) {
+            event.preventDefault();
+            $(this).toggleClass('hide-search');
+
+            if ($(this).hasClass('hide-search')) {
+                $('.c-search').closest('.row').slideUp(100);
+            } else {
+                $('.c-search').closest('.row').slideDown(100);
+            }
+        })  
+    });
+
+</script>
                  <script type="text/javascript">
                      $(function () {
                          $.ajax({
@@ -151,8 +175,35 @@
                              data:{},
                              success:function(data){
                                  $.each(data,function(){
-                                     $('#friend_tbody').append('<tr><td><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" ><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="friend_Name">'+  this[2] +'</td><td>'+  this[1] +'</td>')  
+                                	 $('#contact-list').append(
+                                	 '<li class="list-group-item">'
+                                	 +' <div class="col-xs-12 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" >'
+                                	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-responsive img-circle" />'
+                                	 +'</a></div>'
+                                	 +'<div class="col-xs-12 col-sm-3 friend_name_div">'
+                                	 +'<span class="name">'+this[2]+'</span>'
+                                	 +'</div>'
+                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+                                	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
+                                	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+                                	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+this[0]+'</span></span>'
+                                	 +'</div>'
+                                	 +'<div class="clearfix"></div>'
+                                	 +'</li> '	 
+										)
+//                                      $('#contact-list').append('<tr><td><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="friend_Name">'+  this[2] +'</td><td>'+  this[1] +'</td>')  
                                  })
+                              $('#contact-list').searchable({
+            searchField: '#contact-list-search',
+            selector: 'li',
+            childSelector: '.col-xs-12',
+            show: function (elem) {
+                elem.slideDown(100);
+            },
+            hide: function (elem) {
+                elem.slideUp(100);
+            }
+        })
                              }          	 
                          })
                          
@@ -198,10 +249,7 @@
                 });
 
                 auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
-                  function (googleUser) {
-//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
+                  function (googleUser) {       	
                 	 var ImageUrl;
                      if (googleUser.getBasicProfile().getImageUrl() == undefined) {
                          ImageUrl = null;
@@ -371,7 +419,7 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3" id="chat_window
                 +'<h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat - Miguel</h3>'
              	+'</div>'
              	+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
-                +'<a href="#"><span id="minim_chat_window" class="glyphicon panel-collapsed glyphicon-plus icon_minim"></span></a>'
+                +'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
                 +' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
              +'</div>'
             +'</div>'
@@ -423,6 +471,7 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3" id="chat_window
             +'</div>'
             +'</div>'
             +'</div>'
+            
  		$('body').on('dblclick', '.panel-heading ', function (e) {
      	var $this = $(this).find('span.icon_minim');
      	if (!$this.hasClass('panel-collapsed')) {
@@ -455,12 +504,22 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3" id="chat_window
                 $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
             }
         });
- 		$('body').on('click', '#new_chat', function (e) {
+ 		$('body').on('click', '.chat_icon_css', function (e) {
+ 			$.ajax({
+ 		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
+ 		          type:'get',  //get post put delete
+ 				  data:{},
+ 				  success:function(){
+ 					  
+ 					  
+ 					  
+ 				  } 			
+ 			})
+ 					  
+ 			
+ 			$('#myfriend').modal('hide')
             var size = $(".chat-window:last-child").css("margin-left");
             size_total = parseInt(size) + 400;
-//             alert(size_total);
-            message_div
-//             var clone = $("#chat_window_1").clone().appendTo("body");
             var clone =$(message_div).appendTo("body")
             clone.css("margin-left", size_total);
             $( ".chat-window" ).draggable();
