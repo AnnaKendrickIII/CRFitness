@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css"> 
-
+<link href="${this_contextPath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <style>
  body   {    
     background-color: #f5f5f5;  
@@ -132,7 +132,11 @@ color:#0000C6;
 	font-size: 10px;
 }
 .statusSelect{
-	margin-top:5px;
+	float: right;
+}
+.faspan{
+position:absolute;
+left: 30%;
 }
 </style>
 <script type="text/javascript">
@@ -145,9 +149,13 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 
 <body >
 
+
+
 <!-- 將顯示內容放置到aside -->
 <c:if test="${! empty LoginOK}">
 <aside> 
+
+
 <div class="row">
 				<div class="col-md-2 "></div>
 				<div class="col-md-8 col-xs-12">
@@ -261,7 +269,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 <!-- ├─判斷是是個人日誌頁面還是好友結束─┤ -->
 
 			<!-- 新增個人日誌頁面開始 -->
-				<div class="modal fade" id="exampleModal" tabindex="-1"
+				<div class="modal fade insertjournal" id="exampleModal" tabindex="-1"
 					role="dialog" aria-labelledby="exampleModalLabel"
 					aria-hidden="true">
 					<div class="modal-dialog">
@@ -279,13 +287,14 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 										<label for="content">內容</label> <textarea  class="form-control" id="content" placeholder="內容輸入在此"></textarea>
 									</div>
 
-									<div class="form-group">
-										<label for="openStatus">公開狀態</label> <select id="openStatus">
-											<option value="1">公開</option>
-											<option value="2">朋友</option>
-											<option value="0">限本人</option>
-										</select>
-									</div>
+								<div class="btn-group statusSelect">
+							       <a  class="btn dropdown-toggle " data-toggle="dropdown" aria-expanded="false" hidden="hidden"><i id="openStatus" data-val="1" class="fa fa-share-alt" aria-hidden="true"></i><span class="aaaa"> 公開</span><span class="caret"></span></a>
+							       <ul class="dropdown-menu" role="menu">
+							       <li><a class="selectOpenValue" data-val="1"><i class="fa fa-share-alt" aria-hidden="true"></i> <span  class="faspan"> 公開</span></a></li>
+							       <li><a class="selectOpenValue" data-val="2"><i class="fa fa-users" aria-hidden="true"></i> <span class="faspan"> 朋友</span></a></li>
+							       <li><a class="selectOpenValue" data-val="0"><i class="fa fa-lock" aria-hidden="true"></i> <span class="faspan"> 限本人</span></a></li></ul>
+								</div>
+
 									<div class="form-group">
 										<label for="uploadfile">檔案上傳</label> <input id="uploadfile" class=""
 											type="file" multiple="multiple">
@@ -402,7 +411,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						+'<div class="friend_joinactivity">'+this[0].activity_Class+" "+this[0].activity_Area+'</div>'
 						+'</li>')         	
 			         }) //each
-			      
+			         
 			         $(".boxer").boxer({
 							top: 50,
 							fixed:true
@@ -603,12 +612,19 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 				    	+ this[0].journal_Id+'" /></a></div>'
 				    	+ '<div class="timeline-body">'
+
+				        + '<div class="btn-group statusSelect">'
+				        + '<a  class="btn dropdown-toggle " data-toggle="dropdown" aria-expanded="false" hidden="hidden"><i class="fa fa-share-alt" aria-hidden="true"></i><span class="aaaa"> 公開</span><span class="caret"></span></a>'
+				        + '<ul class="dropdown-menu" role="menu">'
+				        + '<li><a class="selectOpenValue" data-val="1"><i class="fa fa-share-alt" aria-hidden="true"></i> <span class="faspan"> 公開</span></a></li>'
+				        + '<li><a class="selectOpenValue" data-val="2"><i class="fa fa-users" aria-hidden="true"></i> <span class="faspan"> 朋友</span></a></li>'
+				        + '<li><a class="selectOpenValue" data-val="0"><i class="fa fa-lock" aria-hidden="true"></i> <span class="faspan"> 限本人</span></a></li></ul></div>'
+
+				        +'<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
 				    	
-				    	+'<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
-				    	+ '<p class="journaltime">'
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				    	+ '<p class="userContents"></p>'
-			   			+ '<div><select class="statusSelect" hidden="hidden" /></div></div>'
+			   			+'</div>'
 			   			+ '<div class="timeline-footer">'
 			   			  //'留言塞這裡'
 			   			+ '<div></div><div></div></div>'
@@ -625,6 +641,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			   			+ '</div>'
 			   			+ '</li>')
 			   			
+   			
 			   			//顯示按讚數		
 					   	$.ajax({
 							url:"${this_contextPath}/CRFSERVICE/laudationcontroller/countlike",
@@ -634,23 +651,20 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	 				 			$('#'+thejournal_Id).find(".countLike").append(data)						
 							}					
 						})
-                         
+
+						
             		// 判斷queryString 和 LoginOK.member_Id 是否一樣
 					if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除 5:停權
-						var eleS = $('select.statusSelect:last').bind('change',this,function(){
-							updateJournal(arguments[0].data[0].journal_Id, "${LoginOK.member_Id}",arguments[0].data[0].contents,$(this).val())
-						})
-						var publicStatus = ['限本人','公開','朋友'];
-						for(var i =0;i<3;i++){
-							if(parseInt(this[0].publicStatus) === i){
-								$('<option />',{'value':i,'text':publicStatus[i],'selected':true}).appendTo(eleS);
-							}else{
-								$('<option />',{'value':i,'text':publicStatus[i]}).appendTo(eleS);
-							}
+						var theLi = $('#'+ this[0].journal_Id);
+						var selectA = theLi.find('div.statusSelect>a');
+						if(this[0].publicStatus == 2){
+							selectA.find('span:first').text(' 朋友');
+							selectA.find('i').removeClass().addClass('fa fa-users');
+						}else if(this[0].publicStatus == 0){
+							selectA.find('span:first').text(' 限本人');
+							selectA.find('i').removeClass().addClass('fa fa-lock');
 						}
-
-						eleS.show();
 						
 						// 移除個人日誌按鈕
 						divGrid.find('div.timeline-panel:last')
@@ -659,6 +673,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
 						
 						}else{
+							$('div.statusSelect').hide()
 							divGrid.find('p.userContents:last').text(this[0].contents);
 						}
 								
@@ -705,24 +720,43 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				// 編輯個人日誌的內容
 				$('.username').editable({
 				     rows:3
-				});  
+				});
 				
 				
 				$('#grid').append('<li class="clearfix" style="float: none;">'); // 顯示中間時間軸的線
-					
 					
     			}
     		})
     		//ajax 查詢日誌結束
         }
         
+		// insert journal OpenStatus
+		$('div.insertjournal').on('click', 'div.statusSelect>ul>li>a' , function(){
+			var openValue = $(this).attr('data-val')
+			var selectA = $('div.insertjournal').find('div.statusSelect>a');
+			if(openValue == 2){
+				selectA.find('span:first').text(' 朋友');
+				selectA.find('i').removeClass().addClass('fa fa-users');
+				$('#openStatus').attr('data-val','2')
+			}else if(openValue == 0){
+				selectA.find('span:first').text(' 限本人');
+				selectA.find('i').removeClass().addClass('fa fa-lock');
+				$('#openStatus').attr('data-val','0')
+			}else{
+				selectA.find('span:first').text(' 公開');
+				selectA.find('i').removeClass().addClass('fa fa-share-alt');
+				$('#openStatus').attr('data-val','1')
+			}
+		})
+		
+		
 					// 新增個人日誌送出的click事件==================================
 					$('#sendBtn').click(function(){
 						var formData = new FormData();
 						var file = $('#uploadfile').prop("files")[0];	
 						var contents = $('#content').val();
 						var publishTime = new Date().Format('yyyy-MM-dd hh:mm:ss');
-						var publicStatus = $('#openStatus').val();
+						var publicStatus = $('#openStatus').attr('data-val');
 						formData.append('archives', file);
 						formData.append('member_Id', "${LoginOK.member_Id}");
 						formData.append('contents', contents);
@@ -738,9 +772,9 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								processData: false,
 								contentType: false,
 								success: function(data){
-									$('#exampleModal').modal('toggle');
+									$('#exampleModal').modal('hide');
 			    						var jdate_int = parseInt(data.publishTime); //轉換成數字
-			    						var jdate_value = new Date(jdate_int);	    									    						
+			    						var jdate_value = new Date(jdate_int);
 			    						var invert; 
 			    				    	var li_direction;
 			    						if($('#grid>li:nth-child(1) div>a>i').hasClass('glyphicon glyphicon-record invert')){
@@ -749,6 +783,18 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			    						}else{
 			    				    		invert='<i class="glyphicon glyphicon-record invert" '
 			    							li_direction='<li id="'+ data.journal_Id +'" class="timeline-inverted" >';
+			    						}
+			    						var iClass;
+			    						var spanText;
+			    						if(data.publicStatus == 2){
+											spanText = '朋友';
+											iClass = 'fa-users';
+			    						}else if(data.publicStatus == 0){
+			    							spanText ='限本人';
+			    							iClass = 'fa-lock';
+			    						}else{
+			    							spanText = '公開';
+			    							iClass = 'fa fa-share-alt';
 			    						}
 			    						
 			    						// 顯示新增
@@ -761,13 +807,20 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 									    	+ data.journal_Id+'" /></a></div>'
 									    	+ '<div class="timeline-body">'
-									
+									    	+ '<div class="btn-group statusSelect">'
+										    + '<a  class="btn dropdown-toggle " data-toggle="dropdown" aria-expanded="false" hidden="hidden">'
+										    +'<i class="fa '+ iClass +'" aria-hidden="true"></i><span class="aaaa"> '+ spanText +'</span><span class="caret"></span></a>'
+										   	+ '<ul class="dropdown-menu" role="menu">'
+										    + '<li><a class="" data-val="1"><i class="fa fa-share-alt" aria-hidden="true"></i> <span class="faspan"> 公開</span></a></li>'
+										    + '<li><a class="" data-val="2"><i class="fa fa-users" aria-hidden="true"></i> <span class="faspan"> 朋友</span></a></li>'
+										    + '<li><a class="" data-val="0"><i class="fa fa-lock" aria-hidden="true"></i> <span class="faspan"> 限本人</span></a></li></ul></div>'
+										           
 								   			+ '<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+"${LoginOK.nickname}"+'</p>'  // 上線前要拿掉或改暱稱
 									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
 
-								   			+ '<div><select class="statusSelect" /></div></div>'
+								   			+ '</div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
 											// 	'留言塞這裡'
 								   			+ '<div></div><div></div></div>'
@@ -786,41 +839,56 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 										$('.timeline-panel').fadeIn(2200);
 			    						$('#content').val('')
 										$('#uploadfile').val('')
-										$('#openStatus').find('option:selected').prop('selected',false)
 										
-		   								// 新增的日誌公開狀態change功能
-		   								var eleS = $('#grid>li:nth-child(1)').find('select.statusSelect').bind('change',data,function(){
-		   									$.ajax({
-		   										url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
-		   										type: 'POST',
-		   										data: {'journal_Id':arguments[0].data.journal_Id,
-		   											'member_Id':theMemberId,
-		   											'contents':arguments[0].data.contents,
-		   											'publicStatus':$(this).val()},
-		   										success: function(data){
-		   										}
-		   									})
-		   								});
-		   								var publicStatusArray = ['限本人','公開','朋友'];
-		   								for(var i =0;i<3;i++){
-		   									if(parseInt(publicStatus) === i){
-		   										$('<option />',{value:i,text:publicStatusArray[i],selected:true}).appendTo(eleS);
-		   									}else{
-		   										$('<option />',{value:i,text:publicStatusArray[i]}).appendTo(eleS);
-		   									}
-		   								}
-		   								
+										// 要改
+										var selectA = $('div.insertjournal').find('div.statusSelect>a');
+										$('#openStatus').attr('data-val','1')
+		   								selectA.find('span:first').text(' 公開');
+										selectA.find('i').removeClass().addClass('fa fa-share-alt');
+				
 		   								$('.username').editable({
 		   							     rows:3
 		   								});  // 編輯個人日誌的內容
-		   	    						$('#grid>li:nth-child(1) div[class="timeline-body"]:last').append(eleS);						
+		   	    												
 								},error: function(){
 									alertify.alert('檔案格式異常').set('title', '警告');
 								}
 							})	
 						}
-					})					 		
-    	// 更新日誌狀態
+					})
+					
+		
+		// 更新公開狀態
+		divGrid.on('click', 'div.statusSelect>ul>li>a', function(){
+    		var theLi = $(this).parents('li[id]');
+    		var openValue = $(this).attr('data-val');
+			$.ajax({
+				url: "${this_contextPath}/CRFSERVICE/commonJournalControllerBE/updateFlagJournal",
+				type: 'POST',
+				data: {'journal_Id': theLi.attr('id'),
+					'publicStatus':openValue},
+				success: function(data){
+					if(data){
+						// 增加個人日誌狀態編輯按鈕  1:公開  0:限本人  2:朋友  4:刪除 5:停權
+						var selectA = theLi.find('div.statusSelect>a');
+						if(openValue == 2){
+							selectA.find('span:first').text(' 朋友');
+							selectA.find('i').removeClass().addClass('fa fa-users');
+						}else if(openValue == 0){
+							selectA.find('span:first').text(' 限本人');
+							selectA.find('i').removeClass().addClass('fa fa-lock');
+						}else{
+							selectA.find('span:first').text(' 公開');
+							selectA.find('i').removeClass().addClass('fa fa-share-alt');
+						}
+					}else{
+						alertify.alert('異常，請洽客服人員').set('title', '警告');
+					}
+				}
+			})
+		})
+
+    	// 更新日誌內容
     	function updateJournal(journal_Id, theMemberId, contents, val, theLi){
 			$.ajax({
 				url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournal",
@@ -831,24 +899,23 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					'publicStatus':val},
 				success: function(data){
 					if(data && val == 4)
-						theLi.hide('explode', 1500, function(){theLi.remove()})
+						theLi.hide('explode', 1000, function(){theLi.remove()})
 						
 				}
 			})
     	}   	
     	// 移除篇此日誌
     	divGrid.on('click','button.removeJournal',function(){
+    		var theLi = $(this).parents('li');
     		var journal_Id = $(this).parents('li').attr('id');
     		var theContents = $(this).nextAll('div.timeline-body').find('p:nth-child(2)').text();
-    		var theLi = $(this).parents('li');
     		alertify.confirm().set('title', '警告');
     		alertify.confirm('確認刪除此日誌',function(e){
     			if(e){
 		    		updateJournal(journal_Id, "${LoginOK.member_Id}", theContents, 4, theLi);
-    				}
-    			else{
+    			}else{
 //     				console.log(e)
-    				} 
+    			} 
     		});
     	})
     	//edit Contents
