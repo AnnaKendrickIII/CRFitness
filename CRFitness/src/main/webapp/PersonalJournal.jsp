@@ -78,6 +78,10 @@ div.timeline-body{
 	cursor: pointer;
 }
 
+div.statusSelect a{
+	cursor: pointer;
+}
+
 .timeline-footer>div>div{
 	padding-bottom: 5px;
 }
@@ -135,8 +139,31 @@ color:#0000C6;
 	float: right;
 }
 .faspan{
-position:absolute;
-left: 30%;
+	position:absolute;
+	left: 30%;
+}
+
+.bth-insert{
+	color:#5599FF;
+	background-color: white;
+	border-color: #5599FF;
+}
+
+.bth-insert:FOCUS{
+color:#5599FF !important;
+background-color: white !important;
+outline:none !important; 
+}
+.bth-insert:hover{
+	color:#777 !important;
+	background-color: white;
+	border-color: #777 !important;
+}
+.gg{
+	margin-right: 5%;
+}
+i.fa-user-plus{
+	margin-right: 5%;
 }
 </style>
 <script type="text/javascript">
@@ -183,7 +210,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			             +'<div class="media-body">'
 			             +'<h4 class="profile-heading">${LoginOK.nickname} <small>${LoginOK.e_mail}</small></h4>'
 			             +'<hr style="margin:8px auto">'		             
-			             +'<button type="button" class="profile-btn btn btn-success" data-toggle="modal" data-target="#exampleModal">新增個人日誌</button>'
+			             +'<button type="button" class="profile-btn btn bth-insert" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-qq gg" aria-hidden="true"></i>新增個人日誌</button>'
 			             +'</div>'
  					);
  					
@@ -299,6 +326,10 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 										<label for="uploadfile">檔案上傳</label> <input id="uploadfile" class=""
 											type="file" multiple="multiple">
 										<p class="help-block">在此示範區塊層級輔助說明文字。</p>
+										<div>
+									        <img class="preview" style="max-width: 150px; max-height: 150px;">
+									        <div class="size"></div>
+									    </div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default"
@@ -343,27 +374,29 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 </aside>
 
 <script type="text/javascript">
-	function diffTime(beforeTime){
-		var diffTime1 = new Date().getTime() - beforeTime;
-		var s = 1000;
-		var m = 60*s;
-		var h = 60*m;
-		var day = 24*h;
-		var theday = Math.floor(diffTime1/day)
-		var theH = Math.floor(diffTime1%day/h)
-		diffTime1 %= h;
-		var theM = Math.floor(diffTime1/m)
-		var theS = diffTime1%60;
-		if(theday > 0)
-			beforeTime2 = theday + '天前'
-		else if(theH > 0)
-			beforeTime2 = theH + '小時前'
-		else if(theM > 0)
-			beforeTime2 = theM + '分鐘前'
-		else if(theM < 1)
-			beforeTime2 = '剛剛'
-		return beforeTime2
-	};
+
+//功成身退
+// 	function diffTime(beforeTime){
+// 		var diffTime1 = new Date().getTime() - beforeTime;
+// 		var s = 1000;
+// 		var m = 60*s;
+// 		var h = 60*m;
+// 		var day = 24*h;
+// 		var theday = Math.floor(diffTime1/day)
+// 		var theH = Math.floor(diffTime1%day/h)
+// 		diffTime1 %= h;
+// 		var theM = Math.floor(diffTime1/m)
+// 		var theS = diffTime1%60;
+// 		if(theday > 0)
+// 			beforeTime2 = theday + '天前'
+// 		else if(theH > 0)
+// 			beforeTime2 = theH + '小時前'
+// 		else if(theM > 0)
+// 			beforeTime2 = theM + '分鐘前'
+// 		else if(theM < 1)
+// 			beforeTime2 = '剛剛'
+// 		return beforeTime2
+// 	};
 		
 	function activitys(nickname){
 		$.ajax({
@@ -566,9 +599,9 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 							
 						}else if(data == 3){  // 被害人
 							
-							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info acceptfriend" >接受申請成為好友</button>')
+// 							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info acceptfriend" >接受申請成為好友</button>')
 						}else{
-							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info addfriend" >加為好友</button>')
+							$('#personal_profile').append('<button type="button" class="profile-btn btn btn-info addfriend" ><i class="fa fa-user-plus" aria-hidden="true"></i>加為好友</button>')
 							
 						}
 					}
@@ -837,15 +870,17 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 
 		   								//新增日誌後清除內容
 										$('.timeline-panel').fadeIn(2200);
-			    						$('#content').val('')
-										$('#uploadfile').val('')
+			    						$('#content').val('');
+										$('#uploadfile').val('');
+										$('img.preview').attr('src','');
 										
-										// 要改
+										// 公開狀態改回預設
 										var selectA = $('div.insertjournal').find('div.statusSelect>a');
 										$('#openStatus').attr('data-val','1')
 		   								selectA.find('span:first').text(' 公開');
 										selectA.find('i').removeClass().addClass('fa fa-share-alt');
-				
+											
+										
 		   								$('.username').editable({
 		   							     rows:3
 		   								});  // 編輯個人日誌的內容
@@ -1096,7 +1131,16 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 //       		}
       	})
       	
-
+		// 上傳日誌時預覽圖片
+      	$('#uploadfile').on('change', function(){
+      		if(this.files && this.files[0]){
+      			var reader = new FileReader();
+      			reader.onload = function(e){
+      				$('img.preview').attr('src',e.target.result)
+      			}
+      			reader.readAsDataURL(this.files[0]);
+      		}
+      	})
 
       	
 //       	//查詢好友狀態
