@@ -200,8 +200,9 @@ height:48px;
 	height: 48px;
 }
 .friend_header{
-	background:#5599FF; 
+	background-color:#5599FF !important; 
 	text-align: center;
+	color: white !important;
 }
 .friend_photo{
 	width:64px;
