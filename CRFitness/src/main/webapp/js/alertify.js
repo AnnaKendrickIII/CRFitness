@@ -41,7 +41,7 @@
         transition:'pulse',
         autoReset:true,
         notifier:{
-            delay:5,
+            delay:1,  //彈出視窗延遲時間
             position:'bottom-right'
         },
         glossary:{
