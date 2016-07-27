@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.CRFitness.Chats.model.ChatVO" table="Chat" >
+  	<id name="chat_Id" column="chat_Id">
+            <generator class="identity"/>
+     </id>
+       	<property name="member_Id" column="member_Id" />      
+        <property name="friend_Id" column="friend_Id" />
+        <property name="chat_Detail" column="chat_Detail" />
+        <property name="chatTime" column="chatTime" />
+    
+        
+        
+    </class>
+</hibernate-mapping>

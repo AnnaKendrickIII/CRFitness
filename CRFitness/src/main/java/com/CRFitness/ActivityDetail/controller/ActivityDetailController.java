@@ -1,4 +1,4 @@
-package com.CRFitness.ActivityDetailController.model;
+package com.CRFitness.ActivityDetail.controller;
 
 
 import java.util.List;
