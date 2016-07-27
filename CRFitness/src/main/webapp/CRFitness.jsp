@@ -393,25 +393,12 @@
 </div>
 
     
-    <div class="btn-group dropup">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span class="glyphicon glyphicon-cog"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#" id="new_chat"><span class="glyphicon glyphicon-plus"></span> Novo</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-list"></span> Ver outras</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Fechar Tudo</a></li>
-            <li class="divider"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-eye-close"></span> Invisivel</a></li>
-        </ul>
-    </div>
-</div>
+   
 
 <!-- web聊天 -->
  <script>
  
-var message_div= '<div class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:10px;">'
+var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
  				+'<div class="col-xs-12 col-md-12">'
  				+'<div class="panel panel-default">'
          		+'<div class="panel-heading top-bar">'
@@ -423,43 +410,7 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3" id="chat_window
                 +' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
              +'</div>'
             +'</div>'
-            +'<div class="panel-body msg_container_base">'
-            +'<div class="row msg_container base_sent">'
-            +'<div class=" col-md-10 col-xs-10 message_div">'
-            +'<div class="messages msg_sent">'
-            +'<p>that mongodb thing looks good, huh?'
-            +'tiny master db, and huge document store</p>'
-            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
-            +'</div>'
-            +'</div>'
-            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
-            +'</div>'
-            +'</div>'
-            +'<div class="row msg_container base_receive">'
-            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
-            +'</div>'
-            +'<div class="col-md-10 col-xs-10 message_div">'
-            +'<div class="messages msg_receive">'
-            +'<p>that mongodb thing looks good, huh?'
-            +'tiny master db, and huge document store</p>'
-            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
-            +' </div>'
-            +' </div>'
-            +'</div>'
-            +'<div class="row msg_container base_receive">'
-            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-            +'<img  class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
-            +'</div>'
-            +'<div class="col-xs-10 col-md-10 message_div">'
-            +'<div class="messages msg_receive">'
-            +'<p>that mongodb thing looks good, huh?'
-            +'tiny master db, and huge document store</p>'
-            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
-            +'</div>'
-            +'</div>'
-            +'</div>'
+            +'<div class="panel-body msg_container_base">'     
             +'</div>'
             +'<div class="panel-footer">'
             +'<div class="input-group">'
@@ -505,28 +456,52 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3" id="chat_window
             }
         });
  		$('body').on('click', '.chat_icon_css', function (e) {
+ 			var friendId=$(this).find('span[hidden]').text()
  			$.ajax({
- 		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
+ 		          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
  		          type:'get',  //get post put delete
- 				  data:{},
+ 				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
  				  success:function(){
- 					  
- 					  
- 					  
+ 					 $('#myfriend').modal('hide')
+ 					var size = $(".chat-window:last-child").css("margin-left");
+ 					size_total = parseInt(size) + 400;
+ 					  var newAppend =$(message_div).appendTo("body")
+ 			           newAppend.css("margin-left", size_total);
+ 			          
+ 					 +'<div class="row msg_container base_sent">'
+ 		            +'<div class=" col-md-10 col-xs-10 message_div">'
+ 		            +'<div class="messages msg_sent">'
+ 		            +'<p>that mongodb thing looks good, huh?'
+ 		            +'tiny master db, and huge document store</p>'
+ 		            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
+ 		            +'</div>'
+ 		            +'</div>'
+ 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+ 		            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
+ 		            +'</div>'
+ 		            +'</div>'
+ 		            
+ 		            
+ 		            +'<div class="row msg_container base_receive">'
+ 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+ 		            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
+ 		            +'</div>'
+ 		            +'<div class="col-md-10 col-xs-10 message_div">'
+ 		            +'<div class="messages msg_receive">'
+ 		            +'<p>that mongodb thing looks good, huh?'
+ 		            +'tiny master db, and huge document store</p>'
+ 		            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
+ 		            +' </div>'
+ 		            +' </div>'
+ 		            +'</div>'     
+ 		            
+ 		           $( ".chat-window" ).draggable();
  				  } 			
  			})
- 					  
- 			
- 			$('#myfriend').modal('hide')
-            var size = $(".chat-window:last-child").css("margin-left");
-            size_total = parseInt(size) + 400;
-            var clone =$(message_div).appendTo("body")
-            clone.css("margin-left", size_total);
-            $( ".chat-window" ).draggable();
+          
         });
  		$('body').on('click', '.icon_close', function (e) {
-            //$(this).parent().parent().parent().parent().remove();
-            $("#chat_window_1").remove();
+           $(this).parent().parent().parent().parent().parent().parent().remove();
         });
         
     </script>
