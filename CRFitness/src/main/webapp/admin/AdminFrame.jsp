@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Administration</title>
+    <title>AdministrationFrame</title>
 	
 	<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
     <!-- Bootstrap core CSS -->
@@ -29,12 +29,46 @@
 	<link href="assets/css/fine-uploader-new.css" rel="stylesheet" />
 	<!-- switch button -->
 	<link rel="stylesheet" type="text/css" href="assets/css/jquery.easyswitch.css" />
+	<!-- search button -->
+	<link rel="stylesheet" type="text/css" href="assets/css/expandingsearch.css" />
 	
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery-1.8.3.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="assets/js/jquery.sparkline.js"></script>
+
+    <script src="assets/js/chart-master/Chart.js"></script>
+
+        <script src="assets/js/common-scripts.js"></script>
+    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+
+    <!--script for this(Index) page-->
+    <script src="assets/js/sparkline-chart.js"></script>    
+	<script src="assets/js/zabuto_calendar.js"></script>	
+
+	<!-- upload files -->
+	<script src="assets/js/jquery.fine-uploader.js"></script>
+	<!-- switch button -->
+	<script type="text/javascript" src="assets/js/jquery.easyswitch.js"></script>
+	<!-- search button -->
+    <script src="assets/js/jquery.searcher.js"></script>
+    <script src="assets/js/search.custom.js"></script>
+    <script src="assets/js/search.classie.js"></script>
+	<script src="assets/js/search.uisearch.js"></script>
+	
+	
+	
   </head>
 
   <body>
@@ -251,7 +285,7 @@
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class=" fa fa-bar-chart-o"></i>
+                          <i class="fa fa-money" aria-hidden="true"></i>
                           <span>Charts</span>
                       </a>
                       <ul class="sub">
@@ -272,46 +306,42 @@
       <!--main content start-->
 
       <!--main content end-->
-      <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              2016 - C.R.Fitness Co., Ltd.
-              <a href="index.html#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
-      <!--footer end-->
-  </section>
+      <!-- footer start -->
+<!--       <footer class="site-footer"> -->
+<!--           <div class="text-center"> -->
+<!--               2016 - C.R.Fitness Co., Ltd. -->
+<!--               <a href="Index.jsp" class="go-top"> -->
+<!--                   <i class="fa fa-angle-up"></i> -->
+<!--               </a> -->
+<!--           </div> -->
+<!--       </footer> -->
+      <!-- footer end -->
+  </section> <!-- 75 <section id="container" > -->		
+<!-- 每頁不同內容   結束 -->
 
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/jquery-1.8.3.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="assets/js/jquery.sparkline.js"></script>
+	<script type="text/javascript">
+//         $(document).ready(function () {
+//         var unique_id = $.gritter.add({
+//             // (string | mandatory) the heading of the notification
+//             title: 'Welcome to Dashgum!',
+//             // (string | mandatory) the text inside the notification
+//             text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
+//             // (string | optional) the image to display on the left
+//             image: 'assets/img/ui-sam.jpg',
+//             // (bool | optional) if you want it to fade out on its own or just sit there
+//             sticky: true,
+//             // (int | optional) the time you want it to be alive for before fading out
+//             time: '',
+//             // (string | optional) the class name you want to apply to that specific message
+//             class_name: 'my-sticky-class'
+//         });
 
-    <script src="assets/js/chart-master/Chart.js"></script>
+//         return false;
+//         });
+	</script>
+	    <!--common script for all pages-->
 
-    <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
-    
-    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
 
-    <!--script for this page-->
-    <script src="assets/js/sparkline-chart.js"></script>    
-	<script src="assets/js/zabuto_calendar.js"></script>	
-
-	<!-- upload files -->
-	<script src="assets/js/jquery.fine-uploader.js"></script>
-	<!-- switch button -->
-	<script type="text/javascript" src="assets/js/jquery.easyswitch.js"></script>
-	
-    
-	
 	<script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
@@ -346,6 +376,5 @@
         }
     </script>
   
-
   </body>
 </html>
