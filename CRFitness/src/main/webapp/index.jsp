@@ -7,51 +7,55 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CRFitness</title>
 <link href="${this_contextPath}/css/index_video.css" rel="stylesheet" />
-<link href="${this_contextPath}/css/index_layout.css" rel="stylesheet" />
+
+<style type="text/css">
+/*  body {
+	margin: 0;
+	background-color: #333;
+	color: #fff;
+	font-family: 'Quicksand';
+}  */
+
+/**/ 
+.content { 
+ 	height: auto; 
+ 	text-align: center; 
+ 	line-height: 200px; 
+ 	font-size: 24px; 
+ } 
+</style>
 </head>
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/css/3dcss.css" rel="stylesheet" />
 <body >
 	<!-- 頁面部分 開始-->
 <aside>
-
-<!-- Warming Up -->
-<!-- <link href='http://fonts.googleapis.com/css?family=Buenard:700' rel='stylesheet' type='text/css'> -->
-<script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
-<script src="js/index_video.js"></script>
-
-
- <div id="wrapper">
-    <div id="content">
-        <!--第一塊--><!--Video Section-->
-		<section class="content-section video-section">
-			<div class="pattern-overlay">
-				<a id="bgndVideo" class="player"
-					data-property="{videoURL:'https://www.youtube.com/watch?v=2Vhlzdj6Csw',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
-				<div class="up_video">
-					<div class="row">
-						<div class="col-lg-12 col-md-12">
-							<h1>C.R.F<small style="color: #fff">itness</small></h1>
-<!-- 							<h3>Enjoy Adding Full Screen Videos to your Page Sections</h3> -->
-							<h3>Enjoy motion to change your life</h3>
+		<div class="row" style="margin-top: 25%;">
+		<div class="content"></div>
+		<div class="parallaxer">
+				<section class="content-section video-section">
+					<div class="pattern-overlay">
+						<a id="bgndVideo" class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=2Vhlzdj6Csw',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+						<div class="video_play">
+							<div class="row">
+								<div class="col-lg-12">
+									<h1>C.R.F<small style="color:#fff;">itness</small></h1>
+									<h3>Enjoy motion to change your life</h3>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</section>
 			</div>
-		</section>
-    </div>
-  </div>
-  <div id="navigation">
-		<!--左一塊 -->
-<p></p>
-		
-  </div>
-  <div id="extra">
-    <p><strong>右邊</strong></p>
-    <p>sit malesuada lacus pellus parturpiscing. Pellenterdumat maecenatoque cras a magna nibh et quis diam ames et. Laoremvolutpat ac dolor eget eget temper lacus vestibus velit lacus venean. Magnaipsum tellus morbi leo aliquat nulla convallis pellentesque.</p>
-  </div>
-  <div id="footer">
-			<!-- 3D Css -->
+		<div class="content">Content Goes Here</div>
+		<div class="parallaxer">
+			<img src="https://unsplash.it/1920/1280?image=1045">
+		</div>
+		<div class="content"></div>
+	</div>
+	
+	<div class="row">
+    <!-- 3D Css -->
 			<div class="col-md-4 "></div>
 			<div class="col-md-4  ">
 				<div class="container2 ">
@@ -64,9 +68,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 "></div>
-		</div>
+			<div class="col-md-4 "></div>	
+	</div>
+		
+		
 	</aside>
+	<!--  頁面部分 結束 -->
 	<script type="text/javascript">
 	jQuery(function($){
 	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/logo.png">')
@@ -76,15 +83,13 @@
                 target: '#login-box',
                 effect: 'rotate'
             });
-	      	 //google 開始
-	      	 
+	      	 //google 開始	      	 
             gapi.load('auth2', function () {
                 auth2 = gapi.auth2.init({
                     client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
                     cookiepolicy: 'single_host_origin',
                     scope: 'profile'
                 });
-
                 auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
                   function (googleUser) {
 //                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
@@ -118,8 +123,14 @@
     	 })  
     	 //google 結束
 		}
-	})
+		$(document).ready(function() {
+
+				$(".player").mb_YTPlayer();
+
+			});
+		})
 	</script>
-	<!--  頁面部分 結束 -->
+<script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
+
 </body>
 </html>
