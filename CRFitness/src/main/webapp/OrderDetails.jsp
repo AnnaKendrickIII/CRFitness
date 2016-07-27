@@ -33,12 +33,14 @@
 	</div>
 	
 	<script type="text/javascript">
+jQuery(function($){
+	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/OrderDetail.png">')
 	var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substr(9);
-	
+	console.log(queryString)
 	$.ajax({
 		  url:'${this_contextPath}/CRFSERVICE/orderDetailsController/search',
-	      type:'get', 
+	      type:'post', 
  	      data:{order_Id:queryString},
 	      success: function(json) { 
 	          $('#orderDetialscolumns').columns({
@@ -56,6 +58,7 @@
 	          }); 
 	      }
 	  });
+})
 	</script>
 </aside>
 </body>

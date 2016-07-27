@@ -27,9 +27,9 @@ margin: 0px auto 15px;
 .video-section .buttonBar{display:none;}
 .player {font-size: 1px;}
  
+ .video_play{
+     width: auto;
+    margin: 0 auto;
+    overflow: hidden;
+ }
  
-.up_video{ 
-width: auto;
-margin: 0 auto;
-overflow: hidden;
-}

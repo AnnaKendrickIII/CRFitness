@@ -54,8 +54,7 @@ public class ShoppingCart implements Serializable {
 			// 把車子裡的數量換新數量
 			((List<Object[]>) (cart.get(productDetail_Id))).set(1, numob);
 		}
-		// System.out.println(((Integer)(((List<Object[]>)(cart.get(productDetail_Id))).get(1))[0]));/這給你測試看的
-
+		// System.out.println(((Integer)(((List<Object[]>)(cart.get(productDetail_Id))).get(1))[0]));/這給你測試看的 
 		return cart;
 	}
 
@@ -95,14 +94,6 @@ public class ShoppingCart implements Serializable {
 		}
 	}
 
-	// 新增訂單
-	public Map<String, Object> addOrder() {
-		if (cart.size() > 0) {
-
-		}
-		return cart;
-
-	}
 
 	// public static void main(String[] args) {
 	// ApplicationContext context = new ClassPathXmlApplicationContext(

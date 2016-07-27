@@ -2,6 +2,10 @@
 	pageEncoding="utf8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="page" value="${pageContext.request.requestURI}" scope="page"/>
+<c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+<c:if test="${ empty LoginOK}">
+<c:redirect url="/index.jsp?NoLogin"></c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,6 +26,8 @@
 .img_inner{
 border: 1px solid #E0E0E0;
 }
+
+
 @media  screen and (min-width:100px) {
 .shop{
 		float: right;	
@@ -35,6 +41,7 @@ height:85px;
 	}
 }
 
+
 @media  screen and (min-width:1200px) {
 .product_Name{
 text-align: center;
@@ -46,12 +53,13 @@ float: none;
 .Introduction{
 float: none;
 		}
-	
 .product_Name{
 text-align: center;
 height:100px; 
 	}
 }
+
+
 @media  screen and (min-width:1830px) {
 .product_Name{
 text-align: center;
@@ -64,10 +72,7 @@ height:45px;
 	float: left;
 		}
 }
-.Introduction{ 
- background-color:#23527c; 
- color: white;
-} 
+
 .Introduction:HOVER{ 
  background-color:#004B97; 
  color: white;
@@ -86,7 +91,7 @@ text-align: center;
 }
 .product_footer{
 background-color:#FBFBFF;
-padding-bottom:2%;
+padding-bottom:8%;
 }
 .desoslide-wrapper{
 border-bottom:1px solid #F0F0F0;
@@ -106,30 +111,32 @@ overflow : hidden
 .car_img_div{
 margin-top: 5%;
 }
+.btn-md{
+width: 110px;
+}
+h5{
+color: blue;
+}	
+p{
+color:#FF3333;
+}
 </style>
 </head>
 
-<body class="productsbody">
+<body>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.desoslide.min.js"></script>
+
 <aside>
 <div class="productsclass">
 <div class="row well">
-<!--     <div class="col-md-4 col-xs-4"> -->
-<!--         <strong> Commodity Category </strong> -->
-<!--         <div class="btn-group"> -->
-<!--             <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list"> -->
-<!--             </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span -->
-<!--                 class="glyphicon glyphicon-th"></span>Grid</a> -->
-<!--         </div> -->
-<!--     </div> -->
 
-	<div class="col-md-4 col-xs-4"></div>
-	<div class="col-md-4 col-xs-4">
-   
+	<div class="col-md-2 col-xs-2"></div>
+	<div class="col-md-7 col-xs-7">
+		<div class="row" style="text-align: center;">
         <strong>Products Category &nbsp&nbsp</strong>
           <a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1" class="btn btn-default btn-md">
           	<img src="${this_contextPath}/icon/jacket24.png">&nbsp上裝</a>&nbsp&nbsp
@@ -139,10 +146,9 @@ margin-top: 5%;
           	<img src="${this_contextPath}/icon/sports24.png">&nbsp配件</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-footwear&page=1" class="btn btn-default btn-md">
           	<img src="${this_contextPath}/icon/shoes24.png">&nbsp鞋類</a>
-
- 
+		</div>
 	</div>
-    <div class="col-md-4 col-xs-4">
+    <div class="col-md-3 col-xs-3">
     	<form action="" class="search-form">
             <div class="form-group has-feedback">
         		<label for="search" class="sr-only">Search</label>
@@ -198,8 +204,9 @@ if(page<=1){
 }else{
 	$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page="+(page-1))
 }
-if(page>=6){
+if(page>=3){
 	 alertify.alert('警告','本頁已無商品')
+	// location.href='${page}?'+queryString+"&page=2"
 	$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
 }else{
 	$('.pagination>li:nth-child(7) a').attr("href",'${page}?'+queryString+"&page="+(page+1))
@@ -265,8 +272,8 @@ $.ajax({
 	success:function(data){
 		var prev_id="";
 		$.each(data,function(index){
-					if(index%4==0){
-						$('#products').append('<div class="row"><div  class=" col-lg-1    products_one_div"></div></div>')
+					if(index%4==0){	//4項商品一個row
+						$('#products').append('<div class="row"><div class="col-lg-1 products_one_div"></div></div>')
 					}
 					if(this.product_Id!=prev_id){
 						prev_id=this.product_Id
@@ -279,8 +286,8 @@ $.ajax({
                         	+'&nbsp&nbsp&nbsp<i class="fa fa-caret-square-o-down" aria-hidden="true"></i></a>'
                         	+'<ul id="'+this.product_Id+'" class="collapse row desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
 							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><h5><strong>'+this.product_Name+'</strong></h5></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><p>$'+this.price+'</p></strong></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn  Introduction" ><i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp&nbsp商品介紹'
+							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><strong><p>$'+this.price+'</p></strong></div>' 
+							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn Introduction btn-primary" ><i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp&nbsp商品介紹'
 							+'</a>'
 							+'<a class="btn btn-danger shop"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</a>'
 			                +'</div></div></div></div>'
@@ -296,8 +303,8 @@ $.ajax({
 								$('#'+this.product_Id).append(
 							'<li class="col-xs-3 col-lg-3  img_inner">'
 							+'<a href="${this_contextPath}/images/products/'+this.productDetail_Id+'_1.png">'
-			                +'<img  alt="'+this.productDetail_Id+'"  class="shopimage img-responsive"  data-desoslide-caption-title="'
-			                +this.color+'" title="'+this.color+'"   src="${this_contextPath}/images/products/'
+			                +'<img alt="'+this.productDetail_Id+'" class="shopimage img-responsive"  data-desoslide-caption-title="'
+			                +this.color+'" title="'+this.color+'" src="${this_contextPath}/images/products/'
 			                +this.productDetail_Id+'_1.png" /></a></li>'
 			               	)                     
 						})//小表 ajax迴圈結束
@@ -321,6 +328,7 @@ $.ajax({
 	 	
 	}//大表ajax success結束
 });//大表ajax結束
+
 $('body').on('click','.Introduction',function(){
 	var detailId=$(this).parent().parent().parent().find('.desoslide-wrapper>img').attr('alt')
 	  location.href ='${this_contextPath}/ProductDetail.jsp?productDetail_Id='+detailId;
@@ -352,15 +360,14 @@ $('body').on('click','.shop',function(){
 					})
 					$('.shopping_car_span').text(count)
 					showCart();
+					
+					alertify.success('成功加入購物車');
 		}
 	})
+})		
 })
-		
-})
-
 
 </script>
-
 
 </aside>
 </body>
