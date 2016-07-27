@@ -36,7 +36,7 @@ public class ChatDAO implements ChatDAO_interface {
 					"SELECT Chat.* "
 					+"from Chat "
 					+"where Member_Id='"+member_Id+"'"
-					+" or Member_Id='"+friend_Id+"' order by ChatTime desc")
+					+" or Member_Id='"+friend_Id+"' order by ChatTime ")
 					.addEntity(ChatVO.class);				
 		return (List<Object[]>) query.list();	
 	}

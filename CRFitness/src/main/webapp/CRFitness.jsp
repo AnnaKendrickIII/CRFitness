@@ -455,47 +455,80 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-
                 $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
             }
         });
+ 		
+ 		Date.prototype.Format = function (fmt) {  
+ 		    var o = {
+ 		        "M+": this.getMonth() + 1, //月份 
+ 		        "d+": this.getDate(), //日 
+ 		        "h+": this.getHours(), //小时 
+ 		        "m+": this.getMinutes(), //分 
+ 		        "s+": this.getSeconds(), //秒 
+ 		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+ 		        "S": this.getMilliseconds() //毫秒 
+ 		    };
+ 		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, ( this.getFullYear() + "").substr(4 - RegExp.$1.length));
+ 		    for (var k in o)
+ 		    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+ 		    return fmt;
+ 		}
  		$('body').on('click', '.chat_icon_css', function (e) {
  			var friendId=$(this).find('span[hidden]').text()
  			$.ajax({
  		          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
  		          type:'get',  //get post put delete
  				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
- 				  success:function(){
+ 				  success:function(data){
  					 $('#myfriend').modal('hide')
  					var size = $(".chat-window:last-child").css("margin-left");
  					size_total = parseInt(size) + 400;
  					  var newAppend =$(message_div).appendTo("body")
  			           newAppend.css("margin-left", size_total);
  			          
- 					 +'<div class="row msg_container base_sent">'
- 		            +'<div class=" col-md-10 col-xs-10 message_div">'
- 		            +'<div class="messages msg_sent">'
- 		            +'<p>that mongodb thing looks good, huh?'
- 		            +'tiny master db, and huge document store</p>'
- 		            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
- 		            +'</div>'
- 		            +'</div>'
- 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 		            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
- 		            +'</div>'
- 		            +'</div>'
- 		            
- 		            
- 		            +'<div class="row msg_container base_receive">'
- 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 		            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
- 		            +'</div>'
- 		            +'<div class="col-md-10 col-xs-10 message_div">'
- 		            +'<div class="messages msg_receive">'
- 		            +'<p>that mongodb thing looks good, huh?'
- 		            +'tiny master db, and huge document store</p>'
- 		            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
- 		            +' </div>'
- 		            +' </div>'
- 		            +'</div>'     
- 		            
- 		           $( ".chat-window" ).draggable();
+ 					 $.each(data,function(){
+ 						 var jdate_int = parseInt(this.chatTime);                          //轉換成數字
+						  var jdate_value = new Date(jdate_int);
+ 						 
+ 						 if('${LoginOK.member_Id}'==this.member_Id){
+ 							$('.msg_container_base').append(
+ 	 								'<div class="row msg_container base_sent ">'
+ 	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+ 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+ 	 			 		            +'<div class="messages msg_sent">'
+ 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
+ 	 			 		            +'<time datetime="">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</time>'
+ 	 			 		            +'</div>'
+ 	 			 		            +'</div>'
+ 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+ 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+ 	 			 		            +'</div>'
+ 	 			 		            +'</div>' 
+ 	 	 							 
+ 							 )
+ 						 }else{
+ 							$('.msg_container_base').append(
+ 	 								'<div class="row msg_container base_receive ">'
+ 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+ 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+ 	 			 		            +'</div>'     
+ 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+ 	 			 		            +'<div class="messages msg_sent">'
+ 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
+ 	 			 		            +'<time datetime="">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</time>'
+ 	 			 		            +'</div>'
+ 	 			 		            +'</div>'
+ 	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+ 	 			 		            +'</div>' 		         	
+ 							 )
+ 							
+ 						 }
+ 						
+ 						 
+ 					 })
+ 					 //捲軸置底
+ 					  	var basecon = $('.msg_container_base');
+ 						basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight"));        
+ 		           		//可拖曳
+ 						$( ".chat-window" ).draggable();
  				  } 			
  			})
           
