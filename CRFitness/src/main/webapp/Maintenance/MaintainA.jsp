@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-signin-client_id"
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
-<jsp:include page="/AdminFrame.jsp" />
+<jsp:include page="/AdF.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- switch button -->
 <script type="text/javascript" src="${this_contextPath}/js/jquery.easyswitch.js"></script> <!-- switch button -->
@@ -124,13 +124,11 @@ body {
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
-// 			console.log(data);
 			$.each( data,
 				function(index) {
 					var adate_int = parseInt(this.activity_Day); //轉換成數字
 					var adate_value = new Date(adate_int);
-// 					console.log(this.activity_Status);
-					var Status="";
+					var Status=0;
 					if(this.activity_Status == 1){
 						Status=1;
 					}else if(this.activity_Status == 0){

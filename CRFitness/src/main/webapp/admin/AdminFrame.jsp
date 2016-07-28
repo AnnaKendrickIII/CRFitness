@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
@@ -39,7 +39,7 @@
     <![endif]-->
     
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="assets/js/jquery.js"></script>
+<!--     <script src="assets/js/jquery.js"></script> -->
     <script src="assets/js/jquery-1.8.3.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
@@ -49,7 +49,8 @@
 
     <script src="assets/js/chart-master/Chart.js"></script>
 
-        <script src="assets/js/common-scripts.js"></script>
+    <!--common script for all pages-->
+    <script src="assets/js/common-scripts.js"></script>
     <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
 
@@ -67,8 +68,6 @@
     <script src="assets/js/search.classie.js"></script>
 	<script src="assets/js/search.uisearch.js"></script>
 	
-	
-	
   </head>
 
   <body>
@@ -83,7 +82,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>C.R.Fitness Administration</b></a>
+            <a href="Index.jsp" class="logo"><b>C.R.Fitness Administration</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -285,7 +284,7 @@
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-money" aria-hidden="true"></i>
+                          <i class="fa fa-usd" aria-hidden="true"></i>
                           <span>Charts</span>
                       </a>
                       <ul class="sub">

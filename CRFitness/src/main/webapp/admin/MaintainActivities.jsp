@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-	<title>MaintainMembers</title>
+	<title>MaintainActivities</title>
     
     <jsp:include page="AdminFrame.jsp"/>
   </head>
@@ -39,8 +39,8 @@
 	});
 	//轉換日期的小程式 結束
   </script>
-  <style>
 
+  <style>
 .content-panel{
 	background-color: #F2F2F2;
 }
@@ -109,19 +109,19 @@ th{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="members_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="activities_table">
 		
 			<thead>
 				<tr class="btn-primary" >
 					<th><h3><i class="fa fa-picture-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
+					<th><h3># 揪團編號</h3></th>
 					<th><h3># 會員ID</h3></th>
-					<th><h3><i class="fa fa-snapchat" aria-hidden="true"></i><strong> 暱稱</strong></h3></th>
-					<th><h3><i class="fa fa-envelope-o" aria-hidden="true"></i><strong> Email</strong></h3></th>
-					<th><h3><i class="fa fa-registered" aria-hidden="true"></i><strong> 註冊日</strong></h3></th>
+					<th><h3><i class="fa fa-sun-o" aria-hidden="true"></i><strong> 活動日</strong></h3></th>
+					<th><h3><i class="fa fa-tree" aria-hidden="true"></i><strong> 活動地區</strong></h3></th>
 					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i><strong> 狀態</strong></h3></th>
 				</tr>
 			</thead>
-			<tbody id="members_tbody"></tbody>
+			<tbody id="activities_tbody"></tbody>
 		
             	</table>
         	</div><!-- /content-panel -->
@@ -137,7 +137,7 @@ th{
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
-              <a href="MaintainMembers.jsp" class="go-top">
+              <a href="MaintainActivities.jsp" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -149,76 +149,77 @@ th{
 
 <!-- 所有功能的程式   開始 -->
 <script>
+
 	jQuery(function ($) {
 		
 		new UISearch(document.getElementById('sb-search'));
 
-// 1.顯示會員的程式   開始
+// 1.顯示揪團的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAll",
+		url : "${this_contextPath}/CRFSERVICE/activitysController/AllActivitys",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
 			$.each( data,
 				function(index) {
-					var mdate_int = parseInt(this.registerdate); //轉換成數字
-					var mdate_value = new Date(mdate_int);
-					var Status="";
-					if(this.member_Status == '登錄中'){
-						Status=1;
-					}else if(this.member_Status == '暫停中'){
-						Status=0;
+					var adate_int = parseInt(this.activity_Day); //轉換成數字
+					var adate_value = new Date(adate_int);
+					var Status = 0;
+					if(this.activity_Status == 1){
+						Status = 1;
+					}else if(this.activity_Status == 0){
+						Status = 0;
 					};
-					$('#members_tbody').append('<tr class="'+this.member_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'
-						 							+ this.member_Id+'.jpg" class="img-circle img-responsive" />'                              
+					$('#activities_tbody').append('<tr class="'+this.activity_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
+						 							+ this.activity_Id+'.jpg" class="img-thumbnail img-responsive" />'                              
 													+ '</td><td>'                              
+													+ this.activity_Id
+													+ '</td><td>'
 													+ this.member_Id
 													+ '</td><td>'
-													+ this.nickname
-													+ '&nbsp;&nbsp;&nbsp;<i class="fa fa-weixin" aria-hidden="true"></i></td><td>'
-													+ this.e_mail
+													+ adate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td>'
-													+ mdate_value.Format("yyyy-MM-dd hh:mm:ss")
+													+ this.activity_Area
 													+ '</td><td hidden="hidden">'
-									                + this.member_Status
-													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
+									                + this.activity_Status
+													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 					// 會員狀態on&off的程式   開始
 					$('.easyswitch').easyswitch();
 					// 會員狀態on&off的程式   結束
 					// 改變會員狀態的程式 開始
-					$('body').on('click', '.3g', function(member_Id, member_Status){
+					$('body').on('click', '.3g', function(activity_Id, activity_Status){
 // 					console.log($(this).parent().siblings(":eq(5)").text());
 // 					console.log($(this).parent().siblings(":eq(1)").text());
- 						var this_memStatus = $(this).parent().siblings(":eq(5)");
-						var memberId = $(this).parent().siblings(":eq(1)").text();
-						var memberStatus = this_memStatus.text();
-						var reversedState = "";
-						if(memberStatus=="登錄中"){
-							reversedState="暫停中";
+ 						var this_actStatus = $(this).parent().siblings(":eq(5)");
+						var activityId = $(this).parent().siblings(":eq(1)").text();
+						var actStatus = this_actStatus.text();
+						var reversedState = 0;
+						if(actStatus == 1){
+							reversedState = 0;
 						}else{
-							reversedState="登錄中";
-							}
+							reversedState = 1;
+							};
 						 $.ajax({
-							    url:"${this_contextPath}/CRFSERVICE/memberControllerBE/changeStatus",
+							    url:"${this_contextPath}/CRFSERVICE/activitysControllerBE/changeStatus",
 						        type:'post',  //get post put delete
-					    		data: {'member_Id': memberId,
-										'member_Status': reversedState}, //
+					    		data: {'activity_Id': activityId,
+										'activity_Status': reversedState}, //
 						    	success:function(data){
-						    		this_memStatus.text(reversedState)
+						    		this_actStatus.text("reversedState")
 						        } // end of success:function(data)	 
-						 }) // end of  $.ajax({  	    	   
-					}); // end of 	$('.3g').click(function () {
+						 }) // end of $.ajax({  	    	   
+					}); // end of $('.3g').click(function () {
 					// 改變會員狀態的程式 結束
-			$("#members_table").searcher({
+			$("#activities_table").searcher({
 		    	inputSelector: "#tablesearchinput"
 		    })						
 		} // end of success : function(data) 
 	}) // end of $.ajax({
-// 1.顯示會員的程式   結束			
+// 1.顯示揪團的程式   結束			
 
-}); // end 155 jQuery(function ($)
+}); // end 156 jQuery(function ($)
 </script>
 
 	</body>
