@@ -166,9 +166,10 @@ width:24px;
 	            	$.each(data,function(){
 	            		var likenum = this[3];
 	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-						  	var jdate_value = new Date(jdate_int); 
-		        		  	var journalId=this[0].journal_Id
-		        		  	var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+						var jdate_value = new Date(jdate_int); 
+		        		var journalId=this[0].journal_Id
+		        		var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
 			        		 +this[1]+'</p></a><p class="time_p">'

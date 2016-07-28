@@ -40,19 +40,23 @@ public class OrderDetailsController {
 		return orderDetailsService.searchAllOrderDetails();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/search", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.POST, value = "/search", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<OrderDetailsVO> searchByOrder_Id(
 			HttpServletRequest request, @RequestParam String order_Id) {
 		request.getSession().setAttribute("searchByOrder_Id", order_Id);
 		return orderDetailsService.searchOrderDetails(order_Id);
 	}
+	
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/addOrder", produces = "application/json;charset=UTF-8")
-	public @ResponseBody void addOrder(@RequestParam String consignee_Name,
+	public @ResponseBody void addOrder(
+			@RequestParam String member_Id,
+			@RequestParam String consignee_Name,
 			@RequestParam String consignee_Address,
 			@RequestParam String payment_Method, HttpServletRequest request) {
 		OrdersVO order = null;
-		order = orderDetailsService.addOrder(consignee_Name, consignee_Address,
+		order = orderDetailsService.addOrder(member_Id, consignee_Name, consignee_Address,
 				payment_Method, shoppingCart.totalAmount());
 
 		if (shoppingCart.getCart().size() > 0) {

@@ -9,11 +9,13 @@
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
 <link rel="stylesheet" href="${this_contextPath}/css/shoppingcart.css">
 <link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
+<link rel="stylesheet" href="${this_contextPath}/css/select.css">
 <title>購物車</title>
 
 </head>
 <body>
 <script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
+<script type="text/javascript" src="${this_contextPath}/js/select.js"></script>
 
 <aside>
 <div class="row">
@@ -113,15 +115,15 @@
 						<div class="input-group">
 							<div id="radioBtn" class="btn-group">
 								<a class="btn btn-primary btn-lg active" data-toggle="happy"
-								data-title="X">線上刷卡</a>
+								data-title="x">線上刷卡</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="Y">ATM轉帳</a>
+								data-title="y">ATM轉帳</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="Z">超商繳費</a>
+								data-title="z">超商繳費</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="A" disabled="disabled">用身體付</a>
+								data-title="a" disabled="disabled">用身體付</a>
 							</div>
-							<input type="hidden" name="payment" id="payment">
+							
 						</div>
 					</div>
 				</div>
@@ -155,6 +157,30 @@ queryString=queryString.substring(17);
 	})
 }
 
+//清空購物車
+function cleanCart(){
+	$.ajax({
+		url:'${this_contextPath}/CRFSERVICE/productDetailController/cleanCart',
+		typr:'get',
+		data:{},
+		success:function(){
+			$('.item').remove()
+		}
+	})
+}
+
+//付費方式 Radio Box
+$('#radioBtn a').on('click', function() {
+	var sel = $(this).data('title');
+	var tog = $(this).data('toggle');
+	var a= $('#' + tog).prop('value', sel);
+	$('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]')
+			.removeClass('active').addClass('notActive');	
+	$('a[data-toggle="' + tog + '"][data-title="' + sel + '"]')
+			.removeClass('notActive').addClass('active');
+})
+
+
 jQuery(function($){
 	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ShoppingCart.png">')
 	$.ajax({
@@ -171,55 +197,67 @@ jQuery(function($){
 				this[0][1]+'</strong></h4><h4 class="size"><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</small></h4><h4 class="color"><small>顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
 				'<div class="col-xs-6 text-right"><h5><strong class="price">'+
-				this[0][2]+'</strong><span class="text-muted">&nbsp&nbspx&nbsp</span></h5></div>'+
-				'<div class="col-xs-4"><input type="text" class="form-control input-sm qty" value="'+this[1]+'"/></div>'+
-				'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
-				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>')	
-		})
+				this[0][2]+'</strong><span class="text-muted">&nbsp&nbspx&nbsp</span></h5></div>'
+				+'<div class="col-xs-4"><strong><button class="btn btn-primary btn-select btn-select-light"><input hidden="hidden" type="text" class="btn-select-input" id="" name="" value="" />'
+				+'<strong><span class="btn-select-value">'+this[1]+'</span>'
+                +'<span class="btn-select-arrow glyphicon glyphicon-chevron-down"></span></strong>'
+     			+'<ul class="num"></ul></button></div>'
+				+'<div class="col-xs-2"><button type="button" class="btn btn-link btn-xs delete" title="移除此商品">'+
+				'<span class="glyphicon glyphicon-trash" title="移除此商品"></span></button></div></div></div><hr></div>'
+				)
+
+			})
 		//取出新總額
-		totalAmount()	
+		totalAmount()
+		//每筆商品增加下拉選單
+		for(var i=1;i<=100;i++){
+			$('.num').append(
+					'<li>'+i+'</li>'		
+					)
+				}
 			
 		$('body').on('click', '.btn-success', function () {
 		    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
-		    	alertify.success('訂單送出') 
-		
+		    	
 		    	var consignee_Name = $('#consignee_Name').val();
 		    	var consignee_Address = $('#consignee_Address').val();
 		    	var email = $('#email').val();
 		    	var payment_Method = $('#radioBtn .active').text();
 				var qty = $('.qty').val();
-
-		    	
-// 				console.log('consignee_Name='+consignee_Name)
-// 				console.log('consignee_Address='+consignee_Address)
-// 				console.log('E-mail='+email)
-// 				console.log('payment_Method='+payment_Method)
-// 				console.log('qty='+qty)
-// 				console.log('--------------------------')
-				
+			
+			//送出訂單
 				$.ajax({
 					url:'${this_contextPath}/CRFSERVICE/orderDetailsController/addOrder',
 					type:'get',
 					data:{
+						member_Id:'${LoginOK.member_Id}',
 						consignee_Name:consignee_Name,
 						consignee_Address:consignee_Address,
 						payment_Method:payment_Method,
 					},
 					success:function(data){
-						console.log('consignee_Name='+consignee_Name)
-						console.log('consignee_Address='+consignee_Address)
-						console.log('E-mail='+email)
-						console.log('payment_Method='+payment_Method)
-						console.log('--------------------------')
+						//確認訂單後清空session和頁面上的資料
+			    		$('#consignee_Name').val('');
+				    	$('#consignee_Address').val('');
+				    	$('#email').val('');				    	
+				    	$('a[data-toggle="happy"]').not('[data-title="x"]')
+				    			.removeClass('active').addClass('notActive');	
+				    	$('a[data-toggle="happy"][data-title="x"]')
+				    			.removeClass('notActive').addClass('active'); 						
+						cleanCart()
+						totalAmount()
+						//訂單送出後3秒導向推薦者頁面
+						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後返回首頁',setTimeout(function(){	
+ 							location.href ='<%=request.getHeader("referer")%>'
+							},3000) 
+						)
 					}
 				})
-				
 		   		 }, function () { 
 		        alertify.error('訂單取消') });
 		});
 	}
 })
-	
 })
 
 	//刪除商品
@@ -230,8 +268,10 @@ $('#itemlist').on('click','.delete', function() {
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/deleteItem',
 		typr:'get',
-		data:{productDetail_Id:thisdelete.parent().parent().parent().find('span[hidden]').text()},
+		data:{productDetail_Id:thisdelete.parent().parent().parent().parent().find('span[hidden]').text()},
 		success:function(data){
+			var num = $('.btn-select-value').text()
+			console.log('num='+num)
 				 thisdelete.parent().parent().parent().parent().remove();
 		}
 	})
@@ -245,14 +285,7 @@ $('#itemlist').on('click','.delete', function() {
 $('body').on('click','#clean',function(){
 	alertify.confirm().set('title', '刪除整台購物車');
 	alertify.confirm('確認將購物車清空?',function(){
-		$.ajax({
-			url:'${this_contextPath}/CRFSERVICE/productDetailController/cleanCart',
-			typr:'get',
-			data:{},
-			success:function(){
-				$('.item').remove()
-			}
-		})
+			cleanCart()
 		alertify.warning('購物車已清空')
 			totalAmount()
 	})
@@ -260,13 +293,16 @@ $('body').on('click','#clean',function(){
 })
 
 //當換數量 總價格變動
-$('#itemlist').on('focusout', 'div.item input.qty',function(){
-	var productDetailId=$(this).parent().parent().prev().find('span[hidden]').text();
+$('#itemlist').on('click', '.num li',function(){
+	var productDetailId=$(this).parent().parent().parent().parent().parent().parent().find('span[hidden]').text();
+	var num = $(this).text()
+	console.log(productDetailId)
+	console.log(num)
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/ChangeProductNum',
 		type:'post',
 		data:{ productDetail_Id:productDetailId,
-			 	num:$(this).val()},
+			 	num:num},
 		success:function(data){
 			totalAmount()
 		}
@@ -274,35 +310,9 @@ $('#itemlist').on('focusout', 'div.item input.qty',function(){
 	
 })
 
-// 	$('#itemlist').on('change', 'div.item input.qty',function(){
-// 	var amount = 0;
-// 	var sum = 0;
-// 	for(var i=0; i<$('.qty').length; i++){
-// 		var qty = parseInt($('.qty:eq('+i+')').val());
-// 		var price = parseInt($('.price:eq('+i+')').text());
-// 		amount = qty * price;
-// 		console.log(amount);	
-// 		sum += amount;
-// 	}
-	
-// 	})
 
-	$('#radioBtn a').on('click', function() {
-		var sel = $(this).data('title');
-		var tog = $(this).data('toggle');
-		$('#' + tog).prop('value', sel);
-		$('a[data-toggle="' + tog + '"]').not(
-				'[data-title="' + sel + '"]').removeClass(
-				'active').addClass('notActive');
-		$(
-				'a[data-toggle="' + tog + '"][data-title="'
-						+ sel + '"]').removeClass('notActive')
-				.addClass('active');
-	})
 </script>
-
 
 </aside>
 </body>
-
 </html>

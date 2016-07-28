@@ -72,6 +72,7 @@ public class MemberController {
 	@RequestMapping(method = RequestMethod.POST, value ="/APPLogin", produces= "text/html; charset=utf-8" )
 	public @ResponseBody String APP_Sign(
 			HttpServletResponse response,
+			HttpServletRequest request,
 			@RequestParam String e_mail,
 			@RequestParam String password
 			)  {
@@ -80,7 +81,9 @@ public class MemberController {
 			return "失敗";
 		}
 		if(memberService.login(e_mail, password)!=null){
-			return "成功";
+			MemberVO memberVO = memberService.login(e_mail, password);
+			request.getSession().setAttribute("LoginOK", memberVO);
+			return "成功"+memberVO.getMember_Id();
 		}else{
 			return "失敗";
 		}
