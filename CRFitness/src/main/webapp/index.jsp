@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CRFitness</title>
-<link href="${this_contextPath}/css/index_video.css" rel="stylesheet" />
 
 <style type="text/css">
 /*  body {
@@ -27,6 +26,7 @@
 </head>
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/css/3dcss.css" rel="stylesheet" />
+<link href="${this_contextPath}/css/index_video.css" rel="stylesheet" />
 <body >
 	<!-- 頁面部分 開始-->
 <aside>

@@ -22,6 +22,7 @@
     <script src="${this_contextPath}/js/custombox.js"></script>	
     <script src="${this_contextPath}/js/legacy.js"></script>	
       <script src="${this_contextPath}/js/lrtk.js"></script>	
+      <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
       <!-- GoogleLogin-->  
       <!-- bootstrap.min.js  開始-->
   <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
@@ -94,10 +95,12 @@
                   <i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
                	<div class="user_login_div dropdown">
                         <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
-                        <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel">                          
-                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}&nbsp個人日誌</a></li>
+                        <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel"> 
+                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a></li>
                             <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
-                            <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>  
+                            <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>
+                             <li><a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a></li>    
+                        	<li><a  class="container_a_css">編輯個人資料</a></li>                          
                             <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
                         </ul>
                 </div>
@@ -397,31 +400,7 @@
 
 <!-- web聊天 -->
  <script>
- 
-var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
- 				+'<div class="col-xs-12 col-md-12">'
- 				+'<div class="panel panel-default">'
-         		+'<div class="panel-heading top-bar">'
-             	+'<div class="col-md-8 col-xs-8">'
-                +'<h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat - Miguel</h3>'
-             	+'</div>'
-             	+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
-                +'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
-                +' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
-             +'</div>'
-            +'</div>'
-            +'<div class="panel-body msg_container_base">'     
-            +'</div>'
-            +'<div class="panel-footer">'
-            +'<div class="input-group">'
-            +'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
-            +'<span class="input-group-btn">'
-            +'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
-            +'</span>' 
-            +'</div>'
-            +'</div>'
-            +'</div>'
-            +'</div>'
+
             
  		$('body').on('dblclick', '.panel-heading ', function (e) {
      	var $this = $(this).find('span.icon_minim');
@@ -456,38 +435,45 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-
             }
         });
  		
- 		Date.prototype.Format = function (fmt) {  
- 		    var o = {
- 		        "M+": this.getMonth() + 1, //月份 
- 		        "d+": this.getDate(), //日 
- 		        "h+": this.getHours(), //小时 
- 		        "m+": this.getMinutes(), //分 
- 		        "s+": this.getSeconds(), //秒 
- 		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
- 		        "S": this.getMilliseconds() //毫秒 
- 		    };
- 		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, ( this.getFullYear() + "").substr(4 - RegExp.$1.length));
- 		    for (var k in o)
- 		    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
- 		    return fmt;
- 		}
+ 		
  		$('body').on('click', '.chat_icon_css', function (e) {
  			var friendId=$(this).find('span[hidden]').text()
+ 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();
  			$.ajax({
  		          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
  		          type:'get',  //get post put delete
  				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
  				  success:function(data){
  					 $('#myfriend').modal('hide')
+ 					  var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
+						+'<div class="col-xs-12 col-md-12">'
+						+'<div class="panel panel-default">'
+						+'<div class="panel-heading top-bar">'
+  						+'<div class="col-md-8 col-xs-8">'
+    					+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+WhoName+'</h3>'
+  						+'</div>'
+  						+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
+     					+'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
+     					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
+  						+'</div>'
+ 						+'</div>'
+ 						+'<div class="panel-body msg_container_base">'     
+ 						+'</div>'
+ 						+'<div class="panel-footer">'
+						+'<div class="input-group">'
+						+'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
+						+'<span class="input-group-btn">'
+						+'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
+						+'</span>' 
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>'		 
  					var size = $(".chat-window:last-child").css("margin-left");
- 					size_total = parseInt(size) + 400;
+ 					size_total = parseInt(size) + 400;		
  					  var newAppend =$(message_div).appendTo("body")
- 			           newAppend.css("margin-left", size_total);
- 			          
- 					 $.each(data,function(){
- 						 var jdate_int = parseInt(this.chatTime);                          //轉換成數字
-						  var jdate_value = new Date(jdate_int);
- 						 
+ 			           newAppend.css("margin-left", size_total);	
+ 					 $.each(data,function(){			            
  						 if('${LoginOK.member_Id}'==this.member_Id){
  							$('.msg_container_base').append(
  	 								'<div class="row msg_container base_sent ">'
@@ -495,7 +481,7 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-
  	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
  	 			 		            +'<div class="messages msg_sent">'
  	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</time>'
+ 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
  	 			 		            +'</div>'
  	 			 		            +'</div>'
  	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -513,7 +499,7 @@ var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-
  	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
  	 			 		            +'<div class="messages msg_sent">'
  	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</time>'
+ 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
  	 			 		            +'</div>'
  	 			 		            +'</div>'
  	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
