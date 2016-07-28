@@ -204,10 +204,10 @@
 						+'<div class="col-xs-12 col-md-12">'
 						+'<div class="panel panel-default">'
 						+'<div class="panel-heading top-bar">'
-  						+'<div class="col-md-8 col-xs-8">'
+  						+'<div class="col-md-6 col-xs-6">'
     					+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+data.friendName+'</h3>'
   						+'</div>'
-  						+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
+  						+'<div class="col-md-6 col-xs-6" style="text-align: right;">'
      					+'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
      					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
   						+'</div>'
@@ -224,6 +224,7 @@
 						+'</div>'
 						+'</div>'
 						+'</div>')
+						$( ".chat-window" ).draggable();
 					}	
 					$('#'+data.userID+' .msg_container_base').append(
 							'<div class="row msg_container base_receive ">'
@@ -239,7 +240,9 @@
 		 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
 		 		            +'</div>' 		         	
 					 )
-				 }  
+				 } 
+        	var basecon = $('.msg_container_base');
+				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
         }
         else if(data.type == '1')
         {
@@ -349,10 +352,10 @@
 						+'<div class="col-xs-12 col-md-12">'
 						+'<div class="panel panel-default">'
 						+'<div class="panel-heading top-bar">'
-  						+'<div class="col-md-8 col-xs-8">'
+  						+'<div class="col-md-6 col-xs-6">'
     					+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+WhoName+'</h3>'
   						+'</div>'
-  						+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
+  						+'<div class="col-md-6 col-xs-6" style="text-align: right;">'
      					+'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
      					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
   						+'</div>'
@@ -390,6 +393,7 @@
  	 			 		            +'</div>' 
  	 	 							 
  							 )
+ 						
  						 }else{
  							$('.msg_container_base').append(
  	 								'<div class="row msg_container base_receive ">'
