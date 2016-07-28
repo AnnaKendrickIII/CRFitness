@@ -455,7 +455,7 @@ textarea{
 	    		   processData: false,
 				   contentType: false,
 	               success:function(data){
-// 	               console.log(data);
+	               console.log(data);
 // 	               console.log(data[0][1].published_Date);
 // 	               console.log(data[0][1].product_Status);
 						var pdate_int = parseInt(data[0][1].published_Date); //轉換成數字
@@ -469,23 +469,23 @@ textarea{
 	            	   $('#new_products').modal('hide');	
 	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' // <img src="data:image/png;base64,' 
 		   							+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                     // + data[1].photo1 
-									+ '</td><td>'                                                                                                       // + '" class="img-thumbnail" /></td><td>' 
+									+ '</td><td><h4>'                                                                                                       // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].productDetail_Id
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][0].product_Name
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].size
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].color
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].stock
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][0].price
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][0].category
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
 									+ data[0][0].info
@@ -559,23 +559,23 @@ textarea{
 	              	})
 	               	beforeSiblingTr.after('<tr hidden="hidden"><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' //<img src="data:image/png;base64,' 
    							 		+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                          // + data[1].photo1 
-									+ '</td><td>'                                                                                             // + '" class="img-thumbnail" /></td><td>' 
+									+ '</td><td><h4>'                                                                                             // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].productDetail_Id
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][0].product_Name
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].size
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].color
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][1].stock
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][0].price
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ data[0][0].category
-									+ '</td><td>'
+									+ '</td><td><h4>'
 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
 									+ '</td><td hidden="hidden">'
 									+ data[0][0].info
@@ -636,9 +636,9 @@ textarea{
  													+ this[3] // category
  													+ '</td><td><h4>'
 													+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-													+ '</td><td hidden="hidden"><h4>'
+													+ '</td><td hidden="hidden">'
 									                + this[4] // info
-													+ '</td><td hidden="hidden"><h4>'
+													+ '</td><td hidden="hidden">'
 									                + this[0].product_Status
 													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'

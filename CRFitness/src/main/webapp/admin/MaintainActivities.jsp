@@ -172,13 +172,13 @@ th{
 					};
 					$('#activities_tbody').append('<tr class="'+this.activity_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 						 							+ this.activity_Id+'.jpg" class="img-thumbnail img-responsive" />'                              
-													+ '</td><td>'                              
+													+ '</td><td><h4>'                              
 													+ this.activity_Id
-													+ '</td><td>'
+													+ '</td><td><h4>'
 													+ this.member_Id
-													+ '</td><td>'
+													+ '</td><td><h4>'
 													+ adate_value.Format("yyyy-MM-dd hh:mm:ss")
-													+ '</td><td>'
+													+ '</td><td><h4>'
 													+ this.activity_Area
 													+ '</td><td hidden="hidden">'
 									                + this.activity_Status

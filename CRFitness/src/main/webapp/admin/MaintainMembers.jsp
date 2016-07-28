@@ -171,13 +171,13 @@ th{
 					};
 					$('#members_tbody').append('<tr class="'+this.member_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'
 						 							+ this.member_Id+'.jpg" class="img-circle img-responsive" />'                              
-													+ '</td><td>'                              
+													+ '</td><td><h4>'                              
 													+ this.member_Id
-													+ '</td><td>'
+													+ '</td><td><h4>'
 													+ this.nickname
-													+ '&nbsp;&nbsp;&nbsp;<i class="fa fa-weixin" aria-hidden="true"></i></td><td>'
+													+ '&nbsp;&nbsp;&nbsp;<i class="fa fa-weixin" aria-hidden="true"></i></td><td><h4>'
 													+ this.e_mail
-													+ '</td><td>'
+													+ '</td><td><h4>'
 													+ mdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td hidden="hidden">'
 									                + this.member_Status
