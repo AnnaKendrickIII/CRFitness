@@ -1220,7 +1220,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
           			success:function(data){   
           				$('#file').val('').empty();
           				$('#changhead').modal('hide');
-          				alertify.alert('Success') 
+          				alertify.alert('個人頭像更新完成').set('title', '完成');
           				var  myimg= $('img[src="'+wimgSrc+'"]')	
           				for(var i=0;i<myimg.length;i++){	
           						myimg.attr('src',img)	
