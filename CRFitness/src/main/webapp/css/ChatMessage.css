@@ -15,7 +15,8 @@
     z-index: 99999;
 }  
 .chat-window > div > .panel{
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0 !important;
+    border:1px solid #8ab2ea !important;
 }
 .icon_minim{
 	color:#8ab2ea !important;

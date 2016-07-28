@@ -23,6 +23,7 @@
     <script src="${this_contextPath}/js/legacy.js"></script>	
       <script src="${this_contextPath}/js/lrtk.js"></script>	
       <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
+      
       <!-- GoogleLogin-->  
       <!-- bootstrap.min.js  開始-->
   <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
@@ -30,6 +31,7 @@
     <!-- FBLogin JavaScript -->
     <script type="text/javascript" src="http://connect.facebook.net/zh_TW/all.js"></script>
     <script src="${this_contextPath}/js/fb-intit.js"></script>	
+<%--     <script src="${this_contextPath}/js/sockjs-1.0.3.js"></script> --%>
     <!-- 左側清單 開始 -->
     <div id="wrapper">
         <div id="sidebar-wrapper">
@@ -149,9 +151,57 @@
 	</div>
   </div>
   
- <script src="${this_contextPath}/js/sockjs-1.0.3.js"></script>
+ 
 <script type="text/javascript">
 //WebSocket 
+//  function start() 
+//     {
+//         if(userID != '')
+//         {
+//             var msg = JSON.stringify({'userID':userID, 'type':'1'});  
+//             ws.send(msg);
+//         }
+//     }
+ 
+    function sendMessage( friendId , val, Time,friendName)
+    {
+        if(val != '')
+        {
+            var msg = JSON.stringify({'userID':userID,'friendId':friendId, 'type':'2', 'data': val,'Time':Time,'friendName':friendName});  
+            ws.send(msg);    
+        }
+    }
+     
+   	function bodyappend(userID,friendName){
+   		$('body').append(
+				'<div id='+userID+' class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
+				+'<div class="col-xs-12 col-md-12">'
+				+'<div class="panel panel-default">'
+				+'<div class="panel-heading top-bar">'
+					+'<div class="col-md-6 col-xs-6">'
+				+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+friendName+'</h3>'
+					+'</div>'
+					+'<div class="col-md-6 col-xs-6" style="text-align: right;">'
+					+'<a href="#"><span  class="glyphicon glyphicon-minus icon_minim"></span></a>'
+					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" ></span></a>'
+					+'</div>'
+					+'</div>'
+					+'<div class="panel-body msg_container_base">'     
+					+'</div>'
+					+'<div class="panel-footer">'
+				+'<div class="input-group">'
+				+'<input  type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
+				+'<span class="input-group-btn">'
+				+'<button class="btn btn-primary btn-sm" >Send</button>'
+				+'</span><span class="friendId_Here" hidden="hidden">'+userID+'</span>' 
+				+'</div>'
+				+'</div>'
+				+'</div>'
+				+'</div>')
+				$( ".chat-window" ).draggable();	
+   	}
+    
+    
     var userID = '${LoginOK.member_Id}';
     var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
  
@@ -163,23 +213,21 @@
     ws.onopen = function(event) 
     {
     	console.log('打開了')
-        start() ;
+//         start() ;
     };
      
     ws.onclose = function(event) { 
         var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
         ws.send(msg);
-			console.log('關了')
+		console.log('關了')
     }; 
  
     ws.onmessage = function(event) 
     {	
-    	console.log(event.data)
         var data = JSON.parse(event.data);
         if(data.type == '2')
         {
-        	
-        	console.log(data.friendId)
+
             if('${LoginOK.member_Id}'==data.userID){
             	
 					$('#'+data.friendId+' .msg_container_base').append(
@@ -199,32 +247,7 @@
 					 )
 				 }else{
 					if(!($('#'+data.userID).html())){	
-						$('body').append(
-						'<div id='+data.userID+' class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
-						+'<div class="col-xs-12 col-md-12">'
-						+'<div class="panel panel-default">'
-						+'<div class="panel-heading top-bar">'
-  						+'<div class="col-md-6 col-xs-6">'
-    					+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+data.friendName+'</h3>'
-  						+'</div>'
-  						+'<div class="col-md-6 col-xs-6" style="text-align: right;">'
-     					+'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
-     					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
-  						+'</div>'
- 						+'</div>'
- 						+'<div class="panel-body msg_container_base">'     
- 						+'</div>'
- 						+'<div class="panel-footer">'
-						+'<div class="input-group">'
-						+'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
-						+'<span class="input-group-btn">'
-						+'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
-						+'</span><span class="friendId_Here" hidden="hidden">'+data.userID+'</span>' 
-						+'</div>'
-						+'</div>'
-						+'</div>'
-						+'</div>')
-						$( ".chat-window" ).draggable();
+						bodyappend(data.userID,data.friendName)
 					}	
 					$('#'+data.userID+' .msg_container_base').append(
 							'<div class="row msg_container base_receive ">'
@@ -251,25 +274,6 @@
             
         }
     };
- 
-    function start() 
-    {
-        if(userID != '')
-        {
-            var msg = JSON.stringify({'userID':userID, 'type':'1'});  
-            ws.send(msg);
-        }
-    }
- 
-    function sendMessage( friendId , val, Time,friendName)
-    {
-        if(val != '')
-        {
-            var msg = JSON.stringify({'userID':userID,'friendId':friendId, 'type':'2', 'data': val,'Time':Time,'friendName':friendName});  
-            ws.send(msg);    
-        }
-    }
-     
     (function(){
         if(userID == '')
         {
@@ -277,6 +281,8 @@
             $('#send-box').hide();
         }
     })();
+ 
+   
     // enter換行變成shift enter ,enter變送出
 	$('body').on('keydown', '.chat_input', function (event) {
 		if (event.keyCode == 13 && !event.shiftKey) {
@@ -329,12 +335,13 @@
                 $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
             }
         });
- 		$('body').on('focus', '.panel-footer input.chat_input', function (e) {
+ 		$('body').on('focus', '.chat_input', function (e) {
             var $this = $(this);
+           
             if ($('#minim_chat_window').hasClass('panel-collapsed')) {
-                $this.parents('.panel').find('.panel-body').slideDown();
-                $('#minim_chat_window').removeClass('panel-collapsed');
-                $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+                $this.parent().parent().siblings('.panel-body').slideDown();
+                $this.parent().parent().siblings('.panel-body').find('span.icon_minim').removeClass('panel-collapsed');
+                $this.parent().parent().siblings('.panel-body').find('span.icon_minim').addClass('glyphicon-minus');
             }
         });
  		
@@ -348,37 +355,15 @@
  				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
  				  success:function(data){
  					 $('#myfriend').modal('hide')
- 					  var message_div= '<div id='+friendId+' class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
-						+'<div class="col-xs-12 col-md-12">'
-						+'<div class="panel panel-default">'
-						+'<div class="panel-heading top-bar">'
-  						+'<div class="col-md-6 col-xs-6">'
-    					+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+WhoName+'</h3>'
-  						+'</div>'
-  						+'<div class="col-md-6 col-xs-6" style="text-align: right;">'
-     					+'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
-     					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
-  						+'</div>'
- 						+'</div>'
- 						+'<div class="panel-body msg_container_base">'     
- 						+'</div>'
- 						+'<div class="panel-footer">'
-						+'<div class="input-group">'
-						+'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
-						+'<span class="input-group-btn">'
-						+'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
-						+'</span><span class="friendId_Here" hidden="hidden">'+friendId+'</span>' 
-						+'</div>'
-						+'</div>'
-						+'</div>'
-						+'</div>'		 
- 					var size = $(".chat-window:last-child").css("margin-left");
- 					size_total = parseInt(size) + 400;		
- 					  var newAppend =$(message_div).appendTo("body")
- 			           newAppend.css("margin-left", size_total);	
+ 					 //增加聊天框
+ 					 bodyappend(friendId,WhoName) 		 
+//  					var size = $(".chat-window:last-child").css("margin-left");
+//  					size_total = parseInt(size) + 400;		
+//  					  var newAppend =$(message_div).appendTo("body")
+//  			           newAppend.css("margin-left", size_total);	
  					 $.each(data,function(){			            
  						 if('${LoginOK.member_Id}'==this.member_Id){
- 							$('.msg_container_base').append(
+ 							$('#'+friendId+' .msg_container_base').append(
  	 								'<div class="row msg_container base_sent ">'
  	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
  	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
@@ -395,7 +380,7 @@
  							 )
  						
  						 }else{
- 							$('.msg_container_base').append(
+ 							$('#'+friendId+' .msg_container_base').append(
  	 								'<div class="row msg_container base_receive ">'
  	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
  	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
@@ -408,17 +393,13 @@
  	 			 		            +'</div>'
  	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
  	 			 		            +'</div>' 		         	
- 							 )
- 							
- 						 }
- 						
- 						 
+ 							 )				
+ 						 } 
  					 })
  					 //捲軸置底
- 					  	var basecon = $('.msg_container_base');
- 						basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight"));        
- 		           		//可拖曳
- 						$( ".chat-window" ).draggable();
+ 					
+ 					  	var basecon = $('#'+friendId+' .msg_container_base');
+ 						basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight"));                   	
  				  } 			
  			})
           
