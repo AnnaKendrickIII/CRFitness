@@ -14,7 +14,7 @@ import com.CRFitness.Member.model.MemberVO;
 import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 
 @Transactional(transactionManager="transactionManager")
-@Repository("chatDAODAO")
+@Repository("chatDAO")
 public class ChatDAO implements ChatDAO_interface {
 
 	private static final String GET_ALL_STMT = "from FriendshipsVO";
@@ -31,14 +31,13 @@ public class ChatDAO implements ChatDAO_interface {
 	}
 
 	@Override
-	public List<Object[]> select_Friends(String member_Id) {	
+	public List<Object[]> select_Friends_message(String member_Id,String friend_Id) {	
 			Query query = this.getSession().createSQLQuery(
-					"SELECT Members.Member_Id,Members.E_mail,Members.Nickname "
-					+"FROM Members JOIN Friendships "
-					+"ON Members.Member_Id=Friendships.Friend_Id "
-					+"where Friendships.Member_Id='"+member_Id+"' and Friend_Status = 1")
-					.addScalar("Member_Id",StringType.INSTANCE).addScalar("E_mail",StringType.INSTANCE)
-					.addScalar("Nickname",StringType.INSTANCE);				
+					"SELECT Chat.* "
+					+"from Chat "
+					+"where Member_Id='"+member_Id+"'"
+					+" or Member_Id='"+friend_Id+"' order by ChatTime ")
+					.addEntity(ChatVO.class);				
 		return (List<Object[]>) query.list();	
 	}
 	@Override
