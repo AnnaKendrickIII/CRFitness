@@ -107,7 +107,7 @@ body {
 	border: 4px solid #888888;
 }
 
-.gallery .previews a:hover, .gallery .previews a.selected {
+.gallery .previews a:hover, .gallery .previews a.onselected {
 	border: 4px solid #3333ff;
 }
 
