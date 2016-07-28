@@ -11,9 +11,9 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.CRFitness.Administrators.model.AdminsService;
+import com.CRFitness.Administrators.model.AdminsVO;
 import com.CRFitness.Member.Interceptor.TargetURLAware;
-import com.CRFitness.Member.model.MemberService;
-import com.CRFitness.Member.model.MemberVO;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Controller("adminsAction")
@@ -21,12 +21,12 @@ import com.opensymphony.xwork2.ActionSupport;
 public class AdminsAction extends ActionSupport implements TargetURLAware{
 
 	private static final long serialVersionUID = 1L;
-	private MemberVO memberVO;
+	private AdminsVO adminsVO;
 	private HttpServletRequest request;
 	private HttpSession session;
 	private Map<String, String> errorMessage;
-	@Resource(name = "memberService")
-	private MemberService memberService;
+	@Resource(name = "adminsService")
+	private AdminsService adminsService;
 	private String password;
 	private String mail;
 	private String preURL;  
@@ -36,7 +36,7 @@ public class AdminsAction extends ActionSupport implements TargetURLAware{
 	}  	
 	@Override
 	public void setPreURL(String preURL) {	
-		this.preURL=preURL;
+		this.preURL = preURL;
 	}
 	public AdminsAction() {
 		request = ServletActionContext.getRequest();
@@ -52,12 +52,12 @@ public class AdminsAction extends ActionSupport implements TargetURLAware{
 		this.mail = mail;
 	}
 
-	public MemberVO getMemberVO() {
-		return memberVO;
+	public AdminsVO getAdminsVO() {
+		return adminsVO;
 	}
 
-	public void setMemberVO(MemberVO memberVO) {
-		this.memberVO = memberVO;
+	public void setAdminsVO(AdminsVO adminsVO) {
+		this.adminsVO = adminsVO;
 	}
 
 	public String getPassword() {
@@ -70,29 +70,29 @@ public class AdminsAction extends ActionSupport implements TargetURLAware{
 
 	public String registered() {
 
-		if (memberVO.getNickname().length() == 0 || "".equals(memberVO.getNickname())) {
+		if (adminsVO.getName().length() == 0 || "".equals(adminsVO.getName())) {
 			errorMessage.put("nickname_error", "請輸入暱稱");
 		}
 		if (mail.length() == 0 || "".equals(mail)) {
 			errorMessage.put("e_mail_error", "請輸入E-mail");
-		} else if (memberService.checkE_mail(mail)) {
+		} else if (adminsService.checkE_mail(mail)) {
 			errorMessage.put("e_mail_error", "E-mail已重複");
 		}
-		if (memberVO.getPassword().length() == 0 || "".equals(memberVO.getPassword())) {
+		if (adminsVO.getPassword().length() == 0 || "".equals(adminsVO.getPassword())) {
 			errorMessage.put("password_error", "請輸入密碼");
 		}
 		if (password.length() == 0 || "".equals(password)) {
 			errorMessage.put("checkpassword_error", "請輸入密碼");
 		}
-		if (!(password.equals(memberVO.getPassword()))) {
+		if (!(password.equals(adminsVO.getPassword()))) {
 			errorMessage.put("checkpassword_error", "密碼與第一次輸入不符");
 		}
 
 		if (errorMessage.size()==0) {
-			memberVO.setE_mail(mail);
-			memberVO.setMember_Status("登錄中");
-			memberService.addMember(memberVO);
-			session.setAttribute("LoginOK", memberVO);
+			adminsVO.setE_mail(mail);
+			adminsVO.setAdministrator_Status("登錄中");
+			adminsService.addMember(adminsVO);
+			session.setAttribute("LoginOK", adminsVO);
 			return SUCCESS;
 		} else {		
 			errorMessage.put("registered_error", "註冊資料有誤");
@@ -101,22 +101,22 @@ public class AdminsAction extends ActionSupport implements TargetURLAware{
 	}
 
 	public String login() {	
-		if (memberVO.getE_mail().length() == 0 || "".equals(memberVO.getE_mail())) {
+		if (adminsVO.getE_mail().length() == 0 || "".equals(adminsVO.getE_mail())) {
 			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");
 			return INPUT;
 			}
-		if (memberVO.getPassword().length() == 0 || "".equals(memberVO.getPassword())) {
+		if (adminsVO.getPassword().length() == 0 || "".equals(adminsVO.getPassword())) {
 			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");
 			return INPUT;
 		}
-		if (memberService.checkPassword(memberVO.getE_mail())) {
+		if (adminsService.checkPassword(adminsVO.getE_mail())) {
 			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");
 			return INPUT;
 		}
-		if (memberService.login(memberVO.getE_mail(), memberVO.getPassword()) != null) {
-			(memberVO = memberService.login(memberVO.getE_mail(),
-					memberVO.getPassword())).setPassword(null);
-			session.setAttribute("LoginOK", memberVO);
+		if (adminsService.login(adminsVO.getE_mail(), adminsVO.getPassword()) != null) {
+			(adminsVO = adminsService.login(adminsVO.getE_mail(),
+					adminsVO.getPassword())).setPassword(null);
+			session.setAttribute("LoginOK", adminsVO);
 			request.getServletContext().removeAttribute("GoUrl");
 			return SUCCESS;
 		} else {

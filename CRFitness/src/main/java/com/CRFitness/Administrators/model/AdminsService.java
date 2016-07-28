@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -17,6 +18,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
+
+import com.CRFitness.Member.model.MemberVO;
 
 @Service("adminsService")
 public class AdminsService {
@@ -155,6 +158,14 @@ public class AdminsService {
 			return true;
 		}
 		return false;
+	}
+	
+	//註冊
+	public AdminsVO addMember(AdminsVO adminsVO) {
+		Timestamp datetime = new Timestamp(System.currentTimeMillis());
+		adminsVO.setRegisterdate(datetime);
+		adminsDAO.insert(adminsVO);
+		return adminsVO;
 	}
 	
 	public void updatemember(AdminsVO adminsVO) {
