@@ -2,7 +2,7 @@
 	position: relative;
 	padding: 0;
 	min-width: 100 px;
-	width: 50%;
+	width: 80%;
 	border-radius: 0;
 	margin-bottom: 2px;
 }
@@ -204,4 +204,9 @@
 .btn-select.btn-select-light .btn-select-value {
 	background-color: white;
 	color: black;
+}
+
+.num{
+	 max-height:200px;
+ 	 overflow-x:hidden;
 }
