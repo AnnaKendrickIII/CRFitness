@@ -217,6 +217,7 @@ jQuery(function($){
 					url:'${this_contextPath}/CRFSERVICE/orderDetailsController/addOrder',
 					type:'get',
 					data:{
+						member_Id:'${LoginOK.member_Id}',
 						consignee_Name:consignee_Name,
 						consignee_Address:consignee_Address,
 						payment_Method:payment_Method,

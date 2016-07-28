@@ -36,6 +36,9 @@ public class PersonalJournalController {
 	@RequestMapping(method = RequestMethod.GET, value = "/showJournal", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,
 			@RequestParam Integer visitorStatus , HttpSession session) {
+		System.out.println(member_Id);
+		System.out.println(visitorStatus);
+		
 		if(member_Id != null && member_Id.trim().length() != 0){
 			MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
 			if(mySelf.getMember_Id().equals(member_Id) && visitorStatus == 1){

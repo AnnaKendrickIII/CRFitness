@@ -169,6 +169,7 @@ width:24px;
 						var jdate_value = new Date(jdate_int); 
 		        		var journalId=this[0].journal_Id
 		        		var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
+
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
 			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
 			        		 +this[1]+'</p></a><p class="time_p">'
