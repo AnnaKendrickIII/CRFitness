@@ -75,7 +75,7 @@ public class MemberController {
 			@RequestParam String e_mail,
 			@RequestParam String password
 			)  {
-		response.setHeader("Access-Control-Allow-Origin", "http://localhost:14596");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		if (memberService.checkPassword(e_mail)) {
 			return "失敗";
 		}
