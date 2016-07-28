@@ -166,6 +166,18 @@ outline:none !important;
 i.fa-user-plus{
 	margin-right: 5%;
 }
+.new_j_css{
+background-color: #337ab7;
+text-align: center;
+color:white;
+}
+.booknew_css{
+padding-right: 5%;
+}
+.uploadfile_div_css{
+margin-bottom: 5%;
+}
+
 </style>
 <script type="text/javascript">
 jQuery(function($){
@@ -302,11 +314,11 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
-							<div class="modal-header">
+							<div class="modal-header new_j_css">
 								<button type="button" class="close" data-dismiss="modal">
 									<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 								</button>
-								<h4 class="modal-title" id="exampleModalLabel">新增個人日誌</h4>
+								<h3 class="modal-title" id="exampleModalLabel"><i class="fa fa-book booknew_css"></i><strong>新增個人日誌</strong></h3>
 							</div>
 							<div class="modal-body">
 
@@ -324,9 +336,11 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								</div>
 
 									<div class="form-group">
-										<label for="uploadfile">檔案上傳</label> <input id="uploadfile" class=""
-											type="file" accept="image/jpeg,image/png,image/gif" multiple="multiple">
-										<p class="help-block">在此示範區塊層級輔助說明文字。</p>
+										<div class="uploadfile_div_css">
+										<label for="uploadfile" class="btn btn-primary btn-file">選擇圖檔<input id="uploadfile"   style="display: none;"
+											type="file" multiple="multiple">
+											</label> 
+										</div>
 										<div>
 									        <img class="preview" style="max-width: 150px; max-height: 150px;">
 									        <div class="size"></div>
@@ -670,7 +684,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						+ '<a class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 				   		+ '<a class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen" ></span></a>'
 				   		+ '<a><span class="badge countLike" ></span></a>'
-			   			+ '<button type="button" class="btn btn-info pull-right" >送出留言 </button>'
+			   			+ '<button type="button" class="btn song btn-primary pull-right" >送出留言 </button>'
 			   			+ '</div>'
 			   			+ '</div>'
 			   			+ '</li>')
@@ -864,7 +878,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 											+ '<a type="button" class="btn btn-link"><i class="fa fa-tag fa-2x" aria-hidden="true"></i></a>'
 								   			+ '<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen"></span></a>'
 									   		+ '<a><span class="badge countLike">0</span></a>'
-								   			+ '<button type="button" class="btn btn-info pull-right" >送出留言</button>'
+								   			+ '<button type="button" class="btn song btn-primary pull-right" >送出留言</button>'
 								   			+ '</div>'
 								   			+ '</div>'
 								   			+ '</li>')
@@ -979,7 +993,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			}
 		})
         //send MessageDetail from button
-		divGrid.on('click', 'li button[class="btn btn-info pull-right"]', function (event) {
+		divGrid.on('click', 'li button[class="btn song btn-primary pull-right"]', function (event) {
 			var theJournal_Id = $(this).parents('li').attr('id');
 			var val = $(this).prevAll('textarea.message-textarea').val()
 			if(val.trim().length != 0){
@@ -1284,6 +1298,6 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	<script src="${this_contextPath}/js/jAlert-functions.js"></script>
 	<script src="${this_contextPath}/js/velocity.min.js" ></script>
 	<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>
-	<script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
+	
 </body>
 </html>

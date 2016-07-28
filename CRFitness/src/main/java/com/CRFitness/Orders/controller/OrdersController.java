@@ -24,8 +24,12 @@ public class OrdersController {
 	private OrdersService ordersService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/orders", produces = MediaType.APPLICATION_JSON)
-	public @ResponseBody List<OrdersVO> searchAllOrders( HttpServletRequest request) {
-		request.getSession().setAttribute("searchAllOrders", ordersService);
+	public @ResponseBody List<OrdersVO> searchAllOrders() {
 		return ordersService.searchAllOrders();
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/searchMemberOrders", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<OrdersVO> searchMemberOrders(String member_Id) {
+		return ordersService.searchOrdersByMember_Id(member_Id);
 	}
 }

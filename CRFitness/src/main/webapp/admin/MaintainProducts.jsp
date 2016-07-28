@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
@@ -13,10 +13,7 @@
     <title>MaintainProducts</title>
     
     <jsp:include page="AdminFrame.jsp"/>
-	
   </head>
-
-  <body>
 
 <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -73,41 +70,71 @@
             </dialog>
         </div>
 </script>
-
+<script>
+	jQuery(function($){
+	// 新增上傳圖片 開始		
+        $('#fine-uploader-manual-trigger').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/server/uploads'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        });
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+        });
+	// 上傳圖片   結尾
+        
+    // 修改圖片   開始
+        $('#fine-uploader-manual-trigger2').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/server/uploads'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        })
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger2').fineUploader('uploadStoredFiles');
+        });
+    // 修改圖片   結尾
+        
+    // 轉換日期的小程式 開始
+		Date.prototype.Format = function(fmt) {
+			var o = {
+				"M+" : this.getMonth() + 1, //月份 
+				"d+" : this.getDate(), //日 
+				"h+" : this.getHours(), //小时 
+				"m+" : this.getMinutes(), //分 
+				"s+" : this.getSeconds(), //秒 
+				"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
+				"S" : this.getMilliseconds()	//毫秒 
+			};
+			if (/(y+)/.test(fmt))
+				fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+						.substr(4 - RegExp.$1.length));
+			for ( var k in o)
+				if (new RegExp("(" + k + ")").test(fmt))
+					fmt = fmt.replace(RegExp.$1,
+					(RegExp.$1.length == 1) ? (o[k])
+					: (("00" + o[k]).substr(("" + o[k]).length)));
+			return fmt;
+		}
+	//轉換日期的小程式 結束
+	}); // end 269 jQuery(function($){
+</script>
 <style>
-body {
-	background-color: #E0E0E0;
-}
-
-.table thead tr {
-	background-color: #46A3FF;
-}
-/* .table thead th:nth-child(1){ */
-
-/* } */
-/* .table thead th:nth-child(5){ */
-
-/* } */
-.table tbody a {
-	color: #F75000;
-	text-decoration: none;
-}
-
-.table tbody a:hover {
-	color: black;
-}
-
-.table {
-/* 	background-color: white; */
-	border-radius: 20px;
-}
-
-.table>tbody>tr>td{
-	vertical-align: middle;
-	width:100px;
-	height:100px;
-}
-
 #trigger-upload {
 	color: white;
     background-color: #00ABC7;
@@ -128,24 +155,6 @@ body {
     width: 60%;
 }
 
-
-.gallery {
-	margin: 20px 0;
-	overflow: hidden;
-}
-
-.lightbox_image {
-	display: block;
-	float: left;
-	margin: 0 2% 10px 0;
-	width: 100%;/*網頁圖片大小*/
-	max-width: 150px;/**/
-}
-
-.lightbox_image img {
-	display: block;
-	width: 100%;
-}
 .qq-edit-filename-icon {
     display: none;
     background: url("${this_contextPath}/images/edit.gif");
@@ -155,17 +164,48 @@ body {
     margin-right: 16px;
 }
 
-/* #creProdBtn{ */
-/* 	margin-top: 15px; */
-/* } */
-
-textarea{
-	resize:none;
+.content-panel{
+	background-color: #F2F2F2;
 }
 
+.table {
+  	background-color: #E0E0E0;
+	border-radius: 20px;
+}
+
+.table>tbody>tr>td{
+	vertical-align: middle;
+	text-align: center;
+	width:100px;
+	height:100px;
+}
+
+th{
+	vertical-align: middle;
+	text-align: center;
+}
+
+#creProdBtn{
+  	margin-bottom: 10px;
+ }  
+
+.sb-search{ 
+ 	margin-top: -1px;
+ } 
+
+#myModalLabel1, #myModalLabel2{
+	text-align: center;
+}
+
+textarea{
+	resize: none;
+}
 </style>
 </head>
+
 <body>
+<!-- 每頁不同內容   開始 -->
+  <section id="container" >
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
@@ -178,29 +218,39 @@ textarea{
     	<div class="col-md-12 col-xs-12">
         	<div class="content-panel">
 
+			<div class="row">
+				<div class="col-md-10 col-xs-10">
 		<button type="button" id="creProdBtn" class="btn btn-round btn-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
   		<i class="fa fa-plus-square" aria-hidden="true"></i>
   		</button>
+				</div>
 
+				<div class="col-md-2 col-xs-2">
+					<div id="sb-search" class="sb-search">
+						<form>
+							<input id="tablesearchinput" class="sb-search-input" placeholder="請輸入關鍵字" type="text" value="" name="search"> 
+							<input id='searchId' class="sb-search-submit" type="submit" value=""><span class="sb-icon-search"></span>
+						</form>
+					</div>
+				</div>
+			</div>
 
-            	<table class="table table-striped table-advance table-hover">
-		
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="products_table">
 
-<!-- 		<table id="games_talbe" class="table"> -->
 			<thead>
-				<tr>
-					<th><h3><i class="fa fa-file-image-o" aria-hidden="true"></i> 小圖</h3></th>
+				<tr class="btn-primary" >
+					<th><h3><i class="fa fa-file-image-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
 					<th><h3># ID</h3></th>
 					<th><h3># PID</h3></th>
-					<th><h3><i class="fa fa-file-text-o" aria-hidden="true"></i> 名稱</h3></th>
-					<th><h3><i class="fa fa-filter" aria-hidden="true"></i> 大小</h3></th>
-					<th><h3><i class="fa fa-files-o" aria-hidden="true"></i> 顏色</h3></th>
-					<th><h3><i class="fa fa-stack-exchange" aria-hidden="true"></i> 存量</h3></th>
-					<th><h3><i class="fa fa-usd" aria-hidden="true"></i> 價格</h3></th>
-					<th><h3><i class="fa fa-cog" aria-hidden="true"></i> 分類</h3></th>
-					<th><h3><i class="fa fa-sort-asc" aria-hidden="true"></i> 上架日</h3></th>
-					<th><h3><i class="fa fa-refresh" aria-hidden="true"></i> 修改</h3></th>
-					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i> 狀態</h3></th>
+					<th><h3><i class="fa fa-file-text-o" aria-hidden="true"></i><strong> 名稱</strong></h3></th>
+					<th><h3><i class="fa fa-filter" aria-hidden="true"></i><strong> 大小</strong></h3></th>
+					<th><h3><i class="fa fa-files-o" aria-hidden="true"></i><strong> 顏色</strong></h3></th>
+					<th><h3><i class="fa fa-stack-exchange" aria-hidden="true"></i><strong> 存量</strong></h3></th>
+					<th><h3><i class="fa fa-usd" aria-hidden="true"></i><strong> 價格</strong></h3></th>
+					<th><h3><i class="fa fa-cog" aria-hidden="true"></i><strong> 分類</strong></h3></th>
+					<th><h3><i class="fa fa-sort-asc" aria-hidden="true"></i><strong> 上架日</strong></h3></th>
+					<th><h3><i class="fa fa-refresh" aria-hidden="true"></i><strong> 修改</strong></h3></th>
+					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i><strong> 狀態</strong></h3></th>
 				</tr>
 			</thead>
 			<tbody id="products_tbody"></tbody>
@@ -211,19 +261,32 @@ textarea{
 <!-- 		<div class="col-md-1"></div> -->
 	</div><!-- 184 <div class="row mt"> -->
 		
-		</section> <!-- 178 <section class="wrapper"> -->
-      </section> <!-- 177 /MAIN CONTENT -->		
-		
-<!-- 資料表格 結束 -->
+		</section> <!-- 182 <section class="wrapper"> -->
+      </section> <!-- 181 /MAIN CONTENT -->
+      <!-- main content end -->
+      
+      <!-- footer start -->
+      <footer class="site-footer">
+          <div class="text-center">
+              2016 - C.R.Fitness Co., Ltd.
+              <a href="MaintainProducts.jsp" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+	  <!-- footer end -->		
+	  
+  </section> <!-- 176 <section id="container" > -->		
+<!-- 每頁不同內容   結束 -->
 
-<!-- 新增產品彈出視窗 開始-->
-        	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="new_products" class="modal fade">
+<!-- 新增產品彈出視窗   開始 -->
+        	<div aria-hidden="true" aria-labelledby="myModalLabel1" role="dialog" tabindex="-1" id="new_products" class="modal fade">
             	<div class="modal-dialog">
                 	<div class="modal-content">
                 	
                     <div class="modal-header login_header">
                     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title">新增產品</h3>
+                        <h3 class="modal-title" id="myModalLabel1"><strong>新增產品</strong></h3>
                     </div>
                             
                     <div id="addProducts_form" class="modal-body">
@@ -255,45 +318,23 @@ textarea{
                      </div> <!-- end of id="addProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer">
-<%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
-                        <button data-dismiss="modal" class="btn btn-theme" type="button">取消</button>
+                        <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
                         <button id="addbtn" class="btn btn-primary" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
             	</div> <!-- <div class="modal-dialog"> -->
             </div> <!-- end of <div aria-hidden="true" -->
-<!-- 新增產品彈出視窗 結束 -->
+<!-- 新增產品彈出視窗   結束 -->
 
-<!-- 新增上傳圖片 開始 以下這段一定要放這，不然就是ready or onload-->
-<script>
-        $('#fine-uploader-manual-trigger').fineUploader({
-            template: 'qq-template-manual-trigger',
-            request: {
-                endpoint: '/server/uploads'
-            },
-            thumbnails: {
-                placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
-                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
-                }
-            },
-            autoUpload: false
-        });
-        $('#trigger-upload').click(function() {
-            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
-        });
-</script>
-<!-- 上傳圖片 結尾-->
-
-<!-- 修改產品彈出視窗 開始-->
-        	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="update_products" class="modal fade">
+<!-- 修改產品彈出視窗   開始 -->
+        	<div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" id="update_products" class="modal fade">
             	<div class="modal-dialog">
                 	<div class="modal-content">
                 	
                     <div class="modal-header login_header">
                     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title">修改產品</h3>
+                        <h3 class="modal-title" id="myModalLabel2"><strong>修改產品</strong></h3>
                     </div>
                             
                     <div id="updateProducts_form" class="modal-body">
@@ -329,66 +370,23 @@ textarea{
                      </div> <!-- end of id="updateProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer upbtn">
-<%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
-                        <button data-dismiss="modal" class="btn btn-theme" type="button">取消</button>
+                        <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
                         <button id="updatebtn" class="btn btn-primary" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
             	</div> <!-- <div class="modal-dialog"> -->
             </div> <!-- end of <div aria-hidden="true" -->
-<!-- 修改產品彈出視窗 結束 -->
+<!-- 修改產品彈出視窗   結束 -->
 
-<!-- 修改圖片 開始 以下這段一定要放這，不然就是ready or onload-->
+<!-- 所有功能的程式   開始 -->
 <script>
-        $('#fine-uploader-manual-trigger2').fineUploader({
-            template: 'qq-template-manual-trigger',
-            request: {
-                endpoint: '/server/uploads'
-            },
-            thumbnails: {
-                placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
-                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
-                }
-            },
-            autoUpload: false
-        })
-        $('#trigger-upload').click(function() {
-            $('#fine-uploader-manual-trigger2').fineUploader('uploadStoredFiles');
-        });
-</script>
-<!-- 上傳圖片 結尾-->
-
-<script>
-// 轉換日期的小程式 開始
-			Date.prototype.Format = function(fmt) {
-				var o = {
-					"M+" : this.getMonth() + 1, //月份 
-					"d+" : this.getDate(), //日 
-					"h+" : this.getHours(), //小时 
-					"m+" : this.getMinutes(), //分 
-					"s+" : this.getSeconds(), //秒 
-					"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
-					"S" : this.getMilliseconds()	//毫秒 
-				};
-				if (/(y+)/.test(fmt))
-					fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
-							.substr(4 - RegExp.$1.length));
-				for ( var k in o)
-					if (new RegExp("(" + k + ")").test(fmt))
-						fmt = fmt.replace(RegExp.$1,
-						(RegExp.$1.length == 1) ? (o[k])
-						: (("00" + o[k]).substr(("" + o[k]).length)));
-				return fmt;
-			}
-// 轉換日期的小程式 結束
-
-
-// 所有功能的程式   開始
 	jQuery(function ($) {	  
+		
 		  var file;	
 		  var count=0;
+		  new UISearch(document.getElementById('sb-search')); // expanding search bar
+		 
 // 1.新增上傳圖片的小程式   開始
 		$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 
@@ -470,7 +468,7 @@ textarea{
 						};
 	            	   $('#new_products').modal('hide');	
 	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' // <img src="data:image/png;base64,' 
-		   							+ data[0][1].productDetail_Id+'_1.png" class="img-thumbnail img-responsive" />'                                     // + data[1].photo1 
+		   							+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                     // + data[1].photo1 
 									+ '</td><td>'                                                                                                       // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
 									+ '</td><td>'
@@ -493,7 +491,7 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-theme btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
 									+ '</td></tr>') // end of after				
 						// 產品狀態switch的程式 開始
@@ -560,7 +558,7 @@ textarea{
 	              		$(this).remove();                               // 自己這tr移除
 	              	})
 	               	beforeSiblingTr.after('<tr hidden="hidden"><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' //<img src="data:image/png;base64,' 
-   							 		+ data[0][1].productDetail_Id+'_1.png" class="img-thumbnail img-responsive" />'                                          // + data[1].photo1 
+   							 		+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                          // + data[1].photo1 
 									+ '</td><td>'                                                                                             // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
 									+ '</td><td>'
@@ -583,8 +581,8 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-theme btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 					// 產品狀態switch的程式 開始
 					$('.updateSwitch'+count).easyswitch();
@@ -599,7 +597,7 @@ textarea{
 })) // end of $('table').on('click',".2g",(function(){			
 // 2.修改產品的程式   結束
 
-    	
+
 // 3.顯示產品的程式   開始
 	$.ajax({
 		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
@@ -642,8 +640,8 @@ textarea{
 									                + this[4] // info
 													+ '</td><td hidden="hidden"><h4>'
 									                + this[0].product_Status
-													+ '</td><td><button type="button" class="btn btn-theme btn-1g btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
+													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 					// 產品狀態switch的程式   開始
@@ -690,14 +688,15 @@ textarea{
 						 }) // end of  $.ajax({  	    	   
 					}); // end of 	$('.3g').click(function () {
 					// 改變產品狀態的程式 結束
+			$("#products_table").searcher({
+            	inputSelector: "#tablesearchinput"
+    		})			
 		} // end of success : function(data) 
 	}) // end of $.ajax({
 // 3.顯示產品的程式   結束			
 
-}); // end of jQuery(function ($)
+}); // end 384 jQuery(function ($)
 </script>
-
-<!-- </div> end of <div class="row"> -->
 
 	</body>
 </html>

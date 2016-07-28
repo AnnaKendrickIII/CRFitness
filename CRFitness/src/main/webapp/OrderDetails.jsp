@@ -22,7 +22,6 @@
 </head>
 
 <body class="orderDetailsbody">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/jquery.columns.min.js"></script>
 <aside>
 
@@ -33,19 +32,22 @@
 	</div>
 	
 	<script type="text/javascript">
+jQuery(function($){
+	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/OrderDetail.png">')
 	var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substr(9);
-	
 	$.ajax({
 		  url:'${this_contextPath}/CRFSERVICE/orderDetailsController/search',
-	      type:'get', 
+	      type:'post', 
  	      data:{order_Id:queryString},
 	      success: function(json) { 
 	          $('#orderDetialscolumns').columns({
 	              data:json,
 	              schema: [
+
 	                  {"header":"訂單編號", "key":"order_Id"},
 	                  {"header":"明細編號", "key":"details_No"},
+	                  {"header":"商品圖片", "key":'<img src="${this_contextPath}/images/products/prodDetail5001_1.png"/>'},
 	                  {"header":"商品名稱", "key":"product_Name"},
 	                  {"header":"數量", "key":"quantity"},
 	                  {"header":"尺寸", "key":"size"},
@@ -53,9 +55,11 @@
 	                  {"header":"價格", "key":"amount"},
 	              ]
 
-	          }); 
+	          });
+	          
 	      }
 	  });
+})
 	</script>
 </aside>
 </body>

@@ -64,13 +64,13 @@ public class OrderDetailsService {
 	}
 
 	// 新增訂單
-	public OrdersVO addOrder(String consignee_Name, String consignee_Address,
+	public OrdersVO addOrder(String member_Id, String consignee_Name, String consignee_Address,
 			String payment_Method, Double total_Amount) {
 
 		OrdersVO order = new OrdersVO();
 
 		OrdersVO ordersVO = new OrdersVO();
-		ordersVO.setMember_Id(null);
+		ordersVO.setMember_Id(member_Id);
 		ordersVO.setConsignee_Name(consignee_Name);
 		ordersVO.setConsignee_Address(consignee_Address);
 		ordersVO.setPayment_Method(payment_Method);

@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-signin-client_id"
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
-<jsp:include page="/AdminFrame.jsp" />
+<jsp:include page="/AdF.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- upload files -->
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- upload files -->
@@ -107,6 +107,12 @@ body {
 	border-radius: 20px;
 }
 
+.table>tbody>tr>td{
+	vertical-align: middle;
+	width:100px;
+	height:100px;
+}
+
 #trigger-upload {
 	color: white;
     background-color: #00ABC7;
@@ -127,9 +133,6 @@ body {
     width: 60%;
 }
 
-.table>tbody>tr>td{
-	vertical-align: middle;
-}
 
 .gallery {
 	margin: 20px 0;
@@ -179,7 +182,7 @@ textarea{
 
 <!-- 資料表格 開始 -->
 	
-		<table id="products_talbe" class="table">
+		<table id="games_talbe" class="table">
 			<thead>
 				<tr>
 					<th><h3>小圖</h3></th>
@@ -671,7 +674,7 @@ textarea{
 					    		data: {'productDetail_Id': prodDetaId,
 										'product_Status': reversedState}, // 
 						    	success:function(data){
-						        	this_prodStatus.text(reversedState)
+						        	this_prodStatus.text("reversedState")
 						        } // end of success:function(data)	 
 						 }) // end of  $.ajax({  	    	   
 					}); // end of 	$('.3g').click(function () {

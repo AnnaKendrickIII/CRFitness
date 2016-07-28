@@ -7,7 +7,7 @@ import com.CRFitness.Member.model.MemberVO;
 public interface ChatDAO_interface {
 
     public ChatVO insert(ChatVO chatVO);
-    public List<Object[]> select_Friends(String member_Id);
+    public List<Object[]> select_Friends_message(String member_Id,String friend_Id);
     public List<ChatVO> getAll();
 
 }

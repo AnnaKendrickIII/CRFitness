@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>动弹列表</title>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+ <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
 <style type="text/css">
     .jz {
         margin: 0 auto; 
@@ -37,7 +38,7 @@
 </head>
 <body>
 <div class="jz" style="font-size:30px;">动弹列表</div>
-<div class="jz" style="font-size:20px;">欢迎回来：${LoginOK.nickname}，当前在线人数<b id="pcount"></b></div>
+<div class="jz" style="font-size:20px;">欢迎回来：${LoginOK.nickname}<b id="pcount"></b></div>
 <div class="jz" id="err-box"></div>
 <div id="msg-box">
     <div class="tw">
@@ -50,6 +51,7 @@
     <input type="button" onclick="send_msg()" value="发布动弹"/>
 </div>
 <script type="text/javascript">
+	  
     var username = "${LoginOK.nickname}";
     var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
  
@@ -69,7 +71,7 @@
     }; 
  
     ws.onmessage = function(event) 
-    {	console.log("onmessage:")
+    {	
     	console.log(event.data)
         var data = JSON.parse(event.data);
         if(data.type == '2')
@@ -80,17 +82,17 @@
         }
         else if(data.type == '1')
         {
-            $('#pcount').html(data.pcount);
-            render_data('<span style="color:red;">系统信息</span>', data.username + "加入系统");
+           
+            render_data(data.username + "   上線 <br> ");
         }
     };
  
-    function render_data(username, data)
+    function render_data(data)
     {
         var msg = [];
         msg.push('<div class="tw">');
-        msg.push('<div class="top">' + username + '  2015-07-05</div>');
-        msg.push('<div class="buttom"> ' + data + ' </div>');
+//         msg.push('<div class="top">' + username + '  2015-07-05</div>');
+        msg.push('<div class="buttom"> ' + data +jQuery.timeago(new Date().getTime())+ ' </div>');
         msg.push('</div>');
         $('#msg-box').append(msg.join(''));
     }
