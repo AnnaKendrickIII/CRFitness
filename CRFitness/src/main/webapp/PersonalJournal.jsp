@@ -95,7 +95,6 @@ div.statusSelect a{
 .jouranl_activity{
 display:block;
 max-width:100%;
-
 width: 60px;
 height: 60px;
 padding: 0px;
@@ -117,7 +116,7 @@ margin-top : 50%;
 }
 
 .name_p{
-font-size: 16px;
+font-size: 18px;
 color:#0000C6;
 }
 
@@ -130,7 +129,9 @@ color:#0000C6;
 	height: 32px;
     width: 32px;
 	display:inline;
+	margin-right: 5%
 }
+
 .journaltime{
 	color:#BEBEBE;
 	font-size: 10px;
@@ -1234,7 +1235,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
           			success:function(data){   
           				$('#file').val('').empty();
           				$('#changhead').modal('hide');
-          				alertify.alert('Success') 
+          				alertify.alert('大頭貼已更換').set('title','完成'); 
           				var  myimg= $('img[src="'+wimgSrc+'"]')	
           				for(var i=0;i<myimg.length;i++){	
           						myimg.attr('src',img)	

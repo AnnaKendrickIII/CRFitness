@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-signin-client_id"
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
-<jsp:include page="/AdminFrame.jsp" />
+<jsp:include page="/AdF.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.easyswitch.css" /> <!-- switch button -->
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
@@ -111,7 +111,7 @@ body {
 // 所有功能的程式   開始
 	jQuery(function ($) {	  
 		
-// 3.顯示會員的程式   開始
+// 3.顯示日誌的程式   開始
 	$.ajax({
 		url : "${this_contextPath}/CRFSERVICE/commonJournalControllerBE/getAllFlagJournal",
 		type : 'get', //get post put delete

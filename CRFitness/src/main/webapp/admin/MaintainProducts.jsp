@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
@@ -70,7 +70,70 @@
             </dialog>
         </div>
 </script>
-
+<script>
+	jQuery(function($){
+	// 新增上傳圖片 開始		
+        $('#fine-uploader-manual-trigger').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/server/uploads'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        });
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
+        });
+	// 上傳圖片   結尾
+        
+    // 修改圖片   開始
+        $('#fine-uploader-manual-trigger2').fineUploader({
+            template: 'qq-template-manual-trigger',
+            request: {
+                endpoint: '/server/uploads'
+            },
+            thumbnails: {
+                placeholders: {
+                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
+                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
+                }
+            },
+            autoUpload: false
+        })
+        $('#trigger-upload').click(function() {
+            $('#fine-uploader-manual-trigger2').fineUploader('uploadStoredFiles');
+        });
+    // 修改圖片   結尾
+        
+    // 轉換日期的小程式 開始
+		Date.prototype.Format = function(fmt) {
+			var o = {
+				"M+" : this.getMonth() + 1, //月份 
+				"d+" : this.getDate(), //日 
+				"h+" : this.getHours(), //小时 
+				"m+" : this.getMinutes(), //分 
+				"s+" : this.getSeconds(), //秒 
+				"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
+				"S" : this.getMilliseconds()	//毫秒 
+			};
+			if (/(y+)/.test(fmt))
+				fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+						.substr(4 - RegExp.$1.length));
+			for ( var k in o)
+				if (new RegExp("(" + k + ")").test(fmt))
+					fmt = fmt.replace(RegExp.$1,
+					(RegExp.$1.length == 1) ? (o[k])
+					: (("00" + o[k]).substr(("" + o[k]).length)));
+			return fmt;
+		}
+	//轉換日期的小程式 結束
+	}); // end 269 jQuery(function($){
+</script>
 <style>
 #trigger-upload {
 	color: white;
@@ -216,7 +279,7 @@ textarea{
   </section> <!-- 176 <section id="container" > -->		
 <!-- 每頁不同內容   結束 -->
 
-<!-- 新增產品彈出視窗 開始-->
+<!-- 新增產品彈出視窗   開始 -->
         	<div aria-hidden="true" aria-labelledby="myModalLabel1" role="dialog" tabindex="-1" id="new_products" class="modal fade">
             	<div class="modal-dialog">
                 	<div class="modal-content">
@@ -262,30 +325,9 @@ textarea{
                      </div> <!-- <div class="modal-content"> -->
             	</div> <!-- <div class="modal-dialog"> -->
             </div> <!-- end of <div aria-hidden="true" -->
-<!-- 新增產品彈出視窗 結束 -->
+<!-- 新增產品彈出視窗   結束 -->
 
-<!-- 新增上傳圖片 開始 以下這段一定要放這，不然就是ready or onload-->
-<script>
-        $('#fine-uploader-manual-trigger').fineUploader({
-            template: 'qq-template-manual-trigger',
-            request: {
-                endpoint: '/server/uploads'
-            },
-            thumbnails: {
-                placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
-                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
-                }
-            },
-            autoUpload: false
-        });
-        $('#trigger-upload').click(function() {
-            $('#fine-uploader-manual-trigger').fineUploader('uploadStoredFiles');
-        });
-</script>
-<!-- 上傳圖片 結尾-->
-
-<!-- 修改產品彈出視窗 開始-->
+<!-- 修改產品彈出視窗   開始 -->
         	<div aria-hidden="true" aria-labelledby="myModalLabel2" role="dialog" tabindex="-1" id="update_products" class="modal fade">
             	<div class="modal-dialog">
                 	<div class="modal-content">
@@ -328,7 +370,6 @@ textarea{
                      </div> <!-- end of id="updateProducts_form" class="modal-body" -->
                      
                      <div class="modal-footer upbtn">
-<%--                      	<h4 style="color:red;float:left" >${ErrorMessage.registered_error}</h4> --%>
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
                         <button id="updatebtn" class="btn btn-primary" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
@@ -336,58 +377,16 @@ textarea{
                      </div> <!-- <div class="modal-content"> -->
             	</div> <!-- <div class="modal-dialog"> -->
             </div> <!-- end of <div aria-hidden="true" -->
-<!-- 修改產品彈出視窗 結束 -->
+<!-- 修改產品彈出視窗   結束 -->
 
-<!-- 修改圖片 開始 以下這段一定要放這，不然就是ready or onload-->
+<!-- 所有功能的程式   開始 -->
 <script>
-        $('#fine-uploader-manual-trigger2').fineUploader({
-            template: 'qq-template-manual-trigger',
-            request: {
-                endpoint: '/server/uploads'
-            },
-            thumbnails: {
-                placeholders: {
-                    waitingPath: '${this_contextPath}/images/waiting-generic.png',
-                    notAvailablePath: '${this_contextPath}/images/not_available-generic.png'
-                }
-            },
-            autoUpload: false
-        })
-        $('#trigger-upload').click(function() {
-            $('#fine-uploader-manual-trigger2').fineUploader('uploadStoredFiles');
-        });
-</script>
-<!-- 上傳圖片 結尾-->
-
-<script>
-// 轉換日期的小程式 開始
-			Date.prototype.Format = function(fmt) {
-				var o = {
-					"M+" : this.getMonth() + 1, //月份 
-					"d+" : this.getDate(), //日 
-					"h+" : this.getHours(), //小时 
-					"m+" : this.getMinutes(), //分 
-					"s+" : this.getSeconds(), //秒 
-					"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
-					"S" : this.getMilliseconds()	//毫秒 
-				};
-				if (/(y+)/.test(fmt))
-					fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
-							.substr(4 - RegExp.$1.length));
-				for ( var k in o)
-					if (new RegExp("(" + k + ")").test(fmt))
-						fmt = fmt.replace(RegExp.$1,
-						(RegExp.$1.length == 1) ? (o[k])
-						: (("00" + o[k]).substr(("" + o[k]).length)));
-				return fmt;
-			}
-// 轉換日期的小程式 結束
-
-
-// 所有功能的程式   開始
 	jQuery(function ($) {	  
+		
 		  var file;	
 		  var count=0;
+		  new UISearch(document.getElementById('sb-search')); // expanding search bar
+		 
 // 1.新增上傳圖片的小程式   開始
 		$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 
@@ -469,7 +468,7 @@ textarea{
 						};
 	            	   $('#new_products').modal('hide');	
 	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' // <img src="data:image/png;base64,' 
-		   							+ data[0][1].productDetail_Id+'_1.png" class="img-thumbnail img-responsive" />'                                     // + data[1].photo1 
+		   							+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                     // + data[1].photo1 
 									+ '</td><td>'                                                                                                       // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
 									+ '</td><td>'
@@ -492,7 +491,7 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-theme btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
 									+ '</td></tr>') // end of after				
 						// 產品狀態switch的程式 開始
@@ -559,7 +558,7 @@ textarea{
 	              		$(this).remove();                               // 自己這tr移除
 	              	})
 	               	beforeSiblingTr.after('<tr hidden="hidden"><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' //<img src="data:image/png;base64,' 
-   							 		+ data[0][1].productDetail_Id+'_1.png" class="img-thumbnail img-responsive" />'                                          // + data[1].photo1 
+   							 		+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                          // + data[1].photo1 
 									+ '</td><td>'                                                                                             // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
 									+ '</td><td>'
@@ -582,7 +581,7 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-theme btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 					// 產品狀態switch的程式 開始
@@ -598,7 +597,7 @@ textarea{
 })) // end of $('table').on('click',".2g",(function(){			
 // 2.修改產品的程式   結束
 
-    new UISearch(document.getElementById('sb-search'));
+
 // 3.顯示產品的程式   開始
 	$.ajax({
 		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
@@ -696,11 +695,8 @@ textarea{
 	}) // end of $.ajax({
 // 3.顯示產品的程式   結束			
 
-}); // end of jQuery(function ($)
+}); // end 384 jQuery(function ($)
 </script>
-
-    <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
 
 	</body>
 </html>

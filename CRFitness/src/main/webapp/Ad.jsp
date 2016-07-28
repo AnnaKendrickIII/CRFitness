@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Administration</title>                                         <!-- 這裡要改 -->
 </head>
-<jsp:include page="/AdminFrame.jsp" />                                <!-- 這裡要改 -->
+<jsp:include page="/AdF.jsp" />                                <!-- 這裡要改 -->
 <link href="${this_contextPath}/css/3dcss.css" rel="stylesheet" />
 <body >
 	<!-- 頁面部分 開始-->

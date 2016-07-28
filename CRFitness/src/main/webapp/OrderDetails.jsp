@@ -44,8 +44,10 @@ jQuery(function($){
 	          $('#orderDetialscolumns').columns({
 	              data:json,
 	              schema: [
+
 	                  {"header":"訂單編號", "key":"order_Id"},
 	                  {"header":"明細編號", "key":"details_No"},
+	                  {"header":"商品圖片", "key":'<img src="${this_contextPath}/images/products/prodDetail5001_1.png"/>'},
 	                  {"header":"商品名稱", "key":"product_Name"},
 	                  {"header":"數量", "key":"quantity"},
 	                  {"header":"尺寸", "key":"size"},
@@ -53,7 +55,8 @@ jQuery(function($){
 	                  {"header":"價格", "key":"amount"},
 	              ]
 
-	          }); 
+	          });
+	          
 	      }
 	  });
 })
