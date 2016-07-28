@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.CRFitness.Administrators.model.AdminsVO" table="Administrators" >
+        <id name="administrator_Id" column="Administrator_Id">
+            <generator class="generator.AdministratorsGenerator"/>
+        </id>
+        <property name="e_mail" column="E_mail" />      
+        <property name="password" column="Password" />
+        <property name="name" column="Name" />
+        <property name="registerdate" column="Registerdate" />
+        <property name="administrator_Status" column="Administrator_Status" />
+    
+    </class>
+</hibernate-mapping>

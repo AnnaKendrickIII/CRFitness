@@ -241,7 +241,7 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><a href="profile.html"><img src="assets/img/Alvin (the Chipmunk).jpg" class="img-circle" width="60"></a></p>
+              	  <p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/adminsController/photo/${administrator_Id}" class="img-circle" width="60"></a></p>
               	  <h5 class="centered">Alvin</h5>
               	  	
                   <li class="mt">
