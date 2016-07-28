@@ -12,6 +12,12 @@
 
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/Journal_component.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/SimpleSlider.css" />
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css"> <!-- alert -->
+<link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  <!-- alert -->
+<script src="${this_contextPath}/js/velocity.min.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/velocity.ui.min.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/jquery.alertable.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/jAlert-v4.js" ></script>  <!-- alert -->
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 <style type="text/css">
 .Emoticons{
@@ -315,11 +321,14 @@ width:24px;
 	            }//第1次撈資料  success結束      
 	        })//第1次ajax結束    
 	      // enter換行變成shift enter ,enter變送出
+
 			$('body').on('keydown', 'textarea', function (event) {
 				if (event.keyCode == 13 && !event.shiftKey) {
 					var theJournal_Id = $(this).parents().siblings(".messge_header_body").find(".header_div>p:nth-child(1)").text();
 					var val = $(this).val();
-					if(val.trim().length != 0){
+					if("${LoginOK.member_Id}"==""){
+						errorAlert('警告','請先登入')
+					}else if(val.trim().length != 0  ){
 						val = val.replace(/\r?\n/g, '</br> ');
 						addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
 						$(this).val('')
@@ -331,7 +340,9 @@ width:24px;
 			$('body').on('click', '.message_submit_button', function (event) {
 				var theJournal_Id = $(this).parents().siblings(".messge_header_body").find(".header_div>p:nth-child(1)").text();
 				var val = $(this).prev().val()
-				if(val.trim().length != 0){
+				if("${LoginOK.member_Id}"==""){
+					errorAlert('警告','請先登入')		
+				}else if(val.trim().length != 0){
 					val = val.replace(/\r?\n/g, '</br> ')
 					addMessageDetail($(this), theJournal_Id, "${LoginOK.member_Id}", "${LoginOK.nickname}", val, new Date().getTime());
 					$(this).prev().val('');
@@ -464,6 +475,7 @@ width:24px;
 			})		
 		})
 </script>
+<script src="${this_contextPath}/js/jAlert-functions.js"></script><!-- alert -->
 <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    
 <script src="${this_contextPath}/js/classie.js"></script>
 <script src="${this_contextPath}/js/imagesloaded.js"></script>
