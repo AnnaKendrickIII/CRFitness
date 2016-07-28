@@ -14,13 +14,13 @@
 	font-family: 'Quicksand';
 }  */
 
-/**/ 
-.content { 
- 	height: auto; 
- 	text-align: center; 
- 	line-height: 200px; 
- 	font-size: 24px; 
- }
+/**/
+.content {
+	height: auto;
+	text-align: center;
+	line-height: 200px;
+	font-size: 24px;
+}
 
 </style>
 </head>
@@ -28,88 +28,19 @@
 <link href="${this_contextPath}/css/3dcss.css" rel="stylesheet" />
 <link href="${this_contextPath}/css/index_video.css" rel="stylesheet" />
 <link href="${this_contextPath}/css/index_box.css" rel="stylesheet" />
+<link href="${this_contextPath}/css/index_underbox.css" rel="stylesheet" />
 
 <body >
 	<!-- 頁面部分 開始-->
 <aside>
-			<div class="index_body mt40">
-    <section class="row">
-
-        <article class="col-xs-12 col-sm-6 col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                        <img src="http://lorempixel.com/350/350/nature/4" alt="Nature Portfolio" />
-                    
-                </div>
-                <div class="panel-footer">
-                    <h4><a href="#" title="Nature Portfolio">Nature</a></h4>
-                    <span class="pull-right">
-                        <i id="like1" class="glyphicon glyphicon-thumbs-up"></i> <div id="like1-bs3"></div>
-                        <i id="dislike1" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike1-bs3"></div>
-                    </span>
-                </div>
-            </div>
-        </article>
-
-        <article class="col-xs-12 col-sm-6 col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a href="http://lorempixel.com/350/350/food/2" title="Food Portfolio" class="zoom" data-title="Delicious Food" data-footer="Whatever your desire" data-type="image" data-toggle="lightbox">
-                        <img src="http://lorempixel.com/350/350/food/2" alt="Food Portfolio" />
-                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
-                    </a>
-                </div>
-                <div class="panel-footer">
-                    <h4><a href="#" title="Food Portfolio">Food</a></h4>
-                    <span class="pull-right">
-                        <i id="like2" class="glyphicon glyphicon-thumbs-up"></i> <div id="like2-bs3"></div>
-                        <i id="dislike2" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike2-bs3"></div>
-                    </span>
-                </div>
-            </div>
-        </article>
-
-        <article class="col-xs-12 col-sm-6 col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a href="http://lorempixel.com/350/350/sports/3" title="Sports Portfolio" class="zoom" data-title="Radical Sports" data-footer="This are the best moments" data-type="image" data-toggle="lightbox">
-                        <img src="http://lorempixel.com/350/350/sports/3" alt="Sports Portfolio" />
-                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
-                    </a>
-                </div>
-                <div class="panel-footer">
-                    <h4><a href="#" title="Sports Portfolio" title="Sports">Sports</a></h4>  
-                    <span class="pull-right">
-                        <i id="like3" class="glyphicon glyphicon-thumbs-up"></i> <div id="like3-bs3"></div>
-                        <i id="dislike3" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike3-bs3"></div>
-                    </span>
-                </div>
-            </div>
-        </article>
-
-        <article class="col-xs-12 col-sm-6 col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a href="http://lorempixel.com/350/350/people/1" title="People Portfolio" class="zoom" data-title="Beautiful People" data-footer="We create relationships" data-type="image" data-toggle="lightbox">
-                        <img src="http://lorempixel.com/350/350/people/1" alt="People Portfolio" />
-                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
-                    </a>
-                </div>
-                <div class="panel-footer">
-                    <h4><a href="#" title="People Portfolio">People</a></h4>  
-                    <span class="pull-right">
-                        <i id="like4" class="glyphicon glyphicon-thumbs-up"></i> <div id="like4-bs3"></div>
-                        <i id="dislike4" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike4-bs3"></div>
-                    </span>
-                </div>
-            </div>
-        </article>                                              
-
-</section>
-</div>
+		<div class="index_body mt40">
+			<section class="row" id="inf_box">
+			
+			</section>
+		</div>
 		<div class="row" >
 			<div class="content">
-
+				<p></p>
 			</div>
 			<div class="parallaxer">
 				<section class="content-section video-section">
@@ -128,34 +59,240 @@
 					</div>
 				</section>
 			</div>
-		<div class="content">Content Goes Here</div>
+		<div class="content">
+			<p>你還有更多的選擇</p>
+		</div>
 		<div class="parallaxer">
-				
+				<div class="productbox dynamicTile">
+<div class="row ">
+    <div class="col-sm-2 col-xs-4">
+    	<div id="tile1" class="tile">
+        
+         <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+               <img src="http://handsontek.net/demoimages/tiles/twitter1.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+               <img src="http://handsontek.net/demoimages/tiles/twitter2.png" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+         
+    	</div>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<div id="tile2" class="tile">
+    	 
+         <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="http://handsontek.net/demoimages/tiles/hot.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/hot2.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/hot3.png" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+         
+		</div>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<div id="tile3" class="tile">
+    	 
+        <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+               <img src="http://handsontek.net/demoimages/tiles/weather2.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+               <img src="http://handsontek.net/demoimages/tiles/weather.png" class="img-responsive"/>
+            </div>
+            </div>
+         </div>
+		</div>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<div id="tile4" class="tile">
+    	 
+        <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="http://handsontek.net/demoimages/tiles/facebook3.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/facebook2.png" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+         
+		</div>
+	</div>
+    <div class="col-sm-2 col-xs-4">
+		<div id="tile5" class="tile">
+    	 
+         <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="http://handsontek.net/demoimages/tiles/neews.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/neews2.png" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+         
+		</div>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<div id="tile6" class="tile">
+    	 
+         <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="http://handsontek.net/demoimages/tiles/skype.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/skype2.png" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+         
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-4 col-xs-8">
+		<div id="tile7" class="tile">
+    	 
+        <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="http://handsontek.net/demoimages/tiles/gallery.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/gallery2.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/gallery3.png" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+         
+		</div>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<div id="tile8" class="tile">
+    	 
+         <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+               <img src="http://handsontek.net/demoimages/tiles/music.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+               <img src="http://handsontek.net/demoimages/tiles/music2.png" class="img-responsive"/>
+            </div>
+            </div>
+         </div>
+         
+		</div>
+	</div>
+	<div class="col-sm-2 col-xs-4">
+		<div id="tile9" class="tile">
+    	 
+          <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="http://handsontek.net/demoimages/tiles/calendar.png" class="img-responsive"/>
+            </div>
+            <div class="item">
+              <img src="http://handsontek.net/demoimages/tiles/calendar2.png" class="img-responsive"/>
+            </div>
+          </div>
+        </div>
+         
+		</div>
+	</div>
+	<div class="col-sm-4 col-xs-8">
+		<div id="tile10" class="tile">
+    	 
+           <div class="carousel slide" data-ride="carousel">
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div class="item active">
+              <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3>
+            </div>
+            <div class="item">
+              <h3 class="tilecaption">Customize your tiles</h3>
+            </div>
+            <div class="item">
+              <h3 class="tilecaption">Text, Icons, Images</h3>
+            </div>
+            <div class="item">
+              <h3 class="tilecaption">Combine them and create your metro style</h3>
+            </div>
+          
+          </div>
+        </div>
+         
+		</div>
+	</div>
+  
+</div>
 			</div>
 		<div class="content"></div>
 	</div>
 	
 	<div class="row">
     <!-- 3D Css -->
-			<div class="col-md-4 "></div>
-			<div class="col-md-4  ">
-				<div class="container2 ">
-					<div id="carousel">
-						<figure><img src="${this_contextPath}/images/AD1.jpg" alt=""></figure>
-						<figure><img src="${this_contextPath}/images/AD2.jpg" alt=""></figure>
-						<figure><img src="${this_contextPath}/images/AD3.jpg" alt=""></figure>
-						<figure><img src="${this_contextPath}/images/AD7.jpg" alt=""></figure>
-						<figure><img src="${this_contextPath}/images/AD9.jpg" alt=""></figure>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 "></div>	
+<!-- 			<div class="col-md-4 "></div> -->
+<!-- 			<div class="col-md-4  "> -->
+<!-- 				<div class="container2 "> -->
+<!-- 					<div id="carousel"> -->
+<%-- 						<figure><img src="${this_contextPath}/images/AD1.jpg" alt=""></figure> --%>
+<%-- 						<figure><img src="${this_contextPath}/images/AD2.jpg" alt=""></figure> --%>
+<%-- 						<figure><img src="${this_contextPath}/images/AD3.jpg" alt=""></figure> --%>
+<%-- 						<figure><img src="${this_contextPath}/images/AD7.jpg" alt=""></figure> --%>
+<%-- 						<figure><img src="${this_contextPath}/images/AD9.jpg" alt=""></figure> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="col-md-4 "></div>	 -->
 	</div>
 	</aside>
 	
 	<!--  頁面部分 結束 -->
 
 	<script type="text/javascript">
+	Date.prototype.Format = function (fmt) {  
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, ( this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+	
 	jQuery(function($){
 	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/logo.png">')
 	var Islogin='${pageContext.request.queryString}'
@@ -210,32 +347,37 @@
 
 			});
 		
+		
+		
          //  搜尋六筆健康日誌
-// 		 $.ajax({
-// 	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
-// 	            type:'get',  //get post put delete
-// 	            data:{},
-// 	            success:function(data){          	
-// 	            	$.each(data,function(){
-// 	            		var likenum = this[3];
-// 	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
-// 						var jdate_value = new Date(jdate_int); 
-// 		        		var journalId=this[0].journal_Id
-// 		        		var contet='<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-// 			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
-// 			        		 +this[1]+'</p></a><p class="time_p">'
-// 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
-// 							console.log(this) 
-// 		        		 $('#inf_box').append(
-// 		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img boximg">'
-// 						 +contet
-// 		        		 +'<img class="img-thumbnail" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this[0].journal_Id+'" />'	 
-// 		        		 +'<div data-desc=""></div>'
-// 		        		 +'</li>') 
-// 		        		 })
-// 	           		 }	
-// 		 		})
-		        		 
+		 $.ajax({
+	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
+	            type:'get',  //get post put delete
+	            data:{},
+	            success:function(data){          	
+	            	$.each(data,function(){
+	            		var likenum = this[3];
+	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
+						var jdate_value = new Date(jdate_int); 
+		        		var journalId=this[0].journal_Id
+		        		
+							console.log(this) 
+		        		 $('#inf_box').append(
+		        		'<article class="col-xs-12 col-sm-6 col-md-2">'
+		        		+'<div class="panel panel-default">'
+		        		+'<div class="panel-body">'
+		        		+'<a href="" class="zoom">'
+		        		+' <img src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this[0].journal_Id+'" alt="Loding Photo" />'
+		        		+' <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>'
+		        		+'</a></div>'
+		        		+'<div class="panel-footer">'
+		        		+'<h4><img class="boxhead img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><a href="#">'+this[1]+'</a></h4>'
+		        		+'<span class="pull-right">'
+		        		+'<i id="like1" class="glyphicon">'+jdate_value.Format("yyyy-MM-dd hh:mm")+'</i> <div id="like1-bs3"></div>'
+		        		+'</span></div></div></article>') 
+		        		 })
+	           		 }	
+		 		})
 		})
 	</script>
 <script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
