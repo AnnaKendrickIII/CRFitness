@@ -112,7 +112,7 @@ overflow : hidden
 margin-top: 5%;
 }
 .btn-md{
-width: 110px;
+width: 200px;
 }
 h5{
 color: blue;
@@ -138,14 +138,14 @@ color:#FF3333;
 	<div class="col-md-7 col-xs-7">
 		<div class="row" style="text-align: center;">
         <strong>Products Category &nbsp&nbsp</strong>
-          <a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/jacket24.png">&nbsp上裝</a>&nbsp&nbsp
-          <a href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/pants24.png">&nbsp下裝</a>&nbsp&nbsp
-          <a href="${this_contextPath}/Products.jsp?category=cmens-accessories&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/sports24.png">&nbsp配件</a>&nbsp&nbsp
-          <a href="${this_contextPath}/Products.jsp?category=cmens-footwear&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/shoes24.png">&nbsp鞋類</a>
+          <a style="text-decoration: none;color: black;" href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1" class="btn btn-link btn-md category">
+          	<img src="${this_contextPath}/icon/sportive-t-shirt.png"><strong>&nbsp&nbsp上裝</strong></a>&nbsp&nbsp
+          <a style="text-decoration: none;color: black;" href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1" class="btn btn-link btn-md category">
+          	<img src="${this_contextPath}/icon/shorts.png"><strong>&nbsp&nbsp下裝</strong></a>&nbsp&nbsp
+          <a style="text-decoration: none;color: black;" href="${this_contextPath}/Products.jsp?category=cmens-accessories&page=1" class="btn btn-link btn-md category">
+          	<img src="${this_contextPath}/icon/sports.png"><strong>&nbsp&nbsp配件</strong></a>&nbsp&nbsp
+          <a style="text-decoration: none;color: black;" href="${this_contextPath}/Products.jsp?category=cmens-footwear&page=1" class="btn btn-link btn-md category">
+          	<img src="${this_contextPath}/icon/sport.png"><strong>&nbsp&nbsp鞋類</strong></a>
 		</div>
 	</div>
     <div class="col-md-3 col-xs-3">
