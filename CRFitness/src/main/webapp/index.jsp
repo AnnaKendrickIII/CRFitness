@@ -33,11 +33,7 @@
 <body >
 	<!-- 頁面部分 開始-->
 <aside>
-		<div class="index_body mt40">
-			<section class="row" id="inf_box">
-			
-			</section>
-		</div>
+
 		<div class="row" >
 			<div class="content">
 				<p></p>
@@ -59,8 +55,13 @@
 					</div>
 				</section>
 			</div>
+		<div class="index_body mt40">
+			<section id="inf_box">
+			
+			</section>
+		</div>
 		<div class="content">
-			<p>你還有更多的選擇</p>
+			<p style="margin-right: 17%;">你還有更多的選擇</p>
 		</div>
 		<div class="parallaxer">
 				<div class="productbox dynamicTile">
@@ -256,7 +257,7 @@
 		<div class="content"></div>
 	</div>
 	
-	<div class="row">
+<!-- 	<div class="row"> -->
     <!-- 3D Css -->
 <!-- 			<div class="col-md-4 "></div> -->
 <!-- 			<div class="col-md-4  "> -->
