@@ -22,6 +22,7 @@
     <script src="${this_contextPath}/js/custombox.js"></script>	
     <script src="${this_contextPath}/js/legacy.js"></script>	
       <script src="${this_contextPath}/js/lrtk.js"></script>	
+      <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
       <!-- GoogleLogin-->  
       <!-- bootstrap.min.js  開始-->
   <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
@@ -94,10 +95,12 @@
                   <i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
                	<div class="user_login_div dropdown">
                         <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
-                        <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel">                          
-                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}&nbsp個人日誌</a></li>
+                        <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel"> 
+                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a></li>
                             <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
-                            <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>  
+                            <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>
+                             <li><a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a></li>    
+                        	<li><a  class="container_a_css">編輯個人資料</a></li>                          
                             <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
                         </ul>
                 </div>
@@ -145,9 +148,286 @@
         </div>
 	</div>
   </div>
-
-         <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
-                <script>
+  
+ <script src="${this_contextPath}/js/sockjs-1.0.3.js"></script>
+<script type="text/javascript">
+//WebSocket 
+    var userID = '${LoginOK.member_Id}';
+    var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
+ 
+    ws.onerror = function(event)
+    {
+    	alert(event);
+    };
+ 
+    ws.onopen = function(event) 
+    {
+    	console.log('打開了')
+        start() ;
+    };
+     
+    ws.onclose = function(event) { 
+        var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+        ws.send(msg);
+			console.log('關了')
+    }; 
+ 
+    ws.onmessage = function(event) 
+    {	
+    	console.log(event.data)
+        var data = JSON.parse(event.data);
+        if(data.type == '2')
+        {
+        	
+        	console.log(data.friendId)
+            if('${LoginOK.member_Id}'==data.userID){
+            	
+					$('#'+data.friendId+' .msg_container_base').append(
+							'<div class="row msg_container base_sent ">'
+							+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+		 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+		 		            +'<div class="messages msg_sent">'
+		 		            +'<p>'+data.data+'</p>'         
+		 		            +'<time datetime="">'+ jQuery.timeago(data.Time)+'</time>'
+		 		            +'</div>'
+		 		            +'</div>'
+		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+		 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'" class=" img-responsive ">'
+		 		            +'</div>'
+		 		            +'</div>' 
+							 
+					 )
+				 }else{
+					if(!($('#'+data.userID).html())){	
+						$('body').append(
+						'<div id='+data.userID+' class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
+						+'<div class="col-xs-12 col-md-12">'
+						+'<div class="panel panel-default">'
+						+'<div class="panel-heading top-bar">'
+  						+'<div class="col-md-8 col-xs-8">'
+    					+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+data.friendName+'</h3>'
+  						+'</div>'
+  						+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
+     					+'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
+     					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
+  						+'</div>'
+ 						+'</div>'
+ 						+'<div class="panel-body msg_container_base">'     
+ 						+'</div>'
+ 						+'<div class="panel-footer">'
+						+'<div class="input-group">'
+						+'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
+						+'<span class="input-group-btn">'
+						+'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
+						+'</span><span class="friendId_Here" hidden="hidden">'+data.userID+'</span>' 
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>')
+					}	
+					$('#'+data.userID+' .msg_container_base').append(
+							'<div class="row msg_container base_receive ">'
+		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+		 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'" class=" img-responsive ">'
+		 		            +'</div>'     
+		 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+		 		            +'<div class="messages msg_sent">'
+		 		            +'<p>'+data.data+'</p>'         
+		 		            +'<time datetime="">'+ jQuery.timeago(data.Time)+'</time>'
+		 		            +'</div>'
+		 		            +'</div>'
+		 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+		 		            +'</div>' 		         	
+					 )
+				 }  
+        }
+        else if(data.type == '1')
+        {
+        	console.log('111')
+//             render_data(data.username + "上線 <br> ");
+            
+        }
+    };
+ 
+    function start() 
+    {
+        if(userID != '')
+        {
+            var msg = JSON.stringify({'userID':userID, 'type':'1'});  
+            ws.send(msg);
+        }
+    }
+ 
+    function sendMessage( friendId , val, Time,friendName)
+    {
+        if(val != '')
+        {
+            var msg = JSON.stringify({'userID':userID,'friendId':friendId, 'type':'2', 'data': val,'Time':Time,'friendName':friendName});  
+            ws.send(msg);    
+        }
+    }
+     
+    (function(){
+        if(userID == '')
+        {
+            alert('你未登入');
+            $('#send-box').hide();
+        }
+    })();
+    // enter換行變成shift enter ,enter變送出
+	$('body').on('keydown', '.chat_input', function (event) {
+		if (event.keyCode == 13 && !event.shiftKey) {
+			var friendName='${LoginOK.nickname}'
+			var val = $(this).val();
+			var friendId=$(this).siblings(".friendId_Here").text()
+			if(val.trim().length != 0){
+				val = val.replace(/\r?\n/g, '</br> ');
+				sendMessage( friendId, val, new Date().getTime(),friendName);
+				$(this).val('')
+			}
+			return false;
+		}
+	})
+    //右下腳按鈕 送出
+	$('body').on('click', '.input-group-btn', function (event) {
+		var val = $(this).prev().val()
+		var friendName='${LoginOK.nickname}'
+		var friendId=$(this).siblings(".friendId_Here").text()
+		if(val.trim().length != 0){
+			val = val.replace(/\r?\n/g, '</br> ')
+			sendMessage(friendId, val, new Date().getTime(),friendName);
+			$(this).prev().val('');
+		}
+	})  
+    </script>
+    <!-- web聊天 -->
+ <script>     
+ 		$('body').on('dblclick', '.panel-heading ', function (e) {
+     	var $this = $(this).find('span.icon_minim');
+     	if (!$this.hasClass('panel-collapsed')) {
+         	$this.parents('.panel').find('.panel-body').slideUp();
+         	$this.addClass('panel-collapsed');
+         	$this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+    	 } else {
+         	$this.parents('.panel').find('.panel-body').slideDown();
+         	$this.removeClass('panel-collapsed');
+         	$this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+    	 }
+ 		});
+ 		$('body').on('click', '.panel-heading span.icon_minim', function (e) {
+            var $this = $(this);
+            if (!$this.hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideUp();
+                $this.addClass('panel-collapsed');
+                $this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
+            } else {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $this.removeClass('panel-collapsed');
+                $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }
+        });
+ 		$('body').on('focus', '.panel-footer input.chat_input', function (e) {
+            var $this = $(this);
+            if ($('#minim_chat_window').hasClass('panel-collapsed')) {
+                $this.parents('.panel').find('.panel-body').slideDown();
+                $('#minim_chat_window').removeClass('panel-collapsed');
+                $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            }
+        });
+ 		
+ 		
+ 		$('body').on('click', '.chat_icon_css', function (e) {
+ 			var friendId=$(this).find('span[hidden]').text()
+ 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();
+ 			$.ajax({
+ 		          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
+ 		          type:'get',  //get post put delete
+ 				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
+ 				  success:function(data){
+ 					 $('#myfriend').modal('hide')
+ 					  var message_div= '<div id='+friendId+' class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
+						+'<div class="col-xs-12 col-md-12">'
+						+'<div class="panel panel-default">'
+						+'<div class="panel-heading top-bar">'
+  						+'<div class="col-md-8 col-xs-8">'
+    					+'<h3 class="panel-title"><span class="glyphicon glyphicon-comment comment_css"></span>'+WhoName+'</h3>'
+  						+'</div>'
+  						+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
+     					+'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
+     					+' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
+  						+'</div>'
+ 						+'</div>'
+ 						+'<div class="panel-body msg_container_base">'     
+ 						+'</div>'
+ 						+'<div class="panel-footer">'
+						+'<div class="input-group">'
+						+'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
+						+'<span class="input-group-btn">'
+						+'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
+						+'</span><span class="friendId_Here" hidden="hidden">'+friendId+'</span>' 
+						+'</div>'
+						+'</div>'
+						+'</div>'
+						+'</div>'		 
+ 					var size = $(".chat-window:last-child").css("margin-left");
+ 					size_total = parseInt(size) + 400;		
+ 					  var newAppend =$(message_div).appendTo("body")
+ 			           newAppend.css("margin-left", size_total);	
+ 					 $.each(data,function(){			            
+ 						 if('${LoginOK.member_Id}'==this.member_Id){
+ 							$('.msg_container_base').append(
+ 	 								'<div class="row msg_container base_sent ">'
+ 	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+ 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+ 	 			 		            +'<div class="messages msg_sent">'
+ 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
+ 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
+ 	 			 		            +'</div>'
+ 	 			 		            +'</div>'
+ 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+ 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+ 	 			 		            +'</div>'
+ 	 			 		            +'</div>' 
+ 	 	 							 
+ 							 )
+ 						 }else{
+ 							$('.msg_container_base').append(
+ 	 								'<div class="row msg_container base_receive ">'
+ 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+ 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+ 	 			 		            +'</div>'     
+ 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+ 	 			 		            +'<div class="messages msg_sent">'
+ 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
+ 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
+ 	 			 		            +'</div>'
+ 	 			 		            +'</div>'
+ 	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+ 	 			 		            +'</div>' 		         	
+ 							 )
+ 							
+ 						 }
+ 						
+ 						 
+ 					 })
+ 					 //捲軸置底
+ 					  	var basecon = $('.msg_container_base');
+ 						basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight"));        
+ 		           		//可拖曳
+ 						$( ".chat-window" ).draggable();
+ 				  } 			
+ 			})
+          
+        });
+ 		$('body').on('click', '.icon_close', function (e) {
+           $(this).parent().parent().parent().parent().parent().parent().remove();
+        });
+        
+    </script>
+    
+         <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>            
+    <script>
+    //搜尋用
     $(function () {
         /* BOOTSNIPP FULLSCREEN FIX */
         if (window.location == window.parent.location) {
@@ -190,10 +470,9 @@
                                 	 +'</div>'
                                 	 +'<div class="clearfix"></div>'
                                 	 +'</li> '	 
-										)
-//                                      $('#contact-list').append('<tr><td><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-circle friend_photo" alt="Responsive image" /></a><td class="friend_Name">'+  this[2] +'</td><td>'+  this[1] +'</td>')  
+										) 
                                  })
-                              $('#contact-list').searchable({
+         $('#contact-list').searchable({
             searchField: '#contact-list-search',
             selector: 'li',
             childSelector: '.col-xs-12',
@@ -391,122 +670,6 @@
 	<div style="opacity:0;display:block;" class="level-2"></div>
 	<div class="level-3"></div>
 </div>
-
-    
-   
-
-<!-- web聊天 -->
- <script>
- 
-var message_div= '<div class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
- 				+'<div class="col-xs-12 col-md-12">'
- 				+'<div class="panel panel-default">'
-         		+'<div class="panel-heading top-bar">'
-             	+'<div class="col-md-8 col-xs-8">'
-                +'<h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat - Miguel</h3>'
-             	+'</div>'
-             	+'<div class="col-md-4 col-xs-4" style="text-align: right;">'
-                +'<a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>'
-                +' <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>'
-             +'</div>'
-            +'</div>'
-            +'<div class="panel-body msg_container_base">'     
-            +'</div>'
-            +'<div class="panel-footer">'
-            +'<div class="input-group">'
-            +'<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
-            +'<span class="input-group-btn">'
-            +'<button class="btn btn-primary btn-sm" id="btn-chat">Send</button>'
-            +'</span>' 
-            +'</div>'
-            +'</div>'
-            +'</div>'
-            +'</div>'
-            
- 		$('body').on('dblclick', '.panel-heading ', function (e) {
-     	var $this = $(this).find('span.icon_minim');
-     	if (!$this.hasClass('panel-collapsed')) {
-         	$this.parents('.panel').find('.panel-body').slideUp();
-         	$this.addClass('panel-collapsed');
-         	$this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
-    	 } else {
-         	$this.parents('.panel').find('.panel-body').slideDown();
-         	$this.removeClass('panel-collapsed');
-         	$this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
-    	 }
- 		});
- 		$('body').on('click', '.panel-heading span.icon_minim', function (e) {
-            var $this = $(this);
-            if (!$this.hasClass('panel-collapsed')) {
-                $this.parents('.panel').find('.panel-body').slideUp();
-                $this.addClass('panel-collapsed');
-                $this.removeClass('glyphicon-minus').addClass('glyphicon-plus');
-            } else {
-                $this.parents('.panel').find('.panel-body').slideDown();
-                $this.removeClass('panel-collapsed');
-                $this.removeClass('glyphicon-plus').addClass('glyphicon-minus');
-            }
-        });
- 		$('body').on('focus', '.panel-footer input.chat_input', function (e) {
-            var $this = $(this);
-            if ($('#minim_chat_window').hasClass('panel-collapsed')) {
-                $this.parents('.panel').find('.panel-body').slideDown();
-                $('#minim_chat_window').removeClass('panel-collapsed');
-                $('#minim_chat_window').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-            }
-        });
- 		$('body').on('click', '.chat_icon_css', function (e) {
- 			var friendId=$(this).find('span[hidden]').text()
- 			$.ajax({
- 		          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
- 		          type:'get',  //get post put delete
- 				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
- 				  success:function(){
- 					 $('#myfriend').modal('hide')
- 					var size = $(".chat-window:last-child").css("margin-left");
- 					size_total = parseInt(size) + 400;
- 					  var newAppend =$(message_div).appendTo("body")
- 			           newAppend.css("margin-left", size_total);
- 			          
- 					 +'<div class="row msg_container base_sent">'
- 		            +'<div class=" col-md-10 col-xs-10 message_div">'
- 		            +'<div class="messages msg_sent">'
- 		            +'<p>that mongodb thing looks good, huh?'
- 		            +'tiny master db, and huge document store</p>'
- 		            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
- 		            +'</div>'
- 		            +'</div>'
- 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 		            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
- 		            +'</div>'
- 		            +'</div>'
- 		            
- 		            
- 		            +'<div class="row msg_container base_receive">'
- 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 		            +'<img class="msimg" src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">'
- 		            +'</div>'
- 		            +'<div class="col-md-10 col-xs-10 message_div">'
- 		            +'<div class="messages msg_receive">'
- 		            +'<p>that mongodb thing looks good, huh?'
- 		            +'tiny master db, and huge document store</p>'
- 		            +'<time datetime="2009-11-13T20:00">Timothy • 51 min</time>'
- 		            +' </div>'
- 		            +' </div>'
- 		            +'</div>'     
- 		            
- 		           $( ".chat-window" ).draggable();
- 				  } 			
- 			})
-          
-        });
- 		$('body').on('click', '.icon_close', function (e) {
-           $(this).parent().parent().parent().parent().parent().parent().remove();
-        });
-        
-    </script>
-
-
 <!--  判斷註冊是否成功  結束-->  
     <script type="text/javascript"> 
     //fb javascript 開始

@@ -6,9 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>CRFitness</title>
-<link href="${this_contextPath}/css/index_video.css" rel="stylesheet" />
-<link href="${this_contextPath}/css/index_sixbox.css" rel="stylesheet" />
-
 <style type="text/css">
 /*  body {
 	margin: 0;
@@ -24,28 +21,102 @@
  	line-height: 200px; 
  	font-size: 24px; 
  }
+
 </style>
 </head>
 <jsp:include page="/CRFitness.jsp" />
 <link href="${this_contextPath}/css/3dcss.css" rel="stylesheet" />
+<link href="${this_contextPath}/css/index_video.css" rel="stylesheet" />
+<link href="${this_contextPath}/css/index_box.css" rel="stylesheet" />
+
 <body >
 	<!-- 頁面部分 開始-->
 <aside>
+			<div class="index_body mt40">
+    <section class="row">
+
+        <article class="col-xs-12 col-sm-6 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                        <img src="http://lorempixel.com/350/350/nature/4" alt="Nature Portfolio" />
+                    
+                </div>
+                <div class="panel-footer">
+                    <h4><a href="#" title="Nature Portfolio">Nature</a></h4>
+                    <span class="pull-right">
+                        <i id="like1" class="glyphicon glyphicon-thumbs-up"></i> <div id="like1-bs3"></div>
+                        <i id="dislike1" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike1-bs3"></div>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="col-xs-12 col-sm-6 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="http://lorempixel.com/350/350/food/2" title="Food Portfolio" class="zoom" data-title="Delicious Food" data-footer="Whatever your desire" data-type="image" data-toggle="lightbox">
+                        <img src="http://lorempixel.com/350/350/food/2" alt="Food Portfolio" />
+                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    <h4><a href="#" title="Food Portfolio">Food</a></h4>
+                    <span class="pull-right">
+                        <i id="like2" class="glyphicon glyphicon-thumbs-up"></i> <div id="like2-bs3"></div>
+                        <i id="dislike2" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike2-bs3"></div>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="col-xs-12 col-sm-6 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="http://lorempixel.com/350/350/sports/3" title="Sports Portfolio" class="zoom" data-title="Radical Sports" data-footer="This are the best moments" data-type="image" data-toggle="lightbox">
+                        <img src="http://lorempixel.com/350/350/sports/3" alt="Sports Portfolio" />
+                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    <h4><a href="#" title="Sports Portfolio" title="Sports">Sports</a></h4>  
+                    <span class="pull-right">
+                        <i id="like3" class="glyphicon glyphicon-thumbs-up"></i> <div id="like3-bs3"></div>
+                        <i id="dislike3" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike3-bs3"></div>
+                    </span>
+                </div>
+            </div>
+        </article>
+
+        <article class="col-xs-12 col-sm-6 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="http://lorempixel.com/350/350/people/1" title="People Portfolio" class="zoom" data-title="Beautiful People" data-footer="We create relationships" data-type="image" data-toggle="lightbox">
+                        <img src="http://lorempixel.com/350/350/people/1" alt="People Portfolio" />
+                        <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>
+                    </a>
+                </div>
+                <div class="panel-footer">
+                    <h4><a href="#" title="People Portfolio">People</a></h4>  
+                    <span class="pull-right">
+                        <i id="like4" class="glyphicon glyphicon-thumbs-up"></i> <div id="like4-bs3"></div>
+                        <i id="dislike4" class="glyphicon glyphicon-thumbs-down"></i> <div id="dislike4-bs3"></div>
+                    </span>
+                </div>
+            </div>
+        </article>                                              
+
+</section>
+</div>
 		<div class="row" >
 			<div class="content">
-				<div class="row_box">
-					<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+"alt="..." class="img-rounded"> 
-					<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+"alt="..." class="img-rounded"> 
-					<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+"alt="..." class="img-rounded"> 
-					<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+"alt="..." class="img-rounded"> 
-					<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+"alt="..." class="img-rounded"> 
-					<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDAiIGhlaWdodD0iMTQwIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjcwIiB5PSI3MCIgc3R5bGU9ImZpbGw6I2FhYTtmb250LXdlaWdodDpib2xkO2ZvbnQtc2l6ZToxMnB4O2ZvbnQtZmFtaWx5OkFyaWFsLEhlbHZldGljYSxzYW5zLXNlcmlmO2RvbWluYW50LWJhc2VsaW5lOmNlbnRyYWwiPjE0MHgxNDA8L3RleHQ+PC9zdmc+"alt="..." class="img-rounded">
-				</div>
+
 			</div>
 			<div class="parallaxer">
 				<section class="content-section video-section">
 					<div class="pattern-overlay">
 						<a id="bgndVideo" class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=2Vhlzdj6Csw',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}">bg</a>
+<!-- 						https://www.youtube.com/watch?v=TJOdPEYs6WU -->
+<!-- 						www.youtube.com/watch?v=2Vhlzdj6Csw -->
 						<div class="video_play">
 							<div class="row">
 								<div class="col-lg-12">
@@ -59,8 +130,8 @@
 			</div>
 		<div class="content">Content Goes Here</div>
 		<div class="parallaxer">
-			<img src="https://unsplash.it/1920/1280?image=1045">
-		</div>
+				
+			</div>
 		<div class="content"></div>
 	</div>
 	
@@ -80,10 +151,10 @@
 			</div>
 			<div class="col-md-4 "></div>	
 	</div>
-		
-		
 	</aside>
+	
 	<!--  頁面部分 結束 -->
+
 	<script type="text/javascript">
 	jQuery(function($){
 	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/logo.png">')
@@ -138,9 +209,35 @@
 				$(".player").mb_YTPlayer();
 
 			});
+		
+         //  搜尋六筆健康日誌
+// 		 $.ajax({
+// 	            url:"${this_contextPath}/CRFSERVICE/commonJournalController/commonJournalOne",
+// 	            type:'get',  //get post put delete
+// 	            data:{},
+// 	            success:function(data){          	
+// 	            	$.each(data,function(){
+// 	            		var likenum = this[3];
+// 	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
+// 						var jdate_value = new Date(jdate_int); 
+// 		        		var journalId=this[0].journal_Id
+// 		        		var contet='<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
+// 			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
+// 			        		 +this[1]+'</p></a><p class="time_p">'
+// 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
+// 							console.log(this) 
+// 		        		 $('#inf_box').append(
+// 		        		 '<li  id="'+this[0].journal_Id+'" class="gallery-img boximg">'
+// 						 +contet
+// 		        		 +'<img class="img-thumbnail" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this[0].journal_Id+'" />'	 
+// 		        		 +'<div data-desc=""></div>'
+// 		        		 +'</li>') 
+// 		        		 })
+// 	           		 }	
+// 		 		})
+		        		 
 		})
 	</script>
 <script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
-
 </body>
 </html>

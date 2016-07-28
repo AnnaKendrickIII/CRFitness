@@ -5,41 +5,81 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.CRFitness.Member.model.MemberVO;
 import com.google.gson.Gson;
 
 public class WebsocketEndPoint extends TextWebSocketHandler   {
 	
 	private Map<String, WebSocketSession> clients = new ConcurrentHashMap<>();
-    
+//	private static final ArrayList<WebSocketSession> users = new ArrayList<>();
+//	private static final Logger logger = Logger.getLogger(WebSocketHander.class);
+	
+//  public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+//		logger.debug("連接成功......");
+//		users.add(session);
+//		String userName = (String) session.getAttributes().get("WEBSOCKET_USERNAME");
+//		if (userName != null) {
+//			// 查詢未讀消息
+//			int count = 5;
+//			session.sendMessage(new TextMessage(count + ""));
+//		}
+//	}
+	
+//	@Override
+//	public void afterConnectionEstablished(WebSocketSession websession) throws Exception {
+//		 System.out.println(websession);
+//			clients.put((String)(websession.getAttributes().get("WEBSOCKET_USERNAME")),websession);
+////			String userName = (String) websession.getAttributes().get("WEBSOCKET_USERNAME");
+////			System.out.println(clients.get(((MemberVO)websession.getAttribute("LoginOK")).getMember_Id()));
+////			if (userName != null) {
+////				// 查詢未讀消息
+////				int count = 5;
+////				session.sendMessage(new TextMessage(count + ""));
+////			}
+//	 }
+	 
+
+	
     public void handleTextMessage(WebSocketSession session, TextMessage message)
     {
-        if(!clients.containsKey(session.getId()))
-        {
-            clients.put(session.getId(), session);
-        }
-        String data = message.getPayload();
-         
-        Gson g = new Gson();
+    	String data = message.getPayload();
+    	Gson g = new Gson();
         Map<String, Object> datas = g.fromJson(data, Map.class);
         String type = datas.get("type").toString();
-         
-        if("1".equals(type))
+        if(!clients.containsKey(datas.get("userID").toString()))
         {
-            datas.put("pcount", clients.keySet().size() + "");
+            clients.put(datas.get("userID").toString(), session);
+        }   
+        
+//        System.out.println(datas.get("userID").toString());
+        if("1".equals(type))
+        {   	
+        	System.out.println("上線");
+//            datas.put("pcount", clients.keySet().size() + "");
+        }else if("2".equals(type)){
+        	System.out.println(clients.get(datas.get("userID").toString()));
+        	System.out.println(clients.get(datas.get("friendId").toString()));
+        	 TextMessage tm = new TextMessage(g.toJson(datas));
+
+        	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),tm);
+//             sendToAll(tm); 	
         }
         else if("3".equals(type))//關掉
         {
-            clients.remove(session.getId());
-            datas.put("pcount", clients.keySet().size() + "");
+            clients.remove(datas.get("userID").toString());
         }
          
-        TextMessage tm = new TextMessage(g.toJson(datas));
-        sendToAll(tm);
+//        TextMessage tm = new TextMessage(g.toJson(datas));
+//        sendToAll(tm);
     }
     private void sendToAll(TextMessage tm)
     {
@@ -60,8 +100,30 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         {
             e.printStackTrace();
         }
+        
     }
-	
+  public void sendMessageToUser(String member_Id,String friend_Id, TextMessage message) {
+//	  System.out.println(friend_Id);
+//	  System.out.println(message);
+//	  System.out.println(clients.get(friend_Id));
+	  
+//	  		for(WebSocketSession session : clients.values())
+//	  			{
+//	  			if (clients.get(friend_Id).equals(session)) {
+				try {
+					if (clients.get(member_Id).isOpen()) {
+						clients.get(member_Id).sendMessage(message);
+					}
+					if (clients.get(friend_Id).isOpen()) {
+						clients.get(friend_Id).sendMessage(message);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+//				break;
+//	  			}
+//			}	
+	}
 	
 	
 	

@@ -112,7 +112,7 @@ overflow : hidden
 margin-top: 5%;
 }
 .btn-md{
-width: 110px;
+width: 150px;
 }
 h5{
 color: blue;
@@ -138,14 +138,16 @@ color:#FF3333;
 	<div class="col-md-7 col-xs-7">
 		<div class="row" style="text-align: center;">
         <strong>Products Category &nbsp&nbsp</strong>
+        <div class="btn-group">
           <a href="${this_contextPath}/Products.jsp?category=cmens-tops&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/jacket24.png">&nbsp上裝</a>&nbsp&nbsp
+          	<img src="${this_contextPath}/icon/sportive-t-shirt.png">&nbsp上裝</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-bottoms&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/pants24.png">&nbsp下裝</a>&nbsp&nbsp
+          	<img src="${this_contextPath}/icon/shorts.png">&nbsp下裝</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-accessories&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/sports24.png">&nbsp配件</a>&nbsp&nbsp
+          	<img src="${this_contextPath}/icon/sports.png">&nbsp配件</a>&nbsp&nbsp
           <a href="${this_contextPath}/Products.jsp?category=cmens-footwear&page=1" class="btn btn-default btn-md">
-          	<img src="${this_contextPath}/icon/shoes24.png">&nbsp鞋類</a>
+          	<img src="${this_contextPath}/icon/sport.png">&nbsp鞋類</a>
+		</div>
 		</div>
 	</div>
     <div class="col-md-3 col-xs-3">

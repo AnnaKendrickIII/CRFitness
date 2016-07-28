@@ -34,9 +34,11 @@ public class ChatDAO implements ChatDAO_interface {
 	public List<Object[]> select_Friends_message(String member_Id,String friend_Id) {	
 			Query query = this.getSession().createSQLQuery(
 					"SELECT Chat.* "
-					+"from Chat "
-					+"where Member_Id='"+member_Id+"'"
-					+" or Member_Id='"+friend_Id+"' order by ChatTime desc")
+					+"from Chat "	
+					+"where Member_Id='"+friend_Id+"' "
+					+"and Friend_Id='"+member_Id+"' "
+					+"or Member_Id='"+member_Id+"' "
+					+"and Friend_Id='"+friend_Id+"' order by ChatTime ")
 					.addEntity(ChatVO.class);				
 		return (List<Object[]>) query.list();	
 	}
