@@ -457,13 +457,13 @@
                                  $.each(data,function(){
                                 	 $('#contact-list').append(
                                 	 '<li class="list-group-item">'
-                                	 +' <div class="col-xs-12 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" >'
+                                	 +' <div class="col-xs-2 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" >'
                                 	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-responsive img-circle" />'
                                 	 +'</a></div>'
-                                	 +'<div class="col-xs-12 col-sm-3 friend_name_div">'
+                                	 +'<div class="col-xs-3 col-sm-3 friend_name_div">'
                                 	 +'<span class="name">'+this[2]+'</span>'
                                 	 +'</div>'
-                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+                                	 +'<div class="col-xs-7 col-sm-7 freind_icon_div">'
                                 	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
                                 	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
                                 	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+this[0]+'</span></span>'

@@ -34,18 +34,18 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
 //		}
 //	}
 	
-//	@Override
-//	public void afterConnectionEstablished(WebSocketSession websession) throws Exception {
-//		 System.out.println(websession);
-//			clients.put((String)(websession.getAttributes().get("WEBSOCKET_USERNAME")),websession);
-////			String userName = (String) websession.getAttributes().get("WEBSOCKET_USERNAME");
-////			System.out.println(clients.get(((MemberVO)websession.getAttribute("LoginOK")).getMember_Id()));
-////			if (userName != null) {
-////				// 查詢未讀消息
-////				int count = 5;
-////				session.sendMessage(new TextMessage(count + ""));
-////			}
-//	 }
+	@Override
+	public void afterConnectionEstablished(WebSocketSession websession) throws Exception {
+		 System.out.println(websession);
+			clients.put((String)(websession.getAttributes().get("WEBSOCKET_USERNAME")),websession);
+//			String userName = (String) websession.getAttributes().get("WEBSOCKET_USERNAME");
+//			System.out.println(clients.get(((MemberVO)websession.getAttribute("LoginOK")).getMember_Id()));
+//			if (userName != null) {
+//				// 查詢未讀消息
+//				int count = 5;
+//				session.sendMessage(new TextMessage(count + ""));
+//			}
+	 }
 	 
 
 	

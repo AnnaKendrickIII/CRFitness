@@ -15,35 +15,35 @@ import com.CRFitness.Member.model.MemberVO;
 //public class HandshakeInterceptor implements org.springframework.web.socket.server.HandshakeInterceptor{
 public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor{
 	// 初次握手訪問前
-//	@Override
-//	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse serverHttpResponse,
-//			WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
-//		if (request instanceof ServletServerHttpRequest) {
-//			HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
-//			MemberVO vo=null;
-//			if(servletRequest.getSession().getAttribute("LoginOK")!=null){
-//				vo=(MemberVO)servletRequest.getSession().getAttribute("LoginOK");
-//			}
-//			map.put("WEBSOCKET_USERNAME", vo.getMember_Id());
-//			servletRequest.getSession().setAttribute("WEBSOCKET_USERNAME", vo.getMember_Id());
-//		}
-//		return true;
-//	}
-//
-//	// 初次握手訪問後
-//	@Override
-//	public void afterHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse,
-//			WebSocketHandler webSocketHandler, Exception e) {
-//
-//	}
-	
-	 @Override
-	    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-	        return super.beforeHandshake(request, response, wsHandler, attributes);
-	    }
+	@Override
+	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse serverHttpResponse,
+			WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
+		if (request instanceof ServletServerHttpRequest) {
+			HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
+			MemberVO vo=null;
+			if(servletRequest.getSession().getAttribute("LoginOK")!=null){
+				vo=(MemberVO)servletRequest.getSession().getAttribute("LoginOK");
+			}
+			map.put("WEBSOCKET_USERNAME", vo.getMember_Id());
+			servletRequest.getSession().setAttribute("WEBSOCKET_USERNAME", vo.getMember_Id());
+		}
+		return true;
+	}
 
-	    @Override
-	    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
-	        super.afterHandshake(request, response, wsHandler, ex);
-	    }
+	// 初次握手訪問後
+	@Override
+	public void afterHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse,
+			WebSocketHandler webSocketHandler, Exception e) {
+
+	}
+	
+//	 @Override
+//	    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+//	        return super.beforeHandshake(request, response, wsHandler, attributes);
+//	    }
+//
+//	    @Override
+//	    public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
+//	        super.afterHandshake(request, response, wsHandler, ex);
+//	    }
 }
