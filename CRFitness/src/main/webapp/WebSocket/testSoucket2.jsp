@@ -83,7 +83,7 @@
         else if(data.type == '1')
         {
            
-            render_data(data.username + "   上線 <br> ");
+            render_data(data.username + "上線 <br> ");
         }
     };
  
@@ -91,7 +91,7 @@
     {
         var msg = [];
         msg.push('<div class="tw">');
-//         msg.push('<div class="top">' + username + '  2015-07-05</div>');
+        msg.push('<div class="top">' + username + '</div>');
         msg.push('<div class="buttom"> ' + data +jQuery.timeago(new Date().getTime())+ ' </div>');
         msg.push('</div>');
         $('#msg-box').append(msg.join(''));
