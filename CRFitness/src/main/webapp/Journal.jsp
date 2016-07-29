@@ -429,7 +429,9 @@ width:24px;
 				var likenumcount=likenum.text()
 				var thisID=$(this).siblings("p[hidden]").text();
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
-				if(!tset){
+				if("${LoginOK.member_Id}"==""){
+					errorAlert('警告','請先登入')
+				}else if(!tset){
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
 						type: "post",
