@@ -162,7 +162,21 @@
 //             ws.send(msg);
 //         }
 //     }
- 
+ Date.prototype.Format = function (fmt) {  
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, ( this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
     function sendMessage( friendId , val, Time,friendName)
     {
         if(val != '')
@@ -227,7 +241,8 @@
         var data = JSON.parse(event.data);
         if(data.type == '2')
         {
-
+        	var jdate_int = parseInt(data.Time);                          //轉換成數字
+ 		   var jdate_value = new Date(jdate_int);
             if('${LoginOK.member_Id}'==data.userID){
             	
 					$('#'+data.friendId+' .msg_container_base').append(
@@ -236,7 +251,7 @@
 		 		            +'<div class=" col-md-9 col-xs-9 message_div">'
 		 		            +'<div class="messages msg_sent">'
 		 		            +'<p>'+data.data+'</p>'         
-		 		            +'<time datetime="">'+ jQuery.timeago(data.Time)+'</time>'
+		 		            +'<time datetime="">'+jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
 		 		            +'</div>'
 		 		            +'</div>'
 		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -257,7 +272,7 @@
 		 		            +'<div class=" col-md-9 col-xs-9 message_div">'
 		 		            +'<div class="messages msg_sent">'
 		 		            +'<p>'+data.data+'</p>'         
-		 		            +'<time datetime="">'+ jQuery.timeago(data.Time)+'</time>'
+		 		            +'<time datetime="">'+jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
 		 		            +'</div>'
 		 		            +'</div>'
 		 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
@@ -291,7 +306,7 @@
 			var friendId=$(this).siblings(".friendId_Here").text()
 			if(val.trim().length != 0){
 				val = val.replace(/\r?\n/g, '</br> ');
-				sendMessage( friendId, val, new Date().getTime(),friendName);
+				sendMessage( friendId, val,(new Date().getTime()).toString(),friendName);
 				$(this).val('')
 			}
 			return false;
@@ -304,7 +319,7 @@
 		var friendId=$(this).siblings(".friendId_Here").text()
 		if(val.trim().length != 0){
 			val = val.replace(/\r?\n/g, '</br> ')
-			sendMessage(friendId, val, new Date().getTime(),friendName);
+			sendMessage(friendId, val, (new Date().getTime()).toString,friendName);
 			$(this).prev().val('');
 		}
 	})  
@@ -361,7 +376,9 @@
 //  					size_total = parseInt(size) + 400;		
 //  					  var newAppend =$(message_div).appendTo("body")
 //  			           newAppend.css("margin-left", size_total);	
- 					 $.each(data,function(){			            
+ 					 $.each(data,function(){	
+ 						var jdate_int = parseInt(this.chatTime);                          //轉換成數字
+ 			 		   var jdate_value = new Date(jdate_int);
  						 if('${LoginOK.member_Id}'==this.member_Id){
  							$('#'+friendId+' .msg_container_base').append(
  	 								'<div class="row msg_container base_sent ">'
@@ -369,7 +386,7 @@
  	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
  	 			 		            +'<div class="messages msg_sent">'
  	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
+ 	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
  	 			 		            +'</div>'
  	 			 		            +'</div>'
  	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -388,7 +405,7 @@
  	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
  	 			 		            +'<div class="messages msg_sent">'
  	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
+ 	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
  	 			 		            +'</div>'
  	 			 		            +'</div>'
  	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'

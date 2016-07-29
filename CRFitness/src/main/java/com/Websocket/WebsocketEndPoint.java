@@ -1,23 +1,20 @@
 package com.Websocket;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.CRFitness.Chats.model.ChatService;
-import com.CRFitness.Member.model.MemberVO;
 import com.google.gson.Gson;
 
 @Controller
@@ -55,7 +52,13 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         
         if("2".equals(type)){
         	TextMessage tm = new TextMessage(g.toJson(datas));
-        	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),tm);
+        	System.out.println(datas.get("Time")); 
+        	
+        	long batch_date = Long.parseLong(datas.get("Time").toString()); 
+            Date dt = new Date (batch_date); 
+        	SimpleDateFormat sfd = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        	Timestamp ts = Timestamp.valueOf(sfd.format(dt));
+        	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),datas.get("data").toString(),ts,tm);
         }
         else if("3".equals(type))//關掉
         {
@@ -84,15 +87,17 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         }
         
     }
-  public void sendMessageToUser(String member_Id,String friend_Id, TextMessage message) {
+  public void sendMessageToUser(String member_Id,String friend_Id,String chat_Detail,Timestamp time,TextMessage message) {
 				try {
 					if(clients.containsKey(friend_Id)){
 						if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {
 							clients.get(member_Id).sendMessage(message);
-							clients.get(friend_Id).sendMessage(message);		
+							clients.get(friend_Id).sendMessage(message);
+							chatService.IsRead(member_Id,friend_Id,chat_Detail,time);
 						}
 					}else{
 						clients.get(member_Id).sendMessage(message);
+						chatService.NoRead(member_Id, friend_Id, chat_Detail, time);
 					}			
 				} catch (IOException e) {
 					e.printStackTrace();
