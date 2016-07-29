@@ -126,4 +126,36 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 
 	}
 
+	public String loginAdmin() {
+		if (memberVO.getE_mail().length() == 0 || "".equals(memberVO.getE_mail())) {
+			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");
+			return "adminerror";
+		}
+		System.out.println("1");
+		if (memberVO.getPassword().length() == 0 || "".equals(memberVO.getPassword())) {
+			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");
+			return "adminerror";
+		}
+		System.out.println("2");
+		if (memberService.checkPassword(memberVO.getE_mail())) {
+			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");
+			return "adminerror";
+		}
+		System.out.println("3");
+		if (memberService.checkAdmin(memberVO.getE_mail())) {
+			request.setAttribute("LoginErrorMessage", "您不是管理員！");
+			return "adminerror";
+		}
+		System.out.println("4");
+		if (memberService.login(memberVO.getE_mail(), memberVO.getPassword()) != null) {
+			(memberVO = memberService.login(memberVO.getE_mail(),
+					memberVO.getPassword())).setPassword(null);
+			session.setAttribute("LoginOK", memberVO);
+			request.getServletContext().removeAttribute("GoUrl");
+			return "admin";
+		} else {
+			request.setAttribute("LoginErrorMessage", "帳號或密碼有誤請重新輸入");
+			return "adminerror";
+		}
+	}
 }

@@ -56,7 +56,6 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         if("2".equals(type)){
         	TextMessage tm = new TextMessage(g.toJson(datas));
         	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),tm);
-
         }
         else if("3".equals(type))//關掉
         {
@@ -90,7 +89,7 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
 					if(clients.containsKey(friend_Id)){
 						if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {
 							clients.get(member_Id).sendMessage(message);
-							clients.get(friend_Id).sendMessage(message);
+							clients.get(friend_Id).sendMessage(message);		
 						}
 					}else{
 						clients.get(member_Id).sendMessage(message);
