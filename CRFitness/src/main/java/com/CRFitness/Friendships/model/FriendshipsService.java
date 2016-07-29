@@ -58,6 +58,10 @@ public class FriendshipsService {
 	
 	@Transactional(transactionManager="transactionManager")
 	public boolean acceptFriend(String member_Id,String friend_Id){
+		ChatVO chatVO1 = new ChatVO();
+		chatVO1.setMember_Id(member_Id);
+		chatVO1.setFriend_Id(friend_Id);
+		chatVO1.setChatStuts(4);
 		FriendshipsVO friendshipsVO = new FriendshipsVO();
 		FriendshipsVO friendshipsVO2 = new FriendshipsVO();
 		friendshipsVO.setMember_Id(member_Id);
@@ -66,7 +70,7 @@ public class FriendshipsService {
 		friendshipsVO2.setMember_Id(friend_Id);
 		friendshipsVO2.setFriend_Id(member_Id);
 		friendshipsVO2.setFriend_Status(1);
-		if(friendshipsDAO.update(friendshipsVO) && friendshipsDAO.update(friendshipsVO2))
+		if(friendshipsDAO.update(friendshipsVO) && friendshipsDAO.update(friendshipsVO2) && chatDAO.updatefriendstatus(chatVO1) == 1)
 			return true;
 		else
 			return false;
@@ -77,7 +81,6 @@ public class FriendshipsService {
 		ChatVO chatVO1 = new ChatVO();
 		chatVO1.setMember_Id(member_Id);
 		chatVO1.setFriend_Id(friend_Id);
-		chatVO1.setChat_Detail(" 取消申請");
 		chatVO1.setChatStuts(4);
 		if(friendshipsDAO.delete(member_Id, friend_Id) && friendshipsDAO.delete(friend_Id, member_Id) && chatDAO.updatefriendstatus(chatVO1) == 1)
 			return true;
