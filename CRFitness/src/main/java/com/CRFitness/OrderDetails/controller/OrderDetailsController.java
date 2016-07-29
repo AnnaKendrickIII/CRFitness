@@ -40,7 +40,7 @@ public class OrderDetailsController {
 		return orderDetailsService.searchAllOrderDetails();
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/search", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/search", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<OrderDetailsVO> searchByOrder_Id(
 			HttpServletRequest request, @RequestParam String order_Id) {
 		request.getSession().setAttribute("searchByOrder_Id", order_Id);
@@ -64,6 +64,7 @@ public class OrderDetailsController {
 			Iterator<String> prouducts = set.iterator();
 			while (prouducts.hasNext()) {
 				List<Object[]> product = (List<Object[]>) (shoppingCart.getCart().get(prouducts.next()));
+				String productDetail_Id = (String)((ProductDetailVO) (product.get(0))[0]).getProductDetail_Id();
 				int quantity = (Integer) (product.get(1))[0];
 				String product_Name = (String) (product.get(0))[1];
 				String color = (String) ((ProductDetailVO) (product.get(0))[0])
@@ -71,14 +72,15 @@ public class OrderDetailsController {
 				String size = (String) ((ProductDetailVO) (product.get(0))[0])
 						.getSize();
 				double amount = (Double) (product.get(0))[2];
-
+				
+				System.out.println(productDetail_Id);
 				System.out.println(quantity);
 				System.out.println(product_Name);
 				System.out.println(color);
 				System.out.println(size);
 				System.out.println(amount);
 
-				orderDetailsService.addOrderDetail(order.getOrder_Id(),product_Name, quantity, size, color, amount);
+				orderDetailsService.addOrderDetail(order.getOrder_Id(), productDetail_Id, product_Name, quantity, size, color, amount);
 			}
 		}
 		shoppingCart.cleanCart();

@@ -8,6 +8,7 @@
             <generator class="generator.OrderDetailsGenerator"/>
         </id>
         <property name="order_Id" column="Order_Id" />      
+     	<property name="productDetail_Id" column="productDetail_Id" />
         <property name="product_Name" column="Product_Name" />
         <property name="quantity" column="Quantity" />
         <property name="size" column="Size" />
