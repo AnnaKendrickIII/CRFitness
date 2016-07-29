@@ -13,5 +13,10 @@ public class ChatService {
 	public List<Object[]> selectFriendMessage(String member_Id,String friend_Id){
 		return chatDAO.select_Friends_message(member_Id, friend_Id);
 	}
+	public ChatVO insert(ChatVO chatVO){
+		
+		chatDAO.insert(chatVO);
+		return chatVO;			
+	}
 	
 }
