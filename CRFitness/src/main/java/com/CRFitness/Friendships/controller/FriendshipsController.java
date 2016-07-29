@@ -3,6 +3,7 @@ package com.CRFitness.Friendships.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Controller;
@@ -34,16 +35,19 @@ public class FriendshipsController {
 	@RequestMapping(method = RequestMethod.POST, value = "/addFriends", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody boolean addFriends(
 			@RequestParam String member_Id,
-			@RequestParam String friend_Id) {
-		return friendshipsService.addFriend(member_Id, friend_Id);
+			@RequestParam String friend_Id, HttpSession session) {
+		String nickname = ((MemberVO)session.getAttribute("LoginOK")).getNickname();
+		return friendshipsService.addFriend(member_Id, friend_Id, nickname);
 	}
 	
+	// 查好友目前狀態
 	@RequestMapping(method = RequestMethod.GET, value = "/findFriendFlag", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody Integer findFriendFlag(@RequestParam String member_Id,
 			@RequestParam String friend_Id){
 		return friendshipsService.select_Friend_Flag(member_Id, friend_Id);
 	}
 	
+	// 查目前待接受的好友數量
 	@RequestMapping(method = RequestMethod.GET, value = "/findFriendsFlag", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody Long findFriendsFlag(@RequestParam String member_Id){
 		return friendshipsService.select_Friends_Flag(member_Id);

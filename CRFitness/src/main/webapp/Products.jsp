@@ -114,10 +114,10 @@ margin-top: 5%;
 .btn-md{
 width: 150px;
 }
-h5{
+.pName{
 color: blue;
 }	
-p{
+.price{
 color:#FF3333;
 }
 </style>
@@ -129,6 +129,7 @@ color:#FF3333;
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.desoslide.min.js"></script>
+<script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>            
 
 <aside>
 <div class="productsclass">
@@ -287,8 +288,8 @@ $.ajax({
                         	+'<a class="btn  btn-xs btn-block color_btn" data-toggle="collapse" data-target="#'+this.product_Id+'"  aria-controls="demo">More Colors'
                         	+'&nbsp&nbsp&nbsp<i class="fa fa-caret-square-o-down" aria-hidden="true"></i></a>'
                         	+'<ul id="'+this.product_Id+'" class="collapse row desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
-							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><h5><strong>'+this.product_Name+'</strong></h5></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><strong><p>$'+this.price+'</p></strong></div>' 
+							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><h5 class="pName"><strong>'+this.product_Name+'</strong></h5></div>' 
+							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><strong><p class="price">$'+this.price+'</p></strong></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn Introduction btn-primary" ><i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp&nbsp商品介紹'
 							+'</a>'
 							+'<a class="btn btn-danger shop"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</a>'
@@ -328,7 +329,7 @@ $.ajax({
 					
 		})//大表 ajax迴圈結束
 	 	
-	}//大表ajax success結束
+	}//大表ajax success結束	
 });//大表ajax結束
 
 $('body').on('click','.Introduction',function(){

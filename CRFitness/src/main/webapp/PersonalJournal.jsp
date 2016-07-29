@@ -1125,25 +1125,21 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
       	
       	// 取消申請，或刪除好友
       	$('body').on('click', 'button.canceladdfriend', function(){
-//       		var friendFlagStatus = findFriendFlag();
-//       		console.log(friendFlagStatus)
-//       		if(friendFlagStatus == 2 || friendFlagStatus == 1){
-          		$.ajax({
-          			url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
-          			type:'post',
-          			data:{'member_Id': "${LoginOK.member_Id}",
-    					'friend_Id': "${pageContext.request.queryString}"},
-          			success:function(data){
-          				if(data){
-          					alertify.alert('取消成功').set('title', '訊息');
-          					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
-          					.removeClass('canceladdfriend').addClass('addfriend');
-          				}else{
-          					alertify.alert('異常，請洽客服人員').set('title', '警告');
-          				}
-          			}
-          		})
-//       		}
+      		$.ajax({
+      			url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
+      			type:'post',
+      			data:{'member_Id': "${LoginOK.member_Id}",
+					'friend_Id': "${pageContext.request.queryString}"},
+      			success:function(data){
+      				if(data){
+      					alertify.alert('取消成功').set('title', '訊息');
+      					$('#personal_profile').find('button.canceladdfriend').text('加為好友')
+      					.removeClass('canceladdfriend').addClass('addfriend');
+      				}else{
+      					alertify.alert('異常，請洽客服人員').set('title', '警告');
+      				}
+      			}
+      		})
       	})
       	
 		// 上傳日誌時預覽圖片
