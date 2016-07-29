@@ -186,6 +186,20 @@ public class MemberService {
 		}
 		return false;
 	}
+	
+	// back-end: 檢查是否為管理員？true：不是；false：是
+	public Boolean checkAdmin(String e_mail) {
+		List<MemberVO> list = memberDAO.select_email(e_mail);
+		MemberVO memberVO = new MemberVO();
+		for (MemberVO data : list) {
+			memberVO = data;
+		}	
+		if (memberVO.getMember_Id().length() >=10 ) {
+			return true;
+		} else
+			return false;
+	}
+	
 	public void updatemember(MemberVO memberVO) {
 		memberDAO.update(memberVO);
 	}
