@@ -247,7 +247,7 @@ jQuery(function($){
 						cleanCart()
 						totalAmount()
 						//訂單送出後3秒導向推薦者頁面
-						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後返回首頁',setTimeout(function(){	
+						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後返回上一頁',setTimeout(function(){	
  							location.href ='<%=request.getHeader("referer")%>'
 							},3000) 
 						)

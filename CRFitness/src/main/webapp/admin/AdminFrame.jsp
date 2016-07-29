@@ -31,6 +31,8 @@
 	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/jquery.easyswitch.css" />
 	<!-- search button -->
 	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/expandingsearch.css" />
+	<!-- login dialog -->
+	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/custombox.css" />
 	
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -67,7 +69,8 @@
     <script src="${this_contextPath}/admin/assets/js/search.custom.js"></script>
     <script src="${this_contextPath}/admin/assets/js/search.classie.js"></script>
 	<script src="${this_contextPath}/admin/assets/js/search.uisearch.js"></script>
-	
+	<!-- login dialog -->
+	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
   </head>
 
   <body>
@@ -301,32 +304,28 @@
       </aside>
       <!--sidebar end-->
       
-<!-- 登入對話方塊   開始 -->
-      <div class="container"> 
-      	<c:if test="${!empty LoginErrorMessage}">
-        	<script type="text/javascript"> 	 
-            	$(function () {
-                	Custombox.open({
-                    	target: '#login-box',
-                        effect: 'rotatedown'
-                    });
-                	$('#create_account').click(function () {	
-                   	  Custombox.close('#login-box') 
-                	}) 
-                	$('.container_a_css').click(function () {	
-                  	  Custombox.close('#login-box') 
-                	})  
+<!-- 登入對話方塊   開始 -->   
+
+<!--       <div class="container">  -->
+    <c:if test="${empty LoginOK}">
+      	<script type="text/javascript"> 	 
+        	$(function () {
+            	Custombox.open({
+                	target: '#login-box',
+                    effect: 'Sign'
                 });
-       		</script>
-     	</c:if >
-      </div> <!-- end 303 -->
-   
-<!--      <div class="col-lg-8 col-md-4  col-sm-6 col-xs-3"></div> -->
+                console.log('success');
+                $('.okay').click(function () {	
+                	Custombox.close('#login-box') 
+                }) 
+            });
+       	</script>
+
 	<div id="login-box" class="login-popup ">
 		<form name="member" class="form-login"
 			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post">
 			<div id="login_div">
-<!-- 				<h2 class="form-login-heading">管理員登入</h2> -->
+				<h2 class="form-login-heading">Administration</h2>
 				<div class="login-wrap">
 					<input required="required" type="email" name="memberVO.e_mail"
 						class="form-control" placeholder="E-Mail" autofocus="autofocus"
@@ -334,8 +333,9 @@
 					<input required="required" type="password" name="memberVO.password"
 						class="form-control" placeholder="Password"
 						value="${param['memberVO.password']}" /> 
-					<label class="checkbox"></label>
-					<button name="member_action" class="btn btn-theme btn-block"
+					<label class="checkbox">
+					</label>
+					<button name="member_action" class="btn btn-theme btn-block okay"
 						    type="submit" value="SIGN_IN">
 							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN
 					</button>
@@ -343,10 +343,9 @@
 				</div>
 			</div>
 		</form>
-	</div>
-<!-- 	<div class=" col-md-4 col-sm-2 col-xs-3"></div> -->
+	</div> <!-- end 327 -->
+	</c:if >
 <!-- 登入對話方塊   結束 -->
-      
       
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
