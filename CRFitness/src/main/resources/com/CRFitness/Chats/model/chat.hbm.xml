@@ -11,6 +11,7 @@
         <property name="friend_Id" column="friend_Id" />
         <property name="chat_Detail" column="chat_Detail" />
         <property name="chatTime" column="chatTime" />
+        <property name="ChatStuts" column="ChatStuts" />
     
         
         

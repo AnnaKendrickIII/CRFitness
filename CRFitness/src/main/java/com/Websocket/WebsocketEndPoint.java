@@ -17,6 +17,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.CRFitness.Member.model.MemberVO;
 import com.google.gson.Gson;
 
+
 public class WebsocketEndPoint extends TextWebSocketHandler   {
 	
 	private Map<String, WebSocketSession> clients = new ConcurrentHashMap<>();
@@ -45,10 +46,9 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         if(!clients.containsKey(datas.get("userID").toString()))
         {
             clients.put(datas.get("userID").toString(), session);
-        }   
+        } 
+        
         if("2".equals(type)){
-//        System.out.println(clients.get(datas.get("userID").toString()));
-//        System.out.println(clients.get(datas.get("friendId").toString()));
         	TextMessage tm = new TextMessage(g.toJson(datas));
         	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),tm);
 

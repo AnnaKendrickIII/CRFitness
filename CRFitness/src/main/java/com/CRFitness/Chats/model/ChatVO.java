@@ -11,6 +11,14 @@ public class ChatVO implements Serializable{
 	private String friend_Id;		 
 	private String chat_Detail;	
 	private Timestamp chatTime ;
+	private Integer ChatStuts;
+	
+	public Integer getChatStuts() {
+		return ChatStuts;
+	}
+	public void setChatStuts(Integer chatStuts) {
+		ChatStuts = chatStuts;
+	}
 	public Integer getChat_Id() {
 		return chat_Id;
 	}
