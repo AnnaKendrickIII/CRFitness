@@ -471,7 +471,7 @@
                              }          	 
                          })
                          
-                               	// 在mail圖示上顯示好友申請提示的個數
+                        // 在mail圖示上顯示好友申請提示的個數
 						$.ajax({
 							url:"${this_contextPath}/CRFSERVICE/friendships/findFriendsFlag",
 							type:'get',

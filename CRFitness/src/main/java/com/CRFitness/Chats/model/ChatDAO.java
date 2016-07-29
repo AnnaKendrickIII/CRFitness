@@ -55,6 +55,17 @@ public class ChatDAO implements ChatDAO_interface {
 		}
 		return null;
 	}
-
+	@Override
+	public int updatefriendstatus(ChatVO chatVO) {
+		if (chatVO != null) {
+			Query query = this.getSession().createSQLQuery(
+					"update Chat set ChatStuts="
+			+chatVO.getChatStuts()+" where Member_Id='"
+			+chatVO.getMember_Id()+"' and Friend_Id='"+chatVO.getFriend_Id()+
+			"' and (ChatStuts=2 or ChatStuts=3)");
+			return query.executeUpdate();
+		}
+		return 0;
+	}
 	
 }

@@ -6,12 +6,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-
-
-
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.CRFitness.Chats.model.ChatDAO_interface;
+import com.CRFitness.Chats.model.ChatVO;
 
 @Service("friendshipsService")
 public class FriendshipsService {
@@ -19,7 +19,8 @@ public class FriendshipsService {
 	@Resource(name="friendshipsDAO")
 	private FriendshipsDAO_interface friendshipsDAO;
 	
-	
+	@Autowired
+	public ChatDAO_interface chatDAO;
 	
 	public  List<Object[]> findFriends(String member_Id){
 		return  friendshipsDAO.select_Friends(member_Id);		
@@ -34,7 +35,7 @@ public class FriendshipsService {
 	}
 	
 	@Transactional(transactionManager="transactionManager")
-	public boolean addFriend(String member_Id,String friend_Id){
+	public boolean addFriend(String member_Id,String friend_Id, String nickname){
 		FriendshipsVO friendshipsVO = new FriendshipsVO();
 		FriendshipsVO friendshipsVO2 = new FriendshipsVO();
 		friendshipsVO.setMember_Id(member_Id);
@@ -43,7 +44,13 @@ public class FriendshipsService {
 		friendshipsVO2.setMember_Id(friend_Id);
 		friendshipsVO2.setFriend_Id(member_Id);
 		friendshipsVO2.setFriend_Status(3);
-		if(friendshipsDAO.insert(friendshipsVO) && friendshipsDAO.insert(friendshipsVO2))
+		ChatVO chatVO1 = new ChatVO();
+		chatVO1.setMember_Id(member_Id);
+		chatVO1.setFriend_Id(friend_Id);
+		chatVO1.setChat_Detail(nickname + " 想加你為好友");
+		chatVO1.setChatTime(new java.sql.Timestamp(System.currentTimeMillis()));
+		chatVO1.setChatStuts(2);
+		if(friendshipsDAO.insert(friendshipsVO) && friendshipsDAO.insert(friendshipsVO2) && chatDAO.insert(chatVO1)!=null)
 			return true;
 		else
 			return false;
@@ -67,7 +74,12 @@ public class FriendshipsService {
 	
 	@Transactional(transactionManager="transactionManager")
 	public boolean deleteFriend(String member_Id,String friend_Id){
-		if(friendshipsDAO.delete(member_Id, friend_Id) && friendshipsDAO.delete(friend_Id, member_Id))
+		ChatVO chatVO1 = new ChatVO();
+		chatVO1.setMember_Id(member_Id);
+		chatVO1.setFriend_Id(friend_Id);
+		chatVO1.setChat_Detail(" 取消申請");
+		chatVO1.setChatStuts(4);
+		if(friendshipsDAO.delete(member_Id, friend_Id) && friendshipsDAO.delete(friend_Id, member_Id) && chatDAO.updatefriendstatus(chatVO1) == 1)
 			return true;
 		else
 			return false;
