@@ -20,7 +20,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-@WebServlet("/RSSread")
+@WebServlet("/RSSreader")
 public class RSSreader extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
