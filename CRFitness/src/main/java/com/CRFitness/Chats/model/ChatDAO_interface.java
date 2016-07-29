@@ -10,5 +10,5 @@ public interface ChatDAO_interface {
     public List<Object[]> select_Friends_message(String member_Id,String friend_Id);
     public List<ChatVO> getAll();
 	public int updatefriendstatus(ChatVO chatVO);
-
+	public List<Object[]> select_NoReade_Friends_message(String member_Id,String friend_Id);
 }

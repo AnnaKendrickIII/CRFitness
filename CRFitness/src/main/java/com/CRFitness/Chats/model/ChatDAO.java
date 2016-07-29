@@ -33,15 +33,31 @@ public class ChatDAO implements ChatDAO_interface {
 	@Override
 	public List<Object[]> select_Friends_message(String member_Id,String friend_Id) {	
 			Query query = this.getSession().createSQLQuery(
-					"SELECT Chat.* "
+					"SELECT  Chat.* "
 					+"from Chat "	
-					+"where Member_Id='"+friend_Id+"' "
-					+"and Friend_Id='"+member_Id+"' "
-					+"or Member_Id='"+member_Id+"' "
-					+"and Friend_Id='"+friend_Id+"' order by ChatTime ")
+					+"where ((Member_Id='"+friend_Id+"' "
+					+"and Friend_Id='"+member_Id+"') "
+					+"or (Member_Id='"+member_Id+"' "
+					+"and Friend_Id='"+friend_Id+"')) and ChatStuts=1  order by ChatTime desc "
+					+ "OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY")
 					.addEntity(ChatVO.class);				
 		return (List<Object[]>) query.list();	
 	}
+	
+	
+	@Override
+	public List<Object[]> select_NoReade_Friends_message(String member_Id,String friend_Id) {	
+			Query query = this.getSession().createSQLQuery(
+					"SELECT  Chat.* "
+					+"from Chat "	
+					+"where ((Member_Id='"+friend_Id+"' "
+					+"and  Friend_Id='"+member_Id+"') "
+					+"or  (Member_Id='"+member_Id+"' "
+					+"and  Friend_Id='"+friend_Id+"')) and ChatStuts=0  order by ChatTime desc ")
+					.addEntity(ChatVO.class);				
+		return (List<Object[]>) query.list();	
+	}
+	
 	@Override
 	public List<ChatVO> getAll() {
 		Query query = this.getSession().createQuery(GET_ALL_STMT);

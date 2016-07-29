@@ -20,9 +20,16 @@ public class ChatController {
 
 	@Resource(name = "chatService")
 	private ChatService chatService;
+	
 	@RequestMapping(method = RequestMethod.GET, value ="/selectFriendMessage", produces = "application/json; charset=utf-8")
 	public @ResponseBody List<Object[]> selectFriendMessage(
 			@RequestParam String member_Id,@RequestParam String friend_Id){	
 		return chatService.selectFriendMessage(member_Id, friend_Id);	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value ="/select_NoReade_Friends_message", produces = "application/json; charset=utf-8")
+	public @ResponseBody List<Object[]> select_NoReade_Friends_message(
+			@RequestParam String member_Id,@RequestParam String friend_Id){	
+		return chatService.select_NoReade_Friends_message(member_Id, friend_Id);	
 	}
 }
