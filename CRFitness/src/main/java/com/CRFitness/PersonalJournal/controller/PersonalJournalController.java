@@ -1,20 +1,17 @@
 package com.CRFitness.PersonalJournal.controller;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.MediaType;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.Member.model.MemberVO;
-import com.CRFitness.MessageDetail.model.MessageDetailVO;
-import com.CRFitness.PersonalJournal.model.CommonJournalService;
 import com.CRFitness.PersonalJournal.model.PersonalJournalService;
 import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 
@@ -35,9 +30,11 @@ public class PersonalJournalController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/showJournal", produces = MediaType.APPLICATION_JSON)
 	public @ResponseBody List<PersonalJournalVO> getJournal(@RequestParam String member_Id,
-			@RequestParam Integer visitorStatus , HttpSession session) {
+			HttpServletResponse response,@RequestParam Integer visitorStatus , HttpSession session) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		if(member_Id != null && member_Id.trim().length() != 0){
 			MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
+			System.out.println(mySelf);
 			if(mySelf.getMember_Id().equals(member_Id) && visitorStatus == 1){
 				return personalJournalService.showMySelfJournal(member_Id);
 			}
@@ -49,6 +46,13 @@ public class PersonalJournalController {
 		}else{
 			return null;
 		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/showJournal2", produces = "application/json;charset=UTF-8")
+	public @ResponseBody List<PersonalJournalVO> getJournal2(@RequestParam String member_Id,
+			HttpServletResponse response,@RequestParam Integer visitorStatus ) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+			return personalJournalService.showMySelfJournal(member_Id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/insertJournal", produces = MediaType.APPLICATION_JSON)
