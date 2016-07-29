@@ -14,23 +14,23 @@
 	
 	<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
     <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="${this_contextPath}/admin/assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
 <!--     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" /> -->
-    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="assets/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="assets/js/gritter/css/jquery.gritter.css" />
-    <link rel="stylesheet" type="text/css" href="assets/lineicons/style.css">    
+    <link href="${this_contextPath}/admin/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/js/gritter/css/jquery.gritter.css" />
+    <link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/lineicons/style.css">    
     
     <!-- Custom styles for this template -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet">
+    <link href="${this_contextPath}/admin/assets/css/style.css" rel="stylesheet">
+    <link href="${this_contextPath}/admin/assets/css/style-responsive.css" rel="stylesheet">
 	<!-- upload files -->
-	<link href="assets/css/fine-uploader-new.css" rel="stylesheet" />
+	<link href="${this_contextPath}/admin/assets/css/fine-uploader-new.css" rel="stylesheet" />
 	<!-- switch button -->
-	<link rel="stylesheet" type="text/css" href="assets/css/jquery.easyswitch.css" />
+	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/jquery.easyswitch.css" />
 	<!-- search button -->
-	<link rel="stylesheet" type="text/css" href="assets/css/expandingsearch.css" />
+	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/expandingsearch.css" />
 	
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -40,33 +40,33 @@
     
     <!-- js placed at the end of the document so the pages load faster -->
 <!--     <script src="assets/js/jquery.js"></script> -->
-    <script src="assets/js/jquery-1.8.3.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="assets/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="assets/js/jquery.sparkline.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/jquery-1.8.3.min.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="${this_contextPath}/admin/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/jquery.scrollTo.min.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="${this_contextPath}/admin/assets/js/jquery.sparkline.js"></script>
 
-    <script src="assets/js/chart-master/Chart.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/chart-master/Chart.js"></script>
 
     <!--common script for all pages-->
-    <script src="assets/js/common-scripts.js"></script>
-    <script type="text/javascript" src="assets/js/gritter/js/jquery.gritter.js"></script>
-    <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/common-scripts.js"></script>
+    <script type="text/javascript" src="${this_contextPath}/admin/assets/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="${this_contextPath}/admin/assets/js/gritter-conf.js"></script>
 
     <!--script for this(Index) page-->
-    <script src="assets/js/sparkline-chart.js"></script>    
-	<script src="assets/js/zabuto_calendar.js"></script>	
+    <script src="${this_contextPath}/admin/assets/js/sparkline-chart.js"></script>    
+	<script src="${this_contextPath}/admin/assets/js/zabuto_calendar.js"></script>	
 
 	<!-- upload files -->
-	<script src="assets/js/jquery.fine-uploader.js"></script>
+	<script src="${this_contextPath}/admin/assets/js/jquery.fine-uploader.js"></script>
 	<!-- switch button -->
-	<script type="text/javascript" src="assets/js/jquery.easyswitch.js"></script>
+	<script type="text/javascript" src="${this_contextPath}/admin/assets/js/jquery.easyswitch.js"></script>
 	<!-- search button -->
-    <script src="assets/js/jquery.searcher.js"></script>
-    <script src="assets/js/search.custom.js"></script>
-    <script src="assets/js/search.classie.js"></script>
-	<script src="assets/js/search.uisearch.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/jquery.searcher.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/search.custom.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/search.classie.js"></script>
+	<script src="${this_contextPath}/admin/assets/js/search.uisearch.js"></script>
 	
   </head>
 
@@ -226,7 +226,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
+                    <li><a class="logout" href="${this_contextPath}/admin/Logout.jsp">Logout</a></li>
             	</ul>
             </div>
         </header>
@@ -241,8 +241,8 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/adminsController/photo/${administrator_Id}" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Alvin</h5>
+              	  <p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>
+              	  <h5 class="centered">${LoginOK.nickname}</h5>
               	  	
                   <li class="mt">
                       <a class="active" href="Index.jsp">
@@ -322,20 +322,20 @@
 <!--      <div class="col-lg-8 col-md-4  col-sm-6 col-xs-3"></div> -->
 	<div id="login-box" class="login-popup ">
 		<form name="member" class="form-login"
-			action="${this_contextPath}/CRF/member!login.do" method="post">
+			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post">
 			<div id="login_div">
-				<h2 class="form-login-heading">登入</h2>
+<!-- 				<h2 class="form-login-heading">管理員登入</h2> -->
 				<div class="login-wrap">
-					<input required="required" type="email" name="adminsVO.e_mail"
+					<input required="required" type="email" name="memberVO.e_mail"
 						class="form-control" placeholder="E-Mail" autofocus="autofocus"
-						value="${param['adminsVO.e_mail']}" /> <br /> 
-					<input required="required" type="password" name="adminsVO.password"
+						value="${param['memberVO.e_mail']}" /> <br /> 
+					<input required="required" type="password" name="memberVO.password"
 						class="form-control" placeholder="Password"
-						value="${param['adminsVO.password']}" /> 
+						value="${param['memberVO.password']}" /> 
 					<label class="checkbox"></label>
 					<button name="member_action" class="btn btn-theme btn-block"
 						    type="submit" value="SIGN_IN">
-							<i class="fa fa-lock"></i>SIGN IN
+							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN
 					</button>
 					<div class="error_div">${LoginErrorMessage}</div>
 				</div>

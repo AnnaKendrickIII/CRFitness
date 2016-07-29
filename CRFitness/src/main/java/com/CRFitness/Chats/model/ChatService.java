@@ -14,9 +14,7 @@ public class ChatService {
 		return chatDAO.select_Friends_message(member_Id, friend_Id);
 	}
 	public ChatVO insert(ChatVO chatVO){
-		
-		chatDAO.insert(chatVO);
-		return chatVO;			
+		return chatDAO.insert(chatVO);		
 	}
 	
 }

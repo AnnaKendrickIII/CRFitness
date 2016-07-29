@@ -14,40 +14,41 @@
 }
 
 #tile1{
-    background: rgb(0,172,238);
+    background: rgb(255,255,255);
 }
 
 #tile2{
-    background: rgb(243,243,243);
+    background: rgb(255,255,255);
 }
 
 #tile3{
-    background: rgb(71,193,228);
+    background: rgb(255,255,255);
 }
 
 #tile4{
-    background-image: url('http://handsontek.net/demoimages/tiles/facebook.png');
-    background-size: cover;
+/*     background-image: url('http://handsontek.net/demoimages/tiles/facebook.png'); */
+/*     background-size: cover; */
+	background: rgb(255,255,255);
 }
 
 #tile5{
-    background: rgb(175,26,63);
+    background: rgb(255,255,255);
 }
 
 #tile6{
-    background: rgb(62,157,215);
+    background: rgb(255,255,255);
 }
 
 #tile7{
-    background: white;
+    background: rgb(255,255,255);
 }
 
 #tile8{
-    background: rgb(209,70,37);
+    background: rgb(255,255,255);
 }
 
 #tile9{
-    background: rgb(0,142,0);
+    background: rgb(255,255,255);
 }
 
 #tile10{

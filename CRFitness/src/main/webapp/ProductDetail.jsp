@@ -80,6 +80,44 @@ width: 150px;
 <script type="text/javascript">
 
 jQuery(function($){
+	
+	function showCart(){
+		$.ajax({
+			url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
+			typr:'get',
+			data:{},
+			success:function(data){	
+				var count=0;
+				var CarContent="";
+				$.each(data,function(index){
+					CarContent+='<div class="row"><div class="col-lg-4 col-md-4 col-xs-4 car_img_div">'
+					+'<img class="img-responsive" src="${this_contextPath}/images/products/'
+					+this[0][0].productDetail_Id+'_1.png"/></div>'
+					+'<div class="col-lg-4 col-md-4 col-xs-4"><div class="row car_name_div"><strong >'+this[0][1]+'</strong></div></div>'
+					+'<div class="col-lg-4 col-md-4 col-xs-4"><div class="row Car_price_div"><strong >$'
+					+this[0][2]+'</strong></div ><div class="row num_car_div"><strong >數量:'+this[1][0]+'</strong></div ></div></div>'
+					count++;
+				})
+				$.ajax({
+					url:'${this_contextPath}/CRFSERVICE/productDetailController/totalAmount',
+					typr:'get',
+					data:{},
+					success:function(data){		
+				$('.shopping_car_div').attr('data-content','<div class="row Amount_div"><h3><strong>總價:</strong>'
+						+'<strong >$'+data
+						+'</strong></h3></div>'+CarContent)
+						}
+					})
+			
+					if(count>0){
+					$('.shopping_car_span').text(count)
+					}
+				}
+			})
+		}	
+		showCart();	
+	
+	
 $('.shopping_car_div').popover()
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
@@ -182,7 +220,7 @@ $('body').on('click','.addCart',function(){
 						count++;
 					})
 					$('.shopping_car_span').text(count)
-					
+					showCart();	
 					var size = $('.btn-select-value').text()
 					console.log(size)
 					
