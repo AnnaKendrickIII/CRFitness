@@ -11,7 +11,7 @@ public class ChatVO implements Serializable{
 	private String friend_Id;		 
 	private String chat_Detail;	
 	private Timestamp chatTime ;
-	private Integer ChatStuts;
+	private Integer ChatStuts;  // 1: (已處理) 2: 好友申請 insert (未讀) 3: 好友申請 (已讀) 4: (取消申請) 隱藏
 	
 	public Integer getChatStuts() {
 		return ChatStuts;
