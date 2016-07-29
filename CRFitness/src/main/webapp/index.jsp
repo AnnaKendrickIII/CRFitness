@@ -236,18 +236,22 @@ body {
            <div class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
-            <div class="item active">
-              <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3>
-            </div>
-            <div class="item">
-              <h3 class="tilecaption">Customize your tiles</h3>
-            </div>
-            <div class="item">
-              <h3 class="tilecaption">Text, Icons, Images</h3>
-            </div>
-            <div class="item">
-              <h3 class="tilecaption">Combine them and create your metro style</h3>
-            </div>
+<!--             <div class="item active"> -->
+<!--               <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3> -->
+<!--               <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3> -->
+<!--             </div> -->
+<!--             <div class="item">               -->
+<!--               <h3 class="tilecaption">Customize your tiles</h3> -->
+<!--               <h3 class="tilecaption">Customize your tiles</h3> -->
+<!--             </div> -->
+<!--             <div class="item"> -->
+<!--               <h3 class="tilecaption">Text, Icons, Images</h3> -->
+<!--               <h3 class="tilecaption">Text, Icons, Images</h3> -->
+<!--             </div> -->
+<!--             <div class="item"> -->
+<!--               <h3 class="tilecaption">Combine them and create your metro style</h3> -->
+<!--               <h3 class="tilecaption">Combine them and create your metro style</h3> -->
+<!--             </div> -->
           
           </div>
         </div>
@@ -408,6 +412,51 @@ body {
 
 		})
 	</script>
+	
+<!-- RSS -->
+	<script type="text/javascript">
+	function load() {
+		xhr = new XMLHttpRequest();
+		if (xhr != null) {
+			xhr.addEventListener("readystatechange", callback);
+			xhr.open("get", "LoadRSS", true);
+			xhr.send();
+		} else {
+			alert("您的瀏覽器不支援Ajax功能!!");
+		}
+	}
+	
+	function callback() {
+		if (xhr.readyState == 4) {
+			if (xhr.status == 200) {
+				console.log(xhr.status)
+				var doc = xhr.responseXML;		
+				var item = doc.getElementsByTagName("item");
+				for (var i = 0; i < item.length; i++) {			
+
+					var title = item[i].getElementsByTagName("title")[0].firstChild.nodeValue;
+					var pubDate = item[i].getElementsByTagName("pubDate")[0].firstChild.nodeValue;
+
+					var txtA = document.createTextNode(title);
+					var eleH3 = document.createElement("h3");
+					eleH3.appendChild(txtA);
+
+
+					var eleS = document.createElement("small");
+					var txtS = document.createTextNode(pubDate);
+					eleS.appendChild(txtS);
+
+					var eleBr = document.createElement("br");		
+
+					div.appendChild(eleH3);
+					div.appendChild(eleS);
+					div.appendChild(eleBr);
+				}
+			}
+		}
+	}
+	</script>
+	
 <script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
 <script src="${this_contextPath}/js/index_underbox.js"></script>
 </body>
