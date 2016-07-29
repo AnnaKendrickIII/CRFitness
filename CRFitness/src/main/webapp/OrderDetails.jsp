@@ -15,8 +15,10 @@
 .orders_class {
 	margin-top: 4%;
 }
-.orderDetailsbody{
-
+.photo{
+    display: block;
+ 	width: 100px;
+	height:100px;
 }
 </style>
 </head>
@@ -38,25 +40,27 @@ jQuery(function($){
 	queryString=queryString.substr(9);
 	$.ajax({
 		  url:'${this_contextPath}/CRFSERVICE/orderDetailsController/search',
-	      type:'post', 
+	      type:'get', 
  	      data:{order_Id:queryString},
 	      success: function(json) { 
+  	     
 	          $('#orderDetialscolumns').columns({
 	              data:json,
 	              schema: [
 
 	                  {"header":"訂單編號", "key":"order_Id"},
 	                  {"header":"明細編號", "key":"details_No"},
-	                  {"header":"商品圖片", "key":'<img src="${this_contextPath}/images/products/prodDetail5001_1.png"/>'},
+	                  {"header":"商品圖片", "key":"productDetail_Id", "template":'<img class="photo" src="${this_contextPath}/images/products/{{productDetail_Id}}_1.png"/>'},
 	                  {"header":"商品名稱", "key":"product_Name"},
 	                  {"header":"數量", "key":"quantity"},
 	                  {"header":"尺寸", "key":"size"},
 	                  {"header":"顏色", "key":"color"},
 	                  {"header":"價格", "key":"amount"},
+	  
 	              ]
 
 	          });
-	          
+	    
 	      }
 	  });
 })

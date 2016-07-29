@@ -84,12 +84,13 @@ public class OrderDetailsService {
 	}
 
 	// 新增訂單明細
-	public OrderDetailsVO addOrderDetail(String order_Id,String product_Name, Integer quantity,
+	public OrderDetailsVO addOrderDetail(String order_Id, String productDetail_Id, String product_Name, Integer quantity,
 			String size, String color, Double amount) {
 
 		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
 
 		orderDetailsVO.setOrder_Id(order_Id);
+		orderDetailsVO.setProductDetail_Id(productDetail_Id);
 		orderDetailsVO.setProduct_Name(product_Name);
 		orderDetailsVO.setQuantity(quantity);
 		orderDetailsVO.setSize(size);

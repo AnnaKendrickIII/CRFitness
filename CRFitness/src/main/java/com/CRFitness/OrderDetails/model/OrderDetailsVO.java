@@ -1,12 +1,11 @@
 package com.CRFitness.OrderDetails.model;
 
-import com.CRFitness.Orders.model.OrdersVO;
-
 public class OrderDetailsVO implements java.io.Serializable { // 訂單明細
 
 	private static final long serialVersionUID = 1L;
 	private String details_No; // 明細流水號
 	private String order_Id; // 訂單編號
+	private String productDetail_Id; // 商品明細編號
 	private String product_Name; // 商品名稱
 	private Integer quantity; // 數量
 	private String size; // 尺寸
@@ -27,6 +26,14 @@ public class OrderDetailsVO implements java.io.Serializable { // 訂單明細
 
 	public void setOrder_Id(String order_Id) {
 		this.order_Id = order_Id;
+	}
+
+	public String getProductDetail_Id() {
+		return productDetail_Id;
+	}
+
+	public void setProductDetail_Id(String productDetail_Id) {
+		this.productDetail_Id = productDetail_Id;
 	}
 
 	public String getProduct_Name() {
