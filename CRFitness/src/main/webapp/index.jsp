@@ -146,10 +146,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <a ><img src="${this_contextPath}/images/products/prodDetail5413_1.png" class="img-responsive"/></a>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5410"><img src="${this_contextPath}/images/products/prodDetail5410_1.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-              <img src="${this_contextPath}/images/products/prodDetail5452_1.png" class="img-responsive"/>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5470"><img src="${this_contextPath}/images/products/prodDetail5470_1.png" class="img-responsive"/></a>
             </div>
           </div>
         </div>
@@ -163,10 +163,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="${this_contextPath}/images/products/prodDetail5474_1.png" class="img-responsive"/>
+              <img src="http://handsontek.net/demoimages/tiles/calendar.png" class="img-responsive"/>
             </div>
             <div class="item">
-              <img src="${this_contextPath}/images/products/prodDetail5477_1.png" class="img-responsive"/>
+             <img src="http://handsontek.net/demoimages/tiles/calendar2.png" class="img-responsive"/>
             </div>
           </div>
         </div>
@@ -220,10 +220,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="http://handsontek.net/demoimages/tiles/calendar.png" class="img-responsive"/>
+              <img src="${this_contextPath}/images/products/prodDetail5456_1.png" class="img-responsive"/>
             </div>
             <div class="item">
-              <img src="http://handsontek.net/demoimages/tiles/calendar2.png" class="img-responsive"/>
+             <img src="${this_contextPath}/images/products/prodDetail5499_1.png" class="img-responsive"/>
             </div>
           </div>
         </div>
