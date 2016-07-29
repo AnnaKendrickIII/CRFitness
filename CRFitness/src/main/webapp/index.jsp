@@ -61,7 +61,7 @@
 			</section>
 		</div>
 		<div class="content">
-			<p style="margin-right: 17%;">你還有更多的選擇</p>
+			<p>你還有更多的選擇</p>
 		</div>
 		<div class="parallaxer">
 				<div class="productbox dynamicTile">
@@ -256,7 +256,15 @@
 			</div>
 		<div class="content"></div>
 	</div>
+
 	
+	</div>
+	</aside>
+	
+	<!--  頁面部分 結束 -->
+	  <!-- footer start -->
+      
+      <!-- footer end -->
 <!-- 	<div class="row"> -->
     <!-- 3D Css -->
 <!-- 			<div class="col-md-4 "></div> -->
@@ -272,10 +280,6 @@
 <!-- 				</div> -->
 <!-- 			</div> -->
 <!-- 			<div class="col-md-4 "></div>	 -->
-	</div>
-	</aside>
-	
-	<!--  頁面部分 結束 -->
 
 	<script type="text/javascript">
 	Date.prototype.Format = function (fmt) {  
@@ -361,17 +365,17 @@
 	            		var jdate_int = parseInt(this[0].publishTime);                          //轉換成數字
 						var jdate_value = new Date(jdate_int); 
 		        		var journalId=this[0].journal_Id
-		        		
+		        		//panel → indexbox
 							console.log(this) 
 		        		 $('#inf_box').append(
 		        		'<article class="col-xs-12 col-sm-6 col-md-2">'
-		        		+'<div class="panel panel-default">'
-		        		+'<div class="panel-body">'
+		        		+'<div class="indexbox indexbox-default">'
+		        		+'<div class="indexbox-body">'
 		        		+'<a href="" class="zoom">'
 		        		+' <img src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this[0].journal_Id+'" alt="Loding Photo" />'
 		        		+' <span class="overlay"><i class="glyphicon glyphicon-fullscreen"></i></span>'
 		        		+'</a></div>'
-		        		+'<div class="panel-footer">'
+		        		+'<div class="indexbox-footer">'
 		        		+'<h4><img class="boxhead img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><a href="#">'+this[1]+'</a></h4>'
 		        		+'<span class="pull-right">'
 		        		+'<i id="like1" class="glyphicon">'+jdate_value.Format("yyyy-MM-dd hh:mm")+'</i> <div id="like1-bs3"></div>'
