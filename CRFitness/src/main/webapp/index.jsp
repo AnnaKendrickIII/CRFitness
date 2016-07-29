@@ -235,14 +235,15 @@ body {
     	 
            <div class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
-          <div class="carousel-inner">
-<!--             <div class="item active"> -->
-<!--               <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3> -->
-<!--               <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3> -->
-<!--             </div> -->
-<!--             <div class="item">               -->
-<!--               <h3 class="tilecaption">Customize your tiles</h3> -->
-<!--               <h3 class="tilecaption">Customize your tiles</h3> -->
+          <div class="carousel-inner" id="rss-in">
+            <div class="item active">
+              <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3>
+            </div>
+<!--             <div class="item"> -->
+              
+<!--               <h3 class="tilecaption"><a href="#" style="text-decoration: none; color: white;">Customize your tiles <br/> class="tilecaption">Customize your tiles</a></h3> -->
+
+
 <!--             </div> -->
 <!--             <div class="item"> -->
 <!--               <h3 class="tilecaption">Text, Icons, Images</h3> -->
@@ -264,7 +265,6 @@ body {
 		<div class="content"></div>
 	</div>
 
-	
 	</div>
 	</aside>
 	
@@ -417,8 +417,22 @@ body {
 	$.ajax({
 		url:"${this_contextPath}/RSSreader",
         type:'get',
-        
-		
+        dataType:'xml',
+        success: function(data){
+            $(data).find("item").each(function(){  //取得xml父節點       
+            var total = $(data).find("item").length;//xml的總筆數
+      		var title = $(this).children("title").text(); //取得子節點中的資料
+      		var pubDate = $(this).children("pubDate").text();
+      		var link = $(this).children("link").text();
+      		
+      		$('#rss-in').append('<div class="item">'
+      				+'<h3 class="tilecaption"><a style="text-decoration: none;color: white;" href="'+link+'">'+title+'<br/><br/>'+pubDate+'</a></h3>'
+      				+'</div>')
+
+
+      		
+			})
+		}
 	})
 	</script>
 	
