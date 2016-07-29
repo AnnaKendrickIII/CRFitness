@@ -415,46 +415,12 @@ body {
 	
 <!-- RSS -->
 	<script type="text/javascript">
-	function load() {
-		xhr = new XMLHttpRequest();
-		if (xhr != null) {
-			xhr.addEventListener("readystatechange", callback);
-			xhr.open("get", "LoadRSS", true);
-			xhr.send();
-		} else {
-			alert("您的瀏覽器不支援Ajax功能!!");
-		}
-	}
-	
-	function callback() {
-		if (xhr.readyState == 4) {
-			if (xhr.status == 200) {
-				console.log(xhr.status)
-				var doc = xhr.responseXML;		
-				var item = doc.getElementsByTagName("item");
-				for (var i = 0; i < item.length; i++) {			
-
-					var title = item[i].getElementsByTagName("title")[0].firstChild.nodeValue;
-					var pubDate = item[i].getElementsByTagName("pubDate")[0].firstChild.nodeValue;
-
-					var txtA = document.createTextNode(title);
-					var eleH3 = document.createElement("h3");
-					eleH3.appendChild(txtA);
-
-
-					var eleS = document.createElement("small");
-					var txtS = document.createTextNode(pubDate);
-					eleS.appendChild(txtS);
-
-					var eleBr = document.createElement("br");		
-
-					div.appendChild(eleH3);
-					div.appendChild(eleS);
-					div.appendChild(eleBr);
-				}
-			}
-		}
-	}
+	$.ajax({
+		url:"${this_contextPath}/RSSreader",
+        type:'get',
+        
+		
+	})
 	</script>
 	
 <script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
