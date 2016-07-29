@@ -12,18 +12,18 @@
     <link href="${this_contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
     
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
-     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
-     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
-      <link href="${this_contextPath}/css/friend.css" rel="stylesheet" />
+    <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
+    <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
+    <link href="${this_contextPath}/css/friend.css" rel="stylesheet" />
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
 
     <script src="${this_contextPath}/js/jquery-ui.min.js"></script>	
     <script src="${this_contextPath}/js/custombox.js"></script>	
     <script src="${this_contextPath}/js/legacy.js"></script>	
-      <script src="${this_contextPath}/js/lrtk.js"></script>	
-      <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
-      
+    <script src="${this_contextPath}/js/lrtk.js"></script>	
+    <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
+    <script type="text/javascript" src="${this_contextPath}/js/jquery.searchable-1.0.0.min.js"></script>
       <!-- GoogleLogin-->  
       <!-- bootstrap.min.js  開始-->
   <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
@@ -410,7 +410,7 @@
         
     </script>
     
-         <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>            
+                    
     <script>
     //搜尋用
     $(function () {
