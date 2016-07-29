@@ -5,22 +5,28 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.CRFitness.Chats.model.ChatService;
 import com.CRFitness.Member.model.MemberVO;
 import com.google.gson.Gson;
 
+@Controller
 public class WebsocketEndPoint extends TextWebSocketHandler   {
 	
 	private Map<String, WebSocketSession> clients = new ConcurrentHashMap<>();
-
+	@Resource(name = "chatService")
+	private ChatService chatService;
+	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession websession) throws Exception {
 		
@@ -45,10 +51,9 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         if(!clients.containsKey(datas.get("userID").toString()))
         {
             clients.put(datas.get("userID").toString(), session);
-        }   
+        } 
+        
         if("2".equals(type)){
-//        System.out.println(clients.get(datas.get("userID").toString()));
-//        System.out.println(clients.get(datas.get("friendId").toString()));
         	TextMessage tm = new TextMessage(g.toJson(datas));
         	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),tm);
 
@@ -82,9 +87,11 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
     }
   public void sendMessageToUser(String member_Id,String friend_Id, TextMessage message) {
 				try {
-					if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {
-						clients.get(member_Id).sendMessage(message);
-						clients.get(friend_Id).sendMessage(message);
+					if(clients.containsKey(friend_Id)){
+						if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {
+							clients.get(member_Id).sendMessage(message);
+							clients.get(friend_Id).sendMessage(message);
+						}
 					}else{
 						clients.get(member_Id).sendMessage(message);
 					}			
