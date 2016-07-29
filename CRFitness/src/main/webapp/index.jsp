@@ -76,9 +76,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
+               <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5006"><img src="${this_contextPath}/images/products/prodDetail5006_1.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-               <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5001"><img src="${this_contextPath}/images/products/prodDetail5001_1.png" class="img-responsive"/></a>
+               <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5009"><img src="${this_contextPath}/images/products/prodDetail5009_3.png" class="img-responsive"/></a>
             </div>
           </div>
         </div>
