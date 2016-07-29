@@ -426,7 +426,9 @@ body {
       		var link = $(this).children("link").text();
       		
       		$('#rss-in').append('<div class="item">'
-      				+'<h3 class="tilecaption"><a style="text-decoration: none;color: white;" href="'+link+'">'+title+'<br/><br/>'+pubDate+'</a></h3>'
+      				+'<h3 class="tilecaption">'
+      				+'<a style="text-decoration: none;color: white;" href="'+link+'">'+title+''
+      				+'<br/><br/>'+pubDate+'</a></h3>'
       				+'</div>')
 
 
