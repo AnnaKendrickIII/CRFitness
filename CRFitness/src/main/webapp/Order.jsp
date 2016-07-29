@@ -49,7 +49,6 @@ jQuery(function($){
 	                  {"header":"會員編號", "key":"member_Id"},
 	                  {"header":"訂單狀態", "key":"order_Status"},         
 	                  {"header":"金額", "key":"total_Amount"},
-	                  {"header":"發票號碼", "key":"invoice_Number"},
 	                  {"header":"收件人姓名", "key":"consignee_Name"},
 	                  {"header":"收件人地址", "key":"consignee_Address"},
 	                  {"header":"訂單日期", "key":"order_Time"},
