@@ -593,11 +593,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	             +'<button type="button" class="profile-btn btn btn-primary chat_for_friend">傳送訊息給他</button>'
 	             +'</div>'
 				);	
-			//傳訊息給好友
-			$('body').on('click','.chat_for_friend',function(){			
-			bodyappend(friendId,nickname);//用框架裡bodyappend 增加聊天室
-			IsReadThree(friendId)//用框架裡IsReadThree 增加已讀三則
-			})
+			
 				
 			}else if(visitorStatus == 3){
 				$('#personal_profile').append(
@@ -1163,7 +1159,12 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
       			reader.readAsDataURL(this.files[0]);
       		}
       	})
-
+      	
+			//傳訊息給好友
+			$('body').on('click','.chat_for_friend',function(){			
+			bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
+			IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則
+			})
       	
 //       	//查詢好友狀態
 //     function thedata(xxxx){

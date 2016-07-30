@@ -412,10 +412,11 @@
         			$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
         	}
         	$('#header_email_dropdown_div ul').append(
-						'<li><div hidden="hidden">'+data.userID+'</div>'
+        			'<li><div class="addfid" hidden="hidden">'+data.userID+'</div><div class="addfname" hidden="hidden">'+data.myName+'</div>'
 						+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
 						+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
-						+'<div  class="col-xs-1 col-sm-1"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></div>'
+						+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'">'
+						+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></a></div>'
 						+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
 						+data.myName+'想加你為好友</div>'
 						+'<div  class="col-xs-3 col-sm-3 ">'
@@ -430,6 +431,25 @@
 			}else{
 				 mail.text('1') 
 			}
+        }else if(data.type == '5'){
+        	$('#contact-list').append(
+               	 '<li class="list-group-item">'
+               	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'" >'
+               	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'" class="img-responsive img-circle" />'
+               	 +'</a></div>'
+               	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
+               	 +'<span class="name">'+data.myName+'</span>'
+               	 +'</div>'
+               	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+               	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
+               	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+               	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+data.userID+'</span></span>'
+               	 +'</div>'
+               	 +'<div class="clearfix"></div>'
+               	 +'</li> '	 
+				) 
+				alertify.notify('你已和'+data.myName+'成為好友', 'success', 5);
+        	$('.canceladdfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
         }
     };
     (function(){
@@ -603,10 +623,11 @@
 										count++;
 									}else if(this[0]=="2"){
 										$('#header_email_dropdown_div ul').append(
-												'<li><div hidden="hidden">'+this[1]+'</div>'
+												'<li><div class="addfid" hidden="hidden">'+this[1]+'</div><div class="addfname" hidden="hidden">'+this[2]+'</div>'
 												+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
 												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
-												+'<div  class="col-xs-1 col-sm-1"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></div>'
+												+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[1]+'">'
+												+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></a></div>'
 												+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
 												+this[2]+'想加你為好友</div>'
 												+'<div  class="col-xs-3 col-sm-3 ">'
@@ -615,10 +636,11 @@
 										count++;
 									}else if(this[0]=="3"){
 										$('#header_email_dropdown_div ul').append(
-												'<li><div hidden="hidden">'+this[1]+'</div>'
+												'<li><div class="addfid" hidden="hidden">'+this[1]+'</div><div class="addfname" hidden="hidden">'+this[2]+'</div>'
 												+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
 												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
-												+'<div  class="col-xs-1 col-sm-1"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></div>'
+												+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[1]+'">'
+												+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></a></div>'
 												+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
 												+this[2]+'想加你為好友</div>'
 												+'<div  class="col-xs-3 col-sm-3 ">'
@@ -677,7 +699,8 @@
 					
 					$('body').on('click', '.check_fr_ok', function () {
 						  var whichthis = $(this);
-						  var fid=$(this).parent().parent().siblings("div[hidden]").text()
+						  var fid=$(this).parent().parent().siblings(".addfid").text()
+						  var fname=$(this).parent().parent().siblings(".addfname").text()
 						$.ajax({
 							url:"${this_contextPath}/CRFSERVICE/friendships/acceptFriend",
 							type:'post',
@@ -693,7 +716,28 @@
 										 mail.text(mail_text) 
 										 }
 									}
+								 
+								 //這
 								 whichthis.parent().parent().parent().remove();
+								$('#contact-list').append(
+	                                	 '<li class="list-group-item">'
+	                                	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+fid+'" >'
+	                                	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+fid+'" class="img-responsive img-circle" />'
+	                                	 +'</a></div>'
+	                                	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
+	                                	 +'<span class="name">'+fname+'</span>'
+	                                	 +'</div>'
+	                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+	                                	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
+	                                	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+	                                	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+fid+'</span></span>'
+	                                	 +'</div>'
+	                                	 +'<div class="clearfix"></div>'
+	                                	 +'</li> '	 
+									) 
+									
+								var msg = JSON.stringify({'userID':"${LoginOK.member_Id}",'friendId':fid, 'type':'5','myName':"${LoginOK.nickname}"});  
+						         ws.send(msg);
 							}
 							
 						})
@@ -719,6 +763,7 @@
 									 }
 								}
 							 whichthis.parent().parent().parent().remove();
+							 
                             }
                           })
                      });
