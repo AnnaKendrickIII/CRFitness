@@ -55,6 +55,14 @@ aside
     vertical-align: text-bottom;
     margin-right: 16px;
 }
+
+.chat_commenting{
+margin-left: 5%;
+}
+.chat_commenting:HOVER {
+	color:#84C1FF;
+	font-size: 22px;
+}
 </style>
 <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -299,8 +307,9 @@ aside
 									+"<div hidden='hidden'>"+data.activity_Id
 									+'</div>"><span title=""><img src=${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+data.activity_Id+'.jpg" /></span></a>發起人：'
-									+'<a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}</a>'
-									+'<br />類別：'
+									+'<a class="aIswho" href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}</a>'
+									+'<div class="activity_who" hidden="hidden">${LoginOK.member_Id}</div>'
+									+'<i class="fa fa-commenting-o chat_commenting" aria-hidden="true"></i><br />類別：'
 									+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
 									+data.activity_Info+'<br />活動時間：'
@@ -310,12 +319,9 @@ aside
 // 									+'<button type="button" class="btn btn-default " data-toggle="tooltip" style="border:none" data-placement="right" title=" ">'
 // 									+data.people+'</button><br /><p>報名人數上限：'+data.people_Max+'</p></li>')								
 // 										 $('.btn.btn-default').tooltip()	
-
-									
+						
 										$(".linkpeople").tooltip();
-										
-
-										  $(".boxer").boxer({ 
+									  $(".boxer").boxer({ 
 											  top: 50,
 											  fixed:true
 										  });	
@@ -375,8 +381,9 @@ aside
 									+full+"<div hidden='hidden'>"+this[0].activity_Id
 									+'</div>"><span title=""><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
 									+this[0].activity_Id+'.jpg" /></span></a>發起人：'
-									+'<a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'+this[2]+'</a>'
-									+'<i class="fa fa-commenting-o" aria-hidden="true"></i><br />類別：'
+									+'<a class="aIswho" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'+this[2]+'</a>'
+									+'<div class="activity_who" hidden="hidden">'+this[0].member_Id+'</div>'
+									+'<i class="fa fa-commenting-o chat_commenting" aria-hidden="true"></i><br />類別：'
 									+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
@@ -464,8 +471,14 @@ aside
 		    		   }
 		    	   })
  				});
-		    	
-		      
+		  	$('body').on('click','.chat_commenting',function(){	
+		  		var thisId=$(this).siblings('.activity_who').text();
+		  		var who=$(this).siblings('.aIswho').text();
+		  		if(thisId!="${LoginOK.member_Id}"){
+		  		bodyappend(thisId,who);//用框架裡bodyappend 增加聊天室
+				IsReadThree(thisId)//用框架裡IsReadThree 增加已讀三則
+		  		}
+		  	})	
 	  })
     
 </script>

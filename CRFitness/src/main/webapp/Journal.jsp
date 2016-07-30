@@ -177,8 +177,8 @@ width:24px;
 		        		var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
-			        		 +this[1]+'</p></a><p class="time_p">'
+			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><span class="name_p">'
+			        		 +this[1]+'</span></a><p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 							 +this[0].contents+'</p>'
 							 
@@ -244,8 +244,8 @@ width:24px;
 	   		        		  	var journalId=this[0].journal_Id
 	   		        		  	var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 	   			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	   			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><p class="name_p">'
-	   			        		 +this[1]+'</p></a><p class="time_p">'
+	   			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><span class="name_p">'
+	   			        		 +this[1]+'</span></a><p class="time_p">'
 	   			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 	   							 +this[0].contents+'</p>'
 	   							 

@@ -59,6 +59,23 @@ public class ChatDAO implements ChatDAO_interface {
 	}
 	
 	@Override
+	public List<ChatVO> select_NoReade_FriendsforMe_message(String member_Id,String friend_Id) {	
+			Query query = this.getSession().createSQLQuery(
+					"SELECT  Chat.* "
+					+"from Chat "	
+					+"where (Member_Id='"+member_Id+"' "
+					+"and  Friend_Id='"+friend_Id+"') "
+					+" and ChatStuts=0 ")
+					.addEntity(ChatVO.class);				
+		return (List<ChatVO>) query.list();	
+	}
+	
+	@Override//更新未讀為已讀
+	public void updateNoReade_status(ChatVO chatVO) {
+			this.getSession().saveOrUpdate(chatVO);	
+	}
+	
+	@Override
 	public List<ChatVO> getAll() {
 		Query query = this.getSession().createQuery(GET_ALL_STMT);
 	return (List<ChatVO >) query.list();

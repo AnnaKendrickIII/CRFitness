@@ -103,7 +103,7 @@
                             <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>
                              <li><a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a></li>    
                         	<li><a  class="container_a_css">編輯個人資料</a></li>                          
-                            <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
+                            <li><a href="${this_contextPath}/Logout/logout.jsp" class="logout_css_souket" >登出</a></li>                        
                         </ul>
                 </div>
                 </c:when>
@@ -232,7 +232,7 @@
 		   })
        }
      //增加聊天室
-   	function bodyappend(userID,friendName){
+   	function bodyappend(userID,friendName){ 	
    		$('body').append(
 				'<div id='+userID+' class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
 				+'<div class="col-xs-12 col-md-12">'
@@ -260,7 +260,16 @@
 				+'</div>')
 				//未讀
 				NoReadAppend(userID)
-				$( ".chat-window" ).draggable();	
+				$( ".chat-window" ).draggable();
+    	 //變為已讀
+    	 $.ajax({
+	          url:"${this_contextPath}/CRFSERVICE/chatController/update_NoReade_Friends_message",
+	          type:'post',  //get post put delete
+			  data:{ member_Id:userID, friend_Id:'${LoginOK.member_Id}'},
+			  success:function(data){
+				
+			 	 }
+			 })
    	}
    //增加已讀3則
     function IsReadThree(friendId){ 	
@@ -334,6 +343,11 @@
 		console.log('關了')
     }; 
  
+    $('body').on('click','.logout_css_souket',function(){
+    	 var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+         ws.send(msg);
+         console.log('關了,登出')
+    })   
     ws.onmessage = function(event) 
     {	
         var data = JSON.parse(event.data);
