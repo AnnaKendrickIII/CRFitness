@@ -12,7 +12,7 @@
 
 	<title>MaintainJournals</title>
     
-    <jsp:include page="AdminFrame.jsp"/>
+    <jsp:include page="/admin/adminFrame.jsp"/>
   </head>
   <script type="text/javascript">
 	//轉換日期的小程式   開始

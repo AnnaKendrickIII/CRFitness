@@ -12,7 +12,7 @@
 
     <title>MaintainProducts</title>
     
-    <jsp:include page="AdminFrame.jsp"/>
+    <jsp:include page="/admin/adminFrame.jsp"/>
   </head>
 
 <script type="text/template" id="qq-template-manual-trigger">
