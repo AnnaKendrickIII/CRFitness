@@ -6,4 +6,4 @@
   session.invalidate();
 %>
 
-<c:redirect url="/admin/Index.jsp"></c:redirect>
+<c:redirect url="/${this_contextPath}/admin/adminIndex.jsp"></c:redirect>

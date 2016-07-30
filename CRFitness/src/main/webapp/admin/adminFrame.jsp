@@ -85,14 +85,14 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="Index.jsp" class="logo"><b>C.R.Fitness Administration</b></a>
+            <a href="${this_contextPath}/admin/adminIndex.jsp" class="logo"><b>C.R.Fitness Administration</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
                     <!-- settings start -->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="${this_contextPath}/admin/adminIndex.jsp">
                             <i class="fa fa-tasks"></i>
                             <span class="badge bg-theme">4</span>
                         </a>
@@ -102,7 +102,7 @@
                                 <p class="green">You have 4 pending tasks</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">DashGum Admin Panel</div>
                                         <div class="percent">40%</div>
@@ -115,7 +115,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Database Update</div>
                                         <div class="percent">60%</div>
@@ -128,7 +128,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Product Development</div>
                                         <div class="percent">80%</div>
@@ -141,7 +141,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Payments Sent</div>
                                         <div class="percent">70%</div>
@@ -161,7 +161,7 @@
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="i${this_contextPath}/admin/adminIndex.jsp">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme">5</span>
                         </a>
@@ -171,7 +171,7 @@
                                 <p class="green">You have 5 new messages</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Zac Snider</span>
@@ -183,7 +183,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Divya Manian</span>
@@ -195,7 +195,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dan Rogers</span>
@@ -207,7 +207,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dj Sherman</span>
@@ -219,7 +219,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">See all messages</a>
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">See all messages</a>
                             </li>
                         </ul>
                     </li>
@@ -229,7 +229,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="${this_contextPath}/admin/Logout.jsp">Logout</a></li>
+                    <li><a class="logout" href="${this_contextPath}/admin/adminLogout.jsp">Logout</a></li>
             	</ul>
             </div>
         </header>
@@ -243,24 +243,28 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-             	<c:if test="${! empty LoginOK }">  	  
+             	<c:if test="${! empty LoginOK }"> <!-- if這段敘述，就是可動態生成的部分 -->	  
              		<script type="text/javascript">
-             			$('.sidebar-menu').prepend('<p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
+             			$('.sidebar-menu').prepend('<p class="centered"><a href="profile.html">'+
+             			+'<img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
          	 			+'<h5 class="centered">${LoginOK.nickname}</h5>')
              		</script >
               	</c:if>
                   <li class="mt">
-                      <a class="active" href="Index.jsp">
+                      <a class="active" href="${this_contextPath}/admin/adminIndex.jsp">
                           <i class="fa fa-dashboard"></i>
                           <span>主控台</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="MaintainJournals.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-book"></i>
                           <span>維護健康日誌</span>
                       </a>
+                      <ul class="sub">
+                      	<li><a href="${this_contextPath}/admin/MaintainJournals.jsp" >日誌專區</a></li>
+                      </ul>
                   </li>
 
                   <li class="sub-menu">
@@ -269,54 +273,58 @@
                           <span>維護商品專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
+                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
+                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                       </ul>
                   </li>
+                  
                   <li class="sub-menu">
-                      <a href="MaintainActivities.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-users"></i>
                           <span>維護揪團專區</span>
                       </a>
+                      <ul class="sub">
+                      	<li><a href="${this_contextPath}/admin/MaintainActivities.jsp" >揪團專區</a></li>
+                      </ul>
                   </li>
+                  
                   <li class="sub-menu">
-                      <a href="MaintainMembers.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-commenting"></i>
                           <span>維護會員資訊</span>
                       </a>
-                  </li>
+                      <ul class="sub">
+                      	<li><a href="${this_contextPath}/admin/MaintainMembers.jsp" >會員資訊</a></li>
+                      </ul>
+                   </li>
+                      
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-usd" aria-hidden="true"></i>
-                          <span>Charts</span>
+                          <span>維護訂單專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="morris.html">Morris</a></li>
-                          <li><a  href="chartjs.html">Chartjs</a></li>
+                          <li><a  href="${this_contextPath}/admin/MaintainOrders.jsp">訂單專區</a></li>
                       </ul>
-                  </li>
-
-              </ul>
+                   </li>
+                </ul>
               <!-- sidebar menu end-->
           </div>
       </aside>
       <!--sidebar end-->
       
 <!-- 登入對話方塊   開始 -->   
-
-<!--       <div class="container">  -->
-    <c:if test="${empty LoginOK}">
+    <c:if test="${empty LoginOK}"> <!-- if這段敘述，就是可動態生成的部分 -->
       	<script type="text/javascript"> 	 
-        	$(function () {
-            	Custombox.open({
-                	target: '#login-box',
-                    effect: 'Sign'
-                });
-                console.log('success');
+        		$(function () {
+            		Custombox.open({
+                					target: '#login-box',
+                    				effect: 'Sign'
+                	});
                 $('.okay').click(function () {	
-                	Custombox.close('#login-box') 
+	                	Custombox.close('#login-box') 
                 }) 
             });
        	</script>
@@ -343,8 +351,8 @@
 				</div>
 			</div>
 		</form>
-	</div> <!-- end 327 -->
-	</c:if >
+	</div> <!-- end 324 div id="login-box"-->
+	</c:if > <!-- end 308 test="${empty LoginOK}"-->
 <!-- 登入對話方塊   結束 -->
       
       <!-- **********************************************************************************************************************************************************
@@ -357,7 +365,7 @@
 <!--       <footer class="site-footer"> -->
 <!--           <div class="text-center"> -->
 <!--               2016 - C.R.Fitness Co., Ltd. -->
-<!--               <a href="Index.jsp" class="go-top"> -->
+<!--               <a href="${this_contextPath}/admin/adminIndex.jsp" class="go-top"> -->
 <!--                   <i class="fa fa-angle-up"></i> -->
 <!--               </a> -->
 <!--           </div> -->
@@ -414,8 +422,8 @@
         });
         
         function myNavFunction(id) {
-            $("#date-popover").hide();
             var nav = $("#" + id).data("navigation");
+            $("#date-popover").hide();
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
