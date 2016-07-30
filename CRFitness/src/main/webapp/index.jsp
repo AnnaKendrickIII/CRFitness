@@ -24,12 +24,7 @@ body {
 	font-size: 24px;
 }
 
-.resizable(@direction: both) {
-  // Options: horizontal, vertical, both
-  resize: @direction;
-  // Safari fix
-  overflow: auto;
-}
+._fancybar{margin-top:50px !important;z-index: 5}
 
 </style>
 </head>
@@ -273,8 +268,9 @@ body {
 
 	</div>
 	</aside>
-	
-		  <!-- footer start -->
+
+
+
 	<footer class="bs-footer" role="contentinfo">
 		<div class="container">
 			<div class="bs-social">
@@ -288,22 +284,11 @@ body {
 				</ul>
 			</div>
 			<p>
-				CRFitness.com © 2016 <a href="http://www.danstools.com"
-					target="_blank">Dan's Tools</a> | <a
-					href="http://bootsnipp.com/privacy" target="_blank">Site
-					Privacy policy</a> | <a
-					href="https://www.buysellads.com/buy/detail/270577" rel="nofollow">Advertise</a>
-				| Featured snippets are <a href="http://bootsnipp.com/license">MIT
-					license.</a>
+				CRFitness.com © 2016 <a href="" target="_blank">Dan's Tools</a> | <a href="" target="_blank">Site Privacy policy</a> | <a href="" rel="nofollow">Advertise</a> | Featured snippets are <a href="http://bootsnipp.com/license">MIT license.</a>
 			</p>
 		</div>
-		<style>
-._fancybar {
-	margin-top: 50px !important;
-	z-index: 5
-}
-</style>
-		<script async="" type="text/javascript"
+
+		<script type="text/javascript"
 			src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&amp;serve=C6ADVKE&amp;placement=danstools"
 			id="_fancybar_js"></script>
 
@@ -312,7 +297,7 @@ body {
 	<!--  頁面部分 結束 -->
 
       
-<!-- 	<div class="row"> -->
+
     <!-- 3D Css -->
 <!-- 			<div class="col-md-4 "></div> -->
 <!-- 			<div class="col-md-4  "> -->
@@ -347,52 +332,6 @@ body {
 	
 	jQuery(function($){
 	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/logo.png">')
-	var Islogin='${pageContext.request.queryString}'
-		if(Islogin=='NoLogin'){
-			Custombox.open({
-                target: '#login-box',
-                effect: 'rotate'
-            });
-	      	 //google 開始	      	 
-            gapi.load('auth2', function () {
-                auth2 = gapi.auth2.init({
-                    client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
-                    cookiepolicy: 'single_host_origin',
-                    scope: 'profile'
-                });
-                auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
-                  function (googleUser) {
-//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
-                	 var ImageUrl;
-                     if (googleUser.getBasicProfile().getImageUrl() == undefined) {
-                         ImageUrl = null;
-                     } else {
-                         ImageUrl = googleUser.getBasicProfile().getImageUrl()
-                     }
-                      $.ajax({
-           		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
-           		          type:'post',  //get post put delete
-           		          data:{nickname:googleUser.getBasicProfile().getName(),
-           		        	  	e_mail:googleUser.getBasicProfile().getEmail(),
-           		        	  	photoUrl:ImageUrl 
-           		          },
-           		          success:function(){
-           		        	  location.href ='${pageContext.request.requestURI}';
-           		          }          	 
-           		      })
-           		  
-                  }, function (error) {       	  
-                      console.log('Sign-in error', error);
-                  }                    
-                   );
-            });     
-      	 $("#googleSignIna").click(function(e){
-    		 e.preventDefault(); 
-    	 })  
-    	 //google 結束
-		}
 		$(document).ready(function() {
 
 				$(".player").mb_YTPlayer();

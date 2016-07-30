@@ -220,7 +220,7 @@ width:24px;
 					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
 					   			+ '<a><span class="badge countLike">'+likenum+'</span></a>'
 	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="texthere message_div">'	
-					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
+					   			+ '<textarea maxlength="30" class="form-control lotextarea" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
 					   			+ '</div>')
 	            			 }//留言success結束
@@ -287,7 +287,7 @@ width:24px;
 	   					   			+'<a type="button" class="btn btn-link likethis"><span class="_soakw coreSpriteHeartOpen "></span></a>'
 	   					   			+ '<a><span class="badge countLike">'+likenum+'</span></a>'
 	   	            				+'</div><div class="out_message_div">'+message+'</div></div><div class="texthere message_div">'	
-	   					   			+ '<textarea maxlength="30" class="form-control" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
+	   					   			+ '<textarea maxlength="30" class="form-control lotextarea" cols="30" rows="1"  placeholder="留言最大30字數....."></textarea>'
 	   					   			+ '<button type="button" class="btn btn-info pull-right message_submit_button" >送出 </button>'
 	   					   			+ '</div>')
 	   	            			 }//留言success結束
@@ -322,7 +322,7 @@ width:24px;
 	        })//第1次ajax結束    
 	      // enter換行變成shift enter ,enter變送出
 
-			$('body').on('keydown', 'textarea', function (event) {
+			$('body').on('keydown', 'textarea.lotextarea', function (event) {
 				if (event.keyCode == 13 && !event.shiftKey) {
 					var theJournal_Id = $(this).parents().siblings(".messge_header_body").find(".header_div>p:nth-child(1)").text();
 					var val = $(this).val();
@@ -373,17 +373,17 @@ width:24px;
 								}
 							})
 							messageDiv.find('.message_div:last .innercontent_div').append('<p class="time_p"></p>')
-						.find('.time_p:last').text( new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss'))
+						.find('.time_p:last').text( jQuery.timeago(new Date(theMessageTime).Format('yyyy-MM-dd hh:mm:ss')))
 						
 						$('#'+theJournal_Id+' div[data-desc]').attr('data-desc',$('.product-desc').html())					
 						}
 					}
 	            })
 			}
-	       $("body").on("focusin","textarea",function(e){
+	       $("body").on("focusin","textarea.lotextarea",function(e){
 	        	$(document).off('keyup')  	
 	        })
-	      $("body").on("focusout","textarea",function(e){
+	      $("body").on("focusout","textarea.lotextarea",function(e){
 		        	   $(document).on('keyup', function (e) {
 		                   e.preventDefault();
 		                   //Close popup on esc
@@ -429,7 +429,9 @@ width:24px;
 				var likenumcount=likenum.text()
 				var thisID=$(this).siblings("p[hidden]").text();
 				var tset= theclick.find('span').hasClass("coreSpriteHeartFull");
-				if(!tset){
+				if("${LoginOK.member_Id}"==""){
+					errorAlert('警告','請先登入')
+				}else if(!tset){
 					$.ajax({
 						url:"${this_contextPath}/CRFSERVICE/laudationcontroller/laudationjournal",
 						type: "post",

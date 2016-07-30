@@ -51,9 +51,7 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         } 
         
         if("2".equals(type)){
-        	TextMessage tm = new TextMessage(g.toJson(datas));
-        	System.out.println(datas.get("Time")); 
-        	
+        	TextMessage tm = new TextMessage(g.toJson(datas));   	
         	long batch_date = Long.parseLong(datas.get("Time").toString()); 
             Date dt = new Date (batch_date); 
         	SimpleDateFormat sfd = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
