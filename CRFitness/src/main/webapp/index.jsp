@@ -24,6 +24,12 @@ body {
 	font-size: 24px;
 }
 
+.resizable(@direction: both) {
+  // Options: horizontal, vertical, both
+  resize: @direction;
+  // Safari fix
+  overflow: auto;
+}
 
 </style>
 </head>
@@ -50,8 +56,8 @@ body {
 						<div class="video_play">
 							<div class="row">
 								<div class="col-lg-12">
-									<h1>C.R.F<small style="color:#fff;">itness</small></h1>
-									<h3>Enjoy motion to change your life</h3>
+									<h1 class="resizable">C.R.F<small class="resizable" style="color:#fff;">itness</small></h1>
+									<h3 class="resizable">Enjoy motion to change your life</h3>
 								</div>
 							</div>
 						</div>
@@ -268,31 +274,44 @@ body {
 	</div>
 	</aside>
 	
-	
-<footer class="bs-footer" role="contentinfo">
-  <div class="container">
-    <div class="bs-social">
-      <ul class="bs-social-buttons" style="list-style: none;">
-<!--         <li class="follow-btn" style="display:inline;"> -->
-<!--           <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" title="Twitter Follow Button" src="http://platform.twitter.com/widgets/follow_button.a9003d9964444592507bbb36b98c709b.en.html#dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=bootsnipp&amp;show_count=false&amp;show_screen_name=true&amp;size=m&amp;time=1469761594455" style="position: static; visibility: visible; width: 136px; height: 20px;" data-screen-name="bootsnipp"></iframe> -->
-<!--         </li> -->
-<!--         <li class="tweet-btn" style="display:inline;"> -->
-<!--           <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="http://platform.twitter.com/widgets/tweet_button.a9003d9964444592507bbb36b98c709b.en.html#dnt=false&amp;id=twitter-widget-1&amp;lang=en&amp;original_referer=http%3A%2F%2Fbootsnipp.com%2F%3Fpage%3D15&amp;related=bootsnipp&amp;size=m&amp;text=RT%20Design%20elements%20and%20code%20snippets%20for%20%23twbootstrap%20HTML%2FCSS%2FJS%20framework&amp;time=1469761594456&amp;type=share&amp;url=http%3A%2F%2Fbootsnipp.com&amp;via=bootsnipp" style="position: static; visibility: visible; width: 63px; height: 20px;" data-url="http://bootsnipp.com"></iframe> -->
-<!--         </li> -->
-      </ul>
-    </div>
-    <p>CRFitness.com © 2016 <a href="http://www.danstools.com" target="_blank">Dan's Tools</a> | <a href="http://bootsnipp.com/privacy" target="_blank">Site Privacy policy</a> | <a href="https://www.buysellads.com/buy/detail/270577" rel="nofollow">Advertise</a> | Featured snippets are <a href="http://bootsnipp.com/license">MIT license.</a> </p>
-  </div>
-<style>
-._fancybar{margin-top:50px !important;z-index: 5}
+		  <!-- footer start -->
+	<footer class="bs-footer" role="contentinfo">
+		<div class="container">
+			<div class="bs-social">
+				<ul class="bs-social-buttons" style="list-style: none;">
+					<!--         <li class="follow-btn" style="display:inline;"> -->
+					<!--           <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" title="Twitter Follow Button" src="http://platform.twitter.com/widgets/follow_button.a9003d9964444592507bbb36b98c709b.en.html#dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=bootsnipp&amp;show_count=false&amp;show_screen_name=true&amp;size=m&amp;time=1469761594455" style="position: static; visibility: visible; width: 136px; height: 20px;" data-screen-name="bootsnipp"></iframe> -->
+					<!--         </li> -->
+					<!--         <li class="tweet-btn" style="display:inline;"> -->
+					<!--           <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="http://platform.twitter.com/widgets/tweet_button.a9003d9964444592507bbb36b98c709b.en.html#dnt=false&amp;id=twitter-widget-1&amp;lang=en&amp;original_referer=http%3A%2F%2Fbootsnipp.com%2F%3Fpage%3D15&amp;related=bootsnipp&amp;size=m&amp;text=RT%20Design%20elements%20and%20code%20snippets%20for%20%23twbootstrap%20HTML%2FCSS%2FJS%20framework&amp;time=1469761594456&amp;type=share&amp;url=http%3A%2F%2Fbootsnipp.com&amp;via=bootsnipp" style="position: static; visibility: visible; width: 63px; height: 20px;" data-url="http://bootsnipp.com"></iframe> -->
+					<!--         </li> -->
+				</ul>
+			</div>
+			<p>
+				CRFitness.com © 2016 <a href="http://www.danstools.com"
+					target="_blank">Dan's Tools</a> | <a
+					href="http://bootsnipp.com/privacy" target="_blank">Site
+					Privacy policy</a> | <a
+					href="https://www.buysellads.com/buy/detail/270577" rel="nofollow">Advertise</a>
+				| Featured snippets are <a href="http://bootsnipp.com/license">MIT
+					license.</a>
+			</p>
+		</div>
+		<style>
+._fancybar {
+	margin-top: 50px !important;
+	z-index: 5
+}
 </style>
-<script async="" type="text/javascript" src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&amp;serve=C6ADVKE&amp;placement=danstools" id="_fancybar_js"></script>
+		<script async="" type="text/javascript"
+			src="//cdn.fancybar.net/ac/fancybar.js?zoneid=1502&amp;serve=C6ADVKE&amp;placement=danstools"
+			id="_fancybar_js"></script>
 
-</footer>
+	</footer>
+	<!-- footer end -->
 	<!--  頁面部分 結束 -->
-	  <!-- footer start -->
+
       
-      <!-- footer end -->
 <!-- 	<div class="row"> -->
     <!-- 3D Css -->
 <!-- 			<div class="col-md-4 "></div> -->
@@ -422,7 +441,7 @@ body {
             $(data).find("item").each(function(){  //取得xml父節點       
             var total = $(data).find("item").length;//xml的總筆數
       		var title = $(this).children("title").text(); //取得子節點中的資料
-      		var pubDate = $(this).children("pubDate").text();
+      		var pubDate = $(this).children("pubDate").text().substr(0,26);
       		var link = $(this).children("link").text();
       		
       		$('#rss-in').append('<div class="item">'
@@ -431,7 +450,7 @@ body {
       				+'<br/><br/>'+pubDate+'</a></h3>'
       				+'</div>')
 
-
+      			
       		
 			})
 		}
