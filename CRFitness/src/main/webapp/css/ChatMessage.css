@@ -32,7 +32,7 @@
   background: #8ab2ea;
   margin: 0;
   padding: 0 10px 10px;
-  max-height:300px;
+  height:300px;
   overflow-x:hidden;
 }
 .top-bar {
@@ -135,4 +135,7 @@
     position:fixed;
     left:0px;
     bottom:0;
+}
+textarea{
+	resize: none;
 }

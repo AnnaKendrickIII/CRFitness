@@ -250,7 +250,7 @@
 					+'</div>'
 					+'<div class="panel-footer">'
 				+'<div class="input-group">'
-				+'<input  type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
+				+'<textarea maxlength="180" class="form-control input-sm chat_input" cols="15" rows="1"  placeholder="Write your message here..."></textarea>'
 				+'<span class="input-group-btn">'
 				+'<button class="btn btn-primary btn-sm" >Send</button>'
 				+'</span><span class="friendId_Here" hidden="hidden">'+userID+'</span>' 
@@ -262,8 +262,58 @@
 				NoReadAppend(userID)
 				$( ".chat-window" ).draggable();	
    	}
-   
-    
+   //增加已讀3則
+    function IsReadThree(friendId){ 	
+    	$.ajax({
+	          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
+	          type:'get',  //get post put delete
+			  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
+			  success:function(data){
+				 $('#myfriend').modal('hide')			
+				 $.each(data,function(){	
+					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
+		 		   var jdate_value = new Date(jdate_int);
+					 if('${LoginOK.member_Id}'==this.member_Id){
+						$('#'+friendId+' .msg_container_base').prepend(
+								'<div class="row msg_container base_sent ">'
+								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+			 		            +'<div class="messages msg_sent">'
+			 		            +'<p>'+this.chat_Detail+'</p>'         
+			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+			 		            +'</div>'
+			 		            +'</div>'
+			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+			 		            +'</div>'
+			 		            +'</div>' 
+	 							 
+						 )
+					
+					 }else{
+						$('#'+friendId+' .msg_container_base').prepend(
+								'<div class="row msg_container base_receive ">'
+			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+			 		            +'</div>'     
+			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+			 		            +'<div class="messages msg_sent">'
+			 		            +'<p>'+this.chat_Detail+'</p>'         
+			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+			 		            +'</div>'
+			 		            +'</div>'
+			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+			 		            +'</div>' 		         	
+						 )				
+					 } 
+				 })
+				 //捲軸置底  	
+				var basecon = $('#'+friendId+' .msg_container_base');
+				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
+			  } 			
+		})
+    	
+    }
     var userID = '${LoginOK.member_Id}';
     var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
  
@@ -311,7 +361,8 @@
 				 }else{
 					if(!($('#'+data.userID).html())){	
 						bodyappend(data.userID,data.friendName)
-					}	
+						IsReadThree(data.userID)//增加已讀3則訊息	
+					}else{	
 					$('#'+data.userID+' .msg_container_base').append(
 							'<div class="row msg_container base_receive ">'
 		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -326,6 +377,7 @@
 		 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
 		 		            +'</div>' 		         	
 					 )
+					}
 				 } 
         	var basecon = $('.msg_container_base');
 				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
@@ -362,12 +414,13 @@
 	})
     //右下腳按鈕 送出
 	$('body').on('click', '.input-group-btn', function (event) {
+		event.preventDefault();
 		var val = $(this).prev().val()
 		var friendName='${LoginOK.nickname}'
 		var friendId=$(this).siblings(".friendId_Here").text()
 		if(val.trim().length != 0){
 			val = val.replace(/\r?\n/g, '</br> ')
-			sendMessage(friendId, val, (new Date().getTime()).toString,friendName);
+			sendMessage(friendId, val, (new Date().getTime()).toString(),friendName);
 			$(this).prev().val('');
 		}
 	})  
@@ -411,57 +464,9 @@
  		
  		$('body').on('click', '.chat_icon_css', function (e) {
  			var friendId=$(this).find('span[hidden]').text()
- 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();
- 			 //增加聊天框
-			 bodyappend(friendId,WhoName) 		
- 			$.ajax({
- 		          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
- 		          type:'get',  //get post put delete
- 				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
- 				  success:function(data){
- 					 $('#myfriend').modal('hide')			
- 					 $.each(data,function(){	
- 						var jdate_int = parseInt(this.chatTime);                          //轉換成數字
- 			 		   var jdate_value = new Date(jdate_int);
- 						 if('${LoginOK.member_Id}'==this.member_Id){
- 							$('#'+friendId+' .msg_container_base').prepend(
- 	 								'<div class="row msg_container base_sent ">'
- 	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
- 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
- 	 			 		            +'<div class="messages msg_sent">'
- 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
- 	 			 		            +'</div>'
- 	 			 		            +'</div>'
- 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
- 	 			 		            +'</div>'
- 	 			 		            +'</div>' 
- 	 	 							 
- 							 )
- 						
- 						 }else{
- 							$('#'+friendId+' .msg_container_base').prepend(
- 	 								'<div class="row msg_container base_receive ">'
- 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
- 	 			 		            +'</div>'     
- 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
- 	 			 		            +'<div class="messages msg_sent">'
- 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
- 	 			 		            +'</div>'
- 	 			 		            +'</div>'
- 	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
- 	 			 		            +'</div>' 		         	
- 							 )				
- 						 } 
- 					 })
- 					 //捲軸置底  	
- 					var basecon = $('#'+friendId+' .msg_container_base');
- 					basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
- 				  } 			
- 			})		
+ 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();		 
+			 bodyappend(friendId,WhoName)//增加聊天框 		 
+			 IsReadThree(friendId)//增加已讀3則訊息		
         });
  		$('body').on('click', '.icon_close', function (e) {
            $(this).parent().parent().parent().parent().parent().parent().remove();
