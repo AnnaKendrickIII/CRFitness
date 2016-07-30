@@ -70,6 +70,31 @@ public class ChatDAO implements ChatDAO_interface {
 		return (List<ChatVO>) query.list();	
 	}
 	
+	@Override
+	public List<Object[]> select_NoRead_Friends_Allmessage(String member_Id) {	
+			Query query = this.getSession().createSQLQuery(
+					"SELECT DISTINCT Chat.ChatStuts,Chat.Member_Id,Members.Nickname "
+					+"from Chat join Members "
+				    +"on Chat.Member_Id =Members.Member_Id "
+					+"where  Friend_Id='"+member_Id+"' "
+					+"and (ChatStuts=0 or ChatStuts=2 or ChatStuts=3) ")
+					.addScalar("ChatStuts",StringType.INSTANCE)
+					.addScalar("Member_Id",StringType.INSTANCE)
+					.addScalar("Nickname",StringType.INSTANCE);				
+		return (List<Object[]>) query.list();	
+	}
+	
+	@Override
+	public List<ChatVO> select_AddFriends_ChatStuts(String member_Id) {	
+			Query query = this.getSession().createSQLQuery(
+					"SELECT  Chat.*  "
+					+"from Chat "
+					+"where  Friend_Id='"+member_Id+"' "
+					+"and  ChatStuts=2")
+					.addEntity(ChatVO.class);				
+		return (List<ChatVO>) query.list();	
+	}
+	
 	@Override//更新未讀為已讀
 	public void updateNoReade_status(ChatVO chatVO) {
 			this.getSession().saveOrUpdate(chatVO);	
@@ -88,13 +113,14 @@ public class ChatDAO implements ChatDAO_interface {
 		}
 		return null;
 	}
+	
 	@Override
 	public int updatefriendstatus(ChatVO chatVO) {
 		if (chatVO != null) {
 			Query query = this.getSession().createSQLQuery(
 					"update Chat set ChatStuts="
 			+chatVO.getChatStuts()+" where Member_Id='"
-			+chatVO.getMember_Id()+"' and Friend_Id='"+chatVO.getFriend_Id()+
+			+chatVO.getFriend_Id()+"' and Friend_Id='"+chatVO.getMember_Id()+
 			"' and (ChatStuts=2 or ChatStuts=3)");
 			return query.executeUpdate();
 		}

@@ -46,4 +46,18 @@ public class ChatService {
 				chatDAO.updateNoReade_status(chatVO);		
 		}	 
 	}
+	
+	//變更好友對本人加好友訊息 未讀為已讀
+		public int update_AddFriends_ChatStuts(String member_Id){	
+			List<ChatVO> list=chatDAO.select_AddFriends_ChatStuts(member_Id);
+			for( ChatVO chatVO:list){				
+					chatVO.setChatStuts(3);
+					chatDAO.updateNoReade_status(chatVO);		
+			}	
+			return list.size();
+		}
+	//查詢我有幾則未讀訊息以及好友邀請
+	public List<Object[]>  select_NoRead_Friends_Allmessage(String member_Id){
+		return chatDAO.select_NoRead_Friends_Allmessage(member_Id);	
+	}
 }

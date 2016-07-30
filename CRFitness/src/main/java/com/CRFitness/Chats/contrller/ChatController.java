@@ -38,4 +38,16 @@ public class ChatController {
 			@RequestParam String member_Id,@RequestParam String friend_Id){	
 		 chatService.update_NoReade_Friends_message(member_Id, friend_Id);	
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value ="/update_AddFriends_ChatStuts")
+	public @ResponseBody int update_AddFriends_ChatStuts(
+			@RequestParam String member_Id){	
+		return chatService.update_AddFriends_ChatStuts(member_Id);	
+	}
+	//查詢我有幾則未讀訊息以及好友邀請
+	@RequestMapping(method = RequestMethod.GET, value ="/select_NoRead_Friends_Allmessage", produces = "application/json; charset=utf-8")
+	public @ResponseBody List<Object[]> select_NoRead_Friends_Allmessage(
+				@RequestParam String member_Id){	
+		return chatService.select_NoRead_Friends_Allmessage(member_Id);	
+	}
 }

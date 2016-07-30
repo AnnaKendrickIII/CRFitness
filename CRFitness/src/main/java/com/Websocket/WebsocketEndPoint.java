@@ -61,8 +61,13 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         else if("3".equals(type))//關掉
         {
             clients.remove(datas.get("userID").toString());
+        } else if("4".equals(type))//加好友
+        {
+        	TextMessage tm = new TextMessage(g.toJson(datas)); 
+        	addFriend(datas.get("userID").toString(),datas.get("friendId").toString(), 
+        			datas.get("myName").toString(), tm);
         }
-
+ 
     }
     private void sendToAll(TextMessage tm)
     {
@@ -102,6 +107,18 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
 				}
 	}
 	
-	
+  public void addFriend(String member_Id,String friend_Id,String Who,TextMessage message) {
+		try {
+			if(clients.containsKey(friend_Id)){
+				if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {	
+					clients.get(friend_Id).sendMessage(message);	
+				}
+			}else{
+									
+			}			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+}
     
 }
