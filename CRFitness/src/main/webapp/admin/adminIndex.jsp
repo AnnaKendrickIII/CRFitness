@@ -12,7 +12,7 @@
 
     <title>Index</title>
 	
-    <jsp:include page="${this_contextPath}/admin/adminFrame.jsp"/>
+    <jsp:include page="/admin/adminFrame.jsp"/>
     	
   </head>
 

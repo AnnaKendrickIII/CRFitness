@@ -263,7 +263,7 @@
                           <span>維護健康日誌</span>
                       </a>
                       <ul class="sub">
-                      	<li><a href="${this_contextPath}/admin/MaintainJournals.jsp" >日誌專區</a></li>
+                      	<li><a href="${this_contextPath}/admin/adminJournals.jsp" >日誌專區</a></li>
                       </ul>
                   </li>
 
@@ -273,10 +273,10 @@
                           <span>維護商品專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="${this_contextPath}/admin/MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a  href="${this_contextPath}/admin/adminProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
+                          <li><a  href="${this_contextPath}/admin/adminProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                          <li><a  href="${this_contextPath}/admin/adminProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
+                          <li><a  href="${this_contextPath}/admin/adminProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                       </ul>
                   </li>
                   
@@ -286,7 +286,7 @@
                           <span>維護揪團專區</span>
                       </a>
                       <ul class="sub">
-                      	<li><a href="${this_contextPath}/admin/MaintainActivities.jsp" >揪團專區</a></li>
+                      	<li><a href="${this_contextPath}/admin/adminActivities.jsp" >揪團專區</a></li>
                       </ul>
                   </li>
                   
@@ -296,7 +296,7 @@
                           <span>維護會員資訊</span>
                       </a>
                       <ul class="sub">
-                      	<li><a href="${this_contextPath}/admin/MaintainMembers.jsp" >會員資訊</a></li>
+                      	<li><a href="${this_contextPath}/admin/adminMembers.jsp" >會員資訊</a></li>
                       </ul>
                    </li>
                       
@@ -306,7 +306,7 @@
                           <span>維護訂單專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="${this_contextPath}/admin/MaintainOrders.jsp">訂單專區</a></li>
+                          <li><a  href="${this_contextPath}/admin/adminOrders.jsp">訂單專區</a></li>
                       </ul>
                    </li>
                 </ul>
