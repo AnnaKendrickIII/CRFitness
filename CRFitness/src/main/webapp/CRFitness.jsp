@@ -588,7 +588,7 @@
          $('#contact-list').searchable({
             searchField: '#contact-list-search',
             selector: 'li',
-            childSelector: '.col-xs-12',
+            childSelector: '.friend_name_div',
             show: function (elem) {
                 elem.slideDown(100);
             },
@@ -1016,9 +1016,7 @@
                 });
                 auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
                   function (googleUser) {
-//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
+       	
                 	 var ImageUrl;
                      if (googleUser.getBasicProfile().getImageUrl() == undefined) {
                          ImageUrl = null;

@@ -12,10 +12,13 @@
  /> 
   <!--              MySQL(範例程式會用到的DataSource)    
   <Resource name="jdbc/JavaDataBase" type="javax.sql.DataSource"
-      username="crfitness@crfitnessdb" password="Qwer235689"
+      username="crfitnessadmin@crfproj" password="Qwer235689"
       driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-      url="jdbc:sqlserver://crfitnessdb.database.windows.net:1433;databaseName=proj"
-  />         
+      url="jdbc:sqlserver://crfproj.database.windows.net:1433;database=crfproj"
+      maxActive="8"
+      maxIdle="4"
+      maxWait="5000"
+  /> 
   -->
   <!-- 
   <Resource name="jdbc/MemberDataBase" type="javax.sql.DataSource"
