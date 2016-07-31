@@ -137,7 +137,7 @@ th{
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
-              <a href="MaintainJournals.jsp" class="go-top">
+              <a href="adminJournals.jsp" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>

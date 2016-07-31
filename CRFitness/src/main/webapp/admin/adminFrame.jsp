@@ -85,14 +85,14 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="Index.jsp" class="logo"><b>C.R.Fitness Administration</b></a>
+            <a href="adminIndex.jsp" class="logo"><b>C.R.Fitness Administration</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
                     <!-- settings start -->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="adminIndex.jsp">
                             <i class="fa fa-tasks"></i>
                             <span class="badge bg-theme">4</span>
                         </a>
@@ -102,7 +102,7 @@
                                 <p class="green">You have 4 pending tasks</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">DashGum Admin Panel</div>
                                         <div class="percent">40%</div>
@@ -115,7 +115,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Database Update</div>
                                         <div class="percent">60%</div>
@@ -128,7 +128,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Product Development</div>
                                         <div class="percent">80%</div>
@@ -141,7 +141,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Payments Sent</div>
                                         <div class="percent">70%</div>
@@ -161,7 +161,7 @@
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="adminIndex.jsp">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme">5</span>
                         </a>
@@ -171,7 +171,7 @@
                                 <p class="green">You have 5 new messages</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Zac Snider</span>
@@ -183,7 +183,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Divya Manian</span>
@@ -195,7 +195,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dan Rogers</span>
@@ -207,7 +207,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dj Sherman</span>
@@ -219,7 +219,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">See all messages</a>
+                                <a href="adminIndex.jsp">See all messages</a>
                             </li>
                         </ul>
                     </li>
@@ -250,17 +250,20 @@
              		</script >
               	</c:if>
                   <li class="mt">
-                      <a class="active" href="Index.jsp">
+                      <a class="active" href="adminIndex.jsp">
                           <i class="fa fa-dashboard"></i>
                           <span>主控台</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="MaintainJournals.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-book"></i>
                           <span>維護健康日誌</span>
                       </a>
+                       <ul class="sub">
+                          <li><a  href="adminJournals.jsp">健康日誌</a></li>
+                      </ul>                      
                   </li>
 
                   <li class="sub-menu">
@@ -269,32 +272,39 @@
                           <span>維護商品專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="MaintainActivities.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-users"></i>
                           <span>維護揪團專區</span>
                       </a>
+                       <ul class="sub">
+                          <li><a  href="adminActivities.jsp">揪團專區</a></li>
+                      </ul>                      
                   </li>
+                  
                   <li class="sub-menu">
-                      <a href="MaintainMembers.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-commenting"></i>
                           <span>維護會員資訊</span>
                       </a>
+                       <ul class="sub">
+                          <li><a  href="adminMembers.jsp">會員資訊</a></li>
+                      </ul>
                   </li>
+                  
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-usd" aria-hidden="true"></i>
-                          <span>Charts</span>
+                          <span>維護訂單專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="morris.html">Morris</a></li>
-                          <li><a  href="chartjs.html">Chartjs</a></li>
+                          <li><a  href="adminOrders.jsp">訂單專區</a></li>
                       </ul>
                   </li>
 
@@ -305,46 +315,44 @@
       <!--sidebar end-->
       
 <!-- 登入對話方塊   開始 -->   
-
-<!--       <div class="container">  -->
     <c:if test="${empty LoginOK}">
       	<script type="text/javascript"> 	 
-        	$(function () {
-            	Custombox.open({
-                	target: '#login-box',
-                    effect: 'Sign'
-                });
-                console.log('success');
-                $('.okay').click(function () {	
-                	Custombox.close('#login-box') 
-                }) 
-            });
+//         	$(function () {
+//             	Custombox.open({
+//                 	target: '#login-box',
+//                     effect: 'Sign'
+//                 });
+//                 console.log('success');
+//                 $('.okay').click(function () {	
+//                 	Custombox.close('#login-box') 
+//                 }) 
+//             });
        	</script>
 
-	<div id="login-box" class="login-popup ">
-		<form name="member" class="form-login"
-			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post">
-			<div id="login_div">
-				<h2 class="form-login-heading">Administration</h2>
-				<div class="login-wrap">
-					<input required="required" type="email" name="memberVO.e_mail"
-						class="form-control" placeholder="E-Mail" autofocus="autofocus"
-						value="${param['memberVO.e_mail']}" /> <br /> 
-					<input required="required" type="password" name="memberVO.password"
-						class="form-control" placeholder="Password"
-						value="${param['memberVO.password']}" /> 
-					<label class="checkbox">
-					</label>
-					<button name="member_action" class="btn btn-theme btn-block okay"
-						    type="submit" value="SIGN_IN">
-							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN
-					</button>
-					<div class="error_div">${LoginErrorMessage}</div>
-				</div>
-			</div>
-		</form>
-	</div> <!-- end 327 -->
-	</c:if >
+<!-- 	<div id="login-box" class="login-popup "> -->
+<!-- 		<form name="member" class="form-login" -->
+<%-- 			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post"> --%>
+<!-- 			<div id="login_div"> -->
+<!-- 				<h2 class="form-login-heading">Administration</h2> -->
+<!-- 				<div class="login-wrap"> -->
+<!-- 					<input required="required" type="email" name="memberVO.e_mail" -->
+<!-- 						class="form-control" placeholder="E-Mail" autofocus="autofocus" -->
+<%-- 						value="${param['memberVO.e_mail']}" /> <br />  --%>
+<!-- 					<input required="required" type="password" name="memberVO.password" -->
+<!-- 						class="form-control" placeholder="Password" -->
+<%-- 						value="${param['memberVO.password']}" />  --%>
+<!-- 					<label class="checkbox"> -->
+<!-- 					</label> -->
+<!-- 					<button name="member_action" class="btn btn-theme btn-block okay" -->
+<!-- 						    type="submit" value="SIGN_IN"> -->
+<!-- 							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN -->
+<!-- 					</button> -->
+<%-- 					<div class="error_div">${LoginErrorMessage}</div> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
+<!-- 	</div> end 321 -->
+	</c:if > <!-- end 307 -->
 <!-- 登入對話方塊   結束 -->
       
       <!-- **********************************************************************************************************************************************************
@@ -357,7 +365,7 @@
 <!--       <footer class="site-footer"> -->
 <!--           <div class="text-center"> -->
 <!--               2016 - C.R.Fitness Co., Ltd. -->
-<!--               <a href="Index.jsp" class="go-top"> -->
+<!--               <a href="adminIndex.jsp" class="go-top"> -->
 <!--                   <i class="fa fa-angle-up"></i> -->
 <!--               </a> -->
 <!--           </div> -->
