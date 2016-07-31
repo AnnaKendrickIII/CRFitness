@@ -238,7 +238,8 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner" id="rss-in">
             <div class="item active">
-              <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3>
+           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive"/>
+<!--               <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3> -->
             </div>
 <!--             <div class="item"> -->
               
@@ -385,7 +386,7 @@ body {
       		
       		$('#rss-in').append('<div class="item">'
       				+'<h3 class="tilecaption">'
-      				+'<a style="text-decoration: none;color: white;" href="'+link+'">'+title+''
+      				+'<a style="text-decoration: none;color: black;" href="'+link+'">'+title+''
       				+'<br/><br/>'+pubDate+'</a></h3>'
       				+'</div>')
 
