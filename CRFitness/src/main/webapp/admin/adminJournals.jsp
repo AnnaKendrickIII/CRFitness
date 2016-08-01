@@ -10,9 +10,9 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-	<title>MaintainActivities</title>
+	<title>MaintainJournals</title>
     
-    <jsp:include page="AdminFrame.jsp"/>
+    <jsp:include page="/admin/adminFrame.jsp"/>
   </head>
   <script type="text/javascript">
 	//轉換日期的小程式   開始
@@ -109,19 +109,19 @@ th{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="activities_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="journals_table">
 		
 			<thead>
 				<tr class="btn-primary" >
 					<th><h3><i class="fa fa-picture-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
-					<th><h3># 揪團編號</h3></th>
+					<th><h3># 日誌編號</h3></th>
 					<th><h3># 會員ID</h3></th>
-					<th><h3><i class="fa fa-sun-o" aria-hidden="true"></i><strong> 活動日</strong></h3></th>
-					<th><h3><i class="fa fa-tree" aria-hidden="true"></i><strong> 活動地區</strong></h3></th>
+					<th><h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i><strong> 日誌內容</strong></h3></th>
+					<th><h3><i class="fa fa-calendar" aria-hidden="true"></i><strong> 發表時間</strong></h3></th>
 					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i><strong> 狀態</strong></h3></th>
 				</tr>
 			</thead>
-			<tbody id="activities_tbody"></tbody>
+			<tbody id="journals_tbody"></tbody>
 		
             	</table>
         	</div><!-- /content-panel -->
@@ -137,7 +137,7 @@ th{
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
-              <a href="MaintainActivities.jsp" class="go-top">
+              <a href="adminJournals.jsp" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -154,72 +154,74 @@ th{
 		
 		new UISearch(document.getElementById('sb-search'));
 
-// 1.顯示揪團的程式   開始
-	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/activitysController/AllActivitys",
-		type : 'get', //get post put delete
-		data : {},
-		success : function(data) {
-			$.each( data,
-				function(index) {
-					var adate_int = parseInt(this.activity_Day); //轉換成數字
-					var adate_value = new Date(adate_int);
-					var Status = 0;
-					if(this.activity_Status == 1){
-						Status = 1;
-					}else if(this.activity_Status == 0){
-						Status = 0;
-					};
-					$('#activities_tbody').append('<tr class="'+this.activity_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
-						 							+ this.activity_Id+'.jpg" class="img-thumbnail img-responsive" />'                              
-													+ '</td><td><h4>'                              
-													+ this.activity_Id
-													+ '</td><td><h4>'
-													+ this.member_Id
-													+ '</td><td><h4>'
-													+ adate_value.Format("yyyy-MM-dd hh:mm:ss")
-													+ '</td><td><h4>'
-													+ this.activity_Area
-													+ '</td><td hidden="hidden">'
-									                + this.activity_Status
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
-													+ '</td></tr>') // end of append
-												}) // end of $.each(
-					// 會員狀態on&off的程式   開始
-					$('.easyswitch').easyswitch();
-					// 會員狀態on&off的程式   結束
-					// 改變會員狀態的程式 開始
-					$('body').on('click', '.3g', function(activity_Id, activity_Status){
-// 					console.log($(this).parent().siblings(":eq(5)").text());
-// 					console.log($(this).parent().siblings(":eq(1)").text());
- 						var this_actStatus = $(this).parent().siblings(":eq(5)");
-						var activityId = $(this).parent().siblings(":eq(1)").text();
-						var actStatus = this_actStatus.text();
-						var reversedState = 0;
-						if(actStatus == 1){
-							reversedState = 0;
-						}else{
-							reversedState = 1;
-							};
-						 $.ajax({
-							    url:"${this_contextPath}/CRFSERVICE/activitysControllerBE/changeStatus",
-						        type:'post',  //get post put delete
-					    		data: {'activity_Id': activityId,
-										'activity_Status': reversedState}, //
-						    	success:function(data){
-						    		this_actStatus.text("reversedState")
-						        } // end of success:function(data)	 
-						 }) // end of $.ajax({  	    	   
-					}); // end of $('.3g').click(function () {
-					// 改變會員狀態的程式 結束
-			$("#activities_table").searcher({
-		    	inputSelector: "#tablesearchinput"
-		    })						
-		} // end of success : function(data) 
-	}) // end of $.ajax({
-// 1.顯示揪團的程式   結束			
+		// 3.顯示日誌的程式   開始
+		$.ajax({
+			url : "${this_contextPath}/CRFSERVICE/commonJournalControllerBE/getAllFlagJournal",
+			type : 'get', //get post put delete
+			data : {},
+			success : function(data) {
+				$.each( data, function(index) {
+					var jdate_int = parseInt(this.publishTime); //轉換成數字
+					var jdate_value = new Date(jdate_int);
+						$('#journals_tbody').append('<tr class="'+this.journal_Id+'">'
+						+ '<td ><img class="img-thumbnail" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'+this.journal_Id+'" /></td>'
+						+ '<td><h4>'+ this.journal_Id+'</td>'
+						+ '<td><h4>'+ this.member_Id+ '</td>'
+						+ '<td><a href="#" title="'+this.contents+'"><h4>'+this.contents.substring(0,6)+'...</a></td>'
+						+ '<td><h4>'+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</td>'
+//	 					+ '<td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="公開" data-label-off="隱藏"></td>'
+						+ '<td>'
+						+ '<div class="radio"><label><input type="radio" name="'+this.journal_Id+'" value="4" >封鎖</label><br/><label><input type="radio" name="'+this.journal_Id+'" value="1" >開放</label></div>'
+						+ '</td>'
+						+ '</tr>') // end of append
+						}) // end of $.each(
 
-}); // end 156 jQuery(function ($)
+		$('#journals_table').on('change', '.radio>label>input', function(){
+			var JournalStatus = $(this); 
+			var this_memStatus = $(this).parents('td').siblings(":eq(5)");
+			var journal_Id = $(this).parents('td').siblings(":eq(1)").text();
+			if($(this).val() == 4){
+				alertify.confirm().set('title', '警告');
+				alertify.confirm('確認封鎖此日誌', 
+					function(){
+						updateFlagJournal(journal_Id, JournalStatus.val(), this_memStatus)
+					},function(){
+						JournalStatus.prop('checked',false)
+					}
+				)
+			}else{
+				updateFlagJournal(journal_Id, JournalStatus.val(), this_memStatus)
+			}
+		})
+		
+		// 封鎖或開放日誌狀態的程式
+		function updateFlagJournal(theJournal_Id, theJournalStatus, this_memStatus){
+			 $.ajax({
+			    url:"${this_contextPath}/CRFSERVICE/commonJournalControllerBE/updateFlagJournal",
+		        type:'post',  //get post put delete
+	    		data: {'journal_Id': theJournal_Id,
+						'publicStatus': theJournalStatus},
+		    	success:function(data){
+		    		console.log(data)
+					// this_memStatus.text(theJournalStatus)
+		        } 
+			 }) // end $.ajax({
+		} // end function updateFlagJournal
+		
+		
+			} // end of success : function(data) 
+		}) // end of $.ajax({
+			
+		// contents hidden
+		$('#journals_table').on('hover', 'td:nth-child(4)' ,function(){
+			$(this).tooltip();
+		})
+	
+	$("#journals_table").searcher({
+		inputSelector: "#tablesearchinput"
+	})		
+	
+}); // end 153 jQuery(function ($) 
 </script>
 
 	</body>

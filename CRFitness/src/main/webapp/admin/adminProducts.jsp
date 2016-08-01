@@ -12,7 +12,7 @@
 
     <title>MaintainProducts</title>
     
-    <jsp:include page="AdminFrame.jsp"/>
+    <jsp:include page="/admin/adminFrame.jsp"/>
   </head>
 
 <script type="text/template" id="qq-template-manual-trigger">
@@ -269,7 +269,7 @@ textarea{
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
-              <a href="MaintainProducts.jsp" class="go-top">
+              <a href="adminProducts.jsp" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>

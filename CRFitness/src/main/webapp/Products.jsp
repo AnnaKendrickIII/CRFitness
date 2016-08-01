@@ -124,7 +124,6 @@ color:#FF3333;
 </head>
 
 <body>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>

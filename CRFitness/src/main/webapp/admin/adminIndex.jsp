@@ -12,7 +12,7 @@
 
     <title>Index</title>
 	
-    <jsp:include page="AdminFrame.jsp"/>
+    <jsp:include page="/admin/adminFrame.jsp"/>
     	
   </head>
 
@@ -29,7 +29,6 @@
 
               <div class="row">
                   <div class="col-lg-9 main-chart">
-                  
                   	<div class="row mtbox">
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
@@ -137,11 +136,8 @@
 								</div>
 							</div>
 						</div><!-- /col-md-4 -->
-                      	
-
                     </div><!-- /row -->
                     
-                    				
 					<div class="row">
 						<!-- TWITTER PANEL -->
 						<div class="col-md-4 mb">
@@ -247,7 +243,6 @@
                       </div>
                       <!--custom chart end-->
 					</div><!-- /row -->	
-					
                   </div><!-- /col-lg-9 END SECTION MIDDLE -->
                   
                   
@@ -386,7 +381,6 @@
                                 </div>
                             </div>
                         </div><!-- / calendar -->
-                      
                   </div> <!-- /col-lg-3 -->
               </div> <!-- 30 /row -->
               
@@ -398,7 +392,7 @@
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
-              <a href="Index.jsp" class="go-top">
+              <a href="${this_contextPath}/admin/adminIndex.jsp" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -432,7 +426,6 @@
 //                 ]
 //             });
 //         });
-        
         
 //         function myNavFunction(id) {
 //             $("#date-popover").hide();

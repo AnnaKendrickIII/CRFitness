@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>AdministrationFrame</title>
+    <title>AdminFrame</title>
 	
 	<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
     <!-- Bootstrap core CSS -->
@@ -31,6 +31,8 @@
 	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/jquery.easyswitch.css" />
 	<!-- search button -->
 	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/expandingsearch.css" />
+	<!-- login dialog -->
+	<link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/custombox.css" />
 	
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -67,7 +69,8 @@
     <script src="${this_contextPath}/admin/assets/js/search.custom.js"></script>
     <script src="${this_contextPath}/admin/assets/js/search.classie.js"></script>
 	<script src="${this_contextPath}/admin/assets/js/search.uisearch.js"></script>
-	
+	<!-- login dialog -->
+	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
   </head>
 
   <body>
@@ -82,14 +85,14 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="Index.jsp" class="logo"><b>C.R.Fitness Administration</b></a>
+            <a href="${this_contextPath}/admin/adminIndex.jsp" class="logo"><b>C.R.F<small>itness</small> Administration</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
                     <!-- settings start -->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="${this_contextPath}/admin/adminIndex.jsp">
                             <i class="fa fa-tasks"></i>
                             <span class="badge bg-theme">4</span>
                         </a>
@@ -99,7 +102,7 @@
                                 <p class="green">You have 4 pending tasks</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">DashGum Admin Panel</div>
                                         <div class="percent">40%</div>
@@ -112,7 +115,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Database Update</div>
                                         <div class="percent">60%</div>
@@ -125,7 +128,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Product Development</div>
                                         <div class="percent">80%</div>
@@ -138,7 +141,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Payments Sent</div>
                                         <div class="percent">70%</div>
@@ -158,7 +161,7 @@
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="${this_contextPath}/admin/adminIndex.jsp">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme">5</span>
                         </a>
@@ -168,7 +171,7 @@
                                 <p class="green">You have 5 new messages</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Zac Snider</span>
@@ -180,7 +183,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Divya Manian</span>
@@ -192,7 +195,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dan Rogers</span>
@@ -204,7 +207,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dj Sherman</span>
@@ -216,7 +219,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">See all messages</a>
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">See all messages</a>
                             </li>
                         </ul>
                     </li>
@@ -226,7 +229,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="${this_contextPath}/admin/Logout.jsp">Logout</a></li>
+                    <li><a class="logout" href="${this_contextPath}/admin/adminLogout.jsp">Logout</a></li>
             	</ul>
             </div>
         </header>
@@ -240,22 +243,27 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-              
-              	  <p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">${LoginOK.nickname}</h5>
-              	  	
+             	<c:if test="${! empty LoginOK }">  	  
+             		<script type="text/javascript">
+             			$('.sidebar-menu').prepend('<p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
+         	 			+'<h5 class="centered">${LoginOK.nickname}</h5>')
+             		</script >
+              	</c:if>
                   <li class="mt">
-                      <a class="active" href="Index.jsp">
+                      <a class="active" href="${this_contextPath}/admin/adminIndex.jsp">
                           <i class="fa fa-dashboard"></i>
                           <span>主控台</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="MaintainJournals.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-book"></i>
                           <span>維護健康日誌</span>
                       </a>
+                       <ul class="sub">
+                          <li><a  href="adminJournals.jsp">健康日誌</a></li>
+                      </ul>                      
                   </li>
 
                   <li class="sub-menu">
@@ -264,32 +272,39 @@
                           <span>維護商品專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
+                          <li><a  href="adminProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="MaintainActivities.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-users"></i>
                           <span>維護揪團專區</span>
                       </a>
+                       <ul class="sub">
+                          <li><a  href="adminActivities.jsp">揪團專區</a></li>
+                      </ul>                      
                   </li>
+                  
                   <li class="sub-menu">
-                      <a href="MaintainMembers.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-commenting"></i>
                           <span>維護會員資訊</span>
                       </a>
+                       <ul class="sub">
+                          <li><a  href="adminMembers.jsp">會員資訊</a></li>
+                      </ul>
                   </li>
+                  
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-usd" aria-hidden="true"></i>
-                          <span>Charts</span>
+                          <span>維護訂單專區</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="morris.html">Morris</a></li>
-                          <li><a  href="chartjs.html">Chartjs</a></li>
+                          <li><a  href="adminOrders.jsp">訂單專區</a></li>
                       </ul>
                   </li>
 
@@ -299,32 +314,26 @@
       </aside>
       <!--sidebar end-->
       
-<!-- 登入對話方塊   開始 -->
-      <div class="container"> 
-      	<c:if test="${!empty LoginErrorMessage}">
-        	<script type="text/javascript"> 	 
-            	$(function () {
-                	Custombox.open({
-                    	target: '#login-box',
-                        effect: 'rotatedown'
-                    });
-                	$('#create_account').click(function () {	
-                   	  Custombox.close('#login-box') 
-                	}) 
-                	$('.container_a_css').click(function () {	
-                  	  Custombox.close('#login-box') 
-                	})  
+<!-- 登入對話方塊   開始 -->   
+    <c:if test="${empty LoginOK}">
+      	<script type="text/javascript"> 	 
+        	$(function () {
+            	Custombox.open({
+                	target: '#login-box',
+                    effect: 'Sign'
                 });
-       		</script>
-     	</c:if >
-      </div> <!-- end 303 -->
-   
-<!--      <div class="col-lg-8 col-md-4  col-sm-6 col-xs-3"></div> -->
+                console.log('success');
+                $('.okay').click(function () {	
+                	Custombox.close('#login-box') 
+                }) 
+            });
+       	</script>
+
 	<div id="login-box" class="login-popup ">
 		<form name="member" class="form-login"
 			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post">
 			<div id="login_div">
-<!-- 				<h2 class="form-login-heading">管理員登入</h2> -->
+				<h2 class="form-login-heading">Administration</h2>
 				<div class="login-wrap">
 					<input required="required" type="email" name="memberVO.e_mail"
 						class="form-control" placeholder="E-Mail" autofocus="autofocus"
@@ -332,8 +341,9 @@
 					<input required="required" type="password" name="memberVO.password"
 						class="form-control" placeholder="Password"
 						value="${param['memberVO.password']}" /> 
-					<label class="checkbox"></label>
-					<button name="member_action" class="btn btn-theme btn-block"
+					<label class="checkbox">
+					</label>
+					<button name="member_action" class="btn btn-theme btn-block okay"
 						    type="submit" value="SIGN_IN">
 							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN
 					</button>
@@ -341,10 +351,9 @@
 				</div>
 			</div>
 		</form>
-	</div>
-<!-- 	<div class=" col-md-4 col-sm-2 col-xs-3"></div> -->
+	</div> <!-- end 321 -->
+	</c:if > <!-- end 307 -->
 <!-- 登入對話方塊   結束 -->
-      
       
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -356,7 +365,7 @@
 <!--       <footer class="site-footer"> -->
 <!--           <div class="text-center"> -->
 <!--               2016 - C.R.Fitness Co., Ltd. -->
-<!--               <a href="Index.jsp" class="go-top"> -->
+<!--               <a href="${this_contextPath}/admin/adminIndex.jsp" class="go-top"> -->
 <!--                   <i class="fa fa-angle-up"></i> -->
 <!--               </a> -->
 <!--           </div> -->
@@ -385,8 +394,6 @@
 //         return false;
 //         });
 	</script>
-	    <!--common script for all pages-->
-
 
 	<script type="application/javascript">
         $(document).ready(function () {

@@ -94,16 +94,21 @@
             <div class="col-lg-4 col-md-4 col-xs-4">
                 <c:choose>
                 <c:when test="${! empty LoginOK }">
-                  <i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
+                <div id="header_email_dropdown_div" class="user_login_div dropdown">
+                 		<a id="maildLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  			<i id="header_email" class="fa fa-envelope fa-2x" ><span class="badge num_mail"></span></i>
+                  		</a>
+                  		
+                </div>                  
                	<div class="user_login_div dropdown">
-                        <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
+                        <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn"  src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel"> 
                             <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a></li>
                             <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
                             <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>
                              <li><a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a></li>    
                         	<li><a  class="container_a_css">編輯個人資料</a></li>                          
-                            <li><a href="${this_contextPath}/Logout/logout.jsp" >登出</a></li>                        
+                            <li><a href="${this_contextPath}/Logout/logout.jsp" class="logout_css_souket" >登出</a></li>                        
                         </ul>
                 </div>
                 </c:when>
@@ -162,7 +167,21 @@
 //             ws.send(msg);
 //         }
 //     }
- 
+ Date.prototype.Format = function (fmt) {  
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, ( this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+	    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
     function sendMessage( friendId , val, Time,friendName)
     {
         if(val != '')
@@ -171,8 +190,54 @@
             ws.send(msg);    
         }
     }
-     
-   	function bodyappend(userID,friendName){
+    
+	//未讀ajax
+    function NoReadAppend(userID){
+    	$.ajax({
+	          url:"${this_contextPath}/CRFSERVICE/chatController/select_NoReade_Friends_message",
+	          type:'get',  //get post put delete
+			  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:userID},
+			  success:function(data){
+				 $.each(data,function(index){	
+					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
+		 		   var jdate_value = new Date(jdate_int);
+		 		  if('${LoginOK.member_Id}'==this.member_Id){	
+						$('#'+userID+' .msg_container_base ').prepend(
+	 	 								'<div class="row msg_container base_sent ">'
+	 	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+	 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+	 	 			 		            +'<div class="messages msg_sent">'
+	 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
+	 	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+	 	 			 		            +'</div>'
+	 	 			 		            +'</div>'
+	 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+	 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+	 	 			 		            +'</div>'
+	 	 			 		            +'</div>' 				 
+	 							 )
+					}else{
+						$('#'+userID+' .msg_container_base ').prepend(
+	 								'<div class="row msg_container base_receive ">'
+	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+	 			 		            +'</div>'     
+	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+	 			 		            +'<div class="messages msg_sent">'
+	 			 		            +'<p>'+this.chat_Detail+'</p>'         
+	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+	 			 		            +'</div>'
+	 			 		            +'</div>'
+	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+	 			 		            +'</div>' 		         	
+							 )							
+					}
+				 })
+			   }		  
+		   })
+       }
+     //增加聊天室
+   	function bodyappend(userID,friendName){ 	
    		$('body').append(
 				'<div id='+userID+' class="row chat-window col-xs-5 col-md-3"  style="margin-left:10px;">'
 				+'<div class="col-xs-12 col-md-12">'
@@ -190,7 +255,7 @@
 					+'</div>'
 					+'<div class="panel-footer">'
 				+'<div class="input-group">'
-				+'<input  type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />'
+				+'<textarea maxlength="180" class="form-control input-sm chat_input" cols="15" rows="1"  placeholder="Write your message here..."></textarea>'
 				+'<span class="input-group-btn">'
 				+'<button class="btn btn-primary btn-sm" >Send</button>'
 				+'</span><span class="friendId_Here" hidden="hidden">'+userID+'</span>' 
@@ -198,10 +263,71 @@
 				+'</div>'
 				+'</div>'
 				+'</div>')
-				$( ".chat-window" ).draggable();	
+				//未讀
+				NoReadAppend(userID)
+				$( ".chat-window" ).draggable();
+    	 //變為已讀
+    	 $.ajax({
+	          url:"${this_contextPath}/CRFSERVICE/chatController/update_NoReade_Friends_message",
+	          type:'post',  //get post put delete
+			  data:{ member_Id:userID, friend_Id:'${LoginOK.member_Id}'},
+			  success:function(data){
+				
+			 	 }
+			 })
    	}
-    
-    
+   //增加已讀3則
+    function IsReadThree(friendId){ 	
+    	$.ajax({
+	          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
+	          type:'get',  //get post put delete
+			  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
+			  success:function(data){
+				 $('#myfriend').modal('hide')			
+				 $.each(data,function(){	
+					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
+		 		   var jdate_value = new Date(jdate_int);
+					 if('${LoginOK.member_Id}'==this.member_Id){
+						$('#'+friendId+' .msg_container_base').prepend(
+								'<div class="row msg_container base_sent ">'
+								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+			 		            +'<div class="messages msg_sent">'
+			 		            +'<p>'+this.chat_Detail+'</p>'         
+			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+			 		            +'</div>'
+			 		            +'</div>'
+			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+			 		            +'</div>'
+			 		            +'</div>' 
+	 							 
+						 )
+					
+					 }else{
+						$('#'+friendId+' .msg_container_base').prepend(
+								'<div class="row msg_container base_receive ">'
+			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+			 		            +'</div>'     
+			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+			 		            +'<div class="messages msg_sent">'
+			 		            +'<p>'+this.chat_Detail+'</p>'         
+			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+			 		            +'</div>'
+			 		            +'</div>'
+			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+			 		            +'</div>' 		         	
+						 )				
+					 } 
+				 })
+				 //捲軸置底  	
+				var basecon = $('#'+friendId+' .msg_container_base');
+				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
+			  } 			
+		})
+    	
+    }
     var userID = '${LoginOK.member_Id}';
     var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
  
@@ -222,12 +348,18 @@
 		console.log('關了')
     }; 
  
+    $('body').on('click','.logout_css_souket',function(){
+    	 var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+         ws.send(msg);
+         console.log('關了,登出')
+    })   
     ws.onmessage = function(event) 
     {	
         var data = JSON.parse(event.data);
         if(data.type == '2')
         {
-
+        	var jdate_int = parseInt(data.Time);                          //轉換成數字
+ 		   var jdate_value = new Date(jdate_int);
             if('${LoginOK.member_Id}'==data.userID){
             	
 					$('#'+data.friendId+' .msg_container_base').append(
@@ -236,7 +368,7 @@
 		 		            +'<div class=" col-md-9 col-xs-9 message_div">'
 		 		            +'<div class="messages msg_sent">'
 		 		            +'<p>'+data.data+'</p>'         
-		 		            +'<time datetime="">'+ jQuery.timeago(data.Time)+'</time>'
+		 		            +'<time datetime="">'+jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
 		 		            +'</div>'
 		 		            +'</div>'
 		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -248,7 +380,8 @@
 				 }else{
 					if(!($('#'+data.userID).html())){	
 						bodyappend(data.userID,data.friendName)
-					}	
+						IsReadThree(data.userID)//增加已讀3則訊息	
+					}else{	
 					$('#'+data.userID+' .msg_container_base').append(
 							'<div class="row msg_container base_receive ">'
 		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -257,12 +390,13 @@
 		 		            +'<div class=" col-md-9 col-xs-9 message_div">'
 		 		            +'<div class="messages msg_sent">'
 		 		            +'<p>'+data.data+'</p>'         
-		 		            +'<time datetime="">'+ jQuery.timeago(data.Time)+'</time>'
+		 		            +'<time datetime="">'+jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
 		 		            +'</div>'
 		 		            +'</div>'
 		 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
 		 		            +'</div>' 		         	
 					 )
+					}
 				 } 
         	var basecon = $('.msg_container_base');
 				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
@@ -272,6 +406,50 @@
         	console.log('111')
 //             render_data(data.username + "上線 <br> ");
             
+        }
+        else if(data.type == '4'){
+        	if(!$('#header_email_dropdown_div ul').html()){
+        			$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
+        	}
+        	$('#header_email_dropdown_div ul').append(
+        			'<li><div class="addfid" hidden="hidden">'+data.userID+'</div><div class="addfname" hidden="hidden">'+data.myName+'</div>'
+						+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
+						+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
+						+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'">'
+						+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></a></div>'
+						+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
+						+data.myName+'想加你為好友</div>'
+						+'<div  class="col-xs-3 col-sm-3 ">'
+						+'<i class="fa fa-check check_fr_ok" aria-hidden="true"></i>'
+						+'<i class="fa fa-times check_fr_No" aria-hidden="true"></i></div></div><li>')
+        	
+        	 var mail=$('span.num_mail');
+			 if(mail.text()!=""){
+					var mail_text=parseInt(mail.text());
+					 mail_text=mail_text+1
+					 mail.text(mail_text) 		
+			}else{
+				 mail.text('1') 
+			}
+        }else if(data.type == '5'){
+        	$('#contact-list').append(
+               	 '<li class="list-group-item">'
+               	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'" >'
+               	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'" class="img-responsive img-circle" />'
+               	 +'</a></div>'
+               	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
+               	 +'<span class="name">'+data.myName+'</span>'
+               	 +'</div>'
+               	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+               	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
+               	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+               	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+data.userID+'</span></span>'
+               	 +'</div>'
+               	 +'<div class="clearfix"></div>'
+               	 +'</li> '	 
+				) 
+				alertify.notify('你已和'+data.myName+'成為好友', 'success', 5);
+        	$('.canceladdfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
         }
     };
     (function(){
@@ -291,7 +469,7 @@
 			var friendId=$(this).siblings(".friendId_Here").text()
 			if(val.trim().length != 0){
 				val = val.replace(/\r?\n/g, '</br> ');
-				sendMessage( friendId, val, new Date().getTime(),friendName);
+				sendMessage( friendId, val,(new Date().getTime()).toString(),friendName);
 				$(this).val('')
 			}
 			return false;
@@ -299,12 +477,13 @@
 	})
     //右下腳按鈕 送出
 	$('body').on('click', '.input-group-btn', function (event) {
+		event.preventDefault();
 		var val = $(this).prev().val()
 		var friendName='${LoginOK.nickname}'
 		var friendId=$(this).siblings(".friendId_Here").text()
 		if(val.trim().length != 0){
 			val = val.replace(/\r?\n/g, '</br> ')
-			sendMessage(friendId, val, new Date().getTime(),friendName);
+			sendMessage(friendId, val, (new Date().getTime()).toString(),friendName);
 			$(this).prev().val('');
 		}
 	})  
@@ -348,61 +527,9 @@
  		
  		$('body').on('click', '.chat_icon_css', function (e) {
  			var friendId=$(this).find('span[hidden]').text()
- 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();
- 			$.ajax({
- 		          url:"${this_contextPath}/CRFSERVICE/chatController/selectFriendMessage",
- 		          type:'get',  //get post put delete
- 				  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
- 				  success:function(data){
- 					 $('#myfriend').modal('hide')
- 					 //增加聊天框
- 					 bodyappend(friendId,WhoName) 		 
-//  					var size = $(".chat-window:last-child").css("margin-left");
-//  					size_total = parseInt(size) + 400;		
-//  					  var newAppend =$(message_div).appendTo("body")
-//  			           newAppend.css("margin-left", size_total);	
- 					 $.each(data,function(){			            
- 						 if('${LoginOK.member_Id}'==this.member_Id){
- 							$('#'+friendId+' .msg_container_base').append(
- 	 								'<div class="row msg_container base_sent ">'
- 	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
- 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
- 	 			 		            +'<div class="messages msg_sent">'
- 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
- 	 			 		            +'</div>'
- 	 			 		            +'</div>'
- 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
- 	 			 		            +'</div>'
- 	 			 		            +'</div>' 
- 	 	 							 
- 							 )
- 						
- 						 }else{
- 							$('#'+friendId+' .msg_container_base').append(
- 	 								'<div class="row msg_container base_receive ">'
- 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
- 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
- 	 			 		            +'</div>'     
- 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
- 	 			 		            +'<div class="messages msg_sent">'
- 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
- 	 			 		            +'<time datetime="">'+ jQuery.timeago(this.chatTime)+'</time>'
- 	 			 		            +'</div>'
- 	 			 		            +'</div>'
- 	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
- 	 			 		            +'</div>' 		         	
- 							 )				
- 						 } 
- 					 })
- 					 //捲軸置底
- 					
- 					  	var basecon = $('#'+friendId+' .msg_container_base');
- 						basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight"));                   	
- 				  } 			
- 			})
-          
+ 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();		 
+			 bodyappend(friendId,WhoName)//增加聊天框 		 
+			 IsReadThree(friendId)//增加已讀3則訊息		
         });
  		$('body').on('click', '.icon_close', function (e) {
            $(this).parent().parent().parent().parent().parent().parent().remove();
@@ -433,7 +560,8 @@
 
 </script>
                  <script type="text/javascript">
-                     $(function () {
+				//找出全部好友
+                   jQuery(function ($) {
                          $.ajax({
                              url:"${this_contextPath}/CRFSERVICE/friendships/${LoginOK.member_Id}",
                              type:'get',  //get post put delete
@@ -442,13 +570,13 @@
                                  $.each(data,function(){
                                 	 $('#contact-list').append(
                                 	 '<li class="list-group-item">'
-                                	 +' <div class="col-xs-2 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" >'
+                                	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" >'
                                 	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-responsive img-circle" />'
                                 	 +'</a></div>'
-                                	 +'<div class="col-xs-3 col-sm-3 friend_name_div">'
+                                	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
                                 	 +'<span class="name">'+this[2]+'</span>'
                                 	 +'</div>'
-                                	 +'<div class="col-xs-7 col-sm-7 freind_icon_div">'
+                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
                                 	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
                                 	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
                                 	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+this[0]+'</span></span>'
@@ -460,7 +588,7 @@
          $('#contact-list').searchable({
             searchField: '#contact-list-search',
             selector: 'li',
-            childSelector: '.col-xs-12',
+            childSelector: '.friend_name_div',
             show: function (elem) {
                 elem.slideDown(100);
             },
@@ -469,19 +597,156 @@
             }
         })
                              }          	 
-                         })
+                         }) 
                          
                         // 在mail圖示上顯示好友申請提示的個數
 						$.ajax({
-							url:"${this_contextPath}/CRFSERVICE/friendships/findFriendsFlag",
+							url:"${this_contextPath}/CRFSERVICE/chatController/select_NoRead_Friends_Allmessage",
 							type:'get',
 							data:{'member_Id': "${LoginOK.member_Id}"},
 							success: function(data){
-								if(data>0)
-									$('body').find('span.num_mail').text(data);
+								var count=0;
+								var mail=$('span.num_mail');				
+								if(data!=""){
+								$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
+								$.each(data,function(){
+									
+									if(this[0]=='0'){
+									$('#header_email_dropdown_div ul').append(
+												'<li class="message_li_outer"><div class="chat_this_id_div" hidden="hidden">'+this[1]+'</div><div class="chat_this_name_div" hidden="hidden">'
+												+this[2]+'</div>'
+												+'<div class="row chatmessage"><div  class="col-xs-1 col-sm-1"></div>'
+												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-comments-o o-chat" aria-hidden="true"></i></div>'
+												+'<div  class="col-xs-1 col-sm-1"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></div>'
+												+'<div  class="col-xs-8 col-sm-8 div_chat_message">'
+												+this[2]+'有對你留言</div></div><li>')							
+										count++;
+									}else if(this[0]=="2"){
+										$('#header_email_dropdown_div ul').append(
+												'<li><div class="addfid" hidden="hidden">'+this[1]+'</div><div class="addfname" hidden="hidden">'+this[2]+'</div>'
+												+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
+												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
+												+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[1]+'">'
+												+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></a></div>'
+												+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
+												+this[2]+'想加你為好友</div>'
+												+'<div  class="col-xs-3 col-sm-3 ">'
+												+'<i class="fa fa-check check_fr_ok" aria-hidden="true"></i>'
+												+'<i class="fa fa-times check_fr_No" aria-hidden="true"></i></div></div><li>')	
+										count++;
+									}else if(this[0]=="3"){
+										$('#header_email_dropdown_div ul').append(
+												'<li><div class="addfid" hidden="hidden">'+this[1]+'</div><div class="addfname" hidden="hidden">'+this[2]+'</div>'
+												+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
+												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
+												+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[1]+'">'
+												+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></a></div>'
+												+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
+												+this[2]+'想加你為好友</div>'
+												+'<div  class="col-xs-3 col-sm-3 ">'
+												+'<i class="fa fa-check check_fr_ok" aria-hidden="true"></i>'
+												+'<i class="fa fa-times check_fr_No" aria-hidden="true"></i></div></div><li>')
+									}	
+								})				
+								if(mail.text()==""){
+									if(count==0){
+										mail.text('');
+									}else{
+										mail.text(count);
+									}				
+								}		
 							}
+								$('#header_email_dropdown_div').click(function(){
+									$.ajax({
+										url:"${this_contextPath}/CRFSERVICE/chatController/update_AddFriends_ChatStuts",
+										type:'post',
+										data:{'member_Id': "${LoginOK.member_Id}"},
+										success: function(data){
+														
+											if(mail.text()!=""){
+												var mail_text=parseInt(mail.text());
+												 mail_text=mail_text-data
+												 if(mail_text==0){
+												 mail.text('')
+												 }else{
+												 mail.text(mail_text) 
+												 }
+											}	
+										}
+									})
+								})	
+								
+						}
+					})
+						//點擊好友留言訊息跑出聊天室並-1
+						$('body').on('click', '.message_li_outer', function () {
+							 var thisid=$(this).find('.chat_this_id_div').text()
+							 var thisName=$(this).find('.chat_this_name_div').text()
+							 var mail=$('span.num_mail');
+							 bodyappend(thisid,thisName);//用框架裡bodyappend 增加聊天室
+							 IsReadThree(thisid)//用框架裡IsReadThree 增加已讀三則
+							 if(mail.text()!=""){
+									var mail_text=parseInt(mail.text());
+									 mail_text=mail_text-1
+									 if(mail_text==0){
+									 mail.text('')
+									 }else{
+									 mail.text(mail_text) 
+									 }
+							}
+							 $(this).remove();
+                		});
+					
+					$('body').on('click', '.check_fr_ok', function () {
+						  var whichthis = $(this);
+						  var fid=$(this).parent().parent().siblings(".addfid").text()
+						  var fname=$(this).parent().parent().siblings(".addfname").text()
+						$.ajax({
+							url:"${this_contextPath}/CRFSERVICE/friendships/acceptFriend",
+							type:'post',
+							data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
+							success: function(data){				 
+								 whichthis.parent().parent().parent().remove();
+								$('#contact-list').append(
+	                                	 '<li class="list-group-item">'
+	                                	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+fid+'" >'
+	                                	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+fid+'" class="img-responsive img-circle" />'
+	                                	 +'</a></div>'
+	                                	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
+	                                	 +'<span class="name">'+fname+'</span>'
+	                                	 +'</div>'
+	                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+	                                	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
+	                                	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+	                                	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+fid+'</span></span>'
+	                                	 +'</div>'
+	                                	 +'<div class="clearfix"></div>'
+	                                	 +'</li> '	 
+									) 
+									
+								var msg = JSON.stringify({'userID':"${LoginOK.member_Id}",'friendId':fid, 'type':'5','myName':"${LoginOK.nickname}"});  
+						         ws.send(msg);
+							}
+							
 						})
-                     })
+			        });
+					
+                    $('body').on('click', '.check_fr_No', function (e) {
+                             var whichthis = $(this);
+                             var fid=$(this).parent().parent().siblings("div[hidden]").text()
+                             $.ajax({
+     							url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
+     							type:'post',
+     							data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
+     							success: function(data){             
+							 whichthis.parent().parent().parent().remove();
+							 
+                            }
+                          })
+                     });
+					
+                  })
+              
                  </script > 
                 </c:if>              
         <!-- 好友區塊 結束-->
@@ -491,7 +756,7 @@
         <div  class="container"> 
          <c:if test="${!empty LoginErrorMessage}">
             <script type="text/javascript"> 	 
-                $(function () {
+               jQuery(function ($) {
                   
                         Custombox.open({
                             target: '#login-box',
@@ -544,6 +809,62 @@
                 });
        </script>
      </c:if >
+     <c:if test="${empty LoginErrorMessage}">
+       <script type="text/javascript">
+       jQuery(function ($) {
+      $('a.login-window').click( function (e) {
+                    Custombox.open({
+                        target: '#login-box',
+                        effect: 'fall'
+                    });
+                    $('#create_account').click(function () {	
+                    	  Custombox.close('#login-box') 
+                    }) 
+                    $('.container_a_css').click(function () {	
+                        	  Custombox.close('#login-box') 
+                         })     	 
+      	 //google 開始	 
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'profile'
+                });
+
+                auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
+                  function (googleUser) {     	
+                	 var ImageUrl;
+                     if (googleUser.getBasicProfile().getImageUrl() == undefined) {
+                         ImageUrl = null;
+                     } else {
+                         ImageUrl = googleUser.getBasicProfile().getImageUrl()
+                     }
+                      $.ajax({
+           		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
+           		          type:'post',  //get post put delete
+           		          data:{nickname:googleUser.getBasicProfile().getName(),
+           		        	  	e_mail:googleUser.getBasicProfile().getEmail(),
+           		        	  	photoUrl:ImageUrl 
+           		          },
+           		          success:function(){
+           		        	  location.href ='${pageContext.request.requestURI}';
+           		          }          	 
+           		      })
+           		  
+                  }, function (error) {       	  
+                      console.log('Sign-in error', error);
+                  }                    
+                   );
+            });     
+      	 $("#googleSignIna").click(function(e){
+    		 e.preventDefault(); 
+    	 })  
+    	 //google 結束
+    	    e.preventDefault();
+     }); 
+    })
+      </script>
+        </c:if >
      </div>
    
 <!--      <div class="col-lg-8 col-md-4  col-sm-6 col-xs-3"></div> -->
@@ -657,6 +978,51 @@
 </div>
 <!--  判斷註冊是否成功  結束-->  
     <script type="text/javascript"> 
+    var Islogin='${pageContext.request.queryString}'
+		if(Islogin=='NoLogin'){
+			Custombox.open({
+                target: '#login-box',
+                effect: 'rotate'
+            });
+	      	 //google 開始	      	 
+            gapi.load('auth2', function () {
+                auth2 = gapi.auth2.init({
+                    client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'profile'
+                });
+                auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
+                  function (googleUser) {
+       	
+                	 var ImageUrl;
+                     if (googleUser.getBasicProfile().getImageUrl() == undefined) {
+                         ImageUrl = null;
+                     } else {
+                         ImageUrl = googleUser.getBasicProfile().getImageUrl()
+                     }
+                      $.ajax({
+           		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
+           		          type:'post',  //get post put delete
+           		          data:{nickname:googleUser.getBasicProfile().getName(),
+           		        	  	e_mail:googleUser.getBasicProfile().getEmail(),
+           		        	  	photoUrl:ImageUrl 
+           		          },
+           		          success:function(){
+           		        	  location.href ='${pageContext.request.requestURI}';
+           		          }          	 
+           		      })
+           		  
+                  }, function (error) {       	  
+                      console.log('Sign-in error', error);
+                  }                    
+                   );
+            });     
+      	 $("#googleSignIna").click(function(e){
+    		 e.preventDefault(); 
+    	 })  
+    	 //google 結束
+		}
+    
     //fb javascript 開始
     function fblogin(){     // facebook 登入
                FB.login(function(response){
@@ -687,56 +1053,7 @@
     		 e.preventDefault(); 
     	 })  	     
       	 //fb javascript 結束 
-     $('a.login-window').click( function (e) {
-                    Custombox.open({
-                        target: '#login-box',
-                        effect: 'fall'
-                    });
-                    $('#create_account').click(function () {	
-                    	  Custombox.close('#login-box') 
-                    }) 
-                    $('.container_a_css').click(function () {	
-                        	  Custombox.close('#login-box') 
-                         })     	 
-      	 //google 開始	 
-            gapi.load('auth2', function () {
-                auth2 = gapi.auth2.init({
-                    client_id: '826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com',
-                    cookiepolicy: 'single_host_origin',
-                    scope: 'profile'
-                });
-
-                auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
-                  function (googleUser) {     	
-                	 var ImageUrl;
-                     if (googleUser.getBasicProfile().getImageUrl() == undefined) {
-                         ImageUrl = null;
-                     } else {
-                         ImageUrl = googleUser.getBasicProfile().getImageUrl()
-                     }
-                      $.ajax({
-           		          url:"${this_contextPath}/CRFSERVICE/memberController/Login",
-           		          type:'post',  //get post put delete
-           		          data:{nickname:googleUser.getBasicProfile().getName(),
-           		        	  	e_mail:googleUser.getBasicProfile().getEmail(),
-           		        	  	photoUrl:ImageUrl 
-           		          },
-           		          success:function(){
-           		        	  location.href ='${pageContext.request.requestURI}';
-           		          }          	 
-           		      })
-           		  
-                  }, function (error) {       	  
-                      console.log('Sign-in error', error);
-                  }                    
-                   );
-            });     
-      	 $("#googleSignIna").click(function(e){
-    		 e.preventDefault(); 
-    	 })  
-    	 //google 結束
-    	    e.preventDefault();
-     });  	
+     	
       jQuery(function ($) {	      	        
             $("#menu-toggle").click(function () {//點擊左上角小圖 
                 $("#wrapper").addClass("toggled");//讓清單加入class toggled 使其寬度由0增加到235px 呈現由左到右效果 

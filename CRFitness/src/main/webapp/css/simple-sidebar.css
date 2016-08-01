@@ -219,4 +219,54 @@ height:48px;
 	width:96px;
 	height:72px;
 }
-
+.chatmessage{
+	z-index: 8888;
+}
+#header_email_dropdown_div ul{
+	position:fixed;
+	top:50px;
+	left: inherit;
+	right:0% !important;
+	background-color:#FCFCFC;
+	width:320px !important;
+	border-color: #46A3FF;
+}
+#header_email_dropdown_div ul li{
+	border-bottom:1px solid #F0F0F0; 
+}
+.chatmessage{
+	color:black;
+	font-size: 18px;
+}
+.chatmessage:HOVER{
+	color:red;
+	font-size: 18px;
+}
+.chatmessage_two{
+	color:black;
+	font-size: 18px;
+}
+.chatmessage_two div{
+padding: 0
+}
+.chat_icon_div{
+	text-align: center;
+}
+.chatmessage div{
+padding: 0
+}
+.o-chat{
+	margin-right: 5%
+}
+.div_chat_message{
+	padding-left: 2% !important;
+}
+.check_fr_ok{
+	margin-right: 25%;
+}
+.check_fr_ok:HOVER{
+	color: red;
+}
+.check_fr_No:HOVER{
+	color: red;
+}

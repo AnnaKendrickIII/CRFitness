@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="google-signin-client_id"
 	content="826213451911-6rpb37oapsg46p3ao0mhv6ks9orcja5h.apps.googleusercontent.com" />
-<jsp:include page="/AdF.jsp" />
+<jsp:include page="/Maintenance/AdF.jsp" />
 <link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON"> 
 <link href="${this_contextPath}/css/fine-uploader-new.css" rel="stylesheet" /> <!-- upload files -->
 <script src="${this_contextPath}/js/jquery.fine-uploader.js"></script> <!-- upload files -->

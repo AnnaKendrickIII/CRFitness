@@ -30,7 +30,6 @@
 .grid li img {
 	outline: none;
 	border: none;
-	display: block;
 	max-width: 100%;
 }
 

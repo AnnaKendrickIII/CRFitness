@@ -177,7 +177,9 @@ padding-right: 5%;
 .uploadfile_div_css{
 margin-bottom: 5%;
 }
-
+.userContents{
+font-size: 20px;
+}
 </style>
 <script type="text/javascript">
 jQuery(function($){
@@ -564,7 +566,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	            			theMemberId = this[0];
 	            			titleNickName = this[2];
 	            			visitorStatus = 2;
-	            			callShowJournal(visitorStatus)
+	            			callShowJournal(visitorStatus,this[0],this[2])//0好友id 2好友名字
 	            			return false;
 	            		}
 					// 日誌titleNickName
@@ -578,7 +580,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			})
 		}
 				
-		function callShowJournal(visitorStatus){
+		function callShowJournal(visitorStatus,friendId,nickname){
    			if(visitorStatus == 2){ 
 //好友頁面頭像		 		
 			$('#personal_profile').append(
@@ -588,9 +590,11 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	             +'<div class="media-body">'
 	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
 	             +'<hr style="margin:8px auto">'		             
-	             +'<button type="button" class="profile-btn btn btn-primary">傳送訊息給他</button>'
+	             +'<button type="button" class="profile-btn btn btn-primary chat_for_friend">傳送訊息給他</button>'
 	             +'</div>'
 				);	
+			
+				
 			}else if(visitorStatus == 3){
 				$('#personal_profile').append(
 		           ' <a class="pull-left" href="#">'
@@ -994,6 +998,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		})
         //send MessageDetail from button
 		divGrid.on('click', 'li button[class="btn song btn-primary pull-right"]', function (event) {
+		
 			var theJournal_Id = $(this).parents('li').attr('id');
 			var val = $(this).prevAll('textarea.message-textarea').val()
 			if(val.trim().length != 0){
@@ -1098,6 +1103,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 							alertify.alert('已申請').set('title', '訊息');
 							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
 							.removeClass('addfriend').addClass('canceladdfriend');
+							 var msg = JSON.stringify({'userID':"${LoginOK.member_Id}",'friendId':"${pageContext.request.queryString}", 'type':'4','myName':"${LoginOK.nickname}"});  
+					         ws.send(msg);
 						}else{
 							alertify.alert('異常，請洽客服人員').set('title', '警告');
 						}
@@ -1152,7 +1159,12 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
       			reader.readAsDataURL(this.files[0]);
       		}
       	})
-
+      	
+			//傳訊息給好友
+			$('body').on('click','.chat_for_friend',function(){			
+			bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
+			IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則
+			})
       	
 //       	//查詢好友狀態
 //     function thedata(xxxx){
