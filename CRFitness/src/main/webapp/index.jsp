@@ -232,30 +232,14 @@ body {
 		</div>
 	</div>
 	<div class="col-sm-4 col-xs-8">
-		<div id="tile10" class="tile">
+		<div id="tile10" class="tile" style="background-image: url(${this_contextPath}/images/sport_news1.png);">
     	 
            <div class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
           <div class="carousel-inner" id="rss-in">
             <div class="item active">
-           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive"/>
-<!--               <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3> -->
-            </div>
-<!--             <div class="item"> -->
-              
-<!--               <h3 class="tilecaption"><a href="#" style="text-decoration: none; color: white;">Customize your tiles <br/> class="tilecaption">Customize your tiles</a></h3> -->
-
-
-<!--             </div> -->
-<!--             <div class="item"> -->
-<!--               <h3 class="tilecaption">Text, Icons, Images</h3> -->
-<!--               <h3 class="tilecaption">Text, Icons, Images</h3> -->
-<!--             </div> -->
-<!--             <div class="item"> -->
-<!--               <h3 class="tilecaption">Combine them and create your metro style</h3> -->
-<!--               <h3 class="tilecaption">Combine them and create your metro style</h3> -->
-<!--             </div> -->
-          
+           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive"/>             
+            </div>          
           </div>
         </div>
          
@@ -384,14 +368,11 @@ body {
       		var pubDate = $(this).children("pubDate").text().substr(0,26);
       		var link = $(this).children("link").text();
       		
-      		$('#rss-in').append('<div class="item">'
+      		$('#rss-in').append('<div class="item">'      			
       				+'<h3 class="tilecaption">'
       				+'<a style="text-decoration: none;color: black;" href="'+link+'">'+title+''
       				+'<br/><br/>'+pubDate+'</a></h3>'
-      				+'</div>')
-
-      			
-      		
+      				+'</div>')      		
 			})
 		}
 	})
