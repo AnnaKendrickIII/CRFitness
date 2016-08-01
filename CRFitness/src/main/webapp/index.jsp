@@ -238,7 +238,7 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner" id="rss-in">
             <div class="item active">
-           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive"/>             
+           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive" />             
             </div>          
           </div>
         </div>
@@ -357,6 +357,8 @@ body {
 	
 <!-- RSS -->
 	<script type="text/javascript">
+	
+	
 	$.ajax({
 		url:"${this_contextPath}/RSSreader",
         type:'get',
@@ -376,6 +378,7 @@ body {
 			})
 		}
 	})
+
 	</script>
 	
 <script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
