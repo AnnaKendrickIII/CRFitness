@@ -97,7 +97,20 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 		return false;
 	}
 
-
+	@Override
+	public boolean updatePersonalJournalcontents(
+			String journal_Id,
+			String contents) {
+		if (journal_Id != null && contents != null) {
+			Query query = this.getSession().createQuery("update PersonalJournalVO set contents=:contents where journal_Id=:journal_Id");
+			query.setParameter("journal_Id", journal_Id);
+			query.setParameter("contents", contents);
+			if(query.executeUpdate()==1){
+				return true;
+			}
+		}
+		return false;
+	}
 	@Override
 	public boolean delete(String journal_Id) {
 		PersonalJournalVO personalJournalVO = (PersonalJournalVO) this
