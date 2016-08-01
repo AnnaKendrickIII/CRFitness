@@ -184,13 +184,13 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="${this_contextPath}/images/products/prodDetail5270_5.png" class="img-responsive"/>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5270"><img src="${this_contextPath}/images/products/prodDetail5270_5.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-              <img src="${this_contextPath}/images/products/prodDetail5270_3.png" class="img-responsive"/>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5270"><img src="${this_contextPath}/images/products/prodDetail5270_3.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-              <img src="${this_contextPath}/images/products/prodDetail5270_1.png" class="img-responsive"/>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5270"><img src="${this_contextPath}/images/products/prodDetail5270_1.png" class="img-responsive"/></a>
             </div>
           </div>
         </div>
@@ -204,10 +204,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-               <img src="${this_contextPath}/images/products/prodDetail5094_1.png" class="img-responsive"/>
+                <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5094"><img src="${this_contextPath}/images/products/prodDetail5094_1.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-               <img src="${this_contextPath}/images/products/prodDetail5094_3.png" class="img-responsive"/>
+                <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5094"><img src="${this_contextPath}/images/products/prodDetail5094_3.png" class="img-responsive"/></a>
             </div>
             </div>
          </div>
@@ -221,10 +221,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="${this_contextPath}/images/products/prodDetail5456_1.png" class="img-responsive"/>
+             <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5456"><img src="${this_contextPath}/images/products/prodDetail5456_1.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-             <img src="${this_contextPath}/images/products/prodDetail5499_1.png" class="img-responsive"/>
+             <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5499"><img src="${this_contextPath}/images/products/prodDetail5499_1.png" class="img-responsive"/></a>
             </div>
           </div>
         </div>
@@ -238,7 +238,7 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner" id="rss-in">
             <div class="item active">
-           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive"/>             
+           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive" />             
             </div>          
           </div>
         </div>
@@ -357,13 +357,15 @@ body {
 	
 <!-- RSS -->
 	<script type="text/javascript">
+	
+	
 	$.ajax({
 		url:"${this_contextPath}/RSSreader",
         type:'get',
         dataType:'xml',
         success: function(data){
             $(data).find("item").each(function(){  //取得xml父節點       
-            var total = $(data).find("item").length;//xml的總筆數
+//             var total = $(data).find("item").length;//xml的總筆數
       		var title = $(this).children("title").text(); //取得子節點中的資料
       		var pubDate = $(this).children("pubDate").text().substr(0,26);
       		var link = $(this).children("link").text();
@@ -376,6 +378,7 @@ body {
 			})
 		}
 	})
+
 	</script>
 	
 <script src="http://pupunzi.com/mb.components/mb.YTPlayer/demo/inc/jquery.mb.YTPlayer.js"></script>
