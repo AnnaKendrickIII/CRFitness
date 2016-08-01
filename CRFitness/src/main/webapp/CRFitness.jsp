@@ -15,6 +15,7 @@
     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/friend.css" rel="stylesheet" />
+     <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
 
@@ -24,6 +25,7 @@
     <script src="${this_contextPath}/js/lrtk.js"></script>	
     <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
     <script type="text/javascript" src="${this_contextPath}/js/jquery.searchable-1.0.0.min.js"></script>
+    <script src="${this_contextPath}/js/alertify.js"></script>
       <!-- GoogleLogin-->  
       <!-- bootstrap.min.js  開始-->
   <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
@@ -462,35 +464,37 @@
     })();
  
    
-    // enter換行變成shift enter ,enter變送出
-	$('body').on('keydown', '.chat_input', function (event) {
-		if (event.keyCode == 13 && !event.shiftKey) {
-			var friendName='${LoginOK.nickname}'
-			var val = $(this).val();
-			var friendId=$(this).siblings(".friendId_Here").text()
-			if(val.trim().length != 0){
-				val = val.replace(/\r?\n/g, '</br> ');
-				sendMessage( friendId, val,(new Date().getTime()).toString(),friendName);
-				$(this).val('')
-			}
-			return false;
-		}
-	})
-    //右下腳按鈕 送出
-	$('body').on('click', '.input-group-btn', function (event) {
-		event.preventDefault();
-		var val = $(this).prev().val()
-		var friendName='${LoginOK.nickname}'
-		var friendId=$(this).siblings(".friendId_Here").text()
-		if(val.trim().length != 0){
-			val = val.replace(/\r?\n/g, '</br> ')
-			sendMessage(friendId, val, (new Date().getTime()).toString(),friendName);
-			$(this).prev().val('');
-		}
-	})  
+    
     </script>
     <!-- web聊天 -->
- <script>     
+ <script>   
+ jQuery(function ($) {
+	// enter換行變成shift enter ,enter變送出
+		$('body').on('keydown', '.chat_input', function (event) {
+			if (event.keyCode == 13 && !event.shiftKey) {
+				var friendName='${LoginOK.nickname}'
+				var val = $(this).val();
+				var friendId=$(this).siblings(".friendId_Here").text()
+				if(val.trim().length != 0){
+					val = val.replace(/\r?\n/g, '</br> ');
+					sendMessage( friendId, val,(new Date().getTime()).toString(),friendName);
+					$(this).val('')
+				}
+				return false;
+			}
+		})
+	    //右下腳按鈕 送出
+		$('body').on('click', '.input-group-btn', function (event) {
+			event.preventDefault();
+			var val = $(this).prev().val()
+			var friendName='${LoginOK.nickname}'
+			var friendId=$(this).siblings(".friendId_Here").text()
+			if(val.trim().length != 0){
+				val = val.replace(/\r?\n/g, '</br> ')
+				sendMessage(friendId, val, (new Date().getTime()).toString(),friendName);
+				$(this).prev().val('');
+			}
+		})  
  		$('body').on('dblclick', '.panel-heading ', function (e) {
      	var $this = $(this).find('span.icon_minim');
      	if (!$this.hasClass('panel-collapsed')) {
@@ -538,13 +542,9 @@
  		$('body').on('click', '.icon_close', function (e) {
            $(this).parent().parent().parent().parent().parent().parent().remove();
         });
-        
-    </script>
-    
-                    
-    <script>
+
     //搜尋用
-    $(function () {
+    
         /* BOOTSNIPP FULLSCREEN FIX */
         if (window.location == window.parent.location) {
             $('#back-to-bootsnipp').removeClass('hide');
@@ -560,8 +560,8 @@
                 $('.c-search').closest('.row').slideDown(100);
             }
         })  
-    });
-
+    
+ })
 </script>
                  <script type="text/javascript">
 				//找出全部好友
@@ -750,7 +750,7 @@
                      });
 					
                     // 好友刪除
-                    $('body').on('click', 'span.deletefriend', function (e) {
+                    $('body').on('click', '.deletefriend', function (e) {
                         var whichthis = $(this);
                         var fid=$(this).next().find("span[hidden]").text()
                         console.log(fid)

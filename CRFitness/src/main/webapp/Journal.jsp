@@ -19,6 +19,7 @@
 <script src="${this_contextPath}/js/jquery.alertable.js" ></script>  <!-- alert -->
 <script src="${this_contextPath}/js/jAlert-v4.js" ></script>  <!-- alert -->
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
+
 <style type="text/css">
 .Emoticons{
 width: 40px;
@@ -484,5 +485,6 @@ width:24px;
 <script src="${this_contextPath}/js/AnimOnScroll.js"></script>	
 <script src="${this_contextPath}/js/Am2_SimpleSlider.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>  
+
 </body>
 </html>

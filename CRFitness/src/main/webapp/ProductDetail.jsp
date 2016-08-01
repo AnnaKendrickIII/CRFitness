@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/products.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fancybox.css">
-<link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
+
 
 <title>商品明細</title>
 <style type="text/css">
@@ -246,6 +246,6 @@ $('body').on('click','.addCart',function(){
 <script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.fancybox.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
+
 </body>
 </html>
