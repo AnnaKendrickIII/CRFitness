@@ -220,7 +220,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
  					$('#personal_profile').append( 							
 // 	個人頭像				'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">'+"新增個人日誌"+'</button>'
 				           ' <a class="pull-left" id="clickchangehead" data-toggle="modal" data-target="#changhead" href="#">'
-			             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" >'
+			             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${LoginOK.member_Id}.jpg" >'
 			             +'</a>'
 			             +'<div class="media-body">'
 			             +'<h4 class="profile-heading">${LoginOK.nickname} <small>${LoginOK.e_mail}</small></h4>'
@@ -585,7 +585,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 //好友頁面頭像		 		
 			$('#personal_profile').append(
 		          ' <a class="pull-left" href="#">'
-	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
+	             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${pageContext.request.queryString}.jpg" >'
 	             +'</a>'
 	             +'<div class="media-body">'
 	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
@@ -598,7 +598,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			}else if(visitorStatus == 3){
 				$('#personal_profile').append(
 		           ' <a class="pull-left" href="#">'
-	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
+	             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${pageContext.request.queryString}.jpg" >'
 	             +'</a>'
 	             +'<div class="media-body">'
 	             +'<h4 class="media-heading" id="usernickanme"></h4>'
@@ -672,7 +672,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				        + '<li><a class="selectOpenValue" data-val="2"><i class="fa fa-users" aria-hidden="true"></i> <span class="faspan"> 朋友</span></a></li>'
 				        + '<li><a class="selectOpenValue" data-val="0"><i class="fa fa-lock" aria-hidden="true"></i> <span class="faspan"> 限本人</span></a></li></ul></div>'
 
-				        +'<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
+				        +'<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/images/members/${pageContext.request.queryString}.jpg" />'+this[1]+'</p>'  // 上線前要拿掉或改暱稱
 				    	
 			   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 				    	+ '<p class="userContents"></p>'
@@ -867,7 +867,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 										    + '<li><a class="" data-val="2"><i class="fa fa-users" aria-hidden="true"></i> <span class="faspan"> 朋友</span></a></li>'
 										    + '<li><a class="" data-val="0"><i class="fa fa-lock" aria-hidden="true"></i> <span class="faspan"> 限本人</span></a></li></ul></div>'
 										           
-								   			+ '<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+"${LoginOK.nickname}"+'</p>'  // 上線前要拿掉或改暱稱
+								   			+ '<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/images/members/${pageContext.request.queryString}.jpg" />'+"${LoginOK.nickname}"+'</p>'  // 上線前要拿掉或改暱稱
 									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
 								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
@@ -972,6 +972,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
     			} 
     		});
     	})
+    	
     	//edit Contents
 		divGrid.on('click','a.username',function(){
 			var theLi = $(this).parents('li');
@@ -979,7 +980,16 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			var journal_Id = theLi.attr('id');
 			var openStatus = theLi.find('select.statusSelect');
 			$('.form-inline').submit(function(){
-				updateJournal(theLi.attr('id'), "${LoginOK.member_Id}", contexts.text(), openStatus.val())
+				$.ajax({
+					url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournalcontents",
+					type: 'POST',
+					data: {'journal_Id':theLi.attr('id'),
+						'member_Id':"${LoginOK.member_Id}",
+						'contents':contexts.text()},
+					success: function(data){
+						console.log(data)
+					}
+				})
 			})
 		})   	
 		//send MessageDetail from enter -------------------------------------
@@ -1024,7 +1034,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 							if(index==0){
 								messageDiv.append('<p/>').find('p:last').text(theNickname+": "+ this)
 								$('<img  />')
-								.attr('src',"${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}.jpg")
+								.attr('src',"${this_contextPath}/images/members/${LoginOK.member_Id}.jpg")
 								.addClass('img-circle msgPhoto .img-responsive')
 								.prependTo(messageDiv.find('p:last'))
 							}else{
@@ -1060,7 +1070,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								var thP1 = $('<p>')
 								if(index==0){
 									thP1.text(theNickname+": "+ this);
-									$('<img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+Obj[0].member_Id+'" />')
+									$('<img src="${this_contextPath}/images/members/'+Obj[0].member_Id+'.jpg" />')
 									.addClass('img-circle msgPhoto .img-responsive')
 									.prependTo(thP1)
 								}else{
@@ -1100,7 +1110,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						'friend_Id': "${pageContext.request.queryString}"},
 					success:function(data){
 						if(data){
-							alertify.alert('已申請').set('title', '訊息');
+// 							alertify.alert('已申請').set('title', '訊息');
 							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
 							.removeClass('addfriend').addClass('canceladdfriend');
 							
@@ -1201,7 +1211,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		}
 		
 		jQuery(function($){ 
-			var wimgSrc='${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}'
+			var wimgSrc='${this_contextPath}/images/members/${LoginOK.member_Id}.jpg'
 			
 			$("body").on("click",'#clickchangehead',function(){
 				$('#changehead').modal('toggle');				

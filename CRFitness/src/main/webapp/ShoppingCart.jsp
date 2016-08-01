@@ -120,8 +120,8 @@
 								data-title="y">ATM轉帳</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
 								data-title="z">超商繳費</a>
-								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="a" disabled="disabled">用身體付</a>
+<!-- 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy" -->
+<!-- 								data-title="a" disabled="disabled">用身體付</a> -->
 							</div>
 							
 						</div>
@@ -247,8 +247,8 @@ jQuery(function($){
 						cleanCart()
 						totalAmount()
 						//訂單送出後3秒導向推薦者頁面
-						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後返回上一頁',setTimeout(function(){	
- 							location.href ='<%=request.getHeader("referer")%>'
+						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後進入訂單查詢頁面',setTimeout(function(){	
+ 							location.href ="${this_contextPath}/Order.jsp?${LoginOK.member_Id}"
 							},3000) 
 						)
 					}

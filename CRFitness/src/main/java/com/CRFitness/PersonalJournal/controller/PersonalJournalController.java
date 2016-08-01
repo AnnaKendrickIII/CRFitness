@@ -98,5 +98,18 @@ public class PersonalJournalController {
 			return false;
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value = "/updateJournalcontents", produces = MediaType.APPLICATION_JSON)
+	public @ResponseBody boolean updatePersonalJournal(
+			@RequestParam String journal_Id,
+			@RequestParam String member_Id,
+			@RequestParam String contents,
+			HttpSession session
+			){
+		MemberVO mySelf = (MemberVO) session.getAttribute("LoginOK");
+		if(mySelf.getMember_Id().equals(member_Id))
+			return personalJournalService.updatePersonalJournalcontents(journal_Id, contents);
+		else
+			return false;
+	}
 }
 

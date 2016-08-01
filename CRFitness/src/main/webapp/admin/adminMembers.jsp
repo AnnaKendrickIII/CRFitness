@@ -169,7 +169,7 @@ th{
 					}else if(this.member_Status == '暫停中'){
 						Status=0;
 					};
-					$('#members_tbody').append('<tr class="'+this.member_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/memberController/photo/'
+					$('#members_tbody').append('<tr class="'+this.member_Id+'"><td><img src="${this_contextPath}/images/members/'
 						 							+ this.member_Id+'.jpg" class="img-circle img-responsive" />'                              
 													+ '</td><td><h4>'                              
 													+ this.member_Id

@@ -13,7 +13,7 @@
 <title>揪團紀錄</title>
 <jsp:include page="/CRFitness.jsp" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.datetimepicker.css"> <!-- 日期選擇器 --> 
-<script src="${this_contextPath}/js/modernizr.custom.js"></script> <!-- 彈跳視窗 -->
+<script src="${this_contextPath}/js/modernizr.custom.min.js"></script> <!-- 彈跳視窗 -->
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css"><!-- 彈跳視窗 -->
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/dialog.css"> <!-- alert -->
@@ -189,7 +189,7 @@ padding:10px 5px 2px 5px;
 		        		 if(index%3 == 0){
 		        			 $('#activitys_div').append("<div id='div_"+count+"' class='row'></div>")      			 
 		        		 }	 
-							$('#div_'+count).append('<div class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
+							$('#div_'+count).append('<div class="col-md-4 col-xs-4 div2 " ><a href="${this_contextPath}/images/activitys/'
 									+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人:'
 							+this[2]+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 							+this[0].activity_Area+'<br />內容：'
@@ -197,7 +197,7 @@ padding:10px 5px 2px 5px;
 							+jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'<br />報名截止日：'
 							+jdate_value_deadline.Format("yyyy-MM-dd hh:mm:ss")
 							//外
-							+'"><span title=""><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
+							+'"><span title=""><img src="${this_contextPath}/images/activitys/'
 							+this[0].activity_Id+'.jpg" class="img-responsive poto_Outline" /></span></a><div class="col-md-12 col-xs-12"><p hidden="hidden">'+this[0].activity_Id+'</p>發起人：'
 									+this[2]+'<br />類別：'
 									+"<a href='#' class='select'>"+this[0].activity_Class+"</a>"+'<br />地區：'
@@ -272,7 +272,7 @@ padding:10px 5px 2px 5px;
 		          					  deadline:li_notfirst.parent().find("a:eq(4)").text()
 		          					},
 		          				success:function(data){    
-		          					console.log(data)
+		          					//console.log(data)
 		          				}
 		                	   })
 	                		 
@@ -392,7 +392,7 @@ padding:10px 5px 2px 5px;
 						    		  $("#"+acid).fadeOut(700,function(){
 						    			  $(this).remove();	  
 						    		  })	
-						    		  console.log(acid)
+						    		  //console.log(acid)
 							    		}//success			   
 							     }) //ajax
 							    }
@@ -407,10 +407,10 @@ padding:10px 5px 2px 5px;
 
 </c:if>
 	<!--  頁面部分 結束 -->
-<script src="${this_contextPath}/js/dialog.js"></script><!-- alert -->
-<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script> <!-- 彈跳視窗--> 
-<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script> <!-- 日期選擇器 -->
-<script src="${this_contextPath}/js/moment.min.js"  ></script> <!-- 日期選擇器 --> 
+<script src="${this_contextPath}/js/dialog.min.js" ></script><!-- alert -->
+<script src="${this_contextPath}/js/jquery.fs.boxer.min.js" ></script> <!-- 彈跳視窗--> 
+<script src="${this_contextPath}/js/bootstrap-editable.js" ></script> <!-- 日期選擇器 -->
+<script src="${this_contextPath}/js/moment.min.js" ></script> <!-- 日期選擇器 --> 
 </aside>
 </body>
 </html>

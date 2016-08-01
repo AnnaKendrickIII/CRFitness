@@ -20,5 +20,6 @@ public interface PersonalJournalDAO_interface {
      public List<PersonalJournalVO> select_otherJournal(String member_Id);
      public List<PersonalJournalVO> get_Flag_All();
      public boolean update_Flag_Journal(String journal_Id, Integer publicStatus);
+     public boolean updatePersonalJournalcontents(String journal_Id, String contents);
      
 }

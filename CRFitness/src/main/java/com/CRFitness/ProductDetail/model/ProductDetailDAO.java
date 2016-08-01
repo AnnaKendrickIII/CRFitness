@@ -87,21 +87,25 @@ public class ProductDetailDAO implements ProductDetailDAO_interface, Serializabl
 		return (List<ProductDetailVO>) query.list();
 	}
 
-	// back-end: select all products
+	// back-end: select products By category order by descend
 	@Override
-	public List<Object[]> getAllByDesc() {
+	public List<Object[]> getItemByCateNDesc(String category, Integer page) {
+		int max = 20; //每頁顯示幾筆資料
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-						"Select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category , Products.Info"
-								+ " from  ProductDetail join Products"
-								+ " on ProductDetail.Product_Id=Products.Product_Id "
+						"Select ProductDetail.*, Products.Product_Name, Products.Price, Products.Category, Products.Info"
+								+ " from ProductDetail join Products"
+								+ " on ProductDetail.Product_Id = Products.Product_Id"
+								+ " where Products.Category = '" + category + "'"
 								+ " Order by ProductDetail_Id desc")
 				.addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE)
 				.addScalar("info", StringType.INSTANCE);
+		query.setFirstResult((page - 1) * max);
+		query.setMaxResults(max);
 		return (List<Object[]>) query.list();
 	}
 
