@@ -247,7 +247,7 @@ jQuery(function($){
 						cleanCart()
 						totalAmount()
 						//訂單送出後3秒導向推薦者頁面
-						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後進入訂單查詢頁面',setTimeout(function(){	
+						alertify.success('訂單送出 &nbsp&nbsp&nbsp3秒後進入訂單查詢頁面',setTimeout(function(){	
  							location.href ="${this_contextPath}/Order.jsp?${LoginOK.member_Id}"
 							},3000) 
 						)
@@ -275,7 +275,7 @@ $('#itemlist').on('click','.delete', function() {
 				 thisdelete.parent().parent().parent().parent().remove();
 		}
 	})
-		alertify.warning('商品刪除成功')
+		alertify.warning('商品刪除成功',2)
 		//取出新總額
 		totalAmount()	
  });
@@ -286,7 +286,7 @@ $('body').on('click','#clean',function(){
 	alertify.confirm().set('title', '刪除整台購物車');
 	alertify.confirm('確認將購物車清空?',function(){
 			cleanCart()
-		alertify.warning('購物車已清空')
+		alertify.warning('購物車已清空',2)
 			totalAmount()
 	})
 	

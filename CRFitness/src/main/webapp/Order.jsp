@@ -116,10 +116,7 @@ jQuery(function($){
   			    		tr.remove()
   			      }
     			})
-    			alertify.success('訂單已刪除',3)},
-    			function(){
-   				alertify.error('取消刪除',3)
-	    		})			    	  
+    			alertify.warning('訂單已刪除',3)})			    	  
 		})
 })
 	</script>
