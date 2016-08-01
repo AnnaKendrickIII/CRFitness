@@ -99,6 +99,9 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
 							clients.get(member_Id).sendMessage(message);
 							clients.get(friend_Id).sendMessage(message);
 							chatService.IsRead(member_Id,friend_Id,chat_Detail,time);
+						}else{
+							clients.get(member_Id).sendMessage(message);				
+							chatService.NoRead(member_Id, friend_Id, chat_Detail, time);
 						}
 					}else{
 						clients.get(member_Id).sendMessage(message);				
