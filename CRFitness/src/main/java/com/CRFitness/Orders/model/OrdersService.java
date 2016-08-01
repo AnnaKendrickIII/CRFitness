@@ -5,15 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
-
-import com.CRFitness.OrderDetails.model.OrderDetailsVO;
 
 @Service(value = "ordersService")
 public class OrdersService {
@@ -25,15 +20,15 @@ public class OrdersService {
 
 	}
 
-	// 利用 member_Id 搜尋會員訂單
+	// 利用 member_Id 搜尋有效會員訂單
 	public List<OrdersVO> searchOrdersByMember_Id(String member_Id) {
-		if (!(ordersDAO.findOrdersByMember_Id(member_Id).isEmpty())) {
+		List<OrdersVO> vos = ordersDAO.findOrdersByMember_Id(member_Id);
+		if (!(vos.isEmpty())) {
 			return ordersDAO.findOrdersByMember_Id(member_Id);
 		} else {
 			return null;
 		}
 	}
-	
 
 	// 取消訂單
 	public Boolean cancelOrder(String order_Id) {
@@ -52,7 +47,7 @@ public class OrdersService {
 	public List<OrdersVO> searchAllOrders() {
 		return ordersDAO.getAll();
 	}
-	
+
 	public List<OrdersVO> searchMemberOrders() {
 		return ordersDAO.getAll();
 	}

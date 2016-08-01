@@ -23,13 +23,18 @@ public class OrdersController {
 	@Resource(name = "ordersService")
 	private OrdersService ordersService;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/orders", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/orders", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<OrdersVO> searchAllOrders() {
 		return ordersService.searchAllOrders();
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/searchMemberOrders", produces = "application/json;charset=UTF-8")
+	@RequestMapping(method = RequestMethod.GET, value = "/searchMemberOrders", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<OrdersVO> searchMemberOrders(String member_Id) {
 		return ordersService.searchOrdersByMember_Id(member_Id);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/cancelOrder")
+	public @ResponseBody void cancelOrder(String order_Id) {
+		ordersService.cancelOrder(order_Id);
 	}
 }
