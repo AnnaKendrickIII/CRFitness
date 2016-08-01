@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_profile.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_head.css" />
- <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
@@ -1312,7 +1312,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 
 	<script src="${this_contextPath}/js/personal_head.js"></script>
 	<script src="${this_contextPath}/js/personal_journal.js"></script>
-	<script src="${this_contextPath}/js/alertify.js"></script>
+<%-- 	<script src="${this_contextPath}/js/alertify.js"></script> --%>
 	<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
 	<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
 	<script src="${this_contextPath}/js/jquery.alertable.js" ></script>

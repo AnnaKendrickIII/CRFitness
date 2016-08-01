@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="${this_contextPath}/css/products2.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lightbox.css">
 <link rel="stylesheet" href="${this_contextPath}/css/searchform.css">
-<link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.desoslide.css">
 <link rel="stylesheet" href="${this_contextPath}/css/animate.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/magic.min.css">
@@ -126,7 +125,6 @@ color:#FF3333;
 <body>
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.desoslide.min.js"></script>
 <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>            
 
