@@ -102,7 +102,6 @@ public class ProductDetailController {
 	public @ResponseBody void cleanCart() {
 		shoppingCart.cleanCart();
 	}
-	
-	//新增訂單
+
 	
 }
