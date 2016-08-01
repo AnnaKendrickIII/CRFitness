@@ -249,7 +249,7 @@ margin-left: 5%;
 	    return fmt;
 	}
 	  jQuery(function ($) {
-		  $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Activitys.png">')
+		  $('.logo_here').append('<img  class="logo_css" src="${this_contextPath}/images/logo/Activitys.png">')
 		  var file;	
 		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 

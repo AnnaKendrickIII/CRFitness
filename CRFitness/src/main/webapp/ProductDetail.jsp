@@ -125,7 +125,7 @@ $('.shopping_car_div').popover()
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
 	jQuery(function($){
-		$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ProductDetail.png">')
+		$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/ProductDetail.png">')
 		
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
@@ -160,8 +160,9 @@ $.ajax({
 							+'</div>')
 							
 							
-							$("img").error(function(e) {
-			        			$(e.target).attr("src", "${this_contextPath}/images/logo/iconBig.png");
+							$(".small ").error(function(e) {
+								$(e.target).parent().remove();
+// 			        			$(e.target).attr("src", "${this_contextPath}/images/logo/iconBig.png");
 			   				})
 								$(".selLabel").click(function() {
 		$('.dropdown').toggleClass('active');

@@ -82,7 +82,7 @@
     <!-- 標頭區塊 開始-->
     <header class="row header_css">
         <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class="btn-toolbar col-lg-5 col-md-5 col-xs-5">
+            <div class="btn-toolbar col-lg-5 col-md-4 col-xs-3">
                 <div class="btn-group ">    
                     <a href="#menu-toggle" id="menu-toggle">
                          <i id="header_list" class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -434,6 +434,7 @@
 				 mail.text('1') 
 			}
         }else if(data.type == '5'){
+        	if(data.userID!='${LoginOK.member_Id}'){
         	$('#contact-list').append(
                	 '<li class="list-group-item">'
                	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'" >'
@@ -452,7 +453,13 @@
                	 +'</li> '	 
 				) 
 				alertify.notify('你已和'+data.myName+'成為好友', 'success', 5);
-        	$('.canceladdfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
+        	}
+        	
+        	if(!$('.addfriend').attr('class')){
+        		$('.canceladdfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
+        	}else{
+        	 	$('.addfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
+        	}
         }
     };
     (function(){

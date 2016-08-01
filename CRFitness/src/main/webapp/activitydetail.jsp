@@ -164,7 +164,7 @@ padding:10px 5px 2px 5px;
 	
 	
 	jQuery(function($){
-		$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/MyCreateActivity.png">')
+		$('.logo_here').append('<img  class="logo_css" src="${this_contextPath}/images/logo/MyCreateActivity.png">')
 		
 		//個人建立的揪團
 	    $.ajax({

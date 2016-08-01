@@ -129,7 +129,8 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
 		try {
 			if(clients.containsKey(friend_Id)){
 				if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {	
-					clients.get(friend_Id).sendMessage(message);	
+					clients.get(friend_Id).sendMessage(message);
+					clients.get(member_Id).sendMessage(message);	
 				}
 			}else{
 									

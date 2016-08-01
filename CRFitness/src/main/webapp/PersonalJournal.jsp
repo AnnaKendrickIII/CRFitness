@@ -183,7 +183,7 @@ font-size: 20px;
 </style>
 <script type="text/javascript">
 jQuery(function($){
-$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/PersonalJournal.png">')
+$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/PersonalJournal.png">')
 })
 </script>
 
@@ -588,7 +588,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${pageContext.request.queryString}.jpg" >'
 	             +'</a>'
 	             +'<div class="media-body">'
-	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
+	             +'<h4 id="usernickanme" class="media-heading "></h4>'
 	             +'<hr style="margin:8px auto">'		             
 	             +'<button type="button" class="profile-btn btn btn-primary chat_for_friend">傳送訊息給他</button>'
 	             +'</div>'

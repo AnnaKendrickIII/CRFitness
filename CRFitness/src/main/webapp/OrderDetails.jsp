@@ -40,7 +40,7 @@ vertical-align : middle;
 	
 	<script type="text/javascript">
 jQuery(function($){
-	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/OrderDetail.png">')
+	$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/OrderDetail.png">')
 	var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substr(9);
 	$.ajax({

@@ -63,7 +63,7 @@ text-align: center;
 
 
 jQuery(function($){
-		$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Order.png">')
+		$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/Order.png">')
 	$.ajax({
 		  url:'${this_contextPath}/CRFSERVICE/ordersController/searchMemberOrders',
 		  data:{member_Id:'${LoginOK.member_Id}'},

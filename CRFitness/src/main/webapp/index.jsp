@@ -316,7 +316,7 @@ body {
 	}
 	
 	jQuery(function($){
-	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/logo.png">')
+	$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/logo.png">')
 		$(document).ready(function() {
 
 				$(".player").mb_YTPlayer();
