@@ -338,7 +338,7 @@ textarea{
                      
                      <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="addbtn" class="btn btn-theme03" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
+                        <button id="addbtn" class="btn btn-theme" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -390,7 +390,7 @@ textarea{
                      
                      <div class="modal-footer upbtn">
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="updatebtn" class="btn btn-theme03" type="button" value="UPDATE_PRODUCT">送出</button>                       
+                        <button id="updatebtn" class="btn btn-theme" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
