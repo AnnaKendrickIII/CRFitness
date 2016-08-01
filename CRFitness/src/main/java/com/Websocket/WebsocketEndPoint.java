@@ -50,7 +50,7 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
             clients.put(datas.get("userID").toString(), session);
         } 
         
-        if("2".equals(type)){
+        if("2".equals(type)){  //私訊
         	TextMessage tm = new TextMessage(g.toJson(datas));   	
         	long batch_date = Long.parseLong(datas.get("Time").toString()); 
             Date dt = new Date (batch_date); 
@@ -58,14 +58,14 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         	Timestamp ts = Timestamp.valueOf(sfd.format(dt));
         	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),datas.get("data").toString(),ts,tm);
         }
-        else if("3".equals(type))//關掉
+        else if("3".equals(type))//關掉，登出移除自己的WebSocketSession
         {
             clients.remove(datas.get("userID").toString());
         } else if("4".equals(type)){//加好友     
         	TextMessage tm = new TextMessage(g.toJson(datas)); 
         	addFriend(datas.get("userID").toString(),datas.get("friendId").toString(), 
         			datas.get("myName").toString(), tm);
-        }else if("5".equals(type)){//加好友  
+        }else if("5".equals(type)){//接受加好友  
         	TextMessage tm = new TextMessage(g.toJson(datas)); 
         	acceptFriend(datas.get("userID").toString(),datas.get("friendId").toString(), 
         			datas.get("myName").toString(), tm);

@@ -52,7 +52,9 @@
 }
 
 #tile10{
-    background: rgb(255,255,255);
+/*     background: rgb(255,255,255); */
+/* 	background-image: url(images/sport_news2.png);  */
+
 }
 
 .tilecaption{
@@ -67,3 +69,4 @@
     font-family: Segoe UI;
     font-weight: lighter;
 }
+

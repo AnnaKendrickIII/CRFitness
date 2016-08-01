@@ -9,6 +9,7 @@
       maxIdle="4"
       maxWait="5000"
  /> 
+
   <!--              MySQL(範例程式會用到的DataSource)    
  <Resource name="jdbc/JavaDataBase" type="javax.sql.DataSource"
       username="sa" password="passw0rd"
