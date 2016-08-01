@@ -527,9 +527,11 @@
  		
  		$('body').on('click', '.chat_icon_css', function (e) {
  			var friendId=$(this).find('span[hidden]').text()
- 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();		 
-			 bodyappend(friendId,WhoName)//增加聊天框 		 
-			 IsReadThree(friendId)//增加已讀3則訊息		
+ 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();	
+ 			if(!($('#'+friendId).html())){	
+ 				 bodyappend(friendId,WhoName)//增加聊天框 		 
+ 				 IsReadThree(friendId)//增加已讀3則訊息		
+			}		
         });
  		$('body').on('click', '.icon_close', function (e) {
            $(this).parent().parent().parent().parent().parent().parent().remove();

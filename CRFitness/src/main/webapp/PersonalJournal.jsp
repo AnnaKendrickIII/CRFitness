@@ -1162,9 +1162,12 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
       	})
       	
 			//傳訊息給好友
-			$('body').on('click','.chat_for_friend',function(){			
-				bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
-				IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則
+			$('body').on('click','.chat_for_friend',function(){	
+				if(!($('#${pageContext.request.queryString}').html())){	
+					bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
+					IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則	
+				}
+				
 			})
       	
 //       	//查詢好友狀態
