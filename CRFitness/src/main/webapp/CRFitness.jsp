@@ -750,23 +750,25 @@
                      });
 					
                     // 好友刪除
-//                     $('body').on('click', 'span.deletefriend', function (e) {
-//                         var whichthis = $(this);
-//                         var fid=$(this).parent().parent().siblings(".addfid").text()
-// 	               		alertify.confirm().set('title', '警告');
-// 			    		alertify.confirm('確認刪除此好友',function(e){
-// 			    			if(e){
-// 		                        $.ajax({
-// 									url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
-// 									type:'post',
-// 									data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
-// 									success: function(data){             
-// 								 whichthis.parent().parent().parent().remove();
-// 		                       }
-// 		                     })
-// 			    			}else{ } 
-// 			    		});
-//                		 });
+                    $('body').on('click', 'span.deletefriend', function (e) {
+                        var whichthis = $(this);
+                        var fid=$(this).next().find("span[hidden]").text()
+                        console.log(fid)
+	               		alertify.confirm().set('title', '警告');
+			    		alertify.confirm('確認刪除此好友',function(e){
+			    			if(e){
+		                        $.ajax({
+									url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
+									type:'post',
+									data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
+									success: function(data){
+										console.log(data)
+										whichthis.parent().parent().remove();
+		                       }
+		                     })
+			    			}else{ } 
+			    		});
+               		 });
                   })
               
                  </script > 

@@ -1110,7 +1110,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						'friend_Id': "${pageContext.request.queryString}"},
 					success:function(data){
 						if(data){
-							alertify.alert('已申請').set('title', '訊息');
+// 							alertify.alert('已申請').set('title', '訊息');
 							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
 							.removeClass('addfriend').addClass('canceladdfriend');
 							
@@ -1211,7 +1211,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		}
 		
 		jQuery(function($){ 
-			var wimgSrc='${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}'
+			var wimgSrc='${this_contextPath}/images/members/${LoginOK.member_Id}.jpg'
 			
 			$("body").on("click",'#clickchangehead',function(){
 				$('#changehead').modal('toggle');				
