@@ -733,7 +733,7 @@
 					
                     $('body').on('click', '.check_fr_No', function (e) {
                              var whichthis = $(this);
-                             var fid=$(this).parent().parent().siblings("div[hidden]").text()
+                             var fid=$(this).parent().parent().siblings(".addfid").text()
                              $.ajax({
      							url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
      							type:'post',

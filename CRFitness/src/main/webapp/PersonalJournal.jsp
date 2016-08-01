@@ -1103,6 +1103,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 							alertify.alert('已申請').set('title', '訊息');
 							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
 							.removeClass('addfriend').addClass('canceladdfriend');
+							
 							 var msg = JSON.stringify({'userID':"${LoginOK.member_Id}",'friendId':"${pageContext.request.queryString}", 'type':'4','myName':"${LoginOK.nickname}"});  
 					         ws.send(msg);
 						}else{
@@ -1162,8 +1163,8 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
       	
 			//傳訊息給好友
 			$('body').on('click','.chat_for_friend',function(){			
-			bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
-			IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則
+				bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
+				IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則
 			})
       	
 //       	//查詢好友狀態
