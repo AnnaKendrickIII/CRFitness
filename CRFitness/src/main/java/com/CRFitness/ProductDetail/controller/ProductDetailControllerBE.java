@@ -29,9 +29,12 @@ public class ProductDetailControllerBE {
 	private ProductDetailService productDetailService;
 	
 	// select products，新增的列顯示在最上面
-	@RequestMapping(method = RequestMethod.GET, value = "/getAllByDesc", produces = "application/json; charset=utf-8")
-	public @ResponseBody List<Object[]> getAllDetail() {
-		return productDetailService.getAllByDesc();
+	@RequestMapping(method = RequestMethod.GET, value = "/getItemsByCateNDesc", produces = "application/json; charset=utf-8")
+	public @ResponseBody List<Object[]> getAllDetail(
+			HttpServletRequest request, 
+			@RequestParam String category,
+			@RequestParam Integer page) {
+		return productDetailService.getItemByCateNDesc(category, page);
 	}
 	
 	// insert products

@@ -154,7 +154,7 @@ color:#FF3333;
     	<form action="" class="search-form">
             <div class="form-group has-feedback">
         		<label for="search" class="sr-only">Search</label>
-        		<input type="text" class="form-control" name="search" id="search" autocomplete="off" placeholder="不能查詢不要亂玩&nbsp!">
+        		<input type="text" class="form-control" name="search" id="search" autocomplete="off" placeholder="請輸入關鍵字&nbsp!">
           		<span class="glyphicon glyphicon-search form-control-feedback"></span>
         	</div>
         </form>
@@ -351,8 +351,7 @@ $('body').on('click','.shop',function(){
 							"z-index": "999"});
 					whichImg.parent().parent().parent().parent().append(copyimg);	
 					copyimg.animate({"top":$('.shopping_car_div').position().top,
-									"left":$('.shopping_car_div').position().left,
-									"opacity": 0,
+									"left":$('.shopping_car_div').position().left
 									},500,"linear", function() {
 									      copyimg.remove();
 									 });

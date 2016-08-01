@@ -80,7 +80,7 @@ width: 150px;
 <script type="text/javascript">
 
 jQuery(function($){
-	
+
 	function showCart(){
 		$.ajax({
 			url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
@@ -112,6 +112,9 @@ jQuery(function($){
 					if(count>0){
 					$('.shopping_car_span').text(count)
 					}
+				
+				
+				
 				}
 			})
 		}	
@@ -151,30 +154,15 @@ $.ajax({
 							+'</div></p>'
 							+'</br></br><div><strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
 							+'</p></strong></div></br></br>'
-							+'<div class="btn btn-warning" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'
+// 							+'<div class="btn btn-warning" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'
 							+'&nbsp&nbsp&nbsp<div class="btn btn-danger addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</div>'
 							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span>&nbsp&nbsp繼續購物</a>'
 							+'</div>')
 							
-		$.UrlExists = function(url) {
-			var http = new XMLHttpRequest();
-		    http.open('HEAD', url, false);
-		    http.send();
-		    return http.status!=404;
-		}
-		
-		for(var i = 1; i < 6; i++){
-			var filePath = "${this_contextPath}/images/products/"+data[0][0].productDetail_Id+"_"+i+".png"
-			console.log(filePath);
-			if($.UrlExists(filePath)){
-				console.log('存在')
-				// append img src
-			}else{
-				console.log('不存在')
-			}
-		}
-		
-
+							
+							$("img").error(function(e) {
+			        			$(e.target).attr("src", "${this_contextPath}/images/logo/iconBig.png");
+			   				})
 								$(".selLabel").click(function() {
 		$('.dropdown').toggleClass('active');
 	});

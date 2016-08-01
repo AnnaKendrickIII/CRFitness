@@ -177,7 +177,7 @@ width:24px;
 		        		var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 
 			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><span class="name_p">'
+			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><span class="name_p">'
 			        		 +this[1]+'</span></a><p class="time_p">'
 			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 							 +this[0].contents+'</p>'
@@ -210,7 +210,7 @@ width:24px;
 											}
 										})
 	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css">'
+	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css">'
 	            					 +'<span class="message_name_span">'+this[1]+'</span></a><div class="innercontent_div">'
 	            					 +thecontent+'<p class="time_p">'+jQuery.timeago(jdate_value2.Format("yyyy-MM-dd hh:mm:ss"))+'</p></div></div></div>'
 	            				 })//留言明細迴圈     	    				
@@ -244,7 +244,7 @@ width:24px;
 	   		        		  	var journalId=this[0].journal_Id
 	   		        		  	var contet='<p hidden="hidden">'+this[0].journal_Id+'</p>'
 	   			        		 +'<a class="a_img_p" href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	   			        		 +'<img class="Emoticons" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[2]+'" /><span class="name_p">'
+	   			        		 +'<img class="Emoticons" src="${this_contextPath}/images/members/'+this[2]+'.jpg" /><span class="name_p">'
 	   			        		 +this[1]+'</span></a><p class="time_p">'
 	   			        		 +jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p><p class="PersonalJournal_contents_p">'
 	   							 +this[0].contents+'</p>'
@@ -277,7 +277,7 @@ width:24px;
 	   											}
 	   										})
 	   	            					 message+='<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0].member_Id+'">'
-	   	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0].member_Id+'" /></div><div class="message_inner_div_css">'
+	   	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+this[0].member_Id+'.jpg" /></div><div class="message_inner_div_css">'
 	   	            					 +'<span class="message_name_span">'+this[1]+'</span></a><div class="innercontent_div">'
 	   	            					 +thecontent+'<p class="time_p">'+jdate_value2.Format("yyyy-MM-dd hh:mm:ss")+'</p></div></div></div>'
 	   	            				 })//留言明細迴圈     	    				
@@ -363,8 +363,8 @@ width:24px;
 								if(index==0){					
 									messageDiv.append(
 											'<div class="message_div"><div class="inner_img_div"><a href="${this_contextPath}/PersonalJournal.jsp?'+theMember_Id+'">'
-		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/'
-		 	            					 +theMember_Id+'" /></div><div class="message_inner_div_css"><span class="message_name_span">'
+		 	            					 +'<img class="message_img img-circle" src="${this_contextPath}/images/members/'+theMember_Id+'.jpg" /></div>'
+		 	            					 +'<div class="message_inner_div_css"><span class="message_name_span">'
 		 	            					 +theNickname+'</span></a><div class="innercontent_div"><span class="span_contet"></span>'
 		 	            					 +'</div></div></div>').find('.message_div:last .span_contet').text(this)
 								}else{

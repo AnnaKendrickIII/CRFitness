@@ -245,7 +245,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
              	<c:if test="${! empty LoginOK }">  	  
              		<script type="text/javascript">
-             			$('.sidebar-menu').prepend('<p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
+             			$('.sidebar-menu').prepend('<p class="centered"><a href="${this_contextPath}/admin/adminIndex.jsp"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
          	 			+'<h5 class="centered">${LoginOK.nickname}</h5>')
              		</script >
               	</c:if>

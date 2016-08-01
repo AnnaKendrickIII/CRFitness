@@ -94,7 +94,7 @@ public class ActivitysService {
 			Timestamp sdf2 = new Timestamp(date.getTime());
 //			System.out.println(sdf2);
 			 int compareTo = activity_day.compareTo(sdf2); 
-			 System.out.println(compareTo);
+			 //System.out.println(compareTo);
 //			if(compareTo == -1){
 //				System.out.println("更新揪團狀態");
 //			}else(compareTo == 1){
@@ -152,8 +152,8 @@ public class ActivitysService {
 			String activity_Info,
 			String deadline)
 	{
-		System.out.println("activity_DayServer" + activity_Day);
-		System.out.println("activity_Daydeadline" + deadline);	
+		//System.out.println("activity_DayServer" + activity_Day);
+		//System.out.println("activity_Daydeadline" + deadline);	
 		activity_Day=activity_Day.replace("-", "/");
 		deadline=deadline.replace("-", "/");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");

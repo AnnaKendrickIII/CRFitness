@@ -272,7 +272,7 @@ padding:10px 5px 2px 5px;
 		          					  deadline:li_notfirst.parent().find("a:eq(4)").text()
 		          					},
 		          				success:function(data){    
-		          					console.log(data)
+		          					//console.log(data)
 		          				}
 		                	   })
 	                		 
@@ -392,7 +392,7 @@ padding:10px 5px 2px 5px;
 						    		  $("#"+acid).fadeOut(700,function(){
 						    			  $(this).remove();	  
 						    		  })	
-						    		  console.log(acid)
+						    		  //console.log(acid)
 							    		}//success			   
 							     }) //ajax
 							    }
@@ -409,8 +409,8 @@ padding:10px 5px 2px 5px;
 	<!--  頁面部分 結束 -->
 <script src="${this_contextPath}/js/dialog.min.js" ></script><!-- alert -->
 <script src="${this_contextPath}/js/jquery.fs.boxer.min.js" ></script> <!-- 彈跳視窗--> 
-<script src="${this_contextPath}/js/bootstrap-editable.min.js" ></script> <!-- 日期選擇器 -->
-<script src="${this_contextPath}/js/moment.js" ></script> <!-- 日期選擇器 --> 
+<script src="${this_contextPath}/js/bootstrap-editable.js" ></script> <!-- 日期選擇器 -->
+<script src="${this_contextPath}/js/moment.min.js" ></script> <!-- 日期選擇器 --> 
 </aside>
 </body>
 </html>

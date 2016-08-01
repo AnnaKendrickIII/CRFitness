@@ -101,7 +101,7 @@
                   		
                 </div>                  
                	<div class="user_login_div dropdown">
-                        <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn"  src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
+                        <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn"  src="${this_contextPath}/images/members/${LoginOK.member_Id}.jpg" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel"> 
                             <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a></li>
                             <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
@@ -212,7 +212,7 @@
 	 	 			 		            +'</div>'
 	 	 			 		            +'</div>'
 	 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-	 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+	 	 			 		            +'<img class="msimg" src="${this_contextPath}/images/members/'+this.member_Id+'.jpg" class=" img-responsive ">'
 	 	 			 		            +'</div>'
 	 	 			 		            +'</div>' 				 
 	 							 )
@@ -220,7 +220,7 @@
 						$('#'+userID+' .msg_container_base ').prepend(
 	 								'<div class="row msg_container base_receive ">'
 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+	 			 		            +'<img class="msimg" src="${this_contextPath}/images/members/'+this.member_Id+'.jpg" class=" img-responsive ">'
 	 			 		            +'</div>'     
 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
 	 			 		            +'<div class="messages msg_sent">'
@@ -283,7 +283,7 @@
 	          type:'get',  //get post put delete
 			  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
 			  success:function(data){
-				 $('#myfriend').modal('hide')			
+				 			
 				 $.each(data,function(){	
 					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
 		 		   var jdate_value = new Date(jdate_int);
@@ -298,7 +298,7 @@
 			 		            +'</div>'
 			 		            +'</div>'
 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+			 		            +'<img class="msimg" src="${this_contextPath}/images/members/'+this.member_Id+'.jpg" class=" img-responsive ">'
 			 		            +'</div>'
 			 		            +'</div>' 
 	 							 
@@ -308,7 +308,7 @@
 						$('#'+friendId+' .msg_container_base').prepend(
 								'<div class="row msg_container base_receive ">'
 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+			 		            +'<img class="msimg" src="${this_contextPath}/images/members/'+this.member_Id+'.jpg" class=" img-responsive ">'
 			 		            +'</div>'     
 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
 			 		            +'<div class="messages msg_sent">'
@@ -372,7 +372,7 @@
 		 		            +'</div>'
 		 		            +'</div>'
 		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-		 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'" class=" img-responsive ">'
+		 		            +'<img class="msimg" src="${this_contextPath}/images/members/'+data.userID+'.jpg" class=" img-responsive ">'
 		 		            +'</div>'
 		 		            +'</div>' 
 							 
@@ -385,7 +385,7 @@
 					$('#'+data.userID+' .msg_container_base').append(
 							'<div class="row msg_container base_receive ">'
 		 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-		 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'" class=" img-responsive ">'
+		 		            +'<img class="msimg" src="${this_contextPath}/images/members/'+data.userID+'.jpg" class=" img-responsive ">'
 		 		            +'</div>'     
 		 		            +'<div class=" col-md-9 col-xs-9 message_div">'
 		 		            +'<div class="messages msg_sent">'
@@ -416,7 +416,7 @@
 						+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
 						+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
 						+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'">'
-						+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></a></div>'
+						+'<img class="img-responsive" src="${this_contextPath}/images/members/'+data.userID+'.jpg"></a></div>'
 						+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
 						+data.myName+'想加你為好友</div>'
 						+'<div  class="col-xs-3 col-sm-3 ">'
@@ -435,7 +435,7 @@
         	$('#contact-list').append(
                	 '<li class="list-group-item">'
                	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'" >'
-               	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'" class="img-responsive img-circle" />'
+               	 +' <img src="${this_contextPath}/images/members/'+data.userID+'.jpg" class="img-responsive img-circle" />'
                	 +'</a></div>'
                	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
                	 +'<span class="name">'+data.myName+'</span>'
@@ -529,7 +529,8 @@
  		$('body').on('click', '.chat_icon_css', function (e) {
  			var friendId=$(this).find('span[hidden]').text()
  			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();	
- 			if(!($('#'+friendId).html())){	
+ 			if(!($('#'+friendId).html())){
+ 				$('#myfriend').modal('hide')
  				 bodyappend(friendId,WhoName)//增加聊天框 		 
  				 IsReadThree(friendId)//增加已讀3則訊息		
 			}		
@@ -574,7 +575,7 @@
                                 	 $('#contact-list').append(
                                 	 '<li class="list-group-item">'
                                 	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[0]+'" >'
-                                	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[0]+'" class="img-responsive img-circle" />'
+                                	 +' <img src="${this_contextPath}/images/members/'+this[0]+'.jpg" class="img-responsive img-circle" />'
                                 	 +'</a></div>'
                                 	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
                                 	 +'<span class="name">'+this[2]+'</span>'
@@ -620,7 +621,7 @@
 												+this[2]+'</div>'
 												+'<div class="row chatmessage"><div  class="col-xs-1 col-sm-1"></div>'
 												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-comments-o o-chat" aria-hidden="true"></i></div>'
-												+'<div  class="col-xs-1 col-sm-1"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></div>'
+												+'<div  class="col-xs-1 col-sm-1"><img class="img-responsive" src="${this_contextPath}/images/members/'+this[1]+'.jpg"></div>'
 												+'<div  class="col-xs-8 col-sm-8 div_chat_message">'
 												+this[2]+'有對你留言</div></div><li>')							
 										count++;
@@ -630,7 +631,7 @@
 												+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
 												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
 												+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[1]+'">'
-												+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></a></div>'
+												+'<img class="img-responsive" src="${this_contextPath}/images/members/'+this[1]+'.jpg"></a></div>'
 												+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
 												+this[2]+'想加你為好友</div>'
 												+'<div  class="col-xs-3 col-sm-3 ">'
@@ -643,7 +644,7 @@
 												+'<div class="row chatmessage_two"><div  class="col-xs-1 col-sm-1"></div>'
 												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-user-plus o-chat" aria-hidden="true"></i></div>'
 												+'<div  class="col-xs-1 col-sm-1"><a href="${this_contextPath}/PersonalJournal.jsp?'+this[1]+'">'
-												+'<img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this[1]+'"></a></div>'
+												+'<img class="img-responsive" src="${this_contextPath}/images/members/'+this[1]+'.jpg"></a></div>'
 												+'<div  class="col-xs-6 col-sm-6 div_chat_message">'
 												+this[2]+'想加你為好友</div>'
 												+'<div  class="col-xs-3 col-sm-3 ">'
@@ -713,7 +714,7 @@
 								$('#contact-list').append(
 	                                	 '<li class="list-group-item">'
 	                                	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+fid+'" >'
-	                                	 +' <img src="${this_contextPath}/CRFSERVICE/memberController/photo/'+fid+'" class="img-responsive img-circle" />'
+	                                	 +' <img src="${this_contextPath}/images/members/'+fid+'.jpg" class="img-responsive img-circle" />'
 	                                	 +'</a></div>'
 	                                	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
 	                                	 +'<span class="name">'+fname+'</span>'
