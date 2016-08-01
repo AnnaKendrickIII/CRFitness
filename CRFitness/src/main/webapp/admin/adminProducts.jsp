@@ -197,9 +197,15 @@ th{
 	text-align: center;
 }
 
+.page {
+    text-align: center;
+}
+
 textarea{
 	resize: none;
 }
+
+
 </style>
 </head>
 
@@ -212,7 +218,7 @@ textarea{
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-		
+	
 	<div class="row mt">
 <!-- 		<div class="col-md-1"></div> -->
     	<div class="col-md-12 col-xs-12">
@@ -254,12 +260,25 @@ textarea{
 				</tr>
 			</thead>
 			<tbody id="products_tbody"></tbody>
-		
-            	</table>
+            </table>
+            
+	<div class="container page">
+		<ul class="pagination pagination-lg" >
+              <li><a href="">«</a></li>
+              <li><a href="">1</a></li>
+              <li><a href="">2</a></li>
+              <li><a href="">3</a></li>
+              <li><a href="">4</a></li>
+              <li><a href="">5</a></li>
+              <li><a href="">»</a></li>
+        </ul>
+	</div>
         	</div><!-- /content-panel -->
     	</div> <!-- /col-md-10 xs-12 -->
 <!-- 		<div class="col-md-1"></div> -->
+
 	</div><!-- 184 <div class="row mt"> -->
+		
 		
 		</section> <!-- 182 <section class="wrapper"> -->
       </section> <!-- 181 /MAIN CONTENT -->
@@ -599,14 +618,55 @@ textarea{
 
 
 // 3.顯示產品的程式   開始
+
+		var Type ='${pageContext.request.queryString}';
+		num1 = Type.substr(9).indexOf("&")
+		num2 = Type.indexOf("&")
+		var queryString = Type.substr(0,num2)
+		var whichPage = Type.substr(num2)
+		whichPage = whichPage.substr(6)
+		Type = Type.substr(9,num1)
+		var page = parseInt(whichPage)
+
+		if(page<=1){
+//		 	 alertify.alert('警告','已是第一頁')
+			$('.pagination>li:nth-child(2) a').attr("href",'${page}?'+queryString+"&page=1")
+		}else{
+			$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page="+(page-1))
+		}
+		if(page>=3){
+			 alertify.alert('警告','本頁已無商品')
+			// location.href='${page}?'+queryString+"&page=2"
+			$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
+		}else{
+			$('.pagination>li:nth-child(7) a').attr("href",'${page}?'+queryString+"&page="+(page+1))
+		}
+
+		$('.pagination>li:nth-child('+(page+1)+')').addClass("active")
+		$('.pagination>li:nth-child(2) a').attr("href",'${page}?'+queryString+"&page=1")
+		$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
+		$('.pagination>li:nth-child(4) a').attr("href",'${page}?'+queryString+"&page=3")
+		$('.pagination>li:nth-child(5) a').attr("href",'${page}?'+queryString+"&page=4")
+		$('.pagination>li:nth-child(6) a').attr("href",'${page}?'+queryString+"&page=5")
+
+		if(Type=='cmens-tops'){
+			Type='上裝'
+		}else if(Type=='cmens-bottoms'){
+			Type='下裝'
+		}else if(Type=='cmens-accessories'){
+			Type='配件'
+		}else if(Type=='cmens-footwear'){
+			Type='鞋類'
+		}
+
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
+		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getItemsByCateNDesc",
 		type : 'get', //get post put delete
-		data : {},
+		data : {category:Type, page:whichPage},
 		success : function(data) {
 // 			console.log(data);
-			$.each( data,
-				function(index) {
+			var prev_id="";
+			$.each(data, function(index) {		
 					var pdate_int = parseInt(this[0].published_Date); //轉換成數字
 					var pdate_value = new Date(pdate_int);
 // 					console.log(this[0].product_Status);
@@ -643,7 +703,7 @@ textarea{
 													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
 													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 													+ '</td></tr>') // end of append
-												}) // end of $.each(
+			}) // end of $.each(
 					// 產品狀態switch的程式   開始
 					$('.easyswitch').easyswitch();
 					// 產品狀態switch的程式   結束

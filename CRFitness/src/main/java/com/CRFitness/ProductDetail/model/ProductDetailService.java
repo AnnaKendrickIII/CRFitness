@@ -138,9 +138,9 @@ public class ProductDetailService {
 	} // end public byte[] showPhotos(String Path){
 	
 	
-	// back-end: select all columns in ProductDetail & Product Table
-	public List<Object[]> getAllByDesc() {
-		return productDetailDAO.getAllByDesc();
+	// back-end: select all columns by category order by descend in ProductDetail & Product Table
+	public List<Object[]> getItemByCateNDesc(String category, Integer page) {
+		return productDetailDAO.getItemByCateNDesc(category, page);
 	}
 
 	// back-end: 新增商品至 ProductDetail & Product Table
