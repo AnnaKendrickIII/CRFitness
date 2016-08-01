@@ -252,59 +252,59 @@
                   <li class="mt">
                       <a class="active" href="${this_contextPath}/admin/adminIndex.jsp">
                           <i class="fa fa-dashboard"></i>
-                          <span>主控台</span>
+                          <span><strong>主控台</strong></span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-book"></i>
-                          <span>維護健康日誌</span>
+                          <span><strong>維護健康日誌</strong></span>
                       </a>
                        <ul class="sub">
-                          <li><a  href="adminJournals.jsp">健康日誌</a></li>
+                          <li><a href="adminJournals.jsp">健康日誌</a></li>
                       </ul>                      
                   </li>
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-shopping-cart"></i>
-                          <span>維護商品專區</span>
+                          <span><strong>維護商品專區</strong></span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="adminProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="adminProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="adminProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="adminProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-users"></i>
-                          <span>維護揪團專區</span>
+                          <span><strong>維護揪團專區</strong></span>
                       </a>
                        <ul class="sub">
-                          <li><a  href="adminActivities.jsp">揪團專區</a></li>
+                          <li><a href="adminActivities.jsp">揪團專區</a></li>
                       </ul>                      
                   </li>
                   
                   <li class="sub-menu">
                       <a href="javascript:;" >
-                          <i class="fa fa-commenting"></i>
-                          <span>維護會員資訊</span>
+                          <i class="li_user"></i>
+                          <span><strong>維護會員資訊</strong></span>
                       </a>
                        <ul class="sub">
-                          <li><a  href="adminMembers.jsp">會員資訊</a></li>
+                          <li><a href="adminMembers.jsp">會員資訊</a></li>
                       </ul>
                   </li>
                   
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-usd" aria-hidden="true"></i>
-                          <span>維護訂單專區</span>
+                          <span><strong>維護訂單專區</strong></span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="adminOrders.jsp">訂單專區</a></li>
+                          <li><a href="adminOrders.jsp">訂單專區</a></li>
                       </ul>
                   </li>
 
