@@ -7,45 +7,50 @@
     <meta charset="utf-8">
     <title>Directions service</title>
     <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-        select {
-            font-size:14px;
-        }
-#floating-panel {
-  position: absolute;
-  top: 10px;
-  left: 25%;
-  z-index: 5;
-  background-color: #fff;
-  padding: 5px;
-  border: 1px solid #999;
-  text-align: center;
-  font-family: 'Roboto','sans-serif';
-  line-height: 30px;
-  padding-left: 10px;
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
+
 #map {
-    margin:5% 25% 0 25%;
-    padding:1%;
-    border-color:blue;
-    height: 70%;
-    width:50%;
+	height: 100%;
 }
-        #floating-panel {
-        
-        border-color:blue;
-        }
-        div.distance {
-            margin-left: 5%;
-        }
-    </style>
+
+select {
+	font-size: 14px;
+}
+
+#floating-panel {
+	position: absolute;
+	top: 10px;
+	left: 25%;
+	z-index: 5;
+	background-color: #fff;
+	padding: 5px;
+	border: 1px solid #999;
+	text-align: center;
+	font-family: 'Roboto', 'sans-serif';
+	line-height: 30px;
+	padding-left: 10px;
+}
+
+#map {
+	margin: 5% 25% 0 25%;
+	padding: 1%;
+	border-color: blue;
+	height: 70%;
+	width: 50%;
+}
+
+#floating-panel {
+	border-color: blue;
+}
+
+div.distance {
+	margin-left: 5%;
+}
+</style>
   </head>
   <body>
     <div id="floating-panel">
@@ -79,14 +84,15 @@
       <option value="25.064171,121.472671">疏洪荷花公園</option>
       <option value="25.0545394,121.479721">幸福水漾公園</option>
     </select>
+    <div class="distance" ></div>
     </div>
     <div id="map"></div>
-    <div class="distance"></div>
       <!--海拔高低圖放在這-->
       <div></div>
+   
+   
+   
     <script>
-
-
         //if (navigator.geolocation) {
         //    var geo = navigator.geolocation;
         //    var option = {
@@ -178,8 +184,7 @@
             });
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdVhZR-wdOPj-O6nMCAdicPp9UpktHTUE&signed_in=true&callback=initMap"
-        async defer></script>
-      <script src="js/jquery-2.2.4.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdVhZR-wdOPj-O6nMCAdicPp9UpktHTUE&signed_in=true&callback=initMap" async defer></script>
+    <script src="js/jquery-2.2.4.min.js"></script>
   </body>
 </html>
