@@ -363,7 +363,7 @@ $('body').on('click','.shop',function(){
 					$('.shopping_car_span').text(count)
 					showCart();
 					
-					alertify.success('成功加入購物車');
+					alertify.notify( "成功加入購物車!", 'success', 2);
 		}
 	})
 })		

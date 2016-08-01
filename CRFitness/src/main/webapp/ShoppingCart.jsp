@@ -254,7 +254,7 @@ jQuery(function($){
 					}
 				})
 		   		 }, function () { 
-		        alertify.error('訂單取消') });
+			alertify.notify( "訂單取消", 'error', 3)});
 		});
 	}
 })

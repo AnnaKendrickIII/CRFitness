@@ -243,7 +243,7 @@ $('body').on('click','.addCart',function(){
 					var size = $('.btn-select-value').text()
 					console.log(size)
 					
-					 alertify.success('成功加入購物車');
+					 alertify.success('成功加入購物車',2);
 		}
 	})
 	

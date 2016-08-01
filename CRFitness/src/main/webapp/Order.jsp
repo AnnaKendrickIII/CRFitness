@@ -38,27 +38,27 @@ text-align: center;
 	
 	<script type="text/javascript">
 	// 轉換日期的小程式 開始
-	Date.prototype.Format = function(fmt) {
-		var o = {
-			"Y+" : this.getYear(),
-			"M+" : this.getMonth() + 1, //月份 
-			"D+" : this.getDate(), //日 
-			"h+" : this.getHours(), //小时 
-			"m+" : this.getMinutes(), //分 
-			"s+" : this.getSeconds(), //秒 
-			"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
-			"ms" : this.getMilliseconds()	//毫秒 
-		};
-		if (/(y+)/.test(fmt))
-			fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
-					.substr(4 - RegExp.$1.length));
-		for ( var k in o)
-			if (new RegExp("(" + k + ")").test(fmt))
-				fmt = fmt.replace(RegExp.$1,
-				(RegExp.$1.length == 1) ? (o[k])
-				: (("00" + o[k]).substr(("" + o[k]).length)));
-		return fmt;
-	}
+// 	Date.prototype.Format = function(fmt) {
+// 		var o = {
+// 			"Y+" : this.getYear(),
+// 			"M+" : this.getMonth() + 1, //月份 
+// 			"D+" : this.getDate(), //日 
+// 			"h+" : this.getHours(), //小时 
+// 			"m+" : this.getMinutes(), //分 
+// 			"s+" : this.getSeconds(), //秒 
+// 			"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
+// 			"ms" : this.getMilliseconds()	//毫秒 
+// 		};
+// 		if (/(y+)/.test(fmt))
+// 			fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+// 					.substr(4 - RegExp.$1.length));
+// 		for ( var k in o)
+// 			if (new RegExp("(" + k + ")").test(fmt))
+// 				fmt = fmt.replace(RegExp.$1,
+// 				(RegExp.$1.length == 1) ? (o[k])
+// 				: (("00" + o[k]).substr(("" + o[k]).length)));
+// 		return fmt;
+// 	}
 //轉換日期的小程式 結束
 
 
@@ -75,25 +75,30 @@ jQuery(function($){
 	    				location.href='${this_contextPath}/Products.jsp?category=cmens-tops&page=1'
 		     		  });	
 	     	 }else{
-	     		 
-		 		  new Date(parseInt('{{order_Time}}')).Format("MM-dd hh:mm:ss")
+// 		 		var date = new Date.Format
+// 		 			Date(parseInt('{{order_Time}}')).Format("MM-DD hh:mm:ss")
+// 		 		  console.log('date='+date)
+				$.each(json,function(){
+					var date_int = parseInt(this.order_Time);                          //轉換成數字
+		 		   	  var date_value = new Date(date_int);
+			 		  console.log(this.order_Time)
+			 		  console.log('date_value='+new Date(parseInt('{order_Time}')).Format("yyyy-MM-dd hh:mm"))
+				})
 		          $('#orderscolumns').columns({	  
 		              data:json,
 		              schema: [
-		                  {"header":"訂單編號", "key":"order_Id", "template":'<a href="${this_contextPath}/OrderDetails.jsp?order_Id={{order_Id}}">{{order_Id}}'},
+		                  {"header":"訂單編號", "key":"order_Id", "template":'<a href="${this_contextPath}/OrderDetails.jsp?order_Id={{order_Id}}" >{{order_Id}}</a>'},
 		                  {"header":"會員編號", "key":"member_Id"},
 		                  {"header":"訂單狀態", "key":"order_Status"},         
 		                  {"header":"總金額", "key":"total_Amount"},
 		                  {"header":"收件人姓名", "key":"consignee_Name"},
 		                  {"header":"收件人地址", "key":"consignee_Address"},
-		                  {"header":"訂單日期", "key":"order_Time" ,"template":new Date(parseInt('{{order_Time}}')).Format("MM-DD hh:mm")},
+		                  {"header":"訂單日期", "key":"order_Time", "template":'{{order_Time}}'},
 		                  {"header":"付款方式", "key":"payment_Method"},
-		                  {"header":"取消訂單", "template":'<div class="cancel btn btn-defult btn-sm glyphicon glyphicon-trash" title="取消此筆訂單"></div>'}
+		                  {"header":"取消訂單", "template":'<div class="cancel btn btn-defult glyphicon glyphicon-trash" title="取消此筆訂單"></div>'}
 		              ]
-	 	          });
-		         		    	  	    
-	     	 }
-	     	 
+	 	          });		         		    	  	    
+	     	 }	     	 
 	      }
 	  });
 		
@@ -111,9 +116,9 @@ jQuery(function($){
   			    		tr.remove()
   			      }
     			})
-    			alertify.success('訂單已刪除')},
+    			alertify.success('訂單已刪除',3)},
     			function(){
-   				alertify.error('取消刪除')
+   				alertify.error('取消刪除',3)
 	    		})			    	  
 		})
 })
