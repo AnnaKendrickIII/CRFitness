@@ -705,19 +705,7 @@
 							url:"${this_contextPath}/CRFSERVICE/friendships/acceptFriend",
 							type:'post',
 							data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
-							success: function(data){
-								 var mail=$('span.num_mail');
-								 if(mail.text()!=""){
-										var mail_text=parseInt(mail.text());
-										 mail_text=mail_text-1
-										 if(mail_text==0){
-										 mail.text('')
-										 }else{
-										 mail.text(mail_text) 
-										 }
-									}
-								 
-								 //這
+							success: function(data){				 
 								 whichthis.parent().parent().parent().remove();
 								$('#contact-list').append(
 	                                	 '<li class="list-group-item">'
@@ -745,23 +733,12 @@
 					
                     $('body').on('click', '.check_fr_No', function (e) {
                              var whichthis = $(this);
-                             var fid=$(this).parent().parent().siblings("div[hidden]").text()
+                             var fid=$(this).parent().parent().siblings(".addfid").text()
                              $.ajax({
      							url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
      							type:'post',
      							data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
-     							success: function(data){
-					
-                             var mail=$('span.num_mail');
-							 if(mail.text()!=""){
-									var mail_text=parseInt(mail.text());
-									 mail_text=mail_text-1
-									 if(mail_text==0){
-									 mail.text('')
-									 }else{
-									 mail.text(mail_text) 
-									 }
-								}
+     							success: function(data){             
 							 whichthis.parent().parent().parent().remove();
 							 
                             }
