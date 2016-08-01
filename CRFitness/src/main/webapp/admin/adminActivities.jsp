@@ -170,7 +170,7 @@ th{
 					}else if(this.activity_Status == 0){
 						Status = 0;
 					};
-					$('#activities_tbody').append('<tr class="'+this.activity_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/activitysController/photo/'
+					$('#activities_tbody').append('<tr class="'+this.activity_Id+'"><td><img src="${this_contextPath}/images/activitys/'
 						 							+ this.activity_Id+'.jpg" class="img-thumbnail img-responsive" />'                              
 													+ '</td><td><h4>'                              
 													+ this.activity_Id

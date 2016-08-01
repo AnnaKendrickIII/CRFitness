@@ -585,7 +585,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 //好友頁面頭像		 		
 			$('#personal_profile').append(
 		          ' <a class="pull-left" href="#">'
-	             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${pageContext.request.queryString}" >'
+	             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${pageContext.request.queryString}.jpg" >'
 	             +'</a>'
 	             +'<div class="media-body">'
 	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
@@ -598,7 +598,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			}else if(visitorStatus == 3){
 				$('#personal_profile').append(
 		           ' <a class="pull-left" href="#">'
-	             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${pageContext.request.queryString}" >'
+	             +'<img class="media-object dp img-circle" src="${this_contextPath}/images/members/${pageContext.request.queryString}.jpg" >'
 	             +'</a>'
 	             +'<div class="media-body">'
 	             +'<h4 class="media-heading" id="usernickanme"></h4>'
@@ -1110,7 +1110,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						'friend_Id': "${pageContext.request.queryString}"},
 					success:function(data){
 						if(data){
-							alertify.alert('已申請').set('title', '訊息');
+// 							alertify.alert('已申請').set('title', '訊息');
 							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
 							.removeClass('addfriend').addClass('canceladdfriend');
 							
@@ -1211,7 +1211,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 		}
 		
 		jQuery(function($){ 
-			var wimgSrc='${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}'
+			var wimgSrc='${this_contextPath}/images/members/${LoginOK.member_Id}.jpg'
 			
 			$("body").on("click",'#clickchangehead',function(){
 				$('#changehead').modal('toggle');				

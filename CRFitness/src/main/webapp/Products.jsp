@@ -351,8 +351,7 @@ $('body').on('click','.shop',function(){
 							"z-index": "999"});
 					whichImg.parent().parent().parent().parent().append(copyimg);	
 					copyimg.animate({"top":$('.shopping_car_div').position().top,
-									"left":$('.shopping_car_div').position().left,
-									"opacity": 0,
+									"left":$('.shopping_car_div').position().left
 									},500,"linear", function() {
 									      copyimg.remove();
 									 });

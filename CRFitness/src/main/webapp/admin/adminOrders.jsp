@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-	<title>MaintainMembers</title>
+	<title>MaintainOrders</title>
     
     <jsp:include page="/admin/adminFrame.jsp"/>
   </head>
@@ -109,19 +109,21 @@ th{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="members_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="orders_table">
 		
 			<thead>
 				<tr class="btn-primary" >
-					<th><h3><i class="fa fa-picture-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
+					<th><h3><i class="fa fa-picture-o" aria-hidden="true"></i><strong># 訂單ID</strong></h3></th>
 					<th><h3># 會員ID</h3></th>
-					<th><h3><i class="fa fa-snapchat" aria-hidden="true"></i><strong> 暱稱</strong></h3></th>
-					<th><h3><i class="fa fa-envelope-o" aria-hidden="true"></i><strong> Email</strong></h3></th>
-					<th><h3><i class="fa fa-registered" aria-hidden="true"></i><strong> 註冊日</strong></h3></th>
-					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i><strong> 狀態</strong></h3></th>
+					<th><h3><i class="fa fa-university" aria-hidden="true"></i><strong> 總金額</strong></h3></th>
+					<th><h3><i class="fa fa-envelope-o" aria-hidden="true"></i><strong> 收件人姓名</strong></h3></th>
+					<th><h3><i class="fa fa-registered" aria-hidden="true"></i><strong> 收件人地址</strong></h3></th>
+					<th><h3><i class="fa fa-snapchat" aria-hidden="true"></i><strong> 訂單日期</strong></h3></th>
+					<th><h3><i class="fa fa-envelope-o" aria-hidden="true"></i><strong> 付款方式</strong></h3></th>
+					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i><strong> 取消訂單</strong></h3></th>
 				</tr>
 			</thead>
-			<tbody id="members_tbody"></tbody>
+			<tbody id="orders_tbody"></tbody>
 		
             	</table>
         	</div><!-- /content-panel -->
@@ -137,7 +139,7 @@ th{
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
-              <a href="adminMembers.jsp" class="go-top">
+              <a href="adminOrders.jsp" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -155,27 +157,27 @@ th{
 
 // 1.顯示會員的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAll",
+		url : "${this_contextPath}/CRFSERVICE/ordersControllerBE/getAll",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
-			$.each( data,
-				function(index) {
+			$.each( data, function(index) {
 					var mdate_int = parseInt(this.registerdate); //轉換成數字
 					var mdate_value = new Date(mdate_int);
 					var Status="";
-					if(this.member_Status == '登錄中'){
+					if(this.member_Status == '未出貨'){
 						Status=1;
-					}else if(this.member_Status == '暫停中'){
+					}else if(this.member_Status == '已出貨'){
 						Status=0;
 					};
-					$('#members_tbody').append('<tr class="'+this.member_Id+'"><td><img src="${this_contextPath}/images/members/'
-						 							+ this.member_Id+'.jpg" class="img-circle img-responsive" />'                              
-													+ '</td><td><h4>'                              
+					$('#orders_tbody').append('<tr class="'+this.order_Id+'"><td>'                              
+													+ '</td><td><h4>'
+													+ this.order_Id
+													+ '<td><h4>'                              
 													+ this.member_Id
 													+ '</td><td><h4>'
 													+ this.nickname
-													+ '&nbsp;&nbsp;&nbsp;<i class="fa fa-weixin" aria-hidden="true"></i></td><td><h4>'
+													+ '</td><td><h4>'
 													+ this.e_mail
 													+ '</td><td><h4>'
 													+ mdate_value.Format("yyyy-MM-dd hh:mm:ss")
@@ -183,7 +185,7 @@ th{
 									                + this.member_Status
 													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
 													+ '</td></tr>') // end of append
-												}) // end of $.each(
+			}) // end $.each( data, function(index) {
 					// 會員狀態on&off的程式   開始
 					$('.easyswitch').easyswitch();
 					// 會員狀態on&off的程式   結束
@@ -211,7 +213,7 @@ th{
 						 }) // end of  $.ajax({  	    	   
 					}); // end of 	$('.3g').click(function () {
 					// 改變會員狀態的程式 結束
-			$("#members_table").searcher({
+			$("#orders_table").searcher({
 		    	inputSelector: "#tablesearchinput"
 		    })						
 		} // end of success : function(data) 
