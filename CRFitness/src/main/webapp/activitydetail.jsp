@@ -410,7 +410,7 @@ padding:10px 5px 2px 5px;
 <script src="${this_contextPath}/js/dialog.js"></script><!-- alert -->
 <script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script> <!-- 彈跳視窗--> 
 <script src="${this_contextPath}/js/bootstrap-editable.js"  ></script> <!-- 日期選擇器 -->
-<script src="${this_contextPath}/js/moment.min.js"  ></script> <!-- 日期選擇器 --> 
+<script src="${this_contextPath}/js/moment.js"  ></script> <!-- 日期選擇器 --> 
 </aside>
 </body>
 </html>
