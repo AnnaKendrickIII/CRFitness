@@ -428,7 +428,7 @@ margin-left: 5%;
 		    			   member_Id:'${LoginOK.member_Id}'
 		    		   },
 		    		   success:function(data){
-		    			   console.log(data[0])
+		    			   //console.log(data[0])
 		    			   if(data[0]=='無法參加自己的活動'){
 		    				   $("#boxer-overlay").remove();
 		    				   $("#boxer").remove();
