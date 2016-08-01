@@ -235,7 +235,7 @@ textarea{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="products_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="products_table">
 
 			<thead>
 				<tr class="btn-primary" >

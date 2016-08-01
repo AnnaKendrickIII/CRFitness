@@ -151,6 +151,8 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 			(memberVO = memberService.login(memberVO.getE_mail(),
 					memberVO.getPassword())).setPassword(null);
 			session.setAttribute("LoginOK", memberVO);
+			int tatalMems = memberService.getAll().size()-3;
+			session.setAttribute("tatalMems", tatalMems);
 			request.getServletContext().removeAttribute("GoUrl");
 			return "admin";
 		} else {

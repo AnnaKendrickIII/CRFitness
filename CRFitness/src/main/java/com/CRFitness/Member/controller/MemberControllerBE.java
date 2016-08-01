@@ -26,7 +26,7 @@ public class MemberControllerBE {
 	
 	// select members，新增的列顯示在最上面
 	@RequestMapping(method = RequestMethod.GET, value = "/getAll", produces = "application/json; charset=utf-8")
-	public @ResponseBody List<MemberVO> getAll() {
+	public @ResponseBody List<MemberVO> getAll(HttpServletRequest request) {
 		return memberService.getAll();
 	}
 	
