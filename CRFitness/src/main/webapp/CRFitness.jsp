@@ -442,7 +442,8 @@
                	 +'</div>'
                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
                	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
-               	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+               	 // 刪好友
+               	 +'<span class="deletefriend fa fa-user-times text-muted c-info" data-toggle="tooltip" title=""></span>'
                	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+data.userID+'</span></span>'
                	 +'</div>'
                	 +'<div class="clearfix"></div>'
@@ -581,7 +582,7 @@
                                 	 +'</div>'
                                 	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
                                 	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
-                                	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+                                	 +'<span class="deletefriend fa fa-user-times delete text-muted c-info" data-toggle="tooltip" title=""></span>'
                                 	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+this[0]+'</span></span>'
                                 	 +'</div>'
                                 	 +'<div class="clearfix"></div>'
@@ -720,7 +721,7 @@
 	                                	 +'</div>'
 	                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
 	                                	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
-	                                	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+	                                	 +'<span class="deletefriend fa fa-user-times text-muted c-info" data-toggle="tooltip" title=""></span>'
 	                                	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+fid+'</span></span>'
 	                                	 +'</div>'
 	                                	 +'<div class="clearfix"></div>'
@@ -748,6 +749,26 @@
                           })
                      });
 					
+                    // 好友刪除
+                    $('body').on('click', 'span.deletefriend', function (e) {
+                        var whichthis = $(this);
+                        var fid=$(this).next().find("span[hidden]").text()
+                        console.log(fid)
+	               		alertify.confirm().set('title', '警告');
+			    		alertify.confirm('確認刪除此好友',function(e){
+			    			if(e){
+		                        $.ajax({
+									url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
+									type:'post',
+									data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
+									success: function(data){
+										console.log(data)
+										whichthis.parent().parent().remove();
+		                       }
+		                     })
+			    			}else{ } 
+			    		});
+               		 });
                   })
               
                  </script > 
