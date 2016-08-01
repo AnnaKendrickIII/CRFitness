@@ -184,13 +184,13 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="${this_contextPath}/images/products/prodDetail5270_5.png" class="img-responsive"/>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5270"><img src="${this_contextPath}/images/products/prodDetail5270_5.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-              <img src="${this_contextPath}/images/products/prodDetail5270_3.png" class="img-responsive"/>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5270"><img src="${this_contextPath}/images/products/prodDetail5270_3.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-              <img src="${this_contextPath}/images/products/prodDetail5270_1.png" class="img-responsive"/>
+              <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5270"><img src="${this_contextPath}/images/products/prodDetail5270_1.png" class="img-responsive"/></a>
             </div>
           </div>
         </div>
@@ -204,10 +204,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-               <img src="${this_contextPath}/images/products/prodDetail5094_1.png" class="img-responsive"/>
+                <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5094"><img src="${this_contextPath}/images/products/prodDetail5094_1.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-               <img src="${this_contextPath}/images/products/prodDetail5094_3.png" class="img-responsive"/>
+                <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5094"><img src="${this_contextPath}/images/products/prodDetail5094_3.png" class="img-responsive"/></a>
             </div>
             </div>
          </div>
@@ -221,10 +221,10 @@ body {
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="${this_contextPath}/images/products/prodDetail5456_1.png" class="img-responsive"/>
+             <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5456"><img src="${this_contextPath}/images/products/prodDetail5456_1.png" class="img-responsive"/></a>
             </div>
             <div class="item">
-             <img src="${this_contextPath}/images/products/prodDetail5499_1.png" class="img-responsive"/>
+             <a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id=prodDetail5499"><img src="${this_contextPath}/images/products/prodDetail5499_1.png" class="img-responsive"/></a>
             </div>
           </div>
         </div>
@@ -232,30 +232,14 @@ body {
 		</div>
 	</div>
 	<div class="col-sm-4 col-xs-8">
-		<div id="tile10" class="tile">
+		<div id="tile10" class="tile" style="background-image: url(${this_contextPath}/images/sport_news1.png);">
     	 
            <div class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
           <div class="carousel-inner" id="rss-in">
             <div class="item active">
-           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive"/>
-<!--               <h3 class="tilecaption"><i class="fa fa-child fa-4x"></i></h3> -->
-            </div>
-<!--             <div class="item"> -->
-              
-<!--               <h3 class="tilecaption"><a href="#" style="text-decoration: none; color: white;">Customize your tiles <br/> class="tilecaption">Customize your tiles</a></h3> -->
-
-
-<!--             </div> -->
-<!--             <div class="item"> -->
-<!--               <h3 class="tilecaption">Text, Icons, Images</h3> -->
-<!--               <h3 class="tilecaption">Text, Icons, Images</h3> -->
-<!--             </div> -->
-<!--             <div class="item"> -->
-<!--               <h3 class="tilecaption">Combine them and create your metro style</h3> -->
-<!--               <h3 class="tilecaption">Combine them and create your metro style</h3> -->
-<!--             </div> -->
-          
+           		   <img src="${this_contextPath}/images/sport_news.jpg" class="img-responsive"/>             
+            </div>          
           </div>
         </div>
          
@@ -379,19 +363,16 @@ body {
         dataType:'xml',
         success: function(data){
             $(data).find("item").each(function(){  //取得xml父節點       
-            var total = $(data).find("item").length;//xml的總筆數
+//             var total = $(data).find("item").length;//xml的總筆數
       		var title = $(this).children("title").text(); //取得子節點中的資料
       		var pubDate = $(this).children("pubDate").text().substr(0,26);
       		var link = $(this).children("link").text();
       		
-      		$('#rss-in').append('<div class="item">'
+      		$('#rss-in').append('<div class="item">'      			
       				+'<h3 class="tilecaption">'
       				+'<a style="text-decoration: none;color: black;" href="'+link+'">'+title+''
       				+'<br/><br/>'+pubDate+'</a></h3>'
-      				+'</div>')
-
-      			
-      		
+      				+'</div>')      		
 			})
 		}
 	})

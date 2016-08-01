@@ -32,38 +32,38 @@
                   	<div class="row mtbox">
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
-					  			<span class="li_heart"></span>
-					  			<h3>933</h3>
+					  			<span class="li_like"></span>
+					  			<h3>${tatalMems}</h3>
                   			</div>
-					  			<p>933 People liked your page the last 24hs. Whoohoo!</p>
+					  			<p>${tatalMems} 位會員喜歡您的網站！</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_cloud"></span>
-					  			<h3>+48</h3>
+					  			<span class="li_megaphone"></span>
+					  			<h3>+14</h3>
                   			</div>
-					  			<p>48 New files were added in your cloud storage.</p>
+					  			<p>本周有 14 個新揪團活動</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_stack"></span>
-					  			<h3>23</h3>
+					  			<span class="li_truck"></span>
+					  			<h3>+5</h3>
                   			</div>
-					  			<p>You have 23 unread messages in your inbox.</p>
+					  			<p>目前有 5 件商品等待出貨</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_news"></span>
+					  			<span class="li_note"></span>
 					  			<h3>+10</h3>
                   			</div>
-					  			<p>More than 10 news were added in your reader.</p>
+					  			<p>本周有 10 篇新的健康日誌</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_data"></span>
+					  			<span class="li_banknote"></span>
 					  			<h3>OK!</h3>
                   			</div>
-					  			<p>Your server is working perfectly. Relax & enjoy.</p>
+					  			<p>目前資金流動情況OK</p>
                   		</div>
                   	
                   	</div><!-- /row mt -->	
@@ -111,7 +111,7 @@
 									<div class="col-sm-6 col-xs-6"></div>
 	                      		</div>
 	                      		<div class="centered">
-										<img src="assets/img/product.png" width="120">
+										<img src="${this_contextPath}/images/products/prodDetail5020_1.png" width="120">
 	                      		</div>
                       		</div>
                       	</div><!-- /col-md-4 -->
