@@ -80,7 +80,7 @@ width: 150px;
 <script type="text/javascript">
 
 jQuery(function($){
-	
+
 	function showCart(){
 		$.ajax({
 			url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
@@ -112,6 +112,9 @@ jQuery(function($){
 					if(count>0){
 					$('.shopping_car_span').text(count)
 					}
+				
+				
+				
 				}
 			})
 		}	
@@ -156,25 +159,10 @@ $.ajax({
 							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span>&nbsp&nbsp繼續購物</a>'
 							+'</div>')
 							
-		$.UrlExists = function(url) {
-			var http = new XMLHttpRequest();
-		    http.open('HEAD', url, false);
-		    http.send();
-		    return http.status!=404;
-		}
-		
-		for(var i = 1; i < 6; i++){
-			var filePath = "${this_contextPath}/images/products/"+data[0][0].productDetail_Id+"_"+i+".png"
-			console.log(filePath);
-			if($.UrlExists(filePath)){
-				console.log('存在')
-				// append img src
-			}else{
-				console.log('不存在')
-			}
-		}
-		
-
+							
+							$("img").error(function(e) {
+			        			$(e.target).attr("src", "${this_contextPath}/images/logo/iconBig.png");
+			   				})
 								$(".selLabel").click(function() {
 		$('.dropdown').toggleClass('active');
 	});
