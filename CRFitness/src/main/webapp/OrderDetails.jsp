@@ -15,10 +15,15 @@
 .orders_class {
 	margin-top: 4%;
 }
+th, tr, td{
+text-align: center;
+vertical-align : middle;
+}
 .photo{
     display: block;
  	width: 100px;
 	height:100px;
+	margin:auto;
 }
 </style>
 </head>
