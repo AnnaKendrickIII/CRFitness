@@ -45,10 +45,7 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 	}
 
 	@Override
-	public boolean delete(String activity_Id,String member_id) {
-		ActivityDetailVO activityDetailVO =new ActivityDetailVO();
-		activityDetailVO.setActivity_Id(activity_Id);
-		activityDetailVO.setMember_Id(member_id);
+	public boolean delete(ActivityDetailVO activityDetailVO) {
 		ActivityDetailVO activityDetailVOs= (ActivityDetailVO) this.getSession().get(ActivityDetailVO.class
 				, activityDetailVO);
 		if (activityDetailVOs != null) {
