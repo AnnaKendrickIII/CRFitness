@@ -549,7 +549,9 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
         var divGrid = $('#grid');
 		var visitorStatus;  // 記錄目前登入者狀態  1:自己  2:朋友 3:非好友
 		var titleNickName;
-		var usernickname;      
+		var usernickname;
+		
+		
     //  ------------------ 判斷是否本人, 好友 , 非好友------------------
 		if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 			visitorStatus = 1;
@@ -637,8 +639,13 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 					'visitorStatus' : visitorStatus},
 				success : function(data) {
 					if("${LoginOK.member_Id}" != "${pageContext.request.queryString}"){
-						$('#usernickanme').append(data[0][1])
-						activitys(data[0][1]);
+						if(data.length != 0){
+							$('#usernickanme').append(data[0][1])
+							activitys(data[0][1]);
+						}else{
+							$('#usernickanme').append(titleNickName)
+							activitys(titleNickName);
+						}
 					}
 					
 					$.each(data,function(index) {
