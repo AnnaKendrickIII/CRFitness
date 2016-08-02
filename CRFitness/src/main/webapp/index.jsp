@@ -16,14 +16,20 @@ body {
 } 
 */
 
-/**/
+
 .content {
-	height: auto;
+/* 	height: auto; */
+ 	height:200px; 
+/* 	width:100%; */
 	text-align: center;
 	line-height: 200px;
-	font-size: 24px;
+ 	font-size: 24px;  /*字型大小*/
 }
-
+/* .content>img{ */
+/* position: absolute; */
+/* top: 0%; */
+/* left: 35%; */
+/* } */
 ._fancybar{margin-top:50px !important;z-index: 5}
 
 </style>
@@ -35,13 +41,18 @@ body {
 <link href="${this_contextPath}/css/index_underbox.css" rel="stylesheet" />
 
 <body >
+
+<div id="loader">
+	<div id="back">
+	</div>
+</div>
 	<!-- 頁面部分 開始-->
 <aside>
 
 		<div class="row" >
-			<div class="content">
-				<p></p>
-			</div>
+<!-- 			<div class="content"> -->
+<!-- 				<p></p> -->
+<!-- 			</div> -->
 			<div class="parallaxer">
 				<section class="content-section video-section">
 					<div class="pattern-overlay">
@@ -64,12 +75,18 @@ body {
 			
 			</section>
 		</div>
-		<div class="content">
-			<p>你還有更多的選擇</p>
+		<div class="row">
+	
 		</div>
 		<div class="parallaxer">
 				<div class="productbox dynamicTile">
 <div class="row ">
+
+	<div class="content col-md-12 col-sm-12">
+<!-- 			<p>你還有更多的選擇</p> -->
+			<img src="${this_contextPath}/images/sport_sohpping.png"  />
+		</div>
+
     <div class="col-sm-2 col-xs-4">
     	<div id="tile1" class="tile">
         
@@ -232,7 +249,7 @@ body {
 		</div>
 	</div>
 	<div class="col-sm-4 col-xs-8">
-		<div id="tile10" class="tile" style="background-image: url(${this_contextPath}/images/sport_news1.png);">
+		<div id="tile10" class="tile" style="background-image: url(${this_contextPath}/images/sport_news1.png); background-size: cover;">
     	 
            <div class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
@@ -248,7 +265,7 @@ body {
   
 </div>
 			</div>
-		<div class="content"></div>
+<!-- 		<div class="content"></div> -->
 	</div>
 
 	</div>
@@ -299,6 +316,85 @@ body {
 <!-- 			<div class="col-md-4 "></div>	 -->
 
 	<script type="text/javascript">
+	$(document).ready(function(){
+		var heights=jQuery(window).height();
+		var margTop=(heights/2)-25;
+
+		var h=50;//height and width of the loading circles
+		var w=50;
+		
+		$("#loader").css("width","100%");	
+		$("#loader").css("height",heights);
+		$("#loader").css("background-color","black");
+		
+		$("body").css("overflow","hidden");
+		
+		$("#back").css("width","100%");
+		$("#back").css("height",heights);
+		$("#back").css("z-index",'101');
+		$("#back").css("padding","0");
+		$("#back").css("margin","0");
+		$("#back").css("opacity","0.65");
+		$("#back").css("position","fixed");
+
+		
+		$("#back").css("background-image","url(${this_contextPath}/images/background/HM_jviewz_sotm_01.jpg)");	
+		$("#back").css("background-size","100% 100%");
+		$("#back").append("<div id='box' align='center' style='background-color:#00000; width:220px; height:52px;'></div>");
+		
+		$("#box").center();
+		/*4 div representing 4 loading elements..(The 4 circles)*/
+		$("#box").append("<div id='box0' style='border-radius:50%; background-color:#333333; width:"+w+"px; height:"+h+"px; float:left; margin-right:3px'></div>");
+		$("#box").append("<div align='center' id='box1' style='border-radius:50%; background-color:#FFFF66; width:"+w+"px; height:"+h+"px; float:left; margin-right:3px'></div>");
+		$("#box").append("<div align='center' id='box2' style='border-radius:50%; background-color:#FF6600; width:"+w+"px; height:"+h+"px; float:left; margin-right:3px'></div>");
+		$("#box").append("<div align='center' id='box3' style='border-radius:50%; background-color:#6600CC; width:"+w+"px; height:"+h+"px; float:left; margin-right:3px'></div>");
+		
+		//Animation of the circles... 
+			$("#box0").hide(500);	
+			$("#box1").hide(1000);
+			$("#box2").hide(1500);
+			$("#box3").hide(2000);
+			$("#box0").show(500);	
+			$("#box1").show(1000);
+			$("#box2").show(1500);
+			$("#box3").show(2000);
+		
+		setInterval(function(){/*This function is called automatically after every 4 sec*/
+			$("#box0").hide(500);	
+			$("#box1").hide(1000);
+			$("#box2").hide(1500);
+			$("#box3").hide(2000);
+			$("#box0").show(500);	
+			$("#box1").show(1000);
+			$("#box2").show(1500);
+			$("#box3").show(2000);	
+							 },4500);
+			
+		$( window ).load(function() {
+			$("body").css("overflow","auto");
+	  		$("#loader").fadeOut(1000,function(){$('#loader').remove();});
+		});
+		$(window).resize(function(){	/*Resize event, resizes the content according to window size*/						  
+	    	heights=jQuery(window).height();
+			$("#back").css("height",heights);
+			$("#loader").css("height",heights);
+			$("#loader").css("background-color","black");
+			$("#box").center();
+		});
+		
+		
+	});
+	/*Function to align content to center*/
+	jQuery.fn.center = function () {
+	    this.css("position","absolute");
+	    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + 
+	                                                $(window).scrollTop()) + "px");
+	    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + 
+	                                                $(window).scrollLeft()) + "px");
+	    return this;
+	}
+	
+	
 	Date.prototype.Format = function (fmt) {  
 	    var o = {
 	        "M+": this.getMonth() + 1, //月份 

@@ -38,7 +38,7 @@ public class ChatDAO implements ChatDAO_interface {
 					+"where ((Member_Id='"+friend_Id+"' "
 					+"and Friend_Id='"+member_Id+"') "
 					+"or (Member_Id='"+member_Id+"' "
-					+"and Friend_Id='"+friend_Id+"')) and ChatStuts=1  order by ChatTime desc "
+					+"and Friend_Id='"+friend_Id+"')) and ChatStuts=1  order by Chat_Id desc "
 					+ "OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY")
 					.addEntity(ChatVO.class);				
 		return (List<Object[]>) query.list();	
@@ -53,7 +53,7 @@ public class ChatDAO implements ChatDAO_interface {
 					+"where ((Member_Id='"+friend_Id+"' "
 					+"and  Friend_Id='"+member_Id+"') "
 					+"or  (Member_Id='"+member_Id+"' "
-					+"and  Friend_Id='"+friend_Id+"')) and ChatStuts=0  order by ChatTime desc ")
+					+"and  Friend_Id='"+friend_Id+"')) and ChatStuts=0  order by Chat_Id desc ")
 					.addEntity(ChatVO.class);				
 		return (List<Object[]>) query.list();	
 	}
