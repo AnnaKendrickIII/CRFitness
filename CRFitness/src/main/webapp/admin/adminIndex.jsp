@@ -98,23 +98,19 @@
 	                      	</div><! --/grey-panel -->
                       	</div><!-- /col-md-4-->
                       	
+						<div class="col-md-4 col-sm-4 mb">
+							<!-- REVENUE PANEL -->
+							<div class="darkblue-panel pn">
+								<div class="darkblue-header">
+									<h5>REVENUE</h5>
+								</div>
+								<div class="chart mt">
+									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
+								</div>
+								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
+							</div>
+						</div><!-- /col-md-4 -->
 
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn">
-                      			<div class="white-header">
-						  			<h5>TOP PRODUCT</h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-heart"></i> 122</p>
-									</div>
-									<div class="col-sm-6 col-xs-6"></div>
-	                      		</div>
-	                      		<div class="centered">
-										<img src="${this_contextPath}/images/products/prodDetail5020_1.png" width="120">
-	                      		</div>
-                      		</div>
-                      	</div><!-- /col-md-4 -->
                       	
 						<div class="col-md-4 mb">
 							<!-- WHITE PANEL - TOP USER -->
@@ -122,8 +118,8 @@
 								<div class="white-header">
 									<h5>頂級會員</h5>
 								</div>
-								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="80"></p>
-								<p><b>光志哥</b></p>
+								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="100" height="60"></p>
+								<p><b>Rose</b></p>
 								<div class="row">
 									<div class="col-md-6">
 										<p class="small mt">MEMBER SINCE</p>
@@ -172,29 +168,37 @@
 						</div><!-- /col-md-4 -->
 						
 						
-						<div class="col-md-4 mb">
-							<!-- INSTAGRAM PANEL -->
-							<div class="instagram-panel pn">
-								<i class="fa fa-instagram fa-4x"></i>
-								<p>@THISISYOU<br/>
-									5 min. ago
-								</p>
-								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
-							</div>
-						</div><!-- /col-md-4 -->
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="content-panel">
+								<div >
+									<div class="centered">
+										<img src="${this_contextPath}/images/activitys/activity3007.jpg" class="img-thumbnail" width="360" height="150">
+										<h4>DJ SHERMAN&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 18</a><a href="#"> | <i class="fa fa-heart"></i> 49</a></h4>
+									</div>
+								</div>
+<!-- 								<div class="pr2-social centered"> -->
+								
+									
+<!-- 								</div> -->
+							</div><! --/panel -->
+						</div><!--/ col-md-4 -->						
 						
-						<div class="col-md-4 col-sm-4 mb">
-							<!-- REVENUE PANEL -->
-							<div class="darkblue-panel pn">
-								<div class="darkblue-header">
-									<h5>REVENUE</h5>
-								</div>
-								<div class="chart mt">
-									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
-								</div>
-								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
-							</div>
-						</div><!-- /col-md-4 -->
+                      	<div class="col-md-4 col-sm-4 mb">
+                      		<div class="white-panel pn">
+                      			<div class="white-header">
+						  			<h5>熱銷商品</h5>
+                      			</div>
+								<div class="row">
+									<div class="col-sm-6 col-xs-6 goleft">
+										<p><i class="fa fa-heart"></i> 122</p>
+									</div>
+									<div class="col-sm-6 col-xs-6"></div>
+	                      		</div>
+	                      		<div >
+									<img class="img-rounded" src="${this_contextPath}/images/products/prodDetail5020_1.png" width="153" height="162">
+	                      		</div>
+                      		</div>
+                      	</div><!-- /col-md-4 -->
 						
 					</div><!-- /row -->
 					

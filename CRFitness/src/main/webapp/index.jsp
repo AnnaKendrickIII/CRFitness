@@ -16,14 +16,20 @@ body {
 } 
 */
 
-/**/
+
 .content {
-	height: auto;
+/* 	height: auto; */
+ 	height:200px; 
+/* 	width:100%; */
 	text-align: center;
 	line-height: 200px;
-	font-size: 24px;
+ 	font-size: 24px;  /*字型大小*/
 }
-
+/* .content>img{ */
+/* position: absolute; */
+/* top: 0%; */
+/* left: 35%; */
+/* } */
 ._fancybar{margin-top:50px !important;z-index: 5}
 
 </style>
@@ -44,9 +50,9 @@ body {
 <aside>
 
 		<div class="row" >
-			<div class="content">
-				<p></p>
-			</div>
+<!-- 			<div class="content"> -->
+<!-- 				<p></p> -->
+<!-- 			</div> -->
 			<div class="parallaxer">
 				<section class="content-section video-section">
 					<div class="pattern-overlay">
@@ -69,12 +75,18 @@ body {
 			
 			</section>
 		</div>
-		<div class="content">
-			<p>你還有更多的選擇</p>
+		<div class="row">
+	
 		</div>
 		<div class="parallaxer">
 				<div class="productbox dynamicTile">
 <div class="row ">
+
+	<div class="content col-md-12 col-sm-12">
+<!-- 			<p>你還有更多的選擇</p> -->
+			<img src="${this_contextPath}/images/sport_sohpping.png"  />
+		</div>
+
     <div class="col-sm-2 col-xs-4">
     	<div id="tile1" class="tile">
         
@@ -237,7 +249,7 @@ body {
 		</div>
 	</div>
 	<div class="col-sm-4 col-xs-8">
-		<div id="tile10" class="tile" style="background-image: url(${this_contextPath}/images/sport_news1.png);">
+		<div id="tile10" class="tile" style="background-image: url(${this_contextPath}/images/sport_news1.png); background-size: cover;">
     	 
            <div class="carousel slide" data-ride="carousel">
           <!-- Wrapper for slides -->
@@ -253,7 +265,7 @@ body {
   
 </div>
 			</div>
-		<div class="content"></div>
+<!-- 		<div class="content"></div> -->
 	</div>
 
 	</div>
