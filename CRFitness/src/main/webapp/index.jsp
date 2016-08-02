@@ -25,7 +25,11 @@ body {
 	line-height: 200px;
  	font-size: 24px;  /*字型大小*/
 }
-
+/* .content>img{ */
+/* position: absolute; */
+/* top: 0%; */
+/* left: 35%; */
+/* } */
 ._fancybar{margin-top:50px !important;z-index: 5}
 
 </style>
@@ -67,16 +71,17 @@ body {
 			</section>
 		</div>
 		<div class="row">
-		<div class="col-md-4 col-sm-3"></div>
-		<div class="content col-md-4 col-sm-6">
-<!-- 			<p>你還有更多的選擇</p> -->
-			<img src="${this_contextPath}/images/sport_sohpping.png" class="img-responsive" style="margin-left: 15%" />
-		</div>
-		<div class="col-md-4 col-sm-3"></div>
+	
 		</div>
 		<div class="parallaxer">
 				<div class="productbox dynamicTile">
 <div class="row ">
+
+	<div class="content col-md-12 col-sm-12">
+<!-- 			<p>你還有更多的選擇</p> -->
+			<img src="${this_contextPath}/images/sport_sohpping.png"  />
+		</div>
+
     <div class="col-sm-2 col-xs-4">
     	<div id="tile1" class="tile">
         
