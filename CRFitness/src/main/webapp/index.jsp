@@ -16,10 +16,10 @@ body {
 } 
 */
 
-/**/
+
 .content {
-	height: auto;
-/* 	height:200px; */
+/* 	height: auto; */
+ 	height:200px; 
 /* 	width:100%; */
 	text-align: center;
 	line-height: 200px;
@@ -66,9 +66,13 @@ body {
 			
 			</section>
 		</div>
-		<div class="content">
-			<p>你還有更多的選擇</p>
-<%-- 			<img src="${this_contextPath}/images/sport_sohpping.png" class="img-responsive" style="margin-left: 40%"/> --%>
+		<div class="row">
+		<div class="col-md-4 col-sm-3"></div>
+		<div class="content col-md-4 col-sm-6">
+<!-- 			<p>你還有更多的選擇</p> -->
+			<img src="${this_contextPath}/images/sport_sohpping.png" class="img-responsive" style="margin-left: 15%" />
+		</div>
+		<div class="col-md-4 col-sm-3"></div>
 		</div>
 		<div class="parallaxer">
 				<div class="productbox dynamicTile">
