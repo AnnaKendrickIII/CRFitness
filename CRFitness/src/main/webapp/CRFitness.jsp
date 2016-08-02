@@ -10,12 +10,13 @@
     <link href="${this_contextPath}/css/simple-sidebar.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/login.css" rel="stylesheet" />
     <link href="${this_contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    
+    <link href="${this_contextPath}/font-awesome/cssperspectiveRules.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/friend.css" rel="stylesheet" />
      <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+     
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
 
@@ -26,6 +27,7 @@
     <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
     <script type="text/javascript" src="${this_contextPath}/js/jquery.searchable-1.0.0.min.js"></script>
     <script src="${this_contextPath}/js/alertify.js"></script>
+    <script src="${this_contextPath}/js/jquery.logosDistort.js"></script>
       <!-- GoogleLogin-->  
       <!-- bootstrap.min.js  開始-->
   <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
@@ -103,7 +105,7 @@
                   		
                 </div>                  
                	<div class="user_login_div dropdown">
-                        <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn"  src="${this_contextPath}/images/members/${LoginOK.member_Id}.jpg" class="img-responsive user_login_css " /></a>
+                        <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn"  src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel"> 
                             <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a></li>
                             <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 

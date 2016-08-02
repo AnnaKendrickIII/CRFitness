@@ -147,7 +147,6 @@ margin-left: 5%;
 <body >
 <aside>
 	<!-- 頁面部分 開始-->
-
     <ul class="grid effect-5 " id="grid">
                <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"> </a>新增揪團</li>
 				
