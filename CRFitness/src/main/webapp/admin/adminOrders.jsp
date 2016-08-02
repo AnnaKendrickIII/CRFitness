@@ -88,8 +88,8 @@ th{
           <section class="wrapper">
 		
 	<div class="row mt">
-		<div class="col-md-2 col-xs-2"></div>
-    	<div class="col-md-8 col-xs-8">
+<!-- 		<div class="col-md-1 col-xs-1"></div> -->
+    	<div class="col-md-12 col-xs-12">
         	<div class="content-panel">
 
 			<div class="row">
@@ -109,18 +109,19 @@ th{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="orders_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="orders_table">
 		
 			<thead>
 				<tr class="btn-primary" >
-					<th><h3><i class="fa fa-picture-o" aria-hidden="true"></i><strong># 訂單ID</strong></h3></th>
-					<th><h3># 會員ID</h3></th>
+					<th><h3><strong># 訂單ID</strong></h3></th>
+					<th><h3><strong># 會員ID</strong></h3></th>
+					<th><h3><i class="fa fa-user" aria-hidden="true"></i><strong> 收件人</strong></h3></th>
+					<th><h3><strong># 發票號碼</strong></h3></th>
 					<th><h3><i class="fa fa-university" aria-hidden="true"></i><strong> 總金額</strong></h3></th>
-					<th><h3><i class="fa fa-envelope-o" aria-hidden="true"></i><strong> 收件人姓名</strong></h3></th>
-					<th><h3><i class="fa fa-registered" aria-hidden="true"></i><strong> 收件人地址</strong></h3></th>
-					<th><h3><i class="fa fa-snapchat" aria-hidden="true"></i><strong> 訂單日期</strong></h3></th>
-					<th><h3><i class="fa fa-envelope-o" aria-hidden="true"></i><strong> 付款方式</strong></h3></th>
-					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i><strong> 取消訂單</strong></h3></th>
+					<th><h3><i class="fa fa-calendar" aria-hidden="true"></i><strong> 訂單日期</strong></h3></th>
+					<th><h3><i class="fa fa-truck" aria-hidden="true"></i><strong> 出貨日期</strong></h3></th>
+					<th><h3><i class="fa fa-credit-card" aria-hidden="true"></i><strong> 付款方式</strong></h3></th>
+					<th><h3><i class="fa fa-toggle-on" aria-hidden="true"></i><strong> 狀態訂單</strong></h3></th>
 				</tr>
 			</thead>
 			<tbody id="orders_tbody"></tbody>
@@ -128,7 +129,7 @@ th{
             	</table>
         	</div><!-- /content-panel -->
     	</div> <!-- /col-md-8 xs-8 -->
-		<div class="col-md-2  col-xs-2"></div>
+<!-- 		<div class="col-md-1  col-xs-1"></div> -->
 	</div><!-- 184 <div class="row mt"> -->
 		
 		</section> <!-- 182 <section class="wrapper"> -->
@@ -157,58 +158,65 @@ th{
 
 // 1.顯示會員的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/ordersControllerBE/getAll",
+		url : "${this_contextPath}/CRFSERVICE/ordersController/orders",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {
 			$.each( data, function(index) {
-					var mdate_int = parseInt(this.registerdate); //轉換成數字
-					var mdate_value = new Date(mdate_int);
+					var odate_int = parseInt(this.order_Time); //轉換成數字
+					var odate_value = new Date(odate_int);
+					var sdate_int = parseInt(this.ship_Date); //轉換成數字
+					var sdate_value = new Date(sdate_int);
 					var Status="";
-					if(this.member_Status == '未出貨'){
+					if(this.order_Status == '已出貨'){
 						Status=1;
-					}else if(this.member_Status == '已出貨'){
+					}else if(this.order_Status == '未出貨'){
 						Status=0;
 					};
-					$('#orders_tbody').append('<tr class="'+this.order_Id+'"><td>'                              
-													+ '</td><td><h4>'
+					$('#orders_tbody').append('<tr class="'+this.order_Id+'"><td><h4>'
 													+ this.order_Id
-													+ '<td><h4>'                              
+													+ '</td><td><h4>'
 													+ this.member_Id
+													+ '</td><td><h4>'                              
+													+ this.consignee_Name
 													+ '</td><td><h4>'
-													+ this.nickname
+													+ this.invoice_Number
 													+ '</td><td><h4>'
-													+ this.e_mail
+													+ this.total_Amount
 													+ '</td><td><h4>'
-													+ mdate_value.Format("yyyy-MM-dd hh:mm:ss")
+													+ odate_value.Format("yyyy-MM-dd hh:mm:ss")
+													+ '</td><td><h4>'
+													+ sdate_value.Format("yyyy-MM-dd hh:mm:ss")
+													+ '</td><td><h4>'
+													+ this.payment_Method
 													+ '</td><td hidden="hidden">'
-									                + this.member_Status
-													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
+									                + this.order_Status
+													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="已出貨" data-label-off="未出貨"></i>'
 													+ '</td></tr>') // end of append
 			}) // end $.each( data, function(index) {
 					// 會員狀態on&off的程式   開始
 					$('.easyswitch').easyswitch();
 					// 會員狀態on&off的程式   結束
 					// 改變會員狀態的程式 開始
-					$('body').on('click', '.3g', function(member_Id, member_Status){
-// 					console.log($(this).parent().siblings(":eq(5)").text());
+					$('body').on('click', '.3g', function(order_Id, order_Status){
+// 					console.log($(this).parent().siblings(":eq(9)").text());
 // 					console.log($(this).parent().siblings(":eq(1)").text());
- 						var this_memStatus = $(this).parent().siblings(":eq(5)");
-						var memberId = $(this).parent().siblings(":eq(1)").text();
-						var memberStatus = this_memStatus.text();
+ 						var this_orderStatus = $(this).parent().siblings(":eq(9)");
+						var orderId = $(this).parent().siblings(":eq(1)").text();
+						var orderStatus = this_orderStatus.text();
 						var reversedState = "";
-						if(memberStatus=="登錄中"){
-							reversedState="暫停中";
+						if(orderStatus=="已出貨"){
+							reversedState="未出貨";
 						}else{
-							reversedState="登錄中";
+							reversedState="已出貨";
 							}
 						 $.ajax({
-							    url:"${this_contextPath}/CRFSERVICE/memberControllerBE/changeStatus",
+							    url:"${this_contextPath}/CRFSERVICE/orderControllerBE/changeStatus",
 						        type:'post',  //get post put delete
-					    		data: {'member_Id': memberId,
-										'member_Status': reversedState}, //
+					    		data: {'order_Id': orderId,
+										'order_Status': reversedState}, //
 						    	success:function(data){
-						    		this_memStatus.text(reversedState)
+						    		this_orderStatus.text(reversedState)
 						        } // end of success:function(data)	 
 						 }) // end of  $.ajax({  	    	   
 					}); // end of 	$('.3g').click(function () {
