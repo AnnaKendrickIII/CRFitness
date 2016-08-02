@@ -39,8 +39,8 @@ width: 150px;
 <div class="ProductDetail">
 <div class="row well">
 
-	<div class="col-md-2 col-xs-2"></div>
-	<div class="col-md-7 col-xs-7">
+	<div class="col-xs-2 col-md-2 col-lg-2"></div>
+	<div class="col-xs-7 col-md-7 col-lg-7">
 		<div class="row" style="text-align: center;">
         <strong>Products Category &nbsp&nbsp</strong>
         <div class="btn-group">
@@ -55,12 +55,12 @@ width: 150px;
 		</div>
 		</div>
 	</div>
-    <div class="col-md-3 col-xs-3">
+    <div class="col-md-3 col-lg-3">
     </div>
    </div>
     <div class="row">
- 		<div class="col-xs-2 col-sm-2"></div>
-	    <div id="productDetailbody" class="col-md-8"></div> 	    
+ 		<div class="col-md-2"></div>
+	    <div id="productDetailbody" class="col-md-8 col-xs-12 col-sm-12"></div> 	    
 	 	<div class="col-md-2"></div>
 	 		 	
     </div>
@@ -132,7 +132,7 @@ $.ajax({
 	type:'get',
  	data:{productDetail_Id:queryString},
 	success:function(data){
-		$('#productDetailbody').append('<div class="col-md-7">'
+		$('#productDetailbody').append('<div class="col-md-7 col-sm-12 col-xs-12">'
 							+'<div class="gallery">'
 							+'<div class="previews">'
 							+'<a class="changeImg onselected" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/></a>'
@@ -145,7 +145,7 @@ $.ajax({
 							+'<img data-lity alt="'+data[0][0].productDetail_Id+'" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
 							+'</div>'
 							+'</div></div>'
-							+'<div class="col-md-5">'
+							+'<div class="col-md-5 col-sm-12 col-xs-12">'
 							+'<h2 style="color:blue"><strong>'+data[0][1] 
 							+'</strong><h2/><p style="color:#888888"><div>顏色 : '
 							+data[0][0].color

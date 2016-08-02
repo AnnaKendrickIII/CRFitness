@@ -326,6 +326,19 @@ $.ajax({
 					
 		})//大表 ajax迴圈結束
 	 	
+		//搶來的關鍵字搜尋
+		$('#products').searchable({
+		    searchField: '#search',
+		    selector: '.item',
+		    childSelector: '.product_Name',
+		    show: function (elem) {
+		        elem.slideDown(100);
+		    },
+		    hide: function (elem) {
+		        elem.slideUp(100);
+		    }
+		})	
+		
 	}//大表ajax success結束	
 });//大表ajax結束
 

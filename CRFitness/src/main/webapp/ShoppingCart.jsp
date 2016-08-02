@@ -86,6 +86,7 @@
 						<input id="consignee_Name" name="name" type="text" placeholder="收件人姓名"
 							class="form-control input-lg" autocomplete="off" required="">
 					</div>
+					<div class="error_name"><span>${ErrorMessage.error_name}</span></div>
 				</div>
 				<br>
 				<!-- Text input-->
@@ -96,6 +97,7 @@
 							placeholder="收件地址" class="form-control input-lg"
 							autocomplete="off">
 					</div>
+					<div class="error_address"><span>${ErrorMessage.error_address}</span></div>
 				</div>
 				<br>
 				<!-- Text input-->
@@ -106,6 +108,7 @@
 							placeholder="E-mail" class="form-control input-lg"
 							autocomplete="off">
 					</div>
+					<div class="error_email"><span>${ErrorMessage.error_email}</span></div>
 				</div>
 				<br>
 				<!-- 付款方式 -->
@@ -134,8 +137,8 @@
 					<div class="col-md-4">
 						<a id="check" class="btn btn-success">送出訂單</a>
 					</div>
+					<div class="checkfail"><span>${ErrorMessage.checkfail}</span></div>
 				</div>
-
 			</fieldset>
 		</form>
 	</div>
