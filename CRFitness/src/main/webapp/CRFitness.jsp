@@ -359,7 +359,9 @@
     })   
     ws.onmessage = function(event) 
     {	
+    	
         var data = JSON.parse(event.data);
+        
         if(data.type == '2')
         {
         	var jdate_int = parseInt(data.Time);                          //轉換成數字

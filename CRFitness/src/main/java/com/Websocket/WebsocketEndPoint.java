@@ -96,14 +96,16 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
 				try {
 					if(clients.containsKey(friend_Id)){
 						if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {
+							chatService.IsRead(member_Id,friend_Id,chat_Detail,time);					
 							clients.get(member_Id).sendMessage(message);
-							clients.get(friend_Id).sendMessage(message);
-							chatService.IsRead(member_Id,friend_Id,chat_Detail,time);
+							clients.get(friend_Id).sendMessage(message);						
 						}else{
+						
 							clients.get(member_Id).sendMessage(message);				
 							chatService.NoRead(member_Id, friend_Id, chat_Detail, time);
 						}
 					}else{
+				
 						clients.get(member_Id).sendMessage(message);				
 						chatService.NoRead(member_Id, friend_Id, chat_Detail, time);
 					}			
