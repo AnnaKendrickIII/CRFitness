@@ -89,7 +89,9 @@ public class FriendshipsService {
 			return false;
 	}
 	
-	
+	public List<FriendshipsVO> select_MyFriends(String member_Id){
+		return friendshipsDAO.select_MyFriends(member_Id);
+	}
 //	public static void main(String[] args)  {	
 //		ApplicationContext context = new ClassPathXmlApplicationContext(
 //				"test.config.xml");

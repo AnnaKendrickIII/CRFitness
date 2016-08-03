@@ -10,7 +10,7 @@
     <link href="${this_contextPath}/css/simple-sidebar.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/login.css" rel="stylesheet" />
     <link href="${this_contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="${this_contextPath}/font-awesome/cssperspectiveRules.css" rel="stylesheet" />
+    <link href="${this_contextPath}/font-awesome/css/perspectiveRules.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
@@ -342,18 +342,19 @@
  
     ws.onopen = function(event) 
     {
+    	 var msg = JSON.stringify({'userID':userID, 'type':'1','myName':"${LoginOK.nickname}"});  
+         ws.send(msg);   
     	console.log('打開了')
-//         start() ;
     };
      
     ws.onclose = function(event) { 
-        var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+        var msg = JSON.stringify({'userID':userID, 'type':'3','myName':"${LoginOK.nickname}"});//3  關  
         ws.send(msg);
 		console.log('關了')
     }; 
  
     $('body').on('click','.logout_css_souket',function(){
-    	 var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+    	 var msg = JSON.stringify({'userID':userID, 'type':'3','myName':"${LoginOK.nickname}"});//3  關  
          ws.send(msg);
          console.log('關了,登出')
     })   
@@ -361,8 +362,13 @@
     {	
     	
         var data = JSON.parse(event.data);
-        
-        if(data.type == '2')
+       
+        if(data.type == '1')
+        {
+        	alertify.notify('<div class="row"><div  class="col-xs-3 col-sm-3 logoutimgdiv"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></div>'
+       			 +'<div  class="col-xs-6 col-sm-6 logoutnamediv ">'+data.myName+'已上線</div></div>', 'custom', 5); 
+        }else
+        	if(data.type == '2')
         {
         	var jdate_int = parseInt(data.Time);                          //轉換成數字
  		   var jdate_value = new Date(jdate_int);
@@ -406,14 +412,10 @@
 				 } 
         	var basecon = $('.msg_container_base');
 				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
-        }
-        else if(data.type == '1')
-        {
-        	console.log('111')
-//             render_data(data.username + "上線 <br> ");
-            
-        }
-        else if(data.type == '4'){
+        }   else if(data.type == '3'){   
+        	 alertify.notify('<div class="row"><div  class="col-xs-3 col-sm-3 logoutimgdiv"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></div>'
+        			 +'<div  class="col-xs-6 col-sm-6 logoutnamediv ">'+data.myName+'已登出</div></div>', 'custom2', 5); 
+        }     else if(data.type == '4'){
         	if(!$('#header_email_dropdown_div ul').html()){
         			$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
         	}

@@ -30,6 +30,17 @@ public class FriendshipsDAO implements FriendshipsDAO_interface {
 	}
 
 	@Override
+	public List<FriendshipsVO> select_MyFriends(String member_Id) {	
+			Query query = this.getSession().createSQLQuery(
+					"SELECT Friendships.* "
+					+"FROM Friendships "
+					+"where Member_Id='"+member_Id+"' and Friend_Status = 1")
+					.addEntity(FriendshipsVO.class);
+								
+		return (List<FriendshipsVO>) query.list();	
+	}
+	
+	@Override
 	public List<Object[]> select_Friends(String member_Id) {	
 			Query query = this.getSession().createSQLQuery(
 					"SELECT Members.Member_Id,Members.E_mail,Members.Nickname "
