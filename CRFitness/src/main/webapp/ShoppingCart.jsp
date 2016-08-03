@@ -153,6 +153,8 @@
 <script type="text/javascript">
 var queryString='${pageContext.request.queryString}';
 queryString=queryString.substring(17);
+
+
 //總金額function
  function totalAmount(){
 	$.ajax({
@@ -225,23 +227,32 @@ jQuery(function($){
 				}
 			
 		$('body').on('click', '.btn-success', function () {
+			var consignee_Name = $('#consignee_Name').val();
+			var consignee_Address = $('#consignee_Address').val();
+			var email = $('#email').val();
+			var payment_Method = $('#radioBtn .active').text();
+			var qty = $('.qty').val();
+			if(consignee_Name =='' || consignee_Address =='' || email =='')
+			{
+				alertify.alert("請填寫收件人相關資料",function(){					
+				}).set("title","警告 !").set('label', '對不起我錯了'); 
+
+
+			}else{
 		    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
-		    	var consignee_Name = $('#consignee_Name').val();
-		    	var consignee_Address = $('#consignee_Address').val();
-		    	var email = $('#email').val();
-		    	var payment_Method = $('#radioBtn .active').text();
-				var qty = $('.qty').val();
-			$.ajax({
-				url:'${this_contextPath}/CRFSERVICE/orderDetailsController/checkForm',
-				type:'get',
-				data:{consignee_Name:consignee_Name,
-					consignee_Address:consignee_Address,
-					payment_Method:payment_Method,							
-					},
-				success:function(){
+				
+				//驗證Form
+// 			$.ajax({
+// 				url:'${this_contextPath}/CRFSERVICE/orderDetailsController/checkForm',
+// 				type:'get',
+// 				data:{consignee_Name:consignee_Name,
+// 					consignee_Address:consignee_Address,
+// 					payment_Method:payment_Method,							
+// 					},
+// 				success:function(){
 					
-				}
-			})
+// 				}
+// 			})
 			
 			//送出訂單
 				$.ajax({
@@ -254,6 +265,7 @@ jQuery(function($){
 						payment_Method:payment_Method,
 					},
 					success:function(data){
+
 						//確認訂單後清空session和頁面上的資料
 			    		$('#consignee_Name').val('');
 				    	$('#consignee_Address').val('');
@@ -264,15 +276,16 @@ jQuery(function($){
 				    			.removeClass('notActive').addClass('active'); 						
 						cleanCart()
 						totalAmount()
-						//訂單送出後3秒導向推薦者頁面
-						alertify.success('訂單送出 &nbsp&nbsp&nbsp3秒後進入訂單查詢頁面',setTimeout(function(){	
- 							//location.href ="${this_contextPath}/Order.jsp?${LoginOK.member_Id}"
-							},3000) 
-						)
+						//訂單送出後導向推薦者頁面
+						alertify.success('訂單送出 &nbsp&nbsp&nbsp即將回到首頁',setTimeout(function(){	
+ 							location.href ="${this_contextPath}/index.jsp?${LoginOK.member_Id}"
+							},2000) 
+						)				
 					}
 				})
 		   		 }, function () { 
 			alertify.notify( "訂單取消", 'error', 3)});
+			}
 		});
 	}
 })
