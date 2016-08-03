@@ -171,7 +171,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
 				+"where publicStatus='1' or publicStatus='5' "
-				+"order by publishTime desc "  
+				+"order by publishTime  "  
 				+"OFFSET 0 ROWS FETCH NEXT 6 ROWS ONLY")
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
@@ -188,8 +188,7 @@ public class PersonalJournalDAO implements PersonalJournalDAO_interface {
 				+"from PersonalJournal join Members "
 				+"on PersonalJournal.Member_Id=Members.Member_Id "
 				+"where publicStatus='1' or publicStatus='5' "
-				+"order by publishTime desc "  
-				+"OFFSET 6 ROWS ")
+				+"order by publishTime desc " )
 				.addEntity(PersonalJournalVO.class)
 				.addScalar("nickname", StringType.INSTANCE)
 				.addScalar("Member_Id",StringType.INSTANCE)

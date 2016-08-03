@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="page" value="${pageContext.request.requestURI}" scope="page"/>
+<c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+<c:if test="${ empty LoginOK}">
+<c:redirect url="/index.jsp?NoLogin"></c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -74,7 +79,7 @@
 <br />
 <div class="row">
 	<div class="checkorder">
-		<form class="form-horizontal">
+		<Form class="form-horizontal">
 			<fieldset>
 				<!-- Form Name -->
 				<legend class="well well-sm" style="text-align: center">填寫訂單資訊</legend>
@@ -135,12 +140,12 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="check"></label>
 					<div class="col-md-4">
-						<a id="check" class="btn btn-success">送出訂單</a>
+						<a id="check" class="btn btn-success" name="sendbutton">送出訂單</a>
 					</div>
 					<div class="checkfail"><span>${ErrorMessage.checkfail}</span></div>
 				</div>
 			</fieldset>
-		</form>
+		</Form>
 	</div>
 </div>
 <br /> <br /> <br />
@@ -221,12 +226,22 @@ jQuery(function($){
 			
 		$('body').on('click', '.btn-success', function () {
 		    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
-		    	
 		    	var consignee_Name = $('#consignee_Name').val();
 		    	var consignee_Address = $('#consignee_Address').val();
 		    	var email = $('#email').val();
 		    	var payment_Method = $('#radioBtn .active').text();
 				var qty = $('.qty').val();
+			$.ajax({
+				url:'${this_contextPath}/CRFSERVICE/orderDetailsController/checkForm',
+				type:'get',
+				data:{consignee_Name:consignee_Name,
+					consignee_Address:consignee_Address,
+					payment_Method:payment_Method,							
+					},
+				success:function(){
+					
+				}
+			})
 			
 			//送出訂單
 				$.ajax({
@@ -251,7 +266,7 @@ jQuery(function($){
 						totalAmount()
 						//訂單送出後3秒導向推薦者頁面
 						alertify.success('訂單送出 &nbsp&nbsp&nbsp3秒後進入訂單查詢頁面',setTimeout(function(){	
- 							location.href ="${this_contextPath}/Order.jsp?${LoginOK.member_Id}"
+ 							//location.href ="${this_contextPath}/Order.jsp?${LoginOK.member_Id}"
 							},3000) 
 						)
 					}

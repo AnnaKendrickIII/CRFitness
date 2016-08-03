@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,6 +16,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.CRFitness.Chats.model.ChatService;
+import com.CRFitness.Friendships.model.FriendshipsService;
+import com.CRFitness.Friendships.model.FriendshipsVO;
 import com.google.gson.Gson;
 
 @Controller
@@ -23,11 +26,13 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
 	private Map<String, WebSocketSession> clients = new ConcurrentHashMap<>();
 	@Resource(name = "chatService")
 	private ChatService chatService;
+	@Resource(name = "friendshipsService")
+	private FriendshipsService friendshipsService;
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession websession) throws Exception {
 		
-			clients.put((String)(websession.getAttributes().get("WEBSOCKET_USERNAME")),websession);
+//			clients.put((String)(websession.getAttributes().get("WEBSOCKET_USERNAME")),websession);
 //			String userName = (String) websession.getAttributes().get("WEBSOCKET_USERNAME");
 //			System.out.println(clients.get(((MemberVO)websession.getAttribute("LoginOK")).getMember_Id()));
 //			if (userName != null) {
@@ -48,7 +53,16 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         if(!clients.containsKey(datas.get("userID").toString()))
         {
             clients.put(datas.get("userID").toString(), session);
-        } 
+            if("1".equals(type)){
+            	TextMessage tm = new TextMessage(g.toJson(datas)); 
+            	LoginSendMessage(datas.get("userID").toString(),tm);
+            }
+        }
+        if(clients.get(datas.get("userID").toString())!=session)
+           {
+                clients.put(datas.get("userID").toString(), session);
+           }	 	
+        
         
         if("2".equals(type)){  //私訊
         	TextMessage tm = new TextMessage(g.toJson(datas));   	
@@ -59,8 +73,10 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         	 sendMessageToUser(datas.get("userID").toString(),datas.get("friendId").toString(),datas.get("data").toString(),ts,tm);
         }
         else if("3".equals(type))//關掉，登出移除自己的WebSocketSession
-        {
-            clients.remove(datas.get("userID").toString());
+        {          
+            TextMessage tm = new TextMessage(g.toJson(datas)); 
+            LogoutMessage(datas.get("userID").toString(),tm);
+            
         } else if("4".equals(type)){//加好友     
         	TextMessage tm = new TextMessage(g.toJson(datas)); 
         	addFriend(datas.get("userID").toString(),datas.get("friendId").toString(), 
@@ -71,6 +87,43 @@ public class WebsocketEndPoint extends TextWebSocketHandler   {
         			datas.get("myName").toString(), tm);
         }
     }
+    public void LoginSendMessage(String member_Id,TextMessage message) {
+    	try {
+    		List<FriendshipsVO> list = friendshipsService.select_MyFriends(member_Id);	
+			for(FriendshipsVO friendshipsVO:list){
+				String friend_Id=friendshipsVO.getFriend_Id();
+			if(clients.containsKey(friend_Id)){
+				if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {
+					clients.get(friend_Id).sendMessage(message);					
+				}else{	
+				
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    public void LogoutMessage(String member_Id,TextMessage message) {
+    	try {
+    		List<FriendshipsVO> list = friendshipsService.select_MyFriends(member_Id);	
+			for(FriendshipsVO friendshipsVO:list){
+				String friend_Id=friendshipsVO.getFriend_Id();
+			if(clients.containsKey(friend_Id)){
+				if (clients.get(member_Id).isOpen() && clients.get(friend_Id).isOpen()) {
+					clients.get(friend_Id).sendMessage(message);					
+				}else{	
+				
+					}
+				}
+			}
+			 clients.remove(member_Id);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
     private void sendToAll(TextMessage tm)
     {
         try

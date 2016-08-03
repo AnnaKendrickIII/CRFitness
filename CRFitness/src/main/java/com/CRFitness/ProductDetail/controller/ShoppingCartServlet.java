@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,15 +28,24 @@ public class ShoppingCartServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String email = request.getParameter("email");
 
-		if (name.length() <= 0 || "".equals(name)) {
+		System.out.println("servlettest");
+		
+		if (name.trim().length() <= 0 || "".equals(name.trim())) {
 			errorMessage.put("errorName", "收件人姓名不可為空白,請重新輸入");
 		}
-		if (address.length() <= 0 || "".equals(address)) {
+		if (address.trim().length() <= 0 || "".equals(address.trim())) {
 			errorMessage.put("errorAddress", "收件地址不可為空白,請重新輸入");
 		}
-		if (email.length() <= 0 || "".equals(email)) {
+		if (email.trim().length() <= 0 || "".equals(email.trim())) {
 			errorMessage.put("errorEmail", "E-mail不可為空白,請重新輸入");
 		}
+
+		if (!errorMessage.isEmpty()) {
+			RequestDispatcher rd = request
+					.getRequestDispatcher("${this_contextPath}/ShoppingCart.jsp");
+			rd.forward(request, response);
+		}
+	
 
 	}
 

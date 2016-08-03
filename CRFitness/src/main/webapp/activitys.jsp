@@ -63,6 +63,32 @@ margin-left: 5%;
 	color:#84C1FF;
 	font-size: 22px;
 }
+#grid>li:nth-child(1){
+
+text-align: center;
+font-size: 24px;
+ -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);  
+    filter: grayscale(100%);	
+    filter: gray;
+}
+#grid>li:nth-child(1):HOVER{
+background-color: white;
+	border:3px solid red;
+	font-size: 24px;
+	color: red;
+    -webkit-filter:none;
+    -moz-filter: none;
+    -ms-filter:none;
+    -o-filter: none;  
+    filter: none;	
+    filter: none;
+}
+.act_users{
+margin-right: 2%;
+}
 </style>
 <script type="text/template" id="qq-template-manual-trigger">
         <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
@@ -148,7 +174,8 @@ margin-left: 5%;
 <aside>
 	<!-- 頁面部分 開始-->
     <ul class="grid effect-5 " id="grid">
-               <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"> </a>新增揪團</li>
+               <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg">
+               </a><i class="fa fa-users act_users" aria-hidden="true"></i><strong>新增揪團</strong> </li>
 				
 		</ul>
  	<!-- 新增活動 開始-->

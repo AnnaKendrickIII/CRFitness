@@ -10,7 +10,7 @@
     <link href="${this_contextPath}/css/simple-sidebar.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/login.css" rel="stylesheet" />
     <link href="${this_contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="${this_contextPath}/font-awesome/cssperspectiveRules.css" rel="stylesheet" />
+    <link href="${this_contextPath}/css/perspectiveRules.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
@@ -107,12 +107,30 @@
                	<div class="user_login_div dropdown">
                         <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn"  src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel"> 
-                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a></li>
-                            <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
-                            <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>
-                             <li><a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a></li>    
-                        	<li><a  class="container_a_css">編輯個人資料</a></li>                          
-                            <li><a href="${this_contextPath}/Logout/logout.jsp" class="logout_css_souket" >登出</a></li>                        
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a>
+                           		</div></div>
+                            </li>
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a>
+                            </div></div>
+                            </li> 
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a>
+                            </div></div>
+                            </li>
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                             <a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a>
+                             </div></div>
+                             </li>    
+                        	<li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                        	<a  class="container_a_css">編輯個人資料</a>
+                        	</div></div>
+                        	</li>                          
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a href="${this_contextPath}/Logout/logout.jsp" class="logout_css_souket" >登出</a>
+                            </div></div>
+                            </li>                        
                         </ul>
                 </div>
                 </c:when>
@@ -162,15 +180,7 @@
   
  
 <script type="text/javascript">
-//WebSocket 
-//  function start() 
-//     {
-//         if(userID != '')
-//         {
-//             var msg = JSON.stringify({'userID':userID, 'type':'1'});  
-//             ws.send(msg);
-//         }
-//     }
+
  Date.prototype.Format = function (fmt) {  
 	    var o = {
 	        "M+": this.getMonth() + 1, //月份 
@@ -205,22 +215,6 @@
 				 $.each(data,function(index){	
 					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
 		 		   var jdate_value = new Date(jdate_int);
-		 		  if('${LoginOK.member_Id}'==this.member_Id){	
-						$('#'+userID+' .msg_container_base ').prepend(
-	 	 								'<div class="row msg_container base_sent ">'
-	 	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
-	 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
-	 	 			 		            +'<div class="messages msg_sent">'
-	 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
-	 	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
-	 	 			 		            +'</div>'
-	 	 			 		            +'</div>'
-	 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-	 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
-	 	 			 		            +'</div>'
-	 	 			 		            +'</div>' 				 
-	 							 )
-					}else{
 						$('#'+userID+' .msg_container_base ').prepend(
 	 								'<div class="row msg_container base_receive ">'
 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -234,9 +228,11 @@
 	 			 		            +'</div>'
 	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
 	 			 		            +'</div>' 		         	
-							 )							
-					}
+							 )									 
 				 })
+				 if(data!=''){
+					 $('#'+userID+' .msg_container_base ').prepend('<hr>')				 
+				 }
 			   }		  
 		   })
        }
@@ -342,18 +338,19 @@
  
     ws.onopen = function(event) 
     {
+    	 var msg = JSON.stringify({'userID':userID, 'type':'1','myName':"${LoginOK.nickname}"});  
+         ws.send(msg);   
     	console.log('打開了')
-//         start() ;
     };
      
     ws.onclose = function(event) { 
-        var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+        var msg = JSON.stringify({'userID':userID, 'type':'3','myName':"${LoginOK.nickname}"});//3  關  
         ws.send(msg);
 		console.log('關了')
     }; 
  
     $('body').on('click','.logout_css_souket',function(){
-    	 var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+    	 var msg = JSON.stringify({'userID':userID, 'type':'3','myName':"${LoginOK.nickname}"});//3  關  
          ws.send(msg);
          console.log('關了,登出')
     })   
@@ -361,8 +358,13 @@
     {	
     	
         var data = JSON.parse(event.data);
-        
-        if(data.type == '2')
+       
+        if(data.type == '1')
+        {
+        	alertify.notify('<div class="row"><div  class="col-xs-3 col-sm-3 logoutimgdiv"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></div>'
+       			 +'<div  class="col-xs-6 col-sm-6 logoutnamediv ">'+data.myName+'已上線</div></div>', 'custom', 5); 
+        }else
+        	if(data.type == '2')
         {
         	var jdate_int = parseInt(data.Time);                          //轉換成數字
  		   var jdate_value = new Date(jdate_int);
@@ -406,14 +408,10 @@
 				 } 
         	var basecon = $('.msg_container_base');
 				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
-        }
-        else if(data.type == '1')
-        {
-        	console.log('111')
-//             render_data(data.username + "上線 <br> ");
-            
-        }
-        else if(data.type == '4'){
+        }   else if(data.type == '3'){   
+        	 alertify.notify('<div class="row"><div  class="col-xs-3 col-sm-3 logoutimgdiv"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></div>'
+        			 +'<div  class="col-xs-6 col-sm-6 logoutnamediv ">'+data.myName+'已登出</div></div>', 'custom2', 5); 
+        }     else if(data.type == '4'){
         	if(!$('#header_email_dropdown_div ul').html()){
         			$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
         	}
@@ -764,7 +762,6 @@
                     $('body').on('click', '.deletefriend', function (e) {
                         var whichthis = $(this);
                         var fid=$(this).next().find("span[hidden]").text()
-                        console.log(fid)
 	               		alertify.confirm().set('title', '警告');
 			    		alertify.confirm('確認刪除此好友',function(e){
 			    			if(e){
@@ -773,7 +770,7 @@
 									type:'post',
 									data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
 									success: function(data){
-										console.log(data)
+										
 										whichthis.parent().parent().remove();
 		                       }
 		                     })

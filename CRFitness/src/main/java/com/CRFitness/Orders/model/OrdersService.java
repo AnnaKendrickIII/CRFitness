@@ -23,6 +23,7 @@ public class OrdersService {
 	// 利用 member_Id 搜尋有效會員訂單
 	public List<OrdersVO> searchOrdersByMember_Id(String member_Id) {
 		List<OrdersVO> vos = ordersDAO.findOrdersByMember_Id(member_Id);
+		
 		if (!(vos.isEmpty())) {
 			return ordersDAO.findOrdersByMember_Id(member_Id);
 		} else {
