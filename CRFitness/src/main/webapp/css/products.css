@@ -98,11 +98,14 @@ body {
 }
 
 /* �վ�j�Ϥؤo */
-.gallery .full, .gallery .full img {
+.gallery .full img {
 	width: 492px;
 	height: 520px;
 }
-
+.gallery .full{
+	width: 500px;
+	height: 530px;
+}
 .gallery .previews a, .gallery .full {
 	border: 4px solid #888888;
 }
@@ -126,5 +129,5 @@ body {
 /* �վ�p�Ϥؤo */
 .small {
 	width: 100px;
-	height: 92px;
+	height: 94px;
 }

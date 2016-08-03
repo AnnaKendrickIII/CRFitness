@@ -35,7 +35,7 @@ text-align: center;
 		<div id="orderscolumns" class="col-md-8 col-xs-12"></div>
 		<div class="col-md-2"></div>
 	</div>
-	
+	<a style="text-decoration: none;"></a>
 	<script type="text/javascript">
 	// 轉換日期的小程式 開始
 // 	Date.prototype.Format = function(fmt) {
@@ -61,7 +61,6 @@ text-align: center;
 // 	}
 //轉換日期的小程式 結束
 
-
 jQuery(function($){
 		$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/Order.png">')
 	$.ajax({
@@ -75,29 +74,30 @@ jQuery(function($){
 	    				location.href='${this_contextPath}/Products.jsp?category=cmens-tops&page=1'
 		     		  });	
 	     	 }else{
-// 		 		var date = new Date.Format
-// 		 			Date(parseInt('{{order_Time}}')).Format("MM-DD hh:mm:ss")
-// 		 		  console.log('date='+date)
-				$.each(json,function(){
-					var date_int = parseInt(this.order_Time);                          //轉換成數字
-		 		   	  var date_value = new Date(date_int);
-			 		  console.log(this.order_Time)
-			 		  console.log('date_value='+new Date(parseInt('{order_Time}')).Format("yyyy-MM-dd hh:mm"))
-				})
+
+
 		          $('#orderscolumns').columns({	  
 		              data:json,
 		              schema: [
-		                  {"header":"訂單編號", "key":"order_Id", "template":'<a href="${this_contextPath}/OrderDetails.jsp?order_Id={{order_Id}}" >{{order_Id}}</a>'},
+		                  {"header":"訂單編號", "key":"order_Id", "template":'<a style="text-decoration:none;" href="${this_contextPath}/OrderDetails.jsp?order_Id={{order_Id}}">{{order_Id}}</a>'},
 		                  {"header":"會員編號", "key":"member_Id"},
 		                  {"header":"訂單狀態", "key":"order_Status"},         
 		                  {"header":"總金額", "key":"total_Amount"},
 		                  {"header":"收件人姓名", "key":"consignee_Name"},
 		                  {"header":"收件人地址", "key":"consignee_Address"},
-		                  {"header":"訂單日期", "key":"order_Time", "template":'{{order_Time}}'},
+		                  {"header":"訂單日期", "key":"order_Time", "template":""},
 		                  {"header":"付款方式", "key":"payment_Method"},
 		                  {"header":"取消訂單", "template":'<div class="cancel btn btn-defult glyphicon glyphicon-trash" title="取消此筆訂單"></div>'}
 		              ]
-	 	          });		         		    	  	    
+	 	          });	
+				$.each(json,function(index){	
+					var tr = $('tbody>tr').length
+					var date_int = parseInt(json[index].order_Time);                          //轉換成數字
+		 		   	  var date_value = new Date(date_int);
+					var data = date_value.Format("yyyy-MM-dd hh:mm")
+					$('tbody tr:eq('+index+') td:eq(6)').text(data)
+
+				})
 	     	 }	     	 
 	      }
 	  });
