@@ -180,6 +180,14 @@ margin-bottom: 5%;
 .userContents{
 font-size: 20px;
 }
+.img_headers{
+  background-color: #337ab7;
+  text-align: center;
+  color: white;
+  }
+.camera_icon{
+padding-right: 2%;
+  }
 </style>
 <script type="text/javascript">
 jQuery(function($){
@@ -365,11 +373,13 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header img_headers">
 							<button type="button" class="close" data-dismiss="modal">
 								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 							</button>
-							<h4 class="modal-title" id="exampleModalLabel">修改個人頭像</h4>
+							<h4 class="modal-title" id="exampleModalLabel">
+							<i class="fa fa-camera camera_icon" aria-hidden="true"></i>
+							<strong>修改個人頭像</strong></h4>
 						</div>
 						<div class="modal-body">
 							<div class="imageBox">
@@ -377,7 +387,11 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 								<div class="spinner" style="display: none">Loading...</div>
 							</div>
 							<div class="head_action">
-								<input type="file" id="file" style="float: left; width: 250px">
+							<div class="uploadfile_div_css" style="float: left">
+										<label for="file" class="btn btn-primary btn-file">選擇圖檔<input id="file"   style="display: none;"
+											type="file" multiple="multiple">
+											</label> 
+							</div>
 								<input type="button" id="btnCrop" class="btn btn-primary btn-xs" value="確定選取"> 
 								<input type="button" id="btnZoomIn" class="btn btn-primary btn-xs" value="+"> 
 								<input type="button" id="btnZoomOut" class="btn btn-primary btn-xs" value="-">

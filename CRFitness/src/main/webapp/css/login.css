@@ -42,10 +42,23 @@ position:fixed;
 }
 .user_login_div{
 	position:fixed;
-    right:120px;
-    top: 15px;
+    right:125px;
+    top: 13px;
     width:40px;
     height:40px;
+     
+}
+.user_login_div li:HOVER{
+	background-color:#F0F0F0;     
+}
+.user_login_down_div {
+	border-color: #5599FF;
+}
+
+.user_login_div a{
+	text-decoration: none !important;   
+	color: black;
+	display: block;
 }
 .user_login_down_div{
 	text-align:center;
