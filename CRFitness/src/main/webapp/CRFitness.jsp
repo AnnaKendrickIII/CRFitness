@@ -10,7 +10,7 @@
     <link href="${this_contextPath}/css/simple-sidebar.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/login.css" rel="stylesheet" />
     <link href="${this_contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="${this_contextPath}/font-awesome/css/perspectiveRules.css" rel="stylesheet" />
+    <link href="${this_contextPath}/css/perspectiveRules.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
