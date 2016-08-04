@@ -47,7 +47,7 @@ text-align: center;
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_megaphone"></span>
+					  			<span class="li_cog"></span>
 					  			<h3>+14</h3>
                   			</div>
 					  			<p>本周有 14 個新揪團活動</p>
