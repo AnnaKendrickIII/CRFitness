@@ -254,7 +254,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="${this_contextPath}/admin/adminLogout.jsp">Logout</a></li>
+                    <li id="admin_logout"><a class="logout" href="${this_contextPath}/admin/adminLogout.jsp">Logout</a></li>
             	</ul>
             </div>
         </header>
@@ -453,6 +453,39 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     </script>
+    <c:if test="${!empty LoginOK}">
+  <script type="text/javascript">
   
+  var adminID = '${LoginOK.member_Id}';
+  var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
+
+  ws.onerror = function(event)
+  {
+  	alert(event);
+  };
+
+  ws.onopen = function(event) 
+  {
+  	 var msg = JSON.stringify({'adminID':adminID});  
+       ws.send(msg);   
+  	console.log('打開了')
+  };
+   
+  ws.onclose = function(event) { 
+      var msg = JSON.stringify({'adminID':adminID, 'type':'6'});//3  關  
+      ws.send(msg);
+  }; 
+  ws.onmessage = function(event) {
+	  
+  }
+  $('body').on('click','#admin_logout',function(){
+	  var msg = JSON.stringify({'adminID':adminID, 'type':'6'});//3  關  
+      ws.send(msg);
+  })
+  $('body').on('click','.notifaction',function(){
+	  
+  })
+  </script> 
+  </c:if>
   </body>
 </html>
