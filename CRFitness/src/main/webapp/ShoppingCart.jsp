@@ -64,11 +64,11 @@
 			</div>
 			<hr>
 			<div class="panel-footer">
-				<div class="row text-center">
+				<div class="row text-right">
 					<div class="col-xs-12">
-						<h4 class="text-right"  id="amount">
-							總金額: $<strong></strong>
-						</h4>
+						<h3 id="amount">
+							總金額 : $ <strong></strong>
+						</h3>
 					</div>
 				</div>
 			</div>
@@ -200,9 +200,9 @@ jQuery(function($){
 		success:function(data){
 			$.each(data,function(){
 		$('#itemlist').append('<div class="item">'+
-				'<div class="row"><div class="col-xs-2">'+
+				'<a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='+this[0][0].productDetail_Id+'"><div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="${this_contextPath}/images/products/'
-				+this[0][0].productDetail_Id+'_1.png"/></div>'+
+				+this[0][0].productDetail_Id+'_1.png"/></div></a>'+
 				'<div class="col-xs-4"><span hidden="hidden">'+this[0][0].productDetail_Id+'</span><h4 class="productname"><strong>'+
 				this[0][1]+'</strong></h4><h4 class="size"><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</small></h4><h4 class="color"><small>顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
@@ -232,6 +232,8 @@ jQuery(function($){
 			var email = $('#email').val();
 			var payment_Method = $('#radioBtn .active').text();
 			var qty = $('.qty').val();
+			
+			//超簡易訂單資料驗證
 			if(consignee_Name =='' || consignee_Address =='' || email =='')
 			{
 				alertify.alert("請填寫收件人相關資料",function(){					
