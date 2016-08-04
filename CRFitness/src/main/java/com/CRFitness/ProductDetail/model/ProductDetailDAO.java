@@ -129,7 +129,7 @@ public class ProductDetailDAO implements ProductDetailDAO_interface,
 				.getSession()
 				.createSQLQuery(
 						"select * " + "from   Products "
-								+ "where Products.Category='" + category + "'")// +
+								+ "where Products.Category='" + category + "' Order by Product_Id desc")// +
 																				// "Order by Product_Id desc"
 				.addEntity(ProductsVO.class);
 		query.setFirstResult((page - 1) * max);
