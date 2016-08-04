@@ -29,6 +29,7 @@
 
               <div class="row">
                   <div class="col-lg-9 main-chart">
+                  
                   	<div class="row mtbox">
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
@@ -66,10 +67,12 @@
 					  			<p>目前資金流動情況OK</p>
                   		</div>
                   	
-                  	</div><!-- /row mt -->	
+                  	</div> <!-- 33 row mtbox -->	
                   
+                  
+                 <!-- PANEL STARTS -->     
+                      <div class="row mt"> <!-- FIRST ROW -->
                       
-                      <div class="row mt">
                       <!-- SERVER STATUS PANELS -->
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn donut-chart">
@@ -98,16 +101,17 @@
 	                      	</div><! --/grey-panel -->
                       	</div><!-- /col-md-4-->
                       	
+                      	
 						<div class="col-md-4 col-sm-4 mb">
 							<!-- REVENUE PANEL -->
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
-									<h5>REVENUE</h5>
+									<h5>收益</h5>
 								</div>
 								<div class="chart mt">
 									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
 								</div>
-								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
+								<p class="mt"><b>$ 17,980</b><br/>月收入</p>
 							</div>
 						</div><!-- /col-md-4 -->
 
@@ -118,7 +122,7 @@
 								<div class="white-header">
 									<h5>頂級會員</h5>
 								</div>
-								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="100" height="60"></p>
+								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="100" height="80"></p>
 								<p><b>Rose</b></p>
 								<div class="row">
 									<div class="col-md-6">
@@ -132,75 +136,55 @@
 								</div>
 							</div>
 						</div><!-- /col-md-4 -->
-                    </div><!-- /row -->
+						
+                    </div> <!-- END FIRST ROW -->
                     
-					<div class="row">
-						<!-- TWITTER PANEL -->
-						<div class="col-md-4 mb">
-                      		<div class="darkblue-panel pn">
-                      			<div class="darkblue-header">
-						  			<h5>DROPBOX STATICS</h5>
-                      			</div>
-								<canvas id="serverstatus02" height="120" width="120"></canvas>
-								<script>
-									var doughnutData = [
-											{
-												value: 60,
-												color:"#68dff0"
-											},
-											{
-												value : 40,
-												color : "#444c57"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-								</script>
-								<p>April 17, 2014</p>
-								<footer>
-									<div class="pull-left">
-										<h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
-									</div>
-									<div class="pull-right">
-										<h5>60% Used</h5>
-									</div>
-								</footer>
-                      		</div><! -- /darkblue panel -->
-						</div><!-- /col-md-4 -->
-						
-						
-						<div class="col-lg-4 col-md-4 col-sm-4 mb">
-							<div class="content-panel">
-								<div >
-									<div class="centered">
-										<img src="${this_contextPath}/images/activitys/activity3007.jpg" class="img-thumbnail" width="360" height="150">
-										<h4>DJ SHERMAN&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 18</a><a href="#"> | <i class="fa fa-heart"></i> 49</a></h4>
-									</div>
-								</div>
-<!-- 								<div class="pr2-social centered"> -->
-								
-									
-<!-- 								</div> -->
-							</div><! --/panel -->
-						</div><!--/ col-md-4 -->						
-						
+                    
+					<div class="row"> <!-- SECOND ROW -->
+
                       	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn">
-                      			<div class="white-header">
-						  			<h5>熱銷商品</h5>
+                      		<div class="content-panel pn">
+                      			<div class="white-header centered">
+						  			<h5><strong>熱門日誌</strong></h5>
                       			</div>
-								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-heart"></i> 122</p>
-									</div>
-									<div class="col-sm-6 col-xs-6"></div>
-	                      		</div>
-	                      		<div >
-									<img class="img-rounded" src="${this_contextPath}/images/products/prodDetail5020_1.png" width="153" height="162">
+	                      		<div class="centered">
+									<img class="img-rounded" src="${this_contextPath}/images/Journal/journal2016.jpg" class="img-thumbnail" width="360" height="200">
+									<h4>雪符&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 18</a><a href="#"> | <i class="fa fa-heart"></i> 49</a></h4>
 	                      		</div>
                       		</div>
                       	</div><!-- /col-md-4 -->
 						
-					</div><!-- /row -->
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="content-panel pn">
+                      			<div class="white-header centered">
+						  			<h5><strong>熱門揪團</strong></h5>
+                      			</div>							
+									<div class="centered">
+										<img src="${this_contextPath}/images/activitys/activityBE.jpg" class="img-thumbnail" width="360" height="180">
+										<h4>井藍&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 79</a><a href="#"> | <i class="fa fa-heart"></i> 200</a></h4>
+									</div>
+							</div> <!-- /panel -->
+						</div> <!-- / col-md-4 -->  
+
+                      	<div class="col-md-4 col-sm-4 mb">
+                      		<div class="white-panel pn">
+                      			<div class="white-header">
+						  			<h5><strong>熱銷商品</strong></h5>
+                      			</div>
+								<div class="row">
+									<div class="col-sm-8 col-xs-8 goleft">
+										<p>男子UA Curry 2.5籃球鞋&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i> 122</p>
+									</div>
+									<div class="col-sm-4 col-xs-4"></div>
+	                      		</div>
+	                      		<div >
+									<img class="img-rounded" src="${this_contextPath}/images/products/prodDetail5020_1.png" width="210" height="180">
+	                      		</div>
+                      		</div>
+                      	</div><!-- /col-md-4 -->
+						
+					</div> <!-- END SECOND ROW -->
+					
 					
 					<div class="row mt">
                       <!--CUSTOM CHART START -->
@@ -245,9 +229,11 @@
                               <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
                           </div>
                       </div>
+                      
                       <!--custom chart end-->
-					</div><!-- /row -->	
-                  </div><!-- /col-lg-9 END SECTION MIDDLE -->
+					</div><!-- 190 /row mt-->	
+					
+                  </div><!-- 31 /col-lg-9 END SECTION MIDDLE -->
                   
                   
       <!-- **********************************************************************************************************************************************************
@@ -315,14 +301,14 @@
                       </div>
 
                        <!-- USERS ONLINE SECTION -->
-						<h3>TEAM MEMBERS</h3>
+						<h3>管理員</h3>
                       <!-- First Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-divya.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/${LoginOK.member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p><a href="#">DIVYA MANIAN</a><br/>
+                      		<p><a href="#">${LoginOK.nickname}</a><br/>
                       		   <muted>Available</muted>
                       		</p>
                       	</div>
@@ -330,10 +316,10 @@
                       <!-- Second Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/admin002.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p><a href="#">DJ SHERMAN</a><br/>
+                      		<p><a href="#">Alvin</a><br/>
                       		   <muted>I am Busy</muted>
                       		</p>
                       	</div>
@@ -341,32 +327,10 @@
                       <!-- Third Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-danro.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/admin003.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p><a href="#">DAN ROGERS</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-zac.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Zac Sniders</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Marcel Newman</a><br/>
+                      		<p><a href="#">Cartman</a><br/>
                       		   <muted>Available</muted>
                       		</p>
                       	</div>
@@ -385,14 +349,15 @@
                                 </div>
                             </div>
                         </div><!-- / calendar -->
-                  </div> <!-- /col-lg-3 -->
+                        
+                  </div> <!-- 245 /col-lg-3 -->
               </div> <!-- 30 /row -->
               
           </section> <!-- 28 <section class="wrapper"> -->
       </section> <!-- 27 /MAIN CONTENT -->
-
       <!--main content end-->
-      <!--footer start-->
+
+      <!-- footer start-->
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
@@ -401,42 +366,43 @@
               </a>
           </div>
       </footer>
-      <!--footer end-->
+      <!-- footer end-->
+      
   </section> <!-- 21 <section id="container" > -->		
 <!-- 每頁不同內容   結束 -->
 	
 	<script type="application/javascript">
-//         $(document).ready(function () {
-//             $("#date-popover").popover({html: true, trigger: "manual"});
-//             $("#date-popover").hide();
-//             $("#date-popover").click(function (e) {
-//                 $(this).hide();
-//             });
+        $(document).ready(function () {
+            $("#date-popover").popover({html: true, trigger: "manual"});
+            $("#date-popover").hide();
+            $("#date-popover").click(function (e) {
+                $(this).hide();
+            });
         
-//             $("#my-calendar").zabuto_calendar({
-//                 action: function () {
-//                     return myDateFunction(this.id, false);
-//                 },
-//                 action_nav: function () {
-//                     return myNavFunction(this.id);
-//                 },
-//                 ajax: {
-//                     url: "show_data.php?action=1",
-//                     modal: true
-//                 },
-//                 legend: [
-//                     {type: "text", label: "Special event", badge: "00"},
-//                     {type: "block", label: "Regular event", }
-//                 ]
-//             });
-//         });
+            $("#my-calendar").zabuto_calendar({
+                action: function () {
+                    return myDateFunction(this.id, false);
+                },
+                action_nav: function () {
+                    return myNavFunction(this.id);
+                },
+                ajax: {
+                    url: "show_data.php?action=1",
+                    modal: true
+                },
+                legend: [
+                    {type: "text", label: "Special event", badge: "00"},
+                    {type: "block", label: "Regular event", }
+                ]
+            });
+        });
         
-//         function myNavFunction(id) {
-//             $("#date-popover").hide();
-//             var nav = $("#" + id).data("navigation");
-//             var to = $("#" + id).data("to");
-//             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-//         }
+        function myNavFunction(id) {
+            $("#date-popover").hide();
+            var nav = $("#" + id).data("navigation");
+            var to = $("#" + id).data("to");
+            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
+        }
     </script>
   
   </body>

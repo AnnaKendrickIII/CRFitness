@@ -71,6 +71,31 @@
 	<script src="${this_contextPath}/admin/assets/js/search.uisearch.js"></script>
 	<!-- login dialog -->
 	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
+	
+	<style>
+ 	.alv-primary { 
+ 		color: #fff; 
+ 		background-color: #00b3a3; 
+ 		border-color: #357edb;
+ 	} 
+ 	
+ 	.alv-secondary { 
+ 		color: #fff; 
+ 		background-color: #b18f6a; 
+ 		border-color: #357edb;
+ 		border: #A67A6F;
+ 	}
+ 	
+ 	.pagination > li > a, .pagination > li > span {
+ 		color: #00b3a3;
+ 	}
+ 	
+ 	.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+ 		background-color: #00b3a3;
+		border-color: #00b3a3;
+ 	}
+	</style>
+	
   </head>
 
   <body>

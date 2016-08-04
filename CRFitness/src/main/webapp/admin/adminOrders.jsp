@@ -94,7 +94,7 @@ th{
 
 			<div class="row">
 				<div class="col-md-10 col-xs-10">
-		<button type="button" id="creProdBtn" class="btn btn-round btn-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
+		<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
   		<i class="fa fa-plus-square" aria-hidden="true"></i>
   		</button>
 				</div>
@@ -112,7 +112,7 @@ th{
             <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="orders_table">
 		
 			<thead>
-				<tr class="btn-primary" >
+				<tr class="alv-primary" >
 					<th><h3><strong># 訂單ID</strong></h3></th>
 					<th><h3><strong># 會員ID</strong></h3></th>
 					<th><h3><i class="fa fa-user" aria-hidden="true"></i><strong> 收件人</strong></h3></th>

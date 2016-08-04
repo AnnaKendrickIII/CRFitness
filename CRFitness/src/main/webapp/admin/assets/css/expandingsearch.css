@@ -93,7 +93,8 @@
 
 .sb-icon-search {
 	color: #fff;
-	background: #F75000;
+/* 	background: #F75000; */
+	background: #00b3a3;
 	z-index: 10;
 	font-size: 22px;
 	font-family: 'icomoon';

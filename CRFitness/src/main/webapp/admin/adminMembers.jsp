@@ -94,7 +94,7 @@ th{
 
 			<div class="row">
 				<div class="col-md-10 col-xs-10">
-		<button type="button" id="creProdBtn" class="btn btn-round btn-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
+		<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
   		<i class="fa fa-plus-square" aria-hidden="true"></i>
   		</button>
 				</div>
@@ -112,7 +112,7 @@ th{
             <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="members_table">
 		
 			<thead>
-				<tr class="btn-primary" >
+				<tr class="alv-primary" >
 					<th><h3><i class="fa fa-picture-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
 					<th><h3># 會員ID</h3></th>
 					<th><h3><i class="fa fa-snapchat" aria-hidden="true"></i><strong> 暱稱</strong></h3></th>

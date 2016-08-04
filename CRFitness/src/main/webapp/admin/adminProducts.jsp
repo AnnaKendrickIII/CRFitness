@@ -137,7 +137,8 @@
 <style>
 #trigger-upload {
 	color: white;
-    background-color: #00ABC7;
+/*     background-color: #00ABC7; */
+    background-color: #b18f6a;
     font-size: 14px;
     padding: 7px 20px;
     background-image: none;
@@ -226,7 +227,7 @@ textarea{
 
 			<div class="row">
 				<div class="col-md-10 col-xs-10">
-		<button type="button" id="creProdBtn" class="btn btn-round btn-theme03 btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
+		<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
   		<i class="fa fa-plus-square" aria-hidden="true"></i>
   		</button>
 				</div>
@@ -244,7 +245,7 @@ textarea{
             <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="products_table">
 
 			<thead>
-				<tr class="btn-primary" >
+				<tr class="alv-primary" >
 					<th><h3><i class="fa fa-file-image-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
 					<th><h3># ID</h3></th>
 					<th><h3># PID</h3></th>
@@ -304,8 +305,8 @@ textarea{
                 	<div class="modal-content">
                 	
                     <div class="modal-header login_header">
-                    	<button type="button" class="close btn-theme03" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title" id="myModalLabel1"><strong>新增產品</strong></h3>
+                    	<button type="button" class="close alv-secondary" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title" id="myModalLabel1"><strong>新   增   產   品</strong></h3>
                     </div>
                             
                     <div id="addProducts_form" class="modal-body">
@@ -317,7 +318,7 @@ textarea{
                         <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                    		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />                        
                         <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="insert_stock" autocomplete="off" class="form-control" placeholder="輸入數量"/>
+                        <input required="required" type="text" id="insert_stock" autocomplete="off" class="form-control" placeholder="輸入數量" />
                         <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="insert_price" autocomplete="off" class="form-control" placeholder="輸入價格" />
                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
@@ -338,7 +339,7 @@ textarea{
                      
                      <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="addbtn" class="btn btn-theme" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
+                        <button id="addbtn" class="btn alv-secondary" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -390,7 +391,7 @@ textarea{
                      
                      <div class="modal-footer upbtn">
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="updatebtn" class="btn btn-theme" type="button" value="UPDATE_PRODUCT">送出</button>                       
+                        <button id="updatebtn" class="btn alv-secondary" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -550,8 +551,8 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
 									+ '</td></tr>') // end of after				
 						// 產品狀態switch的程式 開始
 						$('.insertSwitch'+count).easyswitch();
@@ -640,8 +641,8 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 					// 產品狀態switch的程式 開始
 					$('.updateSwitch'+count).easyswitch();
@@ -699,8 +700,8 @@ textarea{
 									                + this[4] // info
 													+ '</td><td hidden="hidden">'
 									                + this[0].product_Status
-													+ '</td><td><button type="button" class="btn btn-theme03 btn-round btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-theme03 btn-round btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
+													+ '</td><td><button type="button" class="btn alv-primary btn-round btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+													+ '</td><td><button type="button" class="btn alv-primary btn-round btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 													+ '</td></tr>') // end of append
 			}) // end of $.each(
 					// 產品狀態switch的程式   開始

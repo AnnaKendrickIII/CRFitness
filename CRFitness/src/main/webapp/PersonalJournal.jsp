@@ -891,7 +891,7 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 								   			+ '<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+"${LoginOK.nickname}"+'</p>'  // 上線前要拿掉或改暱稱
 									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
-								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
+								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p class="userContents">'+ data.contents +'</p></a>'
 
 								   			+ '</div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
