@@ -73,7 +73,7 @@
 	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
 	
 	<style>
- 	.btn-primary { 
+ 	.alv-primary { 
  		color: #fff; 
  		background-color: #79c753; 
  		border-color: #357edb;
