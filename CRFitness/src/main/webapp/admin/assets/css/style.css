@@ -44,7 +44,8 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #68dff0;
+/* 	background: #68dff0; */
+	background: #b18f6a;
 }
 
 .modal-title {
@@ -417,7 +418,7 @@ ul.sidebar-menu li a.active i {
 
 .black-bg {
 /*     background: #ffd777; #00c6d2 */
-    background: #98ddde; 
+    background: #d9ad72; 
 /*     border-bottom: 1px solid #c9aa5f; */
     border-bottom: 1px solid #3890ae;
 }
