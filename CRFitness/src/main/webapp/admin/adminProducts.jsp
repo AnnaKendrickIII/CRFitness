@@ -244,7 +244,7 @@ textarea{
             <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="products_table">
 
 			<thead>
-				<tr class="btn-primary" >
+				<tr class="alv-primary" >
 					<th><h3><i class="fa fa-file-image-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
 					<th><h3># ID</h3></th>
 					<th><h3># PID</h3></th>

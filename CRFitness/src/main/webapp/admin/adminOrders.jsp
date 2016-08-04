@@ -112,7 +112,7 @@ th{
             <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="orders_table">
 		
 			<thead>
-				<tr class="btn-primary" >
+				<tr class="alv-primary" >
 					<th><h3><strong># 訂單ID</strong></h3></th>
 					<th><h3><strong># 會員ID</strong></h3></th>
 					<th><h3><i class="fa fa-user" aria-hidden="true"></i><strong> 收件人</strong></h3></th>
