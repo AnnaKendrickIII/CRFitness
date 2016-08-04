@@ -153,7 +153,7 @@ $.ajax({
 							+data[0][0].stock
 							+'</div></p>'
 							+'</br></br><div><strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
-							+'</p></strong></div></br><div><h3 style="color:#FF3333"><strong>售價 : '+data[0][2]+'</strong></h3></div></br>'
+							+'</p></strong></div></br><div><h3 style="color:#FF3333"><strong>特價 : '+data[0][2]+'</strong></h3></div></br>'
 // 							+'<div class="btn btn-warning" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'
 							+'&nbsp&nbsp&nbsp<div class="btn btn-danger addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</div>'
 							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span>&nbsp&nbsp繼續購物</a>'

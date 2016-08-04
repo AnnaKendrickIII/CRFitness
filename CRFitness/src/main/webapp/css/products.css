@@ -101,6 +101,7 @@ body {
 .gallery .full img {
 	width: 492px;
 	height: 520px;
+	 vertical-align : middle;
 }
 .gallery .full{
 	width: 500px;
