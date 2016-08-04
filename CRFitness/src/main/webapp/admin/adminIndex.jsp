@@ -11,7 +11,14 @@
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
     <title>管理員維護專區</title>
-	
+<style type="text/css">
+textarea{
+	resize: none;
+}
+.notifaction_modal_header{
+text-align: center;
+}
+</style>	
     <jsp:include page="/admin/adminFrame.jsp"/>
     	
   </head>
@@ -59,16 +66,32 @@
                   			</div>
 					  			<p>本周有 10 篇新的健康日誌</p>
                   		</div>
-                  		<div class="col-md-2 col-sm-2 box0 notifaction">
+                  		<a data-toggle="modal" class="col-md-2 col-sm-2 box0" href="#notifaction">
                   			<div class="box1">
 					  			<span class="li_megaphone"></span>
 					  			<h3>公告</h3>
-                  			</div>
-					  			
-                  		</div>
-                  	
-                  	</div> <!-- 33 row mtbox -->	
-                  
+                  			</div>	  			
+                  		</a>	
+                  	</div> <!-- 33 row mtbox -->
+<!--                   	公告開始	 -->
+                   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="notifaction" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header notifaction_modal_header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3 class="modal-title">公告</h3>
+                            </div>
+                            <div class="modal-body">
+                                <textarea   id="notifactionMessage" placeholder="公告訊息"  class="form-control" >
+                           		</textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>                    
+                                <button  class="btn alv-secondary notifaction_Submit" type="button" >Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                   
                  <!-- PANEL STARTS -->     
                       <div class="row mt"> <!-- FIRST ROW -->
@@ -98,7 +121,7 @@
 										];
 										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
 								</script>
-	                      	</div><! --/grey-panel -->
+	                      	</div>
                       	</div><!-- /col-md-4-->
                       	
                       	

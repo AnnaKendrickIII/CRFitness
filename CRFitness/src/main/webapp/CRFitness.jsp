@@ -340,13 +340,13 @@
     {
     	 var msg = JSON.stringify({'userID':userID, 'type':'1','myName':"${LoginOK.nickname}"});  
          ws.send(msg);   
-    	console.log('打開了')
+    	
     };
      
     ws.onclose = function(event) { 
         var msg = JSON.stringify({'userID':userID, 'type':'3','myName':"${LoginOK.nickname}"});//3  關  
         ws.send(msg);
-		console.log('關了')
+		
     }; 
  
     $('body').on('click','.logout_css_souket',function(){
@@ -455,19 +455,37 @@
                	 +'</li> '	 
 				) 
 				alertify.notify('你已和'+data.myName+'成為好友', 'success', 5);
-        	}
-        	
+        			}  		   	
         	if(!$('.addfriend').attr('class')){
         		$('.canceladdfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
         	}else{
         	 	$('.addfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
         	}
-        }
+        }else if(data.type == '6'){
+        	if(!$('#header_email_dropdown_div ul').html()){
+    			$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
+    	}
+    		$('#header_email_dropdown_div ul').append(
+					'<li class="notifaction_li_outer"><div class="chat_this_id_div" hidden="hidden">'+data.userID+'</div>'
+					+'<div class="chat_this_Chat_Detail_div" hidden="hidden">'+data.notifaction+'</div>'
+					+'<div class="row chatmessage"><div  class="col-xs-1 col-sm-1"></div>'
+					+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-exclamation o-chat" aria-hidden="true"></i></div>'	
+					+'<div  class="col-xs-10 col-sm-10 div_chat_message">'
+					+'有1則公告</div></div><li>')
+					 var mail=$('span.num_mail');
+			 if(mail.text()!=""){
+					var mail_text=parseInt(mail.text());
+					 mail_text=mail_text+1
+					 mail.text(mail_text) 		
+			}else{
+				 mail.text('1') 
+			}
+    	}
     };
     (function(){
         if(userID == '')
         {
-            alert('你未登入');
+        	alertify.alert('你未登入');
             $('#send-box').hide();
         }
     })();
@@ -659,6 +677,15 @@
 												+'<div  class="col-xs-3 col-sm-3 ">'
 												+'<i class="fa fa-check check_fr_ok" aria-hidden="true"></i>'
 												+'<i class="fa fa-times check_fr_No" aria-hidden="true"></i></div></div><li>')
+									}else if(this[0]=="5"){
+										$('#header_email_dropdown_div ul').append(
+												'<li class="notifaction_li_outer"><div class="chat_this_id_div" hidden="hidden">'+this[1]+'</div><div class="chat_this_name_div" hidden="hidden">'
+												+this[2]+'</div><div class="chat_this_Chat_Detail_div" hidden="hidden">'+this[3]+'</div>'
+												+'<div class="row chatmessage"><div  class="col-xs-1 col-sm-1"></div>'
+												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-exclamation o-chat" aria-hidden="true"></i></div>'	
+												+'<div  class="col-xs-10 col-sm-10 div_chat_message">'
+												+'有1則公告</div></div><li>')							
+										count++;
 									}	
 								})				
 								if(mail.text()==""){
@@ -691,6 +718,31 @@
 								
 						}
 					})
+					
+					
+					$('body').on('click', '.notifaction_li_outer', function () {
+						 var Chat_Detail=$(this).find('.chat_this_Chat_Detail_div').text()
+						  var thisid=$(this).find('.chat_this_id_div').text()					
+						  $.ajax({
+	          			url:"${this_contextPath}/CRFSERVICE/chatController/update_notifaction_message",
+	          			type:'post',  //get post put delete
+			  			data:{ member_Id:thisid, friend_Id:'${LoginOK.member_Id}'},
+			  			success:function(data){
+			  				 alertify.alert(Chat_Detail).set("title","公告!")
+			 	 				}
+			 				})
+						 var mail=$('span.num_mail');	
+						 if(mail.text()!=""){
+								var mail_text=parseInt(mail.text());
+								 mail_text=mail_text-1
+								 if(mail_text==0){
+								 mail.text('')
+								 }else{
+								 mail.text(mail_text) 
+								 }
+						}
+						 $(this).remove();
+           		});
 						//點擊好友留言訊息跑出聊天室並-1
 						$('body').on('click', '.message_li_outer', function () {
 							 var thisid=$(this).find('.chat_this_id_div').text()

@@ -456,7 +456,7 @@
     <c:if test="${!empty LoginOK}">
   <script type="text/javascript">
   
-  var adminID = '${LoginOK.member_Id}';
+  var userID = '${LoginOK.member_Id}';
   var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
 
   ws.onerror = function(event)
@@ -466,24 +466,29 @@
 
   ws.onopen = function(event) 
   {
-  	 var msg = JSON.stringify({'adminID':adminID});  
+  	 var msg = JSON.stringify({'userID':userID, 'type':'0'});  
        ws.send(msg);   
-  	console.log('打開了')
   };
    
   ws.onclose = function(event) { 
-      var msg = JSON.stringify({'adminID':adminID, 'type':'6'});//3  關  
+      var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
       ws.send(msg);
   }; 
   ws.onmessage = function(event) {
 	  
   }
   $('body').on('click','#admin_logout',function(){
-	  var msg = JSON.stringify({'adminID':adminID, 'type':'6'});//3  關  
+	  var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
       ws.send(msg);
   })
-  $('body').on('click','.notifaction',function(){
+  $('body').on('click','.notifaction_Submit',function(){
 	  
+	  var val=$('#notifactionMessage').val();
+	  val = val.replace(/\r?\n/g, '</br> ');
+	  var msg = JSON.stringify({'userID':userID,'type':'6','notifaction':val});//3  關  
+      ws.send(msg);
+      $('#notifactionMessage').val('');
+      $('#notifaction').modal('hide');
   })
   </script> 
   </c:if>

@@ -69,18 +69,28 @@ public class ChatDAO implements ChatDAO_interface {
 					.addEntity(ChatVO.class);				
 		return (List<ChatVO>) query.list();	
 	}
-	
+	public List<ChatVO>  select_notifaction_NoRead_message (String member_Id,String friend_Id){
+		Query query = this.getSession().createSQLQuery(
+				"SELECT  Chat.* "
+				+"from Chat "	
+				+"where (Member_Id='"+member_Id+"' "
+				+"and  Friend_Id='"+friend_Id+"') "
+				+" and ChatStuts=5 ")
+				.addEntity(ChatVO.class);				
+	return (List<ChatVO>) query.list();	
+	}
 	@Override
 	public List<Object[]> select_NoRead_Friends_Allmessage(String member_Id) {	
 			Query query = this.getSession().createSQLQuery(
-					"SELECT DISTINCT Chat.ChatStuts,Chat.Member_Id,Members.Nickname "
+					"SELECT DISTINCT Chat.ChatStuts,Chat.Member_Id,Members.Nickname,Chat.Chat_Detail "
 					+"from Chat join Members "
 				    +"on Chat.Member_Id =Members.Member_Id "
 					+"where  Friend_Id='"+member_Id+"' "
-					+"and (ChatStuts=0 or ChatStuts=2 or ChatStuts=3) ")
+					+"and (ChatStuts=0 or ChatStuts=2 or ChatStuts=3 or ChatStuts=5) ")
 					.addScalar("ChatStuts",StringType.INSTANCE)
 					.addScalar("Member_Id",StringType.INSTANCE)
-					.addScalar("Nickname",StringType.INSTANCE);				
+					.addScalar("Nickname",StringType.INSTANCE)
+					.addScalar("Chat_Detail",StringType.INSTANCE);	
 		return (List<Object[]>) query.list();	
 	}
 	
