@@ -2,9 +2,6 @@ package com.CRFitness.ActivityDetail.model;
 
 import java.util.*;
 
-import com.CRFitness.Activitys.model.ActivitysVO;
-
-
 public interface ActivityDetailDAO_interface {
     public ActivityDetailVO insert(ActivityDetailVO activityDetailVO);
     public boolean update(ActivityDetailVO activityDetailVO);
