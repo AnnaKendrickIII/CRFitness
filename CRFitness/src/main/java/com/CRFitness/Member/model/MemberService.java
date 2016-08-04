@@ -1,8 +1,7 @@
 package com.CRFitness.Member.model;
 
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,15 +13,14 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 
-import org.glassfish.jersey.internal.util.Base64;
+
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.CRFitness.ProductDetail.model.ProductDetailVO;
-import com.fasterxml.jackson.core.Base64Variant;
+
+
 
 @Service("memberService")
 public class MemberService {

@@ -83,7 +83,7 @@ public class ActivitysDAO implements ActivitysDAO_interface {
 			+ "FOR XML PATH('') ) as Nicknames "
 			+ "FROM Activitys JOIN Members "
 			+ "ON Activitys.Member_Id = Members.Member_Id "
-			+"order by activity_Day desc")
+			+"order by activity_Day")
 				.addEntity("Activitys.*", ActivitysVO.class)
 				.addScalar("Nicknames", StringType.INSTANCE)// StringType.INSTANCE
 				.addScalar("Nickname", StringType.INSTANCE);
