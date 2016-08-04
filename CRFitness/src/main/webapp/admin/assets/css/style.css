@@ -1314,9 +1314,9 @@ PANELS CONFIGURATIONS
 }
 .badge-hot {
 	background: #ed5565;
-	width: 70px;
-	height: 70px;
-	line-height: 70px;
+	width: 60px;
+	height: 60px;
+	line-height: 60px;
 	font-size: 18px;
 	color: #fff;
 	text-align: center;
@@ -1543,6 +1543,38 @@ PANELS CONFIGURATIONS
 /* Profile 02*/
 #profile-02 {
 	background: url(../img/profile-02.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 200px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#profile-03 {
+	background: url(../img/activity3038.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 200px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#profile-04 {
+	background: url(../img/journal2014.jpg) no-repeat center top;
 	margin-top: -15px;
 	background-attachment: relative;
 	background-position: center center;

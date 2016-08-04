@@ -47,7 +47,7 @@ text-align: center;
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_cog"></span>
+					  			<span class="li_bubble"></span>
 					  			<h3>+14</h3>
                   			</div>
 					  			<p>本周有 14 個新揪團活動</p>
@@ -134,7 +134,7 @@ text-align: center;
 								<div class="chart mt">
 									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
 								</div>
-								<p class="mt"><b>$ 17,980</b><br/>月收入</p>
+								<p class="mt"><b>NT$ 817,980</b><br/>月收入</p>
 							</div>
 						</div><!-- /col-md-4 -->
 
@@ -145,7 +145,7 @@ text-align: center;
 								<div class="white-header">
 									<h5>頂級會員</h5>
 								</div>
-								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="100" height="80"></p>
+								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="60"></p>
 								<p><b>Rose</b></p>
 								<div class="row">
 									<div class="col-md-6">
@@ -154,7 +154,7 @@ text-align: center;
 									</div>
 									<div class="col-md-6">
 										<p class="small mt">TOTAL SPEND</p>
-										<p>$ 47000,60</p>
+										<p>$ 27,260</p>
 									</div>
 								</div>
 							</div>
@@ -165,46 +165,36 @@ text-align: center;
                     
 					<div class="row"> <!-- SECOND ROW -->
 
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="content-panel pn">
-                      			<div class="white-header centered">
-						  			<h5><strong>熱門日誌</strong></h5>
-                      			</div>
-	                      		<div class="centered">
-									<img class="img-rounded" src="${this_contextPath}/images/Journal/journal2016.jpg" class="img-thumbnail" width="360" height="200">
-									<h4>雪符&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 18</a><a href="#"> | <i class="fa fa-heart"></i> 49</a></h4>
-	                      		</div>
-                      		</div>
-                      	</div><!-- /col-md-4 -->
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="content-panel pn">
+								<div id="profile-04">
+								</div>
+								<div class="pr2-social centered">
+									<h5><strong>熱門日誌&nbsp;&nbsp;&nbsp;<i class="fa fa-comment"></i>6 | <i class="fa fa-heart"></i>9</strong></h5>
+								</div>
+							</div> <!--/panel -->
+						</div> <!--/ col-md-4 -->
 						
 						<div class="col-lg-4 col-md-4 col-sm-4 mb">
 							<div class="content-panel pn">
-                      			<div class="white-header centered">
-						  			<h5><strong>熱門揪團</strong></h5>
-                      			</div>							
-									<div class="centered">
-										<img src="${this_contextPath}/images/activitys/activityBE.jpg" class="img-thumbnail" width="360" height="180">
-										<h4>井藍&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 79</a><a href="#"> | <i class="fa fa-heart"></i> 200</a></h4>
-									</div>
-							</div> <!-- /panel -->
-						</div> <!-- / col-md-4 -->  
-
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn">
-                      			<div class="white-header">
-						  			<h5><strong>熱銷商品</strong></h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-8 col-xs-8 goleft">
-										<p>男子UA Curry 2.5籃球鞋&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i> 122</p>
-									</div>
-									<div class="col-sm-4 col-xs-4"></div>
-	                      		</div>
-	                      		<div >
-									<img class="img-rounded" src="${this_contextPath}/images/products/prodDetail5020_1.png" width="210" height="180">
-	                      		</div>
-                      		</div>
-                      	</div><!-- /col-md-4 -->
+								<div id="profile-03">
+								</div>
+								<div class="pr2-social centered">
+									<h5><strong>熱門揪團&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i>Jason</strong></h5>
+								</div>
+							</div> <!--/panel -->
+						</div> <!--/ col-md-4 -->
+						
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="product-panel-2 pn">
+								<div class="badge badge-hot">HOT</div>
+								<img src="${this_contextPath}/images/products/prodDetail5020_1.png" width="125" alt="">
+								<h5 class="mt">男子UA Curry 2.5籃球鞋</h5>
+								<h6>單價：NT$3,650</h6>
+								<button class="btn btn-small btn-theme04">熱銷商品</button>
+							</div>
+						</div> <!--/col-md-4 -->						
+						
 						
 					</div> <!-- END SECOND ROW -->
 					

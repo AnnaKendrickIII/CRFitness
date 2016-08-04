@@ -342,41 +342,41 @@
 <!-- 登入對話方塊   開始 -->   
     <c:if test="${empty LoginOK}">
       	<script type="text/javascript"> 	 
-//         	$(function () {
-//             	Custombox.open({
-//                 	target: '#login-box',
-//                     effect: 'Sign'
-//                 });
-//                 console.log('success');
-//                 $('.okay').click(function () {	
-//                 	Custombox.close('#login-box') 
-//                 }) 
-//             });
+        	$(function () {
+            	Custombox.open({
+                	target: '#login-box',
+                    effect: 'Sign'
+                });
+                console.log('success');
+                $('.okay').click(function () {	
+                	Custombox.close('#login-box') 
+                }) 
+            });
        	</script>
 
-<!-- 	<div id="login-box" class="login-popup "> -->
-<!-- 		<form name="member" class="form-login" -->
-<%-- 			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post"> --%>
-<!-- 			<div id="login_div"> -->
-<!-- 				<h2 class="form-login-heading">Administration</h2> -->
-<!-- 				<div class="login-wrap"> -->
-<!-- 					<input required="required" type="email" name="memberVO.e_mail" -->
-<!-- 						class="form-control" placeholder="E-Mail" autofocus="autofocus" -->
-<%-- 						value="${param['memberVO.e_mail']}" /> <br />  --%>
-<!-- 					<input required="required" type="password" name="memberVO.password" -->
-<!-- 						class="form-control" placeholder="Password" -->
-<%-- 						value="${param['memberVO.password']}" />  --%>
-<!-- 					<label class="checkbox"> -->
-<!-- 					</label> -->
-<!-- 					<button name="member_action" class="btn btn-theme btn-block okay" -->
-<!-- 						    type="submit" value="SIGN_IN"> -->
-<!-- 							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN -->
-<!-- 					</button> -->
-<%-- 					<div class="error_div">${LoginErrorMessage}</div> --%>
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</form> -->
-<!-- 	</div> end 357 -->
+	<div id="login-box" class="login-popup ">
+		<form name="member" class="form-login"
+			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post">
+			<div id="login_div">
+				<h2 class="form-login-heading">Administration</h2>
+				<div class="login-wrap">
+					<input required="required" type="email" name="memberVO.e_mail"
+						class="form-control" placeholder="E-Mail" autofocus="autofocus"
+						value="${param['memberVO.e_mail']}" /> <br /> 
+					<input required="required" type="password" name="memberVO.password"
+						class="form-control" placeholder="Password"
+						value="${param['memberVO.password']}" /> 
+					<label class="checkbox">
+					</label>
+					<button name="member_action" class="btn btn-theme btn-block okay"
+						    type="submit" value="SIGN_IN">
+							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN
+					</button>
+					<div class="error_div">${LoginErrorMessage}</div>
+				</div>
+			</div>
+		</form>
+	</div> <!-- end 357 -->
 	</c:if > <!-- end 307 -->
 <!-- 登入對話方塊   結束 -->
       
