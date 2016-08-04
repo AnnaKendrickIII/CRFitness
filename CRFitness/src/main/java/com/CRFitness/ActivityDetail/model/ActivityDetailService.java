@@ -68,17 +68,17 @@ public class ActivityDetailService {
 		ActivityDetailVO activityDetailVO =new ActivityDetailVO();
 		activityDetailVO.setActivity_Id(activity_Id);
 		activityDetailVO.setMember_Id(member_Id);
+		activityDetailVO.setDetail_Status(1);
 		ActivitysVO activitysVO=activitysDAO.findByPrimaryKey(activity_Id);
-		ActivityDetailVO activityDetailVO2=activityDetailDAO.findByPrimaryKey(activityDetailVO);
+		
 		
 		if((activityDetailVO.getDetail_Status())-1 ==0){
-			list.add("確定取消參加嗎?");
 			int people = activitysVO.getPeople();
 			int ad_status = activityDetailVO.getDetail_Status();
 			activitysVO.setPeople((people)-1);
 			activityDetailVO.setDetail_Status((ad_status)-1);
 			activitysDAO.update(activitysVO);
-			activityDetailDAO.update(activityDetailVO);
+			activityDetailDAO.delete(activityDetailVO) ;
 			return list;
 		}
 		

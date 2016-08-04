@@ -22,8 +22,8 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jAlert-v4.css">  <!-- alert -->
 <script src="${this_contextPath}/js/velocity.min.js" ></script>  <!-- alert -->
 <script src="${this_contextPath}/js/velocity.ui.min.js" ></script>  <!-- alert -->
-<script src="${this_contextPath}/js/jquery.alertable.js" ></script>  <!-- alert -->
-<script src="${this_contextPath}/js/jAlert-v4.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/jquery.alertable.min.js" ></script>  <!-- alert -->
+<script src="${this_contextPath}/js/jAlert-v4.min.js" ></script>  <!-- alert -->
 
 <style>
 aside 
@@ -62,6 +62,32 @@ margin-left: 5%;
 .chat_commenting:HOVER {
 	color:#84C1FF;
 	font-size: 22px;
+}
+#grid>li:nth-child(1){
+
+text-align: center;
+font-size: 24px;
+ -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);  
+    filter: grayscale(100%);	
+    filter: gray;
+}
+#grid>li:nth-child(1):HOVER{
+background-color: white;
+	border:3px solid red;
+	font-size: 24px;
+	color: red;
+    -webkit-filter:none;
+    -moz-filter: none;
+    -ms-filter:none;
+    -o-filter: none;  
+    filter: none;	
+    filter: none;
+}
+.act_users{
+margin-right: 2%;
 }
 </style>
 <script type="text/template" id="qq-template-manual-trigger">
@@ -147,9 +173,9 @@ margin-left: 5%;
 <body >
 <aside>
 	<!-- 頁面部分 開始-->
-
     <ul class="grid effect-5 " id="grid">
-               <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg"> </a>新增揪團</li>
+               <li> <a data-toggle="modal" href="#new_activity"><img src="${this_contextPath}/images/new.jpg">
+               </a><i class="fa fa-users act_users" aria-hidden="true"></i><strong>新增揪團</strong> </li>
 				
 		</ul>
  	<!-- 新增活動 開始-->
@@ -220,12 +246,12 @@ margin-left: 5%;
                
                    <!-- 新增活動 結尾-->
     <script src="${this_contextPath}/js/masonry.pkgd.mis.js"></script>    <!-- 瀑布流 -->
-	<script src="${this_contextPath}/js/classie.js"></script><!-- 瀑布流 -->
-	<script src="${this_contextPath}/js/imagesloaded.js"></script><!-- 瀑布流 -->
-	<script src="${this_contextPath}/js/AnimOnScroll.js"></script>	<!-- 瀑布流 -->
+	<script src="${this_contextPath}/js/classie.min.js"></script><!-- 瀑布流 -->
+	<script src="${this_contextPath}/js/imagesloaded.min.js"></script><!-- 瀑布流 -->
+	<script src="${this_contextPath}/js/AnimOnScroll.min.js"></script>	<!-- 瀑布流 -->
 	
 	<!-- 輸入日期 開始-->
-	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.js"></script><!-- 日期選擇器 -->
+	<script src="${pageContext.servletContext.contextPath}/js/jquery.datetimepicker.full.min.js"></script><!-- 日期選擇器 -->
 	
 	<script>
 		$('#datetimepicker').datetimepicker({value:'2016/08/12 10:00:00',step:10});
@@ -249,7 +275,7 @@ margin-left: 5%;
 	    return fmt;
 	}
 	  jQuery(function ($) {
-		  $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Activitys.png">')
+		  $('.logo_here').append('<img  class="logo_css" src="${this_contextPath}/images/logo/Activitys.png">')
 		  var file;	
 		  $('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
 		 file=event.target.files;			  	 	 
@@ -296,7 +322,7 @@ margin-left: 5%;
 				   var jdate_intb = parseInt(data.deadline);                        //轉換成數字
 				   var jdate_value_deadline = new Date(jdate_intb);
             	   $('#new_activity').modal('hide');	
-            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
+            	   $('#grid>li:nth-child(1)').after('<li class="animate"><a href="${this_contextPath}/images/activitys/'
 							+data.activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
 							+'${LoginOK.nickname}'+'<br />類別：'+data.activity_Class+'<br />地區：'
 									+data.activity_Area+'<br />內容：'
@@ -370,9 +396,9 @@ margin-left: 5%;
 		        		  								//href="data:image/png;base64,'+this[0].photo1+'"
                           								//href="${this_contextPath}/CRFSERVICE/activitysController/photo/'+this[0].activity_Id+'"
                           								//${this_contextPath}/images/activitys/'+this[0].activity_Id+' .jpg
-							$('#grid').append('<li ><a href="${this_contextPath}/CRFSERVICE/activitysController/photo/'
+							$('#grid').append('<li ><a href="${this_contextPath}/images/activitys/'
 							+this[0].activity_Id+'.jpg" class="lightbox_image boxer" data-lightbox-gallery="image_gallery" rel="gallery" title="發起人：'
-							+this[2]+"<i class='fa fa-commenting-o' aria-hidden='true'></i>"
+							+this[2]+"<i aria-hidden='true'></i>"
 							+'<br />類別：'+this[0].activity_Class+'<br />地區：'
 									+this[0].activity_Area+'<br />內容：'
 									+this[0].activity_Info+'<br />活動時間：'
@@ -428,7 +454,7 @@ margin-left: 5%;
 		    			   member_Id:'${LoginOK.member_Id}'
 		    		   },
 		    		   success:function(data){
-		    			   console.log(data[0])
+		    			   //console.log(data[0])
 		    			   if(data[0]=='無法參加自己的活動'){
 		    				   $("#boxer-overlay").remove();
 		    				   $("#boxer").remove();
@@ -482,8 +508,8 @@ margin-left: 5%;
 	  })
     
 </script>
-<script src="${this_contextPath}/js/jAlert-functions.js"></script><!-- alert -->
-<script src="${this_contextPath}/js/jquery.fs.boxer.js" ></script><!-- 彈跳視窗 -->
+<script src="${this_contextPath}/js/jAlert-functions.min.js"></script><!-- alert -->
+<script src="${this_contextPath}/js/jquery.fs.boxer.min.js" ></script><!-- 彈跳視窗 -->
 <!-- 頁面部分 結束-->
 </aside>
 </body>

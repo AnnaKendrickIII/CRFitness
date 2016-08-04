@@ -85,6 +85,11 @@ public class PersonalJournalService {
 		return personalJournalDAO.update(journal_Id,contents,publicStatus);
 	}
 	
+	// 編輯個人日誌內容
+	public boolean updatePersonalJournalcontents(String journal_Id, String contents) {
+		return personalJournalDAO.updatePersonalJournalcontents(journal_Id, contents);
+	}
+		
 	// 取得自己個人日誌
 	public List<PersonalJournalVO> showMySelfJournal(String member_Id) {
 		return personalJournalDAO.select_myJournal(member_Id);

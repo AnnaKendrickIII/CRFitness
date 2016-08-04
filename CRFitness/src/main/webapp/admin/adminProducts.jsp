@@ -137,7 +137,8 @@
 <style>
 #trigger-upload {
 	color: white;
-    background-color: #00ABC7;
+/*     background-color: #00ABC7; */
+    background-color: #b18f6a;
     font-size: 14px;
     padding: 7px 20px;
     background-image: none;
@@ -197,9 +198,15 @@ th{
 	text-align: center;
 }
 
+.page {
+    text-align: center;
+}
+
 textarea{
 	resize: none;
 }
+
+
 </style>
 </head>
 
@@ -212,7 +219,7 @@ textarea{
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-		
+	
 	<div class="row mt">
 <!-- 		<div class="col-md-1"></div> -->
     	<div class="col-md-12 col-xs-12">
@@ -220,7 +227,7 @@ textarea{
 
 			<div class="row">
 				<div class="col-md-10 col-xs-10">
-		<button type="button" id="creProdBtn" class="btn btn-round btn-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
+		<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
   		<i class="fa fa-plus-square" aria-hidden="true"></i>
   		</button>
 				</div>
@@ -235,10 +242,10 @@ textarea{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="products_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="products_table">
 
 			<thead>
-				<tr class="btn-primary" >
+				<tr class="alv-primary" >
 					<th><h3><i class="fa fa-file-image-o" aria-hidden="true"></i><strong> 小圖</strong></h3></th>
 					<th><h3># ID</h3></th>
 					<th><h3># PID</h3></th>
@@ -254,12 +261,25 @@ textarea{
 				</tr>
 			</thead>
 			<tbody id="products_tbody"></tbody>
-		
-            	</table>
+            </table>
+            
+	<div class="container page">
+		<ul class="pagination pagination-lg" >
+              <li><a href="">«</a></li>
+              <li><a href="">1</a></li>
+              <li><a href="">2</a></li>
+              <li><a href="">3</a></li>
+              <li><a href="">4</a></li>
+              <li><a href="">5</a></li>
+              <li><a href="">»</a></li>
+        </ul>
+	</div>
         	</div><!-- /content-panel -->
     	</div> <!-- /col-md-10 xs-12 -->
 <!-- 		<div class="col-md-1"></div> -->
+
 	</div><!-- 184 <div class="row mt"> -->
+		
 		
 		</section> <!-- 182 <section class="wrapper"> -->
       </section> <!-- 181 /MAIN CONTENT -->
@@ -269,7 +289,7 @@ textarea{
       <footer class="site-footer">
           <div class="text-center">
               2016 - C.R.Fitness Co., Ltd.
-              <a href="MaintainProducts.jsp" class="go-top">
+              <a href="adminProducts.jsp" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -285,8 +305,8 @@ textarea{
                 	<div class="modal-content">
                 	
                     <div class="modal-header login_header">
-                    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title" id="myModalLabel1"><strong>新增產品</strong></h3>
+                    	<button type="button" class="close alv-secondary" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title" id="myModalLabel1"><strong>新   增   產   品</strong></h3>
                     </div>
                             
                     <div id="addProducts_form" class="modal-body">
@@ -298,7 +318,7 @@ textarea{
                         <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                    		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />                        
                         <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
-                        <input required="required" type="text" id="insert_stock" autocomplete="off" class="form-control" placeholder="輸入數量"/>
+                        <input required="required" type="text" id="insert_stock" autocomplete="off" class="form-control" placeholder="輸入數量" />
                         <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
                         <input required="required" type="text" id="insert_price" autocomplete="off" class="form-control" placeholder="輸入價格" />
                         <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
@@ -319,7 +339,7 @@ textarea{
                      
                      <div class="modal-footer">
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="addbtn" class="btn btn-primary" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
+                        <button id="addbtn" class="btn alv-secondary" type="button" value="INSERT_PRODUCT">送出</button> <!-- btn-theme -->                      
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -333,7 +353,7 @@ textarea{
                 	<div class="modal-content">
                 	
                     <div class="modal-header login_header">
-                    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    	<button type="button" class="close btn-theme03" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h3 class="modal-title" id="myModalLabel2"><strong>修改產品</strong></h3>
                     </div>
                             
@@ -371,7 +391,7 @@ textarea{
                      
                      <div class="modal-footer upbtn">
                         <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
-                        <button id="updatebtn" class="btn btn-primary" type="button" value="UPDATE_PRODUCT">送出</button>                       
+                        <button id="updatebtn" class="btn alv-secondary" type="button" value="UPDATE_PRODUCT">送出</button>                       
                      </div>
                      
                      </div> <!-- <div class="modal-content"> -->
@@ -386,6 +406,46 @@ textarea{
 		  var file;	
 		  var count=0;
 		  new UISearch(document.getElementById('sb-search')); // expanding search bar
+		  
+			var Type ='${pageContext.request.queryString}';
+			num1 = Type.substr(9).indexOf("&")
+			num2 = Type.indexOf("&")
+			var queryString = Type.substr(0,num2)
+			var whichPage = Type.substr(num2)
+			whichPage = whichPage.substr(6)
+			Type = Type.substr(9,num1)
+			var page = parseInt(whichPage)
+
+			if(page<=1){
+//			 	 alertify.alert('警告','已是第一頁')
+				$('.pagination>li:nth-child(2) a').attr("href",'${page}?'+queryString+"&page=1")
+			}else{
+				$('.pagination>li:nth-child(1) a').attr("href",'${page}?'+queryString+"&page="+(page-1))
+			}
+			if(page>=3){
+				 alertify.alert('警告','本頁已無商品')
+				// location.href='${page}?'+queryString+"&page=2"
+				$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
+			}else{
+				$('.pagination>li:nth-child(7) a').attr("href",'${page}?'+queryString+"&page="+(page+1))
+			}
+
+			$('.pagination>li:nth-child('+(page+1)+')').addClass("active")
+			$('.pagination>li:nth-child(2) a').attr("href",'${page}?'+queryString+"&page=1")
+			$('.pagination>li:nth-child(3) a').attr("href",'${page}?'+queryString+"&page=2")
+			$('.pagination>li:nth-child(4) a').attr("href",'${page}?'+queryString+"&page=3")
+			$('.pagination>li:nth-child(5) a').attr("href",'${page}?'+queryString+"&page=4")
+			$('.pagination>li:nth-child(6) a').attr("href",'${page}?'+queryString+"&page=5")
+
+			if(Type=='cmens-tops'){
+				Type='上裝'
+			}else if(Type=='cmens-bottoms'){
+				Type='下裝'
+			}else if(Type=='cmens-accessories'){
+				Type='配件'
+			}else if(Type=='cmens-footwear'){
+				Type='鞋類'
+			}
 		 
 // 1.新增上傳圖片的小程式   開始
 		$('#fine-uploader-manual-trigger .qq-uploader-selector').change(function (event) {		 
@@ -467,7 +527,7 @@ textarea{
 							Status=0;
 						};
 	            	   $('#new_products').modal('hide');	
-	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' // <img src="data:image/png;base64,' 
+	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="${this_contextPath}/images/products/' // <img src="data:image/png;base64,' 
 		   							+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                     // + data[1].photo1 
 									+ '</td><td><h4>'                                                                                                       // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
@@ -491,8 +551,8 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
 									+ '</td></tr>') // end of after				
 						// 產品狀態switch的程式 開始
 						$('.insertSwitch'+count).easyswitch();
@@ -557,7 +617,7 @@ textarea{
 	              	btn.parent().parent().fadeOut(800, function(){      // 自己這tr淡出
 	              		$(this).remove();                               // 自己這tr移除
 	              	})
-	               	beforeSiblingTr.after('<tr hidden="hidden"><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/' //<img src="data:image/png;base64,' 
+	               	beforeSiblingTr.after('<tr hidden="hidden"><td><img src="${this_contextPath}/images/products/' //<img src="data:image/png;base64,' 
    							 		+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                          // + data[1].photo1 
 									+ '</td><td><h4>'                                                                                             // + '" class="img-thumbnail" /></td><td>' 
 									+ data[0][0].product_Id
@@ -581,8 +641,8 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch updateSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 									+ '</td></tr>') // end of beforeSiblingTr.after('<tr hidden="hidden"><td>
 					// 產品狀態switch的程式 開始
 					$('.updateSwitch'+count).easyswitch();
@@ -600,13 +660,13 @@ textarea{
 
 // 3.顯示產品的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getAllByDesc",
+		url : "${this_contextPath}/CRFSERVICE/productDetailControllerBE/getItemsByCateNDesc",
 		type : 'get', //get post put delete
-		data : {},
+		data : {category:Type, page:whichPage},
 		success : function(data) {
 // 			console.log(data);
-			$.each( data,
-				function(index) {
+			var prev_id="";
+			$.each(data, function(index) {		
 					var pdate_int = parseInt(this[0].published_Date); //轉換成數字
 					var pdate_value = new Date(pdate_int);
 // 					console.log(this[0].product_Status);
@@ -616,7 +676,7 @@ textarea{
 					}else if(this[0].product_Status == '下架'){
 						Status=0;
 					};
-					$('#products_tbody').append('<tr class="'+this[0].productDetail_Id+'"><td><img src="${this_contextPath}/CRFSERVICE/productDetailControllerBE/photo/'
+					$('#products_tbody').append('<tr class="'+this[0].productDetail_Id+'"><td><img src="${this_contextPath}/images/products/'
 													+ this[0].productDetail_Id+'_1.png" class="img-thumbnail img-responsive" />' 
 													+ '</td><td><h4>'
 													+ this[0].product_Id
@@ -640,10 +700,10 @@ textarea{
 									                + this[4] // info
 													+ '</td><td hidden="hidden">'
 									                + this[0].product_Status
-													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
+													+ '</td><td><button type="button" class="btn alv-primary btn-round btn-lg 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+													+ '</td><td><button type="button" class="btn alv-primary btn-round btn-lg 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></i>'
 													+ '</td></tr>') // end of append
-												}) // end of $.each(
+			}) // end of $.each(
 					// 產品狀態switch的程式   開始
 					$('.easyswitch').easyswitch();
 					// 產品狀態switch的程式   結束

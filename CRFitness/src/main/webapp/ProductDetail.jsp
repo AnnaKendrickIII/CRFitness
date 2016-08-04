@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="${this_contextPath}/css/products.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lity.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fancybox.css">
-<link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
+
 
 <title>商品明細</title>
 <style type="text/css">
@@ -39,8 +39,8 @@ width: 150px;
 <div class="ProductDetail">
 <div class="row well">
 
-	<div class="col-md-2 col-xs-2"></div>
-	<div class="col-md-7 col-xs-7">
+	<div class="col-xs-2 col-md-2 col-lg-2"></div>
+	<div class="col-xs-7 col-md-7 col-lg-7">
 		<div class="row" style="text-align: center;">
         <strong>Products Category &nbsp&nbsp</strong>
         <div class="btn-group">
@@ -55,17 +55,18 @@ width: 150px;
 		</div>
 		</div>
 	</div>
-    <div class="col-md-3 col-xs-3">
+    <div class="col-md-3 col-lg-3">
     </div>
    </div>
     <div class="row">
- 		<div class="col-xs-2 col-sm-2"></div>
-	    <div id="productDetailbody" class="col-md-8"></div> 	    
+ 		<div class="col-md-2"></div>
+	    <div id="productDetailbody" class="col-md-8 col-xs-12 col-sm-12"></div> 	    
 	 	<div class="col-md-2"></div>
 	 		 	
     </div>
 
-	<div class="shopping_car_div">
+	<div class="shopping_car_div"  data-html="true" data-toggle="popover" data-trigger="hover "  
+	data-placement="left" data-content="">
 		<a href="${this_contextPath}/ShoppingCart.jsp">
 			<img class="shopping_car" src="${this_contextPath}/images/product-shopping-cart-icon-.png">
 		</a>
@@ -80,7 +81,7 @@ width: 150px;
 <script type="text/javascript">
 
 jQuery(function($){
-	
+	$('.shopping_car_div').popover()
 	function showCart(){
 		$.ajax({
 			url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
@@ -112,24 +113,26 @@ jQuery(function($){
 					if(count>0){
 					$('.shopping_car_span').text(count)
 					}
+				
+				
+				
 				}
 			})
 		}	
 		showCart();	
 	
 	
-$('.shopping_car_div').popover()
 var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
 	jQuery(function($){
-		$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ProductDetail.png">')
+		$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/ProductDetail.png">')
 		
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
 	type:'get',
  	data:{productDetail_Id:queryString},
 	success:function(data){
-		$('#productDetailbody').append('<div class="col-md-7">'
+		$('#productDetailbody').append('<div class="col-md-7 col-sm-12 col-xs-12">'
 							+'<div class="gallery">'
 							+'<div class="previews">'
 							+'<a class="changeImg onselected" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/></a>'
@@ -142,39 +145,25 @@ $.ajax({
 							+'<img data-lity alt="'+data[0][0].productDetail_Id+'" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
 							+'</div>'
 							+'</div></div>'
-							+'<div class="col-md-5">'
+							+'<div class="col-md-5 col-sm-12 col-xs-12">'
 							+'<h2 style="color:blue"><strong>'+data[0][1] 
-							+'</strong><h2/><p style="color:#888888"><div>顏色 : '
+							+'</strong><h2/><br/><p style="color:#888888"><div>顏色 : '
 							+data[0][0].color
 							+'</div><div>剩餘數量 : '
 							+data[0][0].stock
 							+'</div></p>'
 							+'</br></br><div><strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
-							+'</p></strong></div></br></br>'
-							+'<div class="btn btn-warning" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'
+							+'</p></strong></div></br><div><h3 style="color:#FF3333"><strong>特價 : '+data[0][2]+'</strong></h3></div></br>'
+// 							+'<div class="btn btn-warning" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'
 							+'&nbsp&nbsp&nbsp<div class="btn btn-danger addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</div>'
 							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span>&nbsp&nbsp繼續購物</a>'
 							+'</div>')
 							
-		$.UrlExists = function(url) {
-			var http = new XMLHttpRequest();
-		    http.open('HEAD', url, false);
-		    http.send();
-		    return http.status!=404;
-		}
-		
-		for(var i = 1; i < 6; i++){
-			var filePath = "${this_contextPath}/images/products/"+data[0][0].productDetail_Id+"_"+i+".png"
-			console.log(filePath);
-			if($.UrlExists(filePath)){
-				console.log('存在')
-				// append img src
-			}else{
-				console.log('不存在')
-			}
-		}
-		
-
+							
+							$(".small ").error(function(e) {
+								$(e.target).parent().remove();
+// 			        			$(e.target).attr("src", "${this_contextPath}/images/logo/iconBig.png");
+			   				})
 								$(".selLabel").click(function() {
 		$('.dropdown').toggleClass('active');
 	});
@@ -243,7 +232,7 @@ $('body').on('click','.addCart',function(){
 					var size = $('.btn-select-value').text()
 					console.log(size)
 					
-					 alertify.success('成功加入購物車');
+					 alertify.success('成功加入購物車',2);
 		}
 	})
 	
@@ -258,6 +247,6 @@ $('body').on('click','.addCart',function(){
 <script type="text/javascript" src="${this_contextPath}/js/products.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lity.min.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.fancybox.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
+
 </body>
 </html>

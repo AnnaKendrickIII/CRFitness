@@ -50,4 +50,11 @@ public class ChatController {
 				@RequestParam String member_Id){	
 		return chatService.select_NoRead_Friends_Allmessage(member_Id);	
 	}
+	
+	//變更好友對本人發送訊息 未讀為已讀
+		@RequestMapping(method = RequestMethod.POST, value ="/update_notifaction_message")
+		public @ResponseBody void update_notifaction_message(
+				@RequestParam String member_Id,@RequestParam String friend_Id){	
+			 chatService.update_notifaction_message(member_Id, friend_Id);	
+		}
 }

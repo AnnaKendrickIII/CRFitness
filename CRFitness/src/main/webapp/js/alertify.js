@@ -41,7 +41,7 @@
         transition:'pulse',
         autoReset:true,
         notifier:{
-            delay:1,  //彈出視窗延遲時間
+            delay:1,  //彈出視窗消失延遲時間
             position:'bottom-right'
         },
         glossary:{
@@ -602,6 +602,7 @@
                 
                 //settings
                 instance.set('title', setup.options.title === undefined ? alertify.defaults.glossary.title : setup.options.title);
+                instance.set('ok', setup.options.ok === undefined ? alertify.defaults.glossary.ok : setup.options.ok);
 				
                 instance.set('modal', setup.options.modal === undefined ? alertify.defaults.modal : setup.options.modal);
                 instance.set('basic', setup.options.basic === undefined ? alertify.defaults.basic : setup.options.basic);

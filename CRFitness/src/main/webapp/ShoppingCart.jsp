@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="page" value="${pageContext.request.requestURI}" scope="page"/>
+<c:set var="this_contextPath" value="${pageContext.servletContext.contextPath}" scope="application"/>
+<c:if test="${ empty LoginOK}">
+<c:redirect url="/index.jsp?NoLogin"></c:redirect>
+</c:if>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -59,11 +64,11 @@
 			</div>
 			<hr>
 			<div class="panel-footer">
-				<div class="row text-center">
+				<div class="row text-right">
 					<div class="col-xs-12">
-						<h4 class="text-right"  id="amount">
-							總金額: $<strong></strong>
-						</h4>
+						<h3 id="amount">
+							總金額 : $ <strong></strong>
+						</h3>
 					</div>
 				</div>
 			</div>
@@ -74,7 +79,7 @@
 <br />
 <div class="row">
 	<div class="checkorder">
-		<form class="form-horizontal">
+		<Form class="form-horizontal">
 			<fieldset>
 				<!-- Form Name -->
 				<legend class="well well-sm" style="text-align: center">填寫訂單資訊</legend>
@@ -86,6 +91,7 @@
 						<input id="consignee_Name" name="name" type="text" placeholder="收件人姓名"
 							class="form-control input-lg" autocomplete="off" required="">
 					</div>
+					<div class="error_name"><span>${ErrorMessage.error_name}</span></div>
 				</div>
 				<br>
 				<!-- Text input-->
@@ -96,6 +102,7 @@
 							placeholder="收件地址" class="form-control input-lg"
 							autocomplete="off">
 					</div>
+					<div class="error_address"><span>${ErrorMessage.error_address}</span></div>
 				</div>
 				<br>
 				<!-- Text input-->
@@ -106,6 +113,7 @@
 							placeholder="E-mail" class="form-control input-lg"
 							autocomplete="off">
 					</div>
+					<div class="error_email"><span>${ErrorMessage.error_email}</span></div>
 				</div>
 				<br>
 				<!-- 付款方式 -->
@@ -120,8 +128,8 @@
 								data-title="y">ATM轉帳</a>
 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
 								data-title="z">超商繳費</a>
-								<a class="btn btn-primary btn-lg notActive" data-toggle="happy"
-								data-title="a" disabled="disabled">用身體付</a>
+<!-- 								<a class="btn btn-primary btn-lg notActive" data-toggle="happy" -->
+<!-- 								data-title="a" disabled="disabled">用身體付</a> -->
 							</div>
 							
 						</div>
@@ -132,12 +140,12 @@
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="check"></label>
 					<div class="col-md-4">
-						<a id="check" class="btn btn-success">送出訂單</a>
+						<a id="check" class="btn btn-success" name="sendbutton">送出訂單</a>
 					</div>
+					<div class="checkfail"><span>${ErrorMessage.checkfail}</span></div>
 				</div>
-
 			</fieldset>
-		</form>
+		</Form>
 	</div>
 </div>
 <br /> <br /> <br />
@@ -145,6 +153,8 @@
 <script type="text/javascript">
 var queryString='${pageContext.request.queryString}';
 queryString=queryString.substring(17);
+
+
 //總金額function
  function totalAmount(){
 	$.ajax({
@@ -182,7 +192,7 @@ $('#radioBtn a').on('click', function() {
 
 
 jQuery(function($){
-	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/ShoppingCart.png">')
+	$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/ShoppingCart.png">')
 	$.ajax({
 		url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
 		type:'get',
@@ -190,9 +200,9 @@ jQuery(function($){
 		success:function(data){
 			$.each(data,function(){
 		$('#itemlist').append('<div class="item">'+
-				'<div class="row"><div class="col-xs-2">'+
+				'<a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id='+this[0][0].productDetail_Id+'"><div class="row"><div class="col-xs-2">'+
 				'<img class="img-shoppingcart" src="${this_contextPath}/images/products/'
-				+this[0][0].productDetail_Id+'_1.png"/></div>'+
+				+this[0][0].productDetail_Id+'_1.png"/></div></a>'+
 				'<div class="col-xs-4"><span hidden="hidden">'+this[0][0].productDetail_Id+'</span><h4 class="productname"><strong>'+
 				this[0][1]+'</strong></h4><h4 class="size"><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</small></h4><h4 class="color"><small>顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
@@ -217,13 +227,34 @@ jQuery(function($){
 				}
 			
 		$('body').on('click', '.btn-success', function () {
+			var consignee_Name = $('#consignee_Name').val();
+			var consignee_Address = $('#consignee_Address').val();
+			var email = $('#email').val();
+			var payment_Method = $('#radioBtn .active').text();
+			var qty = $('.qty').val();
+			
+			//超簡易訂單資料驗證
+			if(consignee_Name =='' || consignee_Address =='' || email =='')
+			{
+				alertify.alert("請填寫收件人相關資料",function(){					
+				}).set("title","警告 !").set('label', '對不起我錯了'); 
+
+
+			}else{
 		    alertify.confirm('確認訂單', '<strong>訂單內容確認無誤?</strong>', function () {
-		    	
-		    	var consignee_Name = $('#consignee_Name').val();
-		    	var consignee_Address = $('#consignee_Address').val();
-		    	var email = $('#email').val();
-		    	var payment_Method = $('#radioBtn .active').text();
-				var qty = $('.qty').val();
+				
+				//驗證Form
+// 			$.ajax({
+// 				url:'${this_contextPath}/CRFSERVICE/orderDetailsController/checkForm',
+// 				type:'get',
+// 				data:{consignee_Name:consignee_Name,
+// 					consignee_Address:consignee_Address,
+// 					payment_Method:payment_Method,							
+// 					},
+// 				success:function(){
+					
+// 				}
+// 			})
 			
 			//送出訂單
 				$.ajax({
@@ -236,6 +267,7 @@ jQuery(function($){
 						payment_Method:payment_Method,
 					},
 					success:function(data){
+
 						//確認訂單後清空session和頁面上的資料
 			    		$('#consignee_Name').val('');
 				    	$('#consignee_Address').val('');
@@ -246,15 +278,16 @@ jQuery(function($){
 				    			.removeClass('notActive').addClass('active'); 						
 						cleanCart()
 						totalAmount()
-						//訂單送出後3秒導向推薦者頁面
-						alertify.success('訂單送出 &nbsp&nbsp&nbsp&nbsp 3秒後返回上一頁',setTimeout(function(){	
- 							location.href ='<%=request.getHeader("referer")%>'
-							},3000) 
-						)
+						//訂單送出後導向推薦者頁面
+						alertify.success('訂單送出 &nbsp&nbsp&nbsp即將回到首頁',setTimeout(function(){	
+ 							location.href ="${this_contextPath}/index.jsp?${LoginOK.member_Id}"
+							},2000) 
+						)				
 					}
 				})
 		   		 }, function () { 
-		        alertify.error('訂單取消') });
+			alertify.notify( "訂單取消", 'error', 3)});
+			}
 		});
 	}
 })
@@ -275,7 +308,7 @@ $('#itemlist').on('click','.delete', function() {
 				 thisdelete.parent().parent().parent().parent().remove();
 		}
 	})
-		alertify.warning('商品刪除成功')
+		alertify.warning('商品刪除成功',2)
 		//取出新總額
 		totalAmount()	
  });
@@ -286,7 +319,7 @@ $('body').on('click','#clean',function(){
 	alertify.confirm().set('title', '刪除整台購物車');
 	alertify.confirm('確認將購物車清空?',function(){
 			cleanCart()
-		alertify.warning('購物車已清空')
+		alertify.warning('購物車已清空',2)
 			totalAmount()
 	})
 	

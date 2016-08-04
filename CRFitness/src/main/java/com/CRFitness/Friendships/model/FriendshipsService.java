@@ -82,13 +82,16 @@ public class FriendshipsService {
 		chatVO1.setMember_Id(member_Id);
 		chatVO1.setFriend_Id(friend_Id);
 		chatVO1.setChatStuts(4);
-		if(friendshipsDAO.delete(member_Id, friend_Id) && friendshipsDAO.delete(friend_Id, member_Id) && chatDAO.updatefriendstatus(chatVO1) == 1)
+		chatDAO.updatefriendstatus(chatVO1);
+		if(friendshipsDAO.delete(member_Id, friend_Id) && friendshipsDAO.delete(friend_Id, member_Id))
 			return true;
 		else
 			return false;
 	}
 	
-	
+	public List<FriendshipsVO> select_MyFriends(String member_Id){
+		return friendshipsDAO.select_MyFriends(member_Id);
+	}
 //	public static void main(String[] args)  {	
 //		ApplicationContext context = new ClassPathXmlApplicationContext(
 //				"test.config.xml");

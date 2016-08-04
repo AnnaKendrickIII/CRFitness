@@ -71,6 +71,31 @@
 	<script src="${this_contextPath}/admin/assets/js/search.uisearch.js"></script>
 	<!-- login dialog -->
 	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
+	
+	<style>
+ 	.alv-primary { 
+ 		color: #fff; 
+ 		background-color: #00b3a3; 
+ 		border-color: #357edb;
+ 	} 
+ 	
+ 	.alv-secondary { 
+ 		color: #fff; 
+ 		background-color: #b18f6a; 
+ 		border-color: #357edb;
+ 		border: #A67A6F;
+ 	}
+ 	
+ 	.pagination > li > a, .pagination > li > span {
+ 		color: #00b3a3;
+ 	}
+ 	
+ 	.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+ 		background-color: #00b3a3;
+		border-color: #00b3a3;
+ 	}
+	</style>
+	
   </head>
 
   <body>
@@ -85,14 +110,14 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="Index.jsp" class="logo"><b>C.R.Fitness Administration</b></a>
+            <a href="${this_contextPath}/admin/adminIndex.jsp" class="logo"><b>C.R.F<small>itness</small> Administration</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
                 <ul class="nav top-menu">
                     <!-- settings start -->
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="${this_contextPath}/admin/adminIndex.jsp">
                             <i class="fa fa-tasks"></i>
                             <span class="badge bg-theme">4</span>
                         </a>
@@ -102,7 +127,7 @@
                                 <p class="green">You have 4 pending tasks</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">DashGum Admin Panel</div>
                                         <div class="percent">40%</div>
@@ -115,7 +140,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Database Update</div>
                                         <div class="percent">60%</div>
@@ -128,7 +153,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Product Development</div>
                                         <div class="percent">80%</div>
@@ -141,7 +166,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <div class="task-info">
                                         <div class="desc">Payments Sent</div>
                                         <div class="percent">70%</div>
@@ -161,7 +186,7 @@
                     <!-- settings end -->
                     <!-- inbox dropdown start-->
                     <li id="header_inbox_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="${this_contextPath}/admin/adminIndex.jsp">
                             <i class="fa fa-envelope-o"></i>
                             <span class="badge bg-theme">5</span>
                         </a>
@@ -171,7 +196,7 @@
                                 <p class="green">You have 5 new messages</p>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-zac.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Zac Snider</span>
@@ -183,7 +208,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-divya.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Divya Manian</span>
@@ -195,7 +220,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-danro.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dan Rogers</span>
@@ -207,7 +232,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">
                                     <span class="photo"><img alt="avatar" src="assets/img/ui-sherman.jpg"></span>
                                     <span class="subject">
                                     <span class="from">Dj Sherman</span>
@@ -219,7 +244,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="index.html#">See all messages</a>
+                                <a href="${this_contextPath}/admin/adminIndex.jsp">See all messages</a>
                             </li>
                         </ul>
                     </li>
@@ -229,7 +254,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="${this_contextPath}/admin/Logout.jsp">Logout</a></li>
+                    <li id="admin_logout"><a class="logout" href="${this_contextPath}/admin/adminLogout.jsp">Logout</a></li>
             	</ul>
             </div>
         </header>
@@ -245,56 +270,66 @@
               <ul class="sidebar-menu" id="nav-accordion">
              	<c:if test="${! empty LoginOK }">  	  
              		<script type="text/javascript">
-             			$('.sidebar-menu').prepend('<p class="centered"><a href="profile.html"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
+             			$('.sidebar-menu').prepend('<p class="centered"><a href="${this_contextPath}/admin/adminIndex.jsp"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
          	 			+'<h5 class="centered">${LoginOK.nickname}</h5>')
              		</script >
               	</c:if>
                   <li class="mt">
-                      <a class="active" href="Index.jsp">
+                      <a class="active" href="${this_contextPath}/admin/adminIndex.jsp">
                           <i class="fa fa-dashboard"></i>
-                          <span>主控台</span>
+                          <span><strong>主控台</strong></span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
-                      <a href="MaintainJournals.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-book"></i>
-                          <span>維護健康日誌</span>
+                          <span><strong>維護健康日誌</strong></span>
                       </a>
+                       <ul class="sub">
+                          <li><a href="adminJournals.jsp">健康日誌</a></li>
+                      </ul>                      
                   </li>
 
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-shopping-cart"></i>
-                          <span>維護商品專區</span>
+                          <span><strong>維護商品專區</strong></span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="MaintainProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
-                          <li><a  href="MaintainProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-tops&page=1">上裝</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-bottoms&page=1">下裝</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-accessories&page=1">配件</a></li>
+                          <li><a href="adminProducts.jsp?category=cmens-footwear&page=1">鞋類</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
-                      <a href="MaintainActivities.jsp" >
+                      <a href="javascript:;" >
                           <i class="fa fa-users"></i>
-                          <span>維護揪團專區</span>
+                          <span><strong>維護揪團專區</strong></span>
                       </a>
+                       <ul class="sub">
+                          <li><a href="adminActivities.jsp">揪團專區</a></li>
+                      </ul>                      
                   </li>
+                  
                   <li class="sub-menu">
-                      <a href="MaintainMembers.jsp" >
-                          <i class="fa fa-commenting"></i>
-                          <span>維護會員資訊</span>
+                      <a href="javascript:;" >
+                          <i class="li_user"></i>
+                          <span><strong>維護會員資訊</strong></span>
                       </a>
+                       <ul class="sub">
+                          <li><a href="adminMembers.jsp">會員資訊</a></li>
+                      </ul>
                   </li>
+                  
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-usd" aria-hidden="true"></i>
-                          <span>Charts</span>
+                          <span><strong>維護訂單專區</strong></span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="morris.html">Morris</a></li>
-                          <li><a  href="chartjs.html">Chartjs</a></li>
+                          <li><a href="adminOrders.jsp">訂單專區</a></li>
                       </ul>
                   </li>
 
@@ -305,8 +340,6 @@
       <!--sidebar end-->
       
 <!-- 登入對話方塊   開始 -->   
-
-<!--       <div class="container">  -->
     <c:if test="${empty LoginOK}">
       	<script type="text/javascript"> 	 
         	$(function () {
@@ -343,8 +376,8 @@
 				</div>
 			</div>
 		</form>
-	</div> <!-- end 327 -->
-	</c:if >
+	</div> <!-- end 321 -->
+	</c:if > <!-- end 307 -->
 <!-- 登入對話方塊   結束 -->
       
       <!-- **********************************************************************************************************************************************************
@@ -357,7 +390,7 @@
 <!--       <footer class="site-footer"> -->
 <!--           <div class="text-center"> -->
 <!--               2016 - C.R.Fitness Co., Ltd. -->
-<!--               <a href="Index.jsp" class="go-top"> -->
+<!--               <a href="${this_contextPath}/admin/adminIndex.jsp" class="go-top"> -->
 <!--                   <i class="fa fa-angle-up"></i> -->
 <!--               </a> -->
 <!--           </div> -->
@@ -420,6 +453,44 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     </script>
+    <c:if test="${!empty LoginOK}">
+  <script type="text/javascript">
   
+  var userID = '${LoginOK.member_Id}';
+  var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
+
+  ws.onerror = function(event)
+  {
+  	alert(event);
+  };
+
+  ws.onopen = function(event) 
+  {
+  	 var msg = JSON.stringify({'userID':userID, 'type':'0'});  
+       ws.send(msg);   
+  };
+   
+  ws.onclose = function(event) { 
+      var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+      ws.send(msg);
+  }; 
+  ws.onmessage = function(event) {
+	  
+  }
+  $('body').on('click','#admin_logout',function(){
+	  var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+      ws.send(msg);
+  })
+  $('body').on('click','.notifaction_Submit',function(){
+	  
+	  var val=$('#notifactionMessage').val();
+	  val = val.replace(/\r?\n/g, '</br> ');
+	  var msg = JSON.stringify({'userID':userID,'type':'6','notifaction':val});//3  關  
+      ws.send(msg);
+      $('#notifactionMessage').val('');
+      $('#notifaction').modal('hide');
+  })
+  </script> 
+  </c:if>
   </body>
 </html>

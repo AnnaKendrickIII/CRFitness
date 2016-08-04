@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="${this_contextPath}/css/products2.css">
 <link rel="stylesheet" href="${this_contextPath}/css/lightbox.css">
 <link rel="stylesheet" href="${this_contextPath}/css/searchform.css">
-<link rel="stylesheet" href="${this_contextPath}/css/alertify.css">
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.desoslide.css">
 <link rel="stylesheet" href="${this_contextPath}/css/animate.min.css">
 <link rel="stylesheet" href="${this_contextPath}/css/magic.min.css">
@@ -124,10 +123,8 @@ color:#FF3333;
 </head>
 
 <body>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script type="text/javascript" src="${this_contextPath}/js/products2.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/lightbox.js"></script>
-<script type="text/javascript" src="${this_contextPath}/js/alertify.js"></script>
 <script type="text/javascript" src="${this_contextPath}/js/jquery.desoslide.min.js"></script>
 <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>            
 
@@ -155,7 +152,7 @@ color:#FF3333;
     	<form action="" class="search-form">
             <div class="form-group has-feedback">
         		<label for="search" class="sr-only">Search</label>
-        		<input type="text" class="form-control" name="search" id="search" autocomplete="off" placeholder="不能查詢不要亂玩&nbsp!">
+        		<input type="text" class="form-control" name="search" id="search" autocomplete="off" placeholder="請輸入關鍵字&nbsp!">
           		<span class="glyphicon glyphicon-search form-control-feedback"></span>
         	</div>
         </form>
@@ -190,7 +187,7 @@ color:#FF3333;
 	</div>
 <script type="text/javascript">
 jQuery(function($){
-	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Products.png">')
+	$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/Products.png">')
 $('.shopping_car_div').popover()//滑到購物車效果
 var Type='${pageContext.request.queryString}';
 num1 = Type.substr(9).indexOf("&")
@@ -329,6 +326,19 @@ $.ajax({
 					
 		})//大表 ajax迴圈結束
 	 	
+		//搶來的關鍵字搜尋
+		$('#products').searchable({
+		    searchField: '#search',
+		    selector: '.item',
+		    childSelector: '.product_Name',
+		    show: function (elem) {
+		        elem.slideDown(100);
+		    },
+		    hide: function (elem) {
+		        elem.slideUp(100);
+		    }
+		})	
+		
 	}//大表ajax success結束	
 });//大表ajax結束
 
@@ -352,8 +362,7 @@ $('body').on('click','.shop',function(){
 							"z-index": "999"});
 					whichImg.parent().parent().parent().parent().append(copyimg);	
 					copyimg.animate({"top":$('.shopping_car_div').position().top,
-									"left":$('.shopping_car_div').position().left,
-									"opacity": 0,
+									"left":$('.shopping_car_div').position().left
 									},500,"linear", function() {
 									      copyimg.remove();
 									 });
@@ -364,7 +373,7 @@ $('body').on('click','.shop',function(){
 					$('.shopping_car_span').text(count)
 					showCart();
 					
-					alertify.success('成功加入購物車');
+					alertify.notify( "成功加入購物車", 'success', 2);
 		}
 	})
 })		

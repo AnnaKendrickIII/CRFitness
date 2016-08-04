@@ -10,11 +10,13 @@
     <link href="${this_contextPath}/css/simple-sidebar.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/login.css" rel="stylesheet" />
     <link href="${this_contextPath}/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    
+    <link href="${this_contextPath}/css/perspectiveRules.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/lrtk.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/custombox.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/ChatMessage.css" rel="stylesheet" />
     <link href="${this_contextPath}/css/friend.css" rel="stylesheet" />
+     <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+     
      <!-- Bootstrap Core JavaScript -->
     <script src="${this_contextPath}/js/jquery-2.2.4.min.js"></script>  
 
@@ -24,6 +26,8 @@
     <script src="${this_contextPath}/js/lrtk.js"></script>	
     <script type="text/javascript" src="${this_contextPath}/js/jquery.timeago.js"></script>
     <script type="text/javascript" src="${this_contextPath}/js/jquery.searchable-1.0.0.min.js"></script>
+    <script src="${this_contextPath}/js/alertify.js"></script>
+    <script src="${this_contextPath}/js/jquery.logosDistort.js"></script>
       <!-- GoogleLogin-->  
       <!-- bootstrap.min.js  開始-->
   <script src="${this_contextPath}/js/bootstrap.min.js"></script> 
@@ -80,7 +84,7 @@
     <!-- 標頭區塊 開始-->
     <header class="row header_css">
         <div class="col-lg-12 col-md-12 col-xs-12">
-            <div class="btn-toolbar col-lg-5 col-md-5 col-xs-5">
+            <div class="btn-toolbar col-lg-5 col-md-4 col-xs-3">
                 <div class="btn-group ">    
                     <a href="#menu-toggle" id="menu-toggle">
                          <i id="header_list" class="fa fa-bars fa-2x" aria-hidden="true"></i>
@@ -103,12 +107,30 @@
                	<div class="user_login_div dropdown">
                         <a id="dLabel" data-target="#"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="user_btn"  src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-responsive user_login_css " /></a>
                         <ul class="user_login_down_div dropdown-menu " aria-labelledby="dLabel"> 
-                            <li><a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a></li>
-                            <li><a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a></li> 
-                            <li><a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a></li>
-                             <li><a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a></li>    
-                        	<li><a  class="container_a_css">編輯個人資料</a></li>                          
-                            <li><a href="${this_contextPath}/Logout/logout.jsp" class="logout_css_souket" >登出</a></li>                        
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a href="${this_contextPath}/PersonalJournal.jsp?${LoginOK.member_Id}">${LoginOK.nickname}的個人日誌</a>
+                           		</div></div>
+                            </li>
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a data-toggle="modal" class="container_a_css" href="#myfriend">好友</a>
+                            </div></div>
+                            </li> 
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a  href="${this_contextPath}/activitydetail.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css" href="#myactivitys">揪團紀錄</a>
+                            </div></div>
+                            </li>
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                             <a href="${this_contextPath}/Order.jsp?${LoginOK.member_Id}" data-toggle="modal" class="container_a_css">訂單查詢</a>
+                             </div></div>
+                             </li>    
+                        	<li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                        	<a  class="container_a_css">編輯個人資料</a>
+                        	</div></div>
+                        	</li>                          
+                            <li ><div class="row"><div class="col-lg-12 col-md-12 col-xs-12 ">
+                            <a href="${this_contextPath}/Logout/logout.jsp" class="logout_css_souket" >登出</a>
+                            </div></div>
+                            </li>                        
                         </ul>
                 </div>
                 </c:when>
@@ -158,15 +180,7 @@
   
  
 <script type="text/javascript">
-//WebSocket 
-//  function start() 
-//     {
-//         if(userID != '')
-//         {
-//             var msg = JSON.stringify({'userID':userID, 'type':'1'});  
-//             ws.send(msg);
-//         }
-//     }
+
  Date.prototype.Format = function (fmt) {  
 	    var o = {
 	        "M+": this.getMonth() + 1, //月份 
@@ -201,22 +215,6 @@
 				 $.each(data,function(index){	
 					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
 		 		   var jdate_value = new Date(jdate_int);
-		 		  if('${LoginOK.member_Id}'==this.member_Id){	
-						$('#'+userID+' .msg_container_base ').prepend(
-	 	 								'<div class="row msg_container base_sent ">'
-	 	 								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
-	 	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
-	 	 			 		            +'<div class="messages msg_sent">'
-	 	 			 		            +'<p>'+this.chat_Detail+'</p>'         
-	 	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
-	 	 			 		            +'</div>'
-	 	 			 		            +'</div>'
-	 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-	 	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
-	 	 			 		            +'</div>'
-	 	 			 		            +'</div>' 				 
-	 							 )
-					}else{
 						$('#'+userID+' .msg_container_base ').prepend(
 	 								'<div class="row msg_container base_receive ">'
 	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
@@ -230,9 +228,11 @@
 	 			 		            +'</div>'
 	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
 	 			 		            +'</div>' 		         	
-							 )							
-					}
+							 )									 
 				 })
+				 if(data!=''){
+					 $('#'+userID+' .msg_container_base ').prepend('<hr>')				 
+				 }
 			   }		  
 		   })
        }
@@ -283,7 +283,7 @@
 	          type:'get',  //get post put delete
 			  data:{ member_Id:'${LoginOK.member_Id}', friend_Id:friendId},
 			  success:function(data){
-				 $('#myfriend').modal('hide')			
+				 			
 				 $.each(data,function(){	
 					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
 		 		   var jdate_value = new Date(jdate_int);
@@ -338,25 +338,33 @@
  
     ws.onopen = function(event) 
     {
-    	console.log('打開了')
-//         start() ;
+    	 var msg = JSON.stringify({'userID':userID, 'type':'1','myName':"${LoginOK.nickname}"});  
+         ws.send(msg);   
+    	
     };
      
     ws.onclose = function(event) { 
-        var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+        var msg = JSON.stringify({'userID':userID, 'type':'3','myName':"${LoginOK.nickname}"});//3  關  
         ws.send(msg);
-		console.log('關了')
+		
     }; 
  
     $('body').on('click','.logout_css_souket',function(){
-    	 var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
+    	 var msg = JSON.stringify({'userID':userID, 'type':'3','myName':"${LoginOK.nickname}"});//3  關  
          ws.send(msg);
          console.log('關了,登出')
     })   
     ws.onmessage = function(event) 
     {	
+    	
         var data = JSON.parse(event.data);
-        if(data.type == '2')
+       
+        if(data.type == '1')
+        {
+        	alertify.notify('<div class="row"><div  class="col-xs-3 col-sm-3 logoutimgdiv"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></div>'
+       			 +'<div  class="col-xs-6 col-sm-6 logoutnamediv ">'+data.myName+'已上線</div></div>', 'custom', 5); 
+        }else
+        	if(data.type == '2')
         {
         	var jdate_int = parseInt(data.Time);                          //轉換成數字
  		   var jdate_value = new Date(jdate_int);
@@ -400,14 +408,10 @@
 				 } 
         	var basecon = $('.msg_container_base');
 				basecon.scrollTop(basecon.prop("scrollHeight")-basecon.prop("clientHeight")); 
-        }
-        else if(data.type == '1')
-        {
-        	console.log('111')
-//             render_data(data.username + "上線 <br> ");
-            
-        }
-        else if(data.type == '4'){
+        }   else if(data.type == '3'){   
+        	 alertify.notify('<div class="row"><div  class="col-xs-3 col-sm-3 logoutimgdiv"><img class="img-responsive" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+data.userID+'"></div>'
+        			 +'<div  class="col-xs-6 col-sm-6 logoutnamediv ">'+data.myName+'已登出</div></div>', 'custom2', 5); 
+        }     else if(data.type == '4'){
         	if(!$('#header_email_dropdown_div ul').html()){
         			$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
         	}
@@ -432,6 +436,7 @@
 				 mail.text('1') 
 			}
         }else if(data.type == '5'){
+        	if(data.userID!='${LoginOK.member_Id}'){
         	$('#contact-list').append(
                	 '<li class="list-group-item">'
                	 +' <div class="col-xs-6 col-sm-2"><a href="${this_contextPath}/PersonalJournal.jsp?'+data.userID+'" >'
@@ -440,56 +445,83 @@
                	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
                	 +'<span class="name">'+data.myName+'</span>'
                	 +'</div>'
-               	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+               	 +'<div class=" col-sm-7 freind_icon_div">'
                	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
-               	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+               	 // 刪好友
+               	 +'<span class="deletefriend fa fa-user-times text-muted c-info" data-toggle="tooltip" title=""></span>'
                	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+data.userID+'</span></span>'
                	 +'</div>'
                	 +'<div class="clearfix"></div>'
                	 +'</li> '	 
 				) 
 				alertify.notify('你已和'+data.myName+'成為好友', 'success', 5);
-        	$('.canceladdfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
-        }
+        			}  		   	
+        	if(!$('.addfriend').attr('class')){
+        		$('.canceladdfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
+        	}else{
+        	 	$('.addfriend').attr('class','profile-btn btn btn-primary chat_for_friend').text('傳送訊息給他')
+        	}
+        }else if(data.type == '6'){
+        	if(!$('#header_email_dropdown_div ul').html()){
+    			$('#header_email_dropdown_div').append('<ul class=" dropdown-menu " aria-labelledby="maildLabel"></ul>')
+    	}
+    		$('#header_email_dropdown_div ul').append(
+					'<li class="notifaction_li_outer"><div class="chat_this_id_div" hidden="hidden">'+data.userID+'</div>'
+					+'<div class="chat_this_Chat_Detail_div" hidden="hidden">'+data.notifaction+'</div>'
+					+'<div class="row chatmessage"><div  class="col-xs-1 col-sm-1"></div>'
+					+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-exclamation o-chat" aria-hidden="true"></i></div>'	
+					+'<div  class="col-xs-10 col-sm-10 div_chat_message">'
+					+'有1則公告</div></div><li>')
+					 var mail=$('span.num_mail');
+			 if(mail.text()!=""){
+					var mail_text=parseInt(mail.text());
+					 mail_text=mail_text+1
+					 mail.text(mail_text) 		
+			}else{
+				 mail.text('1') 
+			}
+    	}
     };
     (function(){
         if(userID == '')
         {
-            alert('你未登入');
+        	alertify.alert('你未登入');
             $('#send-box').hide();
         }
     })();
  
    
-    // enter換行變成shift enter ,enter變送出
-	$('body').on('keydown', '.chat_input', function (event) {
-		if (event.keyCode == 13 && !event.shiftKey) {
-			var friendName='${LoginOK.nickname}'
-			var val = $(this).val();
-			var friendId=$(this).siblings(".friendId_Here").text()
-			if(val.trim().length != 0){
-				val = val.replace(/\r?\n/g, '</br> ');
-				sendMessage( friendId, val,(new Date().getTime()).toString(),friendName);
-				$(this).val('')
-			}
-			return false;
-		}
-	})
-    //右下腳按鈕 送出
-	$('body').on('click', '.input-group-btn', function (event) {
-		event.preventDefault();
-		var val = $(this).prev().val()
-		var friendName='${LoginOK.nickname}'
-		var friendId=$(this).siblings(".friendId_Here").text()
-		if(val.trim().length != 0){
-			val = val.replace(/\r?\n/g, '</br> ')
-			sendMessage(friendId, val, (new Date().getTime()).toString(),friendName);
-			$(this).prev().val('');
-		}
-	})  
+    
     </script>
     <!-- web聊天 -->
- <script>     
+ <script>   
+ jQuery(function ($) {
+	// enter換行變成shift enter ,enter變送出
+		$('body').on('keydown', '.chat_input', function (event) {
+			if (event.keyCode == 13 && !event.shiftKey) {
+				var friendName='${LoginOK.nickname}'
+				var val = $(this).val();
+				var friendId=$(this).siblings(".friendId_Here").text()
+				if(val.trim().length != 0){
+					val = val.replace(/\r?\n/g, '</br> ');
+					sendMessage( friendId, val,(new Date().getTime()).toString(),friendName);
+					$(this).val('')
+				}
+				return false;
+			}
+		})
+	    //右下腳按鈕 送出
+		$('body').on('click', '.input-group-btn', function (event) {
+			event.preventDefault();
+			var val = $(this).prev().val()
+			var friendName='${LoginOK.nickname}'
+			var friendId=$(this).siblings(".friendId_Here").text()
+			if(val.trim().length != 0){
+				val = val.replace(/\r?\n/g, '</br> ')
+				sendMessage(friendId, val, (new Date().getTime()).toString(),friendName);
+				$(this).prev().val('');
+			}
+		})  
  		$('body').on('dblclick', '.panel-heading ', function (e) {
      	var $this = $(this).find('span.icon_minim');
      	if (!$this.hasClass('panel-collapsed')) {
@@ -527,20 +559,19 @@
  		
  		$('body').on('click', '.chat_icon_css', function (e) {
  			var friendId=$(this).find('span[hidden]').text()
- 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();		 
-			 bodyappend(friendId,WhoName)//增加聊天框 		 
-			 IsReadThree(friendId)//增加已讀3則訊息		
+ 			var WhoName=$(this).parent().siblings('.friend_name_div').find('.name').text();	
+ 			if(!($('#'+friendId).html())){
+ 				$('#myfriend').modal('hide')
+ 				 bodyappend(friendId,WhoName)//增加聊天框 		 
+ 				 IsReadThree(friendId)//增加已讀3則訊息		
+			}		
         });
  		$('body').on('click', '.icon_close', function (e) {
            $(this).parent().parent().parent().parent().parent().parent().remove();
         });
-        
-    </script>
-    
-                    
-    <script>
+
     //搜尋用
-    $(function () {
+    
         /* BOOTSNIPP FULLSCREEN FIX */
         if (window.location == window.parent.location) {
             $('#back-to-bootsnipp').removeClass('hide');
@@ -556,8 +587,8 @@
                 $('.c-search').closest('.row').slideDown(100);
             }
         })  
-    });
-
+    
+ })
 </script>
                  <script type="text/javascript">
 				//找出全部好友
@@ -576,9 +607,9 @@
                                 	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
                                 	 +'<span class="name">'+this[2]+'</span>'
                                 	 +'</div>'
-                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+                                	 +'<div class=" col-sm-7 freind_icon_div">'
                                 	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
-                                	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+                                	 +'<span class="deletefriend fa fa-user-times delete text-muted c-info" data-toggle="tooltip" title=""></span>'
                                 	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+this[0]+'</span></span>'
                                 	 +'</div>'
                                 	 +'<div class="clearfix"></div>'
@@ -588,7 +619,7 @@
          $('#contact-list').searchable({
             searchField: '#contact-list-search',
             selector: 'li',
-            childSelector: '.col-xs-12',
+            childSelector: '.friend_name_div',
             show: function (elem) {
                 elem.slideDown(100);
             },
@@ -646,6 +677,15 @@
 												+'<div  class="col-xs-3 col-sm-3 ">'
 												+'<i class="fa fa-check check_fr_ok" aria-hidden="true"></i>'
 												+'<i class="fa fa-times check_fr_No" aria-hidden="true"></i></div></div><li>')
+									}else if(this[0]=="5"){
+										$('#header_email_dropdown_div ul').append(
+												'<li class="notifaction_li_outer"><div class="chat_this_id_div" hidden="hidden">'+this[1]+'</div><div class="chat_this_name_div" hidden="hidden">'
+												+this[2]+'</div><div class="chat_this_Chat_Detail_div" hidden="hidden">'+this[3]+'</div>'
+												+'<div class="row chatmessage"><div  class="col-xs-1 col-sm-1"></div>'
+												+'<div  class="col-xs-1 col-sm-1 chat_icon_div"><i class="fa fa-exclamation o-chat" aria-hidden="true"></i></div>'	
+												+'<div  class="col-xs-10 col-sm-10 div_chat_message">'
+												+'有1則公告</div></div><li>')							
+										count++;
 									}	
 								})				
 								if(mail.text()==""){
@@ -678,6 +718,31 @@
 								
 						}
 					})
+					
+					
+					$('body').on('click', '.notifaction_li_outer', function () {
+						 var Chat_Detail=$(this).find('.chat_this_Chat_Detail_div').text()
+						  var thisid=$(this).find('.chat_this_id_div').text()					
+						  $.ajax({
+	          			url:"${this_contextPath}/CRFSERVICE/chatController/update_notifaction_message",
+	          			type:'post',  //get post put delete
+			  			data:{ member_Id:thisid, friend_Id:'${LoginOK.member_Id}'},
+			  			success:function(data){
+			  				 alertify.alert(Chat_Detail).set("title","公告!")
+			 	 				}
+			 				})
+						 var mail=$('span.num_mail');	
+						 if(mail.text()!=""){
+								var mail_text=parseInt(mail.text());
+								 mail_text=mail_text-1
+								 if(mail_text==0){
+								 mail.text('')
+								 }else{
+								 mail.text(mail_text) 
+								 }
+						}
+						 $(this).remove();
+           		});
 						//點擊好友留言訊息跑出聊天室並-1
 						$('body').on('click', '.message_li_outer', function () {
 							 var thisid=$(this).find('.chat_this_id_div').text()
@@ -705,19 +770,7 @@
 							url:"${this_contextPath}/CRFSERVICE/friendships/acceptFriend",
 							type:'post',
 							data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
-							success: function(data){
-								 var mail=$('span.num_mail');
-								 if(mail.text()!=""){
-										var mail_text=parseInt(mail.text());
-										 mail_text=mail_text-1
-										 if(mail_text==0){
-										 mail.text('')
-										 }else{
-										 mail.text(mail_text) 
-										 }
-									}
-								 
-								 //這
+							success: function(data){				 
 								 whichthis.parent().parent().parent().remove();
 								$('#contact-list').append(
 	                                	 '<li class="list-group-item">'
@@ -727,9 +780,9 @@
 	                                	 +'<div class="col-xs-6 col-sm-3 friend_name_div">'
 	                                	 +'<span class="name">'+fname+'</span>'
 	                                	 +'</div>'
-	                                	 +'<div class="col-xs-12 col-sm-7 freind_icon_div">'
+	                                	 +'<div class=" col-sm-7 freind_icon_div">'
 	                                	 +'<span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title=""></span>'
-	                                	 +'<span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title=""></span>'
+	                                	 +'<span class="deletefriend fa fa-user-times text-muted c-info" data-toggle="tooltip" title=""></span>'
 	                                	 +'<span class="fa fa-comments text-muted c-info chat_icon_css" data-toggle="tooltip" title=""><span hidden="hidden">'+fid+'</span></span>'
 	                                	 +'</div>'
 	                                	 +'<div class="clearfix"></div>'
@@ -745,29 +798,37 @@
 					
                     $('body').on('click', '.check_fr_No', function (e) {
                              var whichthis = $(this);
-                             var fid=$(this).parent().parent().siblings("div[hidden]").text()
+                             var fid=$(this).parent().parent().siblings(".addfid").text()
                              $.ajax({
      							url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
      							type:'post',
      							data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
-     							success: function(data){
-					
-                             var mail=$('span.num_mail');
-							 if(mail.text()!=""){
-									var mail_text=parseInt(mail.text());
-									 mail_text=mail_text-1
-									 if(mail_text==0){
-									 mail.text('')
-									 }else{
-									 mail.text(mail_text) 
-									 }
-								}
+     							success: function(data){             
 							 whichthis.parent().parent().parent().remove();
 							 
                             }
                           })
                      });
 					
+                    // 好友刪除
+                    $('body').on('click', '.deletefriend', function (e) {
+                        var whichthis = $(this);
+                        var fid=$(this).next().find("span[hidden]").text()
+	               		alertify.confirm().set('title', '警告');
+			    		alertify.confirm('確認刪除此好友',function(e){
+			    			if(e){
+		                        $.ajax({
+									url:"${this_contextPath}/CRFSERVICE/friendships/deleteFriend",
+									type:'post',
+									data:{'member_Id': "${LoginOK.member_Id}",friend_Id:fid},
+									success: function(data){
+										
+										whichthis.parent().parent().remove();
+		                       }
+		                     })
+			    			}else{ } 
+			    		});
+               		 });
                   })
               
                  </script > 
@@ -1016,9 +1077,7 @@
                 });
                 auth2.attachClickHandler( document.getElementById('googleSignIn'), {},
                   function (googleUser) {
-//                 	console.log('Signed in: ' + googleUser.getBasicProfile().getName());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getEmail());
-//                     console.log('Signed in: ' + googleUser.getBasicProfile().getImageUrl());        	
+       	
                 	 var ImageUrl;
                      if (googleUser.getBasicProfile().getImageUrl() == undefined) {
                          ImageUrl = null;

@@ -46,6 +46,7 @@ public class MemberService {
 				memberVO.setNickname(nickname);
 			Timestamp datetime = new Timestamp(System.currentTimeMillis());
 				memberVO.setRegisterdate(datetime);
+				memberVO.setMember_Status("登錄中");
 				memberDAO.insert(memberVO);
 				return memberVO;			
 			}			
@@ -73,6 +74,7 @@ public class MemberService {
 	public MemberVO addMember(MemberVO memberVO) {
 		Timestamp datetime = new Timestamp(System.currentTimeMillis());
 		memberVO.setRegisterdate(datetime);
+		memberVO.setMember_Status("登錄中");
 		memberDAO.insert(memberVO);
 
 		return memberVO;
@@ -96,7 +98,6 @@ public class MemberService {
 	}
 	
 	public byte[] Insert_MemberImages(String Path,String photo1){
-		ByteArrayOutputStream baos = null;
 		File file=null;	
 		FileOutputStream fop=null;
 		try {

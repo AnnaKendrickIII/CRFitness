@@ -52,18 +52,22 @@
 }
 
 #tile10{
-    background: rgb(255,255,255);
+/*     background: rgb(255,255,255); */
+/* 	background-image: url(images/sport_news2.png);  */
+
 }
 
 .tilecaption{
     position: relative;
-    top: 50%;
+/*     top: 50%; */
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%); 
-    margin:0!important;
+    margin:26% 0!important;
     text-align: center;
+    line-height: 100%;
     color:white;
     font-family: Segoe UI;
     font-weight: lighter;
 }
+

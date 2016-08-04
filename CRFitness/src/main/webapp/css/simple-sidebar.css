@@ -199,6 +199,9 @@ height:48px;
 .logo_css{
 	height: 48px;
 }
+.logo_here{
+	height: 48px;
+}
 .friend_header{
 	background-color:#5599FF !important; 
 	text-align: center;
@@ -270,3 +273,17 @@ padding: 0
 .check_fr_No:HOVER{
 	color: red;
 }
+.ajs-custom { 
+	color: #272727  !important;  
+ background-color: #d9edf7  !important; 
+  border-color: #31708f !important; 
+  }
+.ajs-custom2 { 
+	color: 	#272727  !important;  
+ background-color: 	#FFD2D2  !important; 
+  border-color: #ff7575 !important; 
+  }
+  .logoutnamediv{
+padding-top: 2%;
+  }
+ 

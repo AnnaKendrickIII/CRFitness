@@ -22,7 +22,8 @@ import com.CRFitness.Products.model.ProductsVO;
 
 @Repository("productDetailDAO")
 @Transactional(transactionManager = "transactionManager")
-public class ProductDetailDAO implements ProductDetailDAO_interface, Serializable {
+public class ProductDetailDAO implements ProductDetailDAO_interface,
+		Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -87,24 +88,28 @@ public class ProductDetailDAO implements ProductDetailDAO_interface, Serializabl
 		return (List<ProductDetailVO>) query.list();
 	}
 
-	// back-end: select all products
+	// back-end: select products By category order by descend
 	@Override
-	public List<Object[]> getAllByDesc() {
+	public List<Object[]> getItemByCateNDesc(String category, Integer page) {
+		int max = 20; // 每頁顯示幾筆資料
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-						"Select ProductDetail.* ,Products.Product_Name ,Products.Price , Products.Category , Products.Info"
-								+ " from  ProductDetail join Products"
-								+ " on ProductDetail.Product_Id=Products.Product_Id "
-								+ " Order by ProductDetail_Id desc")
+						"Select ProductDetail.*, Products.Product_Name, Products.Price, Products.Category, Products.Info"
+								+ " from ProductDetail join Products"
+								+ " on ProductDetail.Product_Id = Products.Product_Id"
+								+ " where Products.Category = '"
+								+ category
+								+ "'" + " Order by ProductDetail_Id desc")
 				.addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
 				.addScalar("category", StringType.INSTANCE)
 				.addScalar("info", StringType.INSTANCE);
+		query.setFirstResult((page - 1) * max);
+		query.setMaxResults(max);
 		return (List<Object[]>) query.list();
 	}
-
 
 	@Override
 	public ProductDetailVO getProductDetailId(String product_Name, String size,
@@ -123,37 +128,46 @@ public class ProductDetailDAO implements ProductDetailDAO_interface, Serializabl
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-							"select * "
-							+ "from   Products "
-							+ "where Products.Category='" + category + "'")//+ "Order by Product_Id desc"
+						"select * " + "from   Products "
+								+ "where Products.Category='" + category + "' Order by Product_Id desc")// +
+																				// "Order by Product_Id desc"
 				.addEntity(ProductsVO.class);
 		query.setFirstResult((page - 1) * max);
 		query.setMaxResults(max);
 		return (List<Object[]>) query.list();
 	}
+
 	@Override
-	public List<Object[]> getItemDetail(String Product_Id ) {
+	public List<Object[]> getItemDetail(String Product_Id) {
 		Query query = this
 				.getSession()
 				.createSQLQuery(
-							"select * "
-							+ "from  ProductDetail "
-							+ "where Product_Id='" + Product_Id + "'"
-							+" and Product_Status='上架'")
-				.addEntity(ProductDetailVO.class);	
+						"select * " + "from  ProductDetail "
+								+ "where Product_Id='" + Product_Id + "'"
+								+ " and Product_Status='上架'")
+				.addEntity(ProductDetailVO.class);
 		return (List<Object[]>) query.list();
 	}
-	
-	
+
+	public List<Object[]> searchByKeyword(String keyword) {
+		Query query = this
+				.getSession()
+				.createSQLQuery(
+						"select *"
+								+ "from Products join ProductDetail"
+								+ "on Products.Product_Id = ProductDetail.Product_Id"
+								+ "where  Product_Name like'%" + keyword + "%'")
+				.addEntity(ProductsVO.class);
+		return (List<Object[]>) query.list();
+	}
+
 	@Override
-	public List<Object[]> findByPrimaryKeySQLQuery(
-			String productDetail_Id) {
+	public List<Object[]> findByPrimaryKeySQLQuery(String productDetail_Id) {
 		Query query = getSession()
 				.createSQLQuery(
 						"select *  from ProductDetail join Products "
 								+ "on ProductDetail.Product_Id = Products.Product_Id "
-								+ "where ProductDetail_Id='"
-								+ productDetail_Id
+								+ "where ProductDetail_Id='" + productDetail_Id
 								+ "'").addEntity(ProductDetailVO.class)
 				.addScalar("product_Name", StringType.INSTANCE)
 				.addScalar("price", DoubleType.INSTANCE)
@@ -162,7 +176,6 @@ public class ProductDetailDAO implements ProductDetailDAO_interface, Serializabl
 
 		return (List<Object[]>) query.list();
 	}
-
 
 	public static void main(String[] args) {
 

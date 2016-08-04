@@ -44,7 +44,8 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #68dff0;
+/* 	background: #68dff0; */
+	background: #b18f6a;
 }
 
 .modal-title {
@@ -74,7 +75,8 @@ a, a:hover, a:focus {
 /*Theme Backgrounds*/
 
 .bg-theme {
-	background-color: #68dff0;
+/* 	background-color: #68dff0; */
+	background-color: #6aefb7;
 }
 
 .bg-theme02 {
@@ -210,7 +212,8 @@ hr {
 }
 
 .bg-theme {
-	background-color: #68dff0;
+/* 	background-color: #68dff0; */
+	background-color: #dd4132;
 }
 
 ul.top-menu > li > .logout {
@@ -221,7 +224,8 @@ ul.top-menu > li > .logout {
 	border: 1px solid #64c3c2 !important;
 	padding: 5px 15px;
 	margin-right: 15px;
-	background: #68dff0;
+/* 	background: #68dff0; */
+	background: #91A8d0;
 	margin-top: 15px;
 }
 
@@ -413,8 +417,10 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #ffd777;
-    border-bottom: 1px solid #c9aa5f;
+/*     background: #ffd777; #00c6d2 */
+    background: #98ddde; 
+/*     border-bottom: 1px solid #c9aa5f; */
+    border-bottom: 1px solid #3890ae;
 }
 
 .wrapper {
@@ -781,7 +787,8 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	line-height: 60px;
 	height: 60px;
 	margin: 0;
-	background: #ff865c;
+/* 	background: #ff865c; */
+	background: #f7cac9;
 	text-align: center;
 }
 
@@ -920,7 +927,8 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 .custom-bar-chart .bar .value {
     position: absolute;
     bottom: 0;
-    background: #ff865c;
+/*     background: #ff865c; */
+    background: #f7786b;
     color: #68dff0;
     width: 100%;
     -webkit-border-radius: 5px 5px 0 0;
@@ -2216,7 +2224,8 @@ label {
 
 /*footer*/
 .site-footer {
-    background: #68dff0;
+/*     background: #68dff0; */
+    background: #98ddde;
     color: #fff;
     padding: 10px 0;
 }

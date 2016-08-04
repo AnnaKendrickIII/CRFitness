@@ -20,7 +20,7 @@
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_activity.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_profile.css" />
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/personal_head.css" />
- <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/alertify.css"  />
+
 <link rel="stylesheet" href="${this_contextPath}/css/bootstrap-editable.css"> <!-- 檔案上傳 -->
 <link rel="stylesheet" href="${this_contextPath}/css/jquery.fs.boxer.css">
 <link rel="stylesheet" type="text/css" href="${this_contextPath}/css/jquery.alertable.css">  
@@ -180,10 +180,18 @@ margin-bottom: 5%;
 .userContents{
 font-size: 20px;
 }
+.img_headers{
+  background-color: #337ab7;
+  text-align: center;
+  color: white;
+  }
+.camera_icon{
+padding-right: 2%;
+  }
 </style>
 <script type="text/javascript">
 jQuery(function($){
-$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/PersonalJournal.png">')
+$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/PersonalJournal.png">')
 })
 </script>
 
@@ -365,11 +373,13 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 				aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<div class="modal-header">
+						<div class="modal-header img_headers">
 							<button type="button" class="close" data-dismiss="modal">
 								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 							</button>
-							<h4 class="modal-title" id="exampleModalLabel">修改個人頭像</h4>
+							<h4 class="modal-title" id="exampleModalLabel">
+							<i class="fa fa-camera camera_icon" aria-hidden="true"></i>
+							<strong>修改個人頭像</strong></h4>
 						</div>
 						<div class="modal-body">
 							<div class="imageBox">
@@ -377,7 +387,11 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								<div class="spinner" style="display: none">Loading...</div>
 							</div>
 							<div class="head_action">
-								<input type="file" id="file" style="float: left; width: 250px">
+							<div class="uploadfile_div_css" style="float: left">
+										<label for="file" class="btn btn-primary btn-file">選擇圖檔<input id="file"   style="display: none;"
+											type="file" multiple="multiple">
+											</label> 
+							</div>
 								<input type="button" id="btnCrop" class="btn btn-primary btn-xs" value="確定選取"> 
 								<input type="button" id="btnZoomIn" class="btn btn-primary btn-xs" value="+"> 
 								<input type="button" id="btnZoomOut" class="btn btn-primary btn-xs" value="-">
@@ -549,7 +563,9 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
         var divGrid = $('#grid');
 		var visitorStatus;  // 記錄目前登入者狀態  1:自己  2:朋友 3:非好友
 		var titleNickName;
-		var usernickname;      
+		var usernickname;
+		
+		
     //  ------------------ 判斷是否本人, 好友 , 非好友------------------
 		if("${LoginOK.member_Id}" == "${pageContext.request.queryString}"){
 			visitorStatus = 1;
@@ -588,7 +604,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 	             +'<img class="media-object dp img-circle" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" >'
 	             +'</a>'
 	             +'<div class="media-body">'
-	             +'<h4 class="media-heading">'+titleNickName+'</h4>'
+	             +'<h4 id="usernickanme" class="media-heading "></h4>'
 	             +'<hr style="margin:8px auto">'		             
 	             +'<button type="button" class="profile-btn btn btn-primary chat_for_friend">傳送訊息給他</button>'
 	             +'</div>'
@@ -637,8 +653,13 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 					'visitorStatus' : visitorStatus},
 				success : function(data) {
 					if("${LoginOK.member_Id}" != "${pageContext.request.queryString}"){
-						$('#usernickanme').append(data[0][1])
-						activitys(data[0][1]);
+						if(data.length != 0){
+							$('#usernickanme').append(data[0][1])
+							activitys(data[0][1]);
+						}else{
+							$('#usernickanme').append(titleNickName)
+							activitys(titleNickName);
+						}
 					}
 					
 					$.each(data,function(index) {
@@ -870,7 +891,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 								   			+ '<p class="name_p"><img class="img-responsive journal-memberphoto" src="${this_contextPath}/CRFSERVICE/memberController/photo/${pageContext.request.queryString}" />'+"${LoginOK.nickname}"+'</p>'  // 上線前要拿掉或改暱稱
 									    	+ '<p class="journaltime">'
 								   			+ jdate_value.Format("yyyy-MM-dd hh:mm:ss")+'</p>'
-								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p>'+ data.contents +'</p></a>'
+								   			+ '<a href="#" class="username" data-type="textarea" data-placement="right" ><p class="userContents">'+ data.contents +'</p></a>'
 
 								   			+ '</div>'
 								   			+ '<div hidden="hidden" class="timeline-footer">'
@@ -972,6 +993,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
     			} 
     		});
     	})
+    	
     	//edit Contents
 		divGrid.on('click','a.username',function(){
 			var theLi = $(this).parents('li');
@@ -979,7 +1001,16 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 			var journal_Id = theLi.attr('id');
 			var openStatus = theLi.find('select.statusSelect');
 			$('.form-inline').submit(function(){
-				updateJournal(theLi.attr('id'), "${LoginOK.member_Id}", contexts.text(), openStatus.val())
+				$.ajax({
+					url: "${this_contextPath}/CRFSERVICE/personalJournalController/updateJournalcontents",
+					type: 'POST',
+					data: {'journal_Id':theLi.attr('id'),
+						'member_Id':"${LoginOK.member_Id}",
+						'contents':contexts.text()},
+					success: function(data){
+						console.log(data)
+					}
+				})
 			})
 		})   	
 		//send MessageDetail from enter -------------------------------------
@@ -1024,7 +1055,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 							if(index==0){
 								messageDiv.append('<p/>').find('p:last').text(theNickname+": "+ this)
 								$('<img  />')
-								.attr('src',"${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}.jpg")
+								.attr('src',"${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}")
 								.addClass('img-circle msgPhoto .img-responsive')
 								.prependTo(messageDiv.find('p:last'))
 							}else{
@@ -1100,9 +1131,10 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 						'friend_Id': "${pageContext.request.queryString}"},
 					success:function(data){
 						if(data){
-							alertify.alert('已申請').set('title', '訊息');
+// 							alertify.alert('已申請').set('title', '訊息');
 							$('#personal_profile').find('button.addfriend').text('不等了，取消申請')
 							.removeClass('addfriend').addClass('canceladdfriend');
+							
 							 var msg = JSON.stringify({'userID':"${LoginOK.member_Id}",'friendId':"${pageContext.request.queryString}", 'type':'4','myName':"${LoginOK.nickname}"});  
 					         ws.send(msg);
 						}else{
@@ -1161,9 +1193,12 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
       	})
       	
 			//傳訊息給好友
-			$('body').on('click','.chat_for_friend',function(){			
-			bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
-			IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則
+			$('body').on('click','.chat_for_friend',function(){	
+				if(!($('#${pageContext.request.queryString}').html())){	
+					bodyappend("${pageContext.request.queryString}",$('#usernickanme').text());//用框架裡bodyappend 增加聊天室
+					IsReadThree("${pageContext.request.queryString}")//用框架裡IsReadThree 增加已讀三則	
+				}
+				
 			})
       	
 //       	//查詢好友狀態
@@ -1298,7 +1333,7 @@ $('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contex
 
 	<script src="${this_contextPath}/js/personal_head.js"></script>
 	<script src="${this_contextPath}/js/personal_journal.js"></script>
-	<script src="${this_contextPath}/js/alertify.js"></script>
+<%-- 	<script src="${this_contextPath}/js/alertify.js"></script> --%>
 	<script src="${this_contextPath}/js/bootstrap-editable.js"  ></script>
 	<script src="${this_contextPath}/js/jquery.fs.boxer.js"  ></script>
 	<script src="${this_contextPath}/js/jquery.alertable.js" ></script>

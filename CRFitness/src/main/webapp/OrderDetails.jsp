@@ -15,10 +15,15 @@
 .orders_class {
 	margin-top: 4%;
 }
+th, tr, td{
+text-align: center;
+vertical-align : middle;
+}
 .photo{
     display: block;
  	width: 100px;
 	height:100px;
+	margin:auto;
 }
 </style>
 </head>
@@ -35,7 +40,7 @@
 	
 	<script type="text/javascript">
 jQuery(function($){
-	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/OrderDetail.png">')
+	$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/OrderDetail.png">')
 	var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substr(9);
 	$.ajax({

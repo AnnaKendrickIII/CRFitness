@@ -142,7 +142,7 @@ color:blue
 	<script>
 		new UISearch( document.getElementById( 'sb-search' ) );
     $(function () {
-    	$('.logo_here').append('<img  class="img-responsive logo_css" src="${this_contextPath}/images/logo/Games.png">')
+    	$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/Games.png">')
             $.ajax({
                 url:"${this_contextPath}/CRFSERVICE/Games/getAllGames",
                 type:'get',  //get post put delete

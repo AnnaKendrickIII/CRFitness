@@ -32,7 +32,7 @@ public class OrderDetailsController {
 	@Autowired
 	private ShoppingCart shoppingCart;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/orderDetails", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/orderDetails", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<OrderDetailsVO> list_orderDetailsVO(
 			HttpServletRequest request) {
 		request.getSession().setAttribute("list_orderDetailsVO",
@@ -40,7 +40,7 @@ public class OrderDetailsController {
 		return orderDetailsService.searchAllOrderDetails();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/search", produces = MediaType.APPLICATION_JSON)
+	@RequestMapping(method = RequestMethod.GET, value = "/search", produces = "application/json;charset=UTF-8")
 	public @ResponseBody List<OrderDetailsVO> searchByOrder_Id(
 			HttpServletRequest request, @RequestParam String order_Id) {
 		request.getSession().setAttribute("searchByOrder_Id", order_Id);
@@ -73,12 +73,6 @@ public class OrderDetailsController {
 						.getSize();
 				double amount = (Double) (product.get(0))[2];
 				
-				System.out.println(productDetail_Id);
-				System.out.println(quantity);
-				System.out.println(product_Name);
-				System.out.println(color);
-				System.out.println(size);
-				System.out.println(amount);
 
 				orderDetailsService.addOrderDetail(order.getOrder_Id(), productDetail_Id, product_Name, quantity, size, color, amount);
 			}
