@@ -67,9 +67,9 @@ body {
 /*�s�W*/
 .main {
 	width: 700px;
-	margin: 50px auto;
-	padding: 0 20px;
-	padding-bottom: 40px;
+	margin: 5px auto;
+	padding:  2px;
+	padding-bottom: 4px;
 	font-family: 'Calibri', 'CalibriRegular', Verdana, Arial, Helvetica,
 		sans-serif;
 }
@@ -77,13 +77,17 @@ body {
 .gallery {
 	
 }
-
-.gallery .previews, .gallery .full, .gallery .desc {
+.gallery .previews, .gallery .desc{
 	float: left;
-	margin-right: 20px;
+ 	margin-right: 20px;
 }
 
-.gallery .desc, .gallery .full {
+.gallery .full{
+	float: left;
+	
+}
+
+.gallery .desc{
 	width: 400px;
 	font-size: 12px;
 }
@@ -99,13 +103,13 @@ body {
 
 /* �վ�j�Ϥؤo */
 .gallery .full img {
-	width: 492px;
-	height: 520px;
-	 vertical-align : middle;
+	width: 400px;
+	height: 450px;
+    vertical-align : middle;
 }
 .gallery .full{
-	width: 500px;
-	height: 530px;
+	width: 410px;
+ 	height: 460px; 
 }
 .gallery .previews a, .gallery .full {
 	border: 4px solid #888888;
@@ -129,6 +133,6 @@ body {
 
 /* �վ�p�Ϥؤo */
 .small {
-	width: 100px;
-	height: 94px;
+	width: 80px;
+	height: 80px;
 }
