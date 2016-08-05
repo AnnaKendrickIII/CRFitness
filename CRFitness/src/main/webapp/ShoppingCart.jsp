@@ -206,9 +206,9 @@ jQuery(function($){
 				'<div class="col-xs-4"><span hidden="hidden">'+this[0][0].productDetail_Id+'</span><h4 class="productname"><strong>'+
 				this[0][1]+'</strong></h4><h4 class="size"><small>尺寸 : '+this[0][0].size+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</small></h4><h4 class="color"><small>顏色 : '+this[0][0].color+'</small></h4></div>'+
 				'<div class="col-xs-6">'+
-				'<div class="col-xs-6 text-right"><h5><strong class="price">'+
+				'<div class="col-xs-4 text-right"><h5><strong class="price">'+
 				this[0][2]+'</strong><span class="text-muted">&nbsp&nbspx&nbsp</span></h5></div>'
-				+'<div class="col-xs-4"><strong><button class="btn btn-primary btn-select btn-select-light"><input hidden="hidden" type="text" class="btn-select-input" id="" name="" value="" />'
+				+'<div class="col-xs-6"><strong><button class="btn btn-primary btn-select btn-select-light"><input hidden="hidden" type="text" class="btn-select-input" id="" name="" value="" />'
 				+'<strong><span class="btn-select-value">'+this[1]+'</span>'
                 +'<span class="btn-select-arrow glyphicon glyphicon-chevron-down"></span></strong>'
      			+'<ul class="num"></ul></button></div>'

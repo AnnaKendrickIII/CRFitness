@@ -24,6 +24,9 @@ background-position:center; /*置放位置 下面 左邊*/
 .btn-md{
 width: 150px;
 }
+.Amount_div{
+text-align: center;
+}
 </style>
 </head>
 <body>
@@ -59,9 +62,9 @@ width: 150px;
     </div>
    </div>
     <div class="row">
- 		<div class="col-md-2"></div>
-	    <div id="productDetailbody" class="col-md-8 col-xs-12 col-sm-12"></div> 	    
-	 	<div class="col-md-2"></div>
+ 		<div class="col-md-1"></div>
+	    <div id="productDetailbody" class="col-md-10 col-xs-12 col-sm-12"></div> 	    
+	 	<div class="col-md-1"></div>
 	 		 	
     </div>
 
@@ -91,11 +94,11 @@ jQuery(function($){
 				var count=0;
 				var CarContent="";
 				$.each(data,function(index){
-					CarContent+='<div class="row"><div class="col-lg-4 col-md-4 col-xs-4 car_img_div">'
+					CarContent+='<div class="row"><div class="col-sm-4 col-md-4 col-xs-4 car_img_div">'
 					+'<img class="img-responsive" src="${this_contextPath}/images/products/'
 					+this[0][0].productDetail_Id+'_1.png"/></div>'
-					+'<div class="col-lg-4 col-md-4 col-xs-4"><div class="row car_name_div"><strong >'+this[0][1]+'</strong></div></div>'
-					+'<div class="col-lg-4 col-md-4 col-xs-4"><div class="row Car_price_div"><strong >$'
+					+'<div class="col-sm-4 col-md-4 col-xs-4"><div class="row car_name_div"><strong >'+this[0][1]+'</strong></div></div>'
+					+'<div class="col-sm-4 col-md-4 col-xs-4"><div class="row Car_price_div"><strong >$'
 					+this[0][2]+'</strong></div ><div class="row num_car_div"><strong >數量:'+this[1][0]+'</strong></div ></div></div>'
 					count++;
 				})
@@ -142,18 +145,18 @@ $.ajax({
 							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"/></a>'
 							+'</div>'
 							+'<div class="full">'
-							+'<img data-lity alt="'+data[0][0].productDetail_Id+'" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
+							+'<img class="img-responsive" data-lity alt="'+data[0][0].productDetail_Id+'" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
 							+'</div>'
 							+'</div></div>'
 							+'<div class="col-md-5 col-sm-12 col-xs-12">'
 							+'<h2 style="color:blue"><strong>'+data[0][1] 
-							+'</strong><h2/><br/><p style="color:#888888"><div>顏色 : '
+							+'</strong><h2/><p style="color:#888888"><div>顏色 : '
 							+data[0][0].color
 							+'</div><div>剩餘數量 : '
 							+data[0][0].stock
 							+'</div></p>'
-							+'</br></br><div><strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
-							+'</p></strong></div></br><div><h3 style="color:#FF3333"><strong>特價 : '+data[0][2]+'</strong></h3></div></br>'
+							+'</br><div><strong>商品介紹 :</br><p>'+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+data[0][4]
+							+'</p></strong></div><div><h3 style="color:#FF3333"><strong>特價 : '+data[0][2]+'</strong></h3></div></br>'
 // 							+'<div class="btn btn-warning" href="https://youtu.be/2Vhlzdj6Csw?autoplay=1&controls=0&showinfo=0&autohide=1" data-lity><i class="fa fa-ban" aria-hidden="true"></i>&nbsp&nbsp千萬不要按&nbsp!</div>'
 							+'&nbsp&nbsp&nbsp<div class="btn btn-danger addCart"><span hidden="hidden">'+data[0][0].productDetail_Id+'</span><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</div>'
 							+'&nbsp&nbsp&nbsp<a href=<%=request.getHeader("referer")%> class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span>&nbsp&nbsp繼續購物</a>'

@@ -57,7 +57,6 @@ jQuery(function($){
 	                  {"header":"商品圖片", "key":"productDetail_Id", "template":'<a href="${this_contextPath}/ProductDetail.jsp?productDetail_Id={{productDetail_Id}}"><img class="photo" src="${this_contextPath}/images/products/{{productDetail_Id}}_1.png"/></a>'},
 	                  {"header":"商品名稱", "key":"product_Name"},
 	                  {"header":"數量", "key":"quantity"},
-	                  {"header":"尺寸", "key":"size"},
 	                  {"header":"顏色", "key":"color"},
 	                  {"header":"價格", "key":"amount"},
 	  
