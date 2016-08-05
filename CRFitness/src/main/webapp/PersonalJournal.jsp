@@ -743,7 +743,7 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 						divGrid.find('div.timeline-panel:last')
 						.prepend('<button type="button" title="移除此篇日誌" class="close fa-2x removeJournal" aria-label="Close"><span aria-hidden="true">&times;</span></button>')
 						
-						divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username" data-type="textarea" data-placement="right" ></a>')
+						divGrid.find('p.userContents:last').text(this[0].contents).wrap('<a href="#" class="username userContents" data-type="textarea" data-placement="right" ></a>')
 						
 						}else{
 							$('div.statusSelect').hide()
