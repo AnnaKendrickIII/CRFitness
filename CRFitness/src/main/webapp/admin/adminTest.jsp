@@ -145,7 +145,7 @@ text-align: center;
 							<!-- WHITE PANEL - TOP USER -->
 							<div class="white-panel pn">
 								<div class="white-header">
-									<h5>頂級會員</h5>
+									<h5><strong>頂級會員</strong></h5>
 								</div>
 								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="80"></p>
 								<p><b>Rose</b></p>
@@ -263,9 +263,9 @@ text-align: center;
                       		<img class="img-circle" src="${this_contextPath}/images/members/${adminOK.member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p><muted>${adminOK.nickname}</muted><br/>
+                      		<p><muted>${adminOK.nickname}</muted>{ChatTime}<br/>
                       		    contents.<br/>
-                      		    {ChatTime}
+                      		    
                       		</p>
                       	</div>
                       </div>
@@ -343,8 +343,9 @@ text-align: center;
 	<script type="text/javascript">
 	jQuery(function ($) {
 		// 1.新增產品的程式   開始
-		  $('#addbtn').click(function () {
+		  $('#addNotice').click(function () {
 			  	var formData = new FormData();
+				formData.append('member_Id', $(adminOK.member_Id));
 				formData.append('chat_Detail', $('#giveNotifaction').val());
 			   $.ajax({
 	               url:"${this_contextPath}/CRFSERVICE/chatControllerBE/giveNotices",
@@ -355,21 +356,21 @@ text-align: center;
 	               success:function(data){
 	               console.log(data);
 //	               console.log(data[0][1].product_Status);
-	            	   $('#??????').modal('hide');	
-	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="${this_contextPath}/images/products/' // <img src="data:image/png;base64,' 
-		   							+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                     // + data[1].photo1 
-									+ '</td><td><h4>'                                                                                                       // + '" class="img-thumbnail" /></td><td>' 
-									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
-									+ '</td><td hidden="hidden">'
-									+ data[0][0].info
-									+ '</td><td hidden="hidden">'
-					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
-									+ '</td></tr>') // end of after				
-						$("tr").fadeIn(800);
-						$('#insert_name').val(''); // 值的清空
-						file = null;			  // file的清空
+// 	            	   $('#??????').modal('hide');	
+// 	   					$('#products_tbody>tr:nth-child(1)').before('<tr><td><img src="${this_contextPath}/images/products/' // <img src="data:image/png;base64,' 
+// 		   							+ data[0][1].productDetail_Id+'_1.png" class="img-circle img-responsive" />'                                     // + data[1].photo1 
+// 									+ '</td><td><h4>'                                                                                                       // + '" class="img-thumbnail" /></td><td>' 
+// 									+ pdate_value.Format("yyyy-MM-dd hh:mm:ss")
+// 									+ '</td><td hidden="hidden">'
+// 									+ data[0][0].info
+// 									+ '</td><td hidden="hidden">'
+// 					                + data[0][1].product_Status
+// 									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+// 									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
+// 									+ '</td></tr>') // end of after				
+// 						$("tr").fadeIn(800);
+// 						$('#giveNotifaction').val(''); // 值的清空
+// 						file = null;			  // file的清空
 	               	} // end of success:function(data)	 
 	           }) // end of  $.ajax({
 	}) // end of $('#addbtn').click(function ()

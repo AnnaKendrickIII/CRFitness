@@ -35,11 +35,12 @@ public class ChatControllerBE {
 		return chatService.select_NoReade_Friends_message(member_Id, friend_Id);	
 	}
 	
-	// 變更好友對本人發送訊息 未讀為已讀
+	// 
 	@RequestMapping(method = RequestMethod.POST, value ="/giveNotices")
-	public @ResponseBody void update_NoReade_Friends_message(
-			@RequestParam String member_Id, @RequestParam String friend_Id){	
-		 chatService.update_NoReade_Friends_message(member_Id, friend_Id);	
+	public @ResponseBody void giveNotices(
+			@RequestParam String member_Id, 
+			@RequestParam String chat_Detail) {	
+		 chatService.insertNotification(member_Id, chat_Detail);	
 	}
 	
 	// 

@@ -12,6 +12,7 @@ public class ChatVO implements Serializable{
 	private String chat_Detail;	
 	private Timestamp chatTime ;
 	private Integer ChatStuts;  // 1: (已處理) 2: 好友申請 insert (未讀) 3: 好友申請 (已讀) 4: (取消申請) 隱藏
+							    // 5: 管理員發佈公告
 	
 	public Integer getChatStuts() {
 		return ChatStuts;
