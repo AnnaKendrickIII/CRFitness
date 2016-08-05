@@ -28,7 +28,7 @@
 <link href="${this_contextPath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <style>
  body   {    
-    background-color: #f5f5f5;  
+    background-color: #F0F0F0;  
 }  
 textarea{
 	resize: none;
@@ -496,7 +496,7 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 			    				   $("#boxer").remove();
 			    				   $('body').toggleClass();		
 			    				     		
-			    				   errorAlert('北七膩', '你已經參加過了');
+			    				   errorAlert('你已經參加過了');
 
 			    			   }else if(data[0]=='已額滿'){
 			    				   $("#boxer-overlay").remove();
@@ -681,7 +681,7 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 				    	li_direction
 				    	+ '<div class="timeline-badge primary"><a>'
 				    	+ invert 	
-				    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel" id="remove_journal">'
+				    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div class="timeline-panel" id="">'
 				    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 				    	+ this[0].journal_Id+'" /></a></div>'
 				    	+ '<div class="timeline-body">'
@@ -875,7 +875,7 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 									    	li_direction
 									    	+ '<div class="timeline-badge primary"><a>'
 									    	+ invert 	
-									    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div hidden="hidden" class="timeline-panel" id="remove_journal">'
+									    	+ 'rel="tooltip" title="於 '+jdate_value.Format("yyyy-MM-dd hh:mm")+' 建立" id="I5"></i></a></div><div hidden="hidden" class="timeline-panel" id="">'
 									    	+ '<button type="button" title="移除此篇日誌" class="close fa-2x removeJournal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
 									    	+ '<div class="timeline-heading"><a href=""><img class="img-journal" src="${this_contextPath}/CRFSERVICE/commonJournalController/photo/'
 									    	+ data.journal_Id+'" /></a></div>'

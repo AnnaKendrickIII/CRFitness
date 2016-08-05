@@ -1,14 +1,13 @@
 .columns .ui-table {
 	border-collapse: collapse;
 	border-width: 1px 1px 0 1px;
-	border-style: solid;
-	border-color: #ccc;
+
 	width: 100%
 }
 
 .columns .ui-table thead tr {
-	background-image: -webkit-linear-gradient(top, #dbdbdb 10%, #b8b8b8 100%);
-	background-image: linear-gradient(to bottom, #dbdbdb 10%, #b8b8b8 100%);
+		background: -webkit-linear-gradient(to bottom, #0072E2 10%, #5599ff 100%);
+	background: linear-gradient(to bottom, #0072E2 10%, #5599ff 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DBDBDB',
 		endColorstr='#B8B8B8', GradientType=0);
 	color: #333;
@@ -64,8 +63,8 @@
 }
 
 .columns .ui-table-footer {
-	background-image: -webkit-linear-gradient(top, #cbcbcb 10%, #aaa 100%);
-	background-image: linear-gradient(to bottom, #cbcbcb 10%, #aaa 100%);
+	background: -webkit-linear-gradient(to bottom, #0072E2 10%, #5599ff 100%);
+	background: linear-gradient(to bottom, #0072E2 10%, #5599ff 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#CBCBCB',
 		endColorstr='#AAAAAA', GradientType=0);
 	border-top: 1px solid #878787;
@@ -124,12 +123,12 @@
 
 .columns .ui-columns-search {
 	font-size: 14px;
-	background: -webkit-linear-gradient(top, #d1d1d1 10%, #a7a7a8 100%);
-	background: linear-gradient(to bottom, #d1d1d1 10%, #a7a7a8 100%);
+	background: -webkit-linear-gradient(to bottom, #0072E2 10%, #5599ff 100%);
+	background: linear-gradient(to bottom, #0072E2 10%, #5599ff 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#D1D1D1',
 		endColorstr='#A7A7A8', GradientType=0);
 	padding: 10px;
-	border-bottom: 1px solid #878787;
+
 	text-align: right
 }
 

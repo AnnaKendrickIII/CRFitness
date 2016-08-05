@@ -11,4 +11,5 @@ public interface MemberDAO_interface {
           public MemberVO findByPrimaryKey(String member_Id);
           public List<MemberVO> select_email (String e_mail);
           public List<MemberVO> getAll();
+          public List<MemberVO> getAllMembers();
 }

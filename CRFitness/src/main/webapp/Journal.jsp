@@ -21,6 +21,12 @@
 <script src="${this_contextPath}/js/modernizr.custom.js"></script>
 
 <style type="text/css">
+ body   {    
+    background-color: #F0F0F0;  
+}  
+.gallery-img{
+ background-color:white; 
+}
 .Emoticons{
 width: 40px;
 height: 40px;

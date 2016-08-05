@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-	<title>MaintainMembers</title>
+	<title>維護會員</title>
     
     <jsp:include page="/admin/adminFrame.jsp"/>
   </head>
@@ -149,7 +149,7 @@ th{
 
 // 1.顯示會員的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAll",
+		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAllMembers",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {

@@ -74,7 +74,7 @@
                     <a href="${this_contextPath}/Games.jsp"><i class="fa fa-flag-checkered"></i>賽事</a>
                 </li>
                  <li>
-                    <a href="#"><i class="fa fa-road" ></i>路線規劃</a>
+                    <a href="${this_contextPath}/googlemap.jsp"><i class="fa fa-road" ></i>路線規劃</a>
                 </li>                    
             </ul>
         </div>
@@ -215,20 +215,38 @@
 				 $.each(data,function(index){	
 					var jdate_int = parseInt(this.chatTime);                          //轉換成數字
 		 		   var jdate_value = new Date(jdate_int);
+					if(this.member_Id=='${LoginOK.member_Id}'){
+						$('#'+userID+' .msg_container_base').prepend(
+								'<div class="row msg_container base_sent ">'
+								+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+			 		            +'<div class="messages msg_sent">'
+			 		            +'<p>'+this.chat_Detail+'</p>'         
+			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+			 		            +'</div>'
+			 		            +'</div>'
+			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+			 		            +'</div>'
+			 		            +'</div>' 
+	 							 
+						 )
+					}else{
 						$('#'+userID+' .msg_container_base ').prepend(
-	 								'<div class="row msg_container base_receive ">'
-	 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
-	 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
-	 			 		            +'</div>'     
-	 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
-	 			 		            +'<div class="messages msg_sent">'
-	 			 		            +'<p>'+this.chat_Detail+'</p>'         
-	 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
-	 			 		            +'</div>'
-	 			 		            +'</div>'
-	 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
-	 			 		            +'</div>' 		         	
-							 )									 
+ 								'<div class="row msg_container base_receive ">'
+ 			 		            +'<div class="col-md-2 col-xs-2 message_div avatar">'
+ 			 		            +'<img class="msimg" src="${this_contextPath}/CRFSERVICE/memberController/photo/'+this.member_Id+'" class=" img-responsive ">'
+ 			 		            +'</div>'     
+ 			 		            +'<div class=" col-md-9 col-xs-9 message_div">'
+ 			 		            +'<div class="messages msg_sent">'
+ 			 		            +'<p>'+this.chat_Detail+'</p>'         
+ 			 		            +'<time datetime="">'+ jdate_value.Format("MM-dd hh:mm:ss")+'</time>'
+ 			 		            +'</div>'
+ 			 		            +'</div>'
+ 			 		        	+'<div class=" col-md-1 col-xs-1 message_div"></div>'
+ 			 		            +'</div>' 		         	
+						 )		
+					}										 
 				 })
 				 if(data!=''){
 					 $('#'+userID+' .msg_container_base ').prepend('<hr>')				 

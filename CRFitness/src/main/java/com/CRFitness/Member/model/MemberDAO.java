@@ -20,6 +20,9 @@ public class MemberDAO implements MemberDAO_interface {
 
 	private static final String GET_ALL_STMT = "from MemberVO ";
 	private static final String SELECT_EMALL = "from MemberVO where e_mail=:e_mail";
+	private static final String SELECT_ONLY_MEMBERS = "from MemberVO where member_Id like 'member%'";
+	
+	
 	@Autowired
 	private SessionFactory sessionFactory ;
 
@@ -74,6 +77,12 @@ public class MemberDAO implements MemberDAO_interface {
 	@Override
 	public List<MemberVO> getAll() {
 			Query query = this.getSession().createQuery(GET_ALL_STMT);
+		return (List<MemberVO>) query.list();
+	}
+	
+	@Override
+	public List<MemberVO> getAllMembers() {
+		Query query = this.getSession().createQuery(SELECT_ONLY_MEMBERS);
 		return (List<MemberVO>) query.list();
 	}
 

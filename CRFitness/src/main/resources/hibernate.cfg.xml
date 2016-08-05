@@ -40,6 +40,7 @@
 		<mapping resource="com/CRFitness/Products/model/products.hbm.xml" />
 		<mapping resource="com/CRFitness/Games/model/games.hbm.xml" />
 		<mapping resource="com/CRFitness/Chats/model/chat.hbm.xml" />
+		<mapping resource="com/CRFitness/RoutePlan/model/routePlan.hbm.xml"/>
 	</session-factory>
 	
 </hibernate-configuration>

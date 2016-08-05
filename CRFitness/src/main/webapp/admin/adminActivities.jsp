@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-	<title>MaintainActivities</title>
+	<title>維護揪團</title>
     
     <jsp:include page="/admin/adminFrame.jsp"/>
   </head>

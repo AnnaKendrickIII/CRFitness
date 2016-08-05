@@ -22,8 +22,8 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor{
 			MemberVO vo=null;
 			if(servletRequest.getSession().getAttribute("LoginOK")!=null){
 				vo=(MemberVO)servletRequest.getSession().getAttribute("LoginOK");
+				map.put("WEBSOCKET_USERNAME", vo.getMember_Id());
 			}
-			map.put("WEBSOCKET_USERNAME", vo.getMember_Id());
 //			servletRequest.getSession().setAttribute("WEBSOCKET_USERNAME", vo.getMember_Id());
 		}
 		return true;
