@@ -145,7 +145,7 @@ text-align: center;
 								<div class="white-header">
 									<h5>頂級會員</h5>
 								</div>
-								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="60"></p>
+								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="80"></p>
 								<p><b>Rose</b></p>
 								<div class="row">
 									<div class="col-md-6">
@@ -262,10 +262,10 @@ text-align: center;
                       <!-- First Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${LoginOK.member_Id}.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/${adminOK.member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p><a href="#">${LoginOK.nickname}</a><br/>
+                      		<p><a href="#">${adminOK.nickname}</a><br/>
                       		   <muted>Available</muted>
                       		</p>
                       	</div>

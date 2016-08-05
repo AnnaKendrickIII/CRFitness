@@ -268,10 +268,10 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
-             	<c:if test="${! empty LoginOK }">  	  
+             	<c:if test="${! empty adminOK }">  	  
              		<script type="text/javascript">
-             			$('.sidebar-menu').prepend('<p class="centered"><a href="${this_contextPath}/admin/adminIndex.jsp"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${LoginOK.member_Id}" class="img-circle" width="60"></a></p>'
-         	 			+'<h5 class="centered">${LoginOK.nickname}</h5>')
+             			$('.sidebar-menu').prepend('<p class="centered"><a href="${this_contextPath}/admin/adminIndex.jsp"><img src="${this_contextPath}/CRFSERVICE/memberController/photo/${adminOK.member_Id}" class="img-circle" width="60"></a></p>'
+         	 			+'<h5 class="centered">${adminOK.nickname}</h5>')
              		</script >
               	</c:if>
                   <li class="mt">
@@ -340,7 +340,7 @@
       <!--sidebar end-->
       
 <!-- 登入對話方塊   開始 -->   
-    <c:if test="${empty LoginOK}">
+    <c:if test="${empty adminOK}">
       	<script type="text/javascript"> 	 
         	$(function () {
             	Custombox.open({
@@ -372,7 +372,7 @@
 						    type="submit" value="SIGN_IN">
 							<i class="fa fa-lock"></i>&nbsp;&nbsp;SIGN IN
 					</button>
-					<div class="error_div">${LoginErrorMessage}</div>
+					<div class="error_div">${adminLoginError}</div>
 				</div>
 			</div>
 		</form>
@@ -453,12 +453,11 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     </script>
-    <c:if test="${!empty LoginOK}">
+    <c:if test="${!empty adminOK}">
   <script type="text/javascript">
   
-  var userID = '${LoginOK.member_Id}';
+  var userID = '${adminOK.member_Id}';
   var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
-
   ws.onerror = function(event)
   {
   	alert(event);
