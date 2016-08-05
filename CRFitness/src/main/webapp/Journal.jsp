@@ -23,7 +23,7 @@
 <style type="text/css">
 .Emoticons{
 width: 40px;
-height: 36px;
+height: 40px;
 float:left;
 }
 a{
@@ -47,7 +47,7 @@ margin: 0px;
 .message_img{
 margin-right:0px;
 width: 36px;
-height: 32px;
+height: 36px;
 }
 .message_name_span{
 font-size: 16px;

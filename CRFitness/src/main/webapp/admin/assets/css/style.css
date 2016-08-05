@@ -418,7 +418,7 @@ ul.sidebar-menu li a.active i {
 
 .black-bg {
 /*     background: #ffd777; #00c6d2 */
-    background: #d9ad72; 
+    background: #98ddde; 
 /*     border-bottom: 1px solid #c9aa5f; */
     border-bottom: 1px solid #3890ae;
 }
@@ -1543,6 +1543,38 @@ PANELS CONFIGURATIONS
 /* Profile 02*/
 #profile-02 {
 	background: url(../img/profile-02.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 200px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#profile-03 {
+	background: url(../img/activity3038.jpg) no-repeat center top;
+	margin-top: -15px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 200px;
+	width: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#profile-04 {
+	background: url(../img/journal2014.jpg) no-repeat center top;
 	margin-top: -15px;
 	background-attachment: relative;
 	background-position: center center;

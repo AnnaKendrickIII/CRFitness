@@ -93,13 +93,7 @@ th{
         	<div class="content-panel">
 
 			<div class="row">
-				<div class="col-md-10 col-xs-10">
-		<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
-  		<i class="fa fa-plus-square" aria-hidden="true"></i>
-  		</button>
-				</div>
-
-				<div class="col-md-2 col-xs-2">
+				<div class="col-md-12 col-xs-12">
 					<div id="sb-search" class="sb-search">
 						<form>
 							<input id="tablesearchinput" class="sb-search-input" placeholder="關鍵字" type="text" value="" name="search"> 

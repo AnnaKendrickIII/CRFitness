@@ -10,8 +10,15 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Index</title>
-	
+    <title>管理員維護專區</title>
+<style type="text/css">
+textarea{
+	resize: none;
+}
+.notifaction_modal_header{
+text-align: center;
+}
+</style>	
     <jsp:include page="/admin/adminFrame.jsp"/>
     	
   </head>
@@ -40,7 +47,7 @@
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_megaphone"></span>
+					  			<span class="li_bubble"></span>
 					  			<h3>+14</h3>
                   			</div>
 					  			<p>本周有 14 個新揪團活動</p>
@@ -59,16 +66,32 @@
                   			</div>
 					  			<p>本周有 10 篇新的健康日誌</p>
                   		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
+                  		<a data-toggle="modal" class="col-md-2 col-sm-2 box0" href="#notifaction">
                   			<div class="box1">
-					  			<span class="li_banknote"></span>
-					  			<h3>OK!</h3>
-                  			</div>
-					  			<p>目前資金流動情況OK</p>
-                  		</div>
-                  	
-                  	</div> <!-- 33 row mtbox -->	
-                  
+					  			<span class="li_megaphone"></span>
+					  			<h3>公告</h3>
+                  			</div>	  			
+                  		</a>	
+                  	</div> <!-- 33 row mtbox -->
+<!--                   	公告開始	 -->
+                   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="notifaction" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header notifaction_modal_header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3 class="modal-title">公告</h3>
+                            </div>
+                            <div class="modal-body">
+                                <textarea   id="notifactionMessage" placeholder="公告訊息"  class="form-control" >
+                           		</textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>                    
+                                <button  class="btn alv-secondary notifaction_Submit" type="button" >Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                   
                  <!-- PANEL STARTS -->     
                       <div class="row mt"> <!-- FIRST ROW -->
@@ -98,7 +121,7 @@
 										];
 										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
 								</script>
-	                      	</div><! --/grey-panel -->
+	                      	</div>
                       	</div><!-- /col-md-4-->
                       	
                       	
@@ -111,7 +134,7 @@
 								<div class="chart mt">
 									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
 								</div>
-								<p class="mt"><b>$ 17,980</b><br/>月收入</p>
+								<p class="mt"><b>NT$ 817,980</b><br/>月收入</p>
 							</div>
 						</div><!-- /col-md-4 -->
 
@@ -122,7 +145,7 @@
 								<div class="white-header">
 									<h5>頂級會員</h5>
 								</div>
-								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="100" height="80"></p>
+								<p><img src="${this_contextPath}/images/members/member1011.jpg" class="img-circle" width="80"></p>
 								<p><b>Rose</b></p>
 								<div class="row">
 									<div class="col-md-6">
@@ -131,7 +154,7 @@
 									</div>
 									<div class="col-md-6">
 										<p class="small mt">TOTAL SPEND</p>
-										<p>$ 47000,60</p>
+										<p>$ 27,260</p>
 									</div>
 								</div>
 							</div>
@@ -142,46 +165,36 @@
                     
 					<div class="row"> <!-- SECOND ROW -->
 
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="content-panel pn">
-                      			<div class="white-header centered">
-						  			<h5><strong>熱門日誌</strong></h5>
-                      			</div>
-	                      		<div class="centered">
-									<img class="img-rounded" src="${this_contextPath}/images/Journal/journal2016.jpg" class="img-thumbnail" width="360" height="200">
-									<h4>雪符&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 18</a><a href="#"> | <i class="fa fa-heart"></i> 49</a></h4>
-	                      		</div>
-                      		</div>
-                      	</div><!-- /col-md-4 -->
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="content-panel pn">
+								<div id="profile-04">
+								</div>
+								<div class="pr2-social centered">
+									<h5><strong>熱門日誌&nbsp;&nbsp;&nbsp;<i class="fa fa-comment"></i>6 | <i class="fa fa-heart"></i>9</strong></h5>
+								</div>
+							</div> <!--/panel -->
+						</div> <!--/ col-md-4 -->
 						
 						<div class="col-lg-4 col-md-4 col-sm-4 mb">
 							<div class="content-panel pn">
-                      			<div class="white-header centered">
-						  			<h5><strong>熱門揪團</strong></h5>
-                      			</div>							
-									<div class="centered">
-										<img src="${this_contextPath}/images/activitys/activityBE.jpg" class="img-thumbnail" width="360" height="180">
-										<h4>井藍&nbsp;&nbsp;&nbsp;<a href="#"><i class="fa fa-comment"></i> 79</a><a href="#"> | <i class="fa fa-heart"></i> 200</a></h4>
-									</div>
-							</div> <!-- /panel -->
-						</div> <!-- / col-md-4 -->  
-
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn">
-                      			<div class="white-header">
-						  			<h5><strong>熱銷商品</strong></h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-8 col-xs-8 goleft">
-										<p>男子UA Curry 2.5籃球鞋&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i> 122</p>
-									</div>
-									<div class="col-sm-4 col-xs-4"></div>
-	                      		</div>
-	                      		<div >
-									<img class="img-rounded" src="${this_contextPath}/images/products/prodDetail5020_1.png" width="210" height="180">
-	                      		</div>
-                      		</div>
-                      	</div><!-- /col-md-4 -->
+								<div id="profile-03">
+								</div>
+								<div class="pr2-social centered">
+									<h5><strong>熱門揪團&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i>Jason</strong></h5>
+								</div>
+							</div> <!--/panel -->
+						</div> <!--/ col-md-4 -->
+						
+						<div class="col-lg-4 col-md-4 col-sm-4 mb">
+							<div class="product-panel-2 pn">
+								<div class="badge badge-hot">HOT</div>
+								<img src="${this_contextPath}/images/products/prodDetail5020_1.png" width="125" alt="">
+								<h5 class="mt">男子UA Curry 2.5籃球鞋</h5>
+								<h6>單價：NT$3,650</h6>
+								<button class="btn btn-small btn-theme04">熱銷商品</button>
+							</div>
+						</div> <!--/col-md-4 -->						
+						
 						
 					</div> <!-- END SECOND ROW -->
 					
@@ -241,74 +254,18 @@
       *********************************************************************************************************************************************************** -->                  
                   
                   <div class="col-lg-3 ds">
-                    <!--COMPLETED ACTIONS DONUTS CHART-->
-						<h3>NOTIFICATIONS</h3>
-                                        
-                      <!-- First Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>2 Minutes Ago</muted><br/>
-                      		   <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Second Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>3 Hours Ago</muted><br/>
-                      		   <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>7 Hours Ago</muted><br/>
-                      		   <a href="#">Brandon Page</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>11 Hours Ago</muted><br/>
-                      		   <a href="#">Mark Twain</a> commented your post.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>18 Hours Ago</muted><br/>
-                      		   <a href="#">Daniel Pratt</a> purchased a wallet in your store.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-
-                       <!-- USERS ONLINE SECTION -->
+                    <h3>公告訊息</h3>
+                    <div class="desc">
+                      	
+                      </div>            
 						<h3>管理員</h3>
                       <!-- First Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${LoginOK.member_Id}.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/${adminOK.member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p><a href="#">${LoginOK.nickname}</a><br/>
+                      		<p><a href="#">${adminOK.nickname}</a><br/>
                       		   <muted>Available</muted>
                       		</p>
                       	</div>
@@ -404,6 +361,7 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     </script>
+  
   
   </body>
 </html>
