@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>管理員維護專區</title>
+    <title>管理者專區</title>
 <style type="text/css">
 textarea{
 	resize: none;
@@ -47,7 +47,7 @@ text-align: center;
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_bubble"></span>
+					  			<span class="li_photo"></span>
 					  			<h3>+14</h3>
                   			</div>
 					  			<p>本周有 14 個新揪團活動</p>
@@ -79,7 +79,7 @@ text-align: center;
                         <div class="modal-content">
                             <div class="modal-header notifaction_modal_header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h3 class="modal-title">公告</h3>
+                                <h3 class="modal-title">訊息公告</h3>
                             </div>
                             <div class="modal-body">
                                 <textarea   id="notifactionMessage" placeholder="公告訊息"  class="form-control" >
