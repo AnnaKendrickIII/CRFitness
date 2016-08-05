@@ -43,7 +43,7 @@ select {
 }
 
 div.distance {
-	margin-left: 5%;
+/* 	margin-left: 5%; */
 	font-size: 16px;
 	color: blue;
 }
@@ -72,31 +72,36 @@ padding-left: 0
     <div class="col-lg-3 col-md-3 col-xs-3">
     </div>
     <div id="floating-panel" class="col-lg-5 col-md-5 col-xs-5">
+    
      <div class="row ">
-     <div class="col-lg-12 col-md-12 col-xs-12 form-group form-group-sm">
-     <label class="col-sm-2 control-label label_div" for="start "> <strong>Start: </strong></label>    
-      <div class="col-sm-10 label_input_div">
-      <input class="form-control" id="start" type="text" >
-    </div>
-	</div>
-	<div class="col-lg-12 col-md-12 col-xs-12 form-group form-group-sm">
-     <label class="col-sm-2 control-label label_div" for="end "> <strong>End: </strong></label>    
-      <div class="col-sm-10 label_input_div">
-      <input class="form-control" id="end" type="text" >
-    </div>
-	</div>
-    <div class="col-lg-12 col-md-12 col-xs-12">   
-	<input class="" id='submitPath' type="button"  value='提交'>
-	</div>
-	</div>
+	    <div class="col-lg-12 col-md-12 col-xs-12 form-group form-group-sm">
+	    <label class="col-sm-2 control-label label_div" for="start "> <strong>Start: </strong></label>    
+	    <div class="col-sm-10 label_input_div">
+	    <input class="form-control" id="start" type="text" >
+	    </div>
+		</div>
+		<div class="col-lg-12 col-md-12 col-xs-12 form-group form-group-sm">
+	    <label class="col-sm-2 control-label label_div" for="end "> <strong>End: </strong></label>    
+	    <div class="col-sm-10 label_input_div">
+	    <input class="form-control" id="end" type="text" >
+	    </div>
+		</div>
+	    <div class="col-lg-12 col-md-12 col-xs-12">   
+		<input class="" id='submitPath' type="button"  value='提交'>
+		</div>
+	</div> 
+	
 	   <div class="col-lg-12 col-md-12 col-xs-12">   
-    <div class="distance" ></div>
+    		<div class="distance" ></div>
+    	</div>
+  </div>
+</div>
+    
+    <div class="col-lg-4 col-md-4 col-xs-4"> 
     </div>
-    </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-xs-4">
-    </div>
+    
 </aside>
+<!--     <div><br/></div> -->
     <div id="map"></div>
     
     <!--海拔高低圖放在這，求神人幫忙-->
@@ -215,6 +220,8 @@ padding-left: 0
                     //取得距離(正整數，公里)
                     dist = parseFloat(strTmp).toString();
                     $('div.distance').text('總長 '+ dist+' 公里')
+                    
+                    // aa 判斷是否歷史路徑
                     if(aa != 0){
                         // 寫入資料庫
                     	$.ajax({
@@ -226,8 +233,11 @@ padding-left: 0
             					'dist':dist,
             					'routePlanStatus':1},
             				success:function(data){
-            					if(data){
-            						console.log(data)
+            					if(data != undefined){
+            						if(!$('#table_PathId>:first-child').is('tbody')){
+            							$('.historyPath').append('<tr><th>起點</th><th>終點</th><th>總里程</th><th>記錄日期</th></tr>')
+            						}
+            						$('.historyPath>tbody').append('<tr><td>'+data.startPoint+'</td><td>'+data.endPoint+'</td><td>'+data.mileage+'(公里)</td><td>'+new Date(data.route_Plan_Date).Format("yyyy-MM-dd hh:mm:ss")+'</td></tr>')
             					}
             				}
             			});
@@ -247,9 +257,9 @@ padding-left: 0
 			type:'get',
 			data:{'member_Id':'${LoginOK.member_Id}'},
 			success:function(data){
-				if(data != ''){
+				if(data.length != 0){
 					$.each(data, function(idx){
-						if(idx == 1){
+						if(idx == 0){
 							$('.historyPath').append('<tr><th>起點</th><th>終點</th><th>總里程</th><th>記錄日期</th></tr>')
 						}
 						$('.historyPath>tbody').append('<tr><td>'+this.startPoint+'</td><td>'+this.endPoint+'</td><td>'+this.mileage+'(公里)</td><td>'+new Date(this.route_Plan_Date).Format("yyyy-MM-dd hh:mm:ss")+'</td></tr>')
@@ -259,8 +269,6 @@ padding-left: 0
 		})
 
 
-
-        
         
         
         //function successCallback(position) {
