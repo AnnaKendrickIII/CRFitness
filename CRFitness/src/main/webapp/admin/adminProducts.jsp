@@ -16,7 +16,7 @@
   </head>
 
 <script type="text/template" id="qq-template-manual-trigger">
-        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">
+        <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
                 <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="50" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
             </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="buttons">
                 <div class="qq-upload-button-selector qq-upload-button">
-                    <div>Select files</div>
+                    <div>選擇或拖曳</div>
                 </div>
             </div>
             <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">
@@ -359,33 +359,33 @@ textarea{
                             
                     <div id="updateProducts_form" class="modal-body">
                     <div id='fine-uploader-manual-trigger2'></div>
-            	        <p>產品ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+            	        <h5><strong>產品ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="update_prodId" autocomplete="off" class="form-control" />                                                
-                        <p>產品明細ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品明細ID&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="update_prodDetId" autocomplete="off" class="form-control" />                                                
-                        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="update_name" autocomplete="off" class="form-control" />                                                
-                        <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                    		<input required="required" type="text" id="update_size" autocomplete="off" class="form-control" />
-                        <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p>
+                        <h5><strong>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></strong></h5>
                         <input required="required" type="text" id="update_color" autocomplete="off" class="form-control" />
-                        <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="update_stock" autocomplete="off" class="form-control" />
-                        <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="update_price" autocomplete="off" class="form-control" />
-                        <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <select id="update_category" name="test2" class="form-control" >
 							<option value="上裝">上裝</option>
 							<option value="下裝">下裝</option>
 							<option value="鞋類">鞋類</option>
 							<option value="配件">配件</option>
 						</select>
-                        <p>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <select id="update_status" name="test3" class="form-control" >
 							<option value="上架">上架</option>
 							<option value="下架">下架</option>
 						</select>
-                        <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <textarea id="update_info" required="required" class="form-control" ></textarea>
                      </div> <!-- end of id="updateProducts_form" class="modal-body" -->
                      
