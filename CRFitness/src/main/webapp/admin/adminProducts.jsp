@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>MaintainProducts</title>
+    <title>維護商品</title>
     
     <jsp:include page="/admin/adminFrame.jsp"/>
   </head>
