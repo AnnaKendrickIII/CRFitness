@@ -81,7 +81,7 @@ width: 150px;
 <script type="text/javascript">
 
 jQuery(function($){
-	$('.shopping_car_div').popover()
+
 	function showCart(){
 		$.ajax({
 			url:'${this_contextPath}/CRFSERVICE/productDetailController/showCart',
@@ -126,7 +126,7 @@ var queryString='${pageContext.request.queryString}';
 	queryString=queryString.substring(17);
 	jQuery(function($){
 		$('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/logo/ProductDetail.png">')
-		
+			$('.shopping_car_div').popover()
 $.ajax({
 	url:'${this_contextPath}/CRFSERVICE/productDetailController/findByPrimaryKeySQLQuery',
 	type:'get',

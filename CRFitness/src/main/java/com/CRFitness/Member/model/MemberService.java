@@ -199,6 +199,11 @@ public class MemberService {
 			return false;
 	}
 	
+	// back-end: 僅列出會員，沒有管理員
+	public List<MemberVO> getAllMembers() {
+		return memberDAO.getAllMembers();
+	}
+	
 	public void updatemember(MemberVO memberVO) {
 		memberDAO.update(memberVO);
 	}

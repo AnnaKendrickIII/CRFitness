@@ -1,9 +1,9 @@
 ﻿.timeline-heading{
 	padding : 10px;
+	
 }
 
 .img-journal{
-	border : 10px solid #F5F5F5;
     display: block;
     margin :auto;
     width :100%;
@@ -22,7 +22,7 @@
   position: absolute;
   content: " ";
   width: 3px;
-  background-color: #eeeeee;
+  background-color: white;
   left: 50%;
   margin-left: -1.5px;
 }
@@ -51,6 +51,7 @@
   clear: both;
 }
 .timeline > li > .timeline-panel {
+	    background-color: white;
 	/*2.0版本
 	width: 46%;
 	 */
@@ -149,7 +150,6 @@
 }
 .timeline-footer{
     padding:20px;
-    background-color:#f4f4f4;
 }
 .timeline-footer > a{
     cursor: pointer;

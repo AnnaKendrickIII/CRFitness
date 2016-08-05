@@ -28,7 +28,7 @@
 <link href="${this_contextPath}/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 <style>
  body   {    
-    background-color: #f5f5f5;  
+    background-color: #F0F0F0;  
 }  
 textarea{
 	resize: none;
