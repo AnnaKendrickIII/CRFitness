@@ -74,8 +74,6 @@ jQuery(function($){
 	    				location.href='${this_contextPath}/Products.jsp?category=cmens-tops&page=1'
 		     		  });	
 	     	 }else{
-
-
 		          $('#orderscolumns').columns({	  
 		              data:json,
 		              schema: [
@@ -89,15 +87,21 @@ jQuery(function($){
 		                  {"header":"付款方式", "key":"payment_Method"},
 		                  {"header":"取消訂單", "template":'<div class="cancel btn btn-defult glyphicon glyphicon-trash" title="取消此筆訂單"></div>'}
 		              ]
-	 	          });	
+	 	          });
+		
 				$.each(json,function(index){	
 					var tr = $('tbody>tr').length
 					var date_int = parseInt(json[index].order_Time);                          //轉換成數字
 		 		   	  var date_value = new Date(date_int);
 					var data = date_value.Format("yyyy-MM-dd hh:mm")
 					$('tbody tr:eq('+index+') td:eq(6)').text(data)
-
+					var status = $('tbody tr:eq('+index+') td:eq(2)').text()
+					console.log(status)
+					if(status=='已出貨'){
+						$('tbody tr:eq('+index+') td:eq(8)').text('無法取消')
+					}
 				})
+
 	     	 }	     	 
 	      }
 	  });
