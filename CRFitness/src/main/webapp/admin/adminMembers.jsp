@@ -149,7 +149,7 @@ th{
 
 // 1.顯示會員的程式   開始
 	$.ajax({
-		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAll",
+		url : "${this_contextPath}/CRFSERVICE/memberControllerBE/getAllMembers",
 		type : 'get', //get post put delete
 		data : {},
 		success : function(data) {

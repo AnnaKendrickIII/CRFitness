@@ -311,29 +311,29 @@ textarea{
                             
                     <div id="addProducts_form" class="modal-body">
                     <div id='fine-uploader-manual-trigger'></div>
-            	        <p>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+            	        <h5><strong>產品名稱&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="insert_name" autocomplete="off" class="form-control" placeholder="輸入名稱" />                                                
-                        <p>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></p>
+                        <h5><strong>產品大小&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red" ></span></strong></h5>
                    		<input required="required" type="text" id="insert_size" autocomplete="off" class="form-control" placeholder="輸入大小" />
-                        <p>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品顏色&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                    		<input required="required" type="text" id="insert_color" autocomplete="off" class="form-control" placeholder="輸入顏色" />                        
-                        <p>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品數量&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="insert_stock" autocomplete="off" class="form-control" placeholder="輸入數量" />
-                        <p>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品價格&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <input required="required" type="text" id="insert_price" autocomplete="off" class="form-control" placeholder="輸入價格" />
-                        <p>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品分類&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <select id="insert_category" name="test2" class="form-control" >
 							<option value="上裝">上裝</option>
 							<option value="下裝">下裝</option>
 							<option value="鞋類">鞋類</option>
 							<option value="配件">配件</option>
 						</select>
-                        <p>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品狀態&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <select id="insert_status" name="test3" class="form-control" >
 							<option value="上架">上架</option>
 							<option value="下架">下架</option>
 						</select>
-                        <p>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></p>
+                        <h5><strong>產品簡介&nbsp&nbsp&nbsp<span style="color:red"></span></strong></h5>
                         <textarea id="insert_info" required="required" class="form-control" ></textarea>    
                      </div> <!-- end of id="addProducts_form" class="modal-body" -->
                      
@@ -354,7 +354,7 @@ textarea{
                 	
                     <div class="modal-header login_header">
                     	<button type="button" class="close btn-theme03" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title" id="myModalLabel2"><strong>修改產品</strong></h3>
+                        <h3 class="modal-title" id="myModalLabel2"><strong>修   改   產   品</strong></h3>
                     </div>
                             
                     <div id="updateProducts_form" class="modal-body">
@@ -551,8 +551,8 @@ textarea{
 									+ data[0][0].info
 									+ '</td><td hidden="hidden">'
 					                + data[0][1].product_Status
-									+ '</td><td><button type="button" class="btn alv-primary btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
-									+ '</td><td><button type="button" class="btn alv-primary btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 2g" data-toggle="modal" data-target="#update_products"><i class="fa fa-refresh" aria-hidden="true"></i>'
+									+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#status_products"><span class="easyswitch insertSwitch'+count+'" data-default="'+Status+'" data-label-on="上架" data-label-off="下架"></span>'
 									+ '</td></tr>') // end of after				
 						// 產品狀態switch的程式 開始
 						$('.insertSwitch'+count).easyswitch();

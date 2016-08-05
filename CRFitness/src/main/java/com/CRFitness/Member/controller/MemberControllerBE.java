@@ -25,9 +25,9 @@ public class MemberControllerBE {
 	private MemberService memberService;
 	
 	// select members，新增的列顯示在最上面
-	@RequestMapping(method = RequestMethod.GET, value = "/getAll", produces = "application/json; charset=utf-8")
+	@RequestMapping(method = RequestMethod.GET, value = "/getAllMembers", produces = "application/json; charset=utf-8")
 	public @ResponseBody List<MemberVO> getAll(HttpServletRequest request) {
-		return memberService.getAll();
+		return memberService.getAllMembers();
 	}
 	
 	// change status
