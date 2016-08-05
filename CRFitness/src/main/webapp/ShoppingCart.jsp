@@ -111,7 +111,7 @@
 					<div class="col-md-4">
 						<input id="email" name="email" type="email"
 							placeholder="E-mail" class="form-control input-lg"
-							autocomplete="off">
+							autocomplete="off" value="${LoginOK.e_mail}">
 					</div>
 					<div class="error_email"><span>${ErrorMessage.error_email}</span></div>
 				</div>
