@@ -67,6 +67,10 @@ margin-left: 5%;
 
 text-align: center;
 font-size: 24px;
+    border: 1px solid black;
+     box-shadow: 5px 0px 20px #999;/*�϶����v box-shadow:1.���k�������v 2.�W�U�������v 3.���v�ҽk 4.���v�C��*/
+	-moz-box-shadow: 5px 0px 20px #999; /* Firefox */
+    -webkit-box-shadow: 5px 0px 20px #999; /* Safari, Chrome */
  -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
