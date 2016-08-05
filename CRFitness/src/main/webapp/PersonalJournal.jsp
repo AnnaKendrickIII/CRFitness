@@ -496,7 +496,7 @@ $('.logo_here').append('<img  class=" logo_css" src="${this_contextPath}/images/
 			    				   $("#boxer").remove();
 			    				   $('body').toggleClass();		
 			    				     		
-			    				   errorAlert('北七膩', '你已經參加過了');
+			    				   errorAlert('你已經參加過了');
 
 			    			   }else if(data[0]=='已額滿'){
 			    				   $("#boxer-overlay").remove();
