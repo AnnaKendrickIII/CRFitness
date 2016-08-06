@@ -93,15 +93,4 @@ public class ChatService {
 			}	 
 		}
 	
-	// back-end:
-	public ChatVO insertNotification(String member_Id, String chat_Detail){
-		ChatVO chatVO = new ChatVO();
-		chatVO.setMember_Id(member_Id);
-//		chatVO.setFriend_Id(friend_Id);
-//		chatVO.setChatTime(time);
-		chatVO.setChat_Detail(chat_Detail);
-		chatVO.setChatStuts(5);
-		return chatDAO.insert(chatVO);
-	}
-	
 }
