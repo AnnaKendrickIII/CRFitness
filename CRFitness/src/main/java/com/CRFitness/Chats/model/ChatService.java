@@ -91,6 +91,11 @@ public class ChatService {
 					chatVO.setChatStuts(4);
 					chatDAO.updateNoReade_status(chatVO);		
 			}	 
-		}
+	}
+	
+	// back-end: 顯示最後3筆公告
+	public List<ChatVO> select_Three_Notices(){
+		return chatDAO.show_Three_Notices();
+	}
 	
 }

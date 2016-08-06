@@ -16,4 +16,5 @@ public interface ChatDAO_interface {
 	public List<ChatVO>  select_NoReade_FriendsforMe_message (String member_Id,String friend_Id);
 	public List<ChatVO>  select_notifaction_NoRead_message (String member_Id,String friend_Id);
 	public List<ChatVO> select_AddFriends_ChatStuts(String member_Id);
+	public List<ChatVO> show_Three_Notices();
 }
