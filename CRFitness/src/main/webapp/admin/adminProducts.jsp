@@ -212,7 +212,7 @@ textarea{
 
 <body>
 <!-- 每頁不同內容   開始 -->
-  <section id="container" >
+  <section id="container-fluid" >
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
@@ -222,17 +222,17 @@ textarea{
 	
 	<div class="row mt">
 <!-- 		<div class="col-md-1"></div> -->
-    	<div class="col-md-12 col-xs-12">
+    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         	<div class="content-panel">
 
 			<div class="row">
-				<div class="col-md-10 col-xs-10">
-		<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
-  		<i class="fa fa-plus-square" aria-hidden="true"></i>
-  		</button>
+				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+					<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
+  					<i class="fa fa-plus-square" aria-hidden="true"></i>
+  					</button>
 				</div>
 
-				<div class="col-md-2 col-xs-2">
+				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 					<div id="sb-search" class="sb-search">
 						<form>
 							<input id="tablesearchinput" class="sb-search-input" placeholder="請輸入關鍵字" type="text" value="" name="search"> 
