@@ -25,9 +25,9 @@ public class ChatControllerBE<chatVO> {
 	
 	// 查詢最後3則公告
 	@RequestMapping(method = RequestMethod.GET, value ="/showThreeNotices", produces = "application/json; charset=utf-8")
-	public @ResponseBody List<ChatVO> showThreeNotices(
+	public @ResponseBody List<Object[]> showThreeNotices(
 			HttpServletRequest request){
-			List<ChatVO> chatVO = chatService.select_Three_Notices();
+			List<Object[]> chatVO = chatService.select_Three_Notices();
 			request.getSession().setAttribute("chatVO", chatVO);
 		return chatVO;	
 	}

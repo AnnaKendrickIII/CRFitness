@@ -94,7 +94,7 @@ public class ChatService {
 	}
 	
 	// back-end: 顯示最後3筆公告
-	public List<ChatVO> select_Three_Notices(){
+	public List<Object[]> select_Three_Notices(){
 		return chatDAO.show_Three_Notices();
 	}
 	

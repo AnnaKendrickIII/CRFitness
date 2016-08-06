@@ -256,38 +256,38 @@ textarea{
                   
                   <div class="col-lg-3 ds">
                     
-                    <h3><strong>公告訊息</strong></h3>
              	<c:if test="${! empty chatVO }">                      
+                    <h3><strong>公告訊息</strong></h3>
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${adminOK.member_Id}.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[2][0].member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p>發布者：<muted>${chatVO[2].member_Id}</muted><br/>
-                      			${chatVO[2].chatTime}<br/>
-                      		    ${chatVO[2].chat_Detail}
+                      		<p>發布者：<muted>${chatVO[2][1]}</muted><br/>
+                      			${chatVO[2][0].chatTime}<br/>
+                      		    ${chatVO[2][0].chat_Detail}
                       		</p>
                       	</div>
                       </div>
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${adminOK.member_Id}.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[1][0].member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p>發布者：<muted>${chatVO[1].member_Id}</muted><br/>
-                      			${chatVO[1].chatTime}<br/>
-                      		    ${chatVO[1].chat_Detail}
+                      		<p>發布者：<muted>${chatVO[1][1]}</muted><br/>
+                      			${chatVO[1][0].chatTime}<br/>
+                      		    ${chatVO[1][0].chat_Detail}
                       		</p>
                       	</div>
                       </div>
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${adminOK.member_Id}.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[0][0].member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
-                      		<p>發布者：<muted>${chatVO[0].member_Id}</muted><br/>
-                      			${chatVO[0].chatTime}<br/>
-                      		    ${chatVO[0].chat_Detail}
+                      		<p>發布者：<muted>${chatVO[0][1]}</muted><br/>
+                      			${chatVO[0][0].chatTime}<br/>
+                      		    ${chatVO[0][0].chat_Detail}
                       		</p>
                       	</div>
                       </div>
