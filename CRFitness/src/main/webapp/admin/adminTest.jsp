@@ -69,7 +69,7 @@ textarea{
                   		<a data-toggle="modal" class="col-md-2 col-sm-2 box0" href="#notifaction">
                   			<div class="box1">
 					  			<span class="li_megaphone"></span>
-					  			<h3>公告</h3>
+					  			<h3>PUSH</h3> <!-- <span class="badge bg-theme">1</span> -->
                   			</div>	  			
                   		</a>	
                   	</div> <!-- 33 row mtbox -->
@@ -256,9 +256,9 @@ textarea{
                   
                   <div class="col-lg-3 ds">
                     
-             	<c:if test="${! empty chatVO }">                      
-                    <h3><strong>公告訊息</strong></h3>
-                      <div class="desc">
+                    <h3><strong>公   告   訊   息</strong></h3>
+             	<c:if test="${! empty chatVO[2] }">                      
+                      <div class="desc" id="last">
                       	<div class="thumb">
                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[2][0].member_Id}.jpg" width="35px" height="35px" align="">
                       	</div>
@@ -269,6 +269,21 @@ textarea{
                       		</p>
                       	</div>
                       </div>
+              	</c:if>
+<%--              	<c:if test="${! empty chatVO[2] }">                       --%>
+<!--                       <div class="desc" id="last"> -->
+<!--                       	<div class="thumb"> -->
+<%--                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[2][0].member_Id}.jpg" width="35px" height="35px" align=""> --%>
+<!--                       	</div> -->
+<!--                       	<div class="details"> -->
+<%--                       		<p>發布者：<muted>${chatVO[2][1]}</muted><br/> --%>
+<%--                       			${chatVO[2][0].chatTime}<br/> --%>
+<%--                       		    ${chatVO[2][0].chat_Detail} --%>
+<!--                       		</p> -->
+<!--                       	</div> -->
+<!--                       </div> -->
+<%--               	</c:if> --%>
+             	<c:if test="${! empty chatVO[1] }">               	                 
                       <div class="desc">
                       	<div class="thumb">
                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[1][0].member_Id}.jpg" width="35px" height="35px" align="">
@@ -280,6 +295,8 @@ textarea{
                       		</p>
                       	</div>
                       </div>
+                </c:if>      
+             	<c:if test="${! empty chatVO[0] }">                       
                       <div class="desc">
                       	<div class="thumb">
                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[0][0].member_Id}.jpg" width="35px" height="35px" align="">
@@ -291,44 +308,9 @@ textarea{
                       		</p>
                       	</div>
                       </div>
-              	</c:if>                 
-                                
-					<h3>管理員</h3>
-                      <!-- First Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${adminOK.member_Id}.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">${adminOK.nickname}</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Second Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/admin002.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Alvin</a><br/>
-                      		   <muted>I am Busy</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/admin003.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Cartman</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-
-                        <!-- CALENDAR-->
+                 </c:if>              
+                  
+        	<!-- CALENDAR-->
                         <div id="calendar" class="mb">
                             <div class="panel green-panel no-margin">
                                 <div class="panel-body">
@@ -366,6 +348,7 @@ textarea{
 	
 	<script type="application/javascript">
         $(document).ready(function () {
+            $("#last").fadeIn(800);
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
             $("#date-popover").click(function (e) {
