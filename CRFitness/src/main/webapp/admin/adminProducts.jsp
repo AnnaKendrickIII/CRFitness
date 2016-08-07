@@ -515,7 +515,7 @@ textarea{
 	    		   processData: false,
 				   contentType: false,
 	               success:function(data){
-	               console.log(data);
+// 	               console.log(data);
 // 	               console.log(data[0][1].published_Date);
 // 	               console.log(data[0][1].product_Status);
 						var pdate_int = parseInt(data[0][1].published_Date); //轉換成數字

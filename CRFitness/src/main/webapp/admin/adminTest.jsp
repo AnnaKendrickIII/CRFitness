@@ -88,7 +88,7 @@ textarea{
                             </div>
                             <div class="modal-footer">
                                 <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>                    
-                                <button  class="btn alv-secondary notifaction_Submit" type="button" >Submit</button>
+                                <button class="btn alv-secondary submit_Notice_btn" type="button">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@ textarea{
 			<div id="post_notice">
             	<h3><strong>公   告   訊   息</strong></h3>
             </div>
-<%--              	<c:if test="${! empty chatVO[2] }"> --%>
+<%--              	<c:if test="${! empty chatVO }"> --%>
              	
 	<script>
 		jQuery(function ($) {
@@ -285,7 +285,7 @@ textarea{
 			}
 			//轉換日期的小程式 結束
 			
-			// 顯示公告
+		// 顯示已貼公告
 			$.ajax({
 				url : "${this_contextPath}/CRFSERVICE/chatControllerBE/showThreeNotices",
 				type : 'get', //get post put delete
@@ -310,11 +310,10 @@ textarea{
 			                      	'</div>'+
 			                     '</div>'				
 							);
-					}) // end of $.each(
-		            $("#post_notice").fadeIn(800);
-				} // end of success : function(data) 
-			}) // end of $.ajax({
-		});
+					}) // end $.each(
+				} // end success : function(data) 
+			}) // end $.ajax({
+	}); // end jQuery(function ($) {
 	</script>
                       
 <%--               	</c:if> --%>
@@ -360,7 +359,8 @@ textarea{
 <!--                       	</div> -->
 <!--                       </div> -->
 <%--                  </c:if>               --%>
-<!-- 公告結束 -->                    
+<!-- 公告結束 -->                 
+   
         	<!-- CALENDAR-->
                         <div id="calendar" class="mb">
                             <div class="panel green-panel no-margin">

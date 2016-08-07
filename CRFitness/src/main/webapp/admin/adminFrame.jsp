@@ -480,7 +480,7 @@
 	  var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
       ws.send(msg);
   })
-  $('body').on('click','.notifaction_Submit',function(){
+  $('body').on('click','.submit_Notice_btn',function(){
 	  
 	  var val=$('#notifactionMessage').val();
 	  val = val.replace(/\r?\n/g, '</br> ');
@@ -488,6 +488,7 @@
       ws.send(msg);
       $('#notifactionMessage').val('');
       $('#notifaction').modal('hide');
+      $(".desc").fadeIn(800);
   })
   </script> 
   </c:if>

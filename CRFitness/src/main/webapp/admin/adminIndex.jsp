@@ -10,7 +10,7 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>C.R.Fitness 管理者專區</title>
+    <title>C.R.Fitness 管理者系統</title>
 <style type="text/css">
 textarea{
 	resize: none;
@@ -69,7 +69,7 @@ textarea{
                   		<a data-toggle="modal" class="col-md-2 col-sm-2 box0" href="#notifaction">
                   			<div class="box1">
 					  			<span class="li_megaphone"></span>
-					  			<h3>PUSH</h3>
+					  			<h3>PUSH</h3> <!-- <span class="badge bg-theme">1</span> -->
                   			</div>	  			
                   		</a>	
                   	</div> <!-- 33 row mtbox -->
@@ -88,7 +88,7 @@ textarea{
                             </div>
                             <div class="modal-footer">
                                 <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>                    
-                                <button  class="btn alv-secondary notifaction_Submit" type="button" >Submit</button>
+                                <button class="btn alv-secondary submit_Notice_btn" type="button">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -253,46 +253,114 @@ textarea{
       <!-- **********************************************************************************************************************************************************
       RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->                  
-                  
-                  <div class="col-lg-3 ds">
-                    
-             	<c:if test="${! empty chatVO }">                      
-                    <h3><strong>公告訊息</strong></h3>
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[2][0].member_Id}.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p>發布者：<muted>${chatVO[2][1]}</muted><br/>
-                      			${chatVO[2][0].chatTime}<br/>
-                      		    ${chatVO[2][0].chat_Detail}
-                      		</p>
-                      	</div>
-                      </div>
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[1][0].member_Id}.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p>發布者：<muted>${chatVO[1][1]}</muted><br/>
-                      			${chatVO[1][0].chatTime}<br/>
-                      		    ${chatVO[1][0].chat_Detail}
-                      		</p>
-                      	</div>
-                      </div>
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[0][0].member_Id}.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p>發布者：<muted>${chatVO[0][1]}</muted><br/>
-                      			${chatVO[0][0].chatTime}<br/>
-                      		    ${chatVO[0][0].chat_Detail}
-                      		</p>
-                      	</div>
-                      </div>
-              	</c:if>                 
-                                
+<!-- 公告開始 -->                    
+      <div class="col-lg-3 ds" >
+			<div id="post_notice">
+            	<h3><strong>公   告   訊   息</strong></h3>
+            </div>
+<%--              	<c:if test="${! empty chatVO }"> --%>
+             	
+	<script>
+		jQuery(function ($) {
+		    // 轉換日期的小程式 開始
+			Date.prototype.Format = function(fmt) {
+				var o = {
+					"M+" : this.getMonth() + 1, //月份 
+					"d+" : this.getDate(), //日 
+					"h+" : this.getHours(), //小时 
+					"m+" : this.getMinutes(), //分 
+					"s+" : this.getSeconds(), //秒 
+					"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
+					"S" : this.getMilliseconds()	//毫秒 
+				};
+				if (/(y+)/.test(fmt))
+					fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+							.substr(4 - RegExp.$1.length));
+				for ( var k in o)
+					if (new RegExp("(" + k + ")").test(fmt))
+						fmt = fmt.replace(RegExp.$1,
+						(RegExp.$1.length == 1) ? (o[k])
+						: (("00" + o[k]).substr(("" + o[k]).length)));
+				return fmt;
+			}
+			//轉換日期的小程式 結束
+			
+		// 顯示已貼公告
+			$.ajax({
+				url : "${this_contextPath}/CRFSERVICE/chatControllerBE/showThreeNotices",
+				type : 'get', //get post put delete
+				data : {},
+				success : function(data) {
+// 		 			console.log(data);
+					$.each(data, function(index) {		
+							var ndate_int = parseInt(this[0].chatTime); //轉換成數字
+							var ndate_value = new Date(ndate_int);
+// 		 			console.log(this[0]);
+// 		 			console.log(this[1]);
+							$('#post_notice').append(
+								'<div class="desc">'+
+			                      	'<div class="thumb">'+
+			                      		'<img class="img-circle" src="${this_contextPath}/images/members/'+ this[0].member_Id +'.jpg" width="35px" height="35px" align="">'+
+			                      	'</div>'+
+			                      	'<div class="details">'+
+			                      		'<p>發布者：<muted>'+ this[1] +'</muted><br/>'
+			                      			+ ndate_value.Format("yyyy-MM-dd hh:mm:ss") +'<br/>'
+			                      		    + this[0].chat_Detail +
+			                      		'</p>'+
+			                      	'</div>'+
+			                     '</div>'				
+							);
+					}) // end $.each(
+				} // end success : function(data) 
+			}) // end $.ajax({
+	}); // end jQuery(function ($) {
+	</script>
+                      
+<%--               	</c:if> --%>
+<!-- 第3則公告 -->              	
+<%--              	<c:if test="${! empty chatVO[2] }">                       --%>
+<!--                       <div class="desc" id="last"> -->
+<!--                       	<div class="thumb"> -->
+<%--                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[2][0].member_Id}.jpg" width="35px" height="35px" align=""> --%>
+<!--                       	</div> -->
+<!--                       	<div class="details"> -->
+<%--                       		<p>發布者：<muted>${chatVO[2][1]}</muted><br/> --%>
+<%--                       			${chatVO[2][0].chatTime}<br/> --%>
+<%--                       		    ${chatVO[2][0].chat_Detail} --%>
+<!--                       		</p> -->
+<!--                       	</div> -->
+<!--                       </div> -->
+<%--               	</c:if> --%>
+<!-- 第2則公告 -->  
+<%--              	<c:if test="${! empty chatVO[1] }">               	                  --%>
+<!--                       <div class="desc"> -->
+<!--                       	<div class="thumb"> -->
+<%--                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[1][0].member_Id}.jpg" width="35px" height="35px" align=""> --%>
+<!--                       	</div> -->
+<!--                       	<div class="details"> -->
+<%--                       		<p>發布者：<muted>${chatVO[1][1]}</muted><br/> --%>
+<%--                       			${chatVO[1][0].chatTime}<br/> --%>
+<%--                       		    ${chatVO[1][0].chat_Detail} --%>
+<!--                       		</p> -->
+<!--                       	</div> -->
+<!--                       </div> -->
+<%--                 </c:if> --%>
+<!-- 第1則公告 -->                        
+<%--              	<c:if test="${! empty chatVO[0] }">                        --%>
+<!--                       <div class="desc"> -->
+<!--                       	<div class="thumb"> -->
+<%--                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[0][0].member_Id}.jpg" width="35px" height="35px" align=""> --%>
+<!--                       	</div> -->
+<!--                       	<div class="details"> -->
+<%--                       		<p>發布者：<muted>${chatVO[0][1]}</muted><br/> --%>
+<%--                       			${chatVO[0][0].chatTime}<br/> --%>
+<%--                       		    ${chatVO[0][0].chat_Detail} --%>
+<!--                       		</p> -->
+<!--                       	</div> -->
+<!--                       </div> -->
+<%--                  </c:if>               --%>
+<!-- 公告結束 -->                 
+   
         	<!-- CALENDAR-->
                         <div id="calendar" class="mb">
                             <div class="panel green-panel no-margin">
@@ -307,7 +375,7 @@ textarea{
                             </div>
                         </div><!-- / calendar -->
                         
-                  </div> <!-- 245 /col-lg-3 -->
+                  </div> <!-- 257 /col-lg-3 -->
               </div> <!-- 30 /row -->
               
           </section> <!-- 28 <section class="wrapper"> -->
