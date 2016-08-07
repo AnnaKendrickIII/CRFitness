@@ -132,7 +132,7 @@
 			return fmt;
 		}
 	//轉換日期的小程式 結束
-	}); // end 269 jQuery(function($){
+	}); // end 74 jQuery(function($){
 </script>
 <style>
 #trigger-upload {
