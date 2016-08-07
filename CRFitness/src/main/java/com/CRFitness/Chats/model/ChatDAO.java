@@ -18,7 +18,7 @@ import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 public class ChatDAO implements ChatDAO_interface {
 
 	private static final String GET_ALL_STMT = "from FriendshipsVO";
-	private static final String SHOW_3_NOTICES = "SELECT Chat.*, Members.Nickname from Chat join Members on Chat.Member_Id = Members.Member_Id where friend_Id = 'member1001' and Chat_Detail in (select distinct chat.Chat_Detail from chat where ChatStuts=5 order by Chat_Detail desc OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY)";
+	private static final String SHOW_3_NOTICES = "SELECT Chat.*, Members.Nickname FROM Chat JOIN Members ON Chat.Member_Id = Members.Member_Id WHERE friend_Id = 'member1001' AND Chat_Detail IN (SELECT chat.Chat_Detail FROM chat WHERE friend_Id = 'member1001' AND (ChatStuts=5 OR ChatStuts=4) ORDER BY Chat_Id DESC OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY)";
 	
 	@Autowired
 	private SessionFactory sessionFactory;

@@ -354,7 +354,7 @@
             });
        	</script>
 
-	<div id="login-box" class="login-popup ">
+	<div id="login-box" class="login-popup">
 		<form name="member" class="form-login"
 			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post">
 			<div id="login_div">
