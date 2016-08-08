@@ -520,24 +520,22 @@
 	  
       var ndate_int = parseInt(new Date().getTime()); //轉換成數字
       var ndate_value = new Date(ndate_int);
-//       $('#post_notice>div:nth-child(1)').remove();
-
-		// console.log();
-      $('#post_notice>div:nth-child(2)').before(
+	
+	  $('#post_notice').after(
 				'<div class="desc">'+
-                	'<div class="thumb">'+
-                		'<img class="img-circle" src="${this_contextPath}/images/members/'+ userID +'.jpg" width="35px" height="35px" align="">'+
-                	'</div>'+
-                	'<div class="details">'+
-                		'<p>發布者：<muted>${adminOK.nickname}</muted><br/>'
-                			+ ndate_value.Format("yyyy-MM-dd hh:mm:ss") +'<br/>'
-                		    + val +
-                		'</p>'+
-                	'</div>'+
-               '</div>'				
+              	'<div class="thumb">'+
+              		'<img class="img-circle" src="${this_contextPath}/images/members/'+ userID +'.jpg" width="35px" height="35px" align="">'+
+              	'</div>'+
+              	'<div class="details">'+
+              		'<p>發布者：<muted>${adminOK.nickname}</muted><br/>'
+              			+ ndate_value.Format("yyyy-MM-dd hh:mm:ss") +'<br/>'
+              		    + val +
+              		'</p>'+
+              	'</div>'+
+             '</div>'				
 		);
-      $(".desc").fadeIn(800);	  
-	  
+    	$(".desc").fadeIn(800);
+    	
       $('#notifactionMessage').val('');
       $('#notifaction').modal('hide');
   }); // end 514 

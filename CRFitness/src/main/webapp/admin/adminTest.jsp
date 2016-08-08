@@ -255,9 +255,9 @@ textarea{
       *********************************************************************************************************************************************************** -->                  
 <!-- 公告開始 -->                    
       <div class="col-lg-3 ds" >
-			<div id="post_notice">
-            	<h3><strong>公   告   訊   息</strong></h3>
-            </div>
+      	  <h3 id="test"><strong>公   告   訊   息</strong></h3>
+			  <div id="post_notice">
+              </div>
 <%--              	<c:if test="${! empty chatVO }"> --%>
              	
 	<script>
@@ -298,7 +298,7 @@ textarea{
 // 		 			console.log(this[0]);
 // 		 			console.log(this[1]);
 							$('#post_notice').append(
-								'<div class="desc" id="this[0].chat_Id">'+
+								'<div class="desc" id="'+ this[0].chat_Id +'">'+
 			                      	'<div class="thumb">'+
 			                      		'<img class="img-circle" src="${this_contextPath}/images/members/'+ this[0].member_Id +'.jpg" width="35px" height="35px" align="">'+
 			                      	'</div>'+
