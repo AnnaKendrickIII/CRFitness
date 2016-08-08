@@ -71,7 +71,8 @@
 	<script src="${this_contextPath}/admin/assets/js/search.uisearch.js"></script>
 	<!-- login dialog -->
 	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
-	<script>
+	
+	<script>	
 		jQuery(function ($) {
 		    // 轉換日期的小程式 開始
 			Date.prototype.Format = function(fmt) {
@@ -93,8 +94,9 @@
 						(RegExp.$1.length == 1) ? (o[k])
 						: (("00" + o[k]).substr(("" + o[k]).length)));
 				return fmt;
-		}
-		//轉換日期的小程式 結束
+			} // end Date.prototype.Format = function(fmt) {
+			//轉換日期的小程式 結束
+		}) // end jQuery(function ($) {
 	</script>	
 	
 	<style>
@@ -478,11 +480,13 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     </script>
-    <c:if test="${!empty adminOK}">
-  <script type="text/javascript">
+    
+  <c:if test="${!empty adminOK}">
+  	<script type="text/javascript">
   
   var userID = '${adminOK.member_Id}';
   var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
+  
   ws.onerror = function(event)
   {
   	alert(event);
@@ -497,14 +501,16 @@
   ws.onclose = function(event) { 
       var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
       ws.send(msg);
-  }; 
+  };
+  
   ws.onmessage = function(event) {
-	  
-  }
+  };
+  
   $('body').on('click','#admin_logout',function(){
 	  var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
       ws.send(msg);
-  })
+  });
+  
   $('body').on('click','.submit_Notice_btn',function(){
 	  
 	  var val=$('#notifactionMessage').val();
@@ -514,7 +520,10 @@
 	  
       var ndate_int = parseInt(new Date().getTime()); //轉換成數字
       var ndate_value = new Date(ndate_int);
-      $('#post_notice').after(
+//       $('#post_notice>div:nth-child(1)').remove();
+
+		// console.log();
+      $('#post_notice>div:nth-child(2)').before(
 				'<div class="desc">'+
                 	'<div class="thumb">'+
                 		'<img class="img-circle" src="${this_contextPath}/images/members/'+ userID +'.jpg" width="35px" height="35px" align="">'+
@@ -527,12 +536,13 @@
                 	'</div>'+
                '</div>'				
 		);
-      $(".desc").fadeIn(800);
-      
+      $(".desc").fadeIn(800);	  
+	  
       $('#notifactionMessage').val('');
       $('#notifaction').modal('hide');
-  })
-  </script> 
+  }); // end 514 
+  	</script> 
   </c:if>
+  
   </body>
 </html>
