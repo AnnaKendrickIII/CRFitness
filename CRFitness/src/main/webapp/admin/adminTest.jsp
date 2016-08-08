@@ -255,9 +255,11 @@ textarea{
       *********************************************************************************************************************************************************** -->                  
 <!-- 公告開始 -->                    
       <div class="col-lg-3 ds" >
-      	  <h3 id="test"><strong>公   告   訊   息</strong></h3>
-			  <div id="post_notice">
-              </div>
+      	<div>
+      	  <h3 id="post_notice"><strong>公   告   訊   息</strong></h3>
+      	</div>
+<!-- 		<div id="notice_section"> -->
+<!--         </div> -->
 <%--              	<c:if test="${! empty chatVO }"> --%>
              	
 	<script>
