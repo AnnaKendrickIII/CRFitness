@@ -19,7 +19,8 @@
    		   <interceptor-ref name="defaultStack"></interceptor-ref>    
 	        <result name="success" type="redirect">${preURL}</result>
             <result name="input" >${preURL}</result>
-	        <result name="adminOK" type="redirect">/admin/adminIndex.jsp</result>
+<!-- 	        <result name="adminOK" type="redirect">/admin/adminIndex.jsp</result> -->
+	        <result name="adminOK" type="redirect">/admin/adminTest.jsp</result>
             <result name="adminError" >/admin/adminFrame.jsp</result>
 		</action>
 		

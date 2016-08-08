@@ -18,7 +18,8 @@ import com.CRFitness.PersonalJournal.model.PersonalJournalVO;
 public class ChatDAO implements ChatDAO_interface {
 
 	private static final String GET_ALL_STMT = "from FriendshipsVO";
-
+	private static final String SHOW_3_NOTICES = "SELECT Chat.*, Members.Nickname FROM Chat JOIN Members ON Chat.Member_Id = Members.Member_Id WHERE friend_Id = 'member1001' AND Chat_Detail IN (SELECT chat.Chat_Detail FROM chat WHERE friend_Id = 'member1001' AND (ChatStuts=5 OR ChatStuts=4) ORDER BY Chat_Id DESC OFFSET 0 ROWS FETCH NEXT 3 ROWS ONLY) ORDER BY Chat_Id DESC";
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -135,6 +136,15 @@ public class ChatDAO implements ChatDAO_interface {
 			return query.executeUpdate();
 		}
 		return 0;
+	}
+	
+	// Back-end: 選取最後3筆公告
+	@Override
+	public List<Object[]> show_Three_Notices() {	
+		Query query = this.getSession().createSQLQuery(SHOW_3_NOTICES)
+				.addEntity(ChatVO.class)
+				.addScalar("Nickname",StringType.INSTANCE);
+		return (List<Object[]>) query.list();	
 	}
 	
 }

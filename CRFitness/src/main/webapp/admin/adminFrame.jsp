@@ -72,6 +72,33 @@
 	<!-- login dialog -->
 	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
 	
+	<script>	
+		jQuery(function ($) {
+		    // 轉換日期的小程式 開始
+			Date.prototype.Format = function(fmt) {
+				var o = {
+					"M+" : this.getMonth() + 1, //月份 
+					"d+" : this.getDate(), //日 
+					"h+" : this.getHours(), //小时 
+					"m+" : this.getMinutes(), //分 
+					"s+" : this.getSeconds(), //秒 
+					"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
+					"S" : this.getMilliseconds()	//毫秒 
+				};
+				if (/(y+)/.test(fmt))
+					fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+							.substr(4 - RegExp.$1.length));
+				for ( var k in o)
+					if (new RegExp("(" + k + ")").test(fmt))
+						fmt = fmt.replace(RegExp.$1,
+						(RegExp.$1.length == 1) ? (o[k])
+						: (("00" + o[k]).substr(("" + o[k]).length)));
+				return fmt;
+			} // end Date.prototype.Format = function(fmt) {
+			//轉換日期的小程式 結束
+		}) // end jQuery(function ($) {
+	</script>	
+	
 	<style>
  	.alv-primary { 
  		color: #fff; 
@@ -110,7 +137,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="${this_contextPath}/admin/adminIndex.jsp" class="logo"><b>C.R.F<small>itness</small> Administration</b></a>
+            <a href="${this_contextPath}/admin/adminIndex.jsp" class="logo"><b>C.R.F<small>itness</small> Administration SYSTEM</b></a>
             <!--logo end-->
 <!--             <div class="nav notify-row" id="top_menu"> -->
 <!--                  notification start -->
@@ -354,7 +381,7 @@
             });
        	</script>
 
-	<div id="login-box" class="login-popup ">
+	<div id="login-box" class="login-popup">
 		<form name="member" class="form-login"
 			action="${this_contextPath}/CRF/member!loginAdmin.do" method="post">
 			<div id="login_div">
@@ -453,11 +480,13 @@
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
     </script>
-    <c:if test="${!empty adminOK}">
-  <script type="text/javascript">
+    
+  <c:if test="${!empty adminOK}">
+  	<script type="text/javascript">
   
   var userID = '${adminOK.member_Id}';
   var ws = new WebSocket('ws://' + window.location.host + '${this_contextPath}/CRFSERVICE/echo');
+  
   ws.onerror = function(event)
   {
   	alert(event);
@@ -472,24 +501,46 @@
   ws.onclose = function(event) { 
       var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
       ws.send(msg);
-  }; 
+  };
+  
   ws.onmessage = function(event) {
-	  
-  }
+  };
+  
   $('body').on('click','#admin_logout',function(){
 	  var msg = JSON.stringify({'userID':userID, 'type':'3'});//3  關  
       ws.send(msg);
-  })
-  $('body').on('click','.notifaction_Submit',function(){
+  });
+  
+  $('body').on('click','.submit_Notice_btn',function(){
 	  
 	  var val=$('#notifactionMessage').val();
 	  val = val.replace(/\r?\n/g, '</br> ');
 	  var msg = JSON.stringify({'userID':userID,'type':'6','notifaction':val});//3  關  
       ws.send(msg);
+	  
+      var ndate_int = parseInt(new Date().getTime()); //轉換成數字
+      var ndate_value = new Date(ndate_int);
+	
+	  $('#post_notice').after(
+				'<div class="desc">'+
+              	'<div class="thumb">'+
+              		'<img class="img-circle" src="${this_contextPath}/images/members/'+ userID +'.jpg" width="35px" height="35px" align="">'+
+              	'</div>'+
+              	'<div class="details">'+
+              		'<p>發布者：<muted>${adminOK.nickname}</muted><br/>'
+              			+ ndate_value.Format("yyyy-MM-dd hh:mm:ss") +'<br/>'
+              		    + val +
+              		'</p>'+
+              	'</div>'+
+             '</div>'				
+		);
+    	$(".desc").fadeIn(800);
+    	
       $('#notifactionMessage').val('');
       $('#notifaction').modal('hide');
-  })
-  </script> 
+  }); // end 514 
+  	</script> 
   </c:if>
+  
   </body>
 </html>

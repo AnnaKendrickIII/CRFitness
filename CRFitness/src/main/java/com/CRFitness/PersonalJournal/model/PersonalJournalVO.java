@@ -16,7 +16,7 @@ public class PersonalJournalVO implements java.io.Serializable{			//個人日誌
 	private String member_Id;				//會員編號
 	private String contents;				//日誌內容
 	private Timestamp publishTime;			//發表日誌時間
-	private Integer publicStatus;			//是否公開(狀態)
+	private Integer publicStatus;			//是否公開(狀態) 1:公開  0:限本人  2:朋友  4:刪除 5:停權
 	//聯合映射帶出 留言訊息
 //	@JsonSerialize
 //	private Set<MessageDetailVO> messageDetailVOs = new HashSet<>();
