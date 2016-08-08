@@ -6,6 +6,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <jsp:include page="/CRFitness.jsp" />
+	<link href="${this_contextPath}/css/bootstrap-switch.min.css" rel="stylesheet">
     <title>Directions service</title>
     <style>
 html, body {
@@ -64,12 +65,28 @@ padding: 0;
 .label_input_div{
 padding-left: 0
 }
+#sports_itemsId>label{
+	display: block;
+}
 </style>
+<script src="${this_contextPath}/js/bootstrap-switch.min.js"></script>
   </head>
   <body>
   <aside>
 <div class="row">
     <div class="col-lg-3 col-md-3 col-xs-3">
+	    <input type="checkbox" name="my-checkbox" data-size="mini">
+		<div hidden="hidden" id='sports_itemsDiv'>
+			<form action="" id='sports_itemsId'>
+				<label><input type="text" id='weight' name="weight" value="">體重(kg)</label>
+				<label><input type="radio" name="sports_items" value="walking">走路</label>
+				<label><input type="radio" name="sports_items" value="brisk_walking">快步走</label>
+				<label><input type="radio" name="sports_items" value="jogging">慢跑</label>
+				<label><input type="radio" name="sports_items" value="running">快跑</label>
+				<label><input type="radio" name="sports_items" value="slow_cycling">騎自行車(慢)</label>
+				<label><input type="radio" name="sports_items" value="fast_cycling">騎自行車(快)</label>
+			</form>
+		</div>
     </div>
     <div id="floating-panel" class="col-lg-5 col-md-5 col-xs-5">
     
@@ -111,12 +128,55 @@ padding-left: 0
 <div class="col-lg-10 col-md-10 col-xs-10"></div>
     <div class='historyz col-lg-2 col-md-2 col-xs-2 '><p>歷史路徑</p>
       <table class="talbe table-hover historyPath" id='table_PathId'>
-      
-      
       </table>
 	</div>
 </div>
-    <script>
+
+
+
+<script>
+$("#switch-one").bootstrapSwitch();
+$("[name='my-checkbox']").bootstrapSwitch();
+
+	$('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
+		console.log(this); // DOM element
+		console.log(event); // jQuery event
+		console.log(state); // true | false
+		$('#sports_itemsDiv').toggle('show')
+	});
+	
+	$('#sports_itemsId>label>input[type="radio"]').on('change', function(){
+		var option = this.value;
+		console.log(option)
+		var h = document.getElementById('weight').value;
+		console.log(h)
+		var calorie = 0;
+		var dist = 36;
+		if(h.length>0){
+			switch(option){
+			case 'walking':
+				calorie = (dist/4)*h*3.1;
+				break;
+			case 'brisk_walking':
+				calorie = (dist/6)*h*4.4;
+				break;
+			case 'jogging':
+				calorie = (dist/8.7)*h*9.4;
+				break;
+			case 'running':
+				calorie = (dist/16)*h*13.2;
+				break;
+			case 'slow_cycling':
+				calorie = (dist/8.8)*h*3;
+				break;
+			case 'fast_cycling':
+				calorie = (dist/20.9)*h*9.7;
+				break;
+			}
+			console.log(calorie.toFixed(2));
+		}
+
+	})
         //if (navigator.geolocation) {
         //    var geo = navigator.geolocation;
         //    var option = {
@@ -221,6 +281,9 @@ padding-left: 0
                     dist = parseFloat(strTmp).toString();
                     $('div.distance').text('總長 '+ dist+' 公里')
                     
+//                     if()
+//                     	calorie_consumption_calculation(dist);
+                    
                     // aa 判斷是否歷史路徑
                     if(aa != 0){
                         // 寫入資料庫
@@ -268,8 +331,52 @@ padding-left: 0
 			}
 		})
 
+		// 熱量消耗計算 Calorie consumption calculation
+		function calorie_consumption_calculation(dist, option){
+    		var h = document.getElementById('weight').value;
+    		var calorie = 0;
+    		switch(option){
+    		case walking:
+    			calorie = (dist/4)*h*3.1;
+    			break;
+    		case brisk_walking:
+    			calorie = (dist/6)*h*4.4;
+    			break;
+    		case jogging:
+    			calorie = (dist/8.7)*h*9.4;
+    			break;
+    		case running:
+    			calorie = (dist/16)*h*13.2;
+    			break;
+    		case slow_cycling:
+    			calorie = (dist/8.8)*h*13.2;
+    			break;
+    		case fast_cycling:
+    			calorie = (dist/20.9)*h*13.2;
+    			break;
+    		}
+    		console.log(calorie);
+    	}
+        /*
+        計算公式：體重 x消耗熱量 = 每小時可消耗的大卡數 
+例如 60 公斤成人跑步1小時消耗 = 60 x 13.2 = 792大卡
 
-        
+走路(4公里/小時)	3.1
+快步走(6.0公里/小時)	4.4
+慢跑(145公尺/每分鐘)	9.4
+跑步(16公里/小時)	13.2
+
+騎腳踏車(8.8公里/小時)	3
+騎腳踏車(20.9公里/小時)	9.7
+
+Walking (4 km / h) 3.1
+Brisk walking (6.0 km / h) 4.4
+Jogging (145 m / min) 9.4
+Running (16 km / h) 13.2
+
+Slow cycling (8.8 km / h) 3
+Fast cycling (20.9 km / h) 9.7
+        */
         
         //function successCallback(position) {
         //    theLatitude = position.coords.latitude;
@@ -286,7 +393,8 @@ padding-left: 0
         //    alert(errorTypes[error.code]);
         //    alert("code=" + error.code + " " + error.message); //開發測試時用
         //}
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdVhZR-wdOPj-O6nMCAdicPp9UpktHTUE&signed_in=true&callback=initMap" async defer></script>
-  </body>
+</script>
+</body>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdVhZR-wdOPj-O6nMCAdicPp9UpktHTUE&signed_in=true&callback=initMap" async defer></script>
 </html>
