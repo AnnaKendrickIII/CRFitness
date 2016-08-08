@@ -71,6 +71,31 @@
 	<script src="${this_contextPath}/admin/assets/js/search.uisearch.js"></script>
 	<!-- login dialog -->
 	<script src="${this_contextPath}/admin/assets/js/custombox.js"></script>
+	<script>
+		jQuery(function ($) {
+		    // 轉換日期的小程式 開始
+			Date.prototype.Format = function(fmt) {
+				var o = {
+					"M+" : this.getMonth() + 1, //月份 
+					"d+" : this.getDate(), //日 
+					"h+" : this.getHours(), //小时 
+					"m+" : this.getMinutes(), //分 
+					"s+" : this.getSeconds(), //秒 
+					"q+" : Math.floor((this.getMonth() + 3) / 3), //季度 
+					"S" : this.getMilliseconds()	//毫秒 
+				};
+				if (/(y+)/.test(fmt))
+					fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "")
+							.substr(4 - RegExp.$1.length));
+				for ( var k in o)
+					if (new RegExp("(" + k + ")").test(fmt))
+						fmt = fmt.replace(RegExp.$1,
+						(RegExp.$1.length == 1) ? (o[k])
+						: (("00" + o[k]).substr(("" + o[k]).length)));
+				return fmt;
+		}
+		//轉換日期的小程式 結束
+	</script>	
 	
 	<style>
  	.alv-primary { 
@@ -486,9 +511,26 @@
 	  val = val.replace(/\r?\n/g, '</br> ');
 	  var msg = JSON.stringify({'userID':userID,'type':'6','notifaction':val});//3  關  
       ws.send(msg);
+	  
+      var ndate_int = parseInt(new Date().getTime()); //轉換成數字
+      var ndate_value = new Date(ndate_int);
+      $('#post_notice').after(
+				'<div class="desc">'+
+                	'<div class="thumb">'+
+                		'<img class="img-circle" src="${this_contextPath}/images/members/'+ userID +'.jpg" width="35px" height="35px" align="">'+
+                	'</div>'+
+                	'<div class="details">'+
+                		'<p>發布者：<muted>${adminOK.nickname}</muted><br/>'
+                			+ ndate_value.Format("yyyy-MM-dd hh:mm:ss") +'<br/>'
+                		    + val +
+                		'</p>'+
+                	'</div>'+
+               '</div>'				
+		);
+      $(".desc").fadeIn(800);
+      
       $('#notifactionMessage').val('');
       $('#notifaction').modal('hide');
-      $(".desc").fadeIn(800);
   })
   </script> 
   </c:if>
