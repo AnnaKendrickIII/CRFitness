@@ -257,7 +257,7 @@ textarea{
       <div class="col-lg-3 ds" >
       	
       	<div id="post_notice">
-      		<div id="notice_section">
+      		<div id="notice_header">
       	  		<h3><strong>公   告   訊   息</strong></h3>
       	  	</div>
       	</div>
