@@ -171,7 +171,7 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 			// 撈出現在所有訂單
 			int totalShips = ordersService.searchAllOrders().size();
 			session.setAttribute("totalShips", totalShips);
-			// 撈出現在所有健康日誌
+			// 撈出現在所有健康日誌、個人日誌
 			int totalJons = personalJournalDAOService.showAllJournals().size();
 			session.setAttribute("totalJons", totalJons);
 			

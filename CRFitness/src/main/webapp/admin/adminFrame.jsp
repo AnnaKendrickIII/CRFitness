@@ -120,6 +120,15 @@
  		background-color: #00b3a3;
 		border-color: #00b3a3;
  	}
+ 	
+ 	textarea {
+		resize: none;
+	}
+	
+	.notifaction_modal_header {
+		text-align: center;
+	}
+ 	
 	</style>
 	
   </head>

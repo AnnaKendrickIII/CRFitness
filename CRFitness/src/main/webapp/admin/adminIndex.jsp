@@ -12,12 +12,7 @@
 
     <title>C.R.Fitness 管理者系統</title>
 <style type="text/css">
-textarea{
-	resize: none;
-}
-.notifaction_modal_header{
-	text-align: center;
-}
+
 </style>	
     <jsp:include page="/admin/adminFrame.jsp"/>
     	
@@ -41,30 +36,30 @@ textarea{
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
 					  			<span class="li_like"></span>
-					  			<h3>${tatalMems}</h3>
+					  			<h3>+ ${tatalMems}</h3>
                   			</div>
 					  			<p>${tatalMems} 位會員喜歡您的網站！</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_photo"></span>
-					  			<h3>+14</h3>
+					  			<h3>+ ${tatalActs}</h3>
                   			</div>
-					  			<p>本周有 14 個新揪團活動</p>
+					  			<p>目前有 ${tatalActs} 個新揪團活動</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_truck"></span>
-					  			<h3>+5</h3>
+					  			<h3>+ ${totalShips}</h3>
                   			</div>
-					  			<p>目前有 5 件商品等待出貨</p>
+					  			<p>目前有 ${totalShips} 件商品等待出貨</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_note"></span>
-					  			<h3>+10</h3>
+					  			<h3>+ ${totalJons}</h3>
                   			</div>
-					  			<p>本周有 10 篇新的健康日誌</p>
+					  			<p>目前有 ${totalJons} 篇新的健康日誌</p>
                   		</div>
                   		<a data-toggle="modal" class="col-md-2 col-sm-2 box0" href="#notifaction">
                   			<div class="box1">
@@ -255,12 +250,12 @@ textarea{
       *********************************************************************************************************************************************************** -->                  
 <!-- 公告開始 -->                    
       <div class="col-lg-3 ds" >
-      	
       	<div id="post_notice">
       		<div id="notice_header">
       	  		<h3><strong>公   告   訊   息</strong></h3>
       	  	</div>
       	</div>
+
 
 <%--              	<c:if test="${! empty chatVO }"> --%>
              	
@@ -302,7 +297,7 @@ textarea{
 // 		 			console.log(this[0]);
 // 		 			console.log(this[1]);
 							$('#post_notice').append(
-								'<div class="desc" id="'+ this[0].chat_Id +'">'+
+								'<div class="desc" id="this[0].chat_Id">'+
 			                      	'<div class="thumb">'+
 			                      		'<img class="img-circle" src="${this_contextPath}/images/members/'+ this[0].member_Id +'.jpg" width="35px" height="35px" align="">'+
 			                      	'</div>'+
