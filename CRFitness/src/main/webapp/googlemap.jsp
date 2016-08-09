@@ -77,15 +77,15 @@ padding-left: 0
     <div class="col-lg-3 col-md-3 col-xs-3">
 	    <input type="checkbox" name="my-checkbox" data-size="mini">
 		<div hidden="hidden" id='sports_itemsDiv'>
-			<form action="" id='sports_itemsId'>
-				<label><input type="text" id='weight' name="weight" value="">體重(kg)</label>
+				<label><input type="text" id='weight' name="weight" autocomplete="off" value="">體重(kg)</label>
+			<div  id='sports_itemsId'>
 				<label><input type="radio" name="sports_items" value="walking">走路</label>
 				<label><input type="radio" name="sports_items" value="brisk_walking">快步走</label>
 				<label><input type="radio" name="sports_items" value="jogging">慢跑</label>
 				<label><input type="radio" name="sports_items" value="running">快跑</label>
 				<label><input type="radio" name="sports_items" value="slow_cycling">騎自行車(慢)</label>
 				<label><input type="radio" name="sports_items" value="fast_cycling">騎自行車(快)</label>
-			</form>
+			</div>
 		</div>
     </div>
     <div id="floating-panel" class="col-lg-5 col-md-5 col-xs-5">
@@ -139,20 +139,18 @@ $("#switch-one").bootstrapSwitch();
 $("[name='my-checkbox']").bootstrapSwitch();
 
 	$('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-		console.log(this); // DOM element
-		console.log(event); // jQuery event
-		console.log(state); // true | false
+// 		console.log(this); // DOM element
+// 		console.log(event); // jQuery event
+// 		console.log(state); // true | false
 		$('#sports_itemsDiv').toggle('show')
 	});
 	
 	$('#sports_itemsId>label>input[type="radio"]').on('change', function(){
 		var option = this.value;
-		console.log(option)
 		var h = document.getElementById('weight').value;
-		console.log(h)
 		var calorie = 0;
 		var dist = 36;
-		if(h.length>0){
+		if(h > 0){
 			switch(option){
 			case 'walking':
 				calorie = (dist/4)*h*3.1;
@@ -173,7 +171,9 @@ $("[name='my-checkbox']").bootstrapSwitch();
 				calorie = (dist/20.9)*h*9.7;
 				break;
 			}
-			console.log(calorie.toFixed(2));
+			console.log('可消耗'+calorie.toFixed(2)+'卡路里');
+		}else{
+			alertify.alert('請輸入合法體重值').set('title', '錯誤');
 		}
 
 	})
@@ -355,7 +355,7 @@ $("[name='my-checkbox']").bootstrapSwitch();
     			calorie = (dist/20.9)*h*13.2;
     			break;
     		}
-    		console.log(calorie);
+    		console.log('可消耗'+calorie+'卡路里');
     	}
         /*
         計算公式：體重 x消耗熱量 = 每小時可消耗的大卡數 
