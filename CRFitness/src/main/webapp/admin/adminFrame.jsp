@@ -14,7 +14,7 @@
 	
 	<link href="${this_contextPath}/icon/CRFicon.ico" rel="SHORTCUT ICON">
     <!-- Bootstrap core CSS -->
-    <link href="${this_contextPath}/admin/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="${this_contextPath}/admin/assets/css/bootstrap.min.css" rel="stylesheet">
     <!--external css-->
 <!--     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" /> -->
     <link href="${this_contextPath}/admin/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
@@ -42,7 +42,7 @@
     
     <!-- js placed at the end of the document so the pages load faster -->
 <!--     <script src="assets/js/jquery.js"></script> -->
-    <script src="${this_contextPath}/admin/assets/js/jquery-1.8.3.min.js"></script>
+    <script src="${this_contextPath}/admin/assets/js/jquery-2.2.4.min.js"></script>
     <script src="${this_contextPath}/admin/assets/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="${this_contextPath}/admin/assets/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="${this_contextPath}/admin/assets/js/jquery.scrollTo.min.js"></script>
@@ -511,7 +511,7 @@
       ws.send(msg);
   });
   
-  $('body').on('click','.submit_Notice_btn',function(){
+  $('body').on('click','.submit_Notice_btn', function(){
 	  
 	  var val=$('#notifactionMessage').val();
 	  val = val.replace(/\r?\n/g, '</br> ');
@@ -520,8 +520,14 @@
 	  
       var ndate_int = parseInt(new Date().getTime()); //轉換成數字
       var ndate_value = new Date(ndate_int);
-	
-	  $('#post_notice').after(
+	  
+//       console.log($('#post_notice>div div:nth-child(4)'));
+//       if($('#post_notice div:nth-child(4)')){
+//     	  $('#post_notice div:last-child').remove();  
+//       };
+      
+      
+	  $('#notice_header').after(
 				'<div class="desc">'+
               	'<div class="thumb">'+
               		'<img class="img-circle" src="${this_contextPath}/images/members/'+ userID +'.jpg" width="35px" height="35px" align="">'+
