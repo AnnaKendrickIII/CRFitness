@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.CRFitness.Friendships.model.FriendshipsDAO_interface;
 import com.CRFitness.Member.model.MemberVO;
+import com.CRFitness.Orders.model.OrdersVO;
 
 // 健康日誌
 
@@ -103,7 +104,12 @@ public class PersonalJournalService {
 	// 取得其它日誌
 	public List<PersonalJournalVO> showOtherJournal(String member_Id){
 		return personalJournalDAO.select_otherJournal(member_Id);
-	}	
+	}
+	
+	// 取得所有健康日誌、個人日誌
+	public List<PersonalJournalVO> showAllJournals() {
+		return personalJournalDAO.getAll();
+	}
 
 //	 public static void main(String[] args) {
 //	 ApplicationContext context = new

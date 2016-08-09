@@ -41,32 +41,32 @@ textarea{
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
 					  			<span class="li_like"></span>
-					  			<h3>+${tatalMems}</h3>
+					  			<h3>+ ${tatalMems}</h3>
                   			</div>
-					  			<p>${tatalMems}位會員喜歡您的網站！</p>
+					  			<p>${tatalMems} 位會員喜歡您的網站！</p>
                   		</div>
                   		
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_photo"></span>
-					  			<h3>+${tatalActs}</h3>
+					  			<h3>+ ${tatalActs}</h3>
                   			</div>
-					  			<p>目前有 ${tatalActs}個新揪團活動</p>
+					  			<p>目前有 ${tatalActs} 個新揪團活動</p>
                   		</div>
                   		
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_truck"></span>
-					  			<h3>+${totalShips}</h3>
+					  			<h3>+ ${totalShips}</h3>
                   			</div>
-					  			<p>目前有${totalShips}件商品等待出貨</p>
+					  			<p>目前有 ${totalShips} 件商品等待出貨</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<span class="li_note"></span>
-					  			<h3>+${totalJons}</h3>
+					  			<h3>+ ${totalJons}</h3>
                   			</div>
-					  			<p>目前有${totalJons}篇新的健康日誌</p>
+					  			<p>目前有 ${totalJons} 篇新的健康日誌</p>
                   		</div>
                   		
                   		<a data-toggle="modal" class="col-md-2 col-sm-2 box0" href="#notifaction">

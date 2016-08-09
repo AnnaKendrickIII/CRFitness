@@ -15,6 +15,8 @@ import com.CRFitness.Activitys.model.ActivitysService;
 import com.CRFitness.Member.Interceptor.TargetURLAware;
 import com.CRFitness.Member.model.MemberService;
 import com.CRFitness.Member.model.MemberVO;
+import com.CRFitness.Orders.model.OrdersService;
+import com.CRFitness.PersonalJournal.model.PersonalJournalService;
 import com.opensymphony.xwork2.ActionSupport;
 
 @Controller("memberAction")
@@ -33,9 +35,10 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 	private String preURL;
 	@Resource(name = "activitysService")
 	private ActivitysService activitysService;
-	
-	
-	
+	@Resource(name = "ordersService")
+	private OrdersService ordersService;
+	@Resource(name = "personalJournalService")
+	private PersonalJournalService personalJournalDAOService;
 	
 	
 	@Override
@@ -159,12 +162,18 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 			(memberVO = memberService.login(memberVO.getE_mail(),
 					memberVO.getPassword())).setPassword(null);
 			session.setAttribute("adminOK", memberVO);
+			// 撈出現在所有會員
 			int tatalMems = memberService.getAll().size()-3;
 			session.setAttribute("tatalMems", tatalMems);
-			
+			// 撈出現在所有揪團篇數
 			int tatalActs = activitysService.getAll().size();
 			session.setAttribute("tatalActs", tatalActs);
-			
+			// 撈出現在所有訂單
+			int totalShips = ordersService.searchAllOrders().size();
+			session.setAttribute("totalShips", totalShips);
+			// 撈出現在所有健康日誌
+			int totalJons = personalJournalDAOService.showAllJournals().size();
+			session.setAttribute("totalJons", totalJons);
 			
 			request.getServletContext().removeAttribute("GoUrl");
 			return "adminOK";
