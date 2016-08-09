@@ -520,6 +520,13 @@
       var ndate_int = parseInt(new Date().getTime()); //轉換成數字
       var ndate_value = new Date(ndate_int);
 	  
+//       console.log($('#post_notice>div div:nth-child(4)'));
+//       if($('#post_notice div:nth-child(4)')){
+//     	  $('#post_notice div:first-child').remove();  
+// //     	  $('#post_notice div:last-child').remove();  
+//       };
+      
+      
 	  $('#notice_header').after(
 				'<div class="desc">'+
               	'<div class="thumb">'+

@@ -19,7 +19,7 @@ textarea{
 	text-align: center;
 }
 </style>	
-    <jsp:include page="/admin/adminFrame.jsp"/>
+    <jsp:include page="/admin/adminTestFrame.jsp"/>
     	
   </head>
 
