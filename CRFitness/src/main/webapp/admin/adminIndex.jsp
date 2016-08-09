@@ -255,9 +255,13 @@ textarea{
       *********************************************************************************************************************************************************** -->                  
 <!-- 公告開始 -->                    
       <div class="col-lg-3 ds" >
-			<div id="post_notice">
-            	<h3><strong>公   告   訊   息</strong></h3>
-            </div>
+      	
+      	<div id="post_notice">
+      		<div id="notice_section">
+      	  		<h3><strong>公   告   訊   息</strong></h3>
+      	  	</div>
+      	</div>
+
 <%--              	<c:if test="${! empty chatVO }"> --%>
              	
 	<script>
@@ -298,7 +302,7 @@ textarea{
 // 		 			console.log(this[0]);
 // 		 			console.log(this[1]);
 							$('#post_notice').append(
-								'<div class="desc">'+
+								'<div class="desc" id="'+ this[0].chat_Id +'">'+
 			                      	'<div class="thumb">'+
 			                      		'<img class="img-circle" src="${this_contextPath}/images/members/'+ this[0].member_Id +'.jpg" width="35px" height="35px" align="">'+
 			                      	'</div>'+
@@ -317,48 +321,7 @@ textarea{
 	</script>
                       
 <%--               	</c:if> --%>
-<!-- 第3則公告 -->              	
-<%--              	<c:if test="${! empty chatVO[2] }">                       --%>
-<!--                       <div class="desc" id="last"> -->
-<!--                       	<div class="thumb"> -->
-<%--                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[2][0].member_Id}.jpg" width="35px" height="35px" align=""> --%>
-<!--                       	</div> -->
-<!--                       	<div class="details"> -->
-<%--                       		<p>發布者：<muted>${chatVO[2][1]}</muted><br/> --%>
-<%--                       			${chatVO[2][0].chatTime}<br/> --%>
-<%--                       		    ${chatVO[2][0].chat_Detail} --%>
-<!--                       		</p> -->
-<!--                       	</div> -->
-<!--                       </div> -->
-<%--               	</c:if> --%>
-<!-- 第2則公告 -->  
-<%--              	<c:if test="${! empty chatVO[1] }">               	                  --%>
-<!--                       <div class="desc"> -->
-<!--                       	<div class="thumb"> -->
-<%--                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[1][0].member_Id}.jpg" width="35px" height="35px" align=""> --%>
-<!--                       	</div> -->
-<!--                       	<div class="details"> -->
-<%--                       		<p>發布者：<muted>${chatVO[1][1]}</muted><br/> --%>
-<%--                       			${chatVO[1][0].chatTime}<br/> --%>
-<%--                       		    ${chatVO[1][0].chat_Detail} --%>
-<!--                       		</p> -->
-<!--                       	</div> -->
-<!--                       </div> -->
-<%--                 </c:if> --%>
-<!-- 第1則公告 -->                        
-<%--              	<c:if test="${! empty chatVO[0] }">                        --%>
-<!--                       <div class="desc"> -->
-<!--                       	<div class="thumb"> -->
-<%--                       		<img class="img-circle" src="${this_contextPath}/images/members/${chatVO[0][0].member_Id}.jpg" width="35px" height="35px" align=""> --%>
-<!--                       	</div> -->
-<!--                       	<div class="details"> -->
-<%--                       		<p>發布者：<muted>${chatVO[0][1]}</muted><br/> --%>
-<%--                       			${chatVO[0][0].chatTime}<br/> --%>
-<%--                       		    ${chatVO[0][0].chat_Detail} --%>
-<!--                       		</p> -->
-<!--                       	</div> -->
-<!--                       </div> -->
-<%--                  </c:if>               --%>
+
 <!-- 公告結束 -->                 
    
         	<!-- CALENDAR-->

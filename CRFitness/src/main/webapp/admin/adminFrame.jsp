@@ -521,7 +521,7 @@
       var ndate_int = parseInt(new Date().getTime()); //轉換成數字
       var ndate_value = new Date(ndate_int);
 	
-	  $('#post_notice').after(
+	  $('#notice_section').after(
 				'<div class="desc">'+
               	'<div class="thumb">'+
               		'<img class="img-circle" src="${this_contextPath}/images/members/'+ userID +'.jpg" width="35px" height="35px" align="">'+
