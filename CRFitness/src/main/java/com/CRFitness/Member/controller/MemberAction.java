@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.CRFitness.Activitys.model.ActivitysService;
 import com.CRFitness.Member.Interceptor.TargetURLAware;
 import com.CRFitness.Member.model.MemberService;
 import com.CRFitness.Member.model.MemberVO;
@@ -29,7 +30,14 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 	private MemberService memberService;
 	private String password;
 	private String mail;
-	private String preURL;  
+	private String preURL;
+	@Resource(name = "activitysService")
+	private ActivitysService activitysService;
+	
+	
+	
+	
+	
 	@Override
 	public String getPreURL() {  
 	        return preURL;  
@@ -153,6 +161,11 @@ public class MemberAction extends ActionSupport implements TargetURLAware{
 			session.setAttribute("adminOK", memberVO);
 			int tatalMems = memberService.getAll().size()-3;
 			session.setAttribute("tatalMems", tatalMems);
+			
+			int tatalActs = activitysService.getAll().size();
+			session.setAttribute("tatalActs", tatalActs);
+			
+			
 			request.getServletContext().removeAttribute("GoUrl");
 			return "adminOK";
 		} else {

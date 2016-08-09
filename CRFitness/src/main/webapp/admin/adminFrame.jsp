@@ -16,7 +16,6 @@
     <!-- Bootstrap core CSS -->
     <link href="${this_contextPath}/admin/assets/css/bootstrap.min.css" rel="stylesheet">
     <!--external css-->
-<!--     <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" /> -->
     <link href="${this_contextPath}/admin/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="${this_contextPath}/admin/assets/js/gritter/css/jquery.gritter.css" />
@@ -522,9 +521,9 @@
       var ndate_value = new Date(ndate_int);
 	  
 //       console.log($('#post_notice>div div:nth-child(4)'));
-//       if($('#post_notice div:nth-child(4)')){
-//     	  $('#post_notice div:last-child').remove();  
-//       };
+      if($('#post_notice div:nth-child(4)')){
+    	  $('#post_notice div:last-child').remove();  
+      };
       
       
 	  $('#notice_header').after(
