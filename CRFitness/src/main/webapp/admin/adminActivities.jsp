@@ -176,7 +176,7 @@ th{
 													+ this.activity_Area
 													+ '</td><td hidden="hidden">'
 									                + this.activity_Status
-													+ '</td><td><button type="button" class="btn btn-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
+													+ '</td><td><button type="button" class="btn alv-primary btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 					// 會員狀態on&off的程式   開始

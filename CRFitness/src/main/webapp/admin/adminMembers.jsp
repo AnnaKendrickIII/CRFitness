@@ -175,7 +175,7 @@ th{
 													+ mdate_value.Format("yyyy-MM-dd hh:mm:ss")
 													+ '</td><td hidden="hidden">'
 									                + this.member_Status
-													+ '</td><td><button type="button" class="btn btn-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
+													+ '</td><td><button type="button" class="btn alv-primary btn-round btn-1g 3g" data-toggle="modal" data-target="#change_status"><span class="easyswitch" data-default="'+Status+'" data-label-on="正常" data-label-off="停權"></i>'
 													+ '</td></tr>') // end of append
 												}) // end of $.each(
 					// 會員狀態on&off的程式   開始
