@@ -47,11 +47,20 @@ text-align: center;
 height:45px; 
 	}
 .shop{
-float: none;
+float: right;
+font-size: 6px;
 }
 .Introduction{
 float: none;
+font-size: 6px;
 		}
+.btn{
+padding: 3px 6px;
+	}
+.product_footer{
+	padding-left: 0px;
+	padding-right: 0px;
+	}
 .product_Name{
 text-align: center;
 height:100px; 
@@ -59,17 +68,26 @@ height:100px;
 }
 
 
-@media  screen and (min-width:1830px) {
+@media  screen and (min-width:1500px) {
 .product_Name{
 text-align: center;
 height:45px; 
 	}
 .shop{
+font-size: 12px;
 		float: right;	
 		}
 .Introduction{
+font-size: 12px;
 	float: left;
 		}
+		.btn{
+padding: 6px 12px;
+	}
+.product_footer{
+	padding-left: 5%;
+	padding-right: 5%;
+	}
 }
 
 .Introduction:HOVER{ 
@@ -119,6 +137,8 @@ color: blue;
 .price{
 color:#FF3333;
 }
+.btn_pdiv{
+padding: 0}
 </style>
 </head>
 
@@ -132,8 +152,8 @@ color:#FF3333;
 <div class="productsclass">
 <div class="row well">
 
-	<div class="col-md-2 col-xs-2"></div>
-	<div class="col-md-7 col-xs-7">
+	<div class="col-md-2 col-xs-1"></div>
+	<div class="col-md-7 col-xs-9">
 		<div class="row" style="text-align: center;">
         <strong>Products Category &nbsp&nbsp</strong>
         <div class="btn-group">
@@ -148,7 +168,7 @@ color:#FF3333;
 		</div>
 		</div>
 	</div>
-    <div class="col-md-3 col-xs-3">
+    <div class="col-md-3 col-xs-2">
     	<form action="" class="search-form">
             <div class="form-group has-feedback">
         		<label for="search" class="sr-only">Search</label>
@@ -287,9 +307,9 @@ $.ajax({
                         	+'<ul id="'+this.product_Id+'" class="collapse row desoslide-thumbs-horizontal list-inline text-center"></ul></div>'
 							+'<div class="col-lg-12 col-md-12 col-xs-12 product_Name"><h5 class="pName"><strong>'+this.product_Name+'</strong></h5></div>' 
 							+'<div class="col-lg-12 col-md-12 col-xs-12 price_div"><strong><p class="price">$'+this.price+'</p></strong></div>' 
-							+'<div class="col-lg-12 col-md-12 col-xs-12 shop_button_div"><a class="btn Introduction btn-primary" ><i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp&nbsp商品介紹'
+							+'<div class="col-lg-12 col-md-12 col-xs-12 btn_pdiv"><a class="btn Introduction btn-primary" ><i class="fa fa-wpforms" aria-hidden="true"></i>&nbsp商品介紹'
 							+'</a>'
-							+'<a class="btn btn-danger shop"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp&nbsp加入購物車</a>'
+							+'<a class="btn btn-danger shop"><i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp加入購物車</a>'
 			                +'</div></div></div></div>'
 						)	
 					$.ajax({

@@ -79,7 +79,6 @@ body {
 }
 .gallery .previews, .gallery .desc{
 	float: left;
- 	margin-right: 20px;
 }
 
 .gallery .full{
@@ -103,13 +102,11 @@ body {
 
 /* �վ�j�Ϥؤo */
 .gallery .full img {
-	width: 400px;
-	height: 450px;
+	
     vertical-align : middle;
 }
 .gallery .full{
-	width: 410px;
- 	height: 460px; 
+
 }
 .gallery .previews a, .gallery .full {
 	border: 4px solid #888888;

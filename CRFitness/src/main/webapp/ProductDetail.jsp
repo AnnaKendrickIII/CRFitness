@@ -42,8 +42,8 @@ text-align: center;
 <div class="ProductDetail">
 <div class="row well">
 
-	<div class="col-xs-2 col-md-2 col-lg-2"></div>
-	<div class="col-xs-7 col-md-7 col-lg-7">
+	<div class="col-md-2 col-lg-2"></div>
+	<div class="col-xs-12 col-md-7 col-lg-7">
 		<div class="row" style="text-align: center;">
         <strong>Products Category &nbsp&nbsp</strong>
         <div class="btn-group">
@@ -58,7 +58,7 @@ text-align: center;
 		</div>
 		</div>
 	</div>
-    <div class="col-md-3 col-lg-3">
+    <div class="col-xs-7 col-md-3 col-lg-3">
     </div>
    </div>
     <div class="row">
@@ -136,15 +136,15 @@ $.ajax({
  	data:{productDetail_Id:queryString},
 	success:function(data){
 		$('#productDetailbody').append('<div class="col-md-7 col-sm-12 col-xs-12">'
-							+'<div class="gallery">'
-							+'<div class="previews">'
+							+'<div class="gallery row">'
+							+'<div class="previews col-md-2 col-sm-2 col-xs-2">'
 							+'<a class="changeImg onselected" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/></a>'
 							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_2.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_2.png"/></a>'
 							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_3.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_3.png"/></a>'
 							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_4.png"/></a>'
 							+'<a class="changeImg" data-full="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"><img class="small img-responsive" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_5.png"/></a>'
 							+'</div>'
-							+'<div class="full">'
+							+'<div class="full col-md-10 col-sm-10 col-xs-10">'
 							+'<img class="img-responsive" data-lity alt="'+data[0][0].productDetail_Id+'" src="${this_contextPath}/images/products/'+data[0][0].productDetail_Id+'_1.png"/>'
 							+'</div>'
 							+'</div></div>'
