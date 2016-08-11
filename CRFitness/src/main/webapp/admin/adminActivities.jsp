@@ -103,7 +103,7 @@ th{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="activities_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="activities_table">
 		
 			<thead>
 				<tr class="alv-primary" >
