@@ -172,6 +172,8 @@
 .table {
   	background-color: #E0E0E0;
 	border-radius: 20px;
+/*  	table-layout: fixed;  */	
+
 }
 
 .table>tbody>tr>td{
@@ -184,6 +186,7 @@
 th{
 	vertical-align: middle;
 	text-align: center;
+/* 	width: 120px; */
 }
 
 #creProdBtn{
@@ -226,13 +229,13 @@ textarea{
         	<div class="content-panel">
 
 			<div class="row">
-				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 					<button type="button" id="creProdBtn" class="btn btn-round alv-primary btn-lg btn-1g" data-toggle="modal" data-target="#new_products">  
   					<i class="fa fa-plus-square" aria-hidden="true"></i>
   					</button>
 				</div>
 
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<div id="sb-search" class="sb-search">
 						<form>
 							<input id="tablesearchinput" class="sb-search-input" placeholder="請輸入關鍵字" type="text" value="" name="search"> 

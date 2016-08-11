@@ -48,6 +48,7 @@
 .table {
   	background-color: #E0E0E0;
 	border-radius: 20px;
+/*  	table-layout: fixed; */
 }
 
 .table>tbody>tr>td{
@@ -60,6 +61,7 @@
 th{
 	vertical-align: middle;
 	text-align: center;
+/* 	width: 150px; */
 }
 
 #creProdBtn{
@@ -88,12 +90,12 @@ th{
           <section class="wrapper">
 		
 	<div class="row mt">
-		<div class="col-md-2 col-xs-2"></div>
-    	<div class="col-md-8 col-xs-8">
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+    	<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
         	<div class="content-panel">
 
 			<div class="row">
-				<div class="col-md-12 col-xs-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div id="sb-search" class="sb-search">
 						<form>
 							<input id="tablesearchinput" class="sb-search-input" placeholder="關鍵字" type="text" value="" name="search"> 
@@ -103,7 +105,7 @@ th{
 				</div>
 			</div>
 
-            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed" id="members_table">
+            <table class="table table-striped table-advance table-hover table-bordered table-striped table-condensed table-responsive" id="members_table">
 		
 			<thead>
 				<tr class="alv-primary" >
@@ -120,7 +122,7 @@ th{
             	</table>
         	</div><!-- /content-panel -->
     	</div> <!-- /col-md-8 xs-8 -->
-		<div class="col-md-2  col-xs-2"></div>
+		<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
 	</div><!-- 184 <div class="row mt"> -->
 		
 		</section> <!-- 182 <section class="wrapper"> -->

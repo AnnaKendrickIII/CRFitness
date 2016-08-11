@@ -89,11 +89,11 @@ th{
 		
 	<div class="row mt">
 <!-- 		<div class="col-md-1 col-xs-1"></div> -->
-    	<div class="col-md-12 col-xs-12">
+    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         	<div class="content-panel">
 
 			<div class="row">
-				<div class="col-md-12 col-xs-12">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div id="sb-search" class="sb-search">
 						<form>
 							<input id="tablesearchinput" class="sb-search-input" placeholder="關鍵字" type="text" value="" name="search"> 
